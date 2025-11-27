@@ -16,7 +16,7 @@
 }
 
 #wb-header .wb-container {
-    background-image: url(../images/wb-texture.jpg);
+background-image: url('{{ "wb-texture.jpg" | asset_url }}');
     background-size: auto 1000%;
     background-position: center;
     padding: 20px 0 10px 0;
