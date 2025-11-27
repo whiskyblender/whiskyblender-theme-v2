@@ -1,0 +1,18 @@
+.wb-collapsible {
+    font-size: 22px;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.wb-faq-content {
+    display: none;
+}
+
+ul.wb-faq {
+    list-style: none;
+    padding: 0;
+}
+
+ul.wb-faq li {
+    padding: 8px 0;
+}

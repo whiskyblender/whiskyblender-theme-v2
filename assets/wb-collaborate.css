@@ -1,0 +1,127 @@
+.wb-collaborate-photo-hoon {
+    margin-bottom: 100%;
+}
+
+.wb-collaborate-photo-hoon img {
+    width: 80%;
+    left: 10%;
+    top: 0;
+    transform: rotate(4deg);
+}
+
+.wb-letter {
+    background-image: url(../images/collaborate/wb-paper.png);
+    background-size: 850px;
+    /*background-color: #c9e1f0;
+    background-blend-mode: multiply;*/
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow:
+        0 6px 6px rgba(0, 0, 0, 0.2),
+        0 0 20px rgba(0, 0, 0, 0.1);
+    margin: 30px 0 -40px 0;
+    transform: rotate(2deg);
+    color: #3b5ea1;
+    z-index: 1;
+    position: relative;
+}
+
+.wb-letter textarea {
+    font-size: 22px;
+    line-height: 32px;
+    font-family: "Kalam", cursive;
+    font-weight: 400;
+    font-style: normal;
+    border: none;
+    margin: 20px 0 40px 0;
+    padding: 0;
+    color: #3b5ea1;
+}
+
+.wb-letter textarea::placeholder {
+    color: #3b5ea1;
+    opacity: 0.6;
+}
+
+.wb-letter textarea:focus {
+    outline: rgba(0, 0, 0, 0.2) dotted 2px;
+    outline-offset: 10px;
+}
+
+@media only screen and (min-width: 600px) {
+    .wb-collaborate-photo-hoon {
+        display: none;
+    }
+
+    .wb-letter-form {
+        padding-top: 330px;
+    }
+
+    .wb-letter {
+        position: absolute;
+        top: 0;
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+
+    .wb-letter textarea {
+        margin: 20px 0 10px 0;
+    }
+
+    .wb-letter-form .wb-letter-emailinput {
+        display: inline-block;
+        width: calc(100% - 190px);
+        z-index: 3;
+    }
+
+    .wb-letter-form .wb-buttons {
+        display: inline-block;
+        text-align: right;
+        width: 180px;
+        margin: 0;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .wb-letter textarea {
+        font-size: 22px;
+        line-height: 32px;
+        margin: 14px 0 10px 0;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .wb-collaborate-photo-hoon {
+        display: block;
+        margin: 0;
+    }
+
+    .wb-collaborate-photo-hoon img {
+        width: 400px;
+        top: -120px;
+        transform: rotate(10deg);
+    }
+    .wb-letter-form {
+        padding-top: 10px;
+    }
+    .wb-letter {
+        position: relative;
+        width: calc(100% - 460px);
+        transform: rotate(-1deg);
+        margin-left: 0;
+    }
+
+    .wb-letter-form .wb-letter-emailinput {
+        width: 400px;
+        position: absolute;
+        right: 0;
+        top: 140px;
+    }
+
+    .wb-letter-form .wb-buttons {
+        width: auto;
+        position: absolute;
+        right: 230px;
+        top: 260px;
+    }
+}

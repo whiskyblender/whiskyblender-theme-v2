@@ -1,0 +1,17 @@
+img.wb-foryersel {
+    transform: rotate(-4deg);
+}
+img.wb-yourownbrand {
+    transform: rotate(4deg);
+}
+
+@media screen and (min-width: 1024px) {
+    img.wb-foryersel {
+        transform: rotate(-6deg);
+    }
+
+    img.wb-yourownbrand {
+        transform: rotate(6deg);
+        margin-left: 40px;
+    }
+}

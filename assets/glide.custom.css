@@ -1,0 +1,108 @@
+.glide__track {
+    overflow: visible;
+}
+
+.glide__slides {
+    align-items: center;
+}
+
+.wb-review {
+    text-align: center;
+    font-size: 18px;
+    line-height: normal;
+    font-weight: 600;
+    font-style: italic;
+    color: #666666;
+    background-image: url(../images/wb-stars.gif);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 40%;
+    padding-top: 46px;
+}
+
+.wb-gifts {
+    margin-bottom: 40px;
+}
+
+.wb-collabs {
+    margin-top: -40px;
+    margin-bottom: 40px;
+}
+
+.wb-giftphoto img {
+    width: 100%;
+    border-radius: 50%;
+    transition: all 0.4s;
+    transform: scale(0.8) rotate(10deg);
+}
+
+.wb-collabphoto img {
+    width: 100%;
+    border-radius: 6px;
+    transition: all 0.4s;
+    transform: scale(0.8) rotate(10deg);
+}
+
+.wb-giftphoto:nth-of-type(even) img {
+    margin-top: 50px;
+}
+
+.wb-giftphoto:nth-of-type(3n) img {
+    transform: scale(0.8) rotate(20deg);
+}
+
+.wb-giftphoto:nth-of-type(3n -1) img {
+    transform: scale(0.8) rotate(10deg);
+}
+
+.wb-giftphoto:nth-of-type(3n -2) img {
+    transform: scale(0.8) rotate(-15deg);
+}
+
+.wb-collabphoto:nth-of-type(even) img {
+    margin-top: 50px;
+}
+
+.wb-collabphoto:nth-of-type(3n) img {
+    transform: scale(0.8) rotate(10deg);
+}
+
+.wb-collabphoto:nth-of-type(3n -1) img {
+    transform: scale(0.8) rotate(5deg);
+}
+
+.wb-collabphoto:nth-of-type(3n -2) img {
+    transform: scale(0.8) rotate(-8deg);
+}
+
+.wb-giftphoto img:hover {
+    border-radius: 6px;
+    transform: scale(1.2) rotate(0deg);
+}
+
+.wb-collabphoto img:hover {
+    transform: scale(1.2) rotate(0deg);
+}
+
+@media screen and (min-width: 600px) {
+    .wb-gifts {
+        margin-bottom: 60px;
+    }
+    .wb-collabs {
+        margin-bottom: 60px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .wb-review {
+        font-size: 22px;
+    }
+
+    .wb-gifts {
+        margin-bottom: 80px;
+    }
+
+    .wb-collabs {
+        margin-bottom: 80px;
+    }
+}

@@ -1,0 +1,182 @@
+#wb-banner {
+    background: #169776;
+    color: #ffffff;
+    padding: 8px 14px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 10px;
+    line-height: 16px;
+}
+
+#wb-header {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+}
+
+#wb-header .wb-container {
+    background-image: url(../images/wb-texture.jpg);
+    background-size: auto 1000%;
+    background-position: center;
+    padding: 20px 0 10px 0;
+}
+
+#wb-logo {
+    margin: 1vw auto;
+    display: block;
+    width: 180px;
+    height: 26px;
+    overflow: hidden;
+    text-indent: 500px;
+    font-size: 0;
+    background-image: url(../images/wb-logo-white.svg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.wb-byline {
+    font-size: 6px;
+    text-transform: uppercase;
+    position: absolute;
+    top: 1vw;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    gap: 180px;
+    height: 46px;
+    padding: 30px 0 10px 0;
+    align-items: center;
+    letter-spacing: 1px;
+    color: #b88d60;
+    pointer-events: none;
+    text-shadow: black 2px 2px 2px;
+}
+
+.wb-left-byline {
+    text-align: right;
+}
+
+.wb-right-byline {
+    text-align: left;
+}
+
+nav#wb-nav {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 0;
+    text-align: center;
+}
+
+ul.wb-topnav {
+    display: flex;
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #000000;
+    font-weight: 600;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 1200px;
+}
+
+ul.wb-topnav li {
+    flex-grow: 1;
+}
+
+ul.wb-topnav li a {
+    display: block;
+    color: #eeeeee;
+    padding: 10px 14px;
+    text-decoration: none;
+    background-color: #000000;
+    transition: background-color 0.2s;
+    font-size: 10px;
+}
+
+ul.wb-topnav li a:hover {
+    background-color: #222222;
+    color: #ffffff;
+}
+
+ul.wb-topnav li a.wb-active-page {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+ul.wb-navicons {
+    display: flex;
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #000000;
+    font-weight: 600;
+}
+
+ul.wb-navicons li {
+    flex-grow: 1;
+}
+
+ul.wb-navicons li a {
+    display: block;
+    color: #eeeeee;
+    padding: 10px;
+    text-decoration: none;
+    background-color: #000000;
+    transition: background-color 0.2s;
+    font-size: 10px;
+    position: relative;
+}
+
+ul.wb-navicons li a img {
+    height: 12px;
+    vertical-align: middle;
+}
+
+@media screen and (min-width: 375px) {
+    ul.wb-navicons li a img {
+        height: 14px;
+    }
+
+    .wb-byline {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #wb-banner {
+        font-size: 12px;
+    }
+    #wb-logo {
+        width: 210px;
+        height: 30px;
+    }
+
+    .wb-byline {
+        font-size: 9px;
+        height: 48px;
+        letter-spacing: 3px;
+    }
+
+    ul.wb-topnav li a {
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    #wb-header .wb-container {
+        background-size: cover;
+    }
+    .wb-byline {
+        font-size: 10px;
+        letter-spacing: 6px;
+    }
+
+    ul.wb-topnav li a {
+        padding: 16px 24px;
+        font-size: 14px;
+    }
+}
