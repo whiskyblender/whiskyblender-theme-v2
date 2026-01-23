@@ -3,12 +3,18 @@
     <div class="wb-footercolumn">
       <h5 class="wb-tiny-heading">Quick links</h5>
       <ul>
-        <li><a href="thelab.html">Create your own</a></li>
-        <li><a href="vouchers.html">Vouchers</a></li>
-        <li><a href="perfectdrams.html">Perfect drams</a></li>
-        <li><a href="miniatures.html">Whisky miniatures</a></li>
-        <li><a href="singlemalts.html">Single malts</a></li>
-        <li><a href="collaborate.html">Your own brand</a></li>
+        {%- for link in section.settings.quick_links_menu.links -%}
+          <li>
+            <a
+              href="{{ link.url }}"
+              {% if link.target %}
+                target="{{ link.target }}"
+              {% endif %}
+            >
+              {{ link.title }}
+            </a>
+          </li>
+        {%- endfor -%}
       </ul>
     </div>
     <div class="wb-footercolumn">
@@ -94,6 +100,14 @@
 {% schema %}
 {
   "name": "t:sections.footer.name",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "quick_links_menu",
+      "default": "footer",
+      "label": "Quick links menu"
+    }
+  ],
   "blocks": [
     {
       "type": "@app"
@@ -152,7 +166,6 @@
       ]
     }
   ],
-  "settings": [],
   "default": {
     "blocks": [
       {
