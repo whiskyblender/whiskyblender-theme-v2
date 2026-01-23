@@ -1,160 +1,163 @@
 p {
-    max-width: 768px;
+  max-width: 768px;
 }
 
 h1 a,
 h2 a,
 h3 a {
-    text-decoration: none;
-    color: #000000;
+  text-decoration: none;
+  color: #000000;
 }
 
 .wb-buttons {
-    display: block;
-    margin-top: 10px;
-    z-index: 2;
-    position: relative;
+  display: block;
+  margin-top: 10px;
+  z-index: 2;
+  position: relative;
 }
 
 .wb-button,
 input.wb-button,
 .wb-buttons input.wb-button {
-    border: 2px solid #169776;
-    background-color: transparent;
-    padding: 14px 24px;
-    font-weight: 700;
-    text-decoration: none;
-    display: block;
-    margin: 10px 10px 0 0;
-    border-radius: 6px;
-    color: #169776;
-    transition: all 0.3s;
-    font-size: 18px;
-    line-height: 160%;
-    cursor: pointer;
-    text-align: center;
-    width: 100%;
+  border: 2px solid #169776;
+  background-color: transparent;
+  padding: 14px 24px;
+  font-weight: 700;
+  text-decoration: none;
+  display: block;
+  margin: 10px 10px 0 0;
+  border-radius: 6px;
+  color: #169776;
+  transition: all 0.3s;
+  font-size: 18px;
+  line-height: 160%;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
 }
 
 .wb-button:hover,
 input.wb-button:hover,
 .wb-buttons input.wb-button:hover {
-    border: 2px solid #333333;
-    color: #333333;
+  border: 2px solid #333333;
+  color: #333333;
 }
 
 .wb-primary-button,
 input.wb-primary-button,
 .wb-buttons input.wb-primary-button {
-    border: 2px solid #169776;
-    background-color: #169776;
-    color: #ffffff;
+  border: 2px solid #169776;
+  background-color: #169776;
+  color: #ffffff;
 }
 
 .wb-primary-button:hover,
 input.wb-primary-button:hover,
 .wb-buttons input.wb-primary-button:hover {
-    background-color: #333333;
-    color: #ffffff;
+  background-color: #333333;
+  color: #ffffff;
 }
 
 .wb-photo-holder {
-    height: 1px;
-    display: block;
-    position: relative;
-    width: 100%;
+  height: 1px;
+  display: block;
+  position: relative;
+  width: 100%;
 }
 
 .wb-photo-holder img {
-    width: 280px;
-    left: calc(50% - 140px);
-    position: absolute;
-    display: block;
+  width: 280px;
+  left: calc(50% - 140px);
+  position: absolute;
+  display: block;
 }
 
 .wb-cards {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    font-size: 16px;
-    line-height: 150%;
-    gap: 20px;
-    max-width: 100%;
-    margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  font-size: 16px;
+  line-height: 150%;
+  gap: 20px;
+  max-width: 100%;
+  margin-top: 40px;
 }
 
 .wb-cards li {
-    flex: 100%;
-    background-color: #ffffff;
-    border-radius: 6px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.4s;
+  flex: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.4s;
+}
+
+.wb-main-cards.wb-cards li {
+  background-color: #ffffff;
 }
 
 .wb-cards li:hover {
-    border: 2px solid #999999;
+  border: 1px solid #999999;
 }
 
 .wb-card-details {
-    position: relative;
-    padding: 12px 18px;
+  position: relative;
+  padding: 12px 18px;
 }
 
 .wb-card-image {
-    height: 34vw;
-    overflow: hidden;
-    position: relative;
+  height: 34vw;
+  overflow: hidden;
+  position: relative;
 }
 
 .wb-card-image img {
-    height: 100%;
+  height: 100%;
 }
 
 .wb-videobg {
-    height: 320px;
-    background-color: #333333;
-    color: #ffffff;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 300px;
-    display: block;
-    background-size: cover;
-    background-position: center;
+  height: 320px;
+  background-color: #333333;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 300px;
+  display: block;
+  background-size: cover;
+  background-position: center;
 }
 
 #wb-video {
-    position: absolute;
-    top: 0;
-    left: -15%;
-    height: 100%;
-    width: auto;
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: -15%;
+  height: 100%;
+  width: auto;
+  z-index: 1;
 }
 
 .wb-imagebg {
-    height: 400px;
-    max-height: 768px;
-    background-color: #333333;
-    color: #ffffff;
-    position: relative;
-    overflow: hidden;
-    display: block;
-    background-size: cover;
-    background-position: center center;
+  height: 400px;
+  max-height: 768px;
+  background-color: #333333;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  background-size: cover;
+  background-position: center center;
 }
 
 .wb-imagebg .wb-padding {
-    position: absolute;
-    display: inline-block;
-    background-color: #ffffff;
-    color: #000000;
-    padding-top: 20px;
-    padding-bottom: 0;
-    max-width: 80%;
-    bottom: 0;
+  position: absolute;
+  display: inline-block;
+  background-color: #ffffff;
+  color: #000000;
+  padding-top: 20px;
+  padding-bottom: 0;
+  max-width: 80%;
+  bottom: 0;
 }
 
 /*.wb-videograin {
@@ -169,407 +172,511 @@ input.wb-primary-button:hover,
 }*/
 
 .wb-overvideo {
-    width: 90%;
-    bottom: -300px;
-    position: absolute;
-    z-index: 3;
-    background: #ffffff;
-    font-size: 18px;
-    line-height: 150%;
+  width: 90%;
+  bottom: -300px;
+  position: absolute;
+  z-index: 3;
+  background: #ffffff;
+  font-size: 18px;
+  line-height: 150%;
+}
+
+.wb-collection-copy {
+  font-size: 18px;
+  line-height: 150%;
 }
 
 .wb-overvideo .wb-padding {
-    padding-top: 20px;
+  padding-top: 20px;
 }
 
 .wb-first-item .wb-padding {
-    padding-top: 20px;
+  padding-top: 20px;
 }
 
 .wb-create-options {
-    list-style: none;
-    padding: 0;
-    position: relative;
-    display: block;
+  list-style: none;
+  padding: 0;
+  position: relative;
+  display: block;
 }
 
 .wb-create-options li {
-    padding: 18px 24px;
-    background-color: #eeeeee;
-    position: relative;
-    margin-bottom: 20px;
-    overflow: unset;
-    display: flex;
-    align-items: center;
-    color: #666666;
+  padding: 18px 24px;
+  position: relative;
+  margin-bottom: 20px;
+  overflow: unset;
+  display: flex;
+  align-items: center;
+  color: #666666;
+  background-color: #eeeeee;
 }
 
 .wb-create-options li a {
-    text-decoration: underline;
-    text-decoration-style: wavy;
-    color: #333333;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  color: #333333;
 }
 
 .wb-option-heading {
-    font-size: 20px;
-    line-height: 120%;
-    margin: 0;
-    display: block;
+  font-size: 20px;
+  line-height: 120%;
+  margin: 0;
+  display: block;
 }
 
 .wb-subtle-heading {
-    font-size: 24px;
-    line-height: 120%;
-    margin: 0;
-    display: block;
+  font-size: 24px;
+  line-height: 120%;
+  margin: 0;
+  display: block;
 }
 
 .wb-create-options li:hover {
-    border: 2px solid #999999;
-    color: #333333;
+  border: 1px solid #999999;
+  color: #333333;
+}
+
+.wb-create-options li:hover {
+  background-color: rgba(244, 228, 149, 0.8);
+}
+
+.wb-create-options li:nth-of-type(2):hover {
+  background-color: rgba(155, 213, 197, 0.8);
+}
+
+.wb-create-options li:nth-of-type(3):hover {
+  background-color: rgba(243, 211, 211, 0.8);
+}
+
+.wb-create-options li:nth-of-type(4):hover {
+  background-color: rgba(201, 225, 240, 0.8);
+}
+
+.wb-create-options li:nth-of-type(5):hover {
+  background-color: rgba(220, 208, 188, 0.8);
+}
+
+.wb-create-options li:nth-of-type(6):hover {
+  background-color: rgba(223, 203, 227, 0.8);
 }
 
 .wb-create-icon {
-    float: left;
-    display: block;
-    height: 100%;
-    margin-right: 20px;
-    font-size: 42px;
-    line-height: 120%;
-    transform: rotate(-20deg);
-    transition: 0.4s;
+  float: left;
+  display: block;
+  height: 100%;
+  margin-right: 20px;
+  font-size: 42px;
+  line-height: 120%;
+  transform: rotate(-20deg);
+  transition: 0.4s;
+}
+
+.wb-share-button {
+  color: #000000;
+  opacity: 0.8;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font-weight: 600;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  gap: 6px;
+}
+
+.wb-share-button:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.wb-icon-share {
+  width: 14px;
+  height: 14px;
+}
+
+.wb-icon-zoom {
+  width: 18px;
+  height: 18px;
+}
+
+.wb-icon-caret {
+  width: 10px;
+  height: 10px;
 }
 
 .wb-create-options li:hover .wb-create-icon {
-    transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 .wb-button-disabled,
 input.wb-button-disabled,
 input.wb-primary-button.wb-button-disabled {
-    border: 2px solid #999999;
-    background-color: #999999;
-    pointer-events: none;
-    cursor: not-allowed;
+  border: 2px solid #999999;
+  background-color: #999999;
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 .wb-liquidGlass-wrapper {
-    position: relative;
-    display: flex;
-    font-weight: 600;
-    overflow: hidden;
-    color: black;
-    cursor: pointer;
-    box-shadow:
-        0 6px 6px rgba(0, 0, 0, 0.2),
-        0 0 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease-in-out;
+  position: relative;
+  display: flex;
+  font-weight: 600;
+  overflow: hidden;
+  color: black;
+  cursor: pointer;
+  box-shadow:
+    0 6px 6px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
 }
 
 .wb-liquidGlass-effect {
-    position: absolute;
-    z-index: 0;
-    inset: 0;
-    backdrop-filter: blur(3px);
-    filter: url(#glass-distortion);
-    overflow: hidden;
-    isolation: isolate;
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  backdrop-filter: blur(3px);
+  filter: url(#glass-distortion);
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .wb-liquidGlass-tint {
-    z-index: 1;
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.25);
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .wb-liquidGlass-shine {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    overflow: hidden;
-    box-shadow:
-        inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
-        inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  box-shadow:
+    inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5);
 }
 .wb-liquidGlass-text {
-    z-index: 3;
+  z-index: 3;
 }
 
 .wb-price-sticker {
-    background-image: url(../images/options/wb-price-sticker.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: inline;
-    padding: 18px 22px;
-    font-weight: 700;
-    color: #a56437;
+  /*background-image: url(../images/options/wb-price-sticker.png);*/
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: inline;
+  padding: 18px 22px;
+  font-weight: 700;
+  color: #a56437;
 }
 
 .wb-card-details .wb-emoji {
-    position: absolute;
-    top: -30px;
-    right: 20px;
-    font-size: 72px;
-    transform: rotate(20deg);
+  position: absolute;
+  top: -30px;
+  right: 20px;
+  font-size: 72px;
+  transform: rotate(20deg);
 }
 
 .wb-note {
-    padding: 12px;
-    border-radius: 6px;
-    font-size: 12px;
-    line-height: 18px;
-    margin-top: 10px;
-    padding-left: 40px;
-    position: relative;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 18px;
+  margin-top: 10px;
+  padding-left: 38px;
+  position: relative;
+  background-color: rgba(244, 228, 149, 0.6);
+  color: rgba(0, 0, 0, 0.8);
 }
 
-.wb-note::before {
-    content: " ";
-    background-image: url(../wb-lightbulb-black.svg);
-    background-size: contain;
-    display: block;
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    left: 12px;
-    top: 12px;
+.wb-info {
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 18px;
+  margin-top: 10px;
+  padding-left: 38px;
+  position: relative;
+  background-color: rgba(201, 225, 240, 0.6);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.wb-lightbulb {
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 12px;
+  top: 12px;
+  opacity: 0.6;
+}
+
+.wb-infoicon {
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 12px;
+  top: 12px;
+  opacity: 0.6;
 }
 
 .wb-right-image {
-    position: relative;
-    display: block;
-    margin-bottom: 30px;
-    text-align: center;
+  position: relative;
+  display: block;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 .wb-right-image img {
-    width: 90%;
+  width: 90%;
 }
 
 @media screen and (min-width: 400px) {
-    #wb-video {
-        top: 0;
-        left: -10%;
-        height: auto;
-        width: 120%;
-    }
+  #wb-video {
+    top: 0;
+    left: -10%;
+    height: auto;
+    width: 120%;
+  }
 
-    .wb-videobg {
-        margin-bottom: 240px;
-    }
+  .wb-videobg {
+    margin-bottom: 240px;
+  }
 
-    .wb-overvideo {
-        bottom: -240px;
-    }
+  .wb-overvideo {
+    bottom: -240px;
+  }
 }
 
 @media screen and (min-width: 480px) {
-    #wb-video {
-        top: 0;
-        left: 0;
-        height: auto;
-        width: 100%;
-    }
+  #wb-video {
+    top: 0;
+    left: 0;
+    height: auto;
+    width: 100%;
+  }
 
-    .wb-videobg {
-        margin-bottom: 240px;
-    }
+  .wb-videobg {
+    margin-bottom: 240px;
+  }
 
-    .wb-overvideo {
-        bottom: -240px;
-    }
+  .wb-overvideo {
+    bottom: -240px;
+  }
 }
 
 @media screen and (min-width: 600px) {
-    .wb-right-image {
-        display: none;
-    }
-    .wb-button,
-    input.wb-button,
-    .wb-buttons input.wb-button {
-        display: inline-block;
-        width: auto;
-    }
+  .wb-right-image {
+    display: none;
+  }
+  .wb-button,
+  input.wb-button,
+  .wb-buttons input.wb-button {
+    display: inline-block;
+    width: auto;
+  }
 
-    .wb-button {
-        padding: 16px 28px;
-    }
+  .wb-button {
+    padding: 16px 28px;
+  }
 
-    .wb-photo-holder img {
-        width: 480px;
-        left: calc(50% - 240px);
-    }
+  .wb-photo-holder img {
+    width: 480px;
+    left: calc(50% - 240px);
+  }
 
-    .wb-cards li {
-        flex: 48%;
-    }
+  .wb-cards li {
+    flex: 48%;
+    max-width: calc(50% - 8px);
+  }
 
-    .wb-card-image {
-        height: 20vw;
-    }
+  .wb-card-image {
+    height: 20vw;
+  }
 
-    .wb-videobg {
-        margin-bottom: 280px;
-    }
+  .wb-videobg {
+    margin-bottom: 280px;
+  }
 
-    .wb-overvideo {
-        width: 600px;
-        bottom: -280px;
-        font-size: 22px;
-    }
+  .wb-overvideo {
+    width: 600px;
+    bottom: -280px;
+    font-size: 22px;
+  }
 
-    .wb-overvideo .wb-padding {
-        padding-top: 30px;
-    }
+  .wb-collection-copy {
+    font-size: 22px;
+  }
 
-    .wb-raiseup {
-        margin-top: -40px;
-        margin-bottom: 40px;
-    }
+  .wb-overvideo .wb-padding {
+    padding-top: 30px;
+  }
 
-    .wb-create-icon {
-        margin-right: 40px;
-    }
+  .wb-raiseup {
+    margin-top: -40px;
+    margin-bottom: 40px;
+  }
+
+  .wb-create-icon {
+    margin-right: 40px;
+  }
 }
 
 @media screen and (min-width: 768px) {
-    .wb-button,
-    input.wb-button,
-    .wb-buttons input.wb-button {
-        padding: 16px 28px;
-        font-size: 20px;
-    }
+  .wb-button,
+  input.wb-button,
+  .wb-buttons input.wb-button {
+    padding: 16px 28px;
+    font-size: 20px;
+  }
 
-    .wb-cards li {
-        flex: 32%;
-    }
+  .wb-cards li {
+    flex: 32%;
+  }
 
-    .wb-card-image {
-        height: 16vw;
-    }
+  .wb-create-options.wb-cards li {
+    max-width: 100%;
+  }
 
-    .wb-videobg {
-        height: 400px;
-        margin-bottom: 320px;
-    }
+  .wb-card-image {
+    height: 16vw;
+  }
 
-    #wb-video {
-        top: -10%;
-    }
+  .wb-videobg {
+    height: 400px;
+    margin-bottom: 320px;
+  }
 
-    .wb-overvideo {
-        width: 620px;
-        font-size: 24px;
-        bottom: -320px;
-    }
+  #wb-video {
+    top: -10%;
+  }
 
-    .wb-overvideo .wb-padding {
-        padding-top: 40px;
-    }
+  .wb-overvideo {
+    width: 620px;
+    font-size: 24px;
+    bottom: -320px;
+  }
 
-    .wb-first-item .wb-padding {
-        padding-top: 40px;
-    }
+  .wb-collection-copy {
+    font-size: 24px;
+  }
 
-    .wb-option-heading {
-        font-size: 28px;
-    }
+  .wb-overvideo .wb-padding {
+    padding-top: 40px;
+  }
 
-    .wb-card-details .wb-emoji {
-        top: -50px;
-        right: 20px;
-        font-size: 110px;
-        transform: rotate(0deg);
-        transition: all 0.4s;
-    }
+  .wb-first-item .wb-padding {
+    padding-top: 40px;
+  }
 
-    .wb-cards li:hover .wb-emoji {
-        top: -80px;
-        right: 30px;
-        transform: rotate(10deg);
-    }
+  .wb-option-heading {
+    font-size: 28px;
+  }
+
+  .wb-card-details .wb-emoji {
+    top: -50px;
+    right: 20px;
+    font-size: 110px;
+    transform: rotate(0deg);
+    transition: all 0.4s;
+  }
+
+  .wb-cards li:hover .wb-emoji {
+    top: -80px;
+    right: 30px;
+    transform: rotate(10deg);
+  }
 }
 
 @media screen and (min-width: 1024px) {
-    .wb-right-image {
-        position: absolute;
-        pointer-events: none;
-        left: 840px;
-        top: 0;
-        display: block;
-        margin: 0;
-        width: 380px;
-    }
+  .wb-right-image {
+    position: absolute;
+    pointer-events: none;
+    left: 840px;
+    top: 0;
+    display: block;
+    margin: 0;
+    width: 380px;
+  }
 
-    .wb-right-image img {
-        width: 100%;
-    }
+  .wb-right-image img {
+    width: 100%;
+  }
 
-    .wb-photo-holder {
-        top: 0;
-        right: 0;
-        position: absolute;
-        z-index: 2;
-        width: calc(100% - 840px);
-    }
+  .wb-photo-holder {
+    top: 0;
+    right: 0;
+    position: absolute;
+    z-index: 2;
+    width: calc(100% - 840px);
+  }
 
-    .wb-photo-holder img {
-        width: unset;
-        left: 0;
-    }
+  .wb-photo-holder img {
+    width: unset;
+    left: 0;
+  }
 
-    .wb-card-image {
-        height: 172px;
-    }
+  .wb-card-image {
+    height: 172px;
+  }
 
-    .wb-card-details {
-        padding: 18px 28px;
-    }
+  .wb-card-details {
+    padding: 18px 28px;
+  }
 
-    .wb-imagebg .wb-padding {
-        padding-top: 40px;
-        padding-right: 60px;
-    }
+  .wb-imagebg .wb-padding {
+    padding-top: 40px;
+    padding-right: 60px;
+  }
 
-    .wb-videobg {
-        height: 500px;
-        margin-bottom: 240px;
-    }
+  .wb-videobg {
+    height: 500px;
+    margin-bottom: 240px;
+  }
 
-    .wb-overvideo {
-        width: 800px;
-        bottom: -240px;
-    }
+  .wb-overvideo {
+    width: 800px;
+    bottom: -240px;
+  }
 
-    .wb-option-heading {
-        font-size: 34px;
-    }
+  .wb-option-heading {
+    font-size: 34px;
+  }
 
-    .wb-create-options li {
-        padding: 22px 28px;
-    }
+  .wb-create-options li {
+    padding: 22px 28px;
+  }
 
-    .wb-create-icon {
-        font-size: 52px;
-    }
+  .wb-create-icon {
+    font-size: 52px;
+  }
+}
+
+@media screen and (min-width: 1080px) {
+  .wb-cards li {
+    max-width: calc(33% - 8px);
+  }
 }
 
 @media screen and (min-width: 1200px) {
-    .wb-create-options li {
-        padding: 24px 38px;
-    }
+  .wb-create-options li {
+    padding: 24px 38px;
+  }
 
-    .wb-option-heading {
-        font-size: 38px;
-    }
+  .wb-option-heading {
+    font-size: 38px;
+  }
 
-    .wb-videobg {
-        height: 600px;
-    }
+  .wb-videobg {
+    height: 600px;
+  }
 
-    #wb-video {
-        top: -80px;
-    }
+  #wb-video {
+    top: -80px;
+  }
 }

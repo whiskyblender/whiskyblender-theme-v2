@@ -1,362 +1,363 @@
-.wb-product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+.wb-productdetails {
+  font-size: 14px;
+  line-height: 160%;
 }
 
 .wb-product-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .wb-productsgrid {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    gap: 20px;
-    flex-wrap: wrap;
-    max-width: 100%;
-    margin-top: 30px;
-    margin-bottom: 0;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin-top: 30px;
+  margin-bottom: 0;
 }
 
 .wb-column-sticky {
-    display: block;
-    position: sticky;
-    z-index: 2;
-    top: 40px;
+  display: block;
+  position: sticky;
+  z-index: 2;
+  top: 40px;
 }
 
 .wb-collection-ref {
-    font-weight: 600;
-    font-size: 120%;
+  font-weight: 600;
 }
 
 .wb-collection-sub {
-    font-weight: 600;
-    font-size: 160%;
-    margin: 0;
-    padding: 18px 0 2px 0;
+  font-weight: 600;
+  font-size: 160%;
+  margin: 0;
+  padding: 18px 0 2px 0;
 }
 
 .wb-productsgrid li {
-    flex: 100%;
+  flex: 100%;
 }
 
 .wb-tightergrid li {
-    flex: 50%;
-    max-width: calc(50% - 14px);
+  flex: 50%;
+  max-width: calc(50% - 14px);
 }
 
 .wb-productitem {
-    padding-bottom: 20px;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    overflow: hidden;
-    transition: border 0.4s;
-    cursor: pointer;
+  padding-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border 0.4s;
+  cursor: pointer;
+}
+
+.wb-productitem.wb-soldout {
+  opacity: 0.4;
 }
 
 .wb-product-info {
-    position: relative;
+  position: relative;
 }
 
 .wb-productinfo .wb-buttons {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .wb-meta-deetz {
-    list-style: none;
-    padding: 0;
-    font-size: 12px;
-    color: #666666;
+  list-style: none;
+  padding: 0;
+  font-size: 12px;
+  color: #666666;
 }
 
 .wb-meta-deetz li {
-    display: inline-block;
-    margin-right: 12px;
+  display: inline-block;
+  margin-right: 12px;
 }
 
 .wb-meta-deetz li:last-child {
-    margin: 0;
+  margin: 0;
 }
 
 .wb-productitem:hover {
-    border: 2px solid #999999;
-    background-color: #ffffff;
+  border: 1px solid #999999;
+  background-color: #ffffff;
 }
 
 .wb-productmedia {
-    position: relative;
+  position: relative;
 }
 
 .wb-product-media img {
-    border-radius: 6px;
-    display: block;
+  border-radius: 6px;
+  display: block;
 }
 
 .wb-productimage {
-    display: flex;
+  display: flex;
 }
 
 .wb-productimage img {
-    width: 100%;
-    z-index: 1;
+  width: 100%;
+  z-index: 1;
 }
 
 .wb-productbadge {
-    display: block;
-    position: absolute;
-    top: 0;
-    pointer-events: none;
-    color: #ffffff;
-    font-size: 20px;
-    line-height: 20px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    z-index: 2;
-    font-weight: 600;
-    width: 100%;
-    height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 2;
+  font-weight: 600;
+  width: 100%;
+  height: 100%;
 }
 
 .wb-product-grid .wb-productcosts {
-    align-items: center;
-    height: 40px;
-    gap: 20px;
-    font-size: 100%;
+  align-items: center;
+  height: 40px;
+  gap: 20px;
+  font-size: 100%;
 }
 
 .wb-product-grid .wb-productbadge {
-    font-size: 16px;
-    line-height: 18px;
-    position: relative;
-    width: auto;
-    height: auto;
-    display: inline-block;
+  font-size: 16px;
+  line-height: 18px;
+  position: relative;
+  width: auto;
+  height: auto;
+  display: inline-block;
 }
 
 .wb-product-grid .wb-salebadge,
 .wb-product-grid .wb-soldoutbadge {
-    transform: rotate(4deg);
-    padding: 8px 12px;
+  transform: rotate(4deg);
+  padding: 8px 12px;
 }
 
 .wb-product-grid .wb-productbadge div {
-    position: relative;
-    top: 0;
-    left: 0;
+  position: relative;
+  top: 0;
+  left: 0;
 }
 
 .wb-salebadge {
-    display: block;
-    top: 16px;
-    left: 12px;
-    position: absolute;
-    background: #00a97e;
-    padding: 10px 16px;
-    border-radius: 20px;
-    transform: rotate(-10deg);
+  display: block;
+  top: 16px;
+  left: 12px;
+  position: absolute;
+  background: #8f5ea7;
+  padding: 10px 16px;
+  border-radius: 20px;
+  transform: rotate(-10deg);
 }
 
 .wb-soldoutbadge {
-    top: 50%;
-    left: calc(50% - 74px);
-    position: absolute;
-    background: #666666;
-    padding: 10px 16px;
-    border-radius: 20px;
-    transform: rotate(10deg);
+  top: 50%;
+  left: calc(50% - 74px);
+  position: absolute;
+  background: #666666;
+  padding: 10px 16px;
+  border-radius: 20px;
+  transform: rotate(10deg);
 }
 
 .wb-tightergrid .wb-productbadge {
-    font-size: 12px;
-    line-height: 12px;
-    letter-spacing: 1px;
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 1px;
 }
 
 .wb-tightergrid .wb-soldoutbadge {
-    left: calc(50% - 50px);
+  left: calc(50% - 50px);
 }
 
 .wb-productcontent {
-    padding: 10px 20px 0 20px;
+  padding: 10px 20px 0 20px;
 }
 
 .wb-productcosts {
-    display: flex;
-    justify-content: flex-start;
-    font-size: 14px;
-    line-height: 18px;
-    gap: 10px;
-    flex-wrap: wrap;
-    row-gap: 0;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 14px;
+  line-height: 18px;
+  gap: 10px;
+  flex-wrap: wrap;
+  row-gap: 0;
 }
 
 .wb-product-notprice {
-    color: #999999;
+  color: #999999;
 }
 
 .wb-product-description {
-    font-size: 16px;
-    line-height: 150%;
-    margin-top: 40px;
+  font-size: 16px;
+  line-height: 150%;
+  margin-top: 40px;
 }
 
 .wb-bottle-form {
-    position: relative;
+  position: relative;
 }
 
 .wb-bottle-form label {
-    font-size: 10px;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 6px;
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 6px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .wb-labellink {
-    font-weight: bold;
-    display: inline;
-    text-transform: none;
-    letter-spacing: normal;
-    margin-left: 10px;
+  font-weight: bold;
+  display: inline;
+  text-transform: none;
+  letter-spacing: normal;
+  margin-left: 10px;
 }
 
 .wb-bottle-form input,
 .wb-bottle-form textarea {
-    font-size: 18px;
-    display: block;
-    border: none;
-    padding: 8px 0;
-    border-bottom: 2px #666666 dotted;
-    width: 100%;
-    font-family: "Raleway", sans-serif;
-    margin-bottom: 8px;
-    background-color: transparent;
+  font-size: 18px;
+  display: block;
+  border: none;
+  padding: 8px 0;
+  border-bottom: 2px #666666 dotted;
+  width: 100%;
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 8px;
+  background-color: transparent;
 }
 
 .wb-bottle-form input span {
-    text-wrap: wrap;
+  text-wrap: wrap;
 }
 
 .wb-bottle-form label:first {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 span.wb-radio input {
-    display: none;
+  display: none;
 }
 
 span.wb-radio {
-    display: inline-block;
-    margin-bottom: 8px;
-    margin-right: 4px;
+  display: inline-block;
+  margin-bottom: 8px;
+  margin-right: 4px;
 }
 
 span.wb-radio label {
-    border: solid 1px #000000;
-    cursor: pointer;
-    display: inline-block;
-    padding: 4px 12px;
-    font-weight: 600;
-    border-radius: 6px;
-    margin: 0;
-    text-transform: none;
-    font-size: 14px;
-    letter-spacing: normal;
-    background-color: #eeeeee;
-    transition: background 0.3s;
+  border: solid 1px #000000;
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  margin: 0;
+  text-transform: none;
+  font-size: 14px;
+  letter-spacing: normal;
+  background-color: #eeeeee;
+  transition: background 0.3s;
 }
 
 span.wb-radio label:hover {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 span.wb-radio input:checked + label {
-    background: #000000;
-    color: #fff;
+  background: #000000;
+  color: #fff;
 }
 
 span.wb-radio label.wb-label-unavailable {
-    border: solid 1px transparent;
-    color: #999999;
-    text-decoration: line-through;
+  border: solid 1px transparent;
+  color: #999999;
+  text-decoration: line-through;
 }
 
 span.wb-radio input:checked + label.wb-label-unavailable {
-    background: #999999;
-    color: #fff;
+  background: #999999;
+  color: #fff;
 }
 
 .wb-price-per-item .wb-quantity {
-    border: solid 1px #000000;
-    background-color: #eeeeee;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    align-items: center;
-    width: fit-content;
+  border: solid 1px #000000;
+  background-color: #eeeeee;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  width: fit-content;
 }
 
 .wb-quantity-button {
-    background-color: transparent;
-    border: none;
-    font-size: 22px;
-    width: 42px;
-    height: 42px;
-    display: block;
-    padding: 0;
-    margin: 0;
-    border-radius: 6px;
-    font-weight: 600;
+  background-color: transparent;
+  border: none;
+  font-size: 22px;
+  width: 42px;
+  height: 42px;
+  display: block;
+  padding: 0;
+  margin: 0;
+  border-radius: 6px;
+  font-weight: 600;
 }
 
 .wb-quantity-button:hover {
-    cursor: pointer;
-    background: #ffffff;
+  cursor: pointer;
+  background: #ffffff;
 }
 
 input.wb-quantity-input {
-    background-color: #000000;
-    text-align: center;
-    flex-grow: 1;
-    -webkit-appearance: none;
-    appearance: none;
-    border: none;
-    -moz-appearance: textfield;
-    width: 80px;
-    padding: 0;
-    margin: 0;
-    display: block;
-    height: 42px;
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 600;
+  background-color: #000000;
+  text-align: center;
+  flex-grow: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  -moz-appearance: textfield;
+  width: 80px;
+  padding: 0;
+  margin: 0;
+  display: block;
+  height: 42px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 ul.wb-slider-gallery {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0;
 }
 
 ul.wb-slider-gallery li {
-    display: none;
+  display: none;
 }
 
 ul.wb-slider-gallery li:first-of-type {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 
 .wb-christmas .wb-productmedia::after,
@@ -364,114 +365,243 @@ ul.wb-slider-gallery li:first-of-type {
 .wb-weddings .wb-productmedia::after,
 .wb-birthdays .wb-productmedia::after,
 .wb-celebrations .wb-productmedia::after {
-    content: " ";
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1;
+  content: ' ';
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1;
 }
 
 .wb-christmas .wb-productmedia::after {
-    background-image: url(../images/products/global/wb-frost.png);
+  background-image: url(../images/products/global/wb-frost.png);
 }
 
 .wb-anniversaries .wb-productmedia::after {
-    background-image: url(../images/products/global/wb-goldhearts.png);
+  background-image: url(../images/products/global/wb-goldhearts.png);
 }
 
 .wb-weddings .wb-productmedia::after {
-    background-image: url(../images/products/global/wb-floral.png);
+  background-image: url(../images/products/global/wb-floral.png);
 }
 
 .wb-birthdays .wb-productmedia::after {
-    background-image: url(../images/products/global/wb-stars.png);
+  background-image: url(../images/products/global/wb-stars.png);
 }
 
 .wb-celebrations .wb-productmedia::after {
-    background-image: url(../images/products/global/wb-sparkles.png);
+  background-image: url(../images/products/global/wb-sparkles.png);
 }
 
 .wb-collection-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    column-gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 20px;
 }
 
 textarea.wb-textarea {
-    border: dotted 2px #000000;
-    border-radius: 6px;
-    padding: 10px;
+  border: dotted 2px #000000;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.wb-recipe {
+  list-style: none;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.wb-recipe li {
+  list-style: none;
+  margin: 3px 0;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  height: 40px;
+}
+
+.wb-recipe li span.wb-label {
+  z-index: 2;
+  position: absolute;
+  top: 8px;
+  left: 12px;
+}
+
+.wb-recipe li span.wb-recipebar {
+  z-index: 1;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 44px;
+  top: -2px;
+  left: 0;
+  background-color: #fafafa;
+}
+
+.wb-productmedia-icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  border-radius: 16px;
+  background-color: #ffffff;
+}
+
+.wb-productmedia-icon svg {
+  height: 16px;
+  width: 16px;
+}
+
+.wb-slider-buttons {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+}
+
+.wb-slider-button-prev,
+.wb-slider-button-next {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wb-slider-button-prev img {
+  height: 10px;
+  width: 10px;
+  transform: rotate(90deg);
+}
+
+.wb-slider-button-next img {
+  height: 10px;
+  width: 10px;
+  transform: rotate(-90deg);
+}
+
+.wb-drawer {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  color: #666666;
+}
+
+.wb-drawer:hover {
+  color: #000000;
+}
+
+.wb-drawer-content {
+  display: none;
+  font-size: 14px;
+  margin: -6px 0;
+}
+
+ul.wb-product-drawers {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0;
+  border-bottom: solid 1px #cccccc;
+  font-size: 16px;
+}
+
+ul.wb-product-drawers li {
+  padding: 12px 0;
+  border-top: solid 1px #cccccc;
+}
+
+.wb-product-price {
+  font-size: 18px;
 }
 
 @media screen and (max-width: 400px) {
-    .wb-productcontent {
-        padding: 10px 10px 0 10px;
-    }
+  .wb-productcontent {
+    padding: 10px 10px 0 10px;
+  }
 }
 
 @media screen and (min-width: 600px) {
-    .wb-productsgrid li {
-        flex: 48%;
-        max-width: 48%;
-    }
-    .wb-tightergrid li {
-        flex: 33%;
-        max-width: calc(33% - 14px);
-    }
+  .wb-productsgrid li {
+    flex: 48%;
+    max-width: 48%;
+  }
+  .wb-tightergrid li {
+    flex: 33%;
+    max-width: calc(33% - 14px);
+  }
 }
 
 @media screen and (min-width: 768px) {
-    .wb-meta-deetz {
-        font-size: 14px;
-    }
+  .wb-recipe li span.wb-label {
+    top: 4px;
+  }
+  .wb-meta-deetz {
+    font-size: 14px;
+  }
 
-    .wb-product-grid {
-        gap: 40px;
-        flex-wrap: nowrap;
-    }
+  .wb-product-grid {
+    gap: 40px;
+    flex-wrap: nowrap;
+  }
 
-    .wb-product-grid .wb-productinfo {
-        width: 40%;
-    }
+  .wb-product-grid .wb-productinfo {
+    width: 40%;
+  }
 
-    .wb-product-grid .wb-product-media {
-        width: 50%;
-    }
+  .wb-product-grid .wb-product-media {
+    width: 50%;
+  }
 
-    .wb-productsgrid li {
-        flex: 30%;
-        max-width: calc((100% / 3) - 15px);
-    }
+  .wb-productsgrid li {
+    flex: 30%;
+    max-width: calc((100% / 3) - 15px);
+  }
 
-    .wb-tightergrid li {
-        flex: 25%;
-        max-width: calc(25% - 15px);
-    }
+  .wb-tightergrid li {
+    flex: 25%;
+    max-width: calc(25% - 15px);
+  }
 
-    .wb-product-description {
-        font-size: 18px;
-    }
+  .wb-product-description {
+    font-size: 18px;
+  }
 
-    ul.wb-slider-gallery li {
-        display: block;
-        width: calc(50% - 5px);
-    }
+  ul.wb-slider-gallery li {
+    display: block;
+    width: calc(50% - 5px);
+  }
 
-    ul.wb-slider-gallery li:first-of-type {
-        width: 100%;
-    }
+  ul.wb-slider-gallery li:first-of-type {
+    width: 100%;
+  }
+
+  .wb-productmedia-icon,
+  .wb-slider-buttons {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 1024px) {
-    .wb-product-grid {
-        gap: 60px;
-    }
+  .wb-product-grid {
+    gap: 60px;
+  }
 }
