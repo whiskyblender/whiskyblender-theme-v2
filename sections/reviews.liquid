@@ -1,0 +1,91 @@
+{{ 'glide.js' | asset_url | script_tag }}
+{{ 'glide.core.css' | asset_url | stylesheet_tag }}
+{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
+
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <div class="glide wb-testimonials">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides wb-reviews">
+            <li
+              class="glide__slide wb-review"
+              style="background-image: url({{"wb-stars.gif" | asset_url }})"
+            >
+              They are worth more than 5stars...
+            </li>
+            <li
+              class="glide__slide wb-review"
+              style="background-image: url({{"wb-stars.gif" | asset_url }})"
+            >
+              Brilliant idea getting to blend your own...
+            </li>
+            <li
+              class="glide__slide wb-review"
+              style="background-image: url({{"wb-stars.gif" | asset_url }})"
+            >
+              I will definitely be ordering again and after tasting my own bottle...
+            </li>
+            <li
+              class="glide__slide wb-review"
+              style="background-image: url({{"wb-stars.gif" | asset_url }})"
+            >
+              My Dad absolutely loved his bottle...
+            </li>
+            <li
+              class="glide__slide wb-review"
+              style="background-image: url({{"wb-stars.gif" | asset_url }})"
+            >
+              The taste and quality is absolutely excellent...
+            </li>
+            <li
+              class="glide__slide wb-review"
+              style="background-image: url({{"wb-stars.gif" | asset_url }})"
+            >
+              Everything about this company is just perfection...
+            </li>
+            <li
+              class="glide__slide wb-review"
+              style="background-image: url({{"wb-stars.gif" | asset_url }})"
+            >
+              Great service, speedy delivery...
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% javascript %}
+  new Glide('.wb-testimonials', {
+    type: 'carousel',
+    gap: 60,
+    perView: 3,
+    autoplay: 1,
+    animationDuration: 4000,
+    animationTimingFunc: 'linear',
+    hoverpause: true,
+    breakpoints: {
+      600: {
+        perView: 1,
+        gap: 20,
+      },
+      768: {
+        perView: 2,
+        gap: 30,
+      },
+    },
+  }).mount();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Reviews"
+    }
+  ]
+}
+{% endschema %}

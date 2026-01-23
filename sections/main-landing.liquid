@@ -1,25 +1,27 @@
-<div class="wb-container">
-  <div class="wb-videobg" style="background-image: url({{"wb-index.jpg" | asset_url }})">
-    <div class="wb-videograin"></div>
-    <video autoplay muted loop id="wb-video">
-      <source src="{{ 'wb-index.mp4' | asset_url }}" type="video/mp4">
-    </video>
-  </div>
-  <div class="wb-overvideo">
-    <div class="wb-padding">
-      <h1 class="wb-large-heading">Great Scotch!</h1>
-      <p>When you're looking for that bottle of whisky nobody else has.</p>
-      <div class="wb-buttons">
-        <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">
-          {{- section.settings.primary_button_text -}}
-        </a>
-        <a href="{{ section.settings.secondary_button_url }}" class="wb-button">
-          {{- section.settings.secondary_button_text -}}
-        </a>
+<section>
+  <div class="wb-container">
+    <div class="wb-videobg" style="background-image: url({{"wb-index.jpg" | asset_url }})">
+      <div class="wb-videograin"></div>
+      <video autoplay muted loop id="wb-video">
+        <source src="{{ 'wb-index.mp4' | asset_url }}" type="video/mp4">
+      </video>
+    </div>
+    <div class="wb-overvideo">
+      <div class="wb-padding">
+        <h1 class="wb-large-heading">Great Scotch!</h1>
+        <p>When you're looking for that bottle of whisky nobody else has.</p>
+        <div class="wb-buttons">
+          <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">
+            {{- section.settings.primary_button_text -}}
+          </a>
+          <a href="{{ section.settings.secondary_button_url }}" class="wb-button">
+            {{- section.settings.secondary_button_text -}}
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
