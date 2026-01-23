@@ -10,8 +10,12 @@
       <h1 class="wb-large-heading">Great Scotch!</h1>
       <p>When you're looking for that bottle of whisky nobody else has.</p>
       <div class="wb-buttons">
-        <a href="create.html" class="wb-button wb-primary-button">Create something</a>
-        <a href="vouchers.html" class="wb-button">Get a voucher</a>
+        <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">
+          {{- section.settings.primary_button_text -}}
+        </a>
+        <a href="{{ section.settings.secondary_button_url }}" class="wb-button">
+          {{- section.settings.secondary_button_text -}}
+        </a>
       </div>
     </div>
   </div>
@@ -20,7 +24,30 @@
 {% schema %}
 {
   "name": "Landing Hero",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "Create something"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "Get a voucher"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_url",
+      "label": "Secondary button URL"
+    }
+  ],
   "presets": [
     {
       "name": "Landing Hero"

@@ -2,9 +2,9 @@
   font-family: 'trimPosterCompressed';
   font-display: block;
   src:
-    url('../TrimPosterWeb-Compressed.eot'),
-    url('../TrimPosterWeb-Compressed.woff') format('woff'),
-    url('../TrimPosterWeb-Compressed.ttf') format('truetype');
+    url('TrimPosterWeb-Compressed.eot'),
+    url('TrimPosterWeb-Compressed.woff') format('woff'),
+    url('TrimPosterWeb-Compressed.ttf') format('truetype');
 }
 
 .wb-large-heading,
