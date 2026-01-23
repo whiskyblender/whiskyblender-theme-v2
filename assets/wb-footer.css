@@ -1,99 +1,98 @@
 #wb-footer {
-    background-color: #000000;
-    color: #cccccc;
-    font-size: 12px;
-    border-top: 10px solid #b88d60;
+  background-color: #000000;
+  color: #cccccc;
+  font-size: 12px;
+  border-top: 10px solid #b88d60;
 }
 
 #wb-footer .wb-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    background-image: url(../images/wb-texture.jpg);
-    background-size: cover;
-    background-position: center;
-    padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-size: cover;
+  background-position: center;
+  padding: 10px 0;
 }
 
 .wb-footercolumn {
-    padding: 10px 20px 0 20px;
-    max-width: 600px;
-    min-width: 50%;
+  padding: 10px 20px 0 20px;
+  max-width: 600px;
+  min-width: 50%;
 }
 
 .wb-footercolumn ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 .wb-footercolumn a {
-    text-decoration: none;
-    color: #999999;
-    transition: color 0.3s;
-    text-shadow: black 1px 1px 1px;
+  text-decoration: none;
+  color: #999999;
+  transition: color 0.3s;
+  text-shadow: black 1px 1px 1px;
 }
 
 .wb-footercolumn a:hover {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .wb-footerblurb {
-    font-size: 14px;
-    line-height: 22px;
+  font-size: 14px;
+  line-height: 22px;
 }
 
 .wb-copyright {
-    font-size: 10px;
-    line-height: 16px;
-    color: #666666;
-    max-width: 100%;
-    vertical-align: bottom;
+  font-size: 10px;
+  line-height: 16px;
+  color: #666666;
+  max-width: 100%;
+  vertical-align: bottom;
 }
 
 .wb-socials li {
-    display: inline-block;
+  display: inline-block;
 }
 
 .wb-socials li + li {
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
 .wb-socials li a {
-    opacity: 0.4;
-    transition: opacity 0.3s;
+  opacity: 0.4;
+  transition: opacity 0.3s;
 }
 
 .wb-socials li a:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .wb-footercolumn img {
-    height: 24px;
+  height: 24px;
 }
 
 .wb-footerblurb img.wb-signed {
-    width: 100px;
-    height: auto;
+  width: 100px;
+  height: auto;
 }
 
 @media screen and (min-width: 600px) {
-    .wb-footercolumn {
-        padding: 20px 30px 0 30px;
-    }
+  .wb-footercolumn {
+    padding: 20px 30px 0 30px;
+  }
 }
 
 @media screen and (min-width: 768px) {
-    .wb-footercolumn {
-        padding: 30px 40px 0 40px;
-    }
+  .wb-footercolumn {
+    padding: 30px 40px 0 40px;
+  }
 
-    .wb-footerblurb img.wb-signed {
-        width: 160px;
-    }
+  .wb-footerblurb img.wb-signed {
+    width: 160px;
+  }
 }
 
 @media screen and (min-width: 1024px) {
-    .wb-footercolumn {
-        min-width: auto;
-    }
+  .wb-footercolumn {
+    min-width: auto;
+  }
 }

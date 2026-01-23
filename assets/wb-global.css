@@ -327,7 +327,7 @@ input.wb-primary-button.wb-button-disabled {
 
 .wb-note::before {
     content: " ";
-    background-image: url(../icons/wb-lightbulb-black.svg);
+    background-image: url(../wb-lightbulb-black.svg);
     background-size: contain;
     display: block;
     position: absolute;

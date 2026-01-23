@@ -28,15 +28,15 @@
 
     {% render 'meta-tags' %}
 
-    {{ 'css/wb-base.css' | asset_url | stylesheet_tag }}
-    {{ 'css/wb-global.css' | asset_url | stylesheet_tag }}
-    {{ 'css/wb-fonts.css' | asset_url | stylesheet_tag }}
+    {{ 'wb-base.css' | asset_url | stylesheet_tag }}
+    {{ 'wb-global.css' | asset_url | stylesheet_tag }}
+    {{ 'wb-fonts.css' | asset_url | stylesheet_tag }}
     {{ 'wb-footer.css' | asset_url | stylesheet_tag }}
-    {{ 'css/wb-header.css' | asset_url | stylesheet_tag }}
-    {{ 'css/wb-home.css' | asset_url | stylesheet_tag }}
-    {{ 'css/wb-products.css' | asset_url | stylesheet_tag }}
-    {{ 'css/glide.core.css' | asset_url | stylesheet_tag }}
-    {{ 'css/glide.custom.css' | asset_url | stylesheet_tag }}
+    {{ 'wb-header.css' | asset_url | stylesheet_tag }}
+    {{ 'wb-home.css' | asset_url | stylesheet_tag }}
+    {{ 'wb-products.css' | asset_url | stylesheet_tag }}
+    {{ 'glide.core.css' | asset_url | stylesheet_tag }}
+    {{ 'glide.custom.css' | asset_url | stylesheet_tag }}
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>

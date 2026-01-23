@@ -1,0 +1,185 @@
+.glide__slides.wb-logos {
+  cursor: default;
+  list-style: none;
+  font-size: 0;
+  margin: 40px auto 0 auto;
+}
+
+.wb-about-photo-castle {
+  margin-bottom: 200px;
+}
+
+.wb-about-photo-castle img {
+  top: -60px;
+  transform: rotate(4deg);
+}
+
+.wb-about-photo-saltire {
+  margin-bottom: 200px;
+}
+
+.wb-about-photo-saltire img {
+  top: 10px;
+  transform: rotate(-4deg);
+}
+
+.wb-about-photo-acrospire {
+  margin-bottom: 220px;
+}
+
+.wb-about-photo-acrospire img {
+  top: 10px;
+  transform: rotate(-4deg);
+}
+
+.wb-logos li {
+  width: 150px;
+  height: 75px;
+  background-size: contain !important;
+  pointer-events: none;
+  background-repeat: no-repeat !important;
+}
+
+.wb-logos li a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.wired {
+  background: url(../logos/wired.png);
+}
+
+.playboy {
+  background: url(../logos/playboy.png);
+}
+
+.urbandaddy {
+  background: url(../logos/urbandaddy.png);
+}
+
+.thescotsman {
+  background: url(../logos/thescotsman.png);
+}
+
+.uncrate {
+  background: url(../logos/uncrate.png);
+}
+
+.springwise {
+  background: url(../logos/springwise.png);
+}
+
+.greatdrams {
+  background: url(../logos/greatdrams.png);
+}
+
+.ralfy {
+  background: url(../logos/ralfy.png);
+}
+
+.lsnglobal {
+  background: url(../logos/lsnglobal.png);
+}
+
+.foodbeast {
+  background: url(../logos/foodbeast.png);
+}
+
+.alisterpaine {
+  background: url(../logos/alisterpaine.png);
+}
+
+.lagom {
+  background: url(../logos/lagom.png);
+}
+
+.classicboat {
+  background: url(../logos/classicboat.png);
+}
+
+.marthastewart {
+  background: url(../logos/marthastewart.png);
+}
+
+.gwf {
+  background: url(../logos/gwf.png);
+}
+
+.whiskylounge {
+  background: url(../logos/whiskylounge.png);
+}
+
+@media only screen and (min-width: 600px) {
+  .wb-logos li {
+    width: 200px;
+    height: 100px;
+  }
+
+  .wb-about-photo-castle {
+    margin-bottom: 300px;
+  }
+
+  .wb-about-photo-castle img {
+    top: -120px;
+    transform: rotate(10deg);
+  }
+
+  .wb-about-photo-saltire {
+    margin-bottom: 340px;
+  }
+
+  .wb-about-photo-saltire img {
+    top: 20px;
+    transform: rotate(-4deg);
+  }
+
+  .wb-about-photo-acrospire {
+    margin-bottom: 400px;
+  }
+
+  .wb-about-photo-acrospire img {
+    top: 30px;
+    transform: rotate(-4deg);
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .wb-logos li {
+    width: 300px;
+    height: 120px;
+  }
+
+  .wb-about-photo-castle {
+    margin: 0;
+  }
+
+  .wb-about-photo-castle img {
+    width: 600px;
+    top: -160px;
+    left: -20px;
+    transform: rotate(-6deg);
+  }
+
+  .wb-about-photo-saltire {
+    margin: 0;
+  }
+
+  .wb-about-photo-saltire img {
+    width: 440px;
+    top: 370px;
+    left: 20px;
+    transform: rotate(32deg);
+  }
+
+  .wb-about-photo-acrospire {
+    margin: 0;
+  }
+
+  .wb-about-photo-acrospire img {
+    width: 400px;
+    top: 240px;
+    left: 20px;
+    transform: rotate(12deg);
+  }
+}
