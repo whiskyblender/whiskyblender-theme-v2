@@ -3,7 +3,7 @@
     <div class="wb-footercolumn">
       <h5 class="wb-tiny-heading">Quick links</h5>
       <ul>
-        {%- for link in section.settings.quick_links_menu.links -%}
+        {%- for link in linklists[section.settings.quick_links_menu].links -%}
           <li>
             <a
               href="{{ link.url }}"
@@ -20,20 +20,20 @@
     <div class="wb-footercolumn">
       <h5 class="wb-tiny-heading">Info</h5>
       <ul>
-        {%- if linklists['footer-info'] -%}
-          {%- for link in linklists['footer-info'].links -%}
-            <li>
-              <a
-                href="{{ link.url }}"
-                {% if link.target %}
-                  target="{{ link.target }}"
-                {% endif %}
-              >
-                {{ link.title }}
-              </a>
-            </li>
-          {%- endfor -%}
-        {%- endif -%}
+        {%- for link in section.settings.info_links_menu.links -%}
+          <li>
+            <a
+              href="{{ link.url }}"
+              {% if link.target %}
+                target="{{ link.target }}"
+              {% endif %}
+            >
+              {{ link.title }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <ul>
         <li><a href="https://www.drinkaware.co.uk/" target="_blank">Drinkaware &#8599;</a></li>
       </ul>
     </div>
@@ -102,10 +102,16 @@
   "name": "t:sections.footer.name",
   "settings": [
     {
-      "type": "link_list",
+      "type": "text",
       "id": "quick_links_menu",
       "default": "footer",
-      "label": "Quick links menu"
+      "label": "Quick links menu handle"
+    },
+    {
+      "type": "text",
+      "id": "info_links_menu",
+      "default": "footer-info",
+      "label": "Info links menu handle"
     }
   ],
   "blocks": [
