@@ -54,9 +54,5 @@
       }
     }
   },
-  "order": [
-    "main_landing",
-    "main_reviews",
-    "featured_collection_93jqNG"
-  ]
+  "order": ["main_landing", "main_reviews", "featured_collection_93jqNG"]
 }
