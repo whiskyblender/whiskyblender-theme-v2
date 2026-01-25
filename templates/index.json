@@ -56,26 +56,47 @@
     "collection_list_UEFTTm": {
       "type": "collection-list",
       "blocks": {
+        "featured_collection_xPnJf3": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "oor-bottlings"
+          }
+        },
+        "featured_collection_wwnd6j": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gift-credit"
+          }
+        },
+        "featured_collection_8hJH6D": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gift-credit"
+          }
+        },
         "featured_collection_YbPyNh": {
           "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "oor-bottlings"
           }
         },
         "featured_collection_DgHhcb": {
           "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "oor-bottlings"
           }
         },
         "featured_collection_4M9r4b": {
           "type": "featured_collection",
           "settings": {
-            "collection": ""
+            "collection": "gift-credit"
           }
         }
       },
       "block_order": [
+        "featured_collection_xPnJf3",
+        "featured_collection_wwnd6j",
+        "featured_collection_8hJH6D",
         "featured_collection_YbPyNh",
         "featured_collection_DgHhcb",
         "featured_collection_4M9r4b"
@@ -83,6 +104,7 @@
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "For special occassions",
+        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way.",
         "heading_size": "h0",
         "image_ratio": "square",
         "columns_desktop": 3,
