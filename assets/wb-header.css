@@ -205,6 +205,10 @@ ul.wb-navicons li a img {
   transform: rotate(-90deg);
 }
 
+.wb-announcement-bar {
+    color: #ffffff;
+}
+
 @media screen and (min-width: 375px) {
   ul.wb-navicons li a img {
     height: 14px;
