@@ -149,7 +149,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/gold500ml.jpg",
+        "image": "shopify://shop_images/wb-foryersel.png",
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "text_first",
@@ -197,6 +197,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
+        "image": "shopify://shop_images/wb-yerownbrand.png",
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "text_first",
