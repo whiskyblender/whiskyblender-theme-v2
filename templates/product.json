@@ -19,7 +19,7 @@
         "caption": {
           "type": "text",
           "settings": {
-            "text": "{{ product.metafields.custom.abv.value }}",
+            "text": "{{ product.metafields.custom.abv.value }}{{ product.vendor }}",
             "text_style": "subtitle"
           }
         },
