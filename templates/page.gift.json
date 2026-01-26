@@ -162,16 +162,16 @@
             "reel_image": "03_lockstock.jpg"
           }
         },
-        "image_reel_yRQq7J": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "01_joker.jpg"
-          }
-        },
         "image_reel_HkkHwk": {
           "type": "image_reel",
           "settings": {
             "reel_image": "02_nox.jpg"
+          }
+        },
+        "image_reel_yRQq7J": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "01_joker.jpg"
           }
         }
       },
@@ -182,8 +182,8 @@
         "image_reel_BQkTcV",
         "image_reel_mnAzA9",
         "image_reel_DFtcre",
-        "image_reel_yRQq7J",
-        "image_reel_HkkHwk"
+        "image_reel_HkkHwk",
+        "image_reel_yRQq7J"
       ],
       "name": "Image Reel",
       "settings": {}
