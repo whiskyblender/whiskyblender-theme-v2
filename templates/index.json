@@ -115,12 +115,108 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "image_with_text_JiiFdh": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_3AfHm8": {
+          "type": "heading",
+          "settings": {
+            "heading": "For yersel'",
+            "heading_size": "h1"
+          }
+        },
+        "text_JEypNJ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_RDx9hW": {
+          "type": "button",
+          "settings": {
+            "button_label": "Create Something",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_3AfHm8",
+        "text_JEypNJ",
+        "button_RDx9hW"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "bottom",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_GbHBPk": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_mW4XLB": {
+          "type": "heading",
+          "settings": {
+            "heading": "Your own brand",
+            "heading_size": "h1"
+          }
+        },
+        "text_qRtFqN": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We've worked with bars, writers, charities and other businesses to create limited bottlings both brand new and complimenting existing brands.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_eGB9Me": {
+          "type": "button",
+          "settings": {
+            "button_label": "Lets Collaborate",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_mW4XLB",
+        "text_qRtFqN",
+        "button_eGB9Me"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main_landing",
     "main_reviews",
     "featured_collection_93jqNG",
-    "collection_list_UEFTTm"
+    "collection_list_UEFTTm",
+    "image_with_text_JiiFdh",
+    "image_with_text_GbHBPk"
   ]
 }
