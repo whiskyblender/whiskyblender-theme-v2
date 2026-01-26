@@ -25,6 +25,66 @@
     },
     "main_reviews": {
       "type": "reviews",
+      "blocks": {
+        "review_TmNqCt": {
+          "type": "review",
+          "settings": {
+            "review_text": "Great service, speedy delivery...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_XX6RQB": {
+          "type": "review",
+          "settings": {
+            "review_text": "Everything about this company is just perfection...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_LyKJkW": {
+          "type": "review",
+          "settings": {
+            "review_text": "The taste and quality is absolutely excellent...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_yp9cRT": {
+          "type": "review",
+          "settings": {
+            "review_text": "My Dad absolutely loved his bottle...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_WLb79y": {
+          "type": "review",
+          "settings": {
+            "review_text": "I will definitely be ordering again and after tasting my own bottle...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_Pnpgzc": {
+          "type": "review",
+          "settings": {
+            "review_text": "They are worth more than 5stars...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_UcPmCh": {
+          "type": "review",
+          "settings": {
+            "review_text": "Brilliant idea getting to blend your own...",
+            "stars_image": "wb-stars.gif"
+          }
+        }
+      },
+      "block_order": [
+        "review_TmNqCt",
+        "review_XX6RQB",
+        "review_LyKJkW",
+        "review_yp9cRT",
+        "review_WLb79y",
+        "review_Pnpgzc",
+        "review_UcPmCh"
+      ],
       "name": "Reviews",
       "settings": {}
     },
