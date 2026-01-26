@@ -16,11 +16,10 @@
           "type": "title",
           "settings": {}
         },
-        "caption": {
-          "type": "text",
+        "custom_liquid_CkEHL6": {
+          "type": "custom_liquid",
           "settings": {
-            "text": "{{ product.metafields.custom.abv.value }}{{ product.vendor }}",
-            "text_style": "subtitle"
+            "custom_liquid": "{{product.type}} {{product.metafields.custom.abv.value }}"
           }
         },
         "price": {
@@ -49,6 +48,12 @@
           "type": "description",
           "settings": {}
         },
+        "custom_liquid_WrYHUm": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- assign filtered_collections = '' -%}\n{%- for collection in product.collections -%}\n  {%- unless collection.handle == 'promoted' -%}\n    {%- if filtered_collections != '' -%}\n      {%- assign filtered_collections = filtered_collections | append: ', ' -%}\n    {%- endif -%}\n    {%- assign filtered_collections = filtered_collections | append: collection.title -%}\n  {%- endunless -%}\n{%- endfor -%}\n{%- if filtered_collections != '' -%}\n  Part of the {{ filtered_collections }} collection\n{%- endif -%}"
+          }
+        },
         "text_e43bPi": {
           "type": "text",
           "settings": {
@@ -74,12 +79,13 @@
       },
       "block_order": [
         "title",
-        "caption",
+        "custom_liquid_CkEHL6",
         "price",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
         "description",
+        "custom_liquid_WrYHUm",
         "text_e43bPi",
         "collapsible-row-2",
         "share"
