@@ -1,9 +1,9 @@
 <section>
   <div class="wb-container">
-    <div class="wb-videobg" style="background-image: url({{"wb-index.jpg" | asset_url }})">
+    <div class="wb-videobg" style="background-image: url({{ section.settings.background_image | asset_url }})">
       <div class="wb-videograin"></div>
       <video autoplay muted loop id="wb-video">
-        <source src="{{ 'wb-index.mp4' | asset_url }}" type="video/mp4">
+        <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
       </video>
     </div>
     <div class="wb-overvideo">
@@ -27,6 +27,20 @@
 {
   "name": "Landing Hero",
   "settings": [
+    {
+      "type": "text",
+      "id": "video_file",
+      "label": "Video filename",
+      "default": "wb-whisky-bow.mp4",
+      "info": "Upload video to assets folder and enter filename here"
+    },
+    {
+      "type": "text",
+      "id": "background_image",
+      "label": "Background image filename",
+      "default": "wb-whisky-bow.jpg",
+      "info": "Fallback image shown while video loads"
+    },
     {
       "type": "text",
       "id": "title",
