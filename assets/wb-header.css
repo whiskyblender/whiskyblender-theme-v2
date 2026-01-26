@@ -206,7 +206,7 @@ ul.wb-navicons li a img {
 }
 
 .wb-announcement-bar {
-    color: #ffffff;
+  color: #ffffff !important;
 }
 
 @media screen and (min-width: 375px) {
