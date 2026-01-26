@@ -1,0 +1,71 @@
+{{ 'glide.js' | asset_url | script_tag }}
+{{ 'glide.core.css' | asset_url | stylesheet_tag }}
+{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
+
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <div class="glide wb-gifts">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides wb-giftphotos">
+            {%- for block in section.blocks -%}
+              <li class="glide__slide wb-giftphoto" {{ block.shopify_attributes }}>
+                <img
+                  src="{{ block.settings.reel_image | asset_url }}"
+                  alt="Gift photo"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                >
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% javascript %}
+  new Glide('.wb-gifts', {
+    type: 'carousel',
+    gap: 40,
+    perView: 5,
+    autoplay: 1,
+    animationDuration: 5000,
+    animationTimingFunc: 'linear',
+    hoverpause: true,
+    breakpoints: {
+      600: {
+        perView: 3,
+        gap: 20,
+      },
+      768: {
+        perView: 4,
+        gap: 30,
+      },
+    },
+  }).mount();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Image Reel",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "image_reel",
+      "name": "Image Reel",
+      "settings": [
+        {
+          "type": "text",
+          "id": "reel_image",
+          "label": "Reel image filename",
+          "default": "wb-stars.gif",
+          "info": "Upload image to assets folder and enter filename here"
+        }
+      ]
+    }
+  ],
+  "presets": []
+}
+{% endschema %}
