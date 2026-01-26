@@ -31,6 +31,7 @@
 
 .wb-giftphoto img {
     width: 100%;
+    height: auto;
     border-radius: 50%;
     transition: all 0.4s;
     transform: scale(0.8) rotate(10deg);
@@ -38,6 +39,7 @@
 
 .wb-collabphoto img {
     width: 100%;
+    height: auto;
     border-radius: 6px;
     transition: all 0.4s;
     transform: scale(0.8) rotate(10deg);
