@@ -1343,7 +1343,7 @@ a.product__text {
 
   .product-media-container.constrain-height {
     --viewport-offset: 170px;
-    --constrained-min-height: 500px;
+    --constrained-min-height: 560px;
   }
 
   .product-media-container.media-fit-cover,
