@@ -13,6 +13,10 @@
       "type": "main-landing",
       "name": "Landing Hero",
       "settings": {
+        "video_file": "wb-index.mp4",
+        "background_image": "wb-indexjpg",
+        "title": "Great Scotch!",
+        "description": "When you're looking for that bottle of whisky nobody else has.",
         "primary_button_text": "Create something",
         "primary_button_url": "",
         "secondary_button_text": "Get a voucher",
