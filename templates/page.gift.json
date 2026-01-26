@@ -11,13 +11,119 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "main_landing_UjYUKH": {
+      "type": "main-landing",
+      "name": "Landing Hero",
+      "settings": {
+        "primary_button_text": "Create Something",
+        "primary_button_url": "",
+        "secondary_button_text": "",
+        "secondary_button_url": ""
+      }
+    },
+    "collection_list_3XXz4y": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_djRtBa": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gift-credit"
+          }
+        },
+        "featured_collection_y3NBGt": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "oor-bottlings"
+          }
+        },
+        "featured_collection_LTqXgw": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gift-credit"
+          }
+        },
+        "featured_collection_zRWJrp": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "gift-credit"
+          }
+        },
+        "featured_collection_mzabye": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "oor-bottlings"
+          }
+        },
+        "featured_collection_tVR6yU": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "oor-bottlings"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_djRtBa",
+        "featured_collection_y3NBGt",
+        "featured_collection_LTqXgw",
+        "featured_collection_zRWJrp",
+        "featured_collection_mzabye",
+        "featured_collection_tVR6yU"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "For special Occasions",
+        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way.",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_cD7jc4": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "oor-bottlings",
+        "products_to_show": 4,
+        "title": "Exclusive bottles",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": true,
+        "full_width": true,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "main_landing_UjYUKH",
+    "collection_list_3XXz4y",
+    "featured_collection_cD7jc4"
   ]
 }
