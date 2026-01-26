@@ -8,48 +8,15 @@
       <div class="glide wb-testimonials">
         <div class="glide__track" data-glide-el="track">
           <ul class="glide__slides wb-reviews">
-            <li
-              class="glide__slide wb-review"
-              style="background-image: url({{"wb-stars.gif" | asset_url }})"
-            >
-              They are worth more than 5stars...
-            </li>
-            <li
-              class="glide__slide wb-review"
-              style="background-image: url({{"wb-stars.gif" | asset_url }})"
-            >
-              Brilliant idea getting to blend your own...
-            </li>
-            <li
-              class="glide__slide wb-review"
-              style="background-image: url({{"wb-stars.gif" | asset_url }})"
-            >
-              I will definitely be ordering again and after tasting my own bottle...
-            </li>
-            <li
-              class="glide__slide wb-review"
-              style="background-image: url({{"wb-stars.gif" | asset_url }})"
-            >
-              My Dad absolutely loved his bottle...
-            </li>
-            <li
-              class="glide__slide wb-review"
-              style="background-image: url({{"wb-stars.gif" | asset_url }})"
-            >
-              The taste and quality is absolutely excellent...
-            </li>
-            <li
-              class="glide__slide wb-review"
-              style="background-image: url({{"wb-stars.gif" | asset_url }})"
-            >
-              Everything about this company is just perfection...
-            </li>
-            <li
-              class="glide__slide wb-review"
-              style="background-image: url({{"wb-stars.gif" | asset_url }})"
-            >
-              Great service, speedy delivery...
-            </li>
+            {%- for block in section.blocks -%}
+              <li
+                class="glide__slide wb-review"
+                style="background-image: url({{ block.settings.stars_image | asset_url }})"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.review_text }}
+              </li>
+            {%- endfor -%}
           </ul>
         </div>
       </div>
@@ -82,9 +49,81 @@
 {
   "name": "Reviews",
   "settings": [],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "Great service and amazing product!"
+        },
+        {
+          "type": "text",
+          "id": "stars_image",
+          "label": "Stars image filename",
+          "default": "wb-stars.gif",
+          "info": "Upload image to assets folder and enter filename here"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Reviews"
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "They are worth more than 5stars...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Brilliant idea getting to blend your own...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "I will definitely be ordering again and after tasting my own bottle...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "My Dad absolutely loved his bottle...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "The taste and quality is absolutely excellent...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Everything about this company is just perfection...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Great service, speedy delivery...",
+            "stars_image": "wb-stars.gif"
+          }
+        }
+      ]
     }
   ]
 }
