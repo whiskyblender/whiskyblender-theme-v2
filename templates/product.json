@@ -19,7 +19,7 @@
         "custom_liquid_CkEHL6": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<ul class=\"wb-meta-deetz\">\n<li>{{product.type}} </li>\n    {%- for option in product.options_with_values -%}\n      {%- if option.name == 'Size' -%}\n        {%- for value in option.values -%}\n          {{ value }}{% unless forloop.last %}/ {% endunless %}\n        {%- endfor -%}\n      {%- endif -%}\n    {%- endfor -%}\n\n<li>{{product.metafields.custom.abv.value }} abv.</li>                                          </ul>"
+            "custom_liquid": "<ul class=\"wb-meta-deetz\">\n<li>{{product.type}} </li>\n    {%- for option in product.options_with_values -%}\n      {%- if option.name == 'Size' -%}\n        {%- for value in option.values -%}\n          {{ value }}{% unless forloop.last %}/ {% endunless %}\n        {%- endfor -%}\n      {%- endif -%}\n    {%- endfor -%}\n\n{%- if product.metafields.custom.abv.value -%}\n  <li>{{ product.metafields.custom.abv.value }} abv.</li>\n{%- endif -%}                                        </ul>"
           }
         },
         "price": {
@@ -54,13 +54,6 @@
             "custom_liquid": "<p class=\"wb-collection-ref\">\n{%- assign filtered_count = 0 -%}\n{%- for collection in product.collections -%}\n  {%- unless collection.handle == 'promoted' -%}\n    {%- assign filtered_count = filtered_count | plus: 1 -%}\n  {%- endunless -%}\n{%- endfor -%}\n\n{%- if filtered_count > 0 -%}\n  Part of the &nbsp;\n  {%- assign output_count = 0 -%}\n  {%- for collection in product.collections -%}\n    {%- unless collection.handle == 'promoted' -%}\n      {%- assign output_count = output_count | plus: 1 -%}\n      <a href=\"{{ collection.url }}\">{{ collection.title }}</a>\n      {%- if output_count < filtered_count -%}, {% endif -%}\n    {%- endunless -%}\n  {%- endfor -%}\n  &nbsp;collection{% if filtered_count > 1 %}s{% endif %}\n{%- endif -%}\n</p>"
           }
         },
-        "text_e43bPi": {
-          "type": "text",
-          "settings": {
-            "text": "Part of the collection",
-            "text_style": "body"
-          }
-        },
         "collapsible-row-2": {
           "type": "collapsible_tab",
           "settings": {
@@ -86,7 +79,6 @@
         "buy_buttons",
         "description",
         "custom_liquid_WrYHUm",
-        "text_e43bPi",
         "collapsible-row-2",
         "share"
       ],
