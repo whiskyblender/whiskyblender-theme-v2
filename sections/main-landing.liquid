@@ -8,8 +8,8 @@
     </div>
     <div class="wb-overvideo">
       <div class="wb-padding">
-        <h1 class="wb-large-heading">Great Scotch!</h1>
-        <p>When you're looking for that bottle of whisky nobody else has.</p>
+        <h1 class="wb-large-heading">{{ section.settings.title }}</h1>
+        <p>{{ section.settings.description }}</p>
         <div class="wb-buttons">
           <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">
             {{- section.settings.primary_button_text -}}
@@ -27,6 +27,18 @@
 {
   "name": "Landing Hero",
   "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title text",
+      "default": "Create something"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description text",
+      "default": "When you're looking for that bottle of whisky nobody else has."
+    },
     {
       "type": "text",
       "id": "primary_button_text",
