@@ -19,7 +19,7 @@
         "custom_liquid_CkEHL6": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{{product.type}} {{product.metafields.custom.abv.value }}"
+            "custom_liquid": "<ul class=\"wb-meta-deetz\">\n<li>{{product.type}} </li>\n    {%- for option in product.options_with_values -%}\n      {%- if option.name == 'Size' -%}\n        {%- for value in option.values -%}\n          {{ value }}{% unless forloop.last %}/ {% endunless %}\n        {%- endfor -%}\n      {%- endif -%}\n    {%- endfor -%}\n\n<li>{{product.metafields.custom.abv.value }} abv.</li>                                          </ul>"
           }
         },
         "price": {
@@ -51,7 +51,7 @@
         "custom_liquid_WrYHUm": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "{%- assign filtered_collections = '' -%}\n{%- for collection in product.collections -%}\n  {%- unless collection.handle == 'promoted' -%}\n    {%- if filtered_collections != '' -%}\n      {%- assign filtered_collections = filtered_collections | append: ', ' -%}\n    {%- endif -%}\n    {%- assign filtered_collections = filtered_collections | append: collection.title -%}\n  {%- endunless -%}\n{%- endfor -%}\n{%- if filtered_collections != '' -%}\n  Part of the {{ filtered_collections }} collection\n{%- endif -%}"
+            "custom_liquid": "<p class=\"wb-collection-ref\">\n{%- assign filtered_count = 0 -%}\n{%- for collection in product.collections -%}\n  {%- unless collection.handle == 'promoted' -%}\n    {%- assign filtered_count = filtered_count | plus: 1 -%}\n  {%- endunless -%}\n{%- endfor -%}\n\n{%- if filtered_count > 0 -%}\n  Part of the &nbsp;\n  {%- assign output_count = 0 -%}\n  {%- for collection in product.collections -%}\n    {%- unless collection.handle == 'promoted' -%}\n      {%- assign output_count = output_count | plus: 1 -%}\n      <a href=\"{{ collection.url }}\">{{ collection.title }}</a>\n      {%- if output_count < filtered_count -%}, {% endif -%}\n    {%- endunless -%}\n  {%- endfor -%}\n  &nbsp;collection{% if filtered_count > 1 %}s{% endif %}\n{%- endif -%}\n</p>"
           }
         },
         "text_e43bPi": {
