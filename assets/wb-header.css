@@ -189,6 +189,7 @@ ul.wb-navicons li a img {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 !important;
 }
 
 .wb-banner-button-prev img {
