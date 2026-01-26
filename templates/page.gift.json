@@ -21,6 +21,8 @@
       "type": "main-landing",
       "name": "Landing Hero",
       "settings": {
+        "title": "Give the gift of whisky",
+        "description": "That's certaintly the kind of gifts that we like to get from people.",
         "primary_button_text": "Create Something",
         "primary_button_url": "",
         "secondary_button_text": "",
