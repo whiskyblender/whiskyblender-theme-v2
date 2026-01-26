@@ -31,6 +31,71 @@
         "secondary_button_url": ""
       }
     },
+    "image_reel_gE8Wiz": {
+      "type": "image_reel",
+      "blocks": {
+        "image_reel_ebjc63": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "08_dad.jpg"
+          }
+        },
+        "image_reel_e3Y9nj": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "07_rhino.jpg"
+          }
+        },
+        "image_reel_tq3hnr": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "06_orson.jpg"
+          }
+        },
+        "image_reel_BQkTcV": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "05_bollocks.jpg"
+          }
+        },
+        "image_reel_mnAzA9": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "04_burt.jpg"
+          }
+        },
+        "image_reel_DFtcre": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "03_lockstock.jpg"
+          }
+        },
+        "image_reel_HkkHwk": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "02_nox.jpg"
+          }
+        },
+        "image_reel_yRQq7J": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "01_joker.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_reel_ebjc63",
+        "image_reel_e3Y9nj",
+        "image_reel_tq3hnr",
+        "image_reel_BQkTcV",
+        "image_reel_mnAzA9",
+        "image_reel_DFtcre",
+        "image_reel_HkkHwk",
+        "image_reel_yRQq7J"
+      ],
+      "name": "Image Reel",
+      "settings": {}
+    },
     "collection_list_3XXz4y": {
       "type": "collection-list",
       "blocks": {
@@ -122,78 +187,13 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "image_reel_gE8Wiz": {
-      "type": "image_reel",
-      "blocks": {
-        "image_reel_ebjc63": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "08_dad.jpg"
-          }
-        },
-        "image_reel_e3Y9nj": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "07_rhino.jpg"
-          }
-        },
-        "image_reel_tq3hnr": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "06_orson.jpg"
-          }
-        },
-        "image_reel_BQkTcV": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "05_bollocks.jpg"
-          }
-        },
-        "image_reel_mnAzA9": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "04_burt.jpg"
-          }
-        },
-        "image_reel_DFtcre": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "03_lockstock.jpg"
-          }
-        },
-        "image_reel_HkkHwk": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "02_nox.jpg"
-          }
-        },
-        "image_reel_yRQq7J": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "01_joker.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "image_reel_ebjc63",
-        "image_reel_e3Y9nj",
-        "image_reel_tq3hnr",
-        "image_reel_BQkTcV",
-        "image_reel_mnAzA9",
-        "image_reel_DFtcre",
-        "image_reel_HkkHwk",
-        "image_reel_yRQq7J"
-      ],
-      "name": "Image Reel",
-      "settings": {}
     }
   },
   "order": [
     "main",
     "main_landing_UjYUKH",
+    "image_reel_gE8Wiz",
     "collection_list_3XXz4y",
-    "featured_collection_cD7jc4",
-    "image_reel_gE8Wiz"
+    "featured_collection_cD7jc4"
   ]
 }
