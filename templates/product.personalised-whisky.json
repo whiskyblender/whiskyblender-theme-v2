@@ -36,7 +36,7 @@
         "custom_liquid_hyNJqP": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<label for=\"label-text\">Label text</label>\n<input\n  form=\"product-form-{{ section.id }}\"\n  type=\"text\"\n  id=\"label-text\"\n  name=\"properties[Label text]\"\n  placeholder=\"Your text here\"\n  value=\"\" />"
+            "custom_liquid": "<div class=\"wb-bottle-form\">\n<label for=\"label-text\">Label text</label>\n<input\n  form=\"product-form-{{ section.id }}\"\n  type=\"text\"\n  id=\"label-text\"\n  name=\"properties[Label text]\"\n  placeholder=\"Your text here\"\n  value=\"\" />\n</div>"
           }
         },
         "quantity_selector": {
@@ -124,5 +124,8 @@
       }
     }
   },
-  "order": ["main", "related-products"]
+  "order": [
+    "main",
+    "related-products"
+  ]
 }
