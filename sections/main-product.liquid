@@ -73,15 +73,15 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-      <div class="grid__item product__media-wrapper">
+  <div class="wb-page-width page-width">
+    <div class="wb-product-grid product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
+      <div class="wb-product-media grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
-      <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="wb-productinfo product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
           id="ProductInfo-{{ section.id }}"
-          class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
+          class="wb-column-sticky product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
@@ -98,7 +98,7 @@
                 </p>
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
-                  <h1>{{ product.title | escape }}</h1>
+                  <h1 class="wb-producttitle wb-medium-heading">{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
                     <h2 class="h1">
                       {{ product.title | escape }}
@@ -283,9 +283,13 @@
                       >
                     </span>
                   </label>
-                  <div class="price-per-item__container">
-                    <quantity-input class="quantity" data-url="{{ product.url }}" data-section="{{ section.id }}">
-                      <button class="quantity__button" name="minus" type="button">
+                  <div class="wb-price-per-item price-per-item__container">
+                    <quantity-input
+                      class="wb-quantity quantity"
+                      data-url="{{ product.url }}"
+                      data-section="{{ section.id }}"
+                    >
+                      <button class="wb-quantity-button quantity__button" name="minus" type="button">
                         <span class="visually-hidden">
                           {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
                         </span>
@@ -294,7 +298,7 @@
                         </span>
                       </button>
                       <input
-                        class="quantity__input"
+                        class="wb-quantity-input quantity__input"
                         type="number"
                         name="quantity"
                         id="Quantity-{{ section.id }}"
@@ -309,7 +313,7 @@
                         value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
                         form="{{ product_form_id }}"
                       >
-                      <button class="quantity__button" name="plus" type="button">
+                      <button class="wb-quantity-button quantity__button" name="plus" type="button">
                         <span class="visually-hidden">
                           {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
                         </span>
