@@ -15,9 +15,149 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "multicolumn_TJV4Pb": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_CqAYVG": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/wb-flat-500ml.jpg",
+            "title": "Flat - 500ml",
+            "text": "<p>A clean, modern 500ml bottle with a straight-edged, lab-style shape. Clear glass keeps the focus on your whisky and makes personalisation crisp and easy.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_mgyCMx": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/wb-round-500ml.jpg",
+            "title": "Round - 500ml",
+            "text": "<p>A compact, sturdy round bottle with a friendly, standout shape. Easy to handle and great for personalised labels with a softer look.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_gj9aqU": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/wb-roundblack-500ml.jpg",
+            "title": "Round (black) - 500ml",
+            "text": "<p>A bold, opaque take on our round bottle. Sleek and solid, it gives personalised labels a striking contrast and a more premium, modern feel.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_jFwdjc": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/wb-flat-200ml.jpg",
+            "title": "Flat - 200ml",
+            "text": "<p>A compact version of our signature design. Clear, minimalist, and easy to carry—perfect for samplers, gifting, or smaller personalised runs. And it fits in your pocket nicely too btw.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_GgXrTj": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/wb-flat-50ml.jpg",
+            "title": "Flat - 50ml",
+            "text": "<p>A small, clean-lined miniature that mirrors our signature look. Ideal for tasters, favours, or limited-edition personalised samples. Sold in larger quantities.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_83Hb4T": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/wb-standard-700ml.jpg",
+            "title": "Standard - 700ml",
+            "text": "<p>A tall, clear glass bottle with a traditional whisky shape. Timeless, elegant, and perfect for showcasing your personalised labels.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_CqAYVG",
+        "column_mgyCMx",
+        "column_gj9aqU",
+        "column_jFwdjc",
+        "column_GgXrTj",
+        "column_83Hb4T"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "",
+        "heading_size": "h2",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_Ab66Dd": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_dfBPGC": {
+          "type": "heading",
+          "settings": {
+            "heading": "You need to fill them first!",
+            "heading_size": "h1"
+          }
+        },
+        "text_YkbWeb": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way. So take a look at the different ways you can create something you can enjoy, share and show off.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_9iCtAq": {
+          "type": "button",
+          "settings": {
+            "button_label": "Create something",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_dfBPGC",
+        "text_YkbWeb",
+        "button_9iCtAq"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/wb-foryersel.png",
+        "height": "small",
+        "desktop_image_width": "small",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "multicolumn_TJV4Pb",
+    "image_with_text_Ab66Dd"
   ]
 }
