@@ -44,7 +44,15 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="wb-bottle-form js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+          <legend class="form__label">
+            {{ option.name }}
+            {%- if option.name == 'Bottle' -%}
+              <a href="bottles.html" class="wb-labellink">Learn more</a>
+            {%- endif %}
+            {%- if option.name == 'Whisky' -%}
+              <a href="singlemalts.html" class="wb-labellink">Learn more</a>
+            {%- endif %}
+          </legend>
           <span class="wb-radio">
             {% render 'product-variant-options',
               product: product,
