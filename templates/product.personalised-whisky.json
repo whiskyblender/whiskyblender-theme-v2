@@ -43,6 +43,12 @@
           "type": "quantity_selector",
           "settings": {}
         },
+        "custom_liquid_jQT3Qm": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"wb-note\">\n                                                    <i class=\"wb-lightbulb\"\n                                                        ><img src=\"wb-lightbulb-black.svg\" alt=\"\"\n                                                    /></i>\n                                                    Are you a business looking for more than a few bottles?\n                                                    <a href=\"collaborate.html#wb-getintouch\">Let's collaborate</a> on\n                                                    something even more bespoke.\n                                                </div>\n                                                <div class=\"wb-buttons\">\n                                                    <button class=\"wb-button\" type=\"submit\" name=\"add\">\n                                                        Add to basket\n                                                    </button>\n                                                    <button\n                                                        class=\"wb-button wb-primary-button\"\n                                                        type=\"submit\"\n                                                        name=\"buy\">\n                                                        Buy it now\n                                                    </button>\n                                                </div>"
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -83,6 +89,7 @@
         "variant_picker",
         "custom_liquid_hyNJqP",
         "quantity_selector",
+        "custom_liquid_jQT3Qm",
         "buy_buttons",
         "description",
         "custom_liquid_WrYHUm",
