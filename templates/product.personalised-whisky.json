@@ -33,6 +33,12 @@
             "swatch_shape": "circle"
           }
         },
+        "custom_liquid_hyNJqP": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<label for=\"label-text\">Label text</label>\n                                                <input\n       form=\"product-form-{{ section.id }}\"                                             type=\"text\"\n                                                    id=\"label-text\"\n                                                    name=\"label-text\"\n                                                    placeholder=\"Your text here\"\n                                                    value=\"\" />\n                                                <!--<label for=\"label-theme\">Label</label>\n                                                <span class=\"wb-radio\">\n                                                    <input\n                                                        type=\"radio\"\n                                                        name=\"label-theme\"\n                                                        value=\"standard\"\n                                                        id=\"standard\"\n                                                        checked />\n                                                    <label for=\"standard\">Standard</label>\n                                                </span>"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -75,6 +81,7 @@
         "custom_liquid_CkEHL6",
         "price",
         "variant_picker",
+        "custom_liquid_hyNJqP",
         "quantity_selector",
         "buy_buttons",
         "description",
