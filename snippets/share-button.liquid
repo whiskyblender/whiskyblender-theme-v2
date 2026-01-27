@@ -13,13 +13,13 @@
 <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
 
 <share-button id="Share-{{ section.id }}" class="share-button quick-add-hidden" {{ block.shopify_attributes }}>
-  <button class="share-button__button hidden">
+  <button class="wb-share-button share-button__button hidden">
     <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
     {{ block.settings.share_label | escape }}
   </button>
   <details id="Details-{{ block.id }}-{{ section.id }}">
     <summary class="share-button__button">
-      <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+      <span class="svg-wrapper">{{ 'wb-share-black.svg' | inline_asset_content }}</span>
       {{ block.settings.share_label | escape }}
     </summary>
     <div class="share-button__fallback motion-reduce">
