@@ -211,7 +211,7 @@
                 {{ block.settings.custom_liquid }}
               {%- when 'collapsible_tab' -%}
                 {%- if block.settings.heading == 'Tasting Notes' -%}
-                  {%- if product.category == 'Whiskey' -%}
+                  {%- if product.category == 'Whiskey' and block.settings.content != empty -%}
                     <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                       <details id="Details-{{ block.id }}-{{ section.id }}">
                         <summary>
