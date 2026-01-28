@@ -22,19 +22,19 @@
         "column_CqAYVG": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/wb-flat-500ml.jpg",
-            "title": "Flat - 500ml",
-            "text": "<p>A clean, modern 500ml bottle with a straight-edged, lab-style shape. Clear glass keeps the focus on your whisky and makes personalisation crisp and easy.</p>",
+            "image": "shopify://shop_images/wb-aultmore2011barrel.png",
+            "title": "Aultmore 2011 Barrel",
+            "text": "<p>From a first-fill bourbon cask, this limited release reveals Aultmore’s orchard sweetness, silky vanilla, soft malt, and a hint of woodland spice. Unfiltered and bottled at 46%, it’s an elegant Speyside with depth and provenance.</p>",
             "link_label": "",
-            "link": ""
+            "link": "shopify://products/personalised-single-cask-whisky"
           }
         },
         "column_mgyCMx": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/wb-round-500ml.jpg",
-            "title": "Round - 500ml",
-            "text": "<p>A compact, sturdy round bottle with a friendly, standout shape. Easy to handle and great for personalised labels with a softer look.</p>",
+            "image": "shopify://shop_images/wb-teaninich2014barrel.png",
+            "title": "Teaninich 2014 Barrel",
+            "text": "<p>Single cask selected, this limited release reveals Teaninich’s bright Highland<br/>                                        profile of citrus zest, clean malt, and floral freshness with gentle vanilla and<br/>                                        soft oak. Unfiltered and bottled at 46%, it’s a refined expression of clarity<br/>                                        and authenticity.</p>",
             "link_label": "",
             "link": ""
           }
@@ -42,9 +42,9 @@
         "column_gj9aqU": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/wb-roundblack-500ml.jpg",
-            "title": "Round (black) - 500ml",
-            "text": "<p>A bold, opaque take on our round bottle. Sleek and solid, it gives personalised labels a striking contrast and a more premium, modern feel.</p>",
+            "image": "shopify://shop_images/wb-glenburgie2015hogshead.png",
+            "title": "Glenburgie 2015 Hogshead",
+            "text": "<p>Single hogshead selected, this limited release captures Glenburgie’s<br/>                                        orchard-fruit character, creamy barley, subtle vanilla, and fresh oak.<br/>                                        Unfiltered and bottled at 46%, it’s an elegant Speyside of balance and<br/>                                        provenance.</p>",
             "link_label": "",
             "link": ""
           }
@@ -52,9 +52,9 @@
         "column_jFwdjc": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/wb-flat-200ml.jpg",
-            "title": "Flat - 200ml",
-            "text": "<p>A compact version of our signature design. Clear, minimalist, and easy to carry—perfect for samplers, gifting, or smaller personalised runs. And it fits in your pocket nicely too btw.</p>",
+            "image": "shopify://shop_images/wb-craigellachie2013hogshead.png",
+            "title": "Craigellachie 2013 Hogshead",
+            "text": "<p>Single hogshead selected, this limited release reveals Craigellachie’s weighty<br/>                                        character of tropical fruit, firm malt, sulphury depth, and honeyed spice.<br/>                                        Unfiltered and bottled at 46%, it’s a bold Speyside with heritage.</p>",
             "link_label": "",
             "link": ""
           }
@@ -62,9 +62,9 @@
         "column_GgXrTj": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/wb-flat-50ml.jpg",
-            "title": "Flat - 50ml",
-            "text": "<p>A small, clean-lined miniature that mirrors our signature look. Ideal for tasters, favours, or limited-edition personalised samples. Sold in larger quantities.</p>",
+            "image": "shopify://shop_images/wb-macallan32.png",
+            "title": "Macallan 32 year old",
+            "text": "<p>Aged 32 years, this limited release showcases Macallan’s hallmark sherry<br/>                                        influence—rich dried fruit, polished oak, and warming spice with a thread of<br/>                                        citrus. Unfiltered, it’s a stately Speyside of depth and refinement.</p>",
             "link_label": "",
             "link": ""
           }
@@ -72,9 +72,9 @@
         "column_83Hb4T": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/wb-standard-700ml.jpg",
-            "title": "Standard - 700ml",
-            "text": "<p>A tall, clear glass bottle with a traditional whisky shape. Timeless, elegant, and perfect for showcasing your personalised labels.</p>",
+            "image": "shopify://shop_images/wb-highlandpark32.png",
+            "title": "Highland Park 32 year old",
+            "text": "<p>Matured for 32 years, this limited release reveals Highland Park’s signature<br/>                                        harmony of heathered peat, honeyed malt, dried fruit, and gentle coastal spice.<br/>                                        Unfiltered, it’s a dignified Island whisky of depth, balance, and time-earned<br/>                                        complexity.</p>",
             "link_label": "",
             "link": ""
           }
