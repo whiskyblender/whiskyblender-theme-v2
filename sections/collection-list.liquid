@@ -23,7 +23,7 @@
     assign show_mobile_slider = true
   endif
 -%}
-<div class="wb-banded">
+<section class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding collection-list-wrapper isolate{% if show_mobile_slider %} page-width-desktop{% endif %}{% if section.settings.title == blank %} no-heading{% endif %}{% if section.settings.show_view_all == false or section.blocks.size > collections.size %} no-mobile-link{% endif %} section-{{ section.id }}-padding">
       {%- unless section.settings.title == blank -%}
@@ -136,7 +136,7 @@
       {%- endif -%}
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
