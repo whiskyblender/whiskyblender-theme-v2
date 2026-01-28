@@ -21,7 +21,7 @@
 {%- endstyle -%}
 <section class="wb-banded">
   <div class="wb-container">
-<div class="wb-padding color-{{ section.settings.color_scheme }} gradient">
+<div class="wb-padding">
   <product-recommendations
     class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
