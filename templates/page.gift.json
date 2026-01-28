@@ -149,7 +149,7 @@
         "title": "For special Occasions",
         "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way.",
         "heading_size": "h1",
-        "image_ratio": "square",
+        "image_ratio": "adapt",
         "columns_desktop": 3,
         "color_scheme": "",
         "show_view_all": false,
