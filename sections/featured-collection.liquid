@@ -65,11 +65,10 @@
 -%}
 <section class="wb-banded">
   <div
-    class="wb-container"
-  ><div
-      class="wb-padding">
+    class="wb-container wb-first-item color-{{ section.settings.color_scheme }}"
+  >
     <div
-      class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
+      class="wb-padding collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
       id="collection-{{ section.id }}"
       data-id="{{ section.id }}"
     >
@@ -214,7 +213,6 @@
       {%- endif -%}
     </div>
   </div>
-</div>
 </section>
 {% schema %}
 {
