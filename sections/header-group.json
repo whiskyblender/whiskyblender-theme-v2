@@ -17,14 +17,14 @@
         "announcement_KpKexp": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store x2",
+            "text": "We close for Christmas 20 December ❄️ Place orders before then or they'll be sent out in the New Year 🎁",
             "link": ""
           }
         },
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "Purchase multiple bottles to save on shipping  🚢",
             "link": ""
           }
         }
