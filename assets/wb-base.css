@@ -72,10 +72,6 @@ ul {
   margin: 0 auto;
 }
 
-section.wb-banded {
-  background-color: #efefef;
-}
-
 section.wb-banded:nth-of-type(even) {
   background-color: #efefef;
 }
