@@ -1,3 +1,4 @@
 .page-width-desktop, .page-width, .slider-component.page-width {
     padding: 0!important;
+    max-width: 1200px;
 }
