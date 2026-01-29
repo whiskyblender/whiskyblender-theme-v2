@@ -16,3 +16,7 @@
     padding: 10px 20px;
 }
 
+.card--standard>.card__content.wb-productcontent a {
+    text-decoration: none!important;
+}
+
