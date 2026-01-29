@@ -24,7 +24,7 @@
     font-size: 12px;
 }
 
-.card--standard>.card__content {
+.card:not(.ratio)>.card__content {
     padding: 10px 0;
 }
 
