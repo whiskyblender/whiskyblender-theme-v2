@@ -27,7 +27,7 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<div class=\"wb-padding wb-collection-copy\">\n<div>\n                            <p>\n                                The best man, father of the bride, heck, even the bride herself, weddings are full of\n                                folk deserving of a great dram! We have some great gift ideas, from custom-labelled\n                                miniatures to a unique blend of the happy couples very own Scotch.\n                            </p>\n                        </div></div>",
+        "custom_liquid": "<div class=\"wb-container wb-padding wb-collection-copy\">\n<div>\n                            <p>\n                                The best man, father of the bride, heck, even the bride herself, weddings are full of\n                                folk deserving of a great dram! We have some great gift ideas, from custom-labelled\n                                miniatures to a unique blend of the happy couples very own Scotch.\n                            </p>\n                        </div></div>",
         "color_scheme": "",
         "padding_top": 40,
         "padding_bottom": 52
