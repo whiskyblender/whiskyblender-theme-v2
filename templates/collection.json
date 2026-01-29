@@ -29,7 +29,7 @@
         "text_UMLU3h": {
           "type": "text",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+            "text": "<p>The best man, father of the bride, heck, even the bride herself, weddings are full of folk deserving of a great dram! We have some great gift ideas, from custom-labelled miniatures to a unique blend of the happy couples very own Scotch.<br/>                            </p>"
           }
         }
       },
@@ -42,7 +42,7 @@
         "content_alignment": "left",
         "color_scheme": "",
         "full_width": true,
-        "padding_top": 40,
+        "padding_top": 0,
         "padding_bottom": 52
       }
     },
