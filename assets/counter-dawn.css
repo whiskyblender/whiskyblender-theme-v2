@@ -23,3 +23,15 @@
 .wb-productdetails {
     font-size: 12px;
 }
+
+.wb-card-details {
+    padding: 12px 18px;
+}
+
+@media screen and (min-width: 1024px) {
+
+    .wb-card-details {
+        padding: 18px 28px;
+    }
+
+}
