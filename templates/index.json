@@ -129,31 +129,31 @@
         "featured_collection_wwnd6j": {
           "type": "featured_collection",
           "settings": {
-            "collection": "weddings"
+            "collection": "weddings-copy"
           }
         },
         "featured_collection_8hJH6D": {
           "type": "featured_collection",
           "settings": {
-            "collection": "weddings"
+            "collection": "birthdays-copy"
           }
         },
         "featured_collection_YbPyNh": {
           "type": "featured_collection",
           "settings": {
-            "collection": "weddings"
+            "collection": "birthdays-copy-1"
           }
         },
         "featured_collection_DgHhcb": {
           "type": "featured_collection",
           "settings": {
-            "collection": "weddings"
+            "collection": "christmas-copy"
           }
         },
         "featured_collection_4M9r4b": {
           "type": "featured_collection",
           "settings": {
-            "collection": "weddings"
+            "collection": "thankyous-copy"
           }
         }
       },
