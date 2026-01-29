@@ -1,25 +1,34 @@
 <section class="wb-overflow-hidden-x">
   <div class="wb-container">
-    <div class="wb-videobg" style="background-image: url({{ section.settings.background_image | asset_url }})">
-      <div class="wb-videograin"></div>
-      <video autoplay muted loop id="wb-video">
-        <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
-      </video>
-    </div>
-    <div class="wb-overvideo">
-      <div class="wb-padding">
-        <h1 class="wb-large-heading">{{ section.settings.title }}</h1>
-        <p>{{ section.settings.description }}</p>
-        <div class="wb-buttons">
-          <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">
-            {{- section.settings.primary_button_text -}}
-          </a>
-          <a href="{{ section.settings.secondary_button_url }}" class="wb-button">
-            {{- section.settings.secondary_button_text -}}
-          </a>
+    {%- if section.settings.video_file == empty -%}
+      <div class="wb-imagebg" style="background-image: url({{ section.settings.background_image | asset_url }})">
+        <div class="wb-padding">
+          <h1 class="wb-medium-heading">{{ section.settings.title }}</h1>
+          <p class="wb-collection-sub">{{ section.settings.description }}</p>
         </div>
       </div>
-    </div>
+    {%- else -%}
+      <div class="wb-videobg" style="background-image: url({{ section.settings.background_image | asset_url }})">
+        <div class="wb-videograin"></div>
+        <video autoplay muted loop id="wb-video">
+          <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
+        </video>
+      </div>
+      <div class="wb-overvideo">
+        <div class="wb-padding">
+          <h1 class="wb-large-heading">{{ section.settings.title }}</h1>
+          <p>{{ section.settings.description }}</p>
+          <div class="wb-buttons">
+            <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">
+              {{- section.settings.primary_button_text -}}
+            </a>
+            <a href="{{ section.settings.secondary_button_url }}" class="wb-button">
+              {{- section.settings.secondary_button_text -}}
+            </a>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
   </div>
 </section>
 
