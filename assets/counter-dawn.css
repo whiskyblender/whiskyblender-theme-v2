@@ -24,10 +24,6 @@
     font-size: 12px;
 }
 
-.card:not(.ratio)>.card__content {
-    padding: 10px 0;
-}
-
 .card--standard>.card__content .card__information.wb-card-details {
     padding: 12px 18px;
 }
