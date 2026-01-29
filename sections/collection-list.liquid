@@ -27,7 +27,7 @@
   <div class="wb-container">
     <div class="wb-padding collection-list-wrapper isolate{% if show_mobile_slider %} page-width-desktop{% endif %}{% if section.settings.title == blank %}  no-mobile-link{% endif %}">
       {%- unless section.settings.title == blank -%}
-        <div class="wb-medium-heading title-wrapper-with-link{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
+        <div class="wb-medium-heading">
           <h2
             id="SectionHeading-{{ section.id }}"
             class="wb-medium-heading collection-list-title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
