@@ -14,7 +14,7 @@
       "name": "Landing Hero",
       "settings": {
         "video_file": "",
-        "background_image": "weddings_full.png",
+        "background_image": "",
         "title": "{{ collection.title }}",
         "description": "Give the gift of whisky",
         "primary_button_text": "",
@@ -118,7 +118,11 @@
           }
         }
       },
-      "block_order": ["heading_3br9Ux", "text_bKFi6p", "button_QWM7By"],
+      "block_order": [
+        "heading_3br9Ux",
+        "text_bKFi6p",
+        "button_QWM7By"
+      ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/wb-unique.png",
