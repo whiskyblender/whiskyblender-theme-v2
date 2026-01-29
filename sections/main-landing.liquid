@@ -1,14 +1,21 @@
 <section class="wb-overflow-hidden-x">
   <div class="wb-container">
-    {%- if section.settings.video_file == empty -%}
-      <div class="wb-imagebg" style="background-image: url({{ section.settings.background_image | asset_url }})">
+    {%- liquid
+      if collection.image != blank
+        assign hero_image = collection.image | image_url: width: 1920
+      elsif section.settings.background_image != blank
+        assign hero_image = section.settings.background_image | asset_url
+      endif
+    -%}
+    {%- if section.settings.video_file == blank -%}
+      <div class="wb-imagebg" style="background-image: url({{ hero_image }})">
         <div class="wb-padding">
           <h1 class="wb-medium-heading">{{ section.settings.title }}</h1>
           <p class="wb-collection-sub">{{ section.settings.description }}</p>
         </div>
       </div>
     {%- else -%}
-      <div class="wb-videobg" style="background-image: url({{ section.settings.background_image | asset_url }})">
+      <div class="wb-videobg" style="background-image: url({{ hero_image }})">
         <div class="wb-videograin"></div>
         <video autoplay muted loop id="wb-video">
           <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
@@ -40,15 +47,14 @@
       "type": "text",
       "id": "video_file",
       "label": "Video filename",
-      "default": "wb-whisky-bow.mp4",
-      "info": "Upload video to assets folder and enter filename here"
+      "info": "Optional. Upload video to assets folder and enter filename here. Leave empty to show static image instead."
     },
     {
       "type": "text",
       "id": "background_image",
       "label": "Background image filename",
       "default": "wb-whisky-bow.jpg",
-      "info": "Fallback image shown while video loads"
+      "info": "Fallback image shown while video loads, or main image if no video is set"
     },
     {
       "type": "text",

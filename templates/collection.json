@@ -118,11 +118,7 @@
           }
         }
       },
-      "block_order": [
-        "heading_3br9Ux",
-        "text_bKFi6p",
-        "button_QWM7By"
-      ],
+      "block_order": ["heading_3br9Ux", "text_bKFi6p", "button_QWM7By"],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/wb-unique.png",
