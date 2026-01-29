@@ -15,7 +15,7 @@
       "settings": {
         "video_file": "",
         "background_image": "weddings_full.png",
-        "title": "weddings",
+        "title": "{{ collection.title }}",
         "description": "Give the gift of whisky",
         "primary_button_text": "",
         "primary_button_url": "",
@@ -27,7 +27,7 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<div class=\"wb-container wb-padding wb-collection-copy\">\n<div>\n                            <p>\n                                The best man, father of the bride, heck, even the bride herself, weddings are full of\n                                folk deserving of a great dram! We have some great gift ideas, from custom-labelled\n                                miniatures to a unique blend of the happy couples very own Scotch.\n                            </p>\n                        </div></div>",
+        "custom_liquid": "<div class=\"wb-container wb-padding wb-collection-copy\">\n<div><p>{{collection.description}}          </p>\n                        </div></div>",
         "color_scheme": "",
         "padding_top": 40,
         "padding_bottom": 52
