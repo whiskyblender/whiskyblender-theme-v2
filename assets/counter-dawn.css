@@ -7,3 +7,8 @@
 .wb-banded .wb-first-item {
     background-color: transparent;
 }
+
+.card-wrapper {
+    padding: 0;
+    height: auto;
+}
