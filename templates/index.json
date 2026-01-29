@@ -20,7 +20,7 @@
         "primary_button_text": "Create something",
         "primary_button_url": "",
         "secondary_button_text": "Get a voucher",
-        "secondary_button_url": ""
+        "secondary_button_url": "shopify://products/birthday"
       }
     },
     "main_reviews": {
