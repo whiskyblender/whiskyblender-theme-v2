@@ -23,26 +23,13 @@
         "secondary_button_url": ""
       }
     },
-    "rich_text_C7EG7T": {
-      "type": "rich-text",
-      "blocks": {
-        "text_UMLU3h": {
-          "type": "text",
-          "settings": {
-            "text": "<p>The best man, father of the bride, heck, even the bride herself, weddings are full of folk deserving of a great dram! We have some great gift ideas, from custom-labelled miniatures to a unique blend of the happy couples very own Scotch.<br/>                            </p>"
-          }
-        }
-      },
-      "block_order": [
-        "text_UMLU3h"
-      ],
-      "name": "t:sections.rich-text.presets.name",
+    "custom_liquid_PGKtki": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "left",
+        "custom_liquid": "<div class=\"wb-padding wb-collection-copy\">\n<div>\n                            <p>\n                                The best man, father of the bride, heck, even the bride herself, weddings are full of\n                                folk deserving of a great dram! We have some great gift ideas, from custom-labelled\n                                miniatures to a unique blend of the happy couples very own Scotch.\n                            </p>\n                        </div></div>",
         "color_scheme": "",
-        "full_width": true,
-        "padding_top": 0,
+        "padding_top": 40,
         "padding_bottom": 52
       }
     },
@@ -152,22 +139,11 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "custom_liquid_PGKtki": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<div>\n                            <p>\n                                The best man, father of the bride, heck, even the bride herself, weddings are full of\n                                folk deserving of a great dram! We have some great gift ideas, from custom-labelled\n                                miniatures to a unique blend of the happy couples very own Scotch.\n                            </p>\n                        </div>",
-        "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
     }
   },
   "order": [
     "main_landing_aMfVgW",
     "custom_liquid_PGKtki",
-    "rich_text_C7EG7T",
     "banner",
     "product-grid",
     "featured_collection_HRFpeB",
