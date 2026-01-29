@@ -8,10 +8,11 @@
     background-color: transparent;
 }
 
-.card-wrapper {
+.card-wrapper, .card--standard>.card__content.wb-productcontent .card__information {
     padding: 0;
 }
 
 .card--standard>.card__content.wb-productcontent {
     padding: 10px 20px 0;
 }
+
