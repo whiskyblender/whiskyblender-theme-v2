@@ -22,6 +22,7 @@ body {
   overflow-wrap: break-word;
   hyphens: manual;
   hyphenate-limit-chars: 10;
+  letter-spacing: 0 !important;
 }
 
 .wb-visually-hidden {
