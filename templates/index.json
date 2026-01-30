@@ -18,7 +18,7 @@
         "title": "Great Scotch!",
         "description": "When you're looking for that bottle of whisky nobody else has.",
         "primary_button_text": "Create something",
-        "primary_button_url": "",
+        "primary_button_url": "shopify://pages/blend",
         "secondary_button_text": "Get a voucher",
         "secondary_button_url": "shopify://products/birthday"
       }
@@ -201,7 +201,7 @@
           "type": "button",
           "settings": {
             "button_label": "Create Something",
-            "button_link": "",
+            "button_link": "shopify://pages/blend",
             "button_style_secondary": false
           }
         }
