@@ -44,6 +44,10 @@
     border: none;
 }
 
+.badge {
+    transform: rotate(-1deg);
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
