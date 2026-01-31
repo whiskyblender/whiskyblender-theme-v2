@@ -63,6 +63,10 @@
     opacity: 0.4!important;
 }
 
+h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5 {
+    letter-spacing: 0;
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
