@@ -127,7 +127,7 @@
       "settings": {
         "image": "shopify://shop_images/wb-unique.png",
         "height": "adapt",
-        "desktop_image_width": "small",
+        "desktop_image_width": "medium",
         "layout": "text_first",
         "image_behavior": "none",
         "content_layout": "no-overlap",
