@@ -45,7 +45,9 @@
 }
 
 .badge {
-    transform: rotate(-1deg);
+    transform: rotate(-8deg);
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 @media screen and (min-width: 1024px) {
