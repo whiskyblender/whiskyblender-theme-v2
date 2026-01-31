@@ -55,6 +55,10 @@
     margin: 4px;
 }
 
+.wb-productcell::has .price--sold-out {
+    opacity: 0.2;
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
