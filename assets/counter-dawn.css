@@ -86,6 +86,11 @@ a.wb-button.button.button--primary {
     padding: 0!important;
 }
 
+.wb-main-cards img {
+    height: 250% !important;
+    top: -50% !important;
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
