@@ -130,10 +130,10 @@ ul.wb-topnav li a:hover {
   color: #ffffff;
 }
 
-ul.wb-topnav li a.wb-active-page {
-  background-color: #ffffff;
-  color: #000000;
-}
+/*ul.wb-topnav li a.wb-active-page {
+    background-color: #ffffff;
+    color: #000000;
+}*/
 
 ul.wb-navicons {
   display: flex;
