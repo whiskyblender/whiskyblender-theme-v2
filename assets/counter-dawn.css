@@ -40,6 +40,10 @@
     height: auto;
 }
 
+.image-with-text__media {
+    border: none;
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
