@@ -88,7 +88,7 @@ a.wb-button.button.button--primary {
 
 .wb-main-cards img {
     height: 250% !important;
-    top: -50% !important;
+    top: -80% !important;
 }
 
 @media screen and (min-width: 1024px) {
