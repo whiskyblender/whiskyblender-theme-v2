@@ -15,7 +15,7 @@ body {
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
   font-size: 16px;
-  line-height: 160%;
+  line-height: 160% !important;
   color: #000000;
   margin: 0;
   padding: 0;
