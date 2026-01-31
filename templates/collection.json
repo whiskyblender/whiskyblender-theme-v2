@@ -98,22 +98,22 @@
         "heading_3br9Ux": {
           "type": "heading",
           "settings": {
-            "heading": "Create something unique",
+            "heading": "Your own brand",
             "heading_size": "h1"
           }
         },
         "text_bKFi6p": {
           "type": "text",
           "settings": {
-            "text": "<p>Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you’ll be proud to pour, share, and savor.</p>",
+            "text": "<p>We've worked with bars, writers, charities and other businesses to create limited bottlings both brand new and complimenting existing brands.</p>",
             "text_style": "body"
           }
         },
         "button_QWM7By": {
           "type": "button",
           "settings": {
-            "button_label": "Enter the lab",
-            "button_link": "",
+            "button_label": "Let's collaborate",
+            "button_link": "shopify://pages/contact",
             "button_style_secondary": false
           }
         }
