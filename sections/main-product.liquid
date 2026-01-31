@@ -294,11 +294,11 @@
                   </label>
                   <div class="wb-price-per-item price-per-item__container">
                     <quantity-input
-                      class="wb-quantity quantity"
+                      class="quantity"
                       data-url="{{ product.url }}"
                       data-section="{{ section.id }}"
                     >
-                      <button class="wb-quantity-button quantity__button" name="minus" type="button">
+                      <button class="quantity__button" name="minus" type="button">
                         <span class="visually-hidden">
                           {{- 'products.product.quantity.decrease' | t: product: product.title | escape -}}
                         </span>
@@ -322,7 +322,7 @@
                         value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
                         form="{{ product_form_id }}"
                       >
-                      <button class="wb-quantity-button quantity__button" name="plus" type="button">
+                      <button class="quantity__button" name="plus" type="button">
                         <span class="visually-hidden">
                           {{- 'products.product.quantity.increase' | t: product: product.title | escape -}}
                         </span>
