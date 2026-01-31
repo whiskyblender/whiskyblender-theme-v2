@@ -88,6 +88,7 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
 
     .wb-productcosts .badge {
         margin: 0
+        transform: rotate(-4deg);
     }
 
 }
