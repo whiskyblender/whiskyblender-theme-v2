@@ -52,7 +52,7 @@
     line-height: 14px;
     font-weight: 600;
     padding: 8px 10px 6px 10px;
-    margin: 1vw;
+    margin: 4px;
 }
 
 @media screen and (min-width: 1024px) {
@@ -60,5 +60,13 @@
     .card--standard>.card__content .card__information.wb-card-details {
         padding: 18px 28px;
     }
+
+.badge {
+    letter-spacing: 2px;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px 10px 6px 10px;
+    margin: 20px;
+}
 
 }
