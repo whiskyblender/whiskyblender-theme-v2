@@ -36,6 +36,10 @@
     padding: 0!important;
 }
 
+.wb-card-image {
+    height: auto;
+}
+
 .image-with-text__media {
     border: none;
 }
