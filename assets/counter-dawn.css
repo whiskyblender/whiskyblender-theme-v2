@@ -56,7 +56,7 @@
 }
 
 .wb-productcell:has(.price--sold-out) {
-    opacity: 0.2;
+    opacity: 0.4!important;
 }
 
 @media screen and (min-width: 1024px) {
