@@ -32,16 +32,12 @@
     padding: 12px 18px;
 }
 
-.wb-cards {
+.wb-cards, .image-with-text__content {
     padding: 0!important;
 }
 
 .wb-card-image {
     height: auto;
-}
-
-.image-with-text__content {
-    padding:0;
 }
 
 @media screen and (min-width: 1024px) {
