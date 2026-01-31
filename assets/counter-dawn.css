@@ -67,6 +67,10 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price {
     letter-spacing: normal!important;
 }
 
+span.price-item.price-item--regular {
+    font-size: 14px;
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
