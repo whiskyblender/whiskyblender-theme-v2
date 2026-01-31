@@ -64,7 +64,7 @@
 }
 
 h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price {
-    letter-spacing: 0;
+    letter-spacing: 0!important;
 }
 
 @media screen and (min-width: 1024px) {
