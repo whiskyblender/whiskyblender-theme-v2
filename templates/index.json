@@ -213,7 +213,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/wb-foryersel.png",
+        "image": "shopify://shop_images/wb-foryersel-baked.png",
         "height": "medium",
         "desktop_image_width": "medium",
         "layout": "text_first",
@@ -261,7 +261,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/wb-yerownbrand.png",
+        "image": "shopify://shop_images/wb-yerownbrand-baked.png",
         "height": "medium",
         "desktop_image_width": "medium",
         "layout": "text_first",
