@@ -80,7 +80,7 @@ a.wb-button.button.button--primary {
     letter-spacing: normal;
 }
 
-.wb-drawer-content {
+.product__accordion .accordion__content {
     font-size: 14px;
 }
 
