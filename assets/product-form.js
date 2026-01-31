@@ -54,7 +54,7 @@ if (!customElements.get('product-form')) {
               });
               this.handleErrorMessage(response.description);
 
-              const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
+              const soldOutMessage = this.submitButton.querySelector('.sold-out-message.wb-soldoutbadge');
               if (!soldOutMessage) return;
               this.submitButton.setAttribute('aria-disabled', true);
               this.submitButtonText.classList.add('hidden');
