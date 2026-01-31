@@ -83,7 +83,7 @@ a.wb-button.button.button--primary {
 .product__accordion .accordion__content {
     font-size: 14px;
     line-height: 160%;
-    padding: 0;
+    padding: 0!important;
 }
 
 @media screen and (min-width: 1024px) {
