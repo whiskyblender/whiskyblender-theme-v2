@@ -63,7 +63,7 @@
     opacity: 0.4!important;
 }
 
-h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price {
+h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
     letter-spacing: normal!important;
 }
 
