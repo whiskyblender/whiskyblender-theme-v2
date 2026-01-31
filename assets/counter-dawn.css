@@ -72,6 +72,10 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
     opacity: 0.6;
 }
 
+.wb-productcosts .badge {
+    transform: rotate(-4deg);
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
@@ -88,7 +92,6 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
 
     .wb-productcosts .badge {
         margin: 0;
-        transform: rotate(-4deg);
     }
 
 }
