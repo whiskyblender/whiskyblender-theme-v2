@@ -1,3 +1,7 @@
+.wb-announcement-bar {
+    letter-spacing: 0;
+}
+
 .page-width-desktop, .page-width, .slider-component.page-width, .wb-banner-content, .wb-gifts {
     padding: 0!important;
     margin: 0!important;
