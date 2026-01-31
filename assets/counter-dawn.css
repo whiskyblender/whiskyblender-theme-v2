@@ -78,12 +78,16 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
         padding: 18px 28px;
     }
 
-.badge {
-    letter-spacing: 2px;
-    font-size: 16px;
-    line-height: 16px;
-    padding: 12px 16px 10px 16px;
-    margin: 16px;
-}
+    .badge {
+        letter-spacing: 2px;
+        font-size: 16px;
+        line-height: 16px;
+        padding: 12px 16px 10px 16px;
+        margin: 16px;
+    }
+
+    .wb-productcosts .badge {
+        margin: 0
+    }
 
 }
