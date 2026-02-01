@@ -79,7 +79,7 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
 
 .wb-product-grid .wb-productcosts {
     height: auto;
-    gap: 0;
+    column-gap: 16px;
 }
 
 .wb-productcosts .badge {
