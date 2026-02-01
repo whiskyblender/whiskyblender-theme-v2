@@ -513,6 +513,10 @@
                 <div {{ block.shopify_attributes }}>
                   {% render 'part-of-collection', excluded_collections: block.settings.excluded_collections %}
                 </div>
+              {%- when 'product_tagline' -%}
+                <div {{ block.shopify_attributes }}>
+                  {% render 'product-tagline' %}
+                </div>
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
@@ -992,11 +996,16 @@
         {
           "type": "text",
           "id": "excluded_collections",
-          "label": "Excluded collection handles",
-          "default": "promoted",
-          "info": "Enter collection handles to exclude, separated by commas (e.g., promoted, hidden)"
+          "label": "Excluded collection titles",
+          "default": "Promoted",
+          "info": "Enter collection titles to exclude, separated by commas (e.g., Promoted, Hidden Products)"
         }
       ]
+    },
+    {
+      "type": "product_tagline",
+      "name": "Product tagline",
+      "limit": 1
     },
     {
       "type": "custom_liquid",

@@ -1,12 +1,12 @@
 <p class="wb-collection-ref">
-  {%- assign excluded_collections = excluded_collections | default: 'promoted' -%}
-  {%- assign excluded_handles = excluded_collections | split: ',' -%}
+  {%- assign excluded_collections = excluded_collections | default: 'Promoted' -%}
+  {%- assign excluded_titles = excluded_collections | split: ',' -%}
   {%- assign filtered_count = 0 -%}
   {%- for collection in product.collections -%}
     {%- assign is_excluded = false -%}
-    {%- for handle in excluded_handles -%}
-      {%- assign trimmed_handle = handle | strip -%}
-      {%- if collection.handle == trimmed_handle -%}
+    {%- for title in excluded_titles -%}
+      {%- assign trimmed_title = title | strip -%}
+      {%- if collection.title == trimmed_title -%}
         {%- assign is_excluded = true -%}
         {%- break -%}
       {%- endif -%}
@@ -21,9 +21,9 @@
     {%- assign output_count = 0 -%}
     {%- for collection in product.collections -%}
       {%- assign is_excluded = false -%}
-      {%- for handle in excluded_handles -%}
-        {%- assign trimmed_handle = handle | strip -%}
-        {%- if collection.handle == trimmed_handle -%}
+      {%- for title in excluded_titles -%}
+        {%- assign trimmed_title = title | strip -%}
+        {%- if collection.title == trimmed_title -%}
           {%- assign is_excluded = true -%}
           {%- break -%}
         {%- endif -%}

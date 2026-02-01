@@ -1,0 +1,20 @@
+<ul class="wb-meta-deetz">
+  <li>{{ product.type }}</li>
+  {%- for option in product.options_with_values -%}
+    {%- if option.name == 'Size' or option.name == 'Bottle size' -%}
+      <li>
+        {%- assign size_count = 0 -%}
+        {%- for value in option.values -%}
+          {%- unless value == 'One of each' -%}
+            {%- if size_count > 0 %} / {% endif -%}
+            {{- value -}}
+            {%- assign size_count = size_count | plus: 1 -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if product.metafields.custom.abv.value -%}
+    <li>{{ product.metafields.custom.abv.value }} abv.</li>
+  {%- endif -%}
+</ul>
