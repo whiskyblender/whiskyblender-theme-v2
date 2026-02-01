@@ -20,10 +20,12 @@
     "shop_all_products_qWxYzR": {
       "type": "shop-all-products",
       "settings": {
-        "heading": "Shop All",
         "excluded_collection": "custom-blend"
       }
     }
   },
-  "order": ["main", "shop_all_products_qWxYzR"]
+  "order": [
+    "main",
+    "shop_all_products_qWxYzR"
+  ]
 }
