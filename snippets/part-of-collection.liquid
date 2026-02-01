@@ -1,5 +1,6 @@
 <p class="wb-collection-ref">
-  {%- assign excluded_handles = section.settings.excluded_collections | split: ',' -%}
+  {%- assign excluded_collections = excluded_collections | default: 'promoted' -%}
+  {%- assign excluded_handles = excluded_collections | split: ',' -%}
   {%- assign filtered_count = 0 -%}
   {%- for collection in product.collections -%}
     {%- assign is_excluded = false -%}
@@ -39,23 +40,3 @@
     &nbsp;collection{% if filtered_count > 1 %}s{% endif %}
   {%- endif -%}
 </p>
-
-{% schema %}
-{
-  "name": "Part of collection",
-  "settings": [
-    {
-      "type": "text",
-      "id": "excluded_collections",
-      "label": "Excluded collection handles",
-      "default": "promoted",
-      "info": "Enter collection handles to exclude, separated by commas (e.g., promoted, hidden, internal)"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Part of collection"
-    }
-  ]
-}
-{% endschema %}
