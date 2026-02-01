@@ -60,10 +60,10 @@
           "type": "description",
           "settings": {}
         },
-        "custom_liquid_WrYHUm": {
-          "type": "custom_liquid",
+        "part_of_collection_pnVNAw": {
+          "type": "part_of_collection",
           "settings": {
-            "custom_liquid": "<p class=\"wb-collection-ref\">\n{%- assign filtered_count = 0 -%}\n{%- for collection in product.collections -%}\n  {%- unless collection.handle == 'promoted' -%}\n    {%- assign filtered_count = filtered_count | plus: 1 -%}\n  {%- endunless -%}\n{%- endfor -%}\n\n{%- if filtered_count > 0 -%}\n  Part of the &nbsp;\n  {%- assign output_count = 0 -%}\n  {%- for collection in product.collections -%}\n    {%- unless collection.handle == 'promoted' -%}\n      {%- assign output_count = output_count | plus: 1 -%}\n      <a href=\"{{ collection.url }}\">{{ collection.title }}</a>\n      {%- if output_count < filtered_count -%}, {% endif -%}\n    {%- endunless -%}\n  {%- endfor -%}\n  &nbsp;collection{% if filtered_count > 1 %}s{% endif %}\n{%- endif -%}\n</p>"
+            "excluded_collections": "promoted, thankyous-copy, thankyous, weddings, birthdays-copy, weddings-copy, birthdays-copy-1, christmas-copy"
           }
         },
         "collapsible-row-2": {
@@ -92,7 +92,7 @@
         "custom_liquid_jQT3Qm",
         "buy_buttons",
         "description",
-        "custom_liquid_WrYHUm",
+        "part_of_collection_pnVNAw",
         "collapsible-row-2",
         "share"
       ],
