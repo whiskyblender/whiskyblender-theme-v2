@@ -35,7 +35,7 @@
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "collection": "featured",
+        "collection": "twa-andras",
         "products_to_show": 4,
         "title": "Some of our bottlings",
         "heading_size": "h1",
