@@ -110,6 +110,7 @@ a.wb-button.button.button--primary {
 
 footer h5.wb-tiny-heading {
     color: #cccccc;
+    font-weight: 700;
 }
 
 @media screen and (min-width: 1024px) {
