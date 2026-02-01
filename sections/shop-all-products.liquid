@@ -55,19 +55,21 @@
       class="wb-productsgrid wb-tightergrid grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop"
       role="list"
     >
-      {%- for product in collections.all.products -%}
-        {%- assign is_excluded = false -%}
+      {%- for product in collections.all.products limit: 250 -%}
+        {%- assign has_allowed_collection = false -%}
         {%- for collection in product.collections -%}
-          {%- if excluded_collections contains collection.title -%}
-            {%- assign is_excluded = true -%}
+          {%- unless excluded_collections contains collection.title -%}
+            {%- assign has_allowed_collection = true -%}
             {%- break -%}
-          {%- endif -%}
+          {%- endunless -%}
         {%- endfor -%}
 
-        {%- unless is_excluded -%}
+        {%- if has_allowed_collection -%}
           {%- assign product_collections = '' -%}
           {%- for collection in product.collections -%}
-            {%- assign product_collections = product_collections | append: collection.title | append: ',' -%}
+            {%- unless excluded_collections contains collection.title -%}
+              {%- assign product_collections = product_collections | append: collection.title | append: ',' -%}
+            {%- endunless -%}
           {%- endfor -%}
 
           <li class="grid__item product-item" data-collections="{{ product_collections }}">
@@ -82,7 +84,7 @@
               section_id: section.id
             %}
           </li>
-        {%- endunless -%}
+        {%- endif -%}
       {%- endfor -%}
     </ul>
   </div>
@@ -101,7 +103,6 @@
 
       products.forEach((product) => {
         const productCollections = product.getAttribute('data-collections');
-        console.log(product);
         const collectionsArray = productCollections
           .split(',')
           .map((c) => c.trim())
