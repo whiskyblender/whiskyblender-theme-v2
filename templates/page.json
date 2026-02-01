@@ -37,12 +37,14 @@
         },
         "text_NGdNjh": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
           }
         },
         "button_Ja4886": {
           "type": "button",
+          "disabled": true,
           "settings": {
             "button_label": "Button label",
             "button_link": "",
@@ -62,7 +64,7 @@
       "settings": {
         "desktop_content_position": "left",
         "content_alignment": "left",
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "full_width": true,
         "padding_top": 0,
         "padding_bottom": 0
