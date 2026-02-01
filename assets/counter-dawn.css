@@ -69,6 +69,7 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
 
 .wb-productcontent span.price-item.price-item--regular {
     font-size: 14px;
+    line-height: 16px;
     opacity: 0.6;
 }
 
