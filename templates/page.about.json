@@ -11,13 +11,29 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "main_landing_CWHJim": {
+      "type": "main-landing",
+      "name": "Landing Hero",
+      "settings": {
+        "video_file": "wb-cask-heids.mp4",
+        "background_image": "wb-cask-heids.jpg",
+        "title": "{{ page.title }}",
+        "description": "",
+        "primary_button_text": "",
+        "primary_button_url": "",
+        "secondary_button_text": "",
+        "secondary_button_url": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "main_landing_CWHJim"
   ]
 }
