@@ -20,12 +20,9 @@
     "shop_all_products_qWxYzR": {
       "type": "shop-all-products",
       "settings": {
-        "excluded_collection": "custom-blend"
+        "excluded_collection": "Anniversaries, Birthdays, Celebrations, Christmas, Iconic Scotland, Quality Patter, Thankyous, Weddings"
       }
     }
   },
-  "order": [
-    "main",
-    "shop_all_products_qWxYzR"
-  ]
+  "order": ["main", "shop_all_products_qWxYzR"]
 }

@@ -22,10 +22,16 @@
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   <div class="wb-container">
+    {%- assign excluded_collections_raw = section.settings.excluded_collection | split: ',' -%}
+    {%- assign excluded_collections = '' -%}
+    {%- for item in excluded_collections_raw -%}
+      {%- assign trimmed = item | strip -%}
+      {%- assign excluded_collections = excluded_collections | append: trimmed | append: ',' -%}
+    {%- endfor -%}
     <div class="wb-buttons">
       {%- assign first_collection = true -%}
       {%- for collection in collections -%}
-        {%- unless collection.title == section.settings.excluded_collection or collection.handle == 'all' -%}
+        {%- unless excluded_collections contains collection.title or collection.handle == 'all' -%}
           {%- assign filter_id = collection.title | handleize -%}
           <span class="wb-radio">
             <input
@@ -52,7 +58,7 @@
       {%- for product in collections.all.products -%}
         {%- assign is_excluded = false -%}
         {%- for collection in product.collections -%}
-          {%- if collection.title == section.settings.excluded_collection -%}
+          {%- if excluded_collections contains collection.title -%}
             {%- assign is_excluded = true -%}
             {%- break -%}
           {%- endif -%}
@@ -114,8 +120,8 @@
       "type": "text",
       "id": "excluded_collection",
       "label": "Excluded collection title",
-      "default": "Custom Blend",
-      "info": "Products in this collection will not be displayed"
+      "default": "Anniversaries, Birthdays, Celebrations",
+      "info": "Products in these collections will not be displayed. Separate multiple collection titles with commas."
     },
     {
       "type": "range",
