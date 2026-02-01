@@ -108,6 +108,10 @@ a.wb-button.button.button--primary {
     column-gap: 20px;
 }
 
+footer h5.wb-tiny-heading {
+    color: #ffffff;
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
