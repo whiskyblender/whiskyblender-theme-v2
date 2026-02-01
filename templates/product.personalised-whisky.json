@@ -16,11 +16,9 @@
           "type": "title",
           "settings": {}
         },
-        "custom_liquid_CkEHL6": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<ul class=\"wb-meta-deetz\">\n<li>{{product.type}} </li>\n    {%- for option in product.options_with_values -%}\n      {%- if option.name == 'Size' -%}\n        {%- for value in option.values -%}\n          {{ value }}{% unless forloop.last %}/ {% endunless %}\n        {%- endfor -%}\n      {%- endif -%}\n    {%- endfor -%}\n\n{%- if product.metafields.custom.abv.value -%}\n  <li>{{ product.metafields.custom.abv.value }} abv.</li>\n{%- endif -%}                                        </ul>"
-          }
+        "product_tagline_bz6NMU": {
+          "type": "product_tagline",
+          "settings": {}
         },
         "price": {
           "type": "price",
@@ -63,7 +61,7 @@
         "part_of_collection_pnVNAw": {
           "type": "part_of_collection",
           "settings": {
-            "excluded_collections": "promoted, thankyous-copy, thankyous, weddings, birthdays-copy, weddings-copy, birthdays-copy-1, christmas-copy"
+            "excluded_collections": "Anniversaries, Birthdays, Celebrations, Christmas, Thankyous, Weddings"
           }
         },
         "collapsible-row-2": {
@@ -84,7 +82,7 @@
       },
       "block_order": [
         "title",
-        "custom_liquid_CkEHL6",
+        "product_tagline_bz6NMU",
         "price",
         "variant_picker",
         "custom_liquid_hyNJqP",
