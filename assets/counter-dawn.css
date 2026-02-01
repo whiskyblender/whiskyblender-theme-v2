@@ -96,6 +96,13 @@ a.wb-button.button.button--primary {
     top: -80% !important;
 }
 
+.collection__title.title-wrapper.title-wrapper--no-top-margin.page-width {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    column-gap: 20px;
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
