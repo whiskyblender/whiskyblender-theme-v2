@@ -123,10 +123,6 @@ footer h5.wb-tiny-heading {
     margin-bottom: -40px;
 }
 
-.wb-container {
-    background: transparent!important;
-}
-
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header .wb-padding {
