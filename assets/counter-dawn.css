@@ -67,7 +67,7 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
     letter-spacing: normal!important;
 }
 
-.wb-product-price.price__regular {
+.wb-productcontent .wb-product-price.price__regular {
     font-size: 0;
 }
 
