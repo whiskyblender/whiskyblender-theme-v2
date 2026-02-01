@@ -21,61 +21,89 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
-  {%- assign all_collection = collections.all -%}
-  {%- paginate all_collection.products by section.settings.products_per_page -%}
-    {% render 'facets',
-      results: all_collection,
-      enable_filtering: section.settings.enable_filtering,
-      enable_sorting: section.settings.enable_sorting,
-      filter_type: section.settings.filter_type,
-      paginate: paginate
-    %}
-
-    <div class="wb-container">
-      <div id="ProductGridContainer">
-        {%- if all_collection.products.size == 0 -%}
-          <div class="collection collection--empty page-width">
-            <p class="center">{{ 'sections.collection_template.empty' | t }}</p>
-          </div>
-        {%- else -%}
-          <ul
-            class="wb-productsgrid wb-tightergrid grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop"
-            role="list"
-          >
-            {%- for product in all_collection.products -%}
-              {%- assign is_excluded = false -%}
-              {%- for collection in product.collections -%}
-                {%- if collection.handle == section.settings.excluded_collection -%}
-                  {%- assign is_excluded = true -%}
-                  {%- break -%}
-                {%- endif -%}
-              {%- endfor -%}
-
-              {%- unless is_excluded -%}
-                <li class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-                  {% render 'card-product',
-                    card_product: product,
-                    media_aspect_ratio: section.settings.image_ratio,
-                    image_shape: section.settings.image_shape,
-                    show_secondary_image: section.settings.show_secondary_image,
-                    show_vendor: section.settings.show_vendor,
-                    show_rating: section.settings.show_rating,
-                    quick_add: section.settings.quick_add,
-                    section_id: section.id
-                  %}
-                </li>
-              {%- endunless -%}
-            {%- endfor -%}
-          </ul>
-
-          {%- if paginate.pages > 1 -%}
-            {% render 'pagination', paginate: paginate, anchor: '' %}
-          {%- endif -%}
-        {%- endif -%}
-      </div>
+  <div class="wb-container">
+    <div class="wb-buttons">
+      {%- assign first_collection = true -%}
+      {%- for collection in collections -%}
+        {%- unless collection.handle == section.settings.excluded_collection or collection.handle == 'all' -%}
+          {%- assign filter_id = collection.handle | handleize -%}
+          <span class="wb-radio">
+            <input
+              type="radio"
+              name="wb-filter"
+              value="{{ collection.title }}"
+              id="filter-{{ filter_id }}"
+              data-collection="{{ collection.title }}"
+              {%- if first_collection %}
+                checked
+              {%- endif -%}
+            >
+            <label for="filter-{{ filter_id }}">{{ collection.title }}</label>
+          </span>
+          {%- assign first_collection = false -%}
+        {%- endunless -%}
+      {%- endfor -%}
     </div>
-  {%- endpaginate -%}
+
+    <ul
+      class="wb-productsgrid wb-tightergrid grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop"
+      role="list"
+    >
+      {%- for product in collections.all.products -%}
+        {%- assign is_excluded = false -%}
+        {%- for collection in product.collections -%}
+          {%- if collection.handle == section.settings.excluded_collection -%}
+            {%- assign is_excluded = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- unless is_excluded -%}
+          {%- assign product_collections = '' -%}
+          {%- for collection in product.collections -%}
+            {%- assign product_collections = product_collections | append: collection.title | append: ',' -%}
+          {%- endfor -%}
+
+          <li class="grid__item product-item" data-collections="{{ product_collections }}">
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: section.settings.image_ratio,
+              image_shape: section.settings.image_shape,
+              show_secondary_image: section.settings.show_secondary_image,
+              show_vendor: section.settings.show_vendor,
+              show_rating: section.settings.show_rating,
+              quick_add: section.settings.quick_add,
+              section_id: section.id
+            %}
+          </li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+  </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const radioInputs = document.querySelectorAll('input[name="wb-filter"]');
+    const products = document.querySelectorAll('.product-item');
+
+    radioInputs.forEach((radio) => {
+      radio.addEventListener('change', function () {
+        const filterCollection = this.getAttribute('data-collection');
+
+        products.forEach((product) => {
+          const productCollections = product.getAttribute('data-collections');
+
+          if (filterCollection === 'all' || productCollections.includes(filterCollection)) {
+            product.style.display = '';
+          } else {
+            product.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
 
 {% schema %}
 {
@@ -88,15 +116,6 @@
       "label": "Excluded collection handle",
       "default": "custom-blend",
       "info": "Products in this collection will not be displayed"
-    },
-    {
-      "type": "range",
-      "id": "products_per_page",
-      "min": 8,
-      "max": 48,
-      "step": 4,
-      "default": 16,
-      "label": "Products per page"
     },
     {
       "type": "range",
@@ -230,42 +249,6 @@
           "label": "Bulk"
         }
       ]
-    },
-    {
-      "type": "header",
-      "content": "Filtering and sorting"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_filtering",
-      "default": true,
-      "label": "Enable filtering"
-    },
-    {
-      "type": "select",
-      "id": "filter_type",
-      "options": [
-        {
-          "value": "horizontal",
-          "label": "Horizontal"
-        },
-        {
-          "value": "vertical",
-          "label": "Sidebar"
-        },
-        {
-          "value": "drawer",
-          "label": "Drawer"
-        }
-      ],
-      "default": "horizontal",
-      "label": "Desktop filter layout"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_sorting",
-      "default": true,
-      "label": "Enable sorting"
     },
     {
       "type": "header",
