@@ -113,7 +113,7 @@
           "type": "button",
           "settings": {
             "button_label": "Enter the lab",
-            "button_link": "shopify://pages/blend",
+            "button_link": "shopify://pages/create",
             "button_style_secondary": false
           }
         }
