@@ -118,8 +118,8 @@ footer h5.wb-tiny-heading {
     font-weight: 700;
 }
 
-.wb-alternative-header {
-
+.wb-alternative-header .wb-padding {
+    padding-bottom: -200px;
 }
 
 @media screen and (min-width: 1024px) {
