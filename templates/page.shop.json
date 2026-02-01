@@ -13,8 +13,8 @@
       "type": "main-page-wb",
       "name": "WB Page",
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "shop_all_products_qWxYzR": {
