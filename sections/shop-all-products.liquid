@@ -25,8 +25,8 @@
     <div class="wb-buttons">
       {%- assign first_collection = true -%}
       {%- for collection in collections -%}
-        {%- unless collection.handle == section.settings.excluded_collection or collection.handle == 'all' -%}
-          {%- assign filter_id = collection.handle | handleize -%}
+        {%- unless collection.title == section.settings.excluded_collection or collection.handle == 'all' -%}
+          {%- assign filter_id = collection.title | handleize -%}
           <span class="wb-radio">
             <input
               type="radio"
@@ -52,7 +52,7 @@
       {%- for product in collections.all.products -%}
         {%- assign is_excluded = false -%}
         {%- for collection in product.collections -%}
-          {%- if collection.handle == section.settings.excluded_collection -%}
+          {%- if collection.title == section.settings.excluded_collection -%}
             {%- assign is_excluded = true -%}
             {%- break -%}
           {%- endif -%}
@@ -113,8 +113,8 @@
     {
       "type": "text",
       "id": "excluded_collection",
-      "label": "Excluded collection handle",
-      "default": "custom-blend",
+      "label": "Excluded collection title",
+      "default": "Custom Blend",
       "info": "Products in this collection will not be displayed"
     },
     {
