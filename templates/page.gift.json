@@ -164,7 +164,7 @@
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "collection": "oor-bottlings",
+        "collection": "twa-andras",
         "products_to_show": 4,
         "title": "Exclusive bottles",
         "heading_size": "h1",
