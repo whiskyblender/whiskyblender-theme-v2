@@ -20,9 +20,23 @@
     "shop_all_products_qWxYzR": {
       "type": "shop-all-products",
       "settings": {
-        "excluded_collection": "Anniversaries, Birthdays, Celebrations, Christmas, Iconic Scotland, Quality Patter, Thankyous, Weddings"
+        "excluded_collection": "Anniversaries, Birthdays, Celebrations, Christmas, Iconic Scotland, Quality Patter, Thankyous, Weddings",
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
-  "order": ["main", "shop_all_products_qWxYzR"]
+  "order": [
+    "main",
+    "shop_all_products_qWxYzR"
+  ]
 }
