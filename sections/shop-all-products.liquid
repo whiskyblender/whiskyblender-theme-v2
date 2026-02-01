@@ -93,21 +93,34 @@
     const radioInputs = document.querySelectorAll('input[name="wb-filter"]');
     const products = document.querySelectorAll('.product-item');
 
-    radioInputs.forEach((radio) => {
-      radio.addEventListener('change', function () {
-        const filterCollection = this.getAttribute('data-collection');
+    function filterProducts() {
+      const checkedRadio = document.querySelector('input[name="wb-filter"]:checked');
+      if (!checkedRadio) return;
 
-        products.forEach((product) => {
-          const productCollections = product.getAttribute('data-collections');
+      const filterCollection = checkedRadio.getAttribute('data-collection');
 
-          if (filterCollection === 'all' || productCollections.includes(filterCollection)) {
-            product.style.display = '';
-          } else {
-            product.style.display = 'none';
-          }
-        });
+      products.forEach((product) => {
+        const productCollections = product.getAttribute('data-collections');
+        console.log(product);
+        const collectionsArray = productCollections
+          .split(',')
+          .map((c) => c.trim())
+          .filter((c) => c);
+
+        if (collectionsArray.includes(filterCollection)) {
+          product.style.display = '';
+        } else {
+          product.style.display = 'none';
+        }
       });
+    }
+
+    radioInputs.forEach((radio) => {
+      radio.addEventListener('change', filterProducts);
     });
+
+    // Run filter on page load for the initially checked radio
+    filterProducts();
   });
 </script>
 
