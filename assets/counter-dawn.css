@@ -119,7 +119,8 @@ footer h5.wb-tiny-heading {
 }
 
 .wb-alternative-header .wb-padding {
-    padding-bottom: -200px;
+    padding-bottom: 0;
+    margin-bottom: -60px;
 }
 
 @media screen and (min-width: 1024px) {
