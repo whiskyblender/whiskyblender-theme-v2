@@ -101,6 +101,11 @@ a.wb-button.button.button--primary {
     top: -80% !important;
 }
 
+.product__media.media.media--transparent {
+    border-radius: 6px;
+    background: #ccd3db;
+}
+
 .collection__title.title-wrapper.title-wrapper--no-top-margin.page-width {
     display: flex;
     justify-content: space-between;
