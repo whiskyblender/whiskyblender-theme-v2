@@ -72,7 +72,7 @@
             {%- endunless -%}
           {%- endfor -%}
 
-          <li class="grid__item product-item" data-collections="{{ product_collections }}">
+          <li class="wb-productcell grid__item product-item" data-collections="{{ product_collections }}">
             {% render 'card-product',
               card_product: product,
               media_aspect_ratio: section.settings.image_ratio,
