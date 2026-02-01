@@ -118,6 +118,10 @@ footer h5.wb-tiny-heading {
     font-weight: 700;
 }
 
+.wb-alternative-header {
+
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
