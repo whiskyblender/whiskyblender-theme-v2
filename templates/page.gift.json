@@ -144,6 +144,9 @@
         "featured_collection_mzabye",
         "featured_collection_tVR6yU"
       ],
+      "custom_css": [
+        "p.card__caption {display: block !important;}"
+      ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
         "title": "For special Occasions",
