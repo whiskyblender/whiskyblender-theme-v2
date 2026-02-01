@@ -1,17 +1,7 @@
 <p class="wb-collection-ref">
-  {%- assign excluded_collections = excluded_collections | default: 'Promoted' -%}
-  {%- assign excluded_titles = excluded_collections | split: ',' -%}
   {%- assign filtered_count = 0 -%}
   {%- for collection in product.collections -%}
-    {%- assign is_excluded = false -%}
-    {%- for title in excluded_titles -%}
-      {%- assign trimmed_title = title | strip -%}
-      {%- if collection.title == trimmed_title -%}
-        {%- assign is_excluded = true -%}
-        {%- break -%}
-      {%- endif -%}
-    {%- endfor -%}
-    {%- unless is_excluded -%}
+    {%- unless collection.template_suffix == 'unlisted-collection' -%}
       {%- assign filtered_count = filtered_count | plus: 1 -%}
     {%- endunless -%}
   {%- endfor -%}
@@ -20,15 +10,7 @@
     Part of the&nbsp;
     {%- assign output_count = 0 -%}
     {%- for collection in product.collections -%}
-      {%- assign is_excluded = false -%}
-      {%- for title in excluded_titles -%}
-        {%- assign trimmed_title = title | strip -%}
-        {%- if collection.title == trimmed_title -%}
-          {%- assign is_excluded = true -%}
-          {%- break -%}
-        {%- endif -%}
-      {%- endfor -%}
-      {%- unless is_excluded -%}
+      {%- unless collection.template_suffix == 'unlisted-collection' -%}
         {%- assign output_count = output_count | plus: 1 -%}
         <a href="{{ collection.url }}">{{ collection.title }}</a>
         {%- if output_count < filtered_count -%}

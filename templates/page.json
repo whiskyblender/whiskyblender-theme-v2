@@ -26,8 +26,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "main_page_wb_QxRfpd"
-  ]
+  "order": ["main", "main_page_wb_QxRfpd"]
 }
