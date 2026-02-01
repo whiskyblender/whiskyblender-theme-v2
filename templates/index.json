@@ -92,7 +92,7 @@
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "collection": "oor-bottlings",
+        "collection": "twa-andras",
         "products_to_show": 4,
         "title": "",
         "heading_size": "h1",
@@ -129,31 +129,31 @@
         "featured_collection_wwnd6j": {
           "type": "featured_collection",
           "settings": {
-            "collection": "weddings-copy"
+            "collection": "birthdays"
           }
         },
         "featured_collection_8hJH6D": {
           "type": "featured_collection",
           "settings": {
-            "collection": "birthdays-copy"
+            "collection": "anniversaries"
           }
         },
         "featured_collection_YbPyNh": {
           "type": "featured_collection",
           "settings": {
-            "collection": "birthdays-copy-1"
+            "collection": "christmas"
           }
         },
         "featured_collection_DgHhcb": {
           "type": "featured_collection",
           "settings": {
-            "collection": "christmas-copy"
+            "collection": "thankyous"
           }
         },
         "featured_collection_4M9r4b": {
           "type": "featured_collection",
           "settings": {
-            "collection": "thankyous-copy"
+            "collection": "celebrations"
           }
         }
       },

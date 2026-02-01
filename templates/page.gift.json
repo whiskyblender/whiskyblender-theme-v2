@@ -108,31 +108,31 @@
         "featured_collection_y3NBGt": {
           "type": "featured_collection",
           "settings": {
-            "collection": "weddings-copy"
+            "collection": "birthdays"
           }
         },
         "featured_collection_LTqXgw": {
           "type": "featured_collection",
           "settings": {
-            "collection": "birthdays-copy"
+            "collection": "anniversaries"
           }
         },
         "featured_collection_zRWJrp": {
           "type": "featured_collection",
           "settings": {
-            "collection": "birthdays-copy-1"
+            "collection": "christmas"
           }
         },
         "featured_collection_mzabye": {
           "type": "featured_collection",
           "settings": {
-            "collection": "christmas-copy"
+            "collection": "thankyous"
           }
         },
         "featured_collection_tVR6yU": {
           "type": "featured_collection",
           "settings": {
-            "collection": "thankyous-copy"
+            "collection": "celebrations"
           }
         }
       },
@@ -164,7 +164,7 @@
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "collection": "oor-bottlings",
+        "collection": "twa-andras",
         "products_to_show": 4,
         "title": "Exclusive bottles",
         "heading_size": "h1",
