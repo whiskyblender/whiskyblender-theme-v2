@@ -127,6 +127,14 @@ footer h5.wb-tiny-heading {
     background: transparent!important;
 }
 
+@media screen and (min-width: 600px) {
+
+.wb-alternative-header .wb-padding {
+    margin-bottom: -80px;
+}
+
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
