@@ -123,6 +123,10 @@ footer h5.wb-tiny-heading {
     margin-bottom: -60px;
 }
 
+.wb-container {
+    background: transparent!important;
+}
+
 @media screen and (min-width: 1024px) {
 
     .card--standard>.card__content .card__information.wb-card-details {
