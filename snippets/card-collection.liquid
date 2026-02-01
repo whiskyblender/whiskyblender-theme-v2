@@ -103,7 +103,7 @@
 
             {%- if card_collection.description != blank -%}
               <p class="card__caption">
-                {{ card_collection.description | strip_html | truncatewords: 12 }}
+                {{- card_collection.description | strip_html | truncatewords: 12 -}}
               </p>
             {%- endif -%}
           </div>
@@ -132,7 +132,7 @@
           </h3>
           {%- if card_collection.featured_image == null and card_collection.description != blank -%}
             <p class="card__caption">
-              {{ card_collection.description | strip_html | truncatewords: 12 }}
+              {{- card_collection.description | strip_html | truncatewords: 12 -}}
             </p>
           {%- endif -%}
         </div>
@@ -147,6 +147,11 @@
             </a>
           </h3>
           <span class="wb-emoji">{{ card_collection.metafields.custom.emoji.value }}</span>
+          {%- if card_collection.featured_image == null and card_collection.description != blank -%}
+            <p class="card__caption">
+              {{- card_collection.description | strip_html | truncatewords: 12 -}}
+            </p>
+          {%- endif -%}
         </div>
       </div>
     {%- endif -%}
