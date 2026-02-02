@@ -125,7 +125,7 @@ footer h5.wb-tiny-heading {
 }
 
 .wb-first-item {
-    background: transparent;
+    background: transparent!important;
 }
 
 @media screen and (min-width: 600px) {
