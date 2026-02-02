@@ -24,10 +24,34 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "rich_text_RdwAjX": {
+      "type": "rich-text",
+      "blocks": {
+        "text_tbKVFU": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Coming soon</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_tbKVFU"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "main",
-    "main_page_wb_QxRfpd"
+    "main_page_wb_QxRfpd",
+    "rich_text_RdwAjX"
   ]
 }
