@@ -25,47 +25,12 @@
         "padding_bottom": 36
       }
     },
-    "rich_text_twFbY4": {
-      "type": "rich-text",
-      "blocks": {
-        "heading_VCakHG": {
-          "type": "heading",
-          "settings": {
-            "heading": "Insert big ass links",
-            "heading_size": "h1"
-          }
-        },
-        "text_NGdNjh": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
-          }
-        },
-        "button_Ja4886": {
-          "type": "button",
-          "disabled": true,
-          "settings": {
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style_secondary": false,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_VCakHG",
-        "text_NGdNjh",
-        "button_Ja4886"
-      ],
-      "name": "t:sections.rich-text.presets.name",
+    "custom_liquid_tUFxL7": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "desktop_content_position": "left",
-        "content_alignment": "left",
+        "custom_liquid": "<section class=\"wb-first-item\">\n                <div class=\"wb-container\">\n                    <div class=\"wb-padding\">\n                        <ul class=\"wb-create-options wb-cards\">\n                            <li onclick=\"location.href='thelab.html';\">\n                                <span class=\"wb-create-icon\">🎨</span>\n                                <h2 class=\"wb-option-heading\">\n                                    Create a new whisky in <a href=\"thelab.html\">the lab</a>\n                                </h2>\n                            </li>\n                            <li onclick=\"location.href='perfectdrams.html';\">\n                                <span class=\"wb-create-icon\">⭐</span>\n                                <h2 class=\"wb-option-heading\">\n                                    Personalise a <a href=\"perfectdrams.html\">perfect dram</a>\n                                </h2>\n                            </li>\n                            <li onclick=\"location.href='miniatures.html';\">\n                                <span class=\"wb-create-icon\">🤏</span>\n                                <h2 class=\"wb-option-heading\">\n                                    Label up wee <a href=\"miniatures.html\">whisky miniatures</a>\n                                </h2>\n                            </li>\n                            <li onclick=\"location.href='singlemalts.html';\">\n                                <span class=\"wb-create-icon\">🥃</span>\n                                <h2 class=\"wb-option-heading\">\n                                    Name your own <a href=\"singlemalts.html\">single malt</a>\n                                </h2>\n                            </li>\n                            <li onclick=\"location.href='vouchers.html';\">\n                                <span class=\"wb-create-icon\">💌</span>\n                                <h2 class=\"wb-option-heading\">Get mailed a <a href=\"vouchers.html\">gift voucher</a></h2>\n                            </li>\n                            <li onclick=\"location.href='collaborate.html';\">\n                                <span class=\"wb-create-icon\">🤝</span>\n                                <h2 class=\"wb-option-heading\">\n                                    Collaborate on <a href=\"collaborate.html\">your own brand</a>\n                                </h2>\n                            </li>\n                        </ul>\n                    </div>\n                </div>\n            </section>",
         "color_scheme": "scheme-1",
-        "full_width": true,
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -74,6 +39,6 @@
   "order": [
     "main",
     "main_page_wb_QxRfpd",
-    "rich_text_twFbY4"
+    "custom_liquid_tUFxL7"
   ]
 }
