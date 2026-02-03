@@ -138,7 +138,7 @@ footer h5.wb-tiny-heading {
     border-color: #333333;
 }
 
-.button:hover:after, .button:hover:before {
+.button:after, .button:before {
     display: none!important;
 }
 
