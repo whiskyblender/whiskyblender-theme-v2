@@ -24,7 +24,7 @@
 {%- endunless -%}
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
-<div class="wb-banded">
+
 <cart-items class="wb-container gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="wb-padding">
     <div class="title-wrapper-with-link">
@@ -456,7 +456,6 @@
     </form>
   </div>
 </cart-items>
-</div>
 
 {% schema %}
 {
