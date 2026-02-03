@@ -138,6 +138,10 @@ footer h5.wb-tiny-heading {
     border-color: #333333;
 }
 
+.wb-primary-button:hover:after {
+    box-shadow: none;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header .wb-padding {
