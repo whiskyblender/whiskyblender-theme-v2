@@ -135,7 +135,7 @@ footer h5.wb-tiny-heading {
 
 .wb-primary-button:hover, input.wb-primary-button:hover, .wb-buttons input.wb-primary-button:hover {
     background-color: #169776;
-    border: none;
+    border-color: #169776;
 }
 
 @media screen and (min-width: 600px) {
