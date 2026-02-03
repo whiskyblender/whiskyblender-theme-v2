@@ -134,7 +134,7 @@ footer h5.wb-tiny-heading {
 }
 
 .wb-primary-button:hover, input.wb-primary-button:hover, .wb-buttons input.wb-primary-button:hover {
-    background-color: inherit;
+    background-color: #169776;
     border: none;
 }
 
