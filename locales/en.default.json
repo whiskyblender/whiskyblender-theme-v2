@@ -540,7 +540,18 @@
     "checkout": {
       "general": {
         "cart": "Basket",
-        "back_to_cart": "Return to basket"
+        "back_to_cart": "Return to basket",
+        "errors": {
+          "delivery": {
+            "only_one_delivery_line_allowed": "Only one delivery line allowed"
+          }
+        }
+      },
+      "stock": {
+        "removed_from_cart_notice": "Removed from basket",
+        "remove_from_cart_button_label": "Remove from basket",
+        "go_back_to_cart_button_label": "Got back to my basket",
+        "empty_cart_label": "Hee haw here"
       }
     }
   }
