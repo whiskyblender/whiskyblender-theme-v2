@@ -39,6 +39,16 @@
         "padding_bottom": 40
       }
     },
+    "custom_liquid_pHnHNB": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<section class=\"wb-banded\"></section",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "featured-collection": {
       "type": "featured-collection",
       "settings": {
@@ -71,6 +81,7 @@
   "order": [
     "cart-items",
     "cart-footer",
+    "custom_liquid_pHnHNB",
     "featured-collection"
   ]
 }
