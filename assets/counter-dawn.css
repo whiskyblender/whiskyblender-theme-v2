@@ -133,6 +133,10 @@ footer h5.wb-tiny-heading {
     border: none;
 }
 
+.button:not([disabled]):hover:after, .shopify-challenge__button:hover:after, .customer button:hover:after, .shopify-payment-button__button--unbranded:hover:after {
+    border: none;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header .wb-padding {
