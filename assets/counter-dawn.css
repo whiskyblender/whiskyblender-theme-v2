@@ -136,10 +136,9 @@ footer h5.wb-tiny-heading {
 .wb-primary-button:hover, input.wb-primary-button:hover, .wb-buttons input.wb-primary-button:hover {
     background-color: #333333;
     border-color: #333333;
-    box-shadow: none!important;
 }
 
-.wb-primary-button:hover:after, .wb-primary-button:hover:before {
+.button:hover:after, .button:hover:before {
     display: none!important;
 }
 
