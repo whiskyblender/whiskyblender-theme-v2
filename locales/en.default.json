@@ -552,6 +552,12 @@
         "remove_from_cart_button_label": "Remove from basket",
         "go_back_to_cart_button_label": "Got back to my basket",
         "empty_cart_label": "Hee haw here"
+      },
+      "merchandise_unavailable_in_buyer_location": {
+        "cart_updated": "Basket updates"
+      },
+      "throttle": {
+        "cart_summary_heading": "Your basket"
       }
     }
   }
