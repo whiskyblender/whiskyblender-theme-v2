@@ -140,7 +140,7 @@ footer h5.wb-tiny-heading {
 }
 
 .wb-primary-button:hover:after, .wb-primary-button:hover:before {
-    box-shadow: none!important;
+    display: none!important;
 }
 
 @media screen and (min-width: 600px) {
