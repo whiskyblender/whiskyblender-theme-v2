@@ -139,7 +139,7 @@ footer h5.wb-tiny-heading {
     box-shadow: none!important;
 }
 
-.wb-primary-button:hover:after {
+.wb-primary-button:hover:after, .wb-primary-button:hover:before {
     box-shadow: none!important;
 }
 
