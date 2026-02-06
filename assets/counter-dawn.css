@@ -146,8 +146,8 @@ footer h5.wb-tiny-heading {
     margin-top: 10px;
 }
 
-.wb-bottle-for.product-form__input {
-    margin-top: 20px;
+.wb-bottle-form.product-form__input {
+    margin-top: 28px;
 }
 
 @media screen and (min-width: 600px) {
