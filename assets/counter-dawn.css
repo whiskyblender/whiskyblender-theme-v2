@@ -146,6 +146,10 @@ footer h5.wb-tiny-heading {
     margin-top: 10px;
 }
 
+wb-bottle-form {
+    margin-top: 20px;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header .wb-padding {
