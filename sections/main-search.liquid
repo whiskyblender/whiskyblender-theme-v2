@@ -2,6 +2,7 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
+  <div class="wb-banded">
 
 {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
   {{ 'component-facets.css' | asset_url | stylesheet_tag }}
@@ -64,7 +65,6 @@
 {%- endstyle -%}
 
 {% paginate search.results by 24 %}
-  <div class="wb-banded">
   <div class="wb-container template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %}">
     <div class="wb-padding template-search__header {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       <h1 class="wb-medium-heading h2">
@@ -328,12 +328,12 @@
         </div>
       </div>
     {%- endif -%}
-  </div>  </div>
+  </div>  
 {% endpaginate %}
 {% if section.settings.image_shape == 'arch' %}
   {{ 'mask-arch.svg' | inline_asset_content }}
 {%- endif -%}
-
+</div>
 {% schema %}
 {
   "name": "t:sections.main-search.name",
