@@ -558,6 +558,11 @@
       },
       "throttle": {
         "cart_summary_heading": "Your basket"
+      },
+      "order_summary": {
+        "more_items_modal": {
+          "search_item": "Whit?"
+        }
       }
     }
   }
