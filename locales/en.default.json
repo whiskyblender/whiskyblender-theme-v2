@@ -228,7 +228,7 @@
   "templates": {
     "search": {
       "no_results": "No results found for “{{ terms }}”. Check the spelling or use a different word or phrase.",
-      "page": "Search",
+      "page": "Page",
       "products": "Products",
       "results_pages_with_count": {
         "one": "{{ count }} page",
@@ -250,7 +250,7 @@
         "one": "{{ count }} result found for “{{ terms }}”",
         "other": "{{ count }} results found for “{{ terms }}”"
       },
-      "title": "Search results",
+      "title": "How about this?",
       "search_for": "Search for “{{ terms }}”",
       "suggestions": "Suggestions",
       "pages": "Pages"
