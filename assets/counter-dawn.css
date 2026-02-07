@@ -178,6 +178,10 @@ span.wb-radio {
     margin: 0;
 }
 
+.wb-productsgrid {
+    padding: 0!important;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header {
