@@ -168,7 +168,7 @@ span.wb-radio {
     padding: 0;
 }
 
-.wb-bottle-form label.form__label {
+.wb-bottle-form label.form__label, .caption-with-letter-spacing {
     margin-bottom: 12px;
     letter-spacing: 2px!important;
 }
