@@ -151,7 +151,7 @@ footer h5.wb-tiny-heading {
 }
 
 .wb-search.template-search__search {
-    margin: 0;
+    margin: 0 0 40px 0;
 }
 
 @media screen and (min-width: 600px) {
