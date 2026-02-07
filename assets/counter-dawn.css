@@ -164,6 +164,10 @@ span.wb-radio {
     margin-right: 12px;
 }
 
+.wb-search.template-search--empty {
+    padding: 0;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header {
