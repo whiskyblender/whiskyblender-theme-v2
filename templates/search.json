@@ -27,9 +27,52 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "collection_list_qXVN68": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_phVAh7": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "birthdays"
+          }
+        },
+        "featured_collection_jC6hGX": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "weddings"
+          }
+        },
+        "featured_collection_GrqYGT": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "celebrations"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_phVAh7",
+        "featured_collection_jC6hGX",
+        "featured_collection_GrqYGT"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Collections2",
+        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way.",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "color_scheme": "",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "collection_list_qXVN68"
   ]
 }
