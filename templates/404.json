@@ -21,7 +21,7 @@
         "products_to_show": 4,
         "title": "Suggestions",
         "heading_size": "h1",
-        "description": "<p>This might not be what you were looking for. But then again, maybe it was...</p>",
+        "description": "",
         "show_description": false,
         "description_style": "body",
         "columns_desktop": 4,
