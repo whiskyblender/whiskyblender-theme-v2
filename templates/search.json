@@ -57,8 +57,8 @@
       ],
       "name": "t:sections.collection-list.presets.name",
       "settings": {
-        "title": "Collections2",
-        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way.",
+        "title": "Suggestions",
+        "description": "This might not be what you're looking for. But then again... maybe it is!",
         "heading_size": "h1",
         "image_ratio": "square",
         "columns_desktop": 3,
