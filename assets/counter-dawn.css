@@ -173,6 +173,11 @@ span.wb-radio {
     letter-spacing: 2px!important;
 }
 
+.wb-productmedia.multicolumn-card-spacing {
+    padding: 0;
+    margin: 0;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header {
