@@ -150,6 +150,10 @@ footer h5.wb-tiny-heading {
     margin-top: 28px;
 }
 
+.template-search__search {
+    margin: 0;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header .wb-padding {
