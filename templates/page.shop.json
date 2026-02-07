@@ -20,7 +20,7 @@
     "shop_all_products_qWxYzR": {
       "type": "shop-all-products",
       "settings": {
-        "excluded_collection": "Anniversaries, Birthdays, Celebrations, Christmas, Iconic Scotland, Quality patter, Thankyous, Weddings",
+        "excluded_collection": "Andrews of Bothwell, Anniversaries, Birthdays, Celebrations, Christmas, Thankyous, Weddings",
         "columns_desktop": 4,
         "columns_mobile": "2",
         "color_scheme": "",
