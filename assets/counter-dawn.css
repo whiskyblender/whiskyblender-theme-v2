@@ -159,6 +159,11 @@ footer h5.wb-tiny-heading {
     display: none;
 }
 
+span.wb-radio {
+    margin-bottom: 0px;
+    margin-right: 12px;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header .wb-padding {
