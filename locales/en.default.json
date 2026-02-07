@@ -45,7 +45,7 @@
       "previous": "Previous page"
     },
     "search": {
-      "search": "Search",
+      "search": "Whit?",
       "reset": "Clear search term"
     },
     "cart": {
@@ -558,11 +558,6 @@
       },
       "throttle": {
         "cart_summary_heading": "Your basket"
-      },
-      "order_summary": {
-        "more_items_modal": {
-          "search_item": "Whit?"
-        }
       }
     }
   }
