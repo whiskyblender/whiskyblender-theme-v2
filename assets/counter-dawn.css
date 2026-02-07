@@ -154,6 +154,10 @@ footer h5.wb-tiny-heading {
     margin: 0 0 40px 0;
 }
 
+#main-search-filters {
+    display: none;
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header .wb-padding {
