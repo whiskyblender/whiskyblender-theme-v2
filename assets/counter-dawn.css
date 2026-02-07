@@ -169,7 +169,8 @@ span.wb-radio {
 }
 
 .wb-bottle-form .form__label {
-    color: red
+    margin-bottom: 6px;
+    letter-spacing: 2px;
 }
 
 @media screen and (min-width: 600px) {
