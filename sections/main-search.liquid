@@ -145,7 +145,6 @@
           <p role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
         {%- endif -%}
       {%- endif -%}
-    </div>
     {%- if search.performed -%}
       {%- if section.settings.enable_sorting
         and section.settings.filter_type == 'vertical'
