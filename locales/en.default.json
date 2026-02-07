@@ -46,7 +46,7 @@
     },
     "search": {
       "search": "Whit ye after?",
-      "reset": "Clear search term"
+      "reset": "Clear"
     },
     "cart": {
       "view": "View basket ({{ count }})",
@@ -227,7 +227,7 @@
   },
   "templates": {
     "search": {
-      "no_results": "No results found for “{{ terms }}”. Check the spelling or use a different word or phrase.",
+      "no_results": "Nae results found for “{{ terms }}”. Check yer spellin' or use a different word or phrase.",
       "page": "Page",
       "products": "Products",
       "results_pages_with_count": {
@@ -559,6 +559,9 @@
       "throttle": {
         "cart_summary_heading": "Your basket"
       }
+    },
+    "page_titles": {
+      "search": "Search"
     }
   }
 }
