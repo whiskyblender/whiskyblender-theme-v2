@@ -168,6 +168,10 @@ span.wb-radio {
     padding: 0;
 }
 
+.wb-bottle-form .form__label {
+    color: red
+}
+
 @media screen and (min-width: 600px) {
 
 .wb-alternative-header {
