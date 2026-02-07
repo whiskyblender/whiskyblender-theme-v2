@@ -119,7 +119,7 @@ footer h5.wb-tiny-heading {
     font-weight: 700;
 }
 
-.wb-alternative-header .wb-padding {
+.wb-alternative-header {
     padding-bottom: 0;
     margin-bottom: -40px;
 }
@@ -166,7 +166,7 @@ span.wb-radio {
 
 @media screen and (min-width: 600px) {
 
-.wb-alternative-header .wb-padding {
+.wb-alternative-header {
     margin-bottom: -60px;
 }
 
