@@ -152,6 +152,7 @@ footer h5.wb-tiny-heading {
 
 .wb-search.template-search__search {
     margin: 0 0 40px 0;
+    max-width: 100%;
 }
 
 #main-search-filters {
