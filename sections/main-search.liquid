@@ -66,7 +66,7 @@
 {% paginate search.results by 24 %}
   <div class="wb-container template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %}">
     <div class="wb-padding template-search__header {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      <h1 class="wb-heading-medium h2">
+      <h1 class="wb-medium-heading h2">
         {%- if search.performed -%}
           {{- 'templates.search.title' | t -}}
         {%- else -%}
