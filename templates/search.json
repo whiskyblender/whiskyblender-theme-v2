@@ -28,51 +28,38 @@
         "padding_bottom": 0
       }
     },
-    "collection_list_qXVN68": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_phVAh7": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "birthdays"
-          }
-        },
-        "featured_collection_jC6hGX": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "weddings"
-          }
-        },
-        "featured_collection_GrqYGT": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "celebrations"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_phVAh7",
-        "featured_collection_jC6hGX",
-        "featured_collection_GrqYGT"
-      ],
-      "name": "t:sections.collection-list.presets.name",
+    "featured_collection_L4UMtE": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "title": "Suggestions",
-        "description": "This might not be what you're looking for. But then again... maybe it is!",
+        "collection": "featured",
+        "products_to_show": 4,
+        "title": "Featured collection",
         "heading_size": "h1",
-        "image_ratio": "square",
-        "columns_desktop": 3,
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
         "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
         "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
   "order": [
     "main",
-    "collection_list_qXVN68"
+    "featured_collection_L4UMtE"
   ]
 }
