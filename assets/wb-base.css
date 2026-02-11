@@ -73,7 +73,7 @@ ul {
   margin: 0 auto;
 }
 
-.shopify-section:nth-of-type(even) .wb-banded {
+.shopify-section:nth-of-type(even) .wb-banded, .wb-banded:nth-of-type(even) {
   background-color: #efefef;
 }
 
