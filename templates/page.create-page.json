@@ -1,0 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "main_page_wb_QxRfpd": {
+      "type": "main-page-wb",
+      "name": "WB Page",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "rich_text_RdwAjX": {
+      "type": "rich-text",
+      "blocks": {
+        "text_tbKVFU": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Coming soon</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_tbKVFU"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "left",
+        "content_alignment": "left",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "main_page_wb_QxRfpd",
+    "rich_text_RdwAjX"
+  ]
+}
