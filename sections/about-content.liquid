@@ -1,0 +1,89 @@
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <span class="wb-photo-holder wb-about-photo-castle">
+        <img
+          class="wb-full-width"
+          src="{{ 'wb-bothwell-castle.png' | asset_url }}"
+          alt="Bothwell Castle"
+        >
+      </span>
+      <h2 class="wb-medium-heading">How but?</h2>
+      <p>
+        We want people to enjoy whisky without fear. To explore Scotch and to have fun doing so. Drink whatever you like
+        and however you like it. But
+        <a href="https://www.drinkaware.co.uk/" target="_blank">drink responsibly</a>, and with good company.
+      </p>
+      <p>
+        Head to the <a href="{{ pages.thelab.url }}">blending lab</a> and fill your bottle with the whiskies that sound
+        good to you. Once your bottle is full you can name it and declare yourself as the blender. Just have fun and
+        trust your instincts!
+      </p>
+      <span class="wb-photo-holder wb-about-photo-saltire">
+        <img class="wb-full-width" src="{{ 'wb-saltire-patch.png' | asset_url }}" alt="Saltire patch">
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <h2 class="wb-medium-heading">Oor story</h2>
+      <p>
+        The idea came one day after we'd enjoyed a few drams at a whisky festival in Ayr (and perhaps enjoyed it
+        slightly more than we should have). After some food and a snooze on the train back to Glasgow we went for a few
+        pints&mdash;and that's when the idea came to us! This concept of allowing people to
+        <a href="{{ pages.create.url }}">have their very own bottle of Scotch</a>... through a website!
+      </p>
+      <p>
+        We were so excited! We discussed it more, drew up sketches, concept mocks, the works. Slowly but surely life got
+        in the way and this idea was put back in the whisky cabinet until such a time arose that we said to each other
+        "let's do it". And we did. Whisky Blender was officially established in 2011... and we've been having a dram
+        guid time ever since!
+      </p>
+      <span class="wb-photo-holder wb-about-photo-acrospire">
+        <img class="wb-full-width" src="{{ 'wb-acrospire.png' | asset_url }}" alt="Andy & Drew polaroid">
+      </span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Content",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Content"
+    }
+  ]
+}
+{% endschema %}
