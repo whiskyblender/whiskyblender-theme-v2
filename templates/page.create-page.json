@@ -17,14 +17,6 @@
         "padding_bottom": 28
       }
     },
-    "main_page_wb_QxRfpd": {
-      "type": "main-page-wb",
-      "name": "WB Page",
-      "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "create_section_4e39k7": {
       "type": "create-section",
       "blocks": {
@@ -41,7 +33,7 @@
           "settings": {
             "icon": "⭐",
             "heading": "Personalise a <a href=\"/pages/perfectdrams\">perfect dram</a>",
-            "url": "/pages/perfectdrams"
+            "url": "shopify://pages/perfect-drams"
           }
         },
         "option_BziJVq": {
@@ -93,7 +85,6 @@
   },
   "order": [
     "main",
-    "main_page_wb_QxRfpd",
     "create_section_4e39k7"
   ]
 }
