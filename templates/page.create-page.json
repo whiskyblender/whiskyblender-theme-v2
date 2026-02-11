@@ -25,33 +25,75 @@
         "padding_bottom": 36
       }
     },
-    "rich_text_RdwAjX": {
-      "type": "rich-text",
+    "create_section_4e39k7": {
+      "type": "create-section",
       "blocks": {
-        "text_tbKVFU": {
-          "type": "text",
+        "option_nWPDyX": {
+          "type": "option",
           "settings": {
-            "text": "<p>Coming soon</p>"
+            "icon": "🎨",
+            "heading": "Create a new whisky in <a href=\"/pages/thelab\">the lab</a>",
+            "url": "/pages/thelab"
+          }
+        },
+        "option_zKrc9g": {
+          "type": "option",
+          "settings": {
+            "icon": "⭐",
+            "heading": "Personalise a <a href=\"/pages/perfectdrams\">perfect dram</a>",
+            "url": "/pages/perfectdrams"
+          }
+        },
+        "option_BziJVq": {
+          "type": "option",
+          "settings": {
+            "icon": "🤏",
+            "heading": "Label up wee <a href=\"/pages/miniatures\">whisky miniatures</a>",
+            "url": "/pages/miniatures"
+          }
+        },
+        "option_bkNwYD": {
+          "type": "option",
+          "settings": {
+            "icon": "🥃",
+            "heading": "Name your own <a href=\"/pages/singlemalts\">single malt</a>",
+            "url": "/pages/singlemalts"
+          }
+        },
+        "option_jjccJk": {
+          "type": "option",
+          "settings": {
+            "icon": "💌",
+            "heading": "Get mailed a <a href=\"/pages/vouchers\">gift voucher</a>",
+            "url": "/pages/vouchers"
+          }
+        },
+        "option_V8wMq3": {
+          "type": "option",
+          "settings": {
+            "icon": "🤝",
+            "heading": "Collaborate on <a href=\"/pages/collaborate\">your own brand</a>",
+            "url": "/pages/collaborate"
           }
         }
       },
       "block_order": [
-        "text_tbKVFU"
+        "option_nWPDyX",
+        "option_zKrc9g",
+        "option_BziJVq",
+        "option_bkNwYD",
+        "option_jjccJk",
+        "option_V8wMq3"
       ],
-      "name": "t:sections.rich-text.presets.name",
+      "name": "WB - Create Options",
       "settings": {
-        "desktop_content_position": "left",
-        "content_alignment": "left",
-        "color_scheme": "",
-        "full_width": true,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "heading": "Let's get started!"
       }
     }
   },
   "order": [
     "main",
     "main_page_wb_QxRfpd",
-    "rich_text_RdwAjX"
+    "create_section_4e39k7"
   ]
 }
