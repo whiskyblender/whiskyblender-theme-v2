@@ -40,8 +40,8 @@
           "type": "option",
           "settings": {
             "icon": "🤏",
-            "heading": "Label up wee <a href=\"/pages/miniatures\">whisky miniatures</a>",
-            "url": "/pages/miniatures"
+            "heading": "Label up wee <a href=\"/products/miniatures\">whisky miniatures</a>",
+            "url": "shopify://products/miniatures"
           }
         },
         "option_bkNwYD": {
@@ -56,7 +56,7 @@
           "type": "option",
           "settings": {
             "icon": "💌",
-            "heading": "Get mailed a <a href=\"/pages/vouchers\">gift voucher</a>",
+            "heading": "Get mailed a <a href=\"/products/gift-voucher\">gift voucher</a>",
             "url": "shopify://products/gift-voucher"
           }
         },
