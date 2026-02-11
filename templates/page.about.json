@@ -33,8 +33,50 @@
     },
     "about_content_WNcjFw": {
       "type": "about-content",
+      "blocks": {
+        "featured_logo_PJnPrB": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/brides.png",
+            "text": "",
+            "url": ""
+          }
+        },
+        "featured_logo_yxiDTh": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/uncrate.png",
+            "text": "uncrate",
+            "url": ""
+          }
+        },
+        "featured_logo_6fT7Pw": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/wired.png",
+            "text": "Wired",
+            "url": "https://www.wired.com/2012/03/whisky-blender/"
+          }
+        },
+        "featured_logo_VbNmQh": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/abc7.png",
+            "text": "",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "featured_logo_PJnPrB",
+        "featured_logo_yxiDTh",
+        "featured_logo_6fT7Pw",
+        "featured_logo_VbNmQh"
+      ],
       "name": "About Content",
       "settings": {
+        "featured_heading": "Look maw, we're famous!",
+        "featured_description": "Some of the places we've been featured over the years.",
         "color_scheme": "",
         "padding_top": 40,
         "padding_bottom": 52
