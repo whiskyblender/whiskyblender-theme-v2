@@ -27,7 +27,9 @@
     {% endif %}
 
     {% render 'meta-tags' %}
-
+    {{ 'glide.js' | asset_url | script_tag }}
+    {{ 'glide.core.css' | asset_url | stylesheet_tag }}
+    {{ 'glide.custom.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-global.css' | asset_url | stylesheet_tag }}
