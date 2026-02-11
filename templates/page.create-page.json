@@ -57,7 +57,7 @@
           "settings": {
             "icon": "💌",
             "heading": "Get mailed a <a href=\"/pages/vouchers\">gift voucher</a>",
-            "url": "shopify://products/birthday"
+            "url": "shopify://products/gift-voucher"
           }
         },
         "option_V8wMq3": {
