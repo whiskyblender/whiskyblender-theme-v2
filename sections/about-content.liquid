@@ -48,11 +48,59 @@
     </div>
   </div>
 </section>
+{%- if section.blocks.size > 0 -%}
+  <section class="wb-banded">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <h2 class="wb-medium-heading">{{ section.settings.featured_heading | default: "Look maw, we're famous!" }}</h2>
+        <p>
+          {{
+            section.settings.featured_description
+            | default: "Some of the places we've been featured over the years."
+          }}
+        </p>
+        <div class="glide wb-features glide--ltr glide--carousel glide--swipeable">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides wb-logos">
+              {%- for block in section.blocks -%}
+                <li
+                  class="glide__slide"
+                  style="background-image: url('{{ block.settings.logo | image_url }}'); width: 205px; margin-left: 50px; margin-right: 50px;"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- if block.settings.url != blank -%}
+                    <a href="{{ block.settings.url }}" target="_blank">{{ block.settings.text }}</a>
+                  {%- else -%}
+                    <span>{{ block.settings.text }}</span>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{{ 'wb-about.css' | asset_url | stylesheet_tag }}
 
 {% schema %}
 {
   "name": "About Content",
   "settings": [
+    {
+      "type": "text",
+      "id": "featured_heading",
+      "label": "Featured section heading",
+      "default": "Look maw, we're famous!"
+    },
+    {
+      "type": "text",
+      "id": "featured_description",
+      "label": "Featured section description",
+      "default": "Some of the places we've been featured over the years."
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -80,9 +128,57 @@
       "default": 52
     }
   ],
+  "blocks": [
+    {
+      "type": "featured_logo",
+      "name": "Featured Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "info": "Name or title for the featured item"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link URL",
+          "info": "Optional - leave blank for no link"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "About Content"
+      "name": "About Content",
+      "blocks": [
+        {
+          "type": "featured_logo",
+          "settings": {
+            "text": "Foodbeast",
+            "url": "https://www.foodbeast.com/news/whiskey-blender-blend-your-own-whiskey-like-a-boss/"
+          }
+        },
+        {
+          "type": "featured_logo",
+          "settings": {
+            "text": "Alister & Paine",
+            "url": "https://alisterpaine.com/2012/12/12/make-your-own-whisky-blend/"
+          }
+        },
+        {
+          "type": "featured_logo",
+          "settings": {
+            "text": "Lagom",
+            "url": "https://readlagom.com/stories/whisky-talk-6-phrases-you-should-never-say.html"
+          }
+        }
+      ]
     }
   ]
 }
