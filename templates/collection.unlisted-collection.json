@@ -80,7 +80,7 @@
         "show_view_all": false,
         "view_all_style": "solid",
         "color_scheme": "",
-        "image_ratio": "adapt",
+        "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
@@ -114,7 +114,7 @@
           "settings": {
             "button_label": "Enter the lab",
             "button_link": "shopify://pages/create",
-            "button_style_secondary": false
+            "button_style_secondary": true
           }
         }
       },
