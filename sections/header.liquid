@@ -33,17 +33,14 @@
         </li>
         <li>
           <a href="{{ routes.cart_url }}"><img src="{{"wb-basket-white.svg" | asset_url }}" alt="Basket" width="16" height="16" id="cart-icon-bubble">
-
-<span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-{%- if cart != empty -%}
-  <div class="cart-count-bubble wb-cart-count-bubble">
-    {%- if cart.item_count < 100 -%}
-      <span aria-hidden="true">{{ cart.item_count }}</span>
-    {%- endif -%}
-    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
-  </div>
-{%- endif -%}
-
+          {%- if cart != empty -%}
+            <div class="cart-count-bubble wb-cart-count-bubble">
+              {%- if cart.item_count < 100 -%}
+                <span aria-hidden="true">{{ cart.item_count }}</span>
+              {%- endif -%}
+              <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+            </div>
+          {%- endif -%}
         </a>
         </li>
       </ul>
