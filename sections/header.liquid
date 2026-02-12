@@ -33,11 +33,6 @@
         </li>
         <li>
           <a href="{{ routes.cart_url }}"><img src="{{"wb-basket-white.svg" | asset_url }}" alt="Basket" width="16" height="16" id="cart-icon-bubble">
-        {% if cart == empty %}
-  <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
-{% else %}
-  <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-{% endif %}
 
 <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
 {%- if cart != empty -%}
