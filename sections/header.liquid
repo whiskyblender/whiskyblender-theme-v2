@@ -29,9 +29,6 @@
           <a href="{{ routes.search_url }}"><img src="{{"wb-search-white.svg" | asset_url }}" alt="Search" width="16" height="16"></a>
         </li>-->
         <li>
-          <a href="{{ routes.account_url }}"><img src="{{"wb-account-white.svg" | asset_url }}" alt="Account" width="16" height="16"></a>
-        </li>
-        <li>
           <a href="{{ routes.cart_url }}"><img src="{{"wb-basket-white.svg" | asset_url }}" alt="Basket" width="16" height="16" id="cart-icon-bubble">
           {%- if cart != empty -%}
             <div class="cart-count-bubble wb-cart-count-bubble">
@@ -42,6 +39,9 @@
             </div>
           {%- endif -%}
         </a>
+        </li>
+        <li>
+          <a href="{{ routes.account_url }}"><img src="{{"wb-account-white.svg" | asset_url }}" alt="Account" width="16" height="16"></a>
         </li>
       </ul>
     </li>
