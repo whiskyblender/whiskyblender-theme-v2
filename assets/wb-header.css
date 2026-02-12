@@ -209,6 +209,25 @@ ul.wb-navicons li a img {
   color: #ffffff !important;
 }
 
+.wb-cart-count-bubble {
+    position: absolute;
+    background-color: red;
+    color: #ffffff;
+    height: 20px;
+    width: auto;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    top: 38%;
+    left: 52%;
+    padding: 0 6px;
+    line-height: 20px;
+    font-family: monospace;
+    z-index: 10;
+}
+
 @media screen and (min-width: 375px) {
   ul.wb-navicons li a img {
     height: 14px;
