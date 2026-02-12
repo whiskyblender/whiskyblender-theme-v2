@@ -139,7 +139,7 @@
       ],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
-        "image": "shopify://shop_images/wb-foryersel-baked.png",
+        "image": "shopify://shop_images/wb-unique-baked.png",
         "height": "medium",
         "desktop_image_width": "medium",
         "layout": "text_first",
