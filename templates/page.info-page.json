@@ -112,23 +112,23 @@
         "heading_dfBPGC": {
           "type": "heading",
           "settings": {
-            "heading": "You need to fill them first!",
+            "heading": "Create something unique",
             "heading_size": "h1"
           }
         },
         "text_YkbWeb": {
           "type": "text",
           "settings": {
-            "text": "<p>Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way. So take a look at the different ways you can create something you can enjoy, share and show off.</p>",
+            "text": "<p>Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you’ll be proud to pour, share, and savor.</p>",
             "text_style": "body"
           }
         },
         "button_9iCtAq": {
           "type": "button",
           "settings": {
-            "button_label": "Create something",
+            "button_label": "Enter the lab",
             "button_link": "shopify://pages/create",
-            "button_style_secondary": false
+            "button_style_secondary": true
           }
         }
       },
