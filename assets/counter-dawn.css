@@ -87,8 +87,9 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
     transform: rotate(-4deg);
 }
 
-a.wb-button.button.button--primary {
+a.wb-button.button, a.wb-button.button.button--primary {
     letter-spacing: normal;
+    min-height: auto;
 }
 
 .product__accordion .accordion__content {
