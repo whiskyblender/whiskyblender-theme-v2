@@ -36,11 +36,74 @@
         "padding_top": 40,
         "padding_bottom": 52
       }
+    },
+    "collapsible_content_nm43Lf": {
+      "type": "collapsible-content",
+      "blocks": {
+        "collapsible_row_m66eER": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "question_mark",
+            "row_content": "",
+            "page": ""
+          }
+        },
+        "collapsible_row_wJxy4V": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "question_mark",
+            "row_content": "",
+            "page": ""
+          }
+        },
+        "collapsible_row_HJH7tX": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "question_mark",
+            "row_content": "",
+            "page": ""
+          }
+        },
+        "collapsible_row_KqYprQ": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Collapsible row",
+            "icon": "question_mark",
+            "row_content": "",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row_m66eER",
+        "collapsible_row_wJxy4V",
+        "collapsible_row_HJH7tX",
+        "collapsible_row_KqYprQ"
+      ],
+      "name": "t:sections.collapsible_content.presets.name",
+      "settings": {
+        "caption": "",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_alignment": "center",
+        "layout": "section",
+        "container_color_scheme": "",
+        "color_scheme": "",
+        "open_first_collapsible_row": false,
+        "image_ratio": "adapt",
+        "desktop_layout": "image_second",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "main",
     "main_page_wb_QxRfpd",
-    "rich_text_pGTqnR"
+    "rich_text_pGTqnR",
+    "collapsible_content_nm43Lf"
   ]
 }
