@@ -17,65 +17,36 @@
         "padding_bottom": 28
       }
     },
-    "custom_liquid_ezDrYz": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<h1 class=\"wb-large-heading\">{{page.title}}</h1>\n\n<p>{{ page.content}}</p>",
-        "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
-    },
-    "wb_grid_jiJeQ6": {
-      "type": "wb-grid",
-      "name": "WB - Grid",
-      "settings": {}
-    },
-    "image_with_text_pUDRWr": {
-      "type": "image-with-text",
+    "wb_main_grid_page_YUkKbV": {
+      "type": "wb-main-grid-page",
       "blocks": {
-        "heading_E47T4E": {
-          "type": "heading",
-          "settings": {
-            "heading": "{{ page.metafields.custom.image_with_text.value.title.value }}",
-            "heading_size": "h1"
-          }
+        "page_header_8RnYiE": {
+          "type": "page_header",
+          "settings": {}
         },
-        "text_w6N6HF": {
-          "type": "text",
-          "settings": {
-            "text": "<p>{{ page.metafields.custom.image_with_text.value.description | metafield_tag }}</p>",
-            "text_style": "body"
-          }
+        "wb_grid_qtppDw": {
+          "type": "wb_grid",
+          "settings": {}
         },
-        "button_UYHBfG": {
-          "type": "button",
+        "image_with_text_fDBnRb": {
+          "type": "image_with_text",
           "settings": {
-            "button_label": "{{ page.metafields.custom.image_with_text.value.button_text.value }}",
-            "button_link": "{{ page.metafields.custom.image_with_text.value.button_link.value }}",
-            "button_style_secondary": false
+            "image": "{{ block.settings.button_link.metafields.custom.image_with_text.value.image.value }}",
+            "layout": "text_first",
+            "heading": "{{ block.settings.button_link.metafields.custom.image_with_text.value.title.value }}",
+            "text": "",
+            "button_label": "",
+            "button_link": ""
           }
         }
       },
       "block_order": [
-        "heading_E47T4E",
-        "text_w6N6HF",
-        "button_UYHBfG"
+        "page_header_8RnYiE",
+        "wb_grid_qtppDw",
+        "image_with_text_fDBnRb"
       ],
-      "name": "t:sections.image-with-text.presets.name",
+      "name": "WB Grid Page",
       "settings": {
-        "image": "{{ page.metafields.custom.image_with_text.value.image.value }}",
-        "height": "adapt",
-        "desktop_image_width": "medium",
-        "layout": "text_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "top",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "",
-        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -83,8 +54,6 @@
   },
   "order": [
     "main",
-    "custom_liquid_ezDrYz",
-    "wb_grid_jiJeQ6",
-    "image_with_text_pUDRWr"
+    "wb_main_grid_page_YUkKbV"
   ]
 }
