@@ -206,11 +206,7 @@
           }
         }
       },
-      "block_order": [
-        "heading_3AfHm8",
-        "text_JEypNJ",
-        "button_RDx9hW"
-      ],
+      "block_order": ["heading_3AfHm8", "text_JEypNJ", "button_RDx9hW"],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/wb-foryersel-baked.png",
@@ -254,11 +250,7 @@
           }
         }
       },
-      "block_order": [
-        "heading_mW4XLB",
-        "text_qRtFqN",
-        "button_eGB9Me"
-      ],
+      "block_order": ["heading_mW4XLB", "text_qRtFqN", "button_eGB9Me"],
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/wb-yerownbrand-baked.png",

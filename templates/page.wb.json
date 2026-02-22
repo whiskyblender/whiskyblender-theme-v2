@@ -42,9 +42,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "main_landing_yiUinV",
-    "custom_liquid_4gNEkL"
-  ]
+  "order": ["main", "main_landing_yiUinV", "custom_liquid_4gNEkL"]
 }

@@ -67,12 +67,7 @@
           }
         }
       },
-      "block_order": [
-        "featured_logo_PJnPrB",
-        "featured_logo_yxiDTh",
-        "featured_logo_6fT7Pw",
-        "featured_logo_VbNmQh"
-      ],
+      "block_order": ["featured_logo_PJnPrB", "featured_logo_yxiDTh", "featured_logo_6fT7Pw", "featured_logo_VbNmQh"],
       "name": "About Content",
       "settings": {
         "featured_heading": "Look maw, we're famous!",
@@ -112,10 +107,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "main_landing_CWHJim",
-    "about_content_WNcjFw",
-    "featured_collection_aApYcQ"
-  ]
+  "order": ["main", "main_landing_CWHJim", "about_content_WNcjFw", "featured_collection_aApYcQ"]
 }

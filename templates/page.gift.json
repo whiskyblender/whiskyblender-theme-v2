@@ -190,11 +190,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "main_landing_UjYUKH",
-    "image_reel_gE8Wiz",
-    "collection_list_3XXz4y",
-    "featured_collection_cD7jc4"
-  ]
+  "order": ["main", "main_landing_UjYUKH", "image_reel_gE8Wiz", "collection_list_3XXz4y", "featured_collection_cD7jc4"]
 }
