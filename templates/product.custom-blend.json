@@ -31,6 +31,18 @@
             "swatch_shape": "circle"
           }
         },
+        "custom_liquid_bTJABx": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"wb-bottle-form\">\n<label for=\"label-text\">Label text</label>\n<input\n  form=\"product-form-{{ section.id }}\"\n  type=\"text\"\n  id=\"label-text\"\n  name=\"properties[Label text]\"\n  placeholder=\"Yer da sells Avon and luvs it!\"\n  value=\"\" />\n</div>"
+          }
+        },
+        "custom_liquid_eEdV4R": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"wb-bottle-form\">\n<label for=\"created-by\">Created by</label>\n<input\n  form=\"product-form-{{ section.id }}\"\n  type=\"text\"\n  id=\"created-by\"\n  name=\"properties[Created by]\"\n  placeholder=\"Wee Shuggy & Big Tam \"\n  value=\"\" />\n</div>"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -73,6 +85,8 @@
         "product_tagline_W3AUrB",
         "price",
         "variant_picker",
+        "custom_liquid_bTJABx",
+        "custom_liquid_eEdV4R",
         "quantity_selector",
         "buy_buttons",
         "description",
