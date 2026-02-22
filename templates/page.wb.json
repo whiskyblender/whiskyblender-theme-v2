@@ -27,11 +27,7 @@
           "settings": {}
         }
       },
-      "block_order": [
-        "landing_hero_rGeKRj",
-        "custom_liquid_TEEqwb",
-        "image_reel_7rAEVV"
-      ],
+      "block_order": ["landing_hero_rGeKRj", "custom_liquid_TEEqwb", "image_reel_7rAEVV"],
       "name": "WB Page",
       "settings": {
         "padding_top": 36,
@@ -68,8 +64,5 @@
       }
     }
   },
-  "order": [
-    "wb_main_content_aey7e4",
-    "featured_collection_V7byRm"
-  ]
+  "order": ["wb_main_content_aey7e4", "featured_collection_V7byRm"]
 }

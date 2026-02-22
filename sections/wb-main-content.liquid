@@ -57,7 +57,6 @@
 
         {%- when 'image_reel' -%}
           {%- assign reel_images = page.metafields.custom.image_reel_data.value -%}
-
           {% render 'wb-image-reel-markup', reel_images: reel_images %}
 
         {%- when 'custom_liquid' -%}
@@ -68,6 +67,11 @@
         {%- when 'richtext' -%}
           <div class="wb-padding" {{ block.shopify_attributes }}>
             {{ block.settings.richtext }}
+          </div>
+
+        {%- when 'contact_form' -%}
+          <div class="wb-padding" {{ block.shopify_attributes }}>
+            {% render 'wb-contact-form-markup', heading: block.settings.heading, heading_size: 'h1' %}
           </div>
       {%- endcase -%}
     {%- endfor -%}
@@ -136,6 +140,19 @@
           "id": "custom_liquid",
           "label": "Custom Liquid",
           "info": "Add app snippets or other Liquid code to create custom content."
+        }
+      ]
+    },
+    {
+      "type": "contact_form",
+      "name": "Contact Form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Contact form",
+          "label": "Heading"
         }
       ]
     },
