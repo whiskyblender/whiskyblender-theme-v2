@@ -5,46 +5,19 @@
 <section class="wb-banded wb-overflow-hidden-x">
   <div class="wb-container wb-first-item">
     <div class="wb-padding">
-      <div class="glide wb-gifts">
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides wb-giftphotos">
-            {%- for block in section.blocks -%}
-              <li class="glide__slide wb-giftphoto" {{ block.shopify_attributes }}>
-                <img
-                  src="{{ block.settings.reel_image | asset_url }}"
-                  alt="Gift photo"
-                  width="200"
-                  height="200"
-                >
-              </li>
-            {%- endfor -%}
-          </ul>
-        </div>
-      </div>
+      {%- assign reel_images = '' -%}
+      {%- for block in section.blocks -%}
+        {%- if forloop.first -%}
+          {%- assign reel_images = block.settings.reel_image -%}
+        {%- else -%}
+          {%- assign reel_images = reel_images | append: ',' | append: block.settings.reel_image -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign reel_images = reel_images | split: ',' -%}
+      {% render 'wb-image-reel-markup', reel_images: reel_images %}
     </div>
   </div>
 </section>
-{% javascript %}
-  new Glide('.wb-gifts', {
-    type: 'carousel',
-    gap: 40,
-    perView: 5,
-    autoplay: 1,
-    animationDuration: 5000,
-    animationTimingFunc: 'linear',
-    hoverpause: true,
-    breakpoints: {
-      600: {
-        perView: 3,
-        gap: 20,
-      },
-      768: {
-        perView: 4,
-        gap: 30,
-      },
-    },
-  }).mount();
-{% endjavascript %}
 
 {% schema %}
 {
