@@ -21,11 +21,16 @@
           "settings": {
             "richtext": "<p></p>{{ page.content }}"
           }
+        },
+        "image_reel_7rAEVV": {
+          "type": "image_reel",
+          "settings": {}
         }
       },
       "block_order": [
         "landing_hero_rGeKRj",
-        "richtext_43Mn89"
+        "richtext_43Mn89",
+        "image_reel_7rAEVV"
       ],
       "name": "WB Page",
       "settings": {
