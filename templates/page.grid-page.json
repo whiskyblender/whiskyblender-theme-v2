@@ -29,7 +29,10 @@
           "settings": {}
         }
       },
-      "block_order": ["page_header_8RnYiE", "wb_grid_qtppDw"],
+      "block_order": [
+        "page_header_8RnYiE",
+        "wb_grid_qtppDw"
+      ],
       "name": "WB Grid Page",
       "settings": {
         "padding_top": 36,
@@ -57,7 +60,7 @@
           "type": "button",
           "settings": {
             "button_label": "{{ page.metafields.custom.image_with_text.value.button_text.value }}",
-            "button_link": "{{ page.metafields.custom.image_with_text.value.button_link.value }}",
+            "button_link": "{{ page.metafields.custom.image_with_text.value.button_url.value }}",
             "button_style_secondary": false
           }
         }
@@ -85,5 +88,9 @@
       }
     }
   },
-  "order": ["main", "wb_main_grid_page_YUkKbV"]
+  "order": [
+    "main",
+    "wb_main_grid_page_YUkKbV",
+    "image_with_text_cJDTar"
+  ]
 }
