@@ -1,41 +1,15 @@
 <section class="wb-overflow-hidden-x">
   <div class="wb-container">
-    {%- liquid
-      if collection.image != blank
-        assign hero_image = collection.image | image_url: width: 1920
-      elsif section.settings.background_image != blank
-        assign hero_image = section.settings.background_image | asset_url
-      endif
-    -%}
-    {%- if section.settings.video_file == blank -%}
-      <div class="wb-imagebg" style="background-image: url({{ hero_image }})">
-        <div class="wb-padding">
-          <h1 class="wb-medium-heading">{{ section.settings.title }}</h1>
-          <p class="wb-collection-sub">{{ section.settings.description }}</p>
-        </div>
-      </div>
-    {%- else -%}
-      <div class="wb-videobg" style="background-image: url({{ hero_image }})">
-        <div class="wb-videograin"></div>
-        <video autoplay muted loop id="wb-video">
-          <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
-        </video>
-      </div>
-      <div class="wb-overvideo">
-        <div class="wb-padding">
-          <h1 class="wb-large-heading">{{ section.settings.title }}</h1>
-          <p>{{ section.settings.description }}</p>
-          <div class="wb-buttons">
-            <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">
-              {{- section.settings.primary_button_text -}}
-            </a>
-            <a href="{{ section.settings.secondary_button_url }}" class="wb-button">
-              {{- section.settings.secondary_button_text -}}
-            </a>
-          </div>
-        </div>
-      </div>
-    {%- endif -%}
+    {% render 'wb-landing-hero-markup',
+      video_file: section.settings.video_file,
+      background_image: section.settings.background_image,
+      title: section.settings.title,
+      description: section.settings.description,
+      primary_button_text: section.settings.primary_button_text,
+      primary_button_url: section.settings.primary_button_url,
+      secondary_button_text: section.settings.secondary_button_text,
+      secondary_button_url: section.settings.secondary_button_url
+    %}
   </div>
 </section>
 
