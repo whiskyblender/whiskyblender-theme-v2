@@ -70,9 +70,7 @@
           </div>
 
         {%- when 'contact_form' -%}
-          <div class="wb-padding" {{ block.shopify_attributes }}>
-            {% render 'wb-contact-form-markup', heading: block.settings.heading, heading_size: 'h1' %}
-          </div>
+          {% render 'wb-contact-form-markup', heading: block.settings.heading, heading_size: 'h1' %}
       {%- endcase -%}
     {%- endfor -%}
   </div>

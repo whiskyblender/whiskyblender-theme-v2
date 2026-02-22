@@ -1,3 +1,5 @@
+{{ 'wb-collaborate.css' | asset_url | stylesheet_tag }}
+
 <section class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
@@ -52,6 +54,19 @@
           >
         </div>
       {%- endform -%}
+      <script>
+        (function () {
+          const email = document.getElementById('wb-youremail');
+          const submit = document.querySelector('.wb-letter-form .wb-button');
+          if (email && submit) {
+            email.addEventListener('input', function () {
+              submit.classList.toggle('wb-button-disabled', !this.value.trim());
+              submit.disabled = !this.value.trim();
+            });
+            submit.disabled = !email.value.trim();
+          }
+        })();
+      </script>
     </div>
   </div>
 </section>
