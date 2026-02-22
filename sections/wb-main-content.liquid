@@ -20,64 +20,57 @@
 {%- endstyle -%}
 <div class="wb-first-item">
   <div class="wb-container">
-    <div class="wb-padding wb-collection-copy">
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'page_header' -%}
-            <h1 class="wb-large-heading">{{ page.title | escape }}</h1>
-            <p>
-              {{ page.content }}
-            </p>
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'page_header' -%}
+          <h1 class="wb-large-heading">{{ page.title | escape }}</h1>
+          <p>
+            {{ page.content }}
+          </p>
 
-          {%- when 'wb_grid' -%}
-            {%- assign grid_items = page.metafields.custom.grid_data.value -%}
-            <div {{ block.shopify_attributes }}>
-              <div class="wb-container">
-                <div class="wb-padding">
-                  {% render 'wb-grid-markup', grid_items: grid_items, design_mode: request.design_mode %}
-                </div>
+        {%- when 'wb_grid' -%}
+          {%- assign grid_items = page.metafields.custom.grid_data.value -%}
+          <div {{ block.shopify_attributes }}>
+            <div class="wb-container">
+              <div class="wb-padding">
+                {% render 'wb-grid-markup', grid_items: grid_items, design_mode: request.design_mode %}
               </div>
             </div>
+          </div>
 
-          {%- when 'landing_hero' -%}
-            {%- assign hero = page.metafields.custom.hero_details.value -%}
-            <div class="wb-overflow-hidden-x" {{ block.shopify_attributes }}>
-              <div class="wb-container">
-                {% render 'wb-landing-hero-markup',
-                  video_file: hero.video.value,
-                  background_image: hero.image.value,
-                  title: hero.title.value,
-                  description: hero.subtitle.value,
-                  primary_button_text: hero.primary_button_text.value,
-                  primary_button_url: hero.primary_button_url.value,
-                  secondary_button_text: hero.secondary_button_text.value,
-                  secondary_button_url: hero.secondary_button_url.value
-                %}
-              </div>
+        {%- when 'landing_hero' -%}
+          {%- assign hero = page.metafields.custom.hero_details.value -%}
+          <div class="wb-overflow-hidden-x" {{ block.shopify_attributes }}>
+            <div class="wb-container">
+              {% render 'wb-landing-hero-markup',
+                video_file: hero.video.value,
+                background_image: hero.image.value,
+                title: hero.title.value,
+                description: hero.subtitle.value,
+                primary_button_text: hero.primary_button_text.value,
+                primary_button_url: hero.primary_button_url.value,
+                secondary_button_text: hero.secondary_button_text.value,
+                secondary_button_url: hero.secondary_button_url.value
+              %}
             </div>
+          </div>
 
-          {%- when 'image_reel' -%}
-            {%- assign reel_images = page.metafields.custom.image_reel_data.value -%}
-            <div class="wb-overflow-hidden-x" {{ block.shopify_attributes }}>
-              <div class="wb-container">
-                <div class="wb-padding">
-                  {% render 'wb-image-reel-markup', reel_images: reel_images %}
-                </div>
-              </div>
-            </div>
+        {%- when 'image_reel' -%}
+          {%- assign reel_images = page.metafields.custom.image_reel_data.value -%}
 
-          {%- when 'custom_liquid' -%}
-            <div {{ block.shopify_attributes }}>
-              {{ block.settings.custom_liquid }}
-            </div>
+          {% render 'wb-image-reel-markup', reel_images: reel_images %}
 
-          {%- when 'richtext' -%}
-            <div class="wb-padding" {{ block.shopify_attributes }}>
-              {{ block.settings.richtext }}
-            </div>
-        {%- endcase -%}
-      {%- endfor -%}
-    </div>
+        {%- when 'custom_liquid' -%}
+          <div {{ block.shopify_attributes }}>
+            {{ block.settings.custom_liquid }}
+          </div>
+
+        {%- when 'richtext' -%}
+          <div class="wb-padding" {{ block.shopify_attributes }}>
+            {{ block.settings.richtext }}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
   </div>
 </div>
 
