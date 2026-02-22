@@ -25,9 +25,20 @@
         "image_reel_7rAEVV": {
           "type": "image_reel",
           "settings": {}
+        },
+        "contact_form_cXth6t": {
+          "type": "contact_form",
+          "settings": {
+            "heading": "Let’s talk Scotch"
+          }
         }
       },
-      "block_order": ["landing_hero_rGeKRj", "custom_liquid_TEEqwb", "image_reel_7rAEVV"],
+      "block_order": [
+        "landing_hero_rGeKRj",
+        "custom_liquid_TEEqwb",
+        "image_reel_7rAEVV",
+        "contact_form_cXth6t"
+      ],
       "name": "WB Page",
       "settings": {
         "padding_top": 36,
@@ -64,5 +75,8 @@
       }
     }
   },
-  "order": ["wb_main_content_aey7e4", "featured_collection_V7byRm"]
+  "order": [
+    "wb_main_content_aey7e4",
+    "featured_collection_V7byRm"
+  ]
 }
