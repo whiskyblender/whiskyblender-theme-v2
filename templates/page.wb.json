@@ -19,7 +19,7 @@
         "richtext_43Mn89": {
           "type": "richtext",
           "settings": {
-            "richtext": "{{ page.content }}"
+            "richtext": "<p></p>{{ page.content }}"
           }
         }
       },
