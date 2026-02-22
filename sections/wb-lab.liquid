@@ -1,0 +1,119 @@
+{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+{{ 'wb-products.css' | asset_url | stylesheet_tag }}
+{{ 'wb-thelab.css' | asset_url | stylesheet_tag }}
+
+{%- assign lab_flavours = page.metafields.custom.lab_flavours.value -%}
+
+{%- comment -%} SVG filter for glass / cask distortion {%- endcomment -%}
+<svg width="0" height="0" style="position:absolute">
+  <filter id="glass-distortion">
+    <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise" />
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+</svg>
+
+<ul class="wb-cards wb-option-cards" id="wb-lab-flavours">
+  {%- for flavour in lab_flavours -%}
+    {%- assign f_title = flavour.title.value -%}
+    {%- assign f_description = flavour.description.value -%}
+    {%- assign f_bg = flavour.background_image.value -%}
+    {%- assign f_cask = flavour.cask_image.value -%}
+    {%- assign f_color = flavour.color.value | downcase -%}
+    {%- assign f_index = forloop.index0 -%}
+
+    <li data-flavour-index="{{ f_index }}" data-flavour-color="{{ f_color }}">
+      <div
+        class="wb-card-image"
+        {% if f_bg %}
+          style="background-image: url('{{ f_bg | image_url: width: 800 }}')"
+        {% endif %}
+      >
+        <div
+          class="wb-cask"
+          {% if f_cask %}
+            style="background-image: url('{{ f_cask | image_url: width: 600 }}')"
+          {% endif %}
+        ></div>
+      </div>
+
+      <div class="wb-card-details">
+        <h3 class="wb-small-heading">{{ f_title }}</h3>
+        {%- if f_description != blank -%}
+          <p>{{ f_description }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="wb-liquidGlass-wrapper wb-option-amount" data-amount-for="{{ f_index }}" style="display:none">
+        <div class="wb-liquidGlass-effect"></div>
+        <div class="wb-liquidGlass-tint"></div>
+        <div class="wb-liquidGlass-shine"></div>
+        <span class="wb-liquidGlass-text">0%</span>
+      </div>
+
+      <div class="wb-option-controls">
+        <button
+          type="button"
+          class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-{{ f_color }}-option"
+          data-action="add"
+          data-flavour-index="{{ f_index }}"
+          aria-label="Add {{ f_title }}"
+        >
+          <div class="wb-liquidGlass-effect"></div>
+          <div class="wb-liquidGlass-tint"></div>
+          <div class="wb-liquidGlass-shine"></div>
+          <span class="wb-liquidGlass-text">+</span>
+        </button>
+
+        <button
+          type="button"
+          class="wb-liquidGlass-wrapper wb-option-control wb-remove-option wb-{{ f_color }}-option wb-disabled-option"
+          data-action="remove"
+          data-flavour-index="{{ f_index }}"
+          aria-label="Remove {{ f_title }}"
+        >
+          <div class="wb-liquidGlass-effect"></div>
+          <div class="wb-liquidGlass-tint"></div>
+          <div class="wb-liquidGlass-shine"></div>
+          <span class="wb-liquidGlass-text">−</span>
+        </button>
+      </div>
+    </li>
+  {%- endfor -%}
+
+  <li class="wb-notoption">
+    <div class="wb-pies">
+      <div class="wb-pie-grid"></div>
+      <div class="wb-rotate" id="wb-lab-pie">
+        {%- for flavour in lab_flavours -%}
+          {%- assign f_color = flavour.color.value | downcase -%}
+          <div class="wb-pie wb-{{ f_color }}-pie wb-pie-0" data-pie-for="{{ forloop.index0 }}">
+            <div></div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </li>
+</ul>
+
+<div class="wb-sticky-lab" id="wb-lab-meter">
+  <div class="wb-lab-fillmeter">
+    <span>0% filled — add some flavours!</span>
+    <div class="wb-lab-fillvisual" style="width: 0%"></div>
+  </div>
+</div>
+
+<script src="{{ 'wb-lab.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "WB - Blending Lab",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "WB - Blending Lab"
+    }
+  ]
+}
+{% endschema %}

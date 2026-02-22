@@ -17,17 +17,17 @@
           "settings": {}
         }
       },
-      "block_order": [
-        "page_header_kdVjFp"
-      ],
+      "block_order": ["page_header_kdVjFp"],
       "name": "WB Page",
       "settings": {
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "wb_lab_section": {
+      "type": "wb-lab",
+      "settings": {}
     }
   },
-  "order": [
-    "wb_main_content_9XxkR6"
-  ]
+  "order": ["wb_main_content_9XxkR6", "wb_lab_section"]
 }
