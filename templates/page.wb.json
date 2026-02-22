@@ -9,38 +9,34 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-page-wb",
-      "disabled": true,
+    "wb_main_content_aey7e4": {
+      "type": "wb-main-content",
+      "blocks": {
+        "landing_hero_rGeKRj": {
+          "type": "landing_hero",
+          "settings": {
+            "video_file": "",
+            "background_image": "{{ page.metafields.custom.hero_details.value.image.value }}",
+            "title": "{{ page.metafields.custom.hero_details.value.title.value }}",
+            "description": "{{ page.metafields.custom.hero_details.value.subtitle.value }}",
+            "primary_button_text": "Create something",
+            "primary_button_url": "",
+            "secondary_button_text": "Get a voucher",
+            "secondary_button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "landing_hero_rGeKRj"
+      ],
+      "name": "WB Page",
       "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
-      }
-    },
-    "main_landing_yiUinV": {
-      "type": "wb-main-landing",
-      "name": "Landing Hero",
-      "settings": {
-        "video_file": "",
-        "background_image": "collaborate.jpg",
-        "title": "YOUR OWN Brand",
-        "description": "Let's collaborate",
-        "primary_button_text": "Create something",
-        "primary_button_url": "",
-        "secondary_button_text": "Get a voucher",
-        "secondary_button_url": ""
-      }
-    },
-    "custom_liquid_4gNEkL": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<div class=\"wb-padding wb-collection-copy\">\n{{ page.content }}\n                    </div>",
-        "color_scheme": "",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
-  "order": ["main", "main_landing_yiUinV", "custom_liquid_4gNEkL"]
+  "order": [
+    "wb_main_content_aey7e4"
+  ]
 }
