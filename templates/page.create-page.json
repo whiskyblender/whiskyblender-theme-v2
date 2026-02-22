@@ -25,7 +25,7 @@
           "settings": {
             "icon": "🎨",
             "heading": "Create a new whisky in <a href=\"/pages/the-lab\">the lab</a>",
-            "url": "/pages/thelab"
+            "url": "shopify://pages/the-lab"
           }
         },
         "option_zKrc9g": {
