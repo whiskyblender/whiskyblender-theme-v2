@@ -27,24 +27,9 @@
         "wb_grid_qtppDw": {
           "type": "wb_grid",
           "settings": {}
-        },
-        "image_with_text_fDBnRb": {
-          "type": "image_with_text",
-          "settings": {
-            "image": "{{ block.settings.button_link.metafields.custom.image_with_text.value.image.value }}",
-            "layout": "text_first",
-            "heading": "{{ block.settings.button_link.metafields.custom.image_with_text.value.title.value }}",
-            "text": "",
-            "button_label": "",
-            "button_link": ""
-          }
         }
       },
-      "block_order": [
-        "page_header_8RnYiE",
-        "wb_grid_qtppDw",
-        "image_with_text_fDBnRb"
-      ],
+      "block_order": ["page_header_8RnYiE", "wb_grid_qtppDw"],
       "name": "WB Grid Page",
       "settings": {
         "padding_top": 36,
@@ -52,8 +37,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "wb_main_grid_page_YUkKbV"
-  ]
+  "order": ["main", "wb_main_grid_page_YUkKbV"]
 }

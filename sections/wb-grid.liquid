@@ -5,69 +5,7 @@
 <section>
   <div class="wb-container">
     <div class="wb-padding">
-      <ul class="wb-productsgrid" role="list">
-        {%- for grid_item in grid_items -%}
-          {%- assign item_title = grid_item.title.value -%}
-          {%- assign item_description = grid_item.description.value -%}
-          {%- assign item_image = grid_item.image.value -%}
-          {%- assign item_link = grid_item.link.value -%}
-
-          <li
-            class="wb-productcell"
-            {% if item_link == blank %}
-              style="pointer-events: none"
-            {% endif %}
-          >
-            {%- if item_link != blank -%}
-              <a href="{{ item_link }}" class="wb-productitem">
-            {%- else -%}
-              <div class="wb-productitem">
-            {%- endif -%}
-            <div class="wb-productmedia">
-              <div class="wb-productimage">
-                {%- if item_image != blank -%}
-                  {{
-                    item_image
-                    | image_url: width: 1000
-                    | image_tag: loading: 'lazy', widths: '220, 320, 480, 640, 800, 1000', alt: item_image.alt
-                    | default: item_title
-                  }}
-                {%- endif -%}
-              </div>
-            </div>
-            <div class="wb-productcontent">
-              <div class="wb-productinfo">
-                {%- if item_title != blank -%}
-                  <h3 class="wb-producttitle wb-tiny-heading">{{ item_title | escape }}</h3>
-                {%- endif -%}
-                {%- if item_description != blank -%}
-                  <div class="wb-productdetails">{{ item_description }}</div>
-                {%- endif -%}
-              </div>
-            </div>
-            {%- if item_link != blank -%}
-              </a>
-            {%- else -%}
-              </div>
-            {%- endif -%}
-          </li>
-        {%- else -%}
-          {%- if request.design_mode -%}
-            <li class="wb-productcell" style="pointer-events: none">
-              <div class="wb-productitem">
-                <div class="wb-productcontent">
-                  <div class="wb-productinfo">
-                    <h3 class="wb-producttitle wb-tiny-heading">WB - Grid</h3>
-                    <div class="wb-productdetails">
-                      Add grid_item entries to the page metafield custom.grid_data to populate this grid.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
+      {% render 'wb-grid-markup', grid_items: grid_items, design_mode: request.design_mode %}
     </div>
   </div>
 </section>
