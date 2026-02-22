@@ -27,26 +27,62 @@
         "wb_grid_qtppDw": {
           "type": "wb_grid",
           "settings": {}
-        },
-        "image_with_text_fDBnRb": {
-          "type": "image_with_text",
-          "settings": {
-            "image": "{{ block.settings.button_link.metafields.custom.image_with_text.value.image.value }}",
-            "layout": "text_first",
-            "heading": "{{ block.settings.button_link.metafields.custom.image_with_text.value.title.value }}",
-            "text": "",
-            "button_label": "",
-            "button_link": ""
-          }
         }
       },
       "block_order": [
         "page_header_8RnYiE",
-        "wb_grid_qtppDw",
-        "image_with_text_fDBnRb"
+        "wb_grid_qtppDw"
       ],
       "name": "WB Grid Page",
       "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "image_with_text_cJDTar": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_nEwzhU": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ page.metafields.custom.image_with_text.value.title.value }}",
+            "heading_size": "h1"
+          }
+        },
+        "text_3FTDBJ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>{{ page.metafields.custom.image_with_text.value.description | metafield_tag }}</p>",
+            "text_style": "body"
+          }
+        },
+        "button_TX3Cgf": {
+          "type": "button",
+          "settings": {
+            "button_label": "{{ page.metafields.custom.image_with_text.value.button_text.value }}",
+            "button_link": "{{ page.metafields.custom.image_with_text.value.button_link.value }}",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_nEwzhU",
+        "text_3FTDBJ",
+        "button_TX3Cgf"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "{{ page.metafields.custom.image_with_text.value.image.value }}",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -54,6 +90,7 @@
   },
   "order": [
     "main",
-    "wb_main_grid_page_YUkKbV"
+    "wb_main_grid_page_YUkKbV",
+    "image_with_text_cJDTar"
   ]
 }
