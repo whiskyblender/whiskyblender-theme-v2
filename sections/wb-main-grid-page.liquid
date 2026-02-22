@@ -1,0 +1,287 @@
+{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+{{ 'wb-products.css' | asset_url | stylesheet_tag }}
+{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when 'page_header' -%}
+      <div class="wb-alternative-header" {{ block.shopify_attributes }}>
+        <div class="wb-container">
+          <div class="wb-padding">
+            <div class="page-width page-width--narrow section-{{ section.id }}-padding">
+              <h1 class="wb-medium-heading main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+                {{ page.title | escape }}
+              </h1>
+              <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                {{ page.content }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {%- when 'wb_grid' -%}
+      {%- assign grid_items = page.metafields.custom.grid_data.value -%}
+      <div {{ block.shopify_attributes }}>
+        <div class="wb-container">
+          <div class="wb-padding">
+            <ul class="wb-productsgrid" role="list">
+              {%- for grid_item in grid_items -%}
+                {%- assign item_title = grid_item.title.value -%}
+                {%- assign item_description = grid_item.description.value -%}
+                {%- assign item_image = grid_item.image.value -%}
+                {%- assign item_link = grid_item.link.value -%}
+
+                <li
+                  class="wb-productcell"
+                  {% if item_link == blank %}
+                    style="pointer-events: none"
+                  {% endif %}
+                >
+                  {%- if item_link != blank -%}
+                    <a href="{{ item_link }}" class="wb-productitem">
+                  {%- else -%}
+                    <div class="wb-productitem">
+                  {%- endif -%}
+                  <div class="wb-productmedia">
+                    <div class="wb-productimage">
+                      {%- if item_image != blank -%}
+                        {{
+                          item_image
+                          | image_url: width: 1000
+                          | image_tag: loading: 'lazy', widths: '220, 320, 480, 640, 800, 1000', alt: item_image.alt
+                          | default: item_title
+                        }}
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  <div class="wb-productcontent">
+                    <div class="wb-productinfo">
+                      {%- if item_title != blank -%}
+                        <h3 class="wb-producttitle wb-tiny-heading">{{ item_title | escape }}</h3>
+                      {%- endif -%}
+                      {%- if item_description != blank -%}
+                        <div class="wb-productdetails">{{ item_description }}</div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  {%- if item_link != blank -%}
+                    </a>
+                  {%- else -%}
+                    </div>
+                  {%- endif -%}
+                </li>
+              {%- else -%}
+                {%- if request.design_mode -%}
+                  <li class="wb-productcell" style="pointer-events: none">
+                    <div class="wb-productitem">
+                      <div class="wb-productcontent">
+                        <div class="wb-productinfo">
+                          <h3 class="wb-producttitle wb-tiny-heading">WB - Grid</h3>
+                          <div class="wb-productdetails">
+                            Add grid_item entries to the page metafield custom.grid_data to populate this grid.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    {%- when 'image_with_text' -%}
+      {%- liquid
+        assign fetch_priority = 'auto'
+        if section.index == 1
+          assign fetch_priority = 'high'
+        endif
+      -%}
+      <div class="wb-banded" {{ block.shopify_attributes }}>
+        <div class="wb-container">
+          <div class="wb-padding page-width">
+            <div class="image-with-text image-with-text--no-overlap isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+              <div class="image-with-text__grid grid grid--gapless grid--1-col grid--2-col-tablet{% if block.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %}">
+                <div class="image-with-text__media-item image-with-text__media-item--medium image-with-text__media-item--top grid__item">
+                  <div
+                    class="image-with-text__media image-with-text__media--adapt global-media-settings background-transparent{% if block.settings.image != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}"
+                    {% if block.settings.image != blank %}
+                      style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;"
+                    {% endif %}
+                  >
+                    {%- if block.settings.image != blank -%}
+                      {%- assign widths = '165, 360, 535, 750, 1070, 1500' -%}
+                      {%- capture sizes -%}
+                        (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+                        (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                      {%- endcapture -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 1500
+                        | image_tag: sizes: sizes, widths: widths, fetchpriority: fetch_priority
+                      }}
+                    {%- else -%}
+                      {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </div>
+                </div>
+                <div class="wb-padding image-with-text__text-item grid__item">
+                  <div class="image-with-text__content image-with-text__content--top image-with-text__content--desktop-left image-with-text__content--mobile-left image-with-text__content--adapt content-container background-transparent">
+                    {%- if block.settings.heading != blank -%}
+                      <h2 class="wb-medium-heading image-with-text__heading inline-richtext h1">
+                        {{ block.settings.heading }}
+                      </h2>
+                    {%- endif -%}
+                    {%- if block.settings.text != blank -%}
+                      <div class="image-with-text__text rte body">
+                        {{ block.settings.text }}
+                      </div>
+                    {%- endif -%}
+                    {%- if block.settings.button_label != blank -%}
+                      <a
+                        {% if block.settings.button_link == blank %}
+                          role="link" aria-disabled="true"
+                        {% else %}
+                          href="{{ block.settings.button_link.url }}"
+                        {% endif %}
+                        class="button wb-button button--primary wb-primary-button"
+                      >
+                        {{ block.settings.button_label | escape }}
+                      </a>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  {%- endcase -%}
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "WB Grid Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "page_header",
+      "name": "Page header",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "wb_grid",
+      "name": "WB Grid",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "image_with_text",
+      "name": "Image with text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "options": [
+            {
+              "value": "image_first",
+              "label": "Image first"
+            },
+            {
+              "value": "text_first",
+              "label": "Text first"
+            }
+          ],
+          "default": "image_first",
+          "label": "Layout"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "page",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB Grid Page",
+      "blocks": [
+        {
+          "type": "page_header"
+        },
+        {
+          "type": "wb_grid"
+        },
+        {
+          "type": "image_with_text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
