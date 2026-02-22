@@ -20,6 +20,7 @@
 {%- endstyle -%}
 <div class="wb-first-item">
   <div class="wb-container">
+    <div class="wb-padding wb-collection-copy">
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when 'page_header' -%}
@@ -30,13 +31,7 @@
 
         {%- when 'wb_grid' -%}
           {%- assign grid_items = page.metafields.custom.grid_data.value -%}
-          <div {{ block.shopify_attributes }}>
-            <div class="wb-container">
-              <div class="wb-padding">
                 {% render 'wb-grid-markup', grid_items: grid_items, design_mode: request.design_mode %}
-              </div>
-            </div>
-          </div>
 
         {%- when 'landing_hero' -%}
           {%- assign hero = page.metafields.custom.hero_details.value -%}
