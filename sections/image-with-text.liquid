@@ -93,7 +93,7 @@
                         {% if block.settings.button_link == blank %}
                           role="link" aria-disabled="true"
                         {% else %}
-                          href="{{ block.settings.button_link.url }}"
+                          href="{{ block.settings.button_link }}"
                         {% endif %}
                         class="button wb-button{% if block.settings.button_style_secondary %} button--secondary wb-secondary-button{% else %} button--primary wb-primary-button{% endif %}"
                         {{ block.shopify_attributes }}
@@ -457,7 +457,7 @@
           "info": "t:sections.image-with-text.blocks.button.settings.button_label.info"
         },
         {
-          "type": "page",
+          "type": "url",
           "id": "button_link",
           "label": "t:sections.image-with-text.blocks.button.settings.button_link.label"
         },
