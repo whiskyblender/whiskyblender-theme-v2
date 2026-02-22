@@ -16,10 +16,10 @@
           "type": "landing_hero",
           "settings": {}
         },
-        "richtext_43Mn89": {
-          "type": "richtext",
+        "custom_liquid_TEEqwb": {
+          "type": "custom_liquid",
           "settings": {
-            "richtext": "<p></p>{{ page.content }}"
+            "custom_liquid": "<div class=\"collection-copy\">\n{{page.content}}\n</div>"
           }
         },
         "image_reel_7rAEVV": {
@@ -29,7 +29,7 @@
       },
       "block_order": [
         "landing_hero_rGeKRj",
-        "richtext_43Mn89",
+        "custom_liquid_TEEqwb",
         "image_reel_7rAEVV"
       ],
       "name": "WB Page",
