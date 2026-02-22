@@ -16,14 +16,14 @@
   {%- for flavour in lab_flavours -%}
     {%- assign f_title = flavour.title.value -%}
     {%- assign f_description = flavour.description.value -%}
-    {%- assign f_bg = flavour.background_image.value -%}
-    {%- assign f_cask = flavour.cask_image.value -%}
-    {%- assign f_color = flavour.color.value | downcase -%}
+    {%- assign f_bg = flavour.background_image.value.preview_image | default: flavour.background_image.value -%}
+    {%- assign f_cask = flavour.cask_image.value.preview_image | default: flavour.cask_image.value -%}
+    {%- assign f_color = flavour.color | strip | downcase -%}
     {%- assign f_index = forloop.index0 -%}
 
     <li data-flavour-index="{{ f_index }}" data-flavour-color="{{ f_color }}">
       <div
-        class="wb-card-image"
+        class="wb-card-image wb-background-{{ f_color }}-opacity"
         {% if f_bg %}
           style="background-image: url('{{ f_bg | image_url: width: 800 }}')"
         {% endif %}
@@ -34,48 +34,34 @@
             style="background-image: url('{{ f_cask | image_url: width: 600 }}')"
           {% endif %}
         ></div>
+        <div class="wb-option-amount wb-background-{{ f_color }}">0%</div>
+        <div class="wb-option-controls">
+          <div
+            class="wb-liquidGlass-wrapper wb-option-control wb-remove-option wb-{{ f_color }}-option wb-disabled-option"
+            data-amount-for="{{ f_index }}"
+          >
+            <div class="wb-liquidGlass-effect"></div>
+            <div class="wb-liquidGlass-tint"></div>
+            <div class="wb-liquidGlass-shine"></div>
+            <span class="wb-liquidGlass-text">-</span>
+          </div>
+          <div
+            class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-{{ f_color }}-option"
+            data-amount-for="{{ f_index }}"
+          >
+            <div class="wb-liquidGlass-effect"></div>
+            <div class="wb-liquidGlass-tint"></div>
+            <div class="wb-liquidGlass-shine"></div>
+            <span class="wb-liquidGlass-text">+</span>
+          </div>
+        </div>
       </div>
 
       <div class="wb-card-details">
-        <h3 class="wb-small-heading">{{ f_title }}</h3>
+        <h3>{{ f_title }}</h3>
         {%- if f_description != blank -%}
           <p>{{ f_description }}</p>
         {%- endif -%}
-      </div>
-
-      <div class="wb-liquidGlass-wrapper wb-option-amount" data-amount-for="{{ f_index }}" style="display:none">
-        <div class="wb-liquidGlass-effect"></div>
-        <div class="wb-liquidGlass-tint"></div>
-        <div class="wb-liquidGlass-shine"></div>
-        <span class="wb-liquidGlass-text">0%</span>
-      </div>
-
-      <div class="wb-option-controls">
-        <button
-          type="button"
-          class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-{{ f_color }}-option"
-          data-action="add"
-          data-flavour-index="{{ f_index }}"
-          aria-label="Add {{ f_title }}"
-        >
-          <div class="wb-liquidGlass-effect"></div>
-          <div class="wb-liquidGlass-tint"></div>
-          <div class="wb-liquidGlass-shine"></div>
-          <span class="wb-liquidGlass-text">+</span>
-        </button>
-
-        <button
-          type="button"
-          class="wb-liquidGlass-wrapper wb-option-control wb-remove-option wb-{{ f_color }}-option wb-disabled-option"
-          data-action="remove"
-          data-flavour-index="{{ f_index }}"
-          aria-label="Remove {{ f_title }}"
-        >
-          <div class="wb-liquidGlass-effect"></div>
-          <div class="wb-liquidGlass-tint"></div>
-          <div class="wb-liquidGlass-shine"></div>
-          <span class="wb-liquidGlass-text">−</span>
-        </button>
       </div>
     </li>
   {%- endfor -%}
@@ -85,7 +71,7 @@
       <div class="wb-pie-grid"></div>
       <div class="wb-rotate" id="wb-lab-pie">
         {%- for flavour in lab_flavours -%}
-          {%- assign f_color = flavour.color.value | downcase -%}
+          {%- assign f_color = flavour.color | strip | downcase -%}
           <div class="wb-pie wb-{{ f_color }}-pie wb-pie-0" data-pie-for="{{ forloop.index0 }}">
             <div></div>
           </div>
