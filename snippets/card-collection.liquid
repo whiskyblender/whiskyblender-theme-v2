@@ -31,7 +31,10 @@
   endif
 -%}
 
-<div onclick="location.href='{{ card_collection.url }}'" class="card-wrapper animate-arrow {% if wrapper_class and wrapper_class != 'none' %}{{ wrapper_class }}{% else %}collection-card-wrapper{% endif %}">
+<div
+  onclick="location.href='{{ card_collection.url }}'"
+  class="card-wrapper animate-arrow {% if wrapper_class and wrapper_class != 'none' %}{{ wrapper_class }}{% else %}collection-card-wrapper{% endif %}"
+>
   <div
     class="
       card
@@ -101,7 +104,9 @@
               <span class="wb-emoji">{{ card_collection.metafields.custom.emoji.value }}</span>
             </h3>
 
-            {%- if card_collection.description != blank -%}
+            {%- if card_collection.metafields.custom.short_description != blank -%}
+              <p>{{ card_collection.metafields.custom.short_description }}</p>
+            {%- elsif card_collection.description != blank -%}
               <p class="card__caption">
                 {{- card_collection.description | strip_html | truncatewords: 12 -}}
               </p>
@@ -130,7 +135,9 @@
             </a>
             <span class="wb-emoji">{{ card_collection.metafields.custom.emoji.value }}</span>
           </h3>
-          {%- if card_collection.featured_image == null and card_collection.description != blank -%}
+          {%- if card_collection.metafields.custom.short_description != blank -%}
+            <p>{{ card_collection.metafields.custom.short_description }}</p>
+          {%- elsif card_collection.featured_image == null and card_collection.description != blank -%}
             <p class="card__caption">
               {{- card_collection.description | strip_html | truncatewords: 12 -}}
             </p>
