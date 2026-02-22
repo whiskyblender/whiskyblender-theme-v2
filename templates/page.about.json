@@ -18,7 +18,7 @@
       }
     },
     "main_landing_CWHJim": {
-      "type": "main-landing",
+      "type": "wb-main-landing",
       "name": "Landing Hero",
       "settings": {
         "video_file": "wb-cask-heids.mp4",

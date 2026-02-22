@@ -10,7 +10,7 @@
 {
   "sections": {
     "main_landing_aMfVgW": {
-      "type": "main-landing",
+      "type": "wb-main-landing",
       "name": "Landing Hero",
       "settings": {
         "video_file": "",
