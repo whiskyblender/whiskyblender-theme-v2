@@ -49,7 +49,7 @@
           </div>
 
         {%- when 'image_reel' -%}
-          <div class="wb-overflow-hidden-x">
+          <div class="wb-banded wb-overflow-hidden-x">
           {%- assign reel_images = page.metafields.custom.image_reel_data.value -%}
           {% render 'wb-image-reel-markup', reel_images: reel_images %}
           </div>
