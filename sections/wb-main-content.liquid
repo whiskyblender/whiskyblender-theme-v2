@@ -60,8 +60,10 @@
           </div>
 
         {%- when 'richtext' -%}
+          <div class="wb-container">
           <div class="wb-padding" {{ block.shopify_attributes }}>
             {{ block.settings.richtext }}
+          </div>
           </div>
 
         {%- when 'contact_form' -%}
