@@ -19,7 +19,7 @@
         "custom_liquid_TEEqwb": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class=\"wb-banded\"><div class=\"wb-container\"><div class=\"wb-padding wb-collection-copy\">\n{{page.content}}\n</div>\n</div>\n</div>"
+            "custom_liquid": "<div class=\"wb-container\"><div class=\"wb-padding wb-collection-copy\">\n{{page.content}}\n</div>\n</div>"
           }
         },
         "image_reel_7rAEVV": {
