@@ -18,9 +18,7 @@
     }
   }
 {%- endstyle -%}
-<div class="wb-first-item">
-  <div class="wb-container">
-    <div class="wb-padding wb-collection-copy">
+    <div class="wb-collection-copy">
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when 'page_header' -%}
@@ -68,8 +66,6 @@
           {% render 'wb-contact-form-markup', heading: block.settings.heading, heading_size: 'h1' %}
       {%- endcase -%}
     {%- endfor -%}
-  </div>
-</div>
 
 {% schema %}
 {
