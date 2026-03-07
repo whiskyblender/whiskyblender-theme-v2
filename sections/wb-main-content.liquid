@@ -57,8 +57,10 @@
           </div>
 
         {%- when 'custom_liquid' -%}
-          <div {{ block.shopify_attributes }}>
+          <div class="wb-container">
+          <div {{ block.shopify_attributes }} class="wb-padding">
             {{ block.settings.custom_liquid }}
+          </div>
           </div>
 
         {%- when 'richtext' -%}
