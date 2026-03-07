@@ -3,6 +3,7 @@
 {{ 'wb-thelab.css' | asset_url | stylesheet_tag }}
 
 <div class="wb-container">
+<div class="wb-padding">
 
 {%- assign lab_flavours = page.metafields.custom.lab_flavours.value -%}
 
@@ -90,6 +91,7 @@
   </div>
 </div>
 
+</div>
 </div>
 
 <script src="{{ 'wb-lab.js' | asset_url }}" defer="defer"></script>
