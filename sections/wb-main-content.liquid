@@ -22,11 +22,12 @@
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when 'page_header' -%}
-    <div class="wb-padding wb-collection-copy">
+        <div class="wb-padding wb-collection-copy">
           <h1 class="wb-large-heading">{{ page.title | escape }}</h1>
           <p>
             {{ page.content }}
-          </p></div>
+          </p>
+        </div>
 
         {%- when 'wb_grid' -%}
           {%- assign grid_items = page.metafields.custom.grid_data.value -%}
