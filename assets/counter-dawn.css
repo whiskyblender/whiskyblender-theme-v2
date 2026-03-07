@@ -40,6 +40,10 @@
     padding: 0!important;
 }
 
+.wb-card-image.media {
+    height: auto;
+}
+
 .image-with-text__media {
     border: none;
 }
