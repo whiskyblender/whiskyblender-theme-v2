@@ -48,6 +48,7 @@
                 secondary_button_url: hero.secondary_button_url.value
               %}
           </div>
+          </div>
 
         {%- when 'image_reel' -%}
           <div class="wb-banded wb-overflow-hidden-x">
@@ -69,7 +70,7 @@
           {% render 'wb-contact-form-markup', heading: block.settings.heading, heading_size: 'h1' %}
       {%- endcase -%}
     {%- endfor -%}
-    
+
 {% schema %}
 {
   "name": "WB Grid Page",
