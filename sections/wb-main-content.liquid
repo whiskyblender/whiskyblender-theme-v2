@@ -18,11 +18,10 @@
     }
   }
 {%- endstyle -%}
-    <div class="wb-collection-copy wb-container">
+    <div class="wb-padding wb-collection-copy">
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when 'page_header' -%}
-          <div class="wb-padding wb-first-item">
           <h1 class="wb-large-heading">{{ page.title | escape }}</h1>
           <p>
             {{ page.content }}
