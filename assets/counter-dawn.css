@@ -8,10 +8,6 @@
     max-width: 1200px;
 }
 
-.wb-banded .wb-first-item {
-    background-color: transparent;
-}
-
 .card-wrapper, .card--standard>.card__content.wb-productcontent .card__information {
     padding: 0;
 }
