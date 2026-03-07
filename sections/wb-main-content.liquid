@@ -34,8 +34,8 @@
         </div>
       </div>
         {%- when 'landing_hero' -%}
-          {%- assign hero = page.metafields.custom.hero_details.value -%}
           <div class="wb-container">
+          {%- assign hero = page.metafields.custom.hero_details.value -%}
           <div class="wb-overflow-hidden-x" {{ block.shopify_attributes }}>
               {% render 'wb-landing-hero-markup',
                 video_file: hero.video.value,
