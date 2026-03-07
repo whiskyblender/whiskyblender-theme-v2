@@ -40,7 +40,7 @@
     padding: 0!important;
 }
 
-.wb-card-image.card__media {
+.wb-card-image.card__media, .wb-card-image.media {
     height: auto;
 }
 
