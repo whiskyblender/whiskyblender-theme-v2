@@ -21,7 +21,7 @@
     {%- for block in section.blocks -%}
       {%- case block.type -%}
         {%- when 'page_header' -%}
-<div class="wb-container">
+      <div class="wb-container">
         <div class="wb-padding wb-collection-copy">
           <h1 class="wb-large-heading">{{ page.title | escape }}</h1>
           <p>
@@ -31,7 +31,7 @@
         {%- when 'wb_grid' -%}
           {%- assign grid_items = page.metafields.custom.grid_data.value -%}
                 {% render 'wb-grid-markup', grid_items: grid_items, design_mode: request.design_mode %}
-
+        </div>
         {%- when 'landing_hero' -%}
           {%- assign hero = page.metafields.custom.hero_details.value -%}
           <div class="wb-overflow-hidden-x" {{ block.shopify_attributes }}>
