@@ -32,6 +32,7 @@
           {%- assign grid_items = page.metafields.custom.grid_data.value -%}
                 {% render 'wb-grid-markup', grid_items: grid_items, design_mode: request.design_mode %}
         </div>
+      </div>
         {%- when 'landing_hero' -%}
           {%- assign hero = page.metafields.custom.hero_details.value -%}
           <div class="wb-container">
