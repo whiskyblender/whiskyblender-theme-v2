@@ -35,7 +35,6 @@
         {%- when 'landing_hero' -%}
           {%- assign hero = page.metafields.custom.hero_details.value -%}
           <div class="wb-overflow-hidden-x" {{ block.shopify_attributes }}>
-            <div class="wb-container">
               {% render 'wb-landing-hero-markup',
                 video_file: hero.video.value,
                 background_image: hero.image.value,
@@ -46,7 +45,6 @@
                 secondary_button_text: hero.secondary_button_text.value,
                 secondary_button_url: hero.secondary_button_url.value
               %}
-            </div>
           </div>
 
         {%- when 'image_reel' -%}
