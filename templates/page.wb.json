@@ -19,7 +19,7 @@
         "custom_liquid_TEEqwb": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class=\"wb-padding\">\n{{page.content}}"
+            "custom_liquid": "{{page.content}}"
           }
         },
         "image_reel_7rAEVV": {
