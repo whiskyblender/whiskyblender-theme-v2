@@ -2,6 +2,8 @@
 {{ 'wb-products.css' | asset_url | stylesheet_tag }}
 {{ 'wb-thelab.css' | asset_url | stylesheet_tag }}
 
+<div class="wb-container">
+
 {%- assign lab_flavours = page.metafields.custom.lab_flavours.value -%}
 
 {%- comment -%} SVG filter for glass / cask distortion {%- endcomment -%}
@@ -86,6 +88,8 @@
     <span>0% filled — add some flavours!</span>
     <div class="wb-lab-fillvisual" style="width: 0%"></div>
   </div>
+</div>
+
 </div>
 
 <script src="{{ 'wb-lab.js' | asset_url }}" defer="defer"></script>
