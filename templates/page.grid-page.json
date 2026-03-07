@@ -60,8 +60,8 @@
           "type": "button",
           "settings": {
             "button_label": "{{ page.metafields.custom.image_with_text.value.button_text.value }}",
-            "button_link": "{{ page.metafields.custom.image_with_text.value.button_url.value }}",
-            "button_style_secondary": false
+            "button_link": "shopify://pages/the-lab",
+            "button_style_secondary": true
           }
         }
       },
