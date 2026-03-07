@@ -27,13 +27,10 @@
           <p>
             {{ page.content }}
           </p>
-        </div>
 
         {%- when 'wb_grid' -%}
           {%- assign grid_items = page.metafields.custom.grid_data.value -%}
-          <div class="wb-padding">
                 {% render 'wb-grid-markup', grid_items: grid_items, design_mode: request.design_mode %}
-          </div>
 
         {%- when 'landing_hero' -%}
           {%- assign hero = page.metafields.custom.hero_details.value -%}
@@ -70,6 +67,7 @@
           {% render 'wb-contact-form-markup', heading: block.settings.heading, heading_size: 'h1' %}
       {%- endcase -%}
     {%- endfor -%}
+        </div>
   </div>
 {% schema %}
 {
