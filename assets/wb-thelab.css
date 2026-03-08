@@ -37,7 +37,6 @@
   transition: all 1s;
   background-color: inherit;
   backdrop-filter: blur(4px);
-  filter: url(#glass-distortion);
 }
 
 .wb-option-cards li:hover .wb-card-image {
