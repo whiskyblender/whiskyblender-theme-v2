@@ -52,7 +52,7 @@ section {
 }
 
 .wb-overflow-hidden-x {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 a {
