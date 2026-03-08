@@ -73,9 +73,7 @@
         "featured_logo_6fT7Pw",
         "featured_logo_VbNmQh"
       ],
-      "custom_css": [
-        ".content-for-layout {overflow-x: hidden;}"
-      ],
+      "custom_css": [],
       "name": "About Content",
       "settings": {
         "featured_heading": "Look maw, we're famous!",
