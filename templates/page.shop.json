@@ -20,7 +20,7 @@
     "shop_all_products_qWxYzR": {
       "type": "shop-all-products",
       "settings": {
-        "excluded_collection": "Custom blends, Andrews of Bothwell, Anniversaries, Birthdays, Celebrations, Christmas, Thankyous, Weddings",
+        "excluded_collection": "Custom blends, Custom blend options, Andrews of Bothwell, Anniversaries, Birthdays, Celebrations, Christmas, Thankyous, Weddings",
         "columns_desktop": 4,
         "columns_mobile": "2",
         "color_scheme": "",
