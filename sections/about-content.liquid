@@ -1,4 +1,4 @@
-<section class="wb-banded">
+<div class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
       <span class="wb-photo-holder wb-about-photo-castle">
@@ -24,9 +24,9 @@
       </span>
     </div>
   </div>
-</section>
+</div>
 
-<section class="wb-banded">
+<div class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
       <h2 class="wb-medium-heading">Oor story</h2>
@@ -47,9 +47,9 @@
       </span>
     </div>
   </div>
-</section>
+</div>
 {%- if section.blocks.size > 0 -%}
-  <section class="wb-banded wb-overflow-hidden-x">
+  <div class="wb-banded">
     <div class="wb-container">
       <div class="wb-padding">
         <h2 class="wb-medium-heading">{{ section.settings.featured_heading | default: "Look maw, we're famous!" }}</h2>
@@ -85,7 +85,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 {%- endif -%}
 
 {{ 'wb-about.css' | asset_url | stylesheet_tag }}
