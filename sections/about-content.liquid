@@ -1,5 +1,4 @@
-<section class="wb-overflow-hidden-x">
-  <div class="wb-banded">
+<section class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
       <span class="wb-photo-holder wb-about-photo-castle">
@@ -25,6 +24,9 @@
       </span>
     </div>
   </div>
+</section>
+
+<section class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
       <h2 class="wb-medium-heading">Oor story</h2>
@@ -47,7 +49,7 @@
   </div>
 </section>
 {%- if section.blocks.size > 0 -%}
-  <section class="wb-banded">
+  <section class="wb-banded wb-overflow-hidden-x">
     <div class="wb-container">
       <div class="wb-padding">
         <h2 class="wb-medium-heading">{{ section.settings.featured_heading | default: "Look maw, we're famous!" }}</h2>
