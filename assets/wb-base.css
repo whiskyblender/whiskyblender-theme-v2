@@ -178,7 +178,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
   }
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 1023px) {
   .wb-hidden-mobile {
     overflow: hidden;
   }
