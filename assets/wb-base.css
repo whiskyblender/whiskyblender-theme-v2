@@ -73,7 +73,7 @@ ul {
   margin: 0 auto;
 }
 
-.wb-banded:nth-of-type(odd) {
+.wb-banded:nth-of-type(even) {
   background-color: #efefef;
 }
 
