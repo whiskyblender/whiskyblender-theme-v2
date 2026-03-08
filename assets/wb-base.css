@@ -178,6 +178,12 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
   }
 }
 
+@media screen and (max-width: 599px) {
+  .wb-hidden-mobile {
+    overflow: hidden;
+  }
+}
+
 @media screen and (min-width: 600px) {
   .wb-hide-ondesktop {
     display: none;
