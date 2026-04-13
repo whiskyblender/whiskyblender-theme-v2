@@ -2,10 +2,10 @@
 {{ 'wb-products.css' | asset_url | stylesheet_tag }}
 {{ 'wb-thelab.css' | asset_url | stylesheet_tag }}
 
+{%- assign api_base = section.settings.api_base_url | strip -%}
+
 <div class="wb-container">
 <div class="wb-padding">
-
-{%- assign lab_flavours = page.metafields.custom.lab_flavours.value -%}
 
 {%- comment -%} SVG filter for glass / cask distortion {%- endcomment -%}
 <svg width="0" height="0" style="position:absolute">
@@ -15,70 +15,18 @@
   </filter>
 </svg>
 
-<ul class="wb-cards wb-option-cards" id="wb-lab-flavours">
-  {%- for flavour in lab_flavours -%}
-    {%- assign f_title = flavour.title.value -%}
-    {%- assign f_description = flavour.description.value -%}
-    {%- assign f_bg = flavour.background_image.value.preview_image | default: flavour.background_image.value -%}
-    {%- assign f_cask = flavour.cask_image.value.preview_image | default: flavour.cask_image.value -%}
-    {%- assign f_color = flavour.color | strip | downcase -%}
-    {%- assign f_index = forloop.index0 -%}
-
-    <li data-flavour-index="{{ f_index }}" data-flavour-color="{{ f_color }}">
-      <div
-        class="wb-card-image wb-background-{{ f_color }}-opacity"
-        {% if f_bg %}
-          style="background-image: url('{{ f_bg | image_url: width: 800 }}')"
-        {% endif %}
-      >
-        <div
-          class="wb-cask"
-          {% if f_cask %}
-            style="background-image: url('{{ f_cask | image_url: width: 600 }}')"
-          {% endif %}
-        ></div>
-        <div class="wb-option-amount wb-background-{{ f_color }}">0%</div>
-        <div class="wb-option-controls">
-          <div
-            class="wb-liquidGlass-wrapper wb-option-control wb-remove-option wb-{{ f_color }}-option wb-disabled-option"
-            data-amount-for="{{ f_index }}"
-          >
-            <div class="wb-liquidGlass-effect"></div>
-            <div class="wb-liquidGlass-tint"></div>
-            <div class="wb-liquidGlass-shine"></div>
-            <span class="wb-liquidGlass-text">-</span>
-          </div>
-          <div
-            class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-{{ f_color }}-option"
-            data-amount-for="{{ f_index }}"
-          >
-            <div class="wb-liquidGlass-effect"></div>
-            <div class="wb-liquidGlass-tint"></div>
-            <div class="wb-liquidGlass-shine"></div>
-            <span class="wb-liquidGlass-text">+</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="wb-card-details">
-        <h3>{{ f_title }}</h3>
-        {%- if f_description != blank -%}
-          <p>{{ f_description }}</p>
-        {%- endif -%}
-      </div>
-    </li>
-  {%- endfor -%}
+<ul
+  class="wb-cards wb-option-cards"
+  id="wb-lab-flavours"
+  data-api-base="{{ api_base }}"
+>
+  {%- comment -%} Cards are rendered by wb-lab.js after fetching /api/whisky-options {%- endcomment -%}
 
   <li class="wb-notoption">
     <div class="wb-pies">
       <div class="wb-pie-grid" style="background-image: url({{ 'wb-piegrid.svg' | asset_url }})">&nbsp;</div>
       <div class="wb-rotate" id="wb-lab-pie">
-        {%- for flavour in lab_flavours -%}
-          {%- assign f_color = flavour.color | strip | downcase -%}
-          <div class="wb-pie wb-{{ f_color }}-pie wb-pie-0" data-pie-for="{{ forloop.index0 }}">
-            <div></div>
-          </div>
-        {%- endfor -%}
+        {%- comment -%} Pie slices are injected by wb-lab.js {%- endcomment -%}
       </div>
     </div>
   </li>
@@ -88,6 +36,63 @@
   <div class="wb-lab-fillmeter">
     <span>0% filled — add some flavours!</span>
     <div class="wb-lab-fillvisual" style="width: 0%"></div>
+  </div>
+</div>
+
+{%- comment -%} Save panel — hidden until blend reaches 100% {%- endcomment -%}
+<div
+  class="wb-save-panel"
+  id="wb-save-panel"
+  data-api-base="{{ api_base }}"
+  data-product-id="{{ section.settings.product_id | strip }}"
+  data-variant-id="{{ section.settings.variant_id | strip }}"
+  data-product-url="{{ section.settings.bottle_options_url | strip }}"
+  aria-hidden="true"
+>
+  <div class="wb-save-panel-inner">
+    <h2 class="wb-save-heading">Your blend is ready — name it!</h2>
+
+    <div class="wb-lab-inputs">
+      <div class="wb-lab-input">
+        <label class="wb-lab-label" for="wb-blend-title">Blend name</label>
+        <input
+          class="wb-lab-field field__input"
+          type="text"
+          id="wb-blend-title"
+          placeholder="e.g. Granny's Secret Recipe"
+          autocomplete="off"
+          maxlength="80"
+        >
+      </div>
+      <div class="wb-lab-input">
+        <label class="wb-lab-label" for="wb-blend-author">Your name</label>
+        <input
+          class="wb-lab-field field__input"
+          type="text"
+          id="wb-blend-author"
+          placeholder="e.g. Wee Shuggy"
+          autocomplete="off"
+          maxlength="60"
+        >
+      </div>
+    </div>
+
+    <div class="wb-save-actions">
+      <button type="button" id="wb-save-blend-btn" class="button button--full-width">
+        Save my blend
+      </button>
+    </div>
+
+    <p class="wb-save-error" id="wb-save-error" aria-live="polite"></p>
+
+    <div class="wb-save-success" id="wb-save-success" aria-live="polite">
+      <p class="wb-save-success-message">
+        Blend <strong id="wb-blend-slug-display"></strong> saved! 🥃
+      </p>
+      <a id="wb-blend-product-link" class="button button--full-width" href="#">
+        Personalise your bottle &rarr;
+      </a>
+    </div>
   </div>
 </div>
 
@@ -101,7 +106,32 @@
   "name": "WB - Blending Lab",
   "tag": "section",
   "class": "section wb-first-item wb-banded",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "api_base_url",
+      "label": "App API base URL",
+      "info": "Base URL of the Whisky Blender app — no trailing slash. E.g. https://your-app.ngrok.io"
+    },
+    {
+      "type": "text",
+      "id": "product_id",
+      "label": "Blend product ID",
+      "info": "Shopify product ID to associate with saved blends (numeric, e.g. 8765432100)"
+    },
+    {
+      "type": "text",
+      "id": "variant_id",
+      "label": "Blend product variant ID",
+      "info": "Optional. Leave blank to use the default variant."
+    },
+    {
+      "type": "url",
+      "id": "bottle_options_url",
+      "label": "Bottle options page URL",
+      "info": "URL of the bottle selection page customers go to after saving their blend. E.g. /pages/choose-your-bottle"
+    }
+  ],
   "presets": [
     {
       "name": "WB - Blending Lab"
