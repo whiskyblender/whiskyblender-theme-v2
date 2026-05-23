@@ -165,14 +165,16 @@
         "featured_logo_A7Tz6B": {
           "type": "featured_logo",
           "settings": {
-            "text": "",
+            "logo": "shopify://shop_images/whiskylounge.png",
+            "text": "Whisky Lounge",
             "url": ""
           }
         },
         "featured_logo_7dq7be": {
           "type": "featured_logo",
           "settings": {
-            "text": "",
+            "logo": "shopify://shop_images/whiskystories.png",
+            "text": "Whisky Stories",
             "url": ""
           }
         }
