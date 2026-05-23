@@ -34,21 +34,6 @@
     "about_content_WNcjFw": {
       "type": "about-content",
       "blocks": {
-        "featured_logo_PJnPrB": {
-          "type": "featured_logo",
-          "settings": {
-            "text": "",
-            "url": ""
-          }
-        },
-        "featured_logo_yxiDTh": {
-          "type": "featured_logo",
-          "settings": {
-            "logo": "shopify://shop_images/uncrate.png",
-            "text": "uncrate",
-            "url": ""
-          }
-        },
         "featured_logo_6fT7Pw": {
           "type": "featured_logo",
           "settings": {
@@ -57,19 +42,117 @@
             "url": "https://www.wired.com/2012/03/whisky-blender/"
           }
         },
+        "featured_logo_PJnPrB": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/playboy.png",
+            "text": "Playboy",
+            "url": ""
+          }
+        },
         "featured_logo_VbNmQh": {
           "type": "featured_logo",
           "settings": {
-            "text": "",
+            "logo": "shopify://shop_images/classicboat.png",
+            "text": "Classic Boat",
+            "url": ""
+          }
+        },
+        "featured_logo_dfVM3M": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/brides.png",
+            "text": "Brides Magazine",
+            "url": ""
+          }
+        },
+        "featured_logo_Ak7Meb": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/marthastewart.png",
+            "text": "Martha Stewart",
+            "url": ""
+          }
+        },
+        "featured_logo_7kx89z": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/urbandaddy.png",
+            "text": "Urban Daddy",
+            "url": ""
+          }
+        },
+        "featured_logo_8XKQaB": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/thescotsman_195e194a-cc65-4c13-8561-3701435d89b5.png",
+            "text": "The Scotsman",
+            "url": ""
+          }
+        },
+        "featured_logo_yxiDTh": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/uncrate.png",
+            "text": "Uncrate",
+            "url": ""
+          }
+        },
+        "featured_logo_mcfbNV": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/abc7.png",
+            "text": "Channel 7",
+            "url": ""
+          }
+        },
+        "featured_logo_fmn7rd": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/springwise.png",
+            "text": "Springwise",
+            "url": ""
+          }
+        },
+        "featured_logo_AFVV4L": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/greatdrams.png",
+            "text": "Great Drams",
+            "url": ""
+          }
+        },
+        "featured_logo_brB9cq": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/lsnglobal.png",
+            "text": "LS:N Global",
+            "url": ""
+          }
+        },
+        "featured_logo_WBWYQz": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/foodbeast.png",
+            "text": "Foodbeast",
             "url": ""
           }
         }
       },
       "block_order": [
-        "featured_logo_PJnPrB",
-        "featured_logo_yxiDTh",
         "featured_logo_6fT7Pw",
-        "featured_logo_VbNmQh"
+        "featured_logo_PJnPrB",
+        "featured_logo_VbNmQh",
+        "featured_logo_dfVM3M",
+        "featured_logo_Ak7Meb",
+        "featured_logo_7kx89z",
+        "featured_logo_8XKQaB",
+        "featured_logo_yxiDTh",
+        "featured_logo_mcfbNV",
+        "featured_logo_fmn7rd",
+        "featured_logo_AFVV4L",
+        "featured_logo_brB9cq",
+        "featured_logo_WBWYQz"
       ],
       "custom_css": [],
       "name": "About Content",
