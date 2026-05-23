@@ -137,6 +137,44 @@
             "text": "Foodbeast",
             "url": ""
           }
+        },
+        "featured_logo_CegtJT": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/alisterpaine.png",
+            "text": "Alistair & Paine",
+            "url": ""
+          }
+        },
+        "featured_logo_f4jMjK": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/lagom.png",
+            "text": "Lagom",
+            "url": ""
+          }
+        },
+        "featured_logo_NPWrN3": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/gwf.png",
+            "text": "Glasgow's Whisky Festival",
+            "url": ""
+          }
+        },
+        "featured_logo_A7Tz6B": {
+          "type": "featured_logo",
+          "settings": {
+            "text": "",
+            "url": ""
+          }
+        },
+        "featured_logo_7dq7be": {
+          "type": "featured_logo",
+          "settings": {
+            "text": "",
+            "url": ""
+          }
         }
       },
       "block_order": [
@@ -152,7 +190,12 @@
         "featured_logo_fmn7rd",
         "featured_logo_AFVV4L",
         "featured_logo_brB9cq",
-        "featured_logo_WBWYQz"
+        "featured_logo_WBWYQz",
+        "featured_logo_CegtJT",
+        "featured_logo_f4jMjK",
+        "featured_logo_NPWrN3",
+        "featured_logo_A7Tz6B",
+        "featured_logo_7dq7be"
       ],
       "custom_css": [],
       "name": "About Content",
