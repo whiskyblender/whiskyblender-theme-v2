@@ -37,7 +37,6 @@
         "featured_logo_PJnPrB": {
           "type": "featured_logo",
           "settings": {
-            "logo": "shopify://shop_images/brides.png",
             "text": "",
             "url": ""
           }
@@ -61,7 +60,6 @@
         "featured_logo_VbNmQh": {
           "type": "featured_logo",
           "settings": {
-            "logo": "shopify://shop_images/abc7.png",
             "text": "",
             "url": ""
           }
@@ -87,7 +85,7 @@
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "collection": "twa-andras",
+        "collection": "oor-bottlings",
         "products_to_show": 4,
         "title": "Some of our bottlings",
         "heading_size": "h1",
