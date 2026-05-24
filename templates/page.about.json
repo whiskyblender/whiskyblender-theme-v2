@@ -213,7 +213,7 @@
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "collection": "oor-bottlings",
+        "collection": "andrews-of-bothwell",
         "products_to_show": 4,
         "title": "Some of our bottlings",
         "heading_size": "h1",
