@@ -117,164 +117,94 @@
         "padding_bottom": 0
       }
     },
-    "collection_list_UEFTTm": {
-      "type": "collection-list",
+    "wb_occasions_UEFTTm": {
+      "type": "wb-occasions",
       "blocks": {
-        "featured_collection_xPnJf3": {
-          "type": "featured_collection",
+        "occasion_weddings": {
+          "type": "occasion",
           "settings": {
-            "collection": "weddings"
+            "heading": "Weddings",
+            "link": "shopify://collections/weddings",
+            "emoji": "🎩"
           }
         },
-        "featured_collection_wwnd6j": {
-          "type": "featured_collection",
+        "occasion_birthdays": {
+          "type": "occasion",
           "settings": {
-            "collection": "birthdays"
+            "heading": "Birthdays",
+            "link": "shopify://collections/birthdays",
+            "emoji": "🎁"
           }
         },
-        "featured_collection_8hJH6D": {
-          "type": "featured_collection",
+        "occasion_anniversaries": {
+          "type": "occasion",
           "settings": {
-            "collection": "anniversaries"
+            "heading": "Anniversaries",
+            "link": "shopify://collections/anniversaries",
+            "emoji": "💝"
           }
         },
-        "featured_collection_YbPyNh": {
-          "type": "featured_collection",
+        "occasion_christmas": {
+          "type": "occasion",
           "settings": {
-            "collection": "christmas"
+            "heading": "Christmas",
+            "link": "shopify://collections/christmas",
+            "emoji": "🎅🏽"
           }
         },
-        "featured_collection_DgHhcb": {
-          "type": "featured_collection",
+        "occasion_thankyous": {
+          "type": "occasion",
           "settings": {
-            "collection": "thankyous"
+            "heading": "Thank yous",
+            "link": "shopify://collections/thankyous",
+            "emoji": "🙏"
           }
         },
-        "featured_collection_4M9r4b": {
-          "type": "featured_collection",
+        "occasion_celebrations": {
+          "type": "occasion",
           "settings": {
-            "collection": "celebrations"
+            "heading": "Celebrations",
+            "link": "shopify://collections/celebrations",
+            "emoji": "🎉"
           }
         }
       },
       "block_order": [
-        "featured_collection_xPnJf3",
-        "featured_collection_wwnd6j",
-        "featured_collection_8hJH6D",
-        "featured_collection_YbPyNh",
-        "featured_collection_DgHhcb",
-        "featured_collection_4M9r4b"
+        "occasion_weddings",
+        "occasion_birthdays",
+        "occasion_anniversaries",
+        "occasion_christmas",
+        "occasion_thankyous",
+        "occasion_celebrations"
       ],
-      "custom_css": [
-        ".wb-card-details p {display: none;}"
-      ],
-      "name": "t:sections.collection-list.presets.name",
+      "name": "WB Occasions",
       "settings": {
-        "title": "For special occassions",
-        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way.",
-        "heading_size": "h0",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "heading": "For special occasions",
+        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way."
       }
     },
-    "image_with_text_JiiFdh": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading_3AfHm8": {
-          "type": "heading",
-          "settings": {
-            "heading": "For yersel'",
-            "heading_size": "h1"
-          }
-        },
-        "text_JEypNJ": {
-          "type": "text",
-          "settings": {
-            "text": "<p>You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.</p>",
-            "text_style": "body"
-          }
-        },
-        "button_RDx9hW": {
-          "type": "button",
-          "settings": {
-            "button_label": "Create Something",
-            "button_link": "shopify://pages/create",
-            "button_style_secondary": true
-          }
-        }
-      },
-      "block_order": [
-        "heading_3AfHm8",
-        "text_JEypNJ",
-        "button_RDx9hW"
-      ],
-      "name": "t:sections.image-with-text.presets.name",
+    "wb_cta_foryersel": {
+      "type": "wb-cta",
+      "name": "CTA - For yersel'",
       "settings": {
-        "height": "medium",
-        "desktop_image_width": "medium",
-        "layout": "text_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "top",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "",
-        "color_scheme": "",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "heading": "For yersel'",
+        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "Create something",
+        "primary_button_url": "shopify://pages/create"
       }
     },
-    "image_with_text_GbHBPk": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading_mW4XLB": {
-          "type": "heading",
-          "settings": {
-            "heading": "Your own brand",
-            "heading_size": "h1"
-          }
-        },
-        "text_qRtFqN": {
-          "type": "text",
-          "settings": {
-            "text": "<p>We've worked with bars, writers, charities and other businesses to create limited bottlings both brand new and complimenting existing brands.</p>",
-            "text_style": "body"
-          }
-        },
-        "button_eGB9Me": {
-          "type": "button",
-          "settings": {
-            "button_label": "Lets Collaborate",
-            "button_link": "shopify://pages/contact",
-            "button_style_secondary": true
-          }
-        }
-      },
-      "block_order": [
-        "heading_mW4XLB",
-        "text_qRtFqN",
-        "button_eGB9Me"
-      ],
-      "name": "t:sections.image-with-text.presets.name",
+    "wb_cta_letscollab": {
+      "type": "wb-cta",
+      "name": "CTA - Let's collaborate",
       "settings": {
-        "height": "medium",
-        "desktop_image_width": "medium",
-        "layout": "text_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "top",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "",
-        "color_scheme": "",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "heading": "Let's collaborate",
+        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
+        "image_class": "wb-yourownbrand",
+        "primary_button_text": "Get in touch",
+        "primary_button_url": "shopify://pages/contact",
+        "secondary_button_text": "See collaborations",
+        "secondary_button_url": "shopify://collections/collaborations"
       }
     }
   },
@@ -282,8 +212,8 @@
     "main_landing",
     "main_reviews",
     "featured_collection_93jqNG",
-    "collection_list_UEFTTm",
-    "image_with_text_JiiFdh",
-    "image_with_text_GbHBPk"
+    "wb_occasions_UEFTTm",
+    "wb_cta_foryersel",
+    "wb_cta_letscollab"
   ]
 }

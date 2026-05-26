@@ -9,6 +9,22 @@
   background-image: linear-gradient(to bottom, #ffffff, transparent);
   border-color: transparent;
   border-width: 0;
+  position: relative;
+}
+
+.wb-option-cards li .wb-card-image::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--flash-color, transparent), transparent);
+  z-index: 200;
+  pointer-events: none;
+  transform: scaleY(0);
+  transform-origin: bottom center;
 }
 
 .wb-option-cards li:hover {
@@ -23,6 +39,7 @@
   position: relative;
   overflow: visible;
   transition: background 5s;
+  z-index: 1;
 }
 
 .wb-option-cards li .wb-card-image .wb-cask {
@@ -39,16 +56,22 @@
   backdrop-filter: blur(4px);
 }
 
-.wb-option-cards li:hover .wb-card-image {
+.wb-option-cards li:hover .wb-card-image,
+.wb-option-cards li.wb-card-active .wb-card-image {
   background-size: 140%;
   background-position: center;
 }
 
-.wb-option-cards li:hover .wb-card-image .wb-cask {
+.wb-option-cards li:hover .wb-card-image .wb-cask,
+.wb-option-cards li.wb-card-active .wb-card-image .wb-cask {
   background-position: 50% -80%;
   background-color: transparent;
   backdrop-filter: blur(0);
   filter: none;
+}
+
+.wb-option-cards li .wb-card-details {
+  pointer-events: none;
 }
 
 .wb-option-cards li .wb-card-details h3 {
@@ -73,6 +96,8 @@
   justify-content: center;
   border-radius: 50%;
   position: absolute;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .wb-option-control {
@@ -182,6 +207,13 @@
   position: relative;
   background-image: radial-gradient(#ffffff, #fafafa);
   border-radius: 50%;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 600px) {
+  .wb-pies {
+    cursor: default;
+  }
 }
 
 .wb-pie-grid {
@@ -202,7 +234,8 @@
   border-radius: 40px;
   padding: 10px;
   margin-top: -60px;
-  z-index: 100;
+  z-index: 300;
+  will-change: transform;
 }
 
 .wb-lab-fillmeter {
@@ -396,8 +429,8 @@
 }
 
 .wb-pie-95 {
-  top: 2.5%;
-  left: 2.5%;
+  top: .25%;
+  left: .25%;
   width: 99.5%;
 }
 
@@ -538,6 +571,59 @@
   .wb-cards li.wb-notoption {
     height: 300px;
   }
+}
+
+@keyframes wb-card-border-flash {
+  0%   { transform: scaleY(0); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+.wb-option-cards li.wb-anim-border .wb-card-image::after {
+  animation: wb-card-border-flash 0.5s ease-out both;
+}
+
+@keyframes wb-amount-add {
+  0%   { transform: scale(0.9); }
+  55%  { transform: scale(1.1); }
+  78%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+@keyframes wb-amount-remove {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+@keyframes wb-fillbar-add {
+  0%   { transform: scale(0.97); }
+  55%  { transform: scale(1.03); }
+  78%  { transform: scale(0.99); }
+  100% { transform: scale(1); }
+}
+
+@keyframes wb-fillbar-remove {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+.wb-option-amount.wb-anim-add,
+.wb-add-option.wb-anim-add {
+  animation: wb-amount-add 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.wb-option-amount.wb-anim-remove,
+.wb-remove-option.wb-anim-remove {
+  animation: wb-amount-remove 0.3s ease-out both;
+}
+
+.wb-sticky-lab.wb-anim-add {
+  animation: wb-fillbar-add 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.wb-sticky-lab.wb-anim-remove {
+  animation: wb-fillbar-remove 0.3s ease-out both;
 }
 
 /* ── Save panel ──────────────────────────────────────────────────── */

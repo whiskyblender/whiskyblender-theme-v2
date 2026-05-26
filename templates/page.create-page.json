@@ -23,7 +23,7 @@
         "option_nWPDyX": {
           "type": "option",
           "settings": {
-            "icon": "🎨",
+            "icon": "💡",
             "heading": "Create a new whisky in <a href=\"/pages/the-lab\">the lab</a>",
             "url": "shopify://pages/the-lab"
           }
@@ -56,7 +56,7 @@
           "type": "option",
           "settings": {
             "icon": "💌",
-            "heading": "Get mailed a <a href=\"/products/gift-voucher\">gift voucher</a>",
+            "heading": "Get emailed a <a href=\"/products/gift-voucher\">gift voucher</a>",
             "url": "shopify://products/gift-voucher"
           }
         },

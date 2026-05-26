@@ -1,0 +1,143 @@
+{{ 'counter-dawn.css' | asset_url | stylesheet_tag }}
+
+<section class="wb-first-item">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <div class="wb-collection-header">
+        <h1 class="wb-medium-heading">Collections</h1>
+        <a class="wb-float-right" href="/pages/shop">Shop all</a>
+      </div>
+      <ul class="wb-cards">
+        {%- assign main_handles = section.settings.main_collections | split: ',' -%}
+        {%- for handle_raw in main_handles -%}
+          {%- assign handle = handle_raw | strip -%}
+          {%- assign col = collections[handle] -%}
+          {%- if col != blank -%}
+            {%- if col.image -%}
+              {%- assign bg_url = col.image | image_url: width: 800 -%}
+            {%- else -%}
+              {%- assign bg_url = '' -%}
+            {%- endif -%}
+            <li>
+              <a class="wb-collection-tile" href="{{ col.url }}"{% if bg_url != '' %} style="background-image:url({{ bg_url }})"{% endif %}>
+                <div class="wb-collection-tile-overlay">
+                  <p class="wb-collection-tile-title">{{ col.title }}</p>
+                  <p class="wb-collection-tile-count">{{ col.products_count }} product{% unless col.products_count == 1 %}s{% endunless %}</p>
+                </div>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{%- assign regulars_handles = section.settings.regulars_collections | split: ',' -%}
+{%- assign has_regulars = false -%}
+{%- for handle_raw in regulars_handles -%}
+  {%- assign h = handle_raw | strip -%}
+  {%- if collections[h] != blank -%}
+    {%- assign has_regulars = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if has_regulars -%}
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <h2 class="wb-medium-heading">Regulars</h2>
+      <ul class="wb-cards">
+        {%- for handle_raw in regulars_handles -%}
+          {%- assign handle = handle_raw | strip -%}
+          {%- assign col = collections[handle] -%}
+          {%- if col != blank -%}
+            {%- if col.image -%}
+              {%- assign bg_url = col.image | image_url: width: 800 -%}
+            {%- else -%}
+              {%- assign bg_url = '' -%}
+            {%- endif -%}
+            <li>
+              <a class="wb-collection-tile" href="{{ col.url }}"{% if bg_url != '' %} style="background-image:url({{ bg_url }})"{% endif %}>
+                <div class="wb-collection-tile-overlay">
+                  <p class="wb-collection-tile-title">{{ col.title }}</p>
+                  <p class="wb-collection-tile-count">{{ col.products_count }} product{% unless col.products_count == 1 %}s{% endunless %}</p>
+                </div>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{%- assign occasions_handles = section.settings.occasions_collections | split: ',' -%}
+{%- assign has_occasions = false -%}
+{%- for handle_raw in occasions_handles -%}
+  {%- assign h = handle_raw | strip -%}
+  {%- if collections[h] != blank -%}
+    {%- assign has_occasions = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if has_occasions -%}
+<section>
+  <div class="wb-container">
+    <div class="wb-padding">
+      <h2 class="wb-medium-heading">Occasions</h2>
+      <ul class="wb-cards">
+        {%- for handle_raw in occasions_handles -%}
+          {%- assign handle = handle_raw | strip -%}
+          {%- assign col = collections[handle] -%}
+          {%- if col != blank -%}
+            {%- if col.image -%}
+              {%- assign bg_url = col.image | image_url: width: 800 -%}
+            {%- else -%}
+              {%- assign bg_url = '' -%}
+            {%- endif -%}
+            <li>
+              <a class="wb-collection-tile" href="{{ col.url }}"{% if bg_url != '' %} style="background-image:url({{ bg_url }})"{% endif %}>
+                <div class="wb-collection-tile-overlay">
+                  <p class="wb-collection-tile-title">{{ col.title }}</p>
+                  <p class="wb-collection-tile-count">{{ col.products_count }} product{% unless col.products_count == 1 %}s{% endunless %}</p>
+                </div>
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "WB Collections List",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main_collections",
+      "label": "Main collection handles (comma-separated)",
+      "default": "andrews-of-bothwell,wee-bits,custom,collaborations,football"
+    },
+    {
+      "type": "text",
+      "id": "regulars_collections",
+      "label": "Regulars collection handles (comma-separated)",
+      "default": "royal-anglian-regiment"
+    },
+    {
+      "type": "text",
+      "id": "occasions_collections",
+      "label": "Occasions collection handles (comma-separated)",
+      "default": "anniversaries,birthdays,celebrations,christmas,thankyous,weddings"
+    }
+  ],
+  "presets": [
+    { "name": "WB Collections List" }
+  ]
+}
+{% endschema %}

@@ -1,15 +1,15 @@
 {
   "sections": {
-    "main": {
-      "type": "main-list-collections",
+    "wb_collections": {
+      "type": "wb-collections-page",
       "settings": {
-        "title": "Collections",
-        "sort": "alphabetical",
-        "image_ratio": "square"
+        "main_collections": "andrews-of-bothwell,wee-bits,custom,collaborations,football",
+        "regulars_collections": "royal-anglian-regiment",
+        "occasions_collections": "anniversaries,birthdays,celebrations,christmas,thankyous,weddings"
       }
     }
   },
   "order": [
-    "main"
+    "wb_collections"
   ]
 }

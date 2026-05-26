@@ -19,12 +19,18 @@ h3 a {
 .wb-button,
 input.wb-button,
 .wb-buttons input.wb-button {
+  -webkit-appearance: none;
+  appearance: none;
   border: 2px solid #169776;
   background-color: transparent;
   padding: 14px 24px;
+  font-family: "Raleway", sans-serif;
   font-weight: 700;
   text-decoration: none;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   margin: 10px 10px 0 0;
   border-radius: 6px;
   color: #169776;
@@ -91,6 +97,11 @@ input.wb-primary-button:hover,
   cursor: pointer;
   border: 1px solid transparent;
   transition: all 0.4s;
+}
+
+.wb-cards a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .wb-main-cards.wb-cards li {
@@ -381,6 +392,27 @@ input.wb-primary-button.wb-button-disabled {
   transform: rotate(20deg);
 }
 
+.wb-note.wb-largepanel,
+.wb-info.wb-largepanel {
+  font-size: 18px;
+  line-height: 24px;
+  padding: 18px 24px 24px 24px;
+}
+
+.wb-largepanel h3 {
+  margin: 10px 0;
+}
+
+.wb-largepanel ul {
+  margin: 0;
+  padding: 0 20px;
+}
+
+.wb-largepanel ul li {
+  margin: 0;
+  padding: 6px;
+}
+
 .wb-note {
   padding: 12px;
   border-radius: 6px;
@@ -436,6 +468,30 @@ input.wb-primary-button.wb-button-disabled {
   width: 90%;
 }
 
+/* ── CTA component ───────────────────────────────────────────────────────────
+   The [data-cta] attribute on the wrapper selects which variant to show.
+*/
+[data-cta] .wb-cta-variant { display: none; }
+[data-cta="createunique"] .wb-cta-variant[data-variant="createunique"],
+[data-cta="foryersel"]    .wb-cta-variant[data-variant="foryersel"],
+[data-cta="yourownbrand"] .wb-cta-variant[data-variant="yourownbrand"],
+[data-cta="letscollab"]   .wb-cta-variant[data-variant="letscollab"] { display: block; }
+
+/* ── Right-image (CTA panels) ────────────────────────────────────────────────
+   Decorative image that floats beside banded CTA copy on wide screens.
+*/
+img.wb-unique {
+  transform: rotate(-3deg);
+}
+
+img.wb-foryersel {
+  transform: rotate(-4deg);
+}
+
+img.wb-yourownbrand {
+  transform: rotate(4deg);
+}
+
 @media screen and (min-width: 400px) {
   #wb-video {
     top: 0;
@@ -477,7 +533,7 @@ input.wb-primary-button.wb-button-disabled {
   .wb-button,
   input.wb-button,
   .wb-buttons input.wb-button {
-    display: inline-block;
+    display: inline-flex;
     width: auto;
   }
 
@@ -594,6 +650,19 @@ input.wb-primary-button.wb-button-disabled {
 }
 
 @media screen and (min-width: 1024px) {
+  img.wb-unique {
+    transform: rotate(-5deg);
+  }
+
+  img.wb-foryersel {
+    transform: rotate(-6deg);
+  }
+
+  img.wb-yourownbrand {
+    transform: rotate(6deg);
+    margin-left: 40px;
+  }
+
   .wb-right-image {
     position: absolute;
     pointer-events: none;

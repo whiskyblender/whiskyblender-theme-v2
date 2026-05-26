@@ -1,0 +1,502 @@
+/* ── Contact Wizard ────────────────────────────────────────────────────────── */
+
+.wbcw {
+    position: relative;
+}
+
+/* Progress bar */
+.wbcw-progress {
+    height: 3px;
+    background-color: #dddddd;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.wbcw-progress-fill {
+    height: 100%;
+    background-color: #169776;
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+    width: 0%;
+}
+
+/* Steps */
+.wbcw-step {
+    display: none;
+}
+
+.wbcw-step.wbcw-active {
+    display: block;
+    animation: wbcwIn 0.28s ease;
+}
+
+@keyframes wbcwIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tracker — static, always in place, label + bar update via JS */
+.wbcw-tracker {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.wbcw-tracker .wbcw-progress {
+    flex: 1;
+}
+
+/* Step eyebrow label */
+.wbcw-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #999999;
+    white-space: nowrap;
+}
+
+/* Step heading — uses trimPosterCompressed from wb-fonts.css */
+.wbcw-heading {
+    font-family: "trimPosterCompressed", sans-serif;
+    font-weight: 100;
+    font-size: 40px;
+    line-height: 34px;
+    margin: 0 0 28px 0;
+    word-break: break-word;
+}
+
+/* ── Contact fields (name / email / phone) ─────────────────────────────────── */
+
+.wbcw-fields {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+}
+
+.wbcw-field {
+    position: relative;
+    flex: 1;
+}
+
+.wbcw-field label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 6px;
+}
+
+.wbcw-field:first-child label {
+    margin-top: 0;
+}
+
+.wbcw-field input {
+    font-size: 18px;
+    font-family: "Raleway", sans-serif;
+    display: block;
+    border: none;
+    padding: 8px 0;
+    border-bottom: 2px #888888 dotted;
+    width: 100%;
+    background-color: transparent;
+    transition: border-color 0.2s, border-style 0.2s;
+    color: #000000;
+}
+
+.wbcw-field input:focus {
+    outline: none;
+    border-bottom-color: #169776;
+    border-bottom-style: solid;
+}
+
+.wbcw-field input.wbcw-field-error {
+    border-bottom-color: #da5252;
+    border-bottom-style: solid;
+}
+
+.wbcw-error-msg {
+    font-size: 11px;
+    color: #da5252;
+    font-weight: 700;
+    margin-top: 4px;
+    display: none;
+}
+
+.wbcw-error-msg.wbcw-visible {
+    display: block;
+}
+
+/* ── Path / choice cards — styled to match .wb-create-options ─────────────��─ */
+
+.wbcw-question {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 14px;
+    margin-top: 8px;
+}
+
+.wbcw-choices {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wbcw-choice {
+    display: flex;
+    align-items: center;
+    padding: 18px 24px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: left;
+    font-family: "Raleway", sans-serif;
+    color: #666666;
+    transition: all 0.4s;
+    width: 100%;
+}
+
+.wbcw-choice:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.wbcw-choice:disabled:hover {
+    background-color: #ffffff;
+    border-color: #cccccc;
+    color: #666666;
+}
+
+.wbcw-choice:disabled:hover .wbcw-choice-icon {
+    transform: rotate(-20deg);
+}
+
+.wbcw-choice:hover {
+    border-color: #999999;
+    color: #333333;
+    background-color: rgba(244, 228, 149, 0.8);
+}
+
+.wbcw-choice:nth-child(2):hover { background-color: rgba(155, 213, 197, 0.8); }
+.wbcw-choice:nth-child(3):hover { background-color: rgba(243, 211, 211, 0.8); }
+.wbcw-choice:nth-child(4):hover { background-color: rgba(201, 225, 240, 0.8); }
+
+.wbcw-choice.wbcw-flash {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #000000;
+}
+
+.wbcw-choice-icon {
+    display: block;
+    font-size: 42px;
+    line-height: 120%;
+    flex-shrink: 0;
+    margin-right: 20px;
+    transform: rotate(-20deg);
+    transition: 0.4s;
+}
+
+.wbcw-choice:hover .wbcw-choice-icon {
+    transform: rotate(0deg);
+}
+
+.wbcw-choice-body {
+    display: block;
+}
+
+.wbcw-choice-title {
+    font-size: 20px;
+    line-height: 120%;
+    font-weight: 700;
+    margin: 0;
+    display: block;
+}
+
+.wbcw-choice-sub {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 140%;
+    color: #999999;
+    margin-top: 2px;
+    display: block;
+}
+
+.wbcw-choice:hover .wbcw-choice-sub {
+    color: #666666;
+}
+
+/* ── Navigation row ────────────────────────────────────────────────────────── */
+
+.wbcw-nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+
+/* ── Textareas ─────────────────────────────────────────────────────────────── */
+
+.wbcw-field-group {
+    margin-bottom: 12px;
+}
+
+.wbcw-field-group label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #555555;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Additional info — bordered box to match the card style */
+.wbcw-field-group textarea {
+    font-family: "Raleway", sans-serif;
+    font-size: 16px;
+    line-height: 160%;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    width: 100%;
+    padding: 20px 16px 14px;
+    background-color: #ffffff;
+    resize: vertical;
+    color: #000000;
+    display: block;
+    transition: border-color 0.2s;
+}
+
+.wbcw-field-group textarea:focus {
+    outline: none;
+    border-color: #169776;
+}
+
+/* Message textarea — letter/paper card treatment */
+.wbcw-field-group.wbcw-message-field {
+    margin-bottom: 28px;
+}
+
+.wbcw-message-field {
+    background-image: url(wb-paper.png);
+    background-size: 850px;
+    padding: 16px 20px 24px;
+    border-radius: 6px;
+    box-shadow:
+        0 6px 6px rgba(0, 0, 0, 0.15),
+        0 0 20px rgba(0, 0, 0, 0.08);
+    transform: rotate(-1deg);
+    position: relative;
+    margin-bottom: 4px;
+}
+
+.wbcw-field-group.wbcw-message-field textarea {
+    font-family: "Kalam", cursive;
+    font-size: 22px;
+    line-height: 32px;
+    color: #3b5ea1;
+    min-height: 180px;
+    border: none;
+    border-radius: 0;
+    padding: 28px 0 8px;
+    background-color: transparent;
+    box-shadow: none;
+    resize: none;
+}
+
+.wbcw-field-group.wbcw-message-field textarea:focus {
+    outline: rgba(59, 94, 161, 0.2) dotted 2px;
+    outline-offset: 6px;
+    border-color: transparent;
+}
+
+.wbcw-field-group.wbcw-message-field textarea::placeholder {
+    color: #3b5ea1;
+    opacity: 0.5;
+}
+
+/* ── File upload (optional, shown in step 5) ───────────────────────────────── */
+
+.wbcw-upload {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    border: 1px dashed #cccccc;
+    border-radius: 6px;
+    background-color: #fafafa;
+    transition: border-color 0.2s;
+}
+
+.wbcw-upload:has(input:focus) {
+    border-color: #169776;
+}
+
+.wbcw-upload-btn {
+    flex-shrink: 0;
+    font-size: 13px;
+    padding: 8px 16px;
+}
+
+.wbcw-upload-filename {
+    font-size: 13px;
+    color: #888888;
+    word-break: break-all;
+}
+
+.wbcw-upload-filename.wbcw-has-file {
+    color: #333333;
+    font-weight: 600;
+}
+
+/* ── Summary (shown in final collab step) ──────────────────────────────────── */
+
+.wbcw-summary {
+    background-color: rgba(244, 228, 149, 0.4);
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-top: 24px;
+    font-size: 14px;
+    line-height: 150%;
+}
+
+.wbcw-summary-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 16px;
+    align-items: baseline;
+}
+
+.wbcw-summary-grid .wbcw-summary-key {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888888;
+    white-space: nowrap;
+}
+
+.wbcw-summary-grid .wbcw-summary-val {
+    font-weight: 700;
+    color: #333333;
+}
+
+/* ── Success state ─────────────────────────────────────────────────────────── */
+
+.wbcw-success {
+    display: none;
+    text-align: center;
+    padding: 40px 0 20px;
+    animation: wbcwIn 0.4s ease;
+}
+
+.wbcw-success.wbcw-active {
+    display: block;
+}
+
+.wbcw-success-icon {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 12px;
+    animation: wbcwPop 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.15s both;
+}
+
+@keyframes wbcwPop {
+    from { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.wbcw-success .wbcw-heading {
+    margin-bottom: 16px;
+}
+
+.wbcw-success p {
+    font-size: 16px;
+    max-width: 480px;
+    margin: 0 auto;
+    color: #555555;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media screen and (min-width: 600px) {
+    .wbcw-fields {
+        flex-direction: row;
+        gap: 28px;
+    }
+
+    .wbcw-field label {
+        margin-top: 0;
+    }
+
+    .wbcw-heading {
+        font-size: 52px;
+        line-height: 44px;
+        margin-bottom: 32px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .wbcw-heading {
+        font-size: 62px;
+        line-height: 52px;
+    }
+
+    .wbcw-choice {
+        padding: 22px 28px;
+    }
+
+    .wbcw-choice-title {
+        font-size: 28px;
+    }
+
+    .wbcw-choice-icon {
+        margin-right: 40px;
+    }
+
+    .wbcw-message-field textarea {
+        font-size: 24px;
+        line-height: 36px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .wbcw-field input {
+        font-size: 22px;
+    }
+
+    .wbcw-choice {
+        padding: 22px 28px;
+    }
+
+    .wbcw-choice-title {
+        font-size: 34px;
+    }
+
+    .wbcw-choice-icon {
+        font-size: 52px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .wbcw-choice-title {
+        font-size: 38px;
+    }
+}

@@ -1,17 +1,8 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main_page_wb_C4V8rp": {
       "type": "main-page-wb",
-      "name": "WB Page",
+      "disabled": true,
       "settings": {
         "padding_top": 0,
         "padding_bottom": 0
@@ -20,10 +11,9 @@
     "shop_all_products_qWxYzR": {
       "type": "shop-all-products",
       "settings": {
-        "excluded_collection": "Custom blends, Custom blend options, Andrews of Bothwell, Anniversaries, Birthdays, Celebrations, Christmas, Thankyous, Weddings",
-        "columns_desktop": 4,
-        "columns_mobile": "2",
-        "color_scheme": "",
+        "collections_link_url": "/collections",
+        "all_source_collections": "andrews-of-bothwell,featured,wee-bits,custom,collaborations,football,royal-anglian-regiment,anniversaries,birthdays,celebrations,christmas,thankyous,weddings",
+        "filter_collections": "featured,wee-bits,custom,collaborations",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,

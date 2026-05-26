@@ -1,0 +1,94 @@
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="wb-medium-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p>{{ section.settings.description }}</p>
+      {%- endif -%}
+      <ul class="wb-cards wb-main-cards">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <a href="{{ block.settings.link }}">
+              {%- if block.settings.image != blank -%}
+                <div class="wb-card-image">
+                  {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', alt: block.settings.heading }}
+                </div>
+              {%- endif -%}
+              <div class="wb-card-details">
+                <h3 class="wb-small-heading">{{ block.settings.heading }}</h3>
+                {%- if block.settings.emoji != blank -%}
+                  <span class="wb-emoji" aria-hidden="true">{{ block.settings.emoji }}</span>
+                {%- endif -%}
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "WB Occasions",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "For special occasions"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "occasion",
+      "name": "Occasion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Weddings"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji",
+          "default": "🎩"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB Occasions",
+      "blocks": [
+        { "type": "occasion", "settings": { "heading": "Weddings", "emoji": "🎩" } },
+        { "type": "occasion", "settings": { "heading": "Birthdays", "emoji": "🎁" } },
+        { "type": "occasion", "settings": { "heading": "Anniversaries", "emoji": "💝" } },
+        { "type": "occasion", "settings": { "heading": "Christmas", "emoji": "🎅🏽" } },
+        { "type": "occasion", "settings": { "heading": "Thank yous", "emoji": "🙏" } },
+        { "type": "occasion", "settings": { "heading": "Celebrations", "emoji": "🎉" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

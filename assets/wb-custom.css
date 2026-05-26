@@ -1,0 +1,87 @@
+.wb-recipe {
+}
+
+.wb-noblend-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.wb-noblend-divider::before,
+.wb-noblend-divider::after {
+    content: '';
+    flex: 1;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.wb-noblend-codelabel {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 10px;
+}
+
+.wb-noblend-form {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.wb-noblend-form input {
+    flex: 1;
+    background: #ffffff;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 18px;
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 160%;
+    min-width: 0;
+}
+
+.wb-noblend-form input:focus {
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+.wb-noblend-form .wb-button:disabled {
+    border-color: #999999;
+    background-color: #999999;
+    color: #ffffff;
+}
+
+.wb-noblend-form .wb-button {
+    margin: 0;
+    flex-shrink: 0;
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media screen and (max-width: 399px) {
+    .wb-noblend-form {
+        flex-direction: column;
+    }
+    .wb-noblend-form .wb-button {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .wb-noblend-form input {
+        padding: 16px 16px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .wb-noblend-form input {
+        font-size: 20px;
+    }
+}

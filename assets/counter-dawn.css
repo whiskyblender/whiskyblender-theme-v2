@@ -40,6 +40,27 @@
     height: auto;
 }
 
+.wb-main-cards .wb-card-image img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+.wb-main-cards a {
+    display: block;
+}
+
+.wb-card-details {
+    position: relative;
+    z-index: 1;
+}
+
+.wb-card-details .wb-emoji,
+.wb-create-icon {
+    color: rgb(var(--color-foreground));
+    z-index: 2;
+}
+
 .image-with-text__media {
     border: none;
 }
@@ -94,10 +115,6 @@ a.wb-button.button, a.wb-button.button.button--primary {
     padding: 0!important;
 }
 
-.wb-main-cards img {
-    height: 250% !important;
-    top: -80% !important;
-}
 
 .product__media.media.media--transparent {
     border-radius: 6px;
@@ -123,6 +140,52 @@ footer h5.wb-tiny-heading {
 
 .wb-first-item {
     background: transparent;
+}
+
+.wb-option-cards li {
+    overflow: visible !important;
+}
+
+.wb-lab-field.field__input {
+    border: 2px solid #dddddd !important;
+    border-radius: 12px !important;
+    padding: 12px 16px !important;
+    background: #fafafa !important;
+    box-shadow: none !important;
+}
+
+.wb-option-heading {
+    margin: 0 !important;
+    font-size: 20px;
+    line-height: 120%;
+}
+
+.wb-create-options li {
+    overflow: unset !important;
+}
+
+.wb-create-options li a {
+    text-decoration: underline !important;
+    text-decoration-style: wavy !important;
+    color: #333333 !important;
+}
+
+@media screen and (min-width: 768px) {
+    .wb-option-heading {
+        font-size: 28px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .wb-option-heading {
+        font-size: 34px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .wb-option-heading {
+        font-size: 38px;
+    }
 }
 
 .cart__items {
@@ -205,4 +268,53 @@ span.wb-radio {
         margin: 0;
     }
 
+}
+
+/* Collection tiles */
+.wb-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+}
+@media screen and (max-width: 768px) {
+    .wb-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media screen and (max-width: 480px) {
+    .wb-cards { grid-template-columns: 1fr; }
+}
+.wb-collection-tile {
+    display: block;
+    position: relative;
+    color: #ffffff;
+    background-color: #333333;
+    background-size: cover;
+    background-position: center;
+    aspect-ratio: 3 / 2;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: opacity 0.3s;
+    text-decoration: none;
+}
+.wb-collection-tile:hover { opacity: 0.88; }
+.wb-collection-tile-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 28px 16px 16px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.65));
+}
+.wb-collection-tile-title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 120%;
+    margin: 0;
+    color: #ffffff;
+}
+.wb-collection-tile-count {
+    font-size: 13px;
+    opacity: 0.75;
+    margin: 5px 0 0;
+    color: #ffffff;
 }

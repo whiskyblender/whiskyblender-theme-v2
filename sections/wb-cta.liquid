@@ -1,0 +1,88 @@
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      {%- if section.settings.image != blank -%}
+        <div class="wb-right-image">
+          {{ section.settings.image | image_url: width: 400 | image_tag:
+            loading: 'lazy',
+            alt: '',
+            class: section.settings.image_class
+          }}
+        </div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="wb-medium-heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p>{{ section.settings.description }}</p>
+      {%- endif -%}
+      <div class="wb-buttons">
+        {%- if section.settings.primary_button_text != blank -%}
+          <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">
+            {{ section.settings.primary_button_text }}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.secondary_button_text != blank -%}
+          <a href="{{ section.settings.secondary_button_url }}" class="wb-button">
+            {{ section.settings.secondary_button_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "WB CTA Panel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Decorative image (floats right on desktop)"
+    },
+    {
+      "type": "text",
+      "id": "image_class",
+      "label": "Image CSS class",
+      "info": "e.g. wb-foryersel, wb-yourownbrand, wb-unique",
+      "default": "wb-foryersel"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary button text"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary button text"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_url",
+      "label": "Secondary button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB CTA Panel"
+    }
+  ]
+}
+{% endschema %}

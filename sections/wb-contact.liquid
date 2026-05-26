@@ -1,0 +1,28 @@
+<section>
+  <div class="wb-container">
+    <div class="wb-imagebg" style="background-image: url({{ 'collaborate.jpg' | asset_url }})">
+      <div class="wb-padding">
+        <h1 class="wb-medium-heading">Get in touch</h1>
+        <p class="wb-collection-sub">We'd love to hear from you</p>
+      </div>
+    </div>
+    <div class="wb-padding wb-collection-copy">
+      <p class="wb-intro">Whether you're curious about a blend, looking to collaborate on something bespoke, or just want to talk whisky — we're always happy to hear from you. Fill in the form below and we'll get back to you as soon as we can.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      {% render 'wb-contact-wizard' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "WB Contact",
+  "settings": []
+}
+{% endschema %}

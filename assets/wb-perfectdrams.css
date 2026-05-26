@@ -2,8 +2,16 @@ img.wb-unique {
     transform: rotate(-4deg);
 }
 
+img.wb-singlemalt {
+    transform: rotate(4deg);
+}
+
 @media screen and (min-width: 1024px) {
     img.wb-unique {
         transform: rotate(-6deg);
+    }
+
+    img.wb-singlemalt {
+        transform: rotate(6deg);
     }
 }

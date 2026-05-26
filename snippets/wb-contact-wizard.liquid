@@ -1,0 +1,399 @@
+{{ 'wb-contact.css' | asset_url | stylesheet_tag }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam&display=swap" rel="stylesheet">
+
+{%- form 'contact', id: 'wbContactForm' -%}
+  <input type="hidden" name="contact[name]"  id="wbcwHiddenName">
+  <input type="hidden" name="contact[email]" id="wbcwHiddenEmail">
+  <input type="hidden" name="contact[phone]" id="wbcwHiddenPhone">
+  <textarea name="contact[body]" id="wbcwHiddenBody" style="display:none"></textarea>
+
+  {%- if form.errors -%}
+    <p class="form-status form__message" role="alert">
+      {{- 'icon-error.svg' | inline_asset_content -}}
+      {{ form.errors.translated_fields.email | capitalize }}
+      {{ form.errors.messages.email }}
+    </p>
+  {%- endif -%}
+
+  <div class="wbcw" id="wbContactWizard">
+    <div class="wbcw-tracker">
+      <span class="wbcw-label" id="wbcwStepLabel" style="display:none"></span>
+      <div class="wbcw-progress">
+        <div class="wbcw-progress-fill" id="wbcwProgress"></div>
+      </div>
+    </div>
+
+    {%- unless form.posted_successfully? -%}
+
+    <div class="wbcw-step wbcw-active" data-step="contact">
+      <div class="wbcw-fields">
+        <div class="wbcw-field">
+          <label for="wbcwName">Name</label>
+          <input type="text" id="wbcwName" autocomplete="name" placeholder="What do we call you?">
+        </div>
+        <div class="wbcw-field">
+          <label for="wbcwEmail">Email (required)</label>
+          <input type="email" id="wbcwEmail" autocomplete="email" placeholder="legend@domain.com">
+          <span class="wbcw-error-msg" id="wbcwEmailError">We'll need your email to reply</span>
+        </div>
+        <div class="wbcw-field">
+          <label for="wbcwPhone">Phone</label>
+          <input type="tel" id="wbcwPhone" autocomplete="tel" placeholder="+44 ...">
+        </div>
+      </div>
+      <span class="wbcw-question">Contact options</span>
+      <div class="wbcw-choices wbcw-paths">
+        <button type="button" class="wbcw-choice" disabled onclick="wbcwChoosePath('message')">
+          <span class="wbcw-choice-icon">✉️</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Write us a message</span>
+            <span class="wbcw-choice-sub">Just want to say hello or ask something?</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" disabled onclick="wbcwChoosePath('collab')">
+          <span class="wbcw-choice-icon">🥃</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Collaborate on a whisky</span>
+            <span class="wbcw-choice-sub">Looking to work with us on your own whisky?</span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="wbcw-step" data-step="message">
+      <h3 class="wbcw-heading">What's on your mind?</h3>
+      <div class="wbcw-field-group wbcw-message-field">
+        <textarea id="wbcwMessage" placeholder="Gie's yer thoughts..." rows="7"></textarea>
+      </div>
+      <div class="wbcw-nav">
+        <button type="button" class="wb-button" onclick="wbcwBack()">&#8592; Back</button>
+        <button type="button" class="wb-button wb-primary-button" onclick="wbcwSubmit()">Send to us</button>
+      </div>
+    </div>
+
+    <div class="wbcw-step" data-step="about">
+      <h3 class="wbcw-heading">Tell us about you</h3>
+      <div class="wbcw-choices">
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('about', 'An individual', 'quantity', this)">
+          <span class="wbcw-choice-icon">👤</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">An individual</span>
+            <span class="wbcw-choice-sub">A personal project or a very special gift</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('about', 'A small business', 'quantity', this)">
+          <span class="wbcw-choice-icon">🏪</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">A small business</span>
+            <span class="wbcw-choice-sub">Branded bottles for your company or event</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('about', 'A bar or restaurant', 'quantity', this)">
+          <span class="wbcw-choice-icon">🪑</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">A bar or restaurant</span>
+            <span class="wbcw-choice-sub">A house pour or signature serve that's all yours</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('about', 'Other', 'quantity', this)">
+          <span class="wbcw-choice-icon">💡</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Other</span>
+            <span class="wbcw-choice-sub">Something else entirely — we're all ears</span>
+          </span>
+        </button>
+      </div>
+      <div class="wbcw-nav">
+        <button type="button" class="wb-button" onclick="wbcwBack()">&#8592; Back</button>
+      </div>
+    </div>
+
+    <div class="wbcw-step" data-step="quantity">
+      <h3 class="wbcw-heading">How many bottles?</h3>
+      <div class="wbcw-choices">
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('quantity', '1–5 bottles', 'whisky', this)">
+          <span class="wbcw-choice-icon">🤏</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">1–5 bottles</span>
+            <span class="wbcw-choice-sub">A personal run or a handful of gifts</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('quantity', 'A case or so (6–24 bottles)', 'whisky', this)">
+          <span class="wbcw-choice-icon">📦</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">A wee case or so</span>
+            <span class="wbcw-choice-sub">Around 6–24 bottles</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('quantity', '25–100 bottles', 'whisky', this)">
+          <span class="wbcw-choice-icon">🏢</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">25–100 bottles</span>
+            <span class="wbcw-choice-sub">A proper branded run</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('quantity', '100+ bottles', 'whisky', this)">
+          <span class="wbcw-choice-icon">🚀</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">100+ bottles</span>
+            <span class="wbcw-choice-sub">A serious commercial release</span>
+          </span>
+        </button>
+      </div>
+      <div class="wbcw-nav">
+        <button type="button" class="wb-button" onclick="wbcwBack()">&#8592; Back</button>
+      </div>
+    </div>
+
+    <div class="wbcw-step" data-step="whisky">
+      <h3 class="wbcw-heading">What kind of Scotch?</h3>
+      <div class="wbcw-choices">
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('whisky', 'Single malt', 'label', this)">
+          <span class="wbcw-choice-icon">⭐</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Single malt</span>
+            <span class="wbcw-choice-sub">From one distillery — all the prestige</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('whisky', 'Single cask', 'label', this)">
+          <span class="wbcw-choice-icon">💎</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Single cask</span>
+            <span class="wbcw-choice-sub">Truly unique — one barrel, one release</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('whisky', 'House malt', 'label', this)">
+          <span class="wbcw-choice-icon">🏠</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">House malt</span>
+            <span class="wbcw-choice-sub">Our signature blend under your name</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('whisky', 'Custom blended malt', 'label', this)">
+          <span class="wbcw-choice-icon">🧪</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Custom blended malt</span>
+            <span class="wbcw-choice-sub">Work with us to craft a profile from scratch</span>
+          </span>
+        </button>
+      </div>
+      <div class="wbcw-nav">
+        <button type="button" class="wb-button" onclick="wbcwBack()">&#8592; Back</button>
+      </div>
+    </div>
+
+    <div class="wbcw-step" data-step="label">
+      <h3 class="wbcw-heading">What about the label?</h3>
+      <div class="wbcw-choices">
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('label', 'Overprint our label', 'additional', this)">
+          <span class="wbcw-choice-icon">🖨️</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Overprint our label</span>
+            <span class="wbcw-choice-sub">Canvas texture and copper foiling completed with your design</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('label', 'Fully bespoke label', 'additional', this)">
+          <span class="wbcw-choice-icon">🎨</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Fully bespoke label</span>
+            <span class="wbcw-choice-sub">Designed entirely from scratch for you</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('label', 'Send us your own labels', 'additional', this)">
+          <span class="wbcw-choice-icon">📬</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Send us your own labels</span>
+            <span class="wbcw-choice-sub">You handle the design, we advise on production</span>
+          </span>
+        </button>
+        <button type="button" class="wbcw-choice" onclick="wbcwAnswer('label', 'Explore options with us', 'additional', this)">
+          <span class="wbcw-choice-icon">🔍</span>
+          <span class="wbcw-choice-body">
+            <span class="wbcw-choice-title">Explore options with us</span>
+            <span class="wbcw-choice-sub">Not sure yet — let's figure it out together</span>
+          </span>
+        </button>
+      </div>
+      <div class="wbcw-nav">
+        <button type="button" class="wb-button" onclick="wbcwBack()">&#8592; Back</button>
+      </div>
+    </div>
+
+    <div class="wbcw-step" data-step="additional">
+      <h3 class="wbcw-heading">Anything else?</h3>
+      <div class="wbcw-field-group wbcw-message-field">
+        <textarea id="wbcwAdditional" placeholder="Timelines, website, questions..." rows="5"></textarea>
+      </div>
+      <div class="wbcw-field-group" style="margin-top: 4px;">
+        <div class="wbcw-upload">
+          <input type="file" id="wbcwUpload" accept="image/*" style="display:none">
+          <button type="button" class="wb-button wbcw-upload-btn" onclick="document.getElementById('wbcwUpload').click()">Attach an image</button>
+          <span class="wbcw-upload-filename" id="wbcwUploadFilename">Optional</span>
+        </div>
+      </div>
+      <div class="wbcw-nav">
+        <button type="button" class="wb-button" onclick="wbcwBack()">&#8592; Back</button>
+        <button type="button" class="wb-button wb-primary-button" onclick="wbcwSubmit()">Send to us</button>
+      </div>
+    </div>
+
+    {%- endunless -%}
+
+    <div class="wbcw-success{% if form.posted_successfully? %} wbcw-active{% endif %}" id="wbcwSuccess">
+      <span class="wbcw-success-icon">🥃</span>
+      <h3 class="wbcw-heading">We'll be in touch!</h3>
+      <p>Thanks for reaching out — we'll get back to you as soon as we can.</p>
+    </div>
+
+  </div><!-- /.wbcw -->
+{%- endform -%}
+
+<script>
+(function () {
+  var answers = {
+    name: '', email: '', phone: '',
+    path: '', message: '',
+    about: '', quantity: '', whisky: '', label: '', additional: ''
+  };
+
+  var PROGRESS = {
+    contact:     0,
+    message:    100,
+    about:       20,
+    quantity:    40,
+    whisky:      60,
+    label:       80,
+    additional: 100
+  };
+
+  var LABELS = {
+    about:      '1 of 5',
+    quantity:   '2 of 5',
+    whisky:     '3 of 5',
+    label:      '4 of 5',
+    additional: '5 of 5'
+  };
+
+  var stepHistory = ['contact'];
+
+  function el(id) { return document.getElementById(id); }
+
+  function showStep(name) {
+    var wizard = el('wbContactWizard');
+    if (!wizard) return;
+    wizard.querySelectorAll('.wbcw-step').forEach(function (s) { s.classList.remove('wbcw-active'); });
+    wizard.querySelectorAll('.wbcw-choice.wbcw-flash').forEach(function (b) { b.classList.remove('wbcw-flash'); });
+    var target = wizard.querySelector('[data-step="' + name + '"]');
+    if (target) target.classList.add('wbcw-active');
+    var prog = el('wbcwProgress');
+    if (prog) prog.style.width = (PROGRESS[name] || 0) + '%';
+    var labelEl = el('wbcwStepLabel');
+    if (labelEl) {
+      var txt = LABELS[name] || '';
+      labelEl.textContent = txt;
+      labelEl.style.display = txt ? '' : 'none';
+    }
+    var rect = wizard.getBoundingClientRect();
+    if (rect.top < 0) { window.scrollTo({ top: window.scrollY + rect.top - 20, behavior: 'smooth' }); }
+  }
+
+  function validateEmail() {
+    var emailEl = el('wbcwEmail');
+    if (!emailEl) return false;
+    var val = emailEl.value.trim();
+    if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      emailEl.classList.add('wbcw-field-error');
+      var errEl = el('wbcwEmailError');
+      if (errEl) errEl.classList.add('wbcw-visible');
+      if (stepHistory[stepHistory.length - 1] !== 'contact') { stepHistory = ['contact']; showStep('contact'); }
+      emailEl.focus();
+      return false;
+    }
+    emailEl.classList.remove('wbcw-field-error');
+    var errEl2 = el('wbcwEmailError');
+    if (errEl2) errEl2.classList.remove('wbcw-visible');
+    return true;
+  }
+
+  function captureContact() {
+    var nameEl = el('wbcwName'), emailEl = el('wbcwEmail'), phoneEl = el('wbcwPhone');
+    answers.name  = nameEl  ? nameEl.value.trim()  : '';
+    answers.email = emailEl ? emailEl.value.trim() : '';
+    answers.phone = phoneEl ? phoneEl.value.trim() : '';
+  }
+
+  window.wbcwChoosePath = function (path) {
+    captureContact();
+    answers.path = path;
+    var next = path === 'message' ? 'message' : 'about';
+    stepHistory.push(next);
+    showStep(next);
+  };
+
+  window.wbcwAnswer = function (field, value, next, btn) {
+    answers[field] = value;
+    if (btn) btn.classList.add('wbcw-flash');
+    setTimeout(function () { stepHistory.push(next); showStep(next); }, 200);
+  };
+
+  window.wbcwBack = function () {
+    if (stepHistory.length > 1) { stepHistory.pop(); showStep(stepHistory[stepHistory.length - 1]); }
+  };
+
+  function buildBody() {
+    if (answers.path === 'message') return answers.message;
+    var lines = ['Collaboration enquiry', ''];
+    if (answers.about)      lines.push('About: '    + answers.about);
+    if (answers.quantity)   lines.push('Bottles: '  + answers.quantity);
+    if (answers.whisky)     lines.push('Whisky: '   + answers.whisky);
+    if (answers.label)      lines.push('Label: '    + answers.label);
+    if (answers.additional) { lines.push(''); lines.push('Additional info: ' + answers.additional); }
+    var uploadEl = el('wbcwUpload');
+    if (uploadEl && uploadEl.files[0]) { lines.push(''); lines.push('Image attached: ' + uploadEl.files[0].name); }
+    return lines.join('\n');
+  }
+
+  window.wbcwSubmit = function () {
+    var msgEl = el('wbcwMessage'), addEl = el('wbcwAdditional');
+    if (answers.path === 'message') {
+      answers.message = msgEl ? msgEl.value.trim() : '';
+    } else {
+      answers.additional = addEl ? addEl.value.trim() : '';
+    }
+    captureContact();
+    if (!validateEmail()) return;
+    var hiddenName  = el('wbcwHiddenName');
+    var hiddenEmail = el('wbcwHiddenEmail');
+    var hiddenPhone = el('wbcwHiddenPhone');
+    var hiddenBody  = el('wbcwHiddenBody');
+    if (hiddenName)  hiddenName.value  = answers.name;
+    if (hiddenEmail) hiddenEmail.value = answers.email;
+    if (hiddenPhone) hiddenPhone.value = answers.phone;
+    if (hiddenBody)  hiddenBody.value  = buildBody();
+    var form = el('wbContactForm');
+    if (form) form.submit();
+  };
+
+  document.addEventListener('input', function (e) {
+    if (e.target && e.target.id === 'wbcwEmail') {
+      e.target.classList.remove('wbcw-field-error');
+      var errEl = el('wbcwEmailError');
+      if (errEl) errEl.classList.remove('wbcw-visible');
+      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value.trim());
+      document.querySelectorAll('.wbcw-paths .wbcw-choice').forEach(function (btn) { btn.disabled = !valid; });
+    }
+  });
+
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'wbcwUpload') {
+      var filenameEl = el('wbcwUploadFilename');
+      if (!filenameEl) return;
+      var file = e.target.files[0];
+      filenameEl.textContent = file ? file.name : 'Optional';
+      filenameEl.classList.toggle('wbcw-has-file', !!file);
+    }
+  });
+})();
+</script>
