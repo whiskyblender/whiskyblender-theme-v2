@@ -6,6 +6,7 @@
   {{ 'quick-add.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
 
+<section class="wb-first-item">
 <div class="wb-container">
   <div class="wb-padding">
 
@@ -18,19 +19,36 @@
 
     {%- assign filter_handles = section.settings.filter_collections | split: ',' -%}
 
+    {%- assign first_filter_set = false -%}
     <div class="wb-bottle-form" style="margin-top: 24px;">
+      {%- for handle_raw in filter_handles -%}
+        {%- assign handle = handle_raw | strip -%}
+        {%- assign col = collections[handle] -%}
+        {%- if col != blank and first_filter_set == false -%}
+          {%- assign first_filter_set = true -%}
+          <span class="wb-radio">
+            <input type="radio" name="wb-filter" id="filter-{{ handle }}" value="{{ col.title }}" checked>
+            <label for="filter-{{ handle }}">{{ col.title }}</label>
+          </span>
+        {%- endif -%}
+      {%- endfor -%}
       <span class="wb-radio">
-        <input type="radio" name="wb-filter" id="filter-all" value="__all__" checked>
+        <input type="radio" name="wb-filter" id="filter-all" value="__all__">
         <label for="filter-all">All</label>
       </span>
+      {%- assign skipped_first = false -%}
       {%- for handle_raw in filter_handles -%}
         {%- assign handle = handle_raw | strip -%}
         {%- assign col = collections[handle] -%}
         {%- if col != blank -%}
-          <span class="wb-radio">
-            <input type="radio" name="wb-filter" id="filter-{{ handle }}" value="{{ col.title }}">
-            <label for="filter-{{ handle }}">{{ col.title }}</label>
-          </span>
+          {%- if skipped_first == false -%}
+            {%- assign skipped_first = true -%}
+          {%- else -%}
+            <span class="wb-radio">
+              <input type="radio" name="wb-filter" id="filter-{{ handle }}" value="{{ col.title }}">
+              <label for="filter-{{ handle }}">{{ col.title }}</label>
+            </span>
+          {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
       <span class="wb-radio">
@@ -83,6 +101,7 @@
 
   </div>
 </div>
+</section>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -116,7 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  applyFilter('__all__');
+  var checkedRadio = document.querySelector('input[name="wb-filter"]:checked');
+  if (checkedRadio) applyFilter(checkedRadio.value);
 
   var hasSale = Array.from(items).some(function (item) { return item.dataset.sale === 'true'; });
   if (!hasSale) {

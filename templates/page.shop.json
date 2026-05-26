@@ -13,7 +13,7 @@
       "settings": {
         "collections_link_url": "/collections",
         "all_source_collections": "andrews-of-bothwell,featured,wee-bits,custom,collaborations,football,royal-anglian-regiment,anniversaries,birthdays,celebrations,christmas,thankyous,weddings",
-        "filter_collections": "featured,wee-bits,custom,collaborations",
+        "filter_collections": "featured,andrews-of-bothwell,wee-bits,custom,collaborations",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
