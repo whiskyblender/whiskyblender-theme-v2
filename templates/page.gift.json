@@ -13,156 +13,128 @@
       "type": "main-page",
       "disabled": true,
       "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
-    "main_landing_UjYUKH": {
+    "main_landing": {
       "type": "wb-main-landing",
       "name": "Landing Hero",
       "settings": {
         "video_file": "wb-whisky-bow.mp4",
         "background_image": "wb-whisky-bow.jpg",
-        "title": "Give the gift of whisky",
-        "description": "That's certaintly the kind of gifts that we like to get from people.",
-        "primary_button_text": "Create Something",
+        "title": "The gift of whisky",
+        "description": "That's certainly the kind of gift that we like to get from people.",
+        "primary_button_text": "Get a voucher",
+        "primary_button_url": "shopify://products/gift-voucher",
+        "secondary_button_text": "Visit the shop",
+        "secondary_button_url": "shopify://pages/shop"
+      }
+    },
+    "image_reel": {
+      "type": "image_reel",
+      "name": "Image Reel",
+      "blocks": {
+        "reel_01": { "type": "image_reel", "settings": { "reel_image": "01_joker.jpg" } },
+        "reel_02": { "type": "image_reel", "settings": { "reel_image": "02_nox.jpg" } },
+        "reel_03": { "type": "image_reel", "settings": { "reel_image": "03_lockstock.jpg" } },
+        "reel_04": { "type": "image_reel", "settings": { "reel_image": "04_burt.jpg" } },
+        "reel_05": { "type": "image_reel", "settings": { "reel_image": "05_bollocks.jpg" } },
+        "reel_06": { "type": "image_reel", "settings": { "reel_image": "06_orson.jpg" } },
+        "reel_07": { "type": "image_reel", "settings": { "reel_image": "07_rhino.jpg" } },
+        "reel_08": { "type": "image_reel", "settings": { "reel_image": "08_dad.jpg" } }
+      },
+      "block_order": ["reel_01", "reel_02", "reel_03", "reel_04", "reel_05", "reel_06", "reel_07", "reel_08"],
+      "settings": {}
+    },
+    "occasions": {
+      "type": "wb-occasions",
+      "name": "For special occasions",
+      "blocks": {
+        "occasion_weddings": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Weddings",
+            "image": "shopify://shop_images/weddings.png",
+            "link": "shopify://collections/weddings",
+            "emoji": "🎩"
+          }
+        },
+        "occasion_birthdays": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Birthdays",
+            "image": "shopify://shop_images/birthdays.png",
+            "link": "shopify://collections/birthdays",
+            "emoji": "🎁"
+          }
+        },
+        "occasion_anniversaries": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Anniversaries",
+            "image": "shopify://shop_images/anniversaries.png",
+            "link": "shopify://collections/anniversaries",
+            "emoji": "💝"
+          }
+        },
+        "occasion_christmas": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Christmas",
+            "image": "shopify://shop_images/christmas.png",
+            "link": "shopify://collections/christmas",
+            "emoji": "🎅🏽"
+          }
+        },
+        "occasion_thankyous": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Thank yous",
+            "image": "shopify://shop_images/thankyous.png",
+            "link": "shopify://collections/thankyous",
+            "emoji": "🙏"
+          }
+        },
+        "occasion_celebrations": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Celebrations",
+            "image": "shopify://shop_images/celebrations.png",
+            "link": "shopify://collections/celebrations",
+            "emoji": "🎉"
+          }
+        }
+      },
+      "block_order": [
+        "occasion_weddings",
+        "occasion_birthdays",
+        "occasion_anniversaries",
+        "occasion_christmas",
+        "occasion_thankyous",
+        "occasion_celebrations"
+      ],
+      "settings": {
+        "heading": "For special occasions",
+        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way."
+      }
+    },
+    "wb_cta": {
+      "type": "wb-cta",
+      "settings": {
+        "heading": "For yersel'",
+        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
+        "image": "shopify://shop_images/wb-foryersel.png",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "Create something",
         "primary_button_url": "shopify://pages/create",
         "secondary_button_text": "",
         "secondary_button_url": ""
       }
     },
-    "image_reel_gE8Wiz": {
-      "type": "image_reel",
-      "blocks": {
-        "image_reel_ebjc63": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "08_dad.jpg"
-          }
-        },
-        "image_reel_e3Y9nj": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "07_rhino.jpg"
-          }
-        },
-        "image_reel_tq3hnr": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "06_orson.jpg"
-          }
-        },
-        "image_reel_BQkTcV": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "05_bollocks.jpg"
-          }
-        },
-        "image_reel_mnAzA9": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "04_burt.jpg"
-          }
-        },
-        "image_reel_DFtcre": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "03_lockstock.jpg"
-          }
-        },
-        "image_reel_HkkHwk": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "02_nox.jpg"
-          }
-        },
-        "image_reel_yRQq7J": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "01_joker.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "image_reel_ebjc63",
-        "image_reel_e3Y9nj",
-        "image_reel_tq3hnr",
-        "image_reel_BQkTcV",
-        "image_reel_mnAzA9",
-        "image_reel_DFtcre",
-        "image_reel_HkkHwk",
-        "image_reel_yRQq7J"
-      ],
-      "name": "Image Reel",
-      "settings": {}
-    },
-    "collection_list_3XXz4y": {
-      "type": "collection-list",
-      "blocks": {
-        "featured_collection_djRtBa": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "weddings"
-          }
-        },
-        "featured_collection_y3NBGt": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "birthdays"
-          }
-        },
-        "featured_collection_LTqXgw": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "anniversaries"
-          }
-        },
-        "featured_collection_zRWJrp": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "christmas"
-          }
-        },
-        "featured_collection_mzabye": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "thankyous"
-          }
-        },
-        "featured_collection_tVR6yU": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "celebrations"
-          }
-        }
-      },
-      "block_order": [
-        "featured_collection_djRtBa",
-        "featured_collection_y3NBGt",
-        "featured_collection_LTqXgw",
-        "featured_collection_zRWJrp",
-        "featured_collection_mzabye",
-        "featured_collection_tVR6yU"
-      ],
-      "custom_css": [],
-      "name": "t:sections.collection-list.presets.name",
-      "settings": {
-        "title": "For special Occasions",
-        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way.",
-        "heading_size": "h1",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "color_scheme": "",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "featured_collection_cD7jc4": {
+    "exclusive_bottles": {
       "type": "featured-collection",
-      "name": "t:sections.featured-collection.presets.name",
+      "name": "Exclusive bottles",
       "settings": {
         "collection": "twa-andras",
         "products_to_show": 4,
@@ -190,5 +162,12 @@
       }
     }
   },
-  "order": ["main", "main_landing_UjYUKH", "image_reel_gE8Wiz", "collection_list_3XXz4y", "featured_collection_cD7jc4"]
+  "order": [
+    "main",
+    "main_landing",
+    "image_reel",
+    "occasions",
+    "wb_cta",
+    "exclusive_bottles"
+  ]
 }
