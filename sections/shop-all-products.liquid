@@ -19,36 +19,19 @@
 
     {%- assign filter_handles = section.settings.filter_collections | split: ',' -%}
 
-    {%- assign first_filter_set = false -%}
     <div class="wb-bottle-form" style="margin-top: 24px;">
-      {%- for handle_raw in filter_handles -%}
-        {%- assign handle = handle_raw | strip -%}
-        {%- assign col = collections[handle] -%}
-        {%- if col != blank and first_filter_set == false -%}
-          {%- assign first_filter_set = true -%}
-          <span class="wb-radio">
-            <input type="radio" name="wb-filter" id="filter-{{ handle }}" value="{{ col.title }}" checked>
-            <label for="filter-{{ handle }}">{{ col.title }}</label>
-          </span>
-        {%- endif -%}
-      {%- endfor -%}
       <span class="wb-radio">
-        <input type="radio" name="wb-filter" id="filter-all" value="__all__">
+        <input type="radio" name="wb-filter" id="filter-all" value="__all__" checked>
         <label for="filter-all">All</label>
       </span>
-      {%- assign skipped_first = false -%}
       {%- for handle_raw in filter_handles -%}
         {%- assign handle = handle_raw | strip -%}
         {%- assign col = collections[handle] -%}
         {%- if col != blank -%}
-          {%- if skipped_first == false -%}
-            {%- assign skipped_first = true -%}
-          {%- else -%}
-            <span class="wb-radio">
-              <input type="radio" name="wb-filter" id="filter-{{ handle }}" value="{{ col.title }}">
-              <label for="filter-{{ handle }}">{{ col.title }}</label>
-            </span>
-          {%- endif -%}
+          <span class="wb-radio">
+            <input type="radio" name="wb-filter" id="filter-{{ handle }}" value="{{ col.title }}">
+            <label for="filter-{{ handle }}">{{ col.title }}</label>
+          </span>
         {%- endif -%}
       {%- endfor -%}
       <span class="wb-radio">
