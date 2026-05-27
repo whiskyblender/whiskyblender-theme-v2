@@ -72,6 +72,9 @@
     border: none !important;
     box-shadow: none !important;
     text-decoration: none !important;
+    margin-top: 0 !important;
+    width: -webkit-fill-available !important;
+    width: stretch !important;
 }
 
 .shopify-pc__banner__btns button:hover {
