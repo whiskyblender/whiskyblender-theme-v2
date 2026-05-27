@@ -308,6 +308,13 @@ span.wb-radio {
 }
 
 /* Create page option cards — scoped so no other h2 or a tags are affected */
+@media screen and (min-width: 480px) {
+    .wb-create-options.wb-cards li {
+        flex: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
 .wb-create-options li {
     color: #666666 !important;
 }
