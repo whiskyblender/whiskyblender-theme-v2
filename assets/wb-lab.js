@@ -131,6 +131,22 @@
       };
     });
 
+    /* ── Pre-load recipe from Perfect Drams sessionStorage ── */
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var code = params.get('blend');
+        if (!code) return;
+        var stored = sessionStorage.getItem('wb_' + code);
+        if (!stored) return;
+        var preload = JSON.parse(stored);
+        if (!preload || !Array.isArray(preload.recipe)) return;
+        preload.recipe.forEach(function (amount, idx) {
+          if (flavours[idx] !== undefined) flavours[idx].amount = amount;
+        });
+      } catch (e) {}
+    })();
+
     /* ── Save panel ── */
     var savePanel = document.getElementById('wb-save-panel');
     var saveBtn = document.getElementById('wb-save-blend-btn');
