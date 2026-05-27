@@ -21,9 +21,7 @@
       "type": "wb-main-landing",
       "name": "Landing Hero",
       "settings": {
-        "video_url": "",
         "video_file": "",
-        "background_image": "shopify://shop_images/collaborate.jpg",
         "title": "Your own brand",
         "description": "Let's collaborate",
         "primary_button_text": "",
