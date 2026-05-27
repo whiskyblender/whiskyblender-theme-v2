@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -13,7 +22,6 @@
       "name": "Landing Hero",
       "settings": {
         "video_file": "",
-        "background_image": "collaborate.jpg",
         "title": "Your own brand",
         "description": "Let's collaborate",
         "primary_button_text": "",
