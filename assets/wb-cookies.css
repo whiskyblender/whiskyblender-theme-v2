@@ -83,16 +83,19 @@
 #shopify-pc__banner__btn-accept {
     background-color: #169776 !important;
     color: #ffffff !important;
+    order: 1 !important;
 }
 
 #shopify-pc__banner__btn-decline {
     background-color: rgba(255, 255, 255, 0.12) !important;
     color: #ffffff !important;
+    order: 2 !important;
 }
 
 #shopify-pc__banner__btn-manage-prefs {
     background-color: rgba(255, 255, 255, 0.12) !important;
     color: #ffffff !important;
+    order: 3 !important;
 }
 
 #shopify-pc__banner__btn-manage-prefs span {
@@ -114,5 +117,16 @@
     .shopify-pc__banner__wrapper {
         flex-wrap: wrap !important;
         padding: 20px !important;
+    }
+
+    .shopify-pc__banner__btns {
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+    }
+
+    .shopify-pc__banner__btns button {
+        flex: 1 !important;
+        padding: 12px 10px !important;
+        font-size: 12px !important;
     }
 }
