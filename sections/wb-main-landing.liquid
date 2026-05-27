@@ -8,7 +8,11 @@
 
 <section class="wb-overflow-hidden-x">
   <div class="wb-container">
-    {%- if section.settings.video_file == blank -%}
+    {%- assign video_src = section.settings.video_url | default: '' -%}
+    {%- if video_src == blank and section.settings.video_file != blank -%}
+      {%- assign video_src = section.settings.video_file | asset_url -%}
+    {%- endif -%}
+    {%- if video_src == blank -%}
       <div class="wb-imagebg" style="background-image: url({{ hero_image }})">
         <div class="wb-padding">
           <h1 class="wb-medium-heading">{{ section.settings.title }}</h1>
@@ -18,8 +22,8 @@
     {%- else -%}
       <div class="wb-videobg" style="background-image: url({{ hero_image }})">
         <div class="wb-videograin"></div>
-        <video autoplay muted loop id="wb-video">
-          <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
+        <video autoplay muted loop playsinline id="wb-video">
+          <source src="{{ video_src }}" type="video/mp4">
         </video>
       </div>
       <div class="wb-overvideo">
