@@ -1,0 +1,196 @@
+{{ 'basket.css' | asset_url | stylesheet_tag }}
+
+<section class="banding">
+  <article class="max">
+    {% if product.has_only_default_variant %}
+      {% for option in product.options_with_values %}
+        <div class="buying-option" style="display:none">
+          <h4>
+            {% if option.name == 'Size' and product.template_suffix == 'single' %}
+              Bottle size
+            {% else %}
+              {{ option.name }}
+            {% endif %}
+          </h4>
+
+          <div class="segmented-control">
+            {% for value in option.values %}
+              {% if option.name == 'Label' %}
+                <input
+                  type="radio"
+                  name="{{ option.name }}"
+                  value="{{ value }}"
+                  id="{{ value }}"
+                  {% if forloop.first %}
+                    checked
+                  {% endif %}
+                >
+                <label for="{{ value }}">
+                  {{ value }}
+                  {% if value == 'Standard' %}
+                    <span> Free</span>
+                  {% else %}
+                    <span> + £3.00</span>
+                  {% endif %}
+
+                  <div class="thumbnail">
+                    {% if value == 'Standard' %}
+                      <img
+                        width=""
+                        height=""
+                        src="https://cdn.shopify.com/s/files/1/0846/1136/7177/files/label-standard.png?v=1731401733"
+                      >
+                    {% else %}
+                      <img
+                        width=""
+                        height=""
+                        src="https://cdn.shopify.com/s/files/1/0846/1136/7177/files/label-festive.png?v=1731401734"
+                      >
+                    {% endif %}
+                  </div>
+                </label>
+              {% else %}
+                <input
+                  type="radio"
+                  name="{{ option.name }}"
+                  value="{{ value }}"
+                  id="{{ value }}"
+                  {% if forloop.first %}
+                    checked
+                  {% endif %}
+                >
+                <label for="{{ value }}"> {{ value }} </label>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+
+    {% else %}
+      {% for option in product.options_with_values %}
+        <div class="buying-option">
+          <h4>
+            {% if option.name == 'Size' and product.template_suffix == 'single' %}
+              Bottle size
+            {% elsif option.name == 'Label' and option.values.size <= 2 %}
+
+            {% else %}
+              {{ option.name }}
+            {% endif %}
+          </h4>
+          {% if option.name != 'Label' %}
+            <div class="segmented-control">
+              {% for value in option.values %}
+                <input
+                  type="radio"
+                  name="{{ option.name }}"
+                  value="{{ value }}"
+                  id="{{ value }}"
+                  {% if forloop.first %}
+                    checked
+                  {% endif %}
+                >
+                <label for="{{ value }}"> {{ value }} </label>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if option.name == 'Label' and option.values.size > 2 %}
+            <div class="glide variant-options">
+              <div class="glide__track" data-glide-el="track">
+                <ul class="glide__slides">
+                  {% for value in option.values %}
+                    {% if value == 'standard' or value == 'Standard' %}
+                      <li class="standard glide__slide ">
+                        <img
+                          width=""
+                          height=""
+                          src="https://cdn.shopify.com/s/files/1/0846/1136/7177/files/label-standard.png"
+                        >
+                      </li>
+                    {% elsif value == 'heart' %}
+                      <li class="heart glide__slide ">
+                        <img
+                          width=""
+                          height=""
+                          src="https://cdn.shopify.com/s/files/1/0846/1136/7177/files/label-heart.png"
+                        >
+                      </li>
+
+                    {% elsif value == 'party' %}
+                      <li class="party glide__slide ">
+                        <img
+                          width=""
+                          height=""
+                          src="https://cdn.shopify.com/s/files/1/0846/1136/7177/files/label-party.png"
+                        >
+                      </li>
+
+                    {% elsif value == 'gold' %}
+                      <li class="gold glide__slide ">
+                        <img
+                          width=""
+                          height=""
+                          src="https://cdn.shopify.com/s/files/1/0846/1136/7177/files/label-gold.png"
+                        >
+                      </li>
+                    {% elsif value == 'floral' %}
+                      <li class="floral glide__slide ">
+                        <img
+                          width=""
+                          height=""
+                          src="https://cdn.shopify.com/s/files/1/0846/1136/7177/files/label-floral.png?v=1752853867"
+                        >
+                      </li>
+                    {% elsif value == 'festive' %}
+                      <li class="festive glide__slide ">
+                        <img
+                          width=""
+                          height=""
+                          src="https://cdn.shopify.com/s/files/1/0846/1136/7177/files/label-festive.png?v=1731401734"
+                        >
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">Previous</button>
+                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">Next</button>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </article>
+
+  <article class="max">
+    <div class="easify-product-options"></div>
+  </article>
+
+  <article class="max">
+    <div class="buy-this">
+      <div class="summary">
+        <div class="number-of-items">
+          <div class="quantity">
+            <button type="button" class="remove-quantity">−</button>
+            <input type="number" value="1">
+            <button type="button" class="add-quantity">+</button>
+          </div>
+        </div>
+        <div class="subtotal-of-items hello">
+          <span class="strike-price">{{ product.compare_at_price | money }}</span>
+
+          {{ product.first_available_variant.price | money }}
+        </div>
+      </div>
+      {% if product.selected_or_first_available_variant.available == false %}
+        <!-- Product is out of stock -->
+        <button class=" atc disabled" disabled>Please wait</button>
+      {% else %}
+        <button class="pulse atc">Add to basket</button>
+      {% endif %}
+    </div>
+  </article>
+</section>

@@ -9,33 +9,28 @@
  */
 {
   "sections": {
-    "wb_404": {
-      "type": "wb-404",
+    "main": {
+      "type": "main-404",
       "settings": {
-        "heading": "Um...",
-        "message": "This page doesn't exist — or it's been moved. Either way, there's nothing here.",
-        "primary_label": "Back to home",
-        "primary_url": "/",
-        "secondary_label": "Visit the shop",
-        "secondary_url": "/pages/shop"
-      }
-    },
-    "wb_cta": {
-      "type": "wb-cta",
-      "settings": {
-        "heading": "For yersel'",
-        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
-        "image": "shopify://shop_images/wb-foryersel.png",
-        "image_class": "wb-foryersel",
-        "primary_button_text": "Create something",
-        "primary_button_url": "shopify://pages/create",
-        "secondary_button_text": "",
-        "secondary_button_url": ""
+        "title": "Cannae find that page",
+        "blurb": "Afraid we don't know what page you're looking for. But whatever it is, it's defintitely not this one. So you might need to click about in the menu links above to find it yourself.",
+        "main_image": "shopify://shop_images/the-bon.png",
+        "feature1": "Craft a truly unique Scotch",
+        "feature1-page": "shopify://pages/blend",
+        "feature2": "See how easy it is to do",
+        "feature2-page": "/#guide",
+        "feature3": "Send gift credit to someone",
+        "feature3-page": "shopify://collections/gift-vouchers",
+        "feature4": "Shop interesting bottles & more",
+        "feature4-page": "shopify://pages/shop",
+        "feature5": "Learn a wee bit about us",
+        "feature5-page": "shopify://pages/about",
+        "feature6": "",
+        "feature6-page": ""
       }
     }
   },
   "order": [
-    "wb_404",
-    "wb_cta"
+    "main"
   ]
 }

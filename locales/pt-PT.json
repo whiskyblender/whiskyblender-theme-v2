@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -122,8 +131,7 @@
         "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> no carrinho",
         "note": "Ver regras de quantidade",
         "min_of": "Mín. de {{ quantity }}",
-        "max_of": "Máx. de {{ quantity }}",
-        "in_cart_aria_label": "Quantidade ({{ quantity }} no carrinho)"
+        "max_of": "Máx. de {{ quantity }}"
       },
       "price": {
         "from_price_html": "A partir de {{ price }}",
@@ -157,7 +165,6 @@
         "load_video": "Reproduzir vídeo {{ index }} na vista de galeria",
         "image_available": "A imagem {{ index }} está agora disponível na vista de galeria"
       },
-      "nested_label": "{{ title }} para {{ parent_title }}",
       "view_full_details": "Ver detalhes completos",
       "shipping_policy_html": "<a href=\"{{ link }}\">Envio</a> calculado na finalização da compra.",
       "choose_options": "Escolher opções",
@@ -175,8 +182,8 @@
         "title": "Preços por volume",
         "note": "Preços por volume disponível",
         "minimum": "{{ quantity }} ou mais",
-        "price_range": "{{ minimum }} - {{ maximum }}",
-        "price_at_each_html": "a {{ price }}/cada"
+        "price_at_each": "a {{ price }}/ea",
+        "price_range": "{{ minimum }} - {{ maximum }}"
       },
       "taxes_included": "Impostos incluídos.",
       "duties_included": "Encargos incluídos.",

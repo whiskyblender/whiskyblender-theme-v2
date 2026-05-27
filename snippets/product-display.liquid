@@ -1,0 +1,30 @@
+<li>
+  <a
+    href="{{ product.url }}"
+    style="background-image: url({{ product.featured_image | image_url: width:1500, height:900 }})"
+  >
+    <img
+      alt=" Product image of whisky bottle"
+      src="{{ product.featured_image | image_url: width:1500, height:900 }}"
+      width="1500"
+      height="900"
+    >
+    <span class="deetz">
+      <h4>{{ product.title }}</h4>
+      <div class="reveal">
+        {% assign product_variant = product.first_available_variant %}
+        <p>{{ product.type | truncate: 30 }}</p>
+
+        {% if product.available == false %}
+          <!-- Product is out of stock -->
+          <sup> Out of stock</sup>
+        {% elsif product_variant.compare_at_price %}
+          <sup class="buy pulse">{{ product_variant.price | money }}</sup>
+          <sup class="sale">{{ product_variant.compare_at_price | money }}</sup>
+        {% else %}
+          <sup class="buy pulse">{{ product_variant.price | money }}</sup>
+        {% endif %}
+      </div>
+    </span>
+  </a>
+</li>

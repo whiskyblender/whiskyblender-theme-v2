@@ -11,213 +11,24 @@
   "sections": {
     "main": {
       "type": "main-page",
-      "disabled": true,
       "settings": {
-        "padding_top": 0,
-        "padding_bottom": 0
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
-    "main_landing": {
-      "type": "wb-main-landing",
-      "name": "Landing Hero",
+    "form": {
+      "type": "contact-form",
       "settings": {
-        "video_url": "https://cdn.shopify.com/videos/c/o/v/127d588af94e4212955bc22951a85177.mp4",
-        "video_file": "wb-whisky-bow.mp4",
-        "background_image": "shopify://shop_images/wb-whisky-bow.jpg",
-        "title": "The gift of whisky",
-        "description": "That's certainly the kind of gift that we like to get from people.",
-        "primary_button_text": "Get a voucher",
-        "primary_button_url": "shopify://products/gift-voucher",
-        "secondary_button_text": "Visit the shop",
-        "secondary_button_url": "shopify://pages/shop"
-      }
-    },
-    "image_reel": {
-      "type": "image_reel",
-      "blocks": {
-        "reel_01": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "01_joker.jpg"
-          }
-        },
-        "reel_02": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "02_nox.jpg"
-          }
-        },
-        "reel_03": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "03_lockstock.jpg"
-          }
-        },
-        "reel_04": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "04_burt.jpg"
-          }
-        },
-        "reel_05": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "05_bollocks.jpg"
-          }
-        },
-        "reel_06": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "06_orson.jpg"
-          }
-        },
-        "reel_07": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "07_rhino.jpg"
-          }
-        },
-        "reel_08": {
-          "type": "image_reel",
-          "settings": {
-            "reel_image": "08_dad.jpg"
-          }
-        }
-      },
-      "block_order": [
-        "reel_01",
-        "reel_02",
-        "reel_03",
-        "reel_04",
-        "reel_05",
-        "reel_06",
-        "reel_07",
-        "reel_08"
-      ],
-      "name": "Image Reel",
-      "settings": {}
-    },
-    "occasions": {
-      "type": "wb-occasions",
-      "blocks": {
-        "occasion_weddings": {
-          "type": "occasion",
-          "settings": {
-            "heading": "Weddings",
-            "image": "shopify://shop_images/weddings.png",
-            "link": "shopify://collections/weddings",
-            "emoji": "🎩"
-          }
-        },
-        "occasion_birthdays": {
-          "type": "occasion",
-          "settings": {
-            "heading": "Birthdays",
-            "image": "shopify://shop_images/birthdays.png",
-            "link": "shopify://collections/birthdays",
-            "emoji": "🎁"
-          }
-        },
-        "occasion_anniversaries": {
-          "type": "occasion",
-          "settings": {
-            "heading": "Anniversaries",
-            "image": "shopify://shop_images/anniversaries.png",
-            "link": "shopify://collections/anniversaries",
-            "emoji": "💝"
-          }
-        },
-        "occasion_christmas": {
-          "type": "occasion",
-          "settings": {
-            "heading": "Christmas",
-            "image": "shopify://shop_images/christmas.png",
-            "link": "shopify://collections/christmas",
-            "emoji": "🎅🏽"
-          }
-        },
-        "occasion_thankyous": {
-          "type": "occasion",
-          "settings": {
-            "heading": "Thank yous",
-            "image": "shopify://shop_images/thankyous.png",
-            "link": "shopify://collections/thankyous",
-            "emoji": "🙏"
-          }
-        },
-        "occasion_celebrations": {
-          "type": "occasion",
-          "settings": {
-            "heading": "Celebrations",
-            "image": "shopify://shop_images/celebrations.png",
-            "link": "shopify://collections/celebrations",
-            "emoji": "🎉"
-          }
-        }
-      },
-      "block_order": [
-        "occasion_weddings",
-        "occasion_birthdays",
-        "occasion_anniversaries",
-        "occasion_christmas",
-        "occasion_thankyous",
-        "occasion_celebrations"
-      ],
-      "name": "For special occasions",
-      "settings": {
-        "heading": "For special occasions",
-        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way."
-      }
-    },
-    "wb_cta": {
-      "type": "wb-cta",
-      "settings": {
-        "heading": "For yersel'",
-        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
-        "image": "shopify://shop_images/wb-foryersel.png",
-        "image_class": "wb-foryersel",
-        "primary_button_text": "Create something",
-        "primary_button_url": "shopify://pages/create",
-        "secondary_button_text": "",
-        "secondary_button_url": ""
-      }
-    },
-    "exclusive_bottles": {
-      "type": "featured-collection",
-      "name": "Exclusive bottles",
-      "settings": {
-        "collection": "andrews-of-bothwell",
-        "products_to_show": 4,
-        "title": "Exclusive bottles",
+        "heading": "",
         "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "link",
-        "color_scheme": "",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
     "main",
-    "main_landing",
-    "image_reel",
-    "occasions",
-    "wb_cta",
-    "exclusive_bottles"
+    "form"
   ]
 }
