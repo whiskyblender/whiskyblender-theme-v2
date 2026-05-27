@@ -9,7 +9,6 @@
     top: auto !important;
     width: auto !important;
     max-width: 860px !important;
-    min-width: min(340px, calc(100vw - 32px)) !important;
     padding: 0 !important;
     margin: 0 !important;
     background: transparent !important;
@@ -36,7 +35,7 @@
 
 .shopify-pc__banner__body {
     flex: 1 !important;
-    min-width: 160px !important;
+    max-width: 320px !important;
     margin: 0 !important;
     padding: 0 !important;
 }
