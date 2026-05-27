@@ -124,6 +124,7 @@
           "type": "occasion",
           "settings": {
             "heading": "Weddings",
+            "image": "shopify://shop_images/weddings.png",
             "link": "shopify://collections/weddings",
             "emoji": "🎩"
           }
@@ -132,6 +133,7 @@
           "type": "occasion",
           "settings": {
             "heading": "Birthdays",
+            "image": "shopify://shop_images/birthdays.png",
             "link": "shopify://collections/birthdays",
             "emoji": "🎁"
           }
@@ -140,6 +142,7 @@
           "type": "occasion",
           "settings": {
             "heading": "Anniversaries",
+            "image": "shopify://shop_images/anniversaries.png",
             "link": "shopify://collections/anniversaries",
             "emoji": "💝"
           }
@@ -148,6 +151,7 @@
           "type": "occasion",
           "settings": {
             "heading": "Christmas",
+            "image": "shopify://shop_images/christmas.png",
             "link": "shopify://collections/christmas",
             "emoji": "🎅🏽"
           }
@@ -156,6 +160,7 @@
           "type": "occasion",
           "settings": {
             "heading": "Thank yous",
+            "image": "shopify://shop_images/thankyous.png",
             "link": "shopify://collections/thankyous",
             "emoji": "🙏"
           }
@@ -164,6 +169,7 @@
           "type": "occasion",
           "settings": {
             "heading": "Celebrations",
+            "image": "shopify://shop_images/celebrations.png",
             "link": "shopify://collections/celebrations",
             "emoji": "🎉"
           }
@@ -189,9 +195,12 @@
       "settings": {
         "heading": "For yersel'",
         "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
+        "image": "shopify://shop_images/wb-foryersel.png",
         "image_class": "wb-foryersel",
         "primary_button_text": "Create something",
-        "primary_button_url": "shopify://pages/create"
+        "primary_button_url": "shopify://pages/create",
+        "secondary_button_text": "",
+        "secondary_button_url": ""
       }
     },
     "wb_cta_letscollab": {
@@ -200,6 +209,7 @@
       "settings": {
         "heading": "Let's collaborate",
         "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
+        "image": "shopify://shop_images/wb-yerownbrand.png",
         "image_class": "wb-yourownbrand",
         "primary_button_text": "Get in touch",
         "primary_button_url": "shopify://pages/contact",
