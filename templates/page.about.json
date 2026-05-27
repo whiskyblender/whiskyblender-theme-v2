@@ -21,9 +21,7 @@
       "type": "wb-main-landing",
       "name": "Landing Hero",
       "settings": {
-        "video_url": "https://cdn.shopify.com/videos/c/o/v/ac19151de1b340ac8ecf9896c14af3f8.mp4",
         "video_file": "wb-cask-heids.mp4",
-        "background_image": "shopify://shop_images/wb-cask-heids.jpg",
         "title": "Twa Andras",
         "description": "Or \"2 Andrews\". Or \"Andy & Drew\". Or even \"fanny-baws an' heid-tha-baw\". Just like our <a href=\"/pages/create\" title=\"Create\">custom whisky bottles</a>, you can call us whatever you want.",
         "primary_button_text": "",
