@@ -48,9 +48,15 @@
   "settings": [
     {
       "type": "text",
+      "id": "video_url",
+      "label": "Video URL",
+      "info": "Paste the full URL from Shopify Files (Content → Files). Takes priority over the filename field below."
+    },
+    {
+      "type": "text",
       "id": "video_file",
-      "label": "Video filename",
-      "info": "Optional. Upload video to assets folder and enter filename here. Leave empty to show static image instead."
+      "label": "Video filename (theme asset fallback)",
+      "info": "Only used if no Video URL is set above."
     },
     {
       "type": "text",
