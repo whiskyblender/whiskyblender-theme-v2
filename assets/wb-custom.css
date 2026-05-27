@@ -11,19 +11,30 @@
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
     gap: 10px;
 }
 
+/* Suppress the margin wb-button adds by default in this context */
+.wb-custom-blend-actions .wb-button {
+    margin: 0;
+}
+
+/* Mirror wb-button sizing exactly so all three items share the same height.
+   Mobile: full-width block (matches wb-button's width:100% + display:flex).
+   480px+: auto-width inline (matches wb-button's display:inline-flex + width:auto). */
 .wb-blendcode-box {
     background: #1a1a1a;
     border-radius: 6px;
-    padding: 0 24px;
-    display: inline-flex;
+    /* Base padding matches wb-button at mobile */
+    padding: 14px 24px;
+    display: flex;
     align-items: center;
+    justify-content: center;
     font-size: 18px;
     font-weight: 700;
-    line-height: 1;
+    line-height: 160%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .wb-blendcode-digits {
@@ -31,10 +42,12 @@
     letter-spacing: 0.08em;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 480px) {
+    /* Matches wb-button switching to inline-flex + width:auto + padding:16px 28px */
     .wb-blendcode-box {
-        font-size: 20px;
-        padding: 0 28px;
+        display: inline-flex;
+        width: auto;
+        padding: 16px 28px;
     }
 }
 
