@@ -1,0 +1,99 @@
+/* ── Cookie Consent Banner ────────────────────────────────────────────────── */
+
+#shopify-pc-banner {
+    position: fixed !important;
+    bottom: 24px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    right: auto !important;
+    width: auto !important;
+    max-width: 720px !important;
+    min-width: min(340px, calc(100vw - 32px)) !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.shopify-pc__banner,
+#shopify-pc-banner > div {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 12px 20px !important;
+    background-color: #111111 !important;
+    color: #ffffff !important;
+    border-radius: 100px !important;
+    padding: 12px 12px 12px 24px !important;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35) !important;
+}
+
+.shopify-pc__content,
+.shopify-pc__message,
+#shopify-pc-banner p {
+    flex: 1 !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+    margin: 0 !important;
+    min-width: 180px !important;
+}
+
+.shopify-pc__content a,
+#shopify-pc-banner a {
+    color: rgba(255, 255, 255, 0.65) !important;
+    text-decoration: underline !important;
+}
+
+.shopify-pc__buttons,
+.shopify-pc__actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+}
+
+.shopify-pc__btn,
+#shopify-pc-banner button {
+    border-radius: 100px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    cursor: pointer !important;
+    transition: opacity 0.2s !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+    border: none !important;
+    font-family: inherit !important;
+}
+
+.shopify-pc__btn:hover,
+#shopify-pc-banner button:hover {
+    opacity: 0.8 !important;
+}
+
+.shopify-pc__btn--primary,
+#shopify-pc-banner button[name="accept"] {
+    background-color: #169776 !important;
+    color: #ffffff !important;
+}
+
+.shopify-pc__btn--secondary,
+#shopify-pc-banner button[name="decline"] {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+
+@media screen and (max-width: 480px) {
+    #shopify-pc-banner {
+        bottom: 12px !important;
+        min-width: calc(100vw - 24px) !important;
+    }
+
+    .shopify-pc__banner,
+    #shopify-pc-banner > div {
+        border-radius: 16px !important;
+        padding: 16px !important;
+    }
+}
