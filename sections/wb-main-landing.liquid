@@ -2,7 +2,7 @@
   if collection.image != blank
     assign hero_image = collection.image | image_url: width: 1920
   elsif section.settings.background_image != blank
-    assign hero_image = section.settings.background_image | asset_url
+    assign hero_image = section.settings.background_image | image_url: width: 1920
   endif
 -%}
 
@@ -59,11 +59,10 @@
       "info": "Only used if no Video URL is set above."
     },
     {
-      "type": "text",
+      "type": "image_picker",
       "id": "background_image",
-      "label": "Background image filename",
-      "default": "wb-whisky-bow.jpg",
-      "info": "Fallback image shown while video loads, or main image if no video is set"
+      "label": "Background image",
+      "info": "Shown while the video loads, or as the main image if no video is set."
     },
     {
       "type": "text",
