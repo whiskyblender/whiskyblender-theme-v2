@@ -209,19 +209,6 @@
         "padding_bottom": 0
       }
     },
-    "wb_cta_letscollab": {
-      "type": "wb-cta",
-      "name": "CTA - Let's collaborate",
-      "settings": {
-        "heading": "Let's collaborate",
-        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
-        "image_class": "wb-yourownbrand",
-        "primary_button_text": "Get in touch",
-        "primary_button_url": "shopify://pages/contact",
-        "secondary_button_text": "See collaborations",
-        "secondary_button_url": "shopify://collections/collaborations"
-      }
-    },
     "featured_collection_aApYcQ": {
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
@@ -249,6 +236,20 @@
         "swipe_on_mobile": false,
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "wb_cta_letscollab": {
+      "type": "wb-cta",
+      "name": "CTA - Let's collaborate",
+      "settings": {
+        "heading": "Let's collaborate",
+        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
+        "image": "shopify://shop_images/wb-yerownbrand.png",
+        "image_class": "wb-yourownbrand",
+        "primary_button_text": "Get in touch",
+        "primary_button_url": "shopify://pages/contact",
+        "secondary_button_text": "See collaborations",
+        "secondary_button_url": "shopify://collections/collaborations"
       }
     }
   },
