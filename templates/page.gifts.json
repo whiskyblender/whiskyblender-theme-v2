@@ -33,23 +33,71 @@
     },
     "image_reel": {
       "type": "image_reel",
-      "name": "Image Reel",
       "blocks": {
-        "reel_01": { "type": "image_reel", "settings": { "reel_image": "01_joker.jpg" } },
-        "reel_02": { "type": "image_reel", "settings": { "reel_image": "02_nox.jpg" } },
-        "reel_03": { "type": "image_reel", "settings": { "reel_image": "03_lockstock.jpg" } },
-        "reel_04": { "type": "image_reel", "settings": { "reel_image": "04_burt.jpg" } },
-        "reel_05": { "type": "image_reel", "settings": { "reel_image": "05_bollocks.jpg" } },
-        "reel_06": { "type": "image_reel", "settings": { "reel_image": "06_orson.jpg" } },
-        "reel_07": { "type": "image_reel", "settings": { "reel_image": "07_rhino.jpg" } },
-        "reel_08": { "type": "image_reel", "settings": { "reel_image": "08_dad.jpg" } }
+        "reel_01": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "01_joker.jpg"
+          }
+        },
+        "reel_02": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "02_nox.jpg"
+          }
+        },
+        "reel_03": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "03_lockstock.jpg"
+          }
+        },
+        "reel_04": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "04_burt.jpg"
+          }
+        },
+        "reel_05": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "05_bollocks.jpg"
+          }
+        },
+        "reel_06": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "06_orson.jpg"
+          }
+        },
+        "reel_07": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "07_rhino.jpg"
+          }
+        },
+        "reel_08": {
+          "type": "image_reel",
+          "settings": {
+            "reel_image": "08_dad.jpg"
+          }
+        }
       },
-      "block_order": ["reel_01", "reel_02", "reel_03", "reel_04", "reel_05", "reel_06", "reel_07", "reel_08"],
+      "block_order": [
+        "reel_01",
+        "reel_02",
+        "reel_03",
+        "reel_04",
+        "reel_05",
+        "reel_06",
+        "reel_07",
+        "reel_08"
+      ],
+      "name": "Image Reel",
       "settings": {}
     },
     "occasions": {
       "type": "wb-occasions",
-      "name": "For special occasions",
       "blocks": {
         "occasion_weddings": {
           "type": "occasion",
@@ -114,6 +162,7 @@
         "occasion_thankyous",
         "occasion_celebrations"
       ],
+      "name": "For special occasions",
       "settings": {
         "heading": "For special occasions",
         "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way."
@@ -136,7 +185,7 @@
       "type": "featured-collection",
       "name": "Exclusive bottles",
       "settings": {
-        "collection": "twa-andras",
+        "collection": "andrews-of-bothwell",
         "products_to_show": 4,
         "title": "Exclusive bottles",
         "heading_size": "h1",
