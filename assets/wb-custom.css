@@ -1,19 +1,24 @@
 .wb-recipe {
 }
 
+/* ── Banded bottom panel ── */
+.wb-custom-bottom {
+    background-color: #efefef;
+}
+
 /* ── Blend code display ── */
 .wb-custom-blend-actions {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: stretch;
     gap: 10px;
 }
 
 .wb-blendcode-box {
     background: #1a1a1a;
     border-radius: 6px;
-    padding: 14px 24px;
+    padding: 0 24px;
     display: inline-flex;
     align-items: center;
     font-size: 18px;
@@ -29,8 +34,34 @@
 @media screen and (min-width: 768px) {
     .wb-blendcode-box {
         font-size: 20px;
-        padding: 16px 28px;
+        padding: 0 28px;
     }
+}
+
+/* ── Invalid code dialog ── */
+.wb-dialog {
+    border: none;
+    border-radius: 6px;
+    padding: 0;
+    max-width: 420px;
+    width: calc(100% - 40px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+}
+
+.wb-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.wb-dialog-inner {
+    padding: 32px;
+}
+
+.wb-dialog-inner .wb-small-heading {
+    margin-top: 0;
+}
+
+.wb-dialog-inner p {
+    margin-bottom: 24px;
 }
 
 .wb-noblend-divider {
