@@ -34,7 +34,8 @@
   {%- assign col_handle = col.handle | downcase | strip -%}
   {%- assign is_excluded = false -%}
   {%- for exc in excluded_list -%}
-    {%- if col_handle == exc | strip -%}
+    {%- assign exc_handle = exc | strip -%}
+    {%- if col_handle == exc_handle -%}
       {%- assign is_excluded = true -%}
       {%- break -%}
     {%- endif -%}
