@@ -77,7 +77,16 @@ if (!customElements.get('quick-add-modal')) {
 
       preventDuplicatedIDs(productElement) {
         const sectionId = productElement.dataset.section;
-        productElement.outerHTML = productElement.outerHTML.replaceAll(sectionId, `quickadd-${sectionId}`);
+
+        const oldId = sectionId;
+        const newId = `quickadd-${sectionId}`;
+        productElement.innerHTML = productElement.innerHTML.replaceAll(oldId, newId);
+        Array.from(productElement.attributes).forEach((attribute) => {
+          if (attribute.value.includes(oldId)) {
+            productElement.setAttribute(attribute.name, attribute.value.replace(oldId, newId));
+          }
+        });
+
         productElement.dataset.originalSection = sectionId;
       }
 
@@ -91,7 +100,7 @@ if (!customElements.get('quick-add-modal')) {
 
       updateImageSizes(productElement) {
         const product = productElement.querySelector('.product');
-        const desktopColumns = product.classList.contains('product--columns');
+        const desktopColumns = product?.classList.contains('product--columns');
         if (!desktopColumns) return;
 
         const mediaImages = product.querySelectorAll('.product__media img');
