@@ -9,42 +9,33 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-404",
-      "settings": {}
-    },
-    "featured_collection_YP4Nar": {
-      "type": "featured-collection",
-      "name": "t:sections.featured-collection.presets.name",
+    "wb_404": {
+      "type": "wb-404",
       "settings": {
-        "collection": "featured",
-        "products_to_show": 4,
-        "title": "Suggestions",
-        "heading_size": "h1",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "link",
-        "color_scheme": "",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "heading": "Um...",
+        "message": "This page doesn't exist — or it's been moved. Either way, there's nothing here.",
+        "primary_label": "Back to home",
+        "primary_url": "/",
+        "secondary_label": "Visit the shop",
+        "secondary_url": "/pages/shop"
+      }
+    },
+    "wb_cta": {
+      "type": "wb-cta",
+      "settings": {
+        "heading": "For yersel'",
+        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
+        "image": "shopify://shop_images/wb-foryersel.png",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "Create something",
+        "primary_button_url": "shopify://pages/create",
+        "secondary_button_text": "",
+        "secondary_button_url": ""
       }
     }
   },
   "order": [
-    "main",
-    "featured_collection_YP4Nar"
+    "wb_404",
+    "wb_cta"
   ]
 }
