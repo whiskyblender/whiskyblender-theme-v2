@@ -8,9 +8,8 @@
     <div class="wb-padding">
 
       <h1 class="wb-large-heading" id="wb-custom-heading">Choose your bottle</h1>
-      <p id="wb-custom-sub">Now choose how you want to bottle your whisky&hellip;</p>
+      <p class="wb-collection-sub" id="wb-custom-sub">Now choose how you want to bottle your whisky&hellip;</p>
 
-      {{- '<!-- no-blend state actions -->' }}
       <div id="wb-noblend-actions" style="display:none">
         <a
           href="{{ section.settings.create_url | default: '/pages/create' }}"
@@ -34,7 +33,6 @@
         </div>
       </div>
 
-      {{- '<!-- products grid -->' }}
       {%- if opts_collection != blank and opts_collection.products.size > 0 -%}
         <ul class="wb-productsgrid wb-tightergrid" id="wb-custom-grid">
           {%- for product in opts_collection.products -%}
@@ -103,60 +101,81 @@
   </div>
 </section>
 
-{{- '<!-- blend code panel (shown with blend code) -->' }}
-<div id="wb-blend-panel" style="display:none">
+<div class="wb-custom-bottom" id="wb-custom-bottom" style="display:none">
   <div class="wb-container">
-    <div class="wb-padding">
-      <h3 class="wb-small-heading">Safe an&rsquo; sound</h3>
-      <p>Your whisky is saved. Use the options above to order now, or come back to it any time using your unique blend code below.</p>
-      <div id="wb-blendcode-ui"></div>
+
+    <div id="wb-blend-panel" style="display:none">
+      <div class="wb-padding">
+        <h3 class="wb-small-heading">Safe an&rsquo; sound</h3>
+        <p>Your whisky is saved. Use the options above to order now, or come back to it any time using your unique blend code below.</p>
+        <div id="wb-blendcode-ui"></div>
+      </div>
     </div>
+
+    {%- if section.settings.cta_heading != blank -%}
+      <div id="wb-noblend-cta" style="display:none">
+        <div class="wb-padding">
+          <p class="wb-large-heading">{{ section.settings.cta_heading }}</p>
+          {%- if section.settings.cta_description != blank -%}
+            <p>{{ section.settings.cta_description }}</p>
+          {%- endif -%}
+          {%- if section.settings.cta_button_text != blank -%}
+            <a
+              href="{{ section.settings.cta_button_url | default: '/pages/the-lab' }}"
+              class="wb-button wb-primary-button"
+              style="margin-top:24px;display:inline-block"
+            >{{ section.settings.cta_button_text }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endif -%}
+
   </div>
 </div>
 
-{{- '<!-- no-blend CTA (shown without blend code) -->' }}
-{%- if section.settings.cta_heading != blank -%}
-  <div id="wb-noblend-cta" class="wb-banded" style="display:none">
-    <div class="wb-container">
-      <div class="wb-padding">
-        <p class="wb-large-heading">{{ section.settings.cta_heading }}</p>
-        {%- if section.settings.cta_description != blank -%}
-          <p>{{ section.settings.cta_description }}</p>
-        {%- endif -%}
-        {%- if section.settings.cta_button_text != blank -%}
-          <a
-            href="{{ section.settings.cta_button_url | default: '/pages/the-lab' }}"
-            class="wb-button wb-primary-button"
-            style="margin-top:24px;display:inline-block"
-          >{{ section.settings.cta_button_text }}</a>
-        {%- endif -%}
-      </div>
-    </div>
+<dialog id="wb-invalid-dialog" class="wb-dialog">
+  <div class="wb-dialog-inner">
+    <h3 class="wb-small-heading">That blend code doesn&rsquo;t look right</h3>
+    <p>The link might be incomplete or the code may have changed. You can enter a blend code below, or start fresh.</p>
+    <button class="wb-button wb-primary-button" id="wb-dialog-ok">Got it</button>
   </div>
-{%- endif -%}
+</dialog>
 
 <script>
 (function () {
   var PHRASES = [
-    "Ya dancer!", "Yaldy!", "Ya wee blender ye!", "Gie’s some!",
-    "Gawjus!", "Belter!", "Tasty AF!", "Magic!", "Amazin’!",
-    "Well done!", "Lookin’ guid!", "Canny wait!",
-    "Let’s get dressed!", "Liquid gold!"
+    "Ya dancer!", "Yaldy!", "Ya wee blender ye!", "Gie's some!",
+    "Gawjus!", "Belter!", "Tasty AF!", "Magic!", "Amazin'!",
+    "Well done!", "Lookin' guid!", "Canny wait!",
+    "Let's get dressed!", "Liquid gold!"
   ];
 
   var COPY_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
   var TICK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   var SHARE_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
 
-  var blend   = new URLSearchParams(window.location.search).get('blend') || '';
-  var heading = document.getElementById('wb-custom-heading');
-  var sub     = document.getElementById('wb-custom-sub');
+  var rawBlend  = new URLSearchParams(window.location.search).get('blend') || '';
+  var blend     = rawBlend.trim();
+  var looksValid = blend.length >= 6 && /^[A-Za-z0-9_-]+$/.test(blend);
+  var heading   = document.getElementById('wb-custom-heading');
+  var sub       = document.getElementById('wb-custom-sub');
+  var bottom    = document.getElementById('wb-custom-bottom');
 
-  /* ── With blend code ─────────────────────────────────────────────── */
+  /* ── Invalid code in URL ─────────────────────────────────────── */
+  if (blend && !looksValid) {
+    var dialog = document.getElementById('wb-invalid-dialog');
+    if (dialog && dialog.showModal) {
+      document.getElementById('wb-dialog-ok').addEventListener('click', function () { dialog.close(); });
+      dialog.showModal();
+    }
+    blend = '';
+  }
+
+  /* ── With valid blend code ───────────────────────────────────── */
   if (blend) {
     heading.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+    sub.textContent     = 'Now choose how you want to bottle your whisky…';
 
-    /* Append blend to every product link */
     document.querySelectorAll('.wb-productitem[data-product-url]').forEach(function (item) {
       var url = item.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
       item.setAttribute('onclick', "location.href='" + url + "';");
@@ -165,14 +184,13 @@
       a.href = a.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
     });
 
-    /* Blend code panel */
+    bottom.style.display = '';
     document.getElementById('wb-blend-panel').style.display = '';
 
     var shareUrl = window.location.origin + window.location.pathname + '?blend=' + encodeURIComponent(blend);
     var ui = document.getElementById('wb-blendcode-ui');
-
     var actions = document.createElement('div');
-    actions.className = 'wb-buttons wb-custom-blend-actions';
+    actions.className = 'wb-custom-blend-actions';
 
     var box = document.createElement('div');
     box.className = 'wb-blendcode-box';
@@ -180,11 +198,11 @@
 
     var copyBtn = document.createElement('button');
     copyBtn.className = 'wb-button wb-primary-button';
-    copyBtn.innerHTML = COPY_ICON + ' Copy link';
+    copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link';
     copyBtn.addEventListener('click', function () {
       navigator.clipboard.writeText(shareUrl).then(function () {
-        copyBtn.innerHTML = TICK_ICON + ' Copied!';
-        setTimeout(function () { copyBtn.innerHTML = COPY_ICON + ' Copy link'; }, 2000);
+        copyBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
+        setTimeout(function () { copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link'; }, 2000);
       });
     });
 
@@ -194,7 +212,7 @@
     if (navigator.share) {
       var shareBtn = document.createElement('button');
       shareBtn.className = 'wb-button';
-      shareBtn.innerHTML = SHARE_ICON + ' Share';
+      shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share';
       shareBtn.addEventListener('click', function () {
         navigator.share({ title: 'My Whisky Blend', url: shareUrl });
       });
@@ -203,7 +221,7 @@
 
     ui.appendChild(actions);
 
-  /* ── Without blend code ──────────────────────────────────────────── */
+  /* ── No blend code ───────────────────────────────────────────── */
   } else {
     heading.textContent = 'Bottle options';
     sub.textContent     = 'There are a few different bottles we can offer, but first you need to decide what to fill it with.';
@@ -211,19 +229,21 @@
     document.getElementById('wb-noblend-actions').style.display = '';
 
     var cta = document.getElementById('wb-noblend-cta');
-    if (cta) cta.style.display = '';
+    if (cta) {
+      bottom.style.display = '';
+      cta.style.display = '';
+    }
 
-    /* Blend code entry */
     var codeInput = document.getElementById('wb-code-input');
     var codeGo    = document.getElementById('wb-code-go');
 
     codeInput.addEventListener('input', function () {
-      codeGo.disabled = codeInput.value.trim().length < 7;
+      codeGo.disabled = codeInput.value.trim().length < 6;
     });
 
     function submitCode() {
       var code = codeInput.value.trim().toUpperCase();
-      if (code.length >= 7) {
+      if (code.length >= 6) {
         window.location.href = window.location.pathname + '?blend=' + encodeURIComponent(code);
       }
     }
