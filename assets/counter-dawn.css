@@ -306,3 +306,22 @@ span.wb-radio {
     font-weight: 400;
     color: #ffffff;
 }
+
+/* Create page option cards — scoped so no other h2 or a tags are affected */
+.wb-create-options li {
+    color: #666666 !important;
+}
+
+.wb-create-options .wb-option-heading {
+    font-family: 'Raleway', sans-serif !important;
+    font-weight: 600 !important;
+    color: #666666 !important;
+}
+
+.wb-create-options li a {
+    font-family: 'Raleway', sans-serif !important;
+    font-weight: 700 !important;
+    color: #333333 !important;
+    text-decoration: underline !important;
+    text-decoration-style: wavy !important;
+}
