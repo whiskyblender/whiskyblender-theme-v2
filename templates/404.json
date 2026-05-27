@@ -11,23 +11,7 @@
   "sections": {
     "main": {
       "type": "main-404",
-      "settings": {
-        "title": "Cannae find that page",
-        "blurb": "Afraid we don't know what page you're looking for. But whatever it is, it's defintitely not this one. So you might need to click about in the menu links above to find it yourself.",
-        "main_image": "shopify://shop_images/the-bon.png",
-        "feature1": "Craft a truly unique Scotch",
-        "feature1-page": "shopify://pages/blend",
-        "feature2": "See how easy it is to do",
-        "feature2-page": "/#guide",
-        "feature3": "Send gift credit to someone",
-        "feature3-page": "shopify://collections/gift-vouchers",
-        "feature4": "Shop interesting bottles & more",
-        "feature4-page": "shopify://pages/shop",
-        "feature5": "Learn a wee bit about us",
-        "feature5-page": "shopify://pages/about",
-        "feature6": "",
-        "feature6-page": ""
-      }
+      "settings": {}
     }
   },
   "order": [
