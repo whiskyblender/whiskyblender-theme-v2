@@ -8,7 +8,7 @@
     right: auto !important;
     top: auto !important;
     width: auto !important;
-    max-width: 780px !important;
+    max-width: 860px !important;
     min-width: min(340px, calc(100vw - 32px)) !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -22,11 +22,11 @@
 .shopify-pc__banner__wrapper {
     display: flex !important;
     align-items: center !important;
-    flex-wrap: wrap !important;
-    gap: 12px 20px !important;
+    flex-wrap: nowrap !important;
+    gap: 16px 24px !important;
     background-color: #111111 !important;
-    border-radius: 100px !important;
-    padding: 10px 10px 10px 22px !important;
+    border-radius: 0 !important;
+    padding: 20px 24px !important;
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5) !important;
 }
 
@@ -42,29 +42,30 @@
 }
 
 .shopify-pc__banner__body p {
-    font-size: 12px !important;
+    font-size: 14px !important;
     line-height: 1.5 !important;
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: #ffffff !important;
     margin: 0 !important;
 }
 
 #shopify-pc__banner__body-policy-link {
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: #ffffff !important;
     text-decoration: underline !important;
 }
 
 .shopify-pc__banner__btns {
     display: flex !important;
     align-items: center !important;
-    gap: 6px !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
     flex-shrink: 0 !important;
 }
 
 .shopify-pc__banner__btns button {
-    border-radius: 100px !important;
+    border-radius: 6px !important;
     font-size: 13px !important;
     font-weight: 600 !important;
-    padding: 10px 20px !important;
+    padding: 12px 20px !important;
     cursor: pointer !important;
     transition: opacity 0.2s !important;
     white-space: nowrap !important;
@@ -72,6 +73,7 @@
     font-family: inherit !important;
     border: none !important;
     box-shadow: none !important;
+    text-decoration: none !important;
 }
 
 .shopify-pc__banner__btns button:hover {
@@ -84,28 +86,33 @@
 }
 
 #shopify-pc__banner__btn-decline {
-    background-color: rgba(255, 255, 255, 0.08) !important;
-    color: rgba(255, 255, 255, 0.55) !important;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
 }
 
 #shopify-pc__banner__btn-manage-prefs {
-    background-color: transparent !important;
-    color: rgba(255, 255, 255, 0.35) !important;
-    font-size: 11px !important;
-    font-weight: 400 !important;
-    padding: 10px 14px !important;
-    text-decoration: underline !important;
-    text-underline-offset: 2px !important;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
 }
 
-@media screen and (max-width: 540px) {
+#shopify-pc__banner__btn-manage-prefs span {
+    display: none !important;
+}
+
+#shopify-pc__banner__btn-manage-prefs::after {
+    content: "Manage" !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+@media screen and (max-width: 600px) {
     #shopify-pc__banner {
-        bottom: 12px !important;
-        min-width: calc(100vw - 24px) !important;
+        bottom: 0 !important;
+        min-width: 100vw !important;
     }
 
     .shopify-pc__banner__wrapper {
-        border-radius: 18px !important;
-        padding: 16px !important;
+        flex-wrap: wrap !important;
+        padding: 20px !important;
     }
 }
