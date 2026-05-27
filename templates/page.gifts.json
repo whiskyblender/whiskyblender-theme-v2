@@ -21,7 +21,9 @@
       "type": "wb-main-landing",
       "name": "Landing Hero",
       "settings": {
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/127d588af94e4212955bc22951a85177.mp4",
         "video_file": "wb-whisky-bow.mp4",
+        "background_image": "shopify://shop_images/wb-whisky-bow.jpg",
         "title": "The gift of whisky",
         "description": "That's certainly the kind of gift that we like to get from people.",
         "primary_button_text": "Get a voucher",
