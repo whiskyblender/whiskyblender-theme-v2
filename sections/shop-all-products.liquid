@@ -6,127 +6,123 @@
   {{ 'quick-add.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
 
-<section class="wb-first-item">
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
 <div class="wb-container">
   <div class="wb-padding">
-
-    <div class="wb-collection-header">
-      <h1 class="wb-medium-heading">Shop</h1>
-      {%- if section.settings.collections_link_url != blank -%}
-        <a class="wb-float-right" href="{{ section.settings.collections_link_url }}">Our collections</a>
-      {%- endif -%}
-    </div>
-
-    {%- assign filter_handles = section.settings.filter_collections | split: ',' -%}
-
-    <div class="wb-bottle-form" style="margin-top: 24px;">
-      <span class="wb-radio">
-        <input type="radio" name="wb-filter" id="filter-all" value="__all__" checked>
-        <label for="filter-all">All</label>
-      </span>
-      {%- for handle_raw in filter_handles -%}
-        {%- assign handle = handle_raw | strip -%}
-        {%- assign col = collections[handle] -%}
-        {%- if col != blank -%}
+    {%- assign excluded_collections_raw = section.settings.excluded_collection | split: ',' -%}
+    {%- assign excluded_collections = '' -%}
+    {%- for item in excluded_collections_raw -%}
+      {%- assign trimmed = item | strip -%}
+      {%- assign excluded_collections = excluded_collections | append: trimmed | append: ',' -%}
+    {%- endfor -%}
+    <div class="wb-buttons">
+      {%- assign first_collection = true -%}
+      {%- for collection in collections -%}
+        {%- unless excluded_collections contains collection.title or collection.handle == 'all' -%}
+          {%- assign filter_id = collection.title | handleize -%}
           <span class="wb-radio">
-            <input type="radio" name="wb-filter" id="filter-{{ handle }}" value="{{ col.title }}">
-            <label for="filter-{{ handle }}">{{ col.title }}</label>
+            <input
+              type="radio"
+              name="wb-filter"
+              value="{{ collection.title }}"
+              id="filter-{{ filter_id }}"
+              data-collection="{{ collection.title }}"
+              {%- if first_collection %}
+                checked
+              {%- endif -%}
+            >
+            <label for="filter-{{ filter_id }}">{{ collection.title }}</label>
           </span>
-        {%- endif -%}
+          {%- assign first_collection = false -%}
+        {%- endunless -%}
       {%- endfor -%}
-      <span class="wb-radio">
-        <input type="radio" name="wb-filter" id="filter-sale" value="__sale__">
-        <label for="filter-sale">Sale</label>
-      </span>
     </div>
 
-    {%- assign source_handles = section.settings.all_source_collections | split: ',' -%}
-    {%- assign seen = '|' -%}
+    <ul
+      class="wb-productsgrid wb-tightergrid grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop"
+      role="list"
+    >
+      {%- for product in collections.all.products limit: 250 -%}
+        {%- assign has_allowed_collection = false -%}
+        {%- for collection in product.collections -%}
+          {%- unless excluded_collections contains collection.title -%}
+            {%- assign has_allowed_collection = true -%}
+            {%- break -%}
+          {%- endunless -%}
+        {%- endfor -%}
 
-    <ul class="wb-productsgrid wb-tightergrid" role="list" id="wb-shop-grid">
-      {%- for src_handle_raw in source_handles -%}
-        {%- assign src_handle = src_handle_raw | strip -%}
-        {%- assign src_col = collections[src_handle] -%}
-        {%- if src_col != blank -%}
-          {%- for product in src_col.products -%}
-            {%- unless product.tags contains 'Custom-Blend' -%}
-              {%- assign check = '|' | append: product.handle | append: '|' -%}
-              {%- unless seen contains check -%}
-                {%- assign seen = seen | append: product.handle | append: '|' -%}
-                {%- assign col_titles = '' -%}
-                {%- for col in product.collections -%}
-                  {%- assign col_titles = col_titles | append: col.title | append: '|' -%}
-                {%- endfor -%}
-                {%- assign is_sale = false -%}
-                {%- if product.compare_at_price > product.price -%}
-                  {%- assign is_sale = true -%}
-                {%- endif -%}
-                <li class="wb-productcell grid__item product-item"
-                    data-collections="{{ col_titles }}"
-                    {% if is_sale %}data-sale="true"{% endif %}>
-                  {% render 'card-product',
-                    card_product: product,
-                    media_aspect_ratio: section.settings.image_ratio,
-                    image_shape: section.settings.image_shape,
-                    show_secondary_image: section.settings.show_secondary_image,
-                    show_vendor: section.settings.show_vendor,
-                    show_rating: section.settings.show_rating,
-                    quick_add: section.settings.quick_add,
-                    section_id: section.id
-                  %}
-                </li>
-              {%- endunless -%}
+        {%- if has_allowed_collection -%}
+          {%- assign product_collections = '' -%}
+          {%- for collection in product.collections -%}
+            {%- unless excluded_collections contains collection.title -%}
+              {%- assign product_collections = product_collections | append: collection.title | append: ',' -%}
             {%- endunless -%}
           {%- endfor -%}
+
+          <li class="wb-productcell grid__item product-item" data-collections="{{ product_collections }}">
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: section.settings.image_ratio,
+              image_shape: section.settings.image_shape,
+              show_secondary_image: section.settings.show_secondary_image,
+              show_vendor: section.settings.show_vendor,
+              show_rating: section.settings.show_rating,
+              quick_add: section.settings.quick_add,
+              section_id: section.id
+            %}
+          </li>
         {%- endif -%}
       {%- endfor -%}
     </ul>
-
   </div>
 </div>
-</section>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var radios = document.querySelectorAll('input[name="wb-filter"]');
-  var items  = document.querySelectorAll('#wb-shop-grid .product-item');
-  var grid   = document.getElementById('wb-shop-grid');
+  document.addEventListener('DOMContentLoaded', function () {
+    const radioInputs = document.querySelectorAll('input[name="wb-filter"]');
+    const products = document.querySelectorAll('.product-item');
 
-  function applyFilter(filter) {
-    grid.style.transition = 'opacity 0.2s ease';
-    grid.style.opacity = '0';
-    setTimeout(function () {
-      items.forEach(function (item) {
-        var show;
-        if (filter === '__all__') {
-          show = true;
-        } else if (filter === '__sale__') {
-          show = item.dataset.sale === 'true';
+    function filterProducts() {
+      const checkedRadio = document.querySelector('input[name="wb-filter"]:checked');
+      if (!checkedRadio) return;
+
+      const filterCollection = checkedRadio.getAttribute('data-collection');
+
+      products.forEach((product) => {
+        const productCollections = product.getAttribute('data-collections');
+        const collectionsArray = productCollections
+          .split(',')
+          .map((c) => c.trim())
+          .filter((c) => c);
+
+        if (collectionsArray.includes(filterCollection)) {
+          product.style.display = '';
         } else {
-          var cols = (item.dataset.collections || '').split('|').map(function (c) { return c.trim(); });
-          show = cols.indexOf(filter) !== -1;
+          product.style.display = 'none';
         }
-        item.style.display = show ? '' : 'none';
       });
-      grid.style.opacity = '1';
-    }, 180);
-  }
+    }
 
-  radios.forEach(function (radio) {
-    radio.addEventListener('change', function () {
-      if (this.checked) applyFilter(this.value);
+    radioInputs.forEach((radio) => {
+      radio.addEventListener('change', filterProducts);
     });
+
+    // Run filter on page load for the initially checked radio
+    filterProducts();
   });
-
-  var checkedRadio = document.querySelector('input[name="wb-filter"]:checked');
-  if (checkedRadio) applyFilter(checkedRadio.value);
-
-  var hasSale = Array.from(items).some(function (item) { return item.dataset.sale === 'true'; });
-  if (!hasSale) {
-    var saleSpan = document.getElementById('filter-sale');
-    if (saleSpan) saleSpan.closest('.wb-radio').style.display = 'none';
-  }
-});
 </script>
 
 {% schema %}
@@ -135,23 +131,42 @@ document.addEventListener('DOMContentLoaded', function () {
   "class": "section",
   "settings": [
     {
-      "type": "url",
-      "id": "collections_link_url",
-      "label": "\"Our collections\" link URL"
+      "type": "text",
+      "id": "excluded_collection",
+      "label": "Excluded collection title",
+      "default": "Anniversaries, Birthdays, Celebrations",
+      "info": "Products in these collections will not be displayed. Separate multiple collection titles with commas."
     },
     {
-      "type": "text",
-      "id": "all_source_collections",
-      "label": "All-tab source collections (handles, comma-separated)",
-      "default": "andrews-of-bothwell,wee-bits,custom,collaborations,football",
-      "info": "Products from these collections are combined (deduplicated) for the All tab. Add every collection whose products should appear."
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Number of columns on desktop"
     },
     {
-      "type": "text",
-      "id": "filter_collections",
-      "label": "Filter tab collections (handles, comma-separated, in order)",
-      "default": "andrews-of-bothwell,wee-bits,custom,collaborations",
-      "info": "Collection handles to show as filter tabs, in order."
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 column"
+        },
+        {
+          "value": "2",
+          "label": "2 columns"
+        }
+      ],
+      "default": "2",
+      "label": "Number of columns on mobile"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
     },
     {
       "type": "header",
@@ -161,9 +176,18 @@ document.addEventListener('DOMContentLoaded', function () {
       "type": "select",
       "id": "image_ratio",
       "options": [
-        { "value": "adapt", "label": "Adapt to image" },
-        { "value": "portrait", "label": "Portrait" },
-        { "value": "square", "label": "Square" }
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
       ],
       "default": "adapt",
       "label": "Image ratio"
@@ -172,14 +196,38 @@ document.addEventListener('DOMContentLoaded', function () {
       "type": "select",
       "id": "image_shape",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "arch", "label": "Arch" },
-        { "value": "blob", "label": "Blob" },
-        { "value": "chevronleft", "label": "Chevron left" },
-        { "value": "chevronright", "label": "Chevron right" },
-        { "value": "diamond", "label": "Diamond" },
-        { "value": "parallelogram", "label": "Parallelogram" },
-        { "value": "round", "label": "Round" }
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "arch",
+          "label": "Arch"
+        },
+        {
+          "value": "blob",
+          "label": "Blob"
+        },
+        {
+          "value": "chevronleft",
+          "label": "Chevron left"
+        },
+        {
+          "value": "chevronright",
+          "label": "Chevron right"
+        },
+        {
+          "value": "diamond",
+          "label": "Diamond"
+        },
+        {
+          "value": "parallelogram",
+          "label": "Parallelogram"
+        },
+        {
+          "value": "round",
+          "label": "Round"
+        }
       ],
       "default": "default",
       "label": "Image shape"
@@ -187,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function () {
     {
       "type": "checkbox",
       "id": "show_secondary_image",
-      "default": true,
+      "default": false,
       "label": "Show second image on hover"
     },
     {
@@ -208,10 +256,43 @@ document.addEventListener('DOMContentLoaded', function () {
       "default": "none",
       "label": "Quick add button",
       "options": [
-        { "value": "none", "label": "None" },
-        { "value": "standard", "label": "Standard" },
-        { "value": "bulk", "label": "Bulk" }
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "bulk",
+          "label": "Bulk"
+        }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
     }
   ],
   "presets": [
