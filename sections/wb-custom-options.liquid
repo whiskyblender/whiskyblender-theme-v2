@@ -200,6 +200,7 @@
     copyBtn.className = 'wb-button wb-primary-button';
     copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link';
     copyBtn.addEventListener('click', function () {
+      copyBtn.style.minWidth = copyBtn.offsetWidth + 'px';
       navigator.clipboard.writeText(shareUrl).then(function () {
         copyBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
         setTimeout(function () { copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link'; }, 2000);
