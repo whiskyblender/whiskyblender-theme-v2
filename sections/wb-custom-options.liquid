@@ -1,0 +1,294 @@
+{{ 'wb-products.css' | asset_url | stylesheet_tag }}
+{{ 'wb-custom.css' | asset_url | stylesheet_tag }}
+
+{%- assign opts_collection = section.settings.collection -%}
+
+<section class="wb-first-item">
+  <div class="wb-container">
+    <div class="wb-padding">
+
+      <h1 class="wb-large-heading" id="wb-custom-heading">Choose your bottle</h1>
+      <p id="wb-custom-sub">Now choose how you want to bottle your whisky&hellip;</p>
+
+      {{- '<!-- no-blend state actions -->' }}
+      <div id="wb-noblend-actions" style="display:none">
+        <a
+          href="{{ section.settings.create_url | default: '/pages/create' }}"
+          class="wb-button wb-primary-button"
+          style="margin-top:24px;display:inline-block"
+        >{{ section.settings.create_label | default: 'Create something' }}</a>
+
+        <div class="wb-noblend-divider">or</div>
+
+        <p class="wb-noblend-codelabel">Already have a blend code?</p>
+        <div class="wb-noblend-form">
+          <input
+            type="text"
+            id="wb-code-input"
+            placeholder="WB123456"
+            maxlength="10"
+            autocomplete="off"
+            autocapitalize="characters"
+          />
+          <button class="wb-button wb-primary-button" id="wb-code-go" disabled>Go</button>
+        </div>
+      </div>
+
+      {{- '<!-- products grid -->' }}
+      {%- if opts_collection != blank and opts_collection.products.size > 0 -%}
+        <ul class="wb-productsgrid wb-tightergrid" id="wb-custom-grid">
+          {%- for product in opts_collection.products -%}
+            {%- assign sold_out = true -%}
+            {%- for variant in product.variants -%}
+              {%- if variant.available -%}
+                {%- assign sold_out = false -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- assign hover_img = product.images[1] -%}
+
+            <li class="wb-productcell{% if sold_out %} wb-soldout{% endif %}">
+              <div
+                class="wb-productitem{% if sold_out %} wb-soldout{% endif %}"
+                onclick="location.href='{{ product.url }}';"
+                data-product-url="{{ product.url }}"
+              >
+                <div class="wb-productmedia">
+                  <div class="wb-productimage">
+                    {%- if product.featured_image -%}
+                      <img
+                        src="{{ product.featured_image | image_url: width: 600 }}"
+                        alt="{{ product.featured_image.alt | escape }}"
+                        loading="lazy"
+                      />
+                    {%- endif -%}
+                    {%- if hover_img -%}
+                      <img
+                        src="{{ hover_img | image_url: width: 600 }}"
+                        alt=""
+                        class="wb-img-hover"
+                        loading="lazy"
+                      />
+                    {%- endif -%}
+                  </div>
+                  {%- if sold_out -%}
+                    <div class="wb-productbadge">
+                      <div class="wb-soldoutbadge">Sold out</div>
+                    </div>
+                  {%- endif -%}
+                </div>
+                <div class="wb-productcontent">
+                  <div class="wb-productinfo">
+                    <h3 class="wb-producttitle wb-tiny-heading">
+                      <a href="{{ product.url }}" data-product-url="{{ product.url }}">{{ product.title }}</a>
+                    </h3>
+                    <div class="wb-productdetails">
+                      <div class="wb-productcosts">
+                        {%- if sold_out -%}
+                          <div class="wb-product-price">Sold out</div>
+                        {%- else -%}
+                          <div class="wb-product-price">From {{ product.price_min | money }}</div>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{{- '<!-- blend code panel (shown with blend code) -->' }}
+<div id="wb-blend-panel" style="display:none">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <h3 class="wb-small-heading">Safe an&rsquo; sound</h3>
+      <p>Your whisky is saved. Use the options above to order now, or come back to it any time using your unique blend code below.</p>
+      <div id="wb-blendcode-ui"></div>
+    </div>
+  </div>
+</div>
+
+{{- '<!-- no-blend CTA (shown without blend code) -->' }}
+{%- if section.settings.cta_heading != blank -%}
+  <div id="wb-noblend-cta" class="wb-banded" style="display:none">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <p class="wb-large-heading">{{ section.settings.cta_heading }}</p>
+        {%- if section.settings.cta_description != blank -%}
+          <p>{{ section.settings.cta_description }}</p>
+        {%- endif -%}
+        {%- if section.settings.cta_button_text != blank -%}
+          <a
+            href="{{ section.settings.cta_button_url | default: '/pages/the-lab' }}"
+            class="wb-button wb-primary-button"
+            style="margin-top:24px;display:inline-block"
+          >{{ section.settings.cta_button_text }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+<script>
+(function () {
+  var PHRASES = [
+    "Ya dancer!", "Yaldy!", "Ya wee blender ye!", "Gie’s some!",
+    "Gawjus!", "Belter!", "Tasty AF!", "Magic!", "Amazin’!",
+    "Well done!", "Lookin’ guid!", "Canny wait!",
+    "Let’s get dressed!", "Liquid gold!"
+  ];
+
+  var COPY_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+  var TICK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  var SHARE_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
+
+  var blend   = new URLSearchParams(window.location.search).get('blend') || '';
+  var heading = document.getElementById('wb-custom-heading');
+  var sub     = document.getElementById('wb-custom-sub');
+
+  /* ── With blend code ─────────────────────────────────────────────── */
+  if (blend) {
+    heading.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+
+    /* Append blend to every product link */
+    document.querySelectorAll('.wb-productitem[data-product-url]').forEach(function (item) {
+      var url = item.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
+      item.setAttribute('onclick', "location.href='" + url + "';");
+    });
+    document.querySelectorAll('a[data-product-url]').forEach(function (a) {
+      a.href = a.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
+    });
+
+    /* Blend code panel */
+    document.getElementById('wb-blend-panel').style.display = '';
+
+    var shareUrl = window.location.origin + window.location.pathname + '?blend=' + encodeURIComponent(blend);
+    var ui = document.getElementById('wb-blendcode-ui');
+
+    var actions = document.createElement('div');
+    actions.className = 'wb-buttons wb-custom-blend-actions';
+
+    var box = document.createElement('div');
+    box.className = 'wb-blendcode-box';
+    box.innerHTML = '<span class="wb-blendcode-digits">' + blend + '</span>';
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'wb-button wb-primary-button';
+    copyBtn.innerHTML = COPY_ICON + ' Copy link';
+    copyBtn.addEventListener('click', function () {
+      navigator.clipboard.writeText(shareUrl).then(function () {
+        copyBtn.innerHTML = TICK_ICON + ' Copied!';
+        setTimeout(function () { copyBtn.innerHTML = COPY_ICON + ' Copy link'; }, 2000);
+      });
+    });
+
+    actions.appendChild(box);
+    actions.appendChild(copyBtn);
+
+    if (navigator.share) {
+      var shareBtn = document.createElement('button');
+      shareBtn.className = 'wb-button';
+      shareBtn.innerHTML = SHARE_ICON + ' Share';
+      shareBtn.addEventListener('click', function () {
+        navigator.share({ title: 'My Whisky Blend', url: shareUrl });
+      });
+      actions.appendChild(shareBtn);
+    }
+
+    ui.appendChild(actions);
+
+  /* ── Without blend code ──────────────────────────────────────────── */
+  } else {
+    heading.textContent = 'Bottle options';
+    sub.textContent     = 'There are a few different bottles we can offer, but first you need to decide what to fill it with.';
+
+    document.getElementById('wb-noblend-actions').style.display = '';
+
+    var cta = document.getElementById('wb-noblend-cta');
+    if (cta) cta.style.display = '';
+
+    /* Blend code entry */
+    var codeInput = document.getElementById('wb-code-input');
+    var codeGo    = document.getElementById('wb-code-go');
+
+    codeInput.addEventListener('input', function () {
+      codeGo.disabled = codeInput.value.trim().length < 7;
+    });
+
+    function submitCode() {
+      var code = codeInput.value.trim().toUpperCase();
+      if (code.length >= 7) {
+        window.location.href = window.location.pathname + '?blend=' + encodeURIComponent(code);
+      }
+    }
+
+    codeGo.addEventListener('click', submitCode);
+    codeInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') submitCode();
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "WB - Custom Options",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Products collection"
+    },
+    {
+      "type": "header",
+      "content": "No-blend state"
+    },
+    {
+      "type": "url",
+      "id": "create_url",
+      "label": "\"Create something\" button URL"
+    },
+    {
+      "type": "text",
+      "id": "create_label",
+      "label": "\"Create something\" button label",
+      "default": "Create something"
+    },
+    {
+      "type": "header",
+      "content": "No-blend CTA (optional)"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_description",
+      "label": "CTA description"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA button label"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_url",
+      "label": "CTA button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB - Custom Options"
+    }
+  ]
+}
+{% endschema %}
