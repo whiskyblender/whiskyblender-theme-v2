@@ -28,7 +28,12 @@
     },
     "wb_lab_section": {
       "type": "wb-lab",
-      "settings": {}
+      "settings": {
+        "api_base_url": "https://lab.whiskyblender.com",
+        "product_id": "",
+        "variant_id": "",
+        "bottle_options_url": ""
+      }
     }
   },
   "order": [
