@@ -554,17 +554,7 @@ ul.wb-product-drawers li {
     font-size: 18px;
   }
 
-  ul.wb-slider-gallery li {
-    display: block;
-    width: calc(50% - 5px);
-  }
-
-  ul.wb-slider-gallery li:first-of-type {
-    width: 100%;
-  }
-
-  .wb-productmedia-icon,
-  .wb-slider-buttons {
+  .wb-productmedia-icon {
     display: none;
   }
 }
