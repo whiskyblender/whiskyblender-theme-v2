@@ -23,60 +23,72 @@
         "dram_richandbold": {
           "type": "dram",
           "settings": {
+            "image": "shopify://shop_images/wb-richandbold.png",
             "image_asset": "wb-richandbold.png",
             "name": "Rich and bold",
             "emoji": "👑",
             "description": "A whisky with presence. Deep flavours, often full of oak, spice, or smoke, it makes a statement from the first sip. Confident and uncompromising, this is the dram that likes to take center stage.",
+            "url": "",
             "recipe": "0,0,55,5,40"
           }
         },
         "dram_littlesweetie": {
           "type": "dram",
           "settings": {
+            "image": "shopify://shop_images/wb-littlesweetie.png",
             "image_asset": "wb-littlesweetie.png",
             "name": "Little sweetie",
             "emoji": "🍯",
             "description": "Soft, gentle, and welcoming. Think honeyed notes, vanilla, or ripe fruits. This whisky is a hug in a glass, perfect for someone who brings sweetness wherever they go.",
+            "url": "",
             "recipe": "65,0,0,20,15"
           }
         },
         "dram_wellbalanced": {
           "type": "dram",
           "settings": {
+            "image": "shopify://shop_images/wb-wellbalanced.png",
             "image_asset": "wb-wellbalanced.png",
             "name": "Well balanced",
             "emoji": "⚖️",
             "description": "Harmony in liquid form. Smooth layers of fruit, malt, and spice come together in a whisky that feels effortless. Reliable and composed, it never tries too hard, but always delivers.",
+            "url": "",
             "recipe": "20,20,20,20,20"
           }
         },
         "dram_wildatheart": {
           "type": "dram",
           "settings": {
+            "image": "shopify://shop_images/wb-wildatheart.png",
             "image_asset": "wb-wildatheart.png",
             "name": "Wild at heart",
             "emoji": "🐺",
             "description": "Fiery and untamed. Whether it's a burst of smoke, a punch of spice, or a high-strength kick, this whisky has an adventurous edge that refuses to be tamed.",
+            "url": "",
             "recipe": "25,30,5,35,5"
           }
         },
         "dram_quietlypowerful": {
           "type": "dram",
           "settings": {
+            "image": "shopify://shop_images/wb-quietlypowerful.png",
             "image_asset": "wb-quietlypowerful.png",
             "name": "Quietly powerful",
             "emoji": "💪",
             "description": "Understated at first, but with a depth that reveals itself slowly. A whisky with quiet confidence: refined, layered, and lasting long after the glass is empty.",
+            "url": "",
             "recipe": "0,10,35,15,40"
           }
         },
         "dram_lovelybutweird": {
           "type": "dram",
           "settings": {
+            "image": "shopify://shop_images/wb-lovelybutweird.png",
             "image_asset": "wb-lovelybutweird.png",
             "name": "Lovely but weird",
             "emoji": "🌀",
             "description": "Unexpected and quirky. Flavours you might not see coming — floral, herbal, or a little eccentric — make this whisky as surprising as it is endearing. For those who delight in the unusual.",
+            "url": "",
             "recipe": "15,35,10,30,10"
           }
         }
