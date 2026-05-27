@@ -1,6 +1,38 @@
 .wb-recipe {
 }
 
+/* ── Blend code display ── */
+.wb-custom-blend-actions {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.wb-blendcode-box {
+    background: #1a1a1a;
+    border-radius: 6px;
+    padding: 14px 24px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.wb-blendcode-digits {
+    color: #ffffff;
+    letter-spacing: 0.08em;
+}
+
+@media screen and (min-width: 768px) {
+    .wb-blendcode-box {
+        font-size: 20px;
+        padding: 16px 28px;
+    }
+}
+
 .wb-noblend-divider {
     display: flex;
     align-items: center;
