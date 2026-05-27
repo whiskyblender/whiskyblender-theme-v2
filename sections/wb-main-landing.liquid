@@ -2,19 +2,24 @@
   if collection.image != blank
     assign hero_image = collection.image | image_url: width: 1920
   elsif section.settings.background_image != blank
-    assign hero_image = section.settings.background_image | image_url: width: 1920
+    assign hero_image = section.settings.background_image | asset_url
   endif
 -%}
 
 <section class="wb-overflow-hidden-x">
   <div class="wb-container">
-    {%- if section.settings.video_file != blank -%}
-      <div class="wb-videobg"{% if hero_image != blank %} style="background-image: url({{ hero_image }})"{% endif %}>
+    {%- if section.settings.video_file == blank -%}
+      <div class="wb-imagebg" style="background-image: url({{ hero_image }})">
+        <div class="wb-padding">
+          <h1 class="wb-medium-heading">{{ section.settings.title }}</h1>
+          <p class="wb-collection-sub">{{ section.settings.description }}</p>
+        </div>
+      </div>
+    {%- else -%}
+      <div class="wb-videobg" style="background-image: url({{ hero_image }})">
         <div class="wb-videograin"></div>
-        <video autoplay muted loop playsinline id="wb-video">
-          {%- for source in section.settings.video_file.sources -%}
-            <source src="{{ source.url }}" type="{{ source.mime_type }}">
-          {%- endfor -%}
+        <video autoplay muted loop id="wb-video">
+          <source src="{{ section.settings.video_file | asset_url }}" type="video/mp4">
         </video>
       </div>
       <div class="wb-overvideo">
@@ -22,27 +27,8 @@
           <h1 class="wb-large-heading">{{ section.settings.title }}</h1>
           <p>{{ section.settings.description }}</p>
           <div class="wb-buttons">
-            {%- if section.settings.primary_button_text != blank -%}
-              <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">{{ section.settings.primary_button_text }}</a>
-            {%- endif -%}
-            {%- if section.settings.secondary_button_text != blank -%}
-              <a href="{{ section.settings.secondary_button_url }}" class="wb-button">{{ section.settings.secondary_button_text }}</a>
-            {%- endif -%}
-          </div>
-        </div>
-      </div>
-    {%- else -%}
-      <div class="wb-imagebg"{% if hero_image != blank %} style="background-image: url({{ hero_image }})"{% endif %}>
-        <div class="wb-padding">
-          <h1 class="wb-medium-heading">{{ section.settings.title }}</h1>
-          <p class="wb-collection-sub">{{ section.settings.description }}</p>
-          <div class="wb-buttons">
-            {%- if section.settings.primary_button_text != blank -%}
-              <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">{{ section.settings.primary_button_text }}</a>
-            {%- endif -%}
-            {%- if section.settings.secondary_button_text != blank -%}
-              <a href="{{ section.settings.secondary_button_url }}" class="wb-button">{{ section.settings.secondary_button_text }}</a>
-            {%- endif -%}
+            <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">{{ section.settings.primary_button_text }}</a>
+            <a href="{{ section.settings.secondary_button_url }}" class="wb-button">{{ section.settings.secondary_button_text }}</a>
           </div>
         </div>
       </div>
@@ -57,16 +43,17 @@
   "name": "Landing Hero",
   "settings": [
     {
-      "type": "video",
+      "type": "text",
       "id": "video_file",
-      "label": "Video",
-      "info": "Optional. Leave empty to show a static image instead."
+      "label": "Video filename",
+      "info": "Optional. Upload video to assets folder and enter filename here. Leave empty to show static image instead."
     },
     {
-      "type": "image_picker",
+      "type": "text",
       "id": "background_image",
-      "label": "Background image",
-      "info": "Shown while video loads, or as the main image if no video is set."
+      "label": "Background image filename",
+      "default": "wb-whisky-bow.jpg",
+      "info": "Fallback image shown while video loads, or main image if no video is set"
     },
     {
       "type": "text",
