@@ -209,15 +209,20 @@
     actions.appendChild(box);
     actions.appendChild(copyBtn);
 
-    if (navigator.share) {
-      var shareBtn = document.createElement('button');
-      shareBtn.className = 'wb-button';
-      shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share';
-      shareBtn.addEventListener('click', function () {
+    var shareBtn = document.createElement('button');
+    shareBtn.className = 'wb-button';
+    shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share';
+    shareBtn.addEventListener('click', function () {
+      if (navigator.share) {
         navigator.share({ title: 'My Whisky Blend', url: shareUrl });
-      });
-      actions.appendChild(shareBtn);
-    }
+      } else {
+        navigator.clipboard.writeText(shareUrl).then(function () {
+          shareBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
+          setTimeout(function () { shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share'; }, 2000);
+        });
+      }
+    });
+    actions.appendChild(shareBtn);
 
     ui.appendChild(actions);
 
