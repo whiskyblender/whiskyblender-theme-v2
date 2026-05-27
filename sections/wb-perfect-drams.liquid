@@ -1,0 +1,152 @@
+{{ 'wb-perfectdrams.css' | asset_url | stylesheet_tag }}
+
+<section class="wb-first-item">
+  <div class="wb-container">
+    <div class="wb-padding wb-collection-copy">
+      <h1 class="wb-large-heading">Perfect drams</h1>
+      <p>
+        Forget about what they like, and think about what THEY'RE like. Different whiskies have
+        different characteristics, just like people. Find one that sounds perfect for the person
+        you're buying for and label it up for them.
+      </p>
+
+      <ul class="wb-cards wb-main-cards" id="wb-perfect-drams-cards">
+        <li onclick="location.href='/pages/the-lab';">
+          <div class="wb-card-image">
+            <img src="{{ 'wb-richandbold.png' | asset_url }}" alt="Rich and bold" loading="lazy" />
+          </div>
+          <div class="wb-card-details">
+            <h3 class="wb-small-heading"><a href="/pages/the-lab">Rich and bold</a></h3>
+            <span class="wb-emoji" aria-hidden="true">&#128081;</span>
+            <p>
+              A whisky with presence. Deep flavours, often full of oak, spice, or smoke, it
+              makes a statement from the first sip. Confident and uncompromising, this is the
+              dram that likes to take center stage. &#8594;
+            </p>
+          </div>
+        </li>
+
+        <li onclick="location.href='/pages/the-lab';">
+          <div class="wb-card-image">
+            <img src="{{ 'wb-littlesweetie.png' | asset_url }}" alt="Little sweetie" loading="lazy" />
+          </div>
+          <div class="wb-card-details">
+            <h3 class="wb-small-heading"><a href="/pages/the-lab">Little sweetie</a></h3>
+            <span class="wb-emoji" aria-hidden="true">&#127855;</span>
+            <p>
+              Soft, gentle, and welcoming. Think honeyed notes, vanilla, or ripe fruits. This
+              whisky is a hug in a glass, perfect for someone who brings sweetness wherever
+              they go. &#8594;
+            </p>
+          </div>
+        </li>
+
+        <li onclick="location.href='/pages/the-lab';">
+          <div class="wb-card-image">
+            <img src="{{ 'wb-wellbalanced.png' | asset_url }}" alt="Well balanced" loading="lazy" />
+          </div>
+          <div class="wb-card-details">
+            <h3 class="wb-small-heading"><a href="/pages/the-lab">Well balanced</a></h3>
+            <span class="wb-emoji" aria-hidden="true">&#9878;&#65039;</span>
+            <p>
+              Harmony in liquid form. Smooth layers of fruit, malt, and spice come together in
+              a whisky that feels effortless. Reliable and composed, it never tries too hard,
+              but always delivers. &#8594;
+            </p>
+          </div>
+        </li>
+
+        <li onclick="location.href='/pages/the-lab';">
+          <div class="wb-card-image">
+            <img src="{{ 'wb-wildatheart.png' | asset_url }}" alt="Wild at heart" loading="lazy" />
+          </div>
+          <div class="wb-card-details">
+            <h3 class="wb-small-heading"><a href="/pages/the-lab">Wild at heart</a></h3>
+            <span class="wb-emoji" aria-hidden="true">&#128058;</span>
+            <p>
+              Fiery and untamed. Whether it&rsquo;s a burst of smoke, a punch of spice, or a
+              high-strength kick, this whisky has an adventurous edge that refuses to be
+              tamed. &#8594;
+            </p>
+          </div>
+        </li>
+
+        <li onclick="location.href='/pages/the-lab';">
+          <div class="wb-card-image">
+            <img src="{{ 'wb-quietlypowerful.png' | asset_url }}" alt="Quietly powerful" loading="lazy" />
+          </div>
+          <div class="wb-card-details">
+            <h3 class="wb-small-heading"><a href="/pages/the-lab">Quietly powerful</a></h3>
+            <span class="wb-emoji" aria-hidden="true">&#128170;</span>
+            <p>
+              Understated at first, but with a depth that reveals itself slowly. A whisky with
+              quiet confidence: refined, layered, and lasting long after the glass is empty. &#8594;
+            </p>
+          </div>
+        </li>
+
+        <li onclick="location.href='/pages/the-lab';">
+          <div class="wb-card-image">
+            <img src="{{ 'wb-lovelybutweird.png' | asset_url }}" alt="Lovely but weird" loading="lazy" />
+          </div>
+          <div class="wb-card-details">
+            <h3 class="wb-small-heading"><a href="/pages/the-lab">Lovely but weird</a></h3>
+            <span class="wb-emoji" aria-hidden="true">&#127744;</span>
+            <p>
+              Unexpected and quirky. Flavours you might not see coming &mdash; floral, herbal, or a
+              little eccentric &mdash; make this whisky as surprising as it is endearing. For those
+              who delight in the unusual. &#8594;
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  // Recipes map to the 5 lab flavour options in order:
+  // [Banana split, Malted bacon, Spicy beeswax, Salty butter, Charred marshmallow]
+  // Each recipe sums to 100, values are multiples of 5.
+  var drams = [
+    { name: 'Rich and bold',    recipe: [0,  0,  55, 5,  40] },
+    { name: 'Little sweetie',   recipe: [65, 0,  0,  20, 15] },
+    { name: 'Well balanced',    recipe: [20, 20, 20, 20, 20] },
+    { name: 'Wild at heart',    recipe: [25, 30, 5,  35, 5 ] },
+    { name: 'Quietly powerful', recipe: [0,  10, 35, 15, 40] },
+    { name: 'Lovely but weird', recipe: [15, 35, 10, 30, 10] },
+  ];
+
+  var cards = document.querySelectorAll('#wb-perfect-drams-cards li');
+
+  drams.forEach(function (dram, i) {
+    var code = 'WB' + (Math.floor(Math.random() * 900000) + 100000);
+    try {
+      sessionStorage.setItem('wb_' + code, JSON.stringify({
+        name:    dram.name,
+        creator: 'whiskyblender.com',
+        recipe:  dram.recipe,
+      }));
+    } catch (e) {}
+
+    var href = '/pages/the-lab?blend=' + code;
+    var card = cards[i];
+    if (!card) return;
+    card.setAttribute('onclick', "location.href='" + href + "';");
+    var link = card.querySelector('a');
+    if (link) link.href = href;
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "WB - Perfect Drams",
+  "presets": [
+    {
+      "name": "WB - Perfect Drams"
+    }
+  ]
+}
+{% endschema %}
