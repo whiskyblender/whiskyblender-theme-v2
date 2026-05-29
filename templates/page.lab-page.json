@@ -32,7 +32,7 @@
         "api_base_url": "https://lab.whiskyblender.com",
         "product_id": "",
         "variant_id": "",
-        "bottle_options_url": ""
+        "bottle_options_url": "shopify://pages/custom-options"
       }
     }
   },
