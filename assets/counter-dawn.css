@@ -350,6 +350,7 @@ span.wb-radio {
 
 .wb-pie {
     overflow: hidden;
+    transition: all 0.3s ease-in-out;
 }
 
 .wb-pie div {
