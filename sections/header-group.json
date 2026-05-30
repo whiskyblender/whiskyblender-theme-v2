@@ -20,18 +20,10 @@
             "text": "Free UK Shipping. Shipping to the US? Duties & taxes are calculated and paid at checkout.",
             "link": ""
           }
-        },
-        "announcement-bar-0": {
-          "type": "announcement",
-          "settings": {
-            "text": "Free UK Shipping. Shipping to the US? Duties & taxes are calculated and paid at checkout.",
-            "link": ""
-          }
         }
       },
       "block_order": [
-        "announcement_KpKexp",
-        "announcement-bar-0"
+        "announcement_KpKexp"
       ],
       "settings": {
         "auto_rotate": true,
