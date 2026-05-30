@@ -362,7 +362,8 @@ span.wb-radio {
 .wb-liquidGlass-effect:empty,
 .wb-liquidGlass-tint:empty,
 .wb-liquidGlass-shine:empty,
-.wb-pie div:empty {
+.wb-pie div:empty,
+.wb-lab-fillvisual:empty {
     display: block;
 }
 
