@@ -338,10 +338,11 @@ span.wb-radio {
     font-weight: bold;
 }
 
-/* Override Dawn's div:empty { display: none } for liquid glass layers */
+/* Override Dawn's div:empty { display: none } for liquid glass layers and pie slices */
 .wb-liquidGlass-effect:empty,
 .wb-liquidGlass-tint:empty,
-.wb-liquidGlass-shine:empty {
+.wb-liquidGlass-shine:empty,
+.wb-pie div:empty {
     display: block;
 }
 
