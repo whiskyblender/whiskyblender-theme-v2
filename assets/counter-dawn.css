@@ -334,6 +334,25 @@ span.wb-radio {
     text-decoration-style: wavy !important;
 }
 
+/* Hex-code variants of wb-option-control colour classes */
+.wb-option-control.wb-\#f4e495-option       { background-color: rgba(244, 228, 149, 0.6); }
+.wb-option-control.wb-\#f4e495-option:hover { background-color: rgba(244, 228, 149, 0.9); }
+
+.wb-option-control.wb-\#9bd5c5-option       { background-color: rgba(155, 213, 197, 0.6); }
+.wb-option-control.wb-\#9bd5c5-option:hover { background-color: rgba(155, 213, 197, 0.9); }
+
+.wb-option-control.wb-\#f3d3d3-option       { background-color: rgba(243, 211, 211, 0.6); }
+.wb-option-control.wb-\#f3d3d3-option:hover { background-color: rgba(243, 211, 211, 0.9); }
+
+.wb-option-control.wb-\#c9e1f0-option       { background-color: rgba(201, 225, 240, 0.6); }
+.wb-option-control.wb-\#c9e1f0-option:hover { background-color: rgba(201, 225, 240, 0.9); }
+
+.wb-option-control.wb-\#dcd0bc-option       { background-color: rgba(220, 208, 188, 0.6); }
+.wb-option-control.wb-\#dcd0bc-option:hover { background-color: rgba(220, 208, 188, 0.9); }
+
+.wb-option-control.wb-\#dfcbe3-option       { background-color: rgba(223, 203, 227, 0.6); }
+.wb-option-control.wb-\#dfcbe3-option:hover { background-color: rgba(223, 203, 227, 0.9); }
+
 /* Hex-code variants of wb-background colour classes (# must be escaped in CSS selectors) */
 .wb-background-\#f4e495         { background-color: #f4e495; }
 .wb-background-\#f4e495-opacity { background-color: rgba(244, 228, 149, 0.8); }
