@@ -226,13 +226,6 @@
       <div class="wbcw-field-group wbcw-message-field">
         <textarea id="wbcwAdditional" placeholder="Timelines, website, questions..." rows="5"></textarea>
       </div>
-      <div class="wbcw-field-group" style="margin-top: 4px;">
-        <div class="wbcw-upload">
-          <input type="file" id="wbcwUpload" accept="image/*" style="display:none">
-          <button type="button" class="wb-button wbcw-upload-btn" onclick="document.getElementById('wbcwUpload').click()">Attach an image</button>
-          <span class="wbcw-upload-filename" id="wbcwUploadFilename">Optional</span>
-        </div>
-      </div>
       <div class="wbcw-nav">
         <button type="button" class="wb-button" onclick="wbcwBack()">&#8592; Back</button>
         <button type="button" class="wb-button wb-primary-button" onclick="wbcwSubmit()">Send to us</button>
@@ -350,8 +343,6 @@
     if (answers.whisky)     lines.push('Whisky: '   + answers.whisky);
     if (answers.label)      lines.push('Label: '    + answers.label);
     if (answers.additional) { lines.push(''); lines.push('Additional info: ' + answers.additional); }
-    var uploadEl = el('wbcwUpload');
-    if (uploadEl && uploadEl.files[0]) { lines.push(''); lines.push('Image attached: ' + uploadEl.files[0].name); }
     return lines.join('\n');
   }
 
@@ -386,14 +377,5 @@
     }
   });
 
-  document.addEventListener('change', function (e) {
-    if (e.target && e.target.id === 'wbcwUpload') {
-      var filenameEl = el('wbcwUploadFilename');
-      if (!filenameEl) return;
-      var file = e.target.files[0];
-      filenameEl.textContent = file ? file.name : 'Optional';
-      filenameEl.classList.toggle('wbcw-has-file', !!file);
-    }
-  });
 })();
 </script>
