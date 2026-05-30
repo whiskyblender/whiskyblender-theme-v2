@@ -338,6 +338,16 @@ span.wb-radio {
     font-weight: bold;
 }
 
+.wb-rotate {
+    animation: none;
+}
+
+.wb-pies {
+    animation-name: wb-rotate;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
 .wb-pie {
     overflow: hidden;
 }
