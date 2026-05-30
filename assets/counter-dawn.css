@@ -334,6 +334,13 @@ span.wb-radio {
     text-decoration-style: wavy !important;
 }
 
+/* Override Dawn's div:empty { display: none } for liquid glass layers */
+.wb-liquidGlass-effect:empty,
+.wb-liquidGlass-tint:empty,
+.wb-liquidGlass-shine:empty {
+    display: block;
+}
+
 /* Hex-code variants of wb-option-control colour classes */
 .wb-option-control.wb-\#f4e495-option       { background-color: rgba(244, 228, 149, 0.6); }
 .wb-option-control.wb-\#f4e495-option:hover { background-color: rgba(244, 228, 149, 0.9); }
