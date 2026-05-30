@@ -339,7 +339,7 @@ span.wb-radio {
 }
 
 .wb-rotate {
-    animation: none;
+    animation: none !important;
 }
 
 .wb-pies {
