@@ -332,3 +332,9 @@ span.wb-radio {
     text-decoration: underline !important;
     text-decoration-style: wavy !important;
 }
+
+.wb-banner-button-prev .svg-wrapper>svg {
+    height: 10px;
+    width: 10px;
+    transform: rotate(90deg);
+}
