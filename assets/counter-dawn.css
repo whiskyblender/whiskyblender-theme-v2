@@ -345,6 +345,25 @@ span.wb-radio {
     display: block;
 }
 
+/* Hex-code variants of wb-pie colour classes */
+.wb-pie.wb-\#f4e495-pie     { background: conic-gradient(from 0deg,   #ffffff 20%, transparent 0%); }
+.wb-pie.wb-\#f4e495-pie div { background: conic-gradient(from 0deg,   #f4e495 20%, transparent 0%); }
+
+.wb-pie.wb-\#9bd5c5-pie     { background: conic-gradient(from 72deg,  #ffffff 20%, transparent 0%); }
+.wb-pie.wb-\#9bd5c5-pie div { background: conic-gradient(from 72deg,  #9bd5c5 20%, transparent 0%); }
+
+.wb-pie.wb-\#f3d3d3-pie     { background: conic-gradient(from 144deg, #ffffff 20%, transparent 0%); }
+.wb-pie.wb-\#f3d3d3-pie div { background: conic-gradient(from 144deg, #f3d3d3 20%, transparent 0%); }
+
+.wb-pie.wb-\#c9e1f0-pie     { background: conic-gradient(from 216deg, #ffffff 20%, transparent 0%); }
+.wb-pie.wb-\#c9e1f0-pie div { background: conic-gradient(from 216deg, #c9e1f0 20%, transparent 0%); }
+
+.wb-pie.wb-\#dcd0bc-pie     { background: conic-gradient(from 288deg, #ffffff 20%, transparent 0%); }
+.wb-pie.wb-\#dcd0bc-pie div { background: conic-gradient(from 288deg, #dcd0bc 20%, transparent 0%); }
+
+.wb-pie.wb-\#dfcbe3-pie     { background: conic-gradient(from 360deg, #ffffff 20%, transparent 0%); }
+.wb-pie.wb-\#dfcbe3-pie div { background: conic-gradient(from 360deg, #dfcbe3 20%, transparent 0%); }
+
 /* Hex-code variants of wb-option-control colour classes */
 .wb-option-control.wb-\#f4e495-option       { background-color: rgba(244, 228, 149, 0.6); }
 .wb-option-control.wb-\#f4e495-option:hover { background-color: rgba(244, 228, 149, 0.9); }
