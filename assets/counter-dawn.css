@@ -338,6 +338,10 @@ span.wb-radio {
     font-weight: bold;
 }
 
+.wb-remove-option span.wb-liquidGlass-text {
+    margin-top: -5px;
+}
+
 .wb-rotate {
     animation: none !important;
 }
