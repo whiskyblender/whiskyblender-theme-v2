@@ -146,9 +146,6 @@ footer h5.wb-tiny-heading {
     background: transparent;
 }
 
-.wb-option-cards li {
-    overflow: visible !important;
-}
 
 .wb-lab-field.field__input {
     border: 2px solid #dddddd !important;
