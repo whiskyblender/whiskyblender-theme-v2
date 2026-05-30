@@ -338,6 +338,15 @@ span.wb-radio {
     font-weight: bold;
 }
 
+.wb-pie {
+    overflow: hidden;
+}
+
+.wb-pie div {
+    height: -webkit-fill-available;
+    height: stretch;
+}
+
 /* Override Dawn's div:empty { display: none } for liquid glass layers and pie slices */
 .wb-liquidGlass-effect:empty,
 .wb-liquidGlass-tint:empty,
