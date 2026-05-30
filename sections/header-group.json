@@ -23,6 +23,7 @@
         },
         "announcement-bar-0": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "Free UK Shipping. Shipping to the US? Duties & taxes are calculated and paid at checkout.",
             "link": ""
