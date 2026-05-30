@@ -17,14 +17,23 @@
         "announcement_KpKexp": {
           "type": "announcement",
           "settings": {
-            "text": "Free UK Shipping. Shipping to the US? Duties & taxes are calculated and paid at checkout.",
+            "text": "We close for Christmas 20 December ❄️ Place orders before then or they'll be sent out in the New Year 🎁",
+            "link": ""
+          }
+        },
+        "announcement-bar-0": {
+          "type": "announcement",
+          "settings": {
+            "text": "Purchase multiple bottles to save on shipping  🚢",
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement_KpKexp"
+        "announcement_KpKexp",
+        "announcement-bar-0"
       ],
+      "disabled": true,
       "settings": {
         "auto_rotate": true,
         "change_slides_speed": 10,
