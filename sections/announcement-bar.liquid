@@ -42,7 +42,7 @@
         <p class="wb-announcement-bar announcement-bar__message h5">
           <span>{{ section.blocks.first.settings.text | escape }}</span>
           {%- if section.blocks.first.settings.link != blank -%}
-            {{- 'icon-arrow.svg' | inline_asset_content -}}
+            {{- 'wb-caret-white.svg' | inline_asset_content -}}
           {%- endif -%}
         </p>
         {%- if section.blocks.first.settings.link != blank -%}
