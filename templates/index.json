@@ -14,12 +14,14 @@
       "name": "Landing Hero",
       "settings": {
         "video_url": "https://cdn.shopify.com/videos/c/o/v/8fcb14e7975f426baeff2cda73904441.mp4",
+        "video_file": "wb-index.mp4",
+        "background_image": "shopify://shop_images/wb-index.jpg",
         "title": "Great Scotch!",
         "description": "When you're looking for that bottle of whisky nobody else has.",
         "primary_button_text": "Create something",
         "primary_button_url": "shopify://pages/create",
         "secondary_button_text": "Get a voucher",
-        "secondary_button_url": "shopify://products/gift-voucher"
+        "secondary_button_url": "shopify://products/gift-credit"
       }
     },
     "main_reviews": {
