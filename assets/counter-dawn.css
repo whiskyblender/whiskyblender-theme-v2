@@ -65,6 +65,10 @@
     border: none;
 }
 
+.wb-right-image img {
+    height: auto;
+}
+
 .badge {
     transform: rotate(8deg);
     letter-spacing: 2px;
