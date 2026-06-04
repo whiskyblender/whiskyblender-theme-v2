@@ -4,10 +4,10 @@
 
 {%- assign api_base = section.settings.api_base_url | strip -%}
 
+{%- comment -%} Cards + pie chart + sticky fill meter {%- endcomment -%}
 <div class="wb-container">
 <div class="wb-padding">
 
-{%- comment -%} SVG filter for glass / cask distortion {%- endcomment -%}
 <svg width="0" height="0" style="position:absolute">
   <filter id="glass-distortion">
     <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise" />
@@ -20,13 +20,12 @@
   id="wb-lab-flavours"
   data-api-base="{{ api_base }}"
 >
-  {%- comment -%} Cards are rendered by wb-lab.js after fetching /api/whisky-options {%- endcomment -%}
-
+  {%- comment -%} Cards injected by wb-lab.js after fetching /api/whisky-options {%- endcomment -%}
   <li class="wb-notoption">
     <div class="wb-pies">
       <div class="wb-pie-grid" style="background-image: url({{ 'wb-piegrid.svg' | asset_url }})">&nbsp;</div>
       <div class="wb-rotate" id="wb-lab-pie">
-        {%- comment -%} Pie slices are injected by wb-lab.js {%- endcomment -%}
+        {%- comment -%} Pie slices injected by wb-lab.js {%- endcomment -%}
       </div>
     </div>
   </li>
@@ -34,12 +33,15 @@
 
 <div class="wb-sticky-lab" id="wb-lab-meter">
   <div class="wb-lab-fillmeter">
-    <span>0% filled — add some flavours!</span>
+    <span>0% filled</span>
     <div class="wb-lab-fillvisual" style="width: 0%"></div>
   </div>
 </div>
 
-{%- comment -%} Save panel — always visible; button state guides user through the flow {%- endcomment -%}
+</div>
+</div>
+
+{%- comment -%} Name & save form — separate band below the blending cards {%- endcomment -%}
 <div
   class="wb-save-panel"
   id="wb-save-panel"
@@ -48,53 +50,54 @@
   data-variant-id="{{ section.settings.variant_id | strip }}"
   data-product-url="{{ section.settings.bottle_options_url | strip }}"
 >
-  <div class="wb-save-panel-inner">
+  <div class="wb-container">
+  <div class="wb-padding">
 
-    <div class="wb-lab-inputs">
-      <div class="wb-lab-input">
-        <label class="wb-lab-label" for="wb-blend-title">Blend name</label>
-        <input
-          class="wb-lab-field field__input"
-          type="text"
-          id="wb-blend-title"
-          placeholder="e.g. Granny's Secret Recipe"
-          autocomplete="off"
-          maxlength="80"
-        >
+    <form class="wb-bottle-form" id="wb-save-form">
+      <div class="wb-lab-inputs">
+        <div class="wb-lab-input">
+          <label for="wb-blend-title">Name this whisky</label>
+          <input
+            type="text"
+            id="wb-blend-title"
+            placeholder="Whatever feels right"
+            autocomplete="off"
+            maxlength="80"
+          >
+          <p class="wb-field-hint">Whatever feels right &mdash; or <button type="button" id="wb-generate-name" class="wb-hint-link">generate one</button></p>
+        </div>
+        <div class="wb-lab-input">
+          <label for="wb-blend-author">Created by</label>
+          <input
+            type="text"
+            id="wb-blend-author"
+            placeholder="Your name"
+            autocomplete="off"
+            maxlength="60"
+          >
+          <p class="wb-field-hint">Can be more than one &mdash; sign it like a card</p>
+        </div>
       </div>
-      <div class="wb-lab-input">
-        <label class="wb-lab-label" for="wb-blend-author">Your name</label>
-        <input
-          class="wb-lab-field field__input"
-          type="text"
-          id="wb-blend-author"
-          placeholder="e.g. Wee Shuggy"
-          autocomplete="off"
-          maxlength="60"
-        >
+      <div class="wb-buttons">
+        <button type="button" id="wb-save-blend-btn" class="wb-button wb-primary-button wb-button-disabled" disabled>
+          Draw from casks
+        </button>
       </div>
-    </div>
+    </form>
 
-    <div class="wb-save-actions">
-      <button type="button" id="wb-save-blend-btn" class="button button--full-width" disabled>
-        Draw from casks
-      </button>
-    </div>
+    <p class="wb-save-error" id="wb-save-error" aria-live="polite" style="display:none"></p>
 
-    <p class="wb-save-error" id="wb-save-error" aria-live="polite"></p>
-
-    <div class="wb-save-success" id="wb-save-success" aria-live="polite" style="display:none">
+    <div class="wb-save-success" id="wb-save-success" style="display:none">
       <p class="wb-save-success-message">
         Blend <strong id="wb-blend-slug-display"></strong> saved! 🥃
       </p>
-      <a id="wb-blend-product-link" class="button button--full-width" href="#">
+      <a id="wb-blend-product-link" class="wb-button wb-primary-button" href="#">
         Personalise your bottle &rarr;
       </a>
     </div>
-  </div>
-</div>
 
-</div>
+  </div>
+  </div>
 </div>
 
 <script src="{{ 'wb-lab.js' | asset_url }}" defer="defer"></script>
@@ -109,7 +112,7 @@
       "type": "text",
       "id": "api_base_url",
       "label": "App API base URL",
-      "info": "Base URL of the Whisky Blender app — no trailing slash. E.g. https://your-app.ngrok.io"
+      "info": "Base URL of the Whisky Blender app — no trailing slash. E.g. https://lab.whiskyblender.com"
     },
     {
       "type": "text",
@@ -127,7 +130,7 @@
       "type": "url",
       "id": "bottle_options_url",
       "label": "Bottle options page URL",
-      "info": "URL of the bottle selection page customers go to after saving their blend. E.g. /pages/choose-your-bottle"
+      "info": "URL of the bottle selection page customers go to after saving their blend."
     }
   ],
   "presets": [

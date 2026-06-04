@@ -226,6 +226,7 @@
         var ready  = (total === MAX_TOTAL && title.length > 0 && author.length > 0);
 
         saveBtn.disabled = !ready;
+        saveBtn.classList.toggle('wb-button-disabled', !ready);
 
         if (total === 0) {
           saveBtn.textContent = 'Draw from casks';
@@ -344,6 +345,18 @@
     if (titleInput)  titleInput.addEventListener('input',  updateUI);
     if (authorInput) authorInput.addEventListener('input', updateUI);
 
+    /* ── Name generator ── */
+    var generateBtn = document.getElementById('wb-generate-name');
+    if (generateBtn && titleInput) {
+      var adjectives = ['Braw','Gallus','Nippy','Dreich','Canny','Jaggy','Coorie','Stoatin','Crouse','Gleg','Reekin','Swanky','Glaikit','Drookit','Clarty','Puggled','Dour','Blate','Wabbit','Crabbit','Glen','Brae','Loch','Rare','Bonnie','Grand','Leal','Canty','Blithe','Douce','Wee','Auld','Couthie','Thrawn','Bauld','Pawky','Sonsie','Snell','Steamin','Radge','Daft','Trig','Bricht','Fou','Birlin','Blootered','Lang','Pure','Hoachin','Mingin'];
+      var nouns      = ['Burn','Haar','Stane','Croft','Mist','Peat','Gloam','Brig','Wynd','Smirr','Dram','Rammy','Blether','Clyde','Knowe','Tattie','Scran','Quaich','Kist','Fairin','Drap','Toast','Hearth','Thistle','Plaid','Gill','Keek','Nip','Tryst','Ceilidh','Bothy','Heather','Tartan','Ben','Cairn','Corrie','Neuk','Hame','Kin','Donder','Stooshie','Skirl','Strath','Clachan','Birl','Haver','Guddle','Cratur','Uisge','Bawbag'];
+      generateBtn.addEventListener('click', function () {
+        titleInput.value = adjectives[Math.floor(Math.random() * adjectives.length)] + ' ' + nouns[Math.floor(Math.random() * nouns.length)];
+        updateUI();
+        titleInput.focus();
+      });
+    }
+
     /* ── Event delegation ── */
     container.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-action]');
@@ -366,8 +379,8 @@
 
       /* Scroll to the name/author form when the blend first hits 100% */
       if (action === 'add' && getTotal() === MAX_TOTAL) {
-        var saveInner = document.querySelector('.wb-save-panel-inner');
-        if (saveInner) saveInner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        var savePanel = document.getElementById('wb-save-panel');
+        if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
 
