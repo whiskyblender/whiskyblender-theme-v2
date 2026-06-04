@@ -322,6 +322,18 @@ span.wb-radio input:checked + label.wb-label-unavailable {
   color: #fff;
 }
 
+/* wb-bottle-form label has higher specificity and overrides radio pill labels —
+   reset the conflicting properties when wb-radio sits inside a wb-bottle-form */
+.wb-bottle-form span.wb-radio label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 8px;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal !important;
+}
+
 .wb-price-per-item .wb-quantity {
   border: solid 1px #000000;
   background-color: #eeeeee;
