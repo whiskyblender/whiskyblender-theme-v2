@@ -24,15 +24,11 @@
     Matches the prototype's wb-info wb-largepanel structure.
   {%- endcomment -%}
   <div id="wb-noblend-panel" class="wb-info wb-largepanel" style="display:none">
-    <h3>Choose how to fill it&hellip;</h3>
+    <p class="wb-noblend-heading">Choose how to fill it&hellip;</p>
     <ul>
       <li>Craft <a href="{{ lab_url | default: '/pages/the-lab' }}">your own whisky</a></li>
-      {%- if malts_url != blank -%}
-        <li>Label a <a href="{{ malts_url }}">single malt</a></li>
-      {%- endif -%}
-      {%- if drams_url != blank -%}
-        <li>Check our <a href="{{ drams_url }}">perfect drams</a></li>
-      {%- endif -%}
+      <li>Label a <a href="{{ malts_url | default: '/collections/single-malts' }}">single malt</a></li>
+      <li>Check our <a href="{{ drams_url | default: '/pages/perfect-drams' }}">perfect drams</a></li>
     </ul>
     <div class="wb-noblend-divider"><span>or</span></div>
     <p class="wb-noblend-codelabel">Already have a blend code?</p>
@@ -45,7 +41,7 @@
         autocomplete="off"
         autocapitalize="characters"
       />
-      <button class="button" id="wb-blend-code-go" type="button" disabled>&rarr;</button>
+      <button class="wb-button wb-primary-button" id="wb-blend-code-go" type="button" disabled>&rarr;</button>
     </div>
   </div>
 

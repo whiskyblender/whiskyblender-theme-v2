@@ -161,3 +161,14 @@
         font-size: 20px;
     }
 }
+
+/* No-blend panel heading — body font, not TrimPoster */
+.wb-noblend-heading {
+    font-family: var(--font-body-family);
+    font-style: var(--font-body-style);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 0 0 12px;
+    letter-spacing: normal;
+}

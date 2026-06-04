@@ -140,6 +140,21 @@
     if (el) { el.textContent = msg; show(el); }
   }
 
+  /* ── Carry blend code through product link clicks ───────────────── */
+
+  function patchProductLinks(slug) {
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href]');
+      if (!link) return;
+      var href = link.getAttribute('href');
+      if (!href || href.indexOf('/products/') === -1) return;
+      if (href.indexOf('blend=') !== -1) return;
+      e.preventDefault();
+      var sep = href.indexOf('?') !== -1 ? '&' : '?';
+      window.location.href = href + sep + 'blend=' + encodeURIComponent(slug);
+    });
+  }
+
   /* ── Init ────────────────────────────────────────────────────────── */
 
   function init() {
@@ -154,6 +169,8 @@
       showNoBlendState();
       return;
     }
+
+    patchProductLinks(slug);
 
     var loadingEl = document.getElementById('wb-blend-loading');
     show(loadingEl);
