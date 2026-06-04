@@ -634,6 +634,11 @@
   background-color: #ffffff;
 }
 
+.wb-save-panel .wb-buttons .wb-button {
+  width: 100%;
+  margin: 0;
+}
+
 .wb-field-hint {
   font-size: 13px;
   color: #999;
