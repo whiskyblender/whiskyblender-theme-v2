@@ -236,7 +236,7 @@
   margin-bottom: 6px;
   display: block;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 2px !important;
 }
 
 .wb-labellink {
