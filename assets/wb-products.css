@@ -564,3 +564,18 @@ ul.wb-product-drawers li {
     gap: 60px;
   }
 }
+
+/* ── Blend product page ──────────────────────────────────────────────── */
+
+.wb-blend-error {
+  color: var(--color-error, #c0392b);
+  margin: 12px 0;
+}
+
+.wb-blend-ref {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin: 0 0 8px;
+}

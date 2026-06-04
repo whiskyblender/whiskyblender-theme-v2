@@ -9,6 +9,12 @@
  */
 {
   "sections": {
+    "wb-blend-product": {
+      "type": "wb-blend-product",
+      "settings": {
+        "api_base_url": "https://lab.whiskyblender.com"
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -130,6 +136,7 @@
     }
   },
   "order": [
+    "wb-blend-product",
     "main",
     "related-products"
   ]
