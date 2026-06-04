@@ -12,6 +12,7 @@
 .wb-small-heading {
   font-family: 'trimPosterCompressed', sans-serif;
   font-weight: 100;
+  color: #000000;
   word-break: break-word;
   hyphens: auto;
 }
