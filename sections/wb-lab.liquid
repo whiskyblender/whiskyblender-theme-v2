@@ -39,7 +39,7 @@
   </div>
 </div>
 
-{%- comment -%} Save panel — hidden until blend reaches 100% {%- endcomment -%}
+{%- comment -%} Save panel — always visible; button state guides user through the flow {%- endcomment -%}
 <div
   class="wb-save-panel"
   id="wb-save-panel"
@@ -47,10 +47,8 @@
   data-product-id="{{ section.settings.product_id | strip }}"
   data-variant-id="{{ section.settings.variant_id | strip }}"
   data-product-url="{{ section.settings.bottle_options_url | strip }}"
-  aria-hidden="true"
 >
   <div class="wb-save-panel-inner">
-    <h2 class="wb-save-heading">Your blend is ready — name it!</h2>
 
     <div class="wb-lab-inputs">
       <div class="wb-lab-input">
@@ -78,14 +76,14 @@
     </div>
 
     <div class="wb-save-actions">
-      <button type="button" id="wb-save-blend-btn" class="button button--full-width">
-        Save my blend
+      <button type="button" id="wb-save-blend-btn" class="button button--full-width" disabled>
+        Draw from casks
       </button>
     </div>
 
     <p class="wb-save-error" id="wb-save-error" aria-live="polite"></p>
 
-    <div class="wb-save-success" id="wb-save-success" aria-live="polite">
+    <div class="wb-save-success" id="wb-save-success" aria-live="polite" style="display:none">
       <p class="wb-save-success-message">
         Blend <strong id="wb-blend-slug-display"></strong> saved! 🥃
       </p>

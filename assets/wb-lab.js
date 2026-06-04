@@ -225,15 +225,22 @@
         }
       }
 
-      /* Save panel visibility */
-      if (savePanel && !blendSaved) {
-        if (total === MAX_TOTAL) {
-          savePanel.classList.add('wb-save-panel--visible');
-          savePanel.setAttribute('aria-hidden', 'false');
-          savePanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      /* Save button state — disabled until blend is 100% and both fields are filled */
+      if (saveBtn && !blendSaved) {
+        var title  = titleInput  ? titleInput.value.trim()  : '';
+        var author = authorInput ? authorInput.value.trim() : '';
+        var ready  = (total === MAX_TOTAL && title.length > 0 && author.length > 0);
+
+        saveBtn.disabled = !ready;
+
+        if (total === 0) {
+          saveBtn.textContent = 'Draw from casks';
+        } else if (total < MAX_TOTAL) {
+          saveBtn.textContent = 'Add more whisky';
+        } else if (!title || !author) {
+          saveBtn.textContent = 'Fill in your details';
         } else {
-          savePanel.classList.remove('wb-save-panel--visible');
-          savePanel.setAttribute('aria-hidden', 'true');
+          saveBtn.textContent = 'Save my blend';
         }
       }
     }
@@ -339,6 +346,10 @@
       }
     }
 
+    /* Re-evaluate button state when name/author fields change */
+    if (titleInput)  titleInput.addEventListener('input',  updateUI);
+    if (authorInput) authorInput.addEventListener('input', updateUI);
+
     /* ── Event delegation ── */
     container.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-action]');
@@ -349,15 +360,21 @@
       var idx = parseInt(btn.getAttribute('data-flavour-index'), 10);
       if (isNaN(idx) || !flavours[idx]) return;
 
-      var total = getTotal();
+      var totalBefore = getTotal();
 
-      if (action === 'add' && total < MAX_TOTAL) {
+      if (action === 'add' && totalBefore < MAX_TOTAL) {
         flavours[idx].amount = clamp(flavours[idx].amount + STEP);
       } else if (action === 'remove' && flavours[idx].amount > 0) {
         flavours[idx].amount = clamp(flavours[idx].amount - STEP);
       }
 
       updateUI();
+
+      /* Scroll to the name/author form when the blend first hits 100% */
+      if (action === 'add' && getTotal() === MAX_TOTAL) {
+        var saveInner = document.querySelector('.wb-save-panel-inner');
+        if (saveInner) saveInner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     });
 
     /* Initial render */
