@@ -100,6 +100,22 @@
   </div>
 </div>
 
+{%- comment -%} Optional teardown panel — configurable in theme editor {%- endcomment -%}
+{%- if section.settings.teardown_heading != blank or section.settings.teardown_content != blank -%}
+<div class="wb-lab-teardown">
+  <div class="wb-container">
+    <div class="wb-padding">
+      {%- if section.settings.teardown_heading != blank -%}
+        <h3 class="wb-small-heading">{{ section.settings.teardown_heading }}</h3>
+      {%- endif -%}
+      {%- if section.settings.teardown_content != blank -%}
+        {{ section.settings.teardown_content }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
 <script src="{{ 'wb-lab.js' | asset_url }}" defer="defer"></script>
 
 {% schema %}
@@ -131,6 +147,22 @@
       "id": "bottle_options_url",
       "label": "Bottle options page URL",
       "info": "URL of the bottle selection page customers go to after saving their blend."
+    },
+    {
+      "type": "header",
+      "content": "Bottom panel"
+    },
+    {
+      "type": "text",
+      "id": "teardown_heading",
+      "label": "Heading",
+      "default": "Ye a big fearty?"
+    },
+    {
+      "type": "richtext",
+      "id": "teardown_content",
+      "label": "Content",
+      "default": "<p>If creating your own whisky isn't for you, then maybe you could bottle up one of our <a href=\"#\">signature whiskies</a>, label your own bottle of <a href=\"#\">single malt</a>, or grab a <a href=\"#\">gift voucher</a> for someone else to give it a try.</p>"
     }
   ],
   "presets": [

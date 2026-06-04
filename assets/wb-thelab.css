@@ -639,6 +639,10 @@
   margin: 0;
 }
 
+.wb-lab-teardown {
+  border-top: 1px solid #eeeeee;
+}
+
 .wb-field-hint {
   font-size: 13px;
   color: #999;
