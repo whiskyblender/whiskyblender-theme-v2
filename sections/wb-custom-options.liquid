@@ -112,23 +112,41 @@
       </div>
     </div>
 
-    {%- if section.settings.cta_heading != blank -%}
-      <div id="wb-noblend-cta" style="display:none">
-        <div class="wb-padding">
-          <p class="wb-large-heading">{{ section.settings.cta_heading }}</p>
-          {%- if section.settings.cta_description != blank -%}
-            <p>{{ section.settings.cta_description }}</p>
-          {%- endif -%}
-          {%- if section.settings.cta_button_text != blank -%}
-            <a
-              href="{{ section.settings.cta_button_url | default: '/pages/the-lab' }}"
-              class="wb-button wb-primary-button"
-              style="margin-top:24px;display:inline-block"
-            >{{ section.settings.cta_button_text }}</a>
-          {%- endif -%}
+    <div id="wb-noblend-cta" style="display:none">
+      <section class="wb-banded">
+        <div class="wb-container">
+          <div class="wb-padding">
+            {%- if section.settings.cta_image != blank -%}
+              <div class="wb-right-image">
+                {{ section.settings.cta_image | image_url: width: 400 | image_tag:
+                  loading: 'lazy',
+                  alt: '',
+                  class: section.settings.cta_image_class
+                }}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.cta_heading != blank -%}
+              <h2 class="wb-medium-heading">{{ section.settings.cta_heading }}</h2>
+            {%- endif -%}
+            {%- if section.settings.cta_description != blank -%}
+              <p>{{ section.settings.cta_description }}</p>
+            {%- endif -%}
+            <div class="wb-buttons">
+              {%- if section.settings.cta_primary_button_text != blank -%}
+                <a href="{{ section.settings.cta_primary_button_url }}" class="wb-button wb-primary-button">
+                  {{ section.settings.cta_primary_button_text }}
+                </a>
+              {%- endif -%}
+              {%- if section.settings.cta_secondary_button_text != blank -%}
+                <a href="{{ section.settings.cta_secondary_button_url }}" class="wb-button">
+                  {{ section.settings.cta_secondary_button_text }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
         </div>
-      </div>
-    {%- endif -%}
+      </section>
+    </div>
 
   </div>
 </div>
@@ -288,27 +306,49 @@
     },
     {
       "type": "header",
-      "content": "No-blend CTA (optional)"
+      "content": "No-blend CTA panel"
     },
     {
       "type": "text",
       "id": "cta_heading",
-      "label": "CTA heading"
+      "label": "Heading"
     },
     {
       "type": "textarea",
       "id": "cta_description",
-      "label": "CTA description"
+      "label": "Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "Decorative image (floats right on desktop)"
     },
     {
       "type": "text",
-      "id": "cta_button_text",
-      "label": "CTA button label"
+      "id": "cta_image_class",
+      "label": "Image CSS class",
+      "info": "e.g. wb-foryersel, wb-yourownbrand",
+      "default": "wb-foryersel"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary_button_text",
+      "label": "Primary button text"
     },
     {
       "type": "url",
-      "id": "cta_button_url",
-      "label": "CTA button URL"
+      "id": "cta_primary_button_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary_button_text",
+      "label": "Secondary button text"
+    },
+    {
+      "type": "url",
+      "id": "cta_secondary_button_url",
+      "label": "Secondary button URL"
     }
   ],
   "presets": [
