@@ -260,6 +260,12 @@
   background-color: transparent;
 }
 
+.wb-bottle-form input:focus,
+.wb-bottle-form textarea:focus {
+  outline: none;
+  border-bottom: 2px #333333 solid;
+}
+
 .wb-bottle-form input span {
   text-wrap: wrap;
 }
