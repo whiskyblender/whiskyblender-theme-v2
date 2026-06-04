@@ -315,17 +315,9 @@
             blendSaved = true;
             var slug = result.data.slug;
 
-            /* Show success state */
-            saveBtn.style.display = 'none';
-            if (slugDisplay) slugDisplay.textContent = slug;
-            if (productLink && savePanelData.productUrl) {
-              productLink.href = savePanelData.productUrl + '?blend=' + encodeURIComponent(slug);
-            }
-            if (successEl) successEl.style.display = 'block';
-
-            /* Confetti 🎉 */
-            if (typeof confetti === 'function') {
-              confetti({ particleCount: 120, spread: 80, origin: { y: 0.7 } });
+            /* Redirect straight to the bottle options page */
+            if (savePanelData.productUrl) {
+              window.location.href = savePanelData.productUrl + '?blend=' + encodeURIComponent(slug);
             }
           })
           .catch(function (err) {
