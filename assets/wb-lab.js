@@ -215,13 +215,7 @@
         var label = meter.querySelector('.wb-lab-fillmeter span');
         if (visual) visual.style.width = total + '%';
         if (label) {
-          if (total === 0) {
-            label.textContent = '0% filled \u2014 add some flavours!';
-          } else if (total < MAX_TOTAL) {
-            label.textContent = total + '% filled';
-          } else {
-            label.textContent = '100% \u2014 your blend is ready!';
-          }
+          label.textContent = total + '% filled';
         }
       }
 
