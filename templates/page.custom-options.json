@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -16,8 +25,12 @@
         "create_label": "Create something",
         "cta_heading": "Not sure what you want?",
         "cta_description": "Head to the lab and build a blend from scratch, or browse our ready-made perfect drams.",
-        "cta_button_text": "Go to the lab",
-        "cta_button_url": "/pages/the-lab"
+        "cta_image": "shopify://shop_images/wb-foryersel.png",
+        "cta_image_class": "wb-foryersel",
+        "cta_primary_button_text": "",
+        "cta_primary_button_url": "",
+        "cta_secondary_button_text": "",
+        "cta_secondary_button_url": ""
       }
     }
   },
