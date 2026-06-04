@@ -631,6 +631,7 @@
 .wb-save-panel {
   border-top: 1px solid #eeeeee;
   margin-top: 40px;
+  background-color: #ffffff;
 }
 
 .wb-field-hint {
