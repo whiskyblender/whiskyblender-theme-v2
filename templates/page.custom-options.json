@@ -23,14 +23,14 @@
         "collection": "custom",
         "create_url": "/pages/create",
         "create_label": "Create something",
-        "cta_heading": "Not sure what you want?",
-        "cta_description": "Head to the lab and build a blend from scratch, or browse our ready-made perfect drams.",
+        "cta_heading": "Something unique...",
+        "cta_description": "Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you'll be proud to pour, share, and savour.",
         "cta_image": "shopify://shop_images/wb-foryersel.png",
         "cta_image_class": "wb-foryersel",
-        "cta_primary_button_text": "",
-        "cta_primary_button_url": "",
-        "cta_secondary_button_text": "",
-        "cta_secondary_button_url": ""
+        "cta_primary_button_text": "Enter the lab",
+        "cta_primary_button_url": "shopify://pages/the-lab",
+        "cta_secondary_button_text": "Perfect drams",
+        "cta_secondary_button_url": "shopify://pages/perfect-drams"
       }
     }
   },
