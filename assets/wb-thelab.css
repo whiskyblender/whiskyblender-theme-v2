@@ -639,6 +639,12 @@
   margin: 0;
 }
 
+/* Allow clicks on the save button even when visually disabled,
+   so we can scroll the user back up to the options */
+#wb-save-blend-btn.wb-button-disabled {
+  pointer-events: auto;
+}
+
 .wb-lab-teardown {
   border-top: 1px solid #eeeeee;
 }

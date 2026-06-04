@@ -225,7 +225,6 @@
         var author = authorInput ? authorInput.value.trim() : '';
         var ready  = (total === MAX_TOTAL && title.length > 0 && author.length > 0);
 
-        saveBtn.disabled = !ready;
         saveBtn.classList.toggle('wb-button-disabled', !ready);
 
         if (total === 0) {
@@ -242,7 +241,17 @@
 
     /* ── Save blend ── */
     if (saveBtn && savePanelData) {
+      /* JS is running — hand off disabled state to CSS class only */
+      saveBtn.removeAttribute('disabled');
+
       saveBtn.addEventListener('click', function () {
+        /* Not ready — scroll back up to the blending options */
+        if (saveBtn.classList.contains('wb-button-disabled')) {
+          var flavoursEl = document.getElementById('wb-lab-flavours');
+          if (flavoursEl) flavoursEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+
         var title = titleInput ? titleInput.value.trim() : '';
         var author = authorInput ? authorInput.value.trim() : '';
 
