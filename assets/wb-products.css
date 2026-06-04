@@ -574,8 +574,6 @@ ul.wb-product-drawers li {
 
 .wb-blend-ref {
   font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.5;
-  margin: 0 0 8px;
+  color: #999;
+  margin: 4px 0 12px;
 }
