@@ -220,6 +220,12 @@ footer h5.wb-tiny-heading {
     display: none;
 }
 
+/* Dawn wraps cart error SVGs in span.svg-wrapper but the hide rule targets
+   svg directly — fix so the icon is hidden when there is no error text */
+.cart-item__error-text:empty ~ .svg-wrapper {
+    display: none;
+}
+
 span.wb-radio {
     margin-bottom: 0px;
     margin-right: 12px;
