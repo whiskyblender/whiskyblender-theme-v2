@@ -252,7 +252,7 @@
         } else if (!title || !author) {
           saveBtn.textContent = 'Fill in your details';
         } else {
-          saveBtn.textContent = 'Save my blend';
+          saveBtn.textContent = 'Bottle your whisky';
         }
       }
     }
@@ -340,7 +340,7 @@
           })
           .catch(function (err) {
             saveBtn.disabled = false;
-            saveBtn.textContent = 'Save my blend';
+            saveBtn.textContent = 'Bottle your whisky';
             showError(err.message || 'Something went wrong. Please try again.');
           });
       });
