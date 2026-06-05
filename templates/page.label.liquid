@@ -1,0 +1,57 @@
+{% layout none %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print Label — Whisky Blender</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'trimPosterCompressed';
+      src: url('{{ "TrimPosterWeb-Compressed.woff" | asset_url }}') format('woff'),
+           url('{{ "TrimPosterWeb-Compressed.ttf" | asset_url }}') format('truetype');
+    }
+  </style>
+  {{ 'wb-label.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+  <div id="wb-label-root"
+    data-api-base="https://lab.whiskyblender.com"
+    data-artwork-standard="{{ 'wb-artwork-200ml-standard.jpg' | asset_url }}"
+    data-artwork-style1="{{ 'wb-artwork-200ml-style1.jpg' | asset_url }}"
+  >
+
+    <div id="wb-label-toolbar">
+      <button onclick="history.back()" class="wb-label-back">&#8592; Back</button>
+      <button onclick="window.print()" class="wb-label-print">Print label</button>
+    </div>
+
+    <div id="page">
+      <div class="crops"></div>
+      <div id="label">
+        <div id="outer">
+          <div class="text" id="blendName"></div>
+        </div>
+        <div class="side">
+          <div class="blender-name text" id="createdBy"></div>
+        </div>
+        <div class="reference">
+          <div class="ref-number" id="reference"></div>
+        </div>
+        <div class="image"></div>
+      </div>
+    </div>
+
+    <div id="wb-recipe-panel">
+      <h2 class="wb-recipe-heading">Recipe</h2>
+      <p id="wb-recipe-loading">Loading recipe&hellip;</p>
+      <p id="wb-recipe-error" style="display:none"></p>
+      <ul id="wb-recipe-list" style="display:none"></ul>
+    </div>
+
+  </div>
+  {{ 'wb-label.js' | asset_url | script_tag }}
+</body>
+</html>

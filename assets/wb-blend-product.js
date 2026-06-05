@@ -74,7 +74,30 @@
 
   /* ── Hidden cart properties ──────────────────────────────────────── */
 
-  function injectCartProperties(blend) {
+  function buildLabelUrl(slug, variantsJson, labelPage) {
+    var variantTitle = '';
+    try {
+      var variants = JSON.parse(variantsJson || '[]');
+      var idInput  = document.querySelector('form[action="/cart/add"] [name="id"]');
+      if (idInput) {
+        var selected = variants.find(function (v) { return String(v.id) === String(idInput.value); });
+        if (selected) variantTitle = selected.title;
+      }
+    } catch (e) { /* ignore */ }
+
+    var labelText  = (document.getElementById('label-text')  || {}).value || '';
+    var authorText = (document.getElementById('created-by')  || {}).value || '';
+
+    var url = (labelPage || '/pages/label') +
+      '?blend='   + encodeURIComponent(slug) +
+      '&variant=' + encodeURIComponent(variantTitle) +
+      '&text='    + encodeURIComponent(labelText) +
+      '&author='  + encodeURIComponent(authorText);
+
+    return url;
+  }
+
+  function injectCartProperties(blend, variantsJson, labelPage) {
     var form = document.querySelector('form[action="/cart/add"]');
     if (!form) return;
 
@@ -82,7 +105,7 @@
       '_blend_slug':   blend.slug,
       '_blend_title':  blend.title,
       '_blend_author': blend.author,
-      '_blend_recipe': JSON.stringify(blend.recipe),
+      '_blend_url':    buildLabelUrl(blend.slug, variantsJson, labelPage),
     };
 
     Object.keys(props).forEach(function (key) {
@@ -95,6 +118,20 @@
       }
       input.value = props[key] || '';
     });
+
+    /* Keep _blend_url fresh when variant or text inputs change */
+    function refreshUrl() {
+      var urlInput = form.querySelector('input[name="properties[_blend_url]"]');
+      if (urlInput) urlInput.value = buildLabelUrl(blend.slug, variantsJson, labelPage);
+    }
+
+    var idInput     = form.querySelector('[name="id"]');
+    var labelInput  = document.getElementById('label-text');
+    var authorInput = document.getElementById('created-by');
+
+    if (idInput)     idInput.addEventListener('change', refreshUrl);
+    if (labelInput)  labelInput.addEventListener('input', refreshUrl);
+    if (authorInput) authorInput.addEventListener('input', refreshUrl);
   }
 
   /* ── No-blend state ──────────────────────────────────────────────── */
@@ -161,9 +198,12 @@
     var container = document.getElementById('wb-blend-product-loader');
     if (!container) return;
 
-    var apiBase = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
-    var labUrl  = container.getAttribute('data-lab-url') || '';
-    var slug    = new URLSearchParams(window.location.search).get('blend');
+    var apiBase      = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
+    var labUrl       = container.getAttribute('data-lab-url')   || '';
+    var labelPage    = container.getAttribute('data-label-page')|| '/pages/label';
+    var variantsEl   = document.getElementById('wb-variants-data');
+    var variantsJson = variantsEl ? variantsEl.textContent : '[]';
+    var slug         = new URLSearchParams(window.location.search).get('blend');
 
     if (!slug) {
       showNoBlendState();
@@ -190,7 +230,7 @@
 
         renderRecipe(result.data, labUrl);
         populateInputs(result.data);
-        injectCartProperties(result.data);
+        injectCartProperties(result.data, variantsJson, labelPage);
       })
       .catch(function () {
         hide(loadingEl);
