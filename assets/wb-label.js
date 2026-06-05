@@ -117,63 +117,72 @@
     if (!root) return;
 
     var params      = new URLSearchParams(window.location.search);
-    var slug        = params.get('blend')   || '';
-    var variantName = params.get('variant') || 'Standard';
-    var text        = params.get('text')    || '';
-    var author      = params.get('author')  || '';
-    var apiBase     = (root.getAttribute('data-api-base') || '').replace(/\/$/, '');
+    var type        = params.get(‘type’)    || ‘’;
+    var slug        = params.get(‘blend’)   || ‘’;
+    var variantName = params.get(‘variant’) || ‘Standard’;
+    var text        = params.get(‘text’)    || ‘’;
+    var author      = params.get(‘author’)  || ‘’;
+    var distillery  = params.get(‘distillery’) || ‘’;
+    var apiBase     = (root.getAttribute(‘data-api-base’) || ‘’).replace(/\/$/, ‘’);
 
     var VARIANTS    = buildVariantMap(root);
-    var variantData = VARIANTS[variantName] || VARIANTS['Standard'];
+    var variantData = VARIANTS[variantName] || VARIANTS[‘Standard’];
+
+    var page       = document.getElementById(‘page’);
+    var label      = document.getElementById(‘label’);
+    var blendNameEl = document.getElementById(‘blendName’);
+    var createdByEl = document.getElementById(‘createdBy’);
+    var referenceEl = document.getElementById(‘reference’);
+    var imageEl    = label ? label.querySelector(‘.image’) : null;
 
     /* ── Apply size class (200ml for now, extend later via URL param) ── */
-    var page = document.getElementById('page');
-    if (page) page.classList.add('size20');
+    if (page) page.classList.add(‘size20’);
 
-    /* ── Populate text fields ── */
-    var blendNameEl = document.getElementById('blendName');
-    var createdByEl = document.getElementById('createdBy');
-    var referenceEl = document.getElementById('reference');
+    /* ── Apply colour class + artwork (shared by both types) ── */
+    if (label) label.classList.add(variantData.color);
+    if (imageEl && variantData.image) {
+      imageEl.style.backgroundImage = ‘url(‘ + variantData.image + ‘)’;
+    }
 
+    /* ── Resize text after fonts load (shared) ── */
+    document.fonts.ready.then(function () {
+      resizeText(Array.prototype.slice.call(document.querySelectorAll(‘#blendName’)));
+    });
+
+    /* ── Single malt branch ── */
+    if (type === ‘single-malt’) {
+      if (blendNameEl) blendNameEl.innerHTML = esc(insertSpaceForLongWords(text || ‘’));
+      if (createdByEl) createdByEl.textContent = ‘’;
+      if (referenceEl) referenceEl.textContent = distillery;
+
+      var recipePanel = document.getElementById(‘wb-recipe-panel’);
+      if (recipePanel) recipePanel.style.display = ‘none’;
+      return;
+    }
+
+    /* ── Blend branch ── */
     if (blendNameEl) blendNameEl.innerHTML = esc(insertSpaceForLongWords(text || slug));
     if (createdByEl) createdByEl.textContent = author;
     if (referenceEl) referenceEl.textContent = slug;
 
-    /* ── Apply colour class ── */
-    var label = document.getElementById('label');
-    if (label) label.classList.add(variantData.color);
-
-    /* ── Apply artwork ── */
-    var imageEl = label ? label.querySelector('.image') : null;
-    if (imageEl && variantData.image) {
-      imageEl.style.backgroundImage = 'url(' + variantData.image + ')';
-    }
-
-    /* ── Resize text after fonts load ── */
-    document.fonts.ready.then(function () {
-      var textEls = Array.prototype.slice.call(document.querySelectorAll('#blendName'));
-      resizeText(textEls);
-    });
-
-    /* ── Fetch recipe ── */
     if (!slug) {
-      showRecipeError('No blend code provided.');
+      showRecipeError(‘No blend code provided.’);
       return;
     }
 
-    fetch(apiBase + '/api/blend?slug=' + encodeURIComponent(slug))
+    fetch(apiBase + ‘/api/blend?slug=’ + encodeURIComponent(slug))
       .then(function (res) {
         return res.json().then(function (data) { return { ok: res.ok, data: data }; });
       })
       .then(function (result) {
         if (!result.ok) {
-          showRecipeError('Blend ‘' + slug + '’ not found.');
+          showRecipeError(‘Blend ‘’ + slug + ‘’ not found.’);
           return;
         }
         showRecipe(result.data.recipe);
       })
       .catch(function () {
-        showRecipeError('Could not load recipe. Check your connection.');
+        showRecipeError(‘Could not load recipe. Check your connection.’);
       });
   }
 

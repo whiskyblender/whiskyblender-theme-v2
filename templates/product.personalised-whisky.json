@@ -110,6 +110,10 @@
         "padding_bottom": 0
       }
     },
+    "wb_single_malt_loader": {
+      "type": "wb-single-malt",
+      "settings": {}
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -129,5 +133,5 @@
       }
     }
   },
-  "order": ["main", "related-products"]
+  "order": ["main", "related-products", "wb_single_malt_loader"]
 }
