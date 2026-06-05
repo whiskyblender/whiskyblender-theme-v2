@@ -75,13 +75,9 @@
   /* ── Hidden cart properties ──────────────────────────────────────── */
 
   function injectCartProperties(blend, variantsJson, labelPage) {
-    /* There are two forms with action="/cart/add" — main product form and an
-       installment form. querySelector returns the installment one first, so
-       we explicitly skip it. */
-    var forms = document.querySelectorAll('form[action="/cart/add"]');
-    var form  = Array.prototype.find.call(forms, function (f) {
-      return f.id.indexOf('installment') === -1;
-    });
+    /* Two forms share action="/cart/add" — the main product form and an
+       installment/BNPL form. Skip the installment one explicitly. */
+    var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
 
     form.addEventListener('formdata', function (e) {
