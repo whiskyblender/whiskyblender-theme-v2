@@ -94,7 +94,7 @@
       var labelText  = (document.getElementById('label-text') || {}).value || '';
       var authorText = (document.getElementById('created-by') || {}).value || '';
 
-      var labelUrl = (labelPage || '/pages/label') +
+      var labelUrl = window.location.origin + (labelPage || '/pages/label') +
         '?blend='   + encodeURIComponent(blend.slug) +
         '&variant=' + encodeURIComponent(variantTitle) +
         '&text='    + encodeURIComponent(labelText) +
