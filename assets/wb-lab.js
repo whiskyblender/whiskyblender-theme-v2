@@ -346,6 +346,67 @@
     if (titleInput)  titleInput.addEventListener('input',  updateUI);
     if (authorInput) authorInput.addEventListener('input', updateUI);
 
+    /* ── Press-and-hold controls ─────────────────────────────────── */
+    /* Fires action immediately, then repeatedly after an initial delay.
+       Returning false from action stops the repeat (used when hitting limit).
+       window blur stops repeat if user tabs away while holding. */
+
+    function withRepeat(el, fn) {
+      var timer = null;
+
+      function stop() {
+        if (timer) { clearTimeout(timer); timer = null; }
+      }
+
+      function fire() {
+        var result = fn();
+        if (result !== false) timer = setTimeout(fire, 120);
+        else timer = null;
+      }
+
+      function start(e) {
+        e.preventDefault();
+        fn();
+        timer = setTimeout(fire, 380);
+      }
+
+      el.addEventListener('mousedown',   start);
+      el.addEventListener('touchstart',  function (e) { start(e); }, { passive: false });
+      el.addEventListener('mouseup',     stop);
+      el.addEventListener('mouseleave',  stop);
+      el.addEventListener('touchend',    stop);
+      el.addEventListener('touchcancel', stop);
+      window.addEventListener('blur',    stop);
+    }
+
+    flavours.forEach(function (f) {
+      var addBtn    = f.card.querySelector('[data-action="add"]');
+      var removeBtn = f.card.querySelector('[data-action="remove"]');
+
+      if (addBtn) {
+        withRepeat(addBtn, function () {
+          if (blendSaved) return false;
+          if (getTotal() >= MAX_TOTAL) return false;
+          f.amount = clamp(f.amount + STEP);
+          updateUI();
+          if (getTotal() === MAX_TOTAL) {
+            var savePanel = document.getElementById('wb-save-panel');
+            if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return false; // blend complete — stop repeating
+          }
+        });
+      }
+
+      if (removeBtn) {
+        withRepeat(removeBtn, function () {
+          if (blendSaved) return false;
+          if (f.amount <= 0) return false;
+          f.amount = clamp(f.amount - STEP);
+          updateUI();
+        });
+      }
+    });
+
     /* ── Name generator ── */
     var generateBtn = document.getElementById('wb-generate-name');
     if (generateBtn && titleInput) {
@@ -358,32 +419,6 @@
       });
     }
 
-    /* ── Event delegation ── */
-    container.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-action]');
-      if (!btn) return;
-      if (blendSaved) return;
-
-      var action = btn.getAttribute('data-action');
-      var idx = parseInt(btn.getAttribute('data-flavour-index'), 10);
-      if (isNaN(idx) || !flavours[idx]) return;
-
-      var totalBefore = getTotal();
-
-      if (action === 'add' && totalBefore < MAX_TOTAL) {
-        flavours[idx].amount = clamp(flavours[idx].amount + STEP);
-      } else if (action === 'remove' && flavours[idx].amount > 0) {
-        flavours[idx].amount = clamp(flavours[idx].amount - STEP);
-      }
-
-      updateUI();
-
-      /* Scroll to the name/author form when the blend first hits 100% */
-      if (action === 'add' && getTotal() === MAX_TOTAL) {
-        var savePanel = document.getElementById('wb-save-panel');
-        if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
 
     /* Initial render */
     updateUI();
