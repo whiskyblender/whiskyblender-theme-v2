@@ -131,20 +131,38 @@
       };
     });
 
-    /* ── Pre-load recipe from Perfect Drams sessionStorage ── */
+    /* ── Pre-load blend from API if ?blend= param is present ──── */
+    /* Covers two cases: "Change" from product page (real saved blend)
+       and any premade blend link. Matches amounts by identifier so
+       option order changes don't corrupt the recipe. Also prefills
+       the name and author fields. */
     (function () {
-      try {
-        var params = new URLSearchParams(window.location.search);
-        var code = params.get('blend');
-        if (!code) return;
-        var stored = sessionStorage.getItem('wb_' + code);
-        if (!stored) return;
-        var preload = JSON.parse(stored);
-        if (!preload || !Array.isArray(preload.recipe)) return;
-        preload.recipe.forEach(function (amount, idx) {
-          if (flavours[idx] !== undefined) flavours[idx].amount = amount;
-        });
-      } catch (e) {}
+      var slug = new URLSearchParams(window.location.search).get('blend');
+      if (!slug) return;
+
+      fetch(apiBase + '/api/blend?slug=' + encodeURIComponent(slug))
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .then(function (blend) {
+          if (!blend) return;
+
+          /* Prefill amounts — match by identifier, not array index */
+          var recipe = Array.isArray(blend.recipe) ? blend.recipe : [];
+          recipe.forEach(function (item) {
+            for (var i = 0; i < flavours.length; i++) {
+              if (flavours[i].identifier === item.identifier) {
+                flavours[i].amount = item.amount || 0;
+                break;
+              }
+            }
+          });
+
+          /* Prefill name and author — only if the fields are still empty */
+          if (titleInput  && !titleInput.value  && blend.title)  titleInput.value  = blend.title;
+          if (authorInput && !authorInput.value && blend.author) authorInput.value = blend.author;
+
+          updateUI();
+        })
+        .catch(function () {}); /* silent fail — don't break the lab */
     })();
 
     /* ── Save panel ── */
