@@ -75,12 +75,16 @@
   /* ── Hidden cart properties ──────────────────────────────────────── */
 
   function injectCartProperties(blend, variantsJson, labelPage) {
-    var form = document.querySelector('form[action="/cart/add"]');
-    console.log('[WB] injectCartProperties — form found:', form);
+    /* There are two forms with action="/cart/add" — main product form and an
+       installment form. querySelector returns the installment one first, so
+       we explicitly skip it. */
+    var forms = document.querySelectorAll('form[action="/cart/add"]');
+    var form  = Array.prototype.find.call(forms, function (f) {
+      return f.id.indexOf('installment') === -1;
+    });
     if (!form) return;
 
     form.addEventListener('formdata', function (e) {
-      console.log('[WB] formdata event fired');
       var variantTitle = '';
       try {
         var variants = JSON.parse(variantsJson || '[]');
@@ -100,14 +104,12 @@
         '&text='    + encodeURIComponent(labelText) +
         '&author='  + encodeURIComponent(authorText);
 
-      console.log('[WB] setting properties:', blend.slug, blend.title, blend.author, labelUrl);
       e.formData.set('properties[_blend_slug]',   blend.slug);
       e.formData.set('properties[_blend_title]',  blend.title);
       e.formData.set('properties[_blend_author]', blend.author);
       e.formData.set('properties[_blend_url]',    labelUrl);
     });
 
-    console.log('[WB] formdata listener attached to form:', form.id || form.action);
   }
 
   /* ── No-blend state ──────────────────────────────────────────────── */
