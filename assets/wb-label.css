@@ -1,0 +1,265 @@
+/* ── Reset ───────────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background: #000;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────────────────────── */
+
+#wb-label-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: #111;
+}
+
+.wb-label-back,
+.wb-label-print {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.wb-label-back {
+  background: transparent;
+  color: #aaa;
+  border: 1px solid #444;
+}
+
+.wb-label-back:hover { color: #fff; border-color: #888; }
+
+.wb-label-print {
+  background: #c8a050;
+  color: #111;
+}
+
+.wb-label-print:hover { background: #d4b060; }
+
+/* ── Label page ──────────────────────────────────────────────────────────────── */
+
+#page {
+  background: #ffffff;
+  position: relative;
+  margin: 0 auto;
+  background-size: cover;
+  text-shadow: 1px 1px #ffffff;
+}
+
+#page.size50 {
+  width: 794px;
+  height: 432px;
+  padding-top: 128px;
+  margin-top: calc(50vh - 280px);
+}
+
+#page.size20 {
+  width: 562px;
+  height: 392px;
+  padding-top: 73px;
+  margin-top: 40px;
+}
+
+/* ── Crop marks ──────────────────────────────────────────────────────────────── */
+
+.crops {
+  top: 0;
+  left: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.size50 .crops {
+  width: 794px;
+  height: 560px;
+  background: url(crops50.png) center center no-repeat;
+}
+
+.size20 .crops {
+  width: 562px;
+  height: 398px;
+  background: url(crops20.png) center center no-repeat;
+}
+
+/* ── Label area ──────────────────────────────────────────────────────────────── */
+
+#label {
+  position: relative;
+  margin: 0 auto;
+}
+
+.size50 #label { width: 552px; height: 303px; }
+.size20 #label { width: 427px; height: 252px; }
+
+/* ── Blend name ──────────────────────────────────────────────────────────────── */
+
+#outer {
+  font-family: 'trimPosterCompressed', sans-serif;
+  font-weight: 400;
+  position: absolute;
+  width: 90px;
+  height: 80px;
+  text-transform: uppercase;
+  place-content: center;
+  display: grid;
+  justify-content: start;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.size50 #outer { top: 56px; left: 195px; scale: 2.2; }
+.size20 #outer { top: 36px; left: 145px; scale: 1.6; }
+
+/* ── Creator name ────────────────────────────────────────────────────────────── */
+
+.side {
+  font-family: 'Raleway', sans-serif;
+  position: absolute;
+  width: 116px;
+  height: 12px;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.size50 .side { top: 204px; left: 210px; scale: 2.2; }
+.size20 .side { top: 158px; left: 153px; scale: 1.6; }
+
+.side .blender-name {
+  font-size: 7px !important;
+  line-height: 10px !important;
+  font-weight: 700;
+}
+
+/* ── Reference tag ───────────────────────────────────────────────────────────── */
+
+.reference {
+  position: absolute;
+  transform: rotate(-90deg);
+  z-index: 2;
+  text-align: right;
+}
+
+.size50 .reference { right: -30px; top: 45px; height: 20px; width: 80px; }
+.size20 .reference { right: -36px; top: 45px; height: 20px; width: 80px; }
+
+.reference .ref-number {
+  opacity: 0.6;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.size50 .reference .ref-number { font-size: 8px !important; line-height: 10px !important; }
+.size20 .reference .ref-number { font-size: 6px !important; line-height: 8px !important; }
+
+/* ── Artwork image ───────────────────────────────────────────────────────────── */
+
+.image {
+  position: absolute;
+  z-index: 1;
+  background-position: center center;
+  background-size: cover;
+}
+
+.size50 .image { top: -8px; left: 112px; width: 448px; height: 244px; }
+.size20 .image { top: -7px; left: 93px;  width: 342px; height: 188px; }
+
+/* ── Text colours ────────────────────────────────────────────────────────────── */
+
+.colorblack  { color: #000000; }
+.colorwhite  { color: #ffffff; text-shadow: 1px 1px #000000; }
+.colorgreen  { color: #006858; }
+.colorblue   { color: #27468f; }
+.colorred    { color: #9d0500; }
+.colorgold   { color: #c8a050; }
+
+/* ── Recipe panel (screen only) ──────────────────────────────────────────────── */
+
+#wb-recipe-panel {
+  max-width: 562px;
+  margin: 40px auto;
+  padding: 0 24px 40px;
+  color: #eee;
+  font-family: 'Raleway', sans-serif;
+}
+
+.wb-recipe-heading {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c8a050;
+  margin: 0 0 16px;
+}
+
+#wb-recipe-loading,
+#wb-recipe-error {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+#wb-recipe-error { color: #c55; }
+
+#wb-recipe-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#wb-recipe-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.wb-recipe-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.wb-recipe-pct {
+  font-weight: 700;
+  min-width: 36px;
+  text-align: right;
+}
+
+.wb-recipe-name { color: #ccc; }
+
+/* ── Print ───────────────────────────────────────────────────────────────────── */
+
+@media print {
+  body { background: #fff; }
+
+  #wb-label-toolbar { display: none !important; }
+
+  #page {
+    margin: 0 auto !important;
+    margin-top: 0 !important;
+  }
+
+  #wb-recipe-panel {
+    color: #000;
+    padding: 20px 0;
+    max-width: 562px;
+    margin: 0 auto;
+  }
+
+  .wb-recipe-heading { color: #000; }
+
+  #wb-recipe-list li { color: #000; }
+
+  .wb-recipe-name { color: #333; }
+}
