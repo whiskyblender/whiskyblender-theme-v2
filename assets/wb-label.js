@@ -228,6 +228,7 @@
     var info = document.createElement('div');
     info.className = 'wb-side-panel';
     info.style.cssText = [
+      'box-sizing:border-box',
       'position:absolute',
       'top:' + d.panelTop + 'px',
       'left:47px',
@@ -258,6 +259,7 @@
       var sc = document.createElement('div');
       sc.className = 'wb-side-panel';
       sc.style.cssText = [
+        'box-sizing:border-box',
         'position:absolute',
         'top:' + d.panelTop + 'px',
         'left:' + d.scCaskLeft + 'px',
