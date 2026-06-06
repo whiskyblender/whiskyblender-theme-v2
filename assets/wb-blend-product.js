@@ -155,9 +155,9 @@
 
   /* ── Error ───────────────────────────────────────────────────────── */
 
-  function showError(msg) {
+  function showError(html) {
     var el = document.getElementById('wb-blend-error');
-    if (el) { el.textContent = msg; show(el); }
+    if (el) { el.innerHTML = html; show(el); }
   }
 
   /* ── Carry blend code through product link clicks ───────────────── */
@@ -208,7 +208,7 @@
 
         if (!result.ok) {
           showNoBlendState(slug);
-          showError('Blend ‘' + esc(slug) + '’ not found. Check your blend code and try again.');
+          showError('We can’t find that blend. Either your code is wrong or it’s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
           return;
         }
 
@@ -219,7 +219,7 @@
       .catch(function () {
         hide(loadingEl);
         showNoBlendState(slug);
-        showError('Unable to load blend data. Please check your connection and try again.');
+        showError('We can't find that blend. Either your code is wrong or it's an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
       });
   }
 
