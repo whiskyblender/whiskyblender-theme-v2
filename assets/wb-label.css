@@ -61,7 +61,7 @@ body {
 #wb-form-panel.is-visible { display: block; }
 
 #wb-form-inner {
-  max-width: 560px;
+  max-width: 580px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -147,7 +147,7 @@ body {
   left: 0;
   right: 0;
   z-index: 20;
-  padding: 14px 60px 10px;
+  padding: 14px 80px 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -188,7 +188,7 @@ body {
 
 .size50 .wb-label-area {
   padding-top: 128px;
-  height: 432px; /* content-box: 432 + 128 padding = 560px total (cropsH) */
+  height: 432px; /* content-box: 432 + 128 padding = 580px total (cropsH) */
 }
 
 /* ── Crop marks ────────────────────────────────────────────────────────────── */
@@ -200,7 +200,7 @@ body {
   z-index: 10;
 }
 
-.size50 .crops { width: 794px; height: 560px; background: url(crops50.png) center center no-repeat; }
+.size50 .crops { width: 794px; height: 580px; background: url(crops50.png) center center no-repeat; }
 .size20 .crops { width: 562px; height: 398px; background: url(crops20.png) center center no-repeat; }
 
 /* ── Label area ────────────────────────────────────────────────────────────── */
@@ -291,7 +291,7 @@ body {
   left: 0;
   right: 0;
   z-index: 20;
-  padding: 20px 60px 28px;
+  padding: 20px 80px 28px;
   font-family: 'Raleway', sans-serif;
   display: flex;
   flex-direction: column;
