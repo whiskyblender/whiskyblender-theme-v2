@@ -152,6 +152,11 @@
     if (p.get('fg'))         state.fg         = p.get('fg');
     if (p.get('bg'))         state.bg         = p.get('bg');
     if (p.get('reference'))  state.reference  = p.get('reference');
+
+    /* Fallback: derive product from legacy type param for old URLs */
+    if (!state.product) {
+      state.product = state.type === 'single-malt' ? 'singlemalt' : 'customblend';
+    }
   }
 
   /* ── Build shareable URL from state ────────────────────────────────────────── */
