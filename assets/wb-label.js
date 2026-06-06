@@ -147,7 +147,9 @@
     if (p.get('variant'))    state.variant    = p.get('variant');
     if (p.get('product'))    state.product    = p.get('product');
     /* Legacy: size=miniature used to drive the contact sheet — now a product slug */
-    if (!p.get('product') && p.get('size') === 'miniature') state.product = 'miniature';
+    if (!p.get('product') && p.get('size') === 'miniature') state.product = 'miniatures';
+    /* Backward compat: product=miniature (singular) → miniatures */
+    if (state.product === 'miniature') state.product = 'miniatures';
     if (p.get('size') && p.get('size') !== 'miniature') state.size = p.get('size');
     if (p.get('fg'))         state.fg         = p.get('fg');
     if (p.get('bg'))         state.bg         = p.get('bg');
@@ -293,19 +295,19 @@
   }
 
   function renderLabel() {
-    var isMini = (state.product === 'miniature');
-    var pageWrapper = document.getElementById('wb-page-wrapper');
+    var isMini = (state.product === 'miniatures');
+    var pageEl = document.getElementById('page');
     var contactSheet = document.getElementById('wb-contact-sheet');
 
     if (isMini) {
-      if (pageWrapper) pageWrapper.style.display = 'none';
+      if (pageEl) pageEl.style.display = 'none';
       if (contactSheet) contactSheet.classList.add('is-visible');
       renderContactSheet();
       renderRecipePanel();
       return;
     }
 
-    if (pageWrapper) pageWrapper.style.display = '';
+    if (pageEl) pageEl.style.display = '';
     if (contactSheet) contactSheet.classList.remove('is-visible');
 
     var d = DIMS[state.size] || DIMS['200ml'];
@@ -384,7 +386,7 @@
 
   function buildMiniLabel() {
     var name = state.text || '';
-    var author = (state.product === 'customblend' || state.product === 'miniature') ? (state.author || '') : (state.distillery || '');
+    var author = (state.product === 'customblend' || state.product === 'miniatures') ? (state.author || '') : (state.distillery || '');
     var ref = state.reference || '';
     var strength = state.strength || '46';
 
@@ -550,7 +552,7 @@
   function updateTypeVisibility() {
     var isBlend = state.product === 'customblend';
     var isMalt  = state.product === 'singlemalt' || state.product === 'singlecask';
-    var isMini  = state.product === 'miniature';
+    var isMini  = state.product === 'miniatures';
 
     /* Blend code: customblend only */
     document.querySelectorAll('.wb-blendcode-only').forEach(function (el) {
