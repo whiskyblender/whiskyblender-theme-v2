@@ -243,7 +243,7 @@
       'z-index:2',
     ].join(';');
 
-    var tallStyle = 'font-family:"Antonio",sans-serif;font-weight:300;font-size:' + d.tallFont + 'px;text-transform:uppercase;letter-spacing:-0.5px';
+    var tallStyle = 'font-family:Antonio,sans-serif;font-weight:300;font-size:' + d.tallFont + 'px;text-transform:uppercase;letter-spacing:-0.5px';
     info.innerHTML =
       '<span style="' + tallStyle + '">' + esc(state.strength || '46') + '% abv</span>' +
       '<span style="font-size:' + d.domainFont + 'px;font-weight:700;text-align:center;letter-spacing:0.4px;font-family:Raleway,sans-serif">whiskyblender.com</span>' +
