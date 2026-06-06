@@ -112,12 +112,19 @@
 
   /* ── No-blend state ──────────────────────────────────────────────── */
 
-  function showNoBlendState() {
+  function showNoBlendState(failedSlug) {
     hide(document.querySelector('[name="add"]'));
     hide(document.querySelector('.product-form__quantity'));
 
     var panel = document.getElementById('wb-noblend-panel');
     if (panel) show(panel);
+
+    if (failedSlug) {
+      var codeInput = document.getElementById('wb-blend-code-input');
+      var codeBtn   = document.getElementById('wb-blend-code-go');
+      if (codeInput) codeInput.value = failedSlug;
+      if (codeBtn)   codeBtn.disabled = failedSlug.length < 6;
+    }
 
     initCodeEntry();
   }
@@ -200,8 +207,8 @@
         hide(loadingEl);
 
         if (!result.ok) {
+          showNoBlendState(slug);
           showError('Blend ‘' + esc(slug) + '’ not found. Check your blend code and try again.');
-          showNoBlendState();
           return;
         }
 
@@ -211,8 +218,8 @@
       })
       .catch(function () {
         hide(loadingEl);
+        showNoBlendState(slug);
         showError('Unable to load blend data. Please check your connection and try again.');
-        showNoBlendState();
       });
   }
 
