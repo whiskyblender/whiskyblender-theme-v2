@@ -250,7 +250,13 @@
 
           updateUI();
         })
-        .catch(function () {}); /* silent fail — don't break the lab */
+        .catch(function () {
+          var errEl = document.getElementById('wb-save-error');
+          if (errEl) {
+            errEl.textContent = 'Couldn’t load your saved blend. Start fresh or try again.';
+            errEl.style.display = '';
+          }
+        });
     })();
 
     /* ── Save panel ── */
@@ -259,9 +265,6 @@
     var titleInput = document.getElementById('wb-blend-title');
     var authorInput = document.getElementById('wb-blend-author');
     var errorEl = document.getElementById('wb-save-error');
-    var successEl = document.getElementById('wb-save-success');
-    var slugDisplay = document.getElementById('wb-blend-slug-display');
-    var productLink = document.getElementById('wb-blend-product-link');
 
     var savePanelData = savePanel ? {
       apiBase: (savePanel.getAttribute('data-api-base') || '').replace(/\/$/, ''),
@@ -489,7 +492,13 @@
 
     /* Fires action immediately, then repeatedly after an initial delay.
        Returning false from action stops the repeat (used when hitting limit).
-       window blur stops repeat if user tabs away while holding. */
+       window blur stops repeat if user tabs away while holding — registered
+       once below rather than once per button to avoid listener accumulation. */
+
+    var repeatStopFns = [];
+    window.addEventListener('blur', function () {
+      repeatStopFns.forEach(function (s) { s(); });
+    });
 
     function withRepeat(el, fn) {
       var timer = null;
@@ -497,6 +506,8 @@
       function stop() {
         if (timer) { clearTimeout(timer); timer = null; }
       }
+
+      repeatStopFns.push(stop);
 
       function fire() {
         var result = fn();
@@ -516,7 +527,6 @@
       el.addEventListener('mouseleave',  stop);
       el.addEventListener('touchend',    stop);
       el.addEventListener('touchcancel', stop);
-      window.addEventListener('blur',    stop);
       el.addEventListener('keydown', function (e) {
         if (e.key === ' ' || e.key === 'Enter') {
           e.preventDefault();
