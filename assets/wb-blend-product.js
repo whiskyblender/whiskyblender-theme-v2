@@ -74,7 +74,7 @@
 
   /* ── Hidden cart properties ──────────────────────────────────────── */
 
-  function injectCartProperties(blend, variantsJson, labelPage) {
+  function injectCartProperties(blend, variantsJson, labelPage, bottleSize) {
     /* Two forms share action="/cart/add" — the main product form and an
        installment/BNPL form. Skip the installment one explicitly. */
     var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
@@ -99,7 +99,8 @@
         '&product=customblend' +
         '&variant=' + encodeURIComponent(variantTitle) +
         '&text='    + encodeURIComponent(labelText) +
-        '&author='  + encodeURIComponent(authorText);
+        '&author='  + encodeURIComponent(authorText) +
+        (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
 
       e.formData.set('properties[_blend_slug]',   blend.slug);
       e.formData.set('properties[_blend_title]',  blend.title);
@@ -176,6 +177,7 @@
     var apiBase      = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
     var labUrl       = container.getAttribute('data-lab-url')   || '';
     var labelPage    = container.getAttribute('data-label-page')|| '/pages/label';
+    var bottleSize   = container.getAttribute('data-bottle-size') || '';
     var variantsEl   = document.getElementById('wb-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
     var slug         = new URLSearchParams(window.location.search).get('blend');
@@ -205,7 +207,7 @@
 
         renderRecipe(result.data, labUrl);
         populateInputs(result.data);
-        injectCartProperties(result.data, variantsJson, labelPage);
+        injectCartProperties(result.data, variantsJson, labelPage, bottleSize);
       })
       .catch(function () {
         hide(loadingEl);
