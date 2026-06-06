@@ -476,7 +476,7 @@
         if (f._activeTimer) clearTimeout(f._activeTimer);
         f._activeTimer = setTimeout(function () {
           f.card.classList.remove('wb-card-active');
-        }, 1200);
+        }, 3000);
       }
 
       if (adding && f.colour) {
