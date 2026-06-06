@@ -328,14 +328,19 @@
       sideNameEl.style.textShadow = '1px 1px ' + shadow;
     }
 
-    /* Side label ("Created by" / "Distilled at") */
+    /* Side label ("Distilled at" — single malt only; blend shows author with no label) */
     var sideLabelEl = document.getElementById('sideLabel');
     if (sideLabelEl) {
-      sideLabelEl.textContent = state.type === 'blend' ? 'Created by' : 'Distilled at';
-      sideLabelEl.style.color = fg;
-      sideLabelEl.style.textShadow = '1px 1px ' + shadow;
-      sideLabelEl.style.top  = d.sideLabelTop + 'px';
-      sideLabelEl.style.left = d.sideLabelLeft + 'px';
+      if (state.type === 'blend') {
+        sideLabelEl.style.display = 'none';
+      } else {
+        sideLabelEl.style.display = '';
+        sideLabelEl.textContent = 'Distilled at';
+        sideLabelEl.style.color = fg;
+        sideLabelEl.style.textShadow = '1px 1px ' + shadow;
+        sideLabelEl.style.top  = d.sideLabelTop + 'px';
+        sideLabelEl.style.left = d.sideLabelLeft + 'px';
+      }
     }
 
     /* Reference */
@@ -344,8 +349,12 @@
       refEl.textContent = state.reference || '';
     }
 
-    /* Side panel */
-    renderSidePanel(d);
+    /* Side panel — single malt only (ABV / domain / ml strip) */
+    if (state.type !== 'blend') {
+      renderSidePanel(d);
+    } else {
+      removeSidePanels();
+    }
 
     /* Resize text after fonts load */
     document.fonts.ready.then(function () {
