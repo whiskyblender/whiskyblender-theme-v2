@@ -5,9 +5,9 @@
   z-index: 99998;
   background-color: #0e0b07;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 40px 24px;
+  padding: 20px 24px 40px;
   transition: opacity 0.4s ease;
 }
 
@@ -23,12 +23,19 @@
 }
 
 .wb-age-gate__logo {
-  margin-bottom: 48px;
+  margin: 1vw auto 48px;
 }
 
 .wb-age-gate__logo img {
-  width: 160px;
-  height: auto;
+  width: 180px;
+  height: 26px;
+}
+
+@media screen and (min-width: 768px) {
+  .wb-age-gate__logo img {
+    width: 210px;
+    height: 30px;
+  }
 }
 
 .wb-age-gate__question {
@@ -131,6 +138,7 @@
   .wb-age-gate__logo { margin-bottom: 36px; }
   .wb-age-gate__question { margin-bottom: 36px; }
 }
+
 </style>
 
 <div id="wb-age-gate">
@@ -140,8 +148,8 @@
       <img
         src="{{ 'wb-logo-white.svg' | asset_url }}"
         alt="Whisky Blender"
-        width="160"
-        height="auto"
+        width="180"
+        height="26"
         loading="eager"
       >
     </div>
