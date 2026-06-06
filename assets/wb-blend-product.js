@@ -110,15 +110,26 @@
 
   }
 
+  /* ── Buy form visibility ─────────────────────────────────────────── */
+
+  function hideBuyForm() {
+    hide(document.querySelector('[name="add"]'));
+    hide(document.querySelector('.product-form__quantity'));
+    var bottleForms = document.querySelectorAll('.wb-bottle-form');
+    for (var i = 0; i < bottleForms.length; i++) { hide(bottleForms[i]); }
+  }
+
+  function showBuyForm() {
+    show(document.querySelector('[name="add"]'));
+    show(document.querySelector('.product-form__quantity'));
+    var bottleForms = document.querySelectorAll('.wb-bottle-form');
+    for (var i = 0; i < bottleForms.length; i++) { show(bottleForms[i]); }
+  }
+
   /* ── No-blend state ──────────────────────────────────────────────── */
 
   function showNoBlendState(failedSlug) {
-    hide(document.querySelector('[name="add"]'));
-    hide(document.querySelector('.product-form__quantity'));
-
-    /* Hide the label/author input blocks — they're meaningless without a blend */
-    var bottleForms = document.querySelectorAll('.wb-bottle-form');
-    for (var i = 0; i < bottleForms.length; i++) { hide(bottleForms[i]); }
+    hideBuyForm();
 
     var panel = document.getElementById('wb-noblend-panel');
     if (panel) show(panel);
@@ -167,7 +178,8 @@
   /* ── Carry blend code through product link clicks ───────────────── */
 
   function patchProductLinks(slug) {
-    document.addEventListener('click', function (e) {
+    var scope = document.getElementById('MainContent') || document;
+    scope.addEventListener('click', function (e) {
       var link = e.target.closest('a[href]');
       if (!link) return;
       var href = link.getAttribute('href');
@@ -200,6 +212,8 @@
 
     patchProductLinks(slug);
 
+    hideBuyForm();
+
     var loadingEl = document.getElementById('wb-blend-loading');
     show(loadingEl);
 
@@ -219,6 +233,7 @@
         renderRecipe(result.data, labUrl);
         populateInputs(result.data);
         injectCartProperties(result.data, variantsJson, labelPage, bottleSize);
+        showBuyForm();
       })
       .catch(function () {
         hide(loadingEl);
