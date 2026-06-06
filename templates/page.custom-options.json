@@ -20,7 +20,7 @@
     "custom_options_section": {
       "type": "wb-custom-options",
       "settings": {
-        "collection": "custom",
+        "collection": "custom-options",
         "create_url": "/pages/create",
         "create_label": "Create something",
         "cta_heading": "Something unique...",
