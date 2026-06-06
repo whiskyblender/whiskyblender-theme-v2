@@ -1,22 +1,8 @@
 /* confetti.min.js — inlined to avoid separate asset load */
 var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:null,stop:null,toggle:null,pause:null,resume:null,togglePause:null,remove:null,isPaused:null,isRunning:null};!function(){confetti.start=s,confetti.stop=w,confetti.toggle=function(){e?w():s()},confetti.pause=u,confetti.resume=m,confetti.togglePause=function(){i?m():u()},confetti.isPaused=function(){return i},confetti.remove=function(){stop(),i=!1,a=[]},confetti.isRunning=function(){return e};var t=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame,n=["rgba(30,144,255,","rgba(107,142,35,","rgba(255,215,0,","rgba(255,192,203,","rgba(106,90,205,","rgba(173,216,230,","rgba(238,130,238,","rgba(152,251,152,","rgba(70,130,180,","rgba(244,164,96,","rgba(210,105,30,","rgba(220,20,60,"],e=!1,i=!1,o=Date.now(),a=[],r=0,l=null;function d(t,e,i){return t.color=n[Math.random()*n.length|0]+(confetti.alpha+")"),t.color2=n[Math.random()*n.length|0]+(confetti.alpha+")"),t.x=Math.random()*e,t.y=Math.random()*i-i,t.diameter=10*Math.random()+5,t.tilt=10*Math.random()-10,t.tiltAngleIncrement=.07*Math.random()+.05,t.tiltAngle=Math.random()*Math.PI,t}function u(){i=!0}function m(){i=!1,c()}function c(){if(!i)if(0===a.length)l.clearRect(0,0,window.innerWidth,window.innerHeight),null;else{var n=Date.now(),u=n-o;(!t||u>confetti.frameInterval)&&(l.clearRect(0,0,window.innerWidth,window.innerHeight),function(){var t,n=window.innerWidth,i=window.innerHeight;r+=.01;for(var o=0;o<a.length;o++)t=a[o],!e&&t.y<-15?t.y=i+100:(t.tiltAngle+=t.tiltAngleIncrement,t.x+=Math.sin(r)-.5,t.y+=.5*(Math.cos(r)+t.diameter+confetti.speed),t.tilt=15*Math.sin(t.tiltAngle)),(t.x>n+20||t.x<-20||t.y>i)&&(e&&a.length<=confetti.maxCount?d(t,n,i):(a.splice(o,1),o--))}(),function(t){for(var n,e,i,o,r=0;r<a.length;r++){if(n=a[r],t.beginPath(),t.lineWidth=n.diameter,i=n.x+n.tilt,e=i+n.diameter/2,o=n.y+n.tilt+n.diameter/2,confetti.gradient){var l=t.createLinearGradient(e,n.y,i,o);l.addColorStop("0",n.color),l.addColorStop("1.0",n.color2),t.strokeStyle=l}else t.strokeStyle=n.color;t.moveTo(e,n.y),t.lineTo(i,o),t.stroke()}}(l),o=n-u%confetti.frameInterval),requestAnimationFrame(c)}}function s(t,n,o){var r=window.innerWidth,u=window.innerHeight;window.requestAnimationFrame=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(t){return window.setTimeout(t,confetti.frameInterval)};var m=document.getElementById("confetti-canvas");null===m?((m=document.createElement("canvas")).setAttribute("id","confetti-canvas"),m.setAttribute("style","display:block;z-index:999999;pointer-events:none;position:fixed;top:0"),document.body.prepend(m),m.width=r,m.height=u,window.addEventListener("resize",function(){m.width=window.innerWidth,m.height=window.innerHeight},!0),l=m.getContext("2d")):null===l&&(l=m.getContext("2d"));var s=confetti.maxCount;if(n)if(o)if(n==o)s=a.length+o;else{if(n>o){var f=n;n=o,o=f}s=a.length+(Math.random()*(o-n)+n|0)}else s=a.length+n;else o&&(s=a.length+o);for(;a.length<s;)a.push(d({},r,u));e=!0,i=!1,c(),t&&window.setTimeout(w,t)}function w(){e=!1}}();
 
-/**
- * WB Blend Product — loads blend data on product pages reached via ?blend=<slug>
- *
- * With ?blend=: fetches blend from app API, renders recipe bar chart, pre-fills
- * "Label text" and "Created by" inputs, injects hidden _blend_* cart properties.
- *
- * Without ?blend=: hides the buy form and shows the no-blend options panel.
- *
- * Recipe bar chart: each <li> has a coloured background (inline style from API colour)
- * with a light overlay bar (.wb-recipebar) positioned left: X% — the colour shows
- * through from 0 to X%, masking the rest. X = (item% / max%) * 100.
- */
 (function () {
   'use strict';
-
-  /* ── Helpers ─────────────────────────────────────────────────────── */
 
   function esc(str) {
     return String(str)
@@ -29,9 +15,6 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
   function show(el) { if (el) el.style.display = ''; }
   function hide(el) { if (el) el.style.display = 'none'; }
 
-  /* ── Recipe bar chart ────────────────────────────────────────────── */
-
-  /* inactiveIds: optional array of identifiers to render greyed/desaturated */
   function renderRecipe(blend, labUrl, inactiveIds) {
     var recipeEl = document.getElementById('wb-blend-recipe');
     if (!recipeEl) return;
@@ -56,35 +39,24 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
       })
       .join('');
 
-    var changeHref = labUrl
-      ? labUrl + '?blend=' + encodeURIComponent(blend.slug)
-      : '#';
+    var changeHref = labUrl ? labUrl + '?blend=' + encodeURIComponent(blend.slug) : '#';
 
     recipeEl.innerHTML =
-      '<p class="wb-blend-ref">' +
-        'Blend code: ' + esc(blend.slug) +
-        ' <a href="' + esc(changeHref) + '">(Change)</a>' +
-      '</p>' +
+      '<p class="wb-blend-ref">Blend code: ' + esc(blend.slug) +
+      ' <a href="' + esc(changeHref) + '">(Change)</a></p>' +
       '<ul class="wb-recipe">' + rows + '</ul>';
 
     show(recipeEl);
   }
 
-  /* ── Pre-fill visible inputs ─────────────────────────────────────── */
-
   function populateInputs(blend) {
     var labelInput  = document.getElementById('label-text');
     var authorInput = document.getElementById('created-by');
-
     if (labelInput  && !labelInput.value)  labelInput.value  = blend.title  || '';
     if (authorInput && !authorInput.value) authorInput.value = blend.author || '';
   }
 
-  /* ── Hidden cart properties ──────────────────────────────────────── */
-
   function injectCartProperties(blend, variantsJson, labelPage, bottleSize) {
-    /* Two forms share action="/cart/add" — the main product form and an
-       installment/BNPL form. Skip the installment one explicitly. */
     var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
 
@@ -97,7 +69,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
           var selected = variants.find(function (v) { return String(v.id) === String(idInput.value); });
           if (selected) variantTitle = selected.title;
         }
-      } catch (err) { /* ignore */ }
+      } catch (err) {}
 
       var labelText  = (document.getElementById('label-text') || {}).value || '';
       var authorText = (document.getElementById('created-by') || {}).value || '';
@@ -115,10 +87,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
       e.formData.set('properties[_blend_author]', blend.author);
       e.formData.set('properties[_blend_url]',    labelUrl);
     });
-
   }
-
-  /* ── Buy form visibility ─────────────────────────────────────────── */
 
   function hideBuyForm() {
     hide(document.querySelector('[name="add"]'));
@@ -142,51 +111,39 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
       var key = 'wb_confetti_' + slug;
       if (sessionStorage.getItem(key)) return;
       sessionStorage.setItem(key, '1');
-    } catch (e) { /* sessionStorage unavailable — fire anyway */ }
+    } catch (e) {}
     setTimeout(function () { window.confetti.start(); }, 600);
     setTimeout(function () { window.confetti.stop(); }, 4000);
   }
 
-  /* ── Inactive option warning ─────────────────────────────────────── */
-
-  /* Called after renderRecipe — appends warning panel below the chart.
-     slug + labUrl are used to build a "Return to lab" link that pre-loads
-     the blend so the user can fill the inactive slots with active options. */
   function showInactiveWarning(names, slug, labUrl) {
-    document.documentElement.classList.remove(‘wb-blend-loading’);
+    document.documentElement.classList.remove('wb-blend-loading');
     hideBuyForm();
-    var recipeEl = document.getElementById(‘wb-blend-recipe’);
+    var recipeEl = document.getElementById('wb-blend-recipe');
     if (!recipeEl) return;
-    var labHref  = (labUrl && slug) ? labUrl + ‘?blend=’ + encodeURIComponent(slug) : ‘/pages/the-lab’;
-    var nameList = names.map(function (n) { return '\u2018' + esc(n) + '\u2019'; }).join(', ');
-    var verb     = names.length === 1 ? ‘is’ : ‘are’;
-    var warn = document.createElement(‘div’);
-    warn.className = ‘wb-inactive-warning’;
+    var labHref  = (labUrl && slug) ? labUrl + '?blend=' + encodeURIComponent(slug) : '/pages/the-lab';
+    var nameList = names.map(function (n) { return '‘' + esc(n) + '’'; }).join(', ');
+    var verb     = names.length === 1 ? 'is' : 'are';
+    var warn     = document.createElement('div');
+    warn.className = 'wb-inactive-warning';
     warn.innerHTML =
-      ‘<p>’ + nameList + ‘ ‘ + verb + ‘ no longer available.</p>’ +
-      ‘<p><a href="’ + esc(labHref) + ‘">Return to the lab</a> to complete your recipe with our current whiskies.</p>’;
+      '<p>' + nameList + ' ' + verb + ' no longer available.</p>' +
+      '<p><a href="' + esc(labHref) + '">Return to the lab</a> to complete your recipe with our current whiskies.</p>';
     recipeEl.appendChild(warn);
   }
 
-  /* ── No-blend state ──────────────────────────────────────────────── */
-
   function showNoBlendState(failedSlug) {
     hideBuyForm();
-
     var panel = document.getElementById('wb-noblend-panel');
     if (panel) show(panel);
-
     if (failedSlug) {
       var codeInput = document.getElementById('wb-blend-code-input');
       var codeBtn   = document.getElementById('wb-blend-code-go');
       if (codeInput) codeInput.value = failedSlug;
       if (codeBtn)   codeBtn.disabled = failedSlug.length < 6;
     }
-
     initCodeEntry();
   }
-
-  /* ── Blend code entry ────────────────────────────────────────────── */
 
   function initCodeEntry() {
     var codeInput = document.getElementById('wb-blend-code-input');
@@ -210,14 +167,10 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     });
   }
 
-  /* ── Error ───────────────────────────────────────────────────────── */
-
   function showError(html) {
     var el = document.getElementById('wb-blend-error');
     if (el) { el.innerHTML = html; show(el); }
   }
-
-  /* ── Carry blend code through product link clicks ───────────────── */
 
   function patchProductLinks(slug) {
     var scope = document.getElementById('MainContent') || document;
@@ -233,15 +186,13 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     });
   }
 
-  /* ── Init ────────────────────────────────────────────────────────── */
-
   function init() {
     var container = document.getElementById('wb-blend-product-loader');
     if (!container) return;
 
     var apiBase      = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
     var labUrl       = container.getAttribute('data-lab-url')   || '';
-    var labelPage    = container.getAttribute('data-label-page')|| '/pages/label';
+    var labelPage    = container.getAttribute('data-label-page') || '/pages/label';
     var bottleSize   = container.getAttribute('data-bottle-size') || '';
     var variantsEl   = document.getElementById('wb-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
@@ -253,15 +204,11 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     }
 
     patchProductLinks(slug);
-
     hideBuyForm();
 
     var loadingEl = document.getElementById('wb-blend-loading');
     show(loadingEl);
 
-    /* Fetch blend + active options in parallel — options are needed to guard
-       against inactive whiskies being purchased. If options fetch fails we
-       fail open (don't block purchase for a network error). */
     Promise.all([
       fetch(apiBase + '/api/blend?slug=' + encodeURIComponent(slug))
         .then(function (res) {
@@ -274,7 +221,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
       .then(function (results) {
         hide(loadingEl);
         var blendResult   = results[0];
-        var activeOptions = results[1]; /* null = fetch failed — skip guard */
+        var activeOptions = results[1];
 
         if (!blendResult.ok) {
           showNoBlendState(slug);
@@ -285,7 +232,6 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         var blend  = blendResult.data;
         var recipe = Array.isArray(blend.recipe) ? blend.recipe : [];
 
-        /* Determine inactive IDs before rendering so the chart can grey them */
         var inactiveIds   = [];
         var inactiveNames = [];
         if (activeOptions !== null) {
@@ -320,4 +266,5 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
   } else {
     init();
   }
+
 })();
