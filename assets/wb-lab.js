@@ -52,7 +52,7 @@
               '<div class="wb-liquidGlass-effect"></div>' +
               '<div class="wb-liquidGlass-tint"></div>' +
               '<div class="wb-liquidGlass-shine"></div>' +
-              '<span class="wb-liquidGlass-text" aria-hidden="true">-</span>' +
+              '<span class="wb-liquidGlass-text" aria-hidden="true">–</span>' +
             '</button>' +
             '<button type="button" class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-' + color + '-option"' +
                 ' data-action="add" data-flavour-index="' + index + '"' +
