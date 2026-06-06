@@ -110,14 +110,37 @@
 
   }
 
-  /* ── No-blend state ──────────────────────────────────────────────── */
+  /* ── Buy form visibility ─────────────────────────────────────────── */
 
-  function showNoBlendState() {
+  function hideBuyForm() {
     hide(document.querySelector('[name="add"]'));
     hide(document.querySelector('.product-form__quantity'));
+    var bottleForms = document.querySelectorAll('.wb-bottle-form');
+    for (var i = 0; i < bottleForms.length; i++) { hide(bottleForms[i]); }
+  }
+
+  function showBuyForm() {
+    document.documentElement.classList.remove('wb-blend-loading');
+    show(document.querySelector('[name="add"]'));
+    show(document.querySelector('.product-form__quantity'));
+    var bottleForms = document.querySelectorAll('.wb-bottle-form');
+    for (var i = 0; i < bottleForms.length; i++) { show(bottleForms[i]); }
+  }
+
+  /* ── No-blend state ──────────────────────────────────────────────── */
+
+  function showNoBlendState(failedSlug) {
+    hideBuyForm();
 
     var panel = document.getElementById('wb-noblend-panel');
     if (panel) show(panel);
+
+    if (failedSlug) {
+      var codeInput = document.getElementById('wb-blend-code-input');
+      var codeBtn   = document.getElementById('wb-blend-code-go');
+      if (codeInput) codeInput.value = failedSlug;
+      if (codeBtn)   codeBtn.disabled = failedSlug.length < 6;
+    }
 
     initCodeEntry();
   }
@@ -148,15 +171,16 @@
 
   /* ── Error ───────────────────────────────────────────────────────── */
 
-  function showError(msg) {
+  function showError(html) {
     var el = document.getElementById('wb-blend-error');
-    if (el) { el.textContent = msg; show(el); }
+    if (el) { el.innerHTML = html; show(el); }
   }
 
   /* ── Carry blend code through product link clicks ───────────────── */
 
   function patchProductLinks(slug) {
-    document.addEventListener('click', function (e) {
+    var scope = document.getElementById('MainContent') || document;
+    scope.addEventListener('click', function (e) {
       var link = e.target.closest('a[href]');
       if (!link) return;
       var href = link.getAttribute('href');
@@ -189,6 +213,8 @@
 
     patchProductLinks(slug);
 
+    hideBuyForm();
+
     var loadingEl = document.getElementById('wb-blend-loading');
     show(loadingEl);
 
@@ -200,19 +226,20 @@
         hide(loadingEl);
 
         if (!result.ok) {
-          showError('Blend ‘' + esc(slug) + '’ not found. Check your blend code and try again.');
-          showNoBlendState();
+          showNoBlendState(slug);
+          showError('We can\'t find that blend. Either your code is wrong or it\'s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
           return;
         }
 
         renderRecipe(result.data, labUrl);
         populateInputs(result.data);
         injectCartProperties(result.data, variantsJson, labelPage, bottleSize);
+        showBuyForm();
       })
       .catch(function () {
         hide(loadingEl);
-        showError('Unable to load blend data. Please check your connection and try again.');
-        showNoBlendState();
+        showNoBlendState(slug);
+        showError('We can\'t find that blend. Either your code is wrong or it\'s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
       });
   }
 

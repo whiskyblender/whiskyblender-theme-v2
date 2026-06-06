@@ -88,6 +88,9 @@
 
 .wb-option-control {
   border: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
   width: 60px;
   height: 60px;
   display: flex;
@@ -243,7 +246,7 @@
   background-color: #eeeeee;
   border-radius: 40px;
   position: relative;
-  height: 46px;
+  height: 52px;
   overflow: hidden;
 }
 
@@ -252,8 +255,9 @@
   position: absolute;
   width: 100%;
   text-align: center;
-  padding: 10px 20px;
-  height: 46px;
+  padding: 13px 20px;
+  height: 52px;
+  line-height: normal;
   display: block;
   text-shadow: 0 0 20px #ffffff;
   color: #666666;
@@ -537,10 +541,6 @@
   }
   .wb-option-cards li .wb-card-details h3 {
     max-width: unset;
-  }
-
-  .wb-lab-fillmeter {
-    height: 52px;
   }
 
   .wb-lab-price {

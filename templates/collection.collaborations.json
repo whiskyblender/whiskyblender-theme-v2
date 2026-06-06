@@ -1,0 +1,77 @@
+{
+  "sections": {
+    "main_landing": {
+      "type": "wb-main-landing",
+      "name": "Landing Hero",
+      "settings": {
+        "video_file": "",
+        "background_image": "shopify://shop_images/collaborate.jpg",
+        "title": "Your own brand",
+        "description": "Let's collaborate",
+        "primary_button_text": "",
+        "primary_button_url": "",
+        "secondary_button_text": "",
+        "secondary_button_url": ""
+      }
+    },
+    "custom_liquid_desc": {
+      "type": "custom-liquid",
+      "name": "Collection description",
+      "settings": {
+        "custom_liquid": "<div class=\"wb-container wb-padding wb-collection-copy\"><div><p>{{collection.description}}</p></div></div>",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "name": "Collaborations",
+      "settings": {
+        "collection": "{{ collection }}",
+        "products_to_show": 24,
+        "title": "",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "wb_cta_yourownbrand": {
+      "type": "wb-cta",
+      "name": "CTA - Your own brand",
+      "settings": {
+        "heading": "Your own brand",
+        "description": "We've worked with bars, writers, charities and other businesses to create limited bottlings both brand new and complimenting existing brands.",
+        "image": "shopify://shop_images/wb-yerownbrand.png",
+        "image_class": "wb-yourownbrand",
+        "primary_button_text": "Get in touch",
+        "primary_button_url": "shopify://pages/collaborate",
+        "secondary_button_text": "",
+        "secondary_button_url": ""
+      }
+    }
+  },
+  "order": [
+    "main_landing",
+    "custom_liquid_desc",
+    "featured_collection",
+    "wb_cta_yourownbrand"
+  ]
+}

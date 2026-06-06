@@ -1,0 +1,214 @@
+<style>
+#wb-age-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  background-color: #0e0b07;
+  background-image: url({{ 'age-gate.jpg' | asset_url }});
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 24px 40px;
+  transition: opacity 0.4s ease;
+}
+
+#wb-age-gate.wb-age-gate--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wb-age-gate__inner {
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+}
+
+.wb-age-gate__logo {
+  margin: 1vw auto 48px;
+}
+
+.wb-age-gate__logo img {
+  width: 180px;
+  height: 26px;
+}
+
+@media screen and (min-width: 768px) {
+  .wb-age-gate__logo img {
+    width: 210px;
+    height: 30px;
+  }
+}
+
+.wb-age-gate__question {
+  font-family: Raleway, sans-serif;
+  font-weight: 400;
+  font-size: clamp(22px, 5vw, 38px);
+  line-height: 1.2;
+  color: #ffffff;
+  margin: 0 0 48px;
+  letter-spacing: 0;
+}
+
+.wb-age-gate__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.wb-age-gate__btn {
+  flex: 1;
+  max-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 20px 10px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 2px;
+  background: rgba(255,255,255,0.05);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+  font-family: inherit;
+  gap: 6px;
+}
+
+.wb-age-gate__btn:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.wb-age-gate__btn:active {
+  transform: scale(0.98);
+}
+
+.wb-age-gate__btn--yes {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.wb-age-gate__btn--yes:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: #ffffff;
+}
+
+.wb-age-gate__btn-main {
+  font-family: 'trimPosterCompressed', sans-serif;
+  font-size: 80px;
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.wb-age-gate__btn-sub {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+  text-transform: lowercase;
+  font-family: Raleway, sans-serif;
+}
+
+/* Sorry state */
+.wb-age-gate__sorry {
+  display: none;
+}
+
+.wb-age-gate__sorry p {
+  font-family: Raleway, sans-serif;
+  color: rgba(255,255,255,0.7);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+
+.wb-age-gate__sorry p:first-child {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.wb-age-gate__sorry a {
+  color: rgba(255,255,255,0.7);
+}
+
+@media (max-width: 440px) {
+  .wb-age-gate__btn-main { font-size: 56px; }
+  .wb-age-gate__logo { margin-bottom: 36px; }
+  .wb-age-gate__question { margin-bottom: 36px; }
+}
+
+</style>
+
+<div id="wb-age-gate">
+  <div class="wb-age-gate__inner">
+
+    <div class="wb-age-gate__logo">
+      <img
+        src="{{ 'wb-logo-white.svg' | asset_url }}"
+        alt="Whisky Blender"
+        width="180"
+        height="26"
+        loading="eager"
+      >
+    </div>
+
+    <div class="wb-age-gate__content">
+      <h1 class="wb-age-gate__question">Are you of legal drinking age in your country?</h1>
+      <div class="wb-age-gate__buttons">
+        <button class="wb-age-gate__btn wb-age-gate__btn--yes" id="wb-age-yes" type="button">
+          <span class="wb-age-gate__btn-main">Aye</span>
+          <span class="wb-age-gate__btn-sub">(yes)</span>
+        </button>
+        <button class="wb-age-gate__btn wb-age-gate__btn--no" id="wb-age-no" type="button">
+          <span class="wb-age-gate__btn-main">Naw</span>
+          <span class="wb-age-gate__btn-sub">(no)</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="wb-age-gate__sorry" id="wb-age-sorry">
+      <p>Sorry, you must be of legal drinking age to enter this site.</p>
+      <p>Please visit <a href="https://www.drinkaware.co.uk" target="_blank" rel="noopener">Drinkaware.co.uk</a> for support and information about alcohol.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var gate = document.getElementById('wb-age-gate');
+
+  /* Hide immediately if already verified — runs before first paint */
+  if (document.cookie.indexOf('wb_age_verified=1') !== -1) {
+    gate.style.display = 'none';
+    return;
+  }
+
+  /* Lock scroll while gate is visible */
+  document.body.style.overflow = 'hidden';
+
+  function setCookie(name, value, days) {
+    var expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax';
+  }
+
+  function dismiss() {
+    setCookie('wb_age_verified', '1', 365);
+    document.body.style.overflow = '';
+    gate.classList.add('wb-age-gate--hidden');
+    setTimeout(function () { gate.style.display = 'none'; }, 420);
+  }
+
+  function decline() {
+    window.location.href = 'https://www.drinkaware.co.uk';
+  }
+
+  document.getElementById('wb-age-yes').addEventListener('click', dismiss);
+  document.getElementById('wb-age-no').addEventListener('click', decline);
+})();
+</script>

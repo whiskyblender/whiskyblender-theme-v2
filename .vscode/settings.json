@@ -11,5 +11,8 @@
     "editor.defaultFormatter": "Shopify.theme-check-vscode",
     "editor.formatOnSave": true
   },
-  "themeCheck.checkOnSave": true
+  "themeCheck.checkOnSave": true,
+  "files.associations": {
+    "*.json": "jsonc"
+  }
 }

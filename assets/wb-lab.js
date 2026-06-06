@@ -46,20 +46,22 @@
           '<div class="wb-cask"' + (caskStyle ? ' style="' + caskStyle + '"' : '') + '></div>' +
           '<div class="wb-option-amount wb-background-' + color + '" style="display:none">0%</div>' +
           '<div class="wb-option-controls">' +
-            '<div class="wb-liquidGlass-wrapper wb-option-control wb-remove-option wb-' + color + '-option wb-disabled-option"' +
-                ' data-action="remove" data-flavour-index="' + index + '">' +
+            '<button type="button" class="wb-liquidGlass-wrapper wb-option-control wb-remove-option wb-' + color + '-option wb-disabled-option"' +
+                ' data-action="remove" data-flavour-index="' + index + '"' +
+                ' aria-label="Remove ' + escapeHtml(option.name) + '">' +
               '<div class="wb-liquidGlass-effect"></div>' +
               '<div class="wb-liquidGlass-tint"></div>' +
               '<div class="wb-liquidGlass-shine"></div>' +
-              '<span class="wb-liquidGlass-text">-</span>' +
-            '</div>' +
-            '<div class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-' + color + '-option"' +
-                ' data-action="add" data-flavour-index="' + index + '">' +
+              '<span class="wb-liquidGlass-text" aria-hidden="true">–</span>' +
+            '</button>' +
+            '<button type="button" class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-' + color + '-option"' +
+                ' data-action="add" data-flavour-index="' + index + '"' +
+                ' aria-label="Add ' + escapeHtml(option.name) + '">' +
               '<div class="wb-liquidGlass-effect"></div>' +
               '<div class="wb-liquidGlass-tint"></div>' +
               '<div class="wb-liquidGlass-shine"></div>' +
-              '<span class="wb-liquidGlass-text">+</span>' +
-            '</div>' +
+              '<span class="wb-liquidGlass-text" aria-hidden="true">+</span>' +
+            '</button>' +
           '</div>' +
         '</div>' +
         '<div class="wb-card-details">' +
@@ -77,7 +79,7 @@
 
   /* ── Main init ─────────────────────────────────────────────────── */
   function init() {
-    var container = document.getElementById('wb-lab-flavours');
+    var container  = document.getElementById('wb-lab-flavours');
     if (!container) return;
 
     var apiBase = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
@@ -86,17 +88,103 @@
       return;
     }
 
-    fetch(apiBase + '/api/whisky-options')
-      .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      })
-      .then(function (options) {
-        renderLab(container, options, apiBase);
-      })
-      .catch(function (err) {
-        console.error('[WB Lab] Failed to load whisky options:', err);
+    var loaderEl    = document.getElementById('wb-loader');
+    var errorEl     = document.getElementById('wb-load-error');
+    var meterEl     = document.getElementById('wb-lab-meter');
+    var savePanelEl = document.getElementById('wb-save-panel');
+    var retryBtn    = document.getElementById('wb-retry-btn');
+    var mainEl      = document.getElementById('MainContent');
+
+    /* Move loader + error to <main> so they cover the full content area */
+    function coverMain(el) {
+      if (!el) return;
+      if (mainEl) {
+        mainEl.style.position = 'relative';
+        el.style.position  = 'absolute';
+        el.style.top       = '0';
+        el.style.right     = '0';
+        el.style.bottom    = '0';
+        el.style.left      = '0';
+        el.style.backgroundColor = '#ffffff';
+        el.style.zIndex    = '100';
+        el.style.overflowY = 'auto';
+        mainEl.insertBefore(el, mainEl.firstChild);
+      }
+    }
+    coverMain(loaderEl);
+    coverMain(errorEl);
+
+    /* ── State preview via URL param (?wb_state=loading|error) ── */
+    var debugState = new URLSearchParams(window.location.search).get('wb_state');
+    if (debugState === 'loading') return;
+    if (debugState === 'error') {
+      if (loaderEl) loaderEl.style.display = 'none';
+      if (errorEl)  errorEl.style.display  = '';
+      return;
+    }
+
+    function showUI(options) {
+      /* Reveal the UI elements behind the loader so they render offscreen */
+      container.style.display = '';
+      if (meterEl)     meterEl.style.display    = '';
+      if (savePanelEl) savePanelEl.style.display = '';
+
+      /* Render the lab — inserts cards and pie into the DOM */
+      renderLab(container, options, apiBase);
+
+      /* Collect all image URLs from the options data */
+      var imageUrls = [];
+      options.forEach(function (o) {
+        if (o.image)     imageUrls.push(o.image);
+        if (o.caskImage) imageUrls.push(o.caskImage);
       });
+
+      /* Wait for every card image + fonts to load, then fade the loader out */
+      var imagePromises = imageUrls.map(function (url) {
+        return new Promise(function (resolve) {
+          var img = new Image();
+          img.onload  = resolve;
+          img.onerror = resolve; /* resolve on error so we never hang */
+          img.src = url;
+        });
+      });
+
+      Promise.all([document.fonts.ready].concat(imagePromises)).then(function () {
+        if (!loaderEl) return;
+        loaderEl.style.transition = 'opacity 0.4s';
+        loaderEl.style.opacity = '0';
+        setTimeout(function () { loaderEl.style.display = 'none'; }, 420);
+      });
+    }
+
+    function showError() {
+      if (loaderEl) loaderEl.style.display = 'none';
+      if (errorEl)  errorEl.style.display  = '';
+    }
+
+    function loadOptions() {
+      if (loaderEl) {
+        loaderEl.style.opacity    = '1';
+        loaderEl.style.transition = '';
+        loaderEl.style.display    = '';
+      }
+      if (errorEl) errorEl.style.display = 'none';
+
+      fetch(apiBase + '/api/whisky-options')
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(showUI)
+        .catch(function (err) {
+          console.error('[WB Lab] Failed to load whisky options:', err);
+          showError();
+        });
+    }
+
+    if (retryBtn) retryBtn.addEventListener('click', loadOptions);
+
+    loadOptions();
   }
 
   /* ── Render ────────────────────────────────────────────────────── */
@@ -263,10 +351,14 @@
       saveBtn.removeAttribute('disabled');
 
       saveBtn.addEventListener('click', function () {
-        /* Not ready — scroll back up to the blending options */
+        /* Not ready — scroll to whichever step is outstanding */
         if (saveBtn.classList.contains('wb-button-disabled')) {
-          var flavoursEl = document.getElementById('wb-lab-flavours');
-          if (flavoursEl) flavoursEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (getTotal() < MAX_TOTAL) {
+            var flavoursEl = document.getElementById('wb-lab-flavours');
+            if (flavoursEl) flavoursEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
           return;
         }
 
@@ -365,6 +457,28 @@
     if (authorInput) authorInput.addEventListener('input', updateUI);
 
     /* ── Press-and-hold controls ─────────────────────────────────── */
+    /* ── Button press animations ───────────────────────────────────── */
+    function triggerAnim(f, adding) {
+      var amount  = f.card.querySelector('.wb-option-amount');
+      var btn     = f.card.querySelector(adding ? '[data-action="add"]' : '[data-action="remove"]');
+      var fillBar = document.getElementById('wb-lab-meter');
+      var cls     = adding ? 'wb-anim-add' : 'wb-anim-remove';
+
+      [amount, btn, fillBar].forEach(function (el) {
+        if (!el) return;
+        el.classList.remove('wb-anim-add', 'wb-anim-remove');
+        void el.offsetWidth; /* force reflow to restart animation */
+        el.classList.add(cls);
+      });
+
+      if (adding && f.colour) {
+        f.card.style.setProperty('--flash-color', f.colour);
+        f.card.classList.remove('wb-anim-border');
+        void f.card.offsetWidth;
+        f.card.classList.add('wb-anim-border');
+      }
+    }
+
     /* Fires action immediately, then repeatedly after an initial delay.
        Returning false from action stops the repeat (used when hitting limit).
        window blur stops repeat if user tabs away while holding. */
@@ -395,6 +509,12 @@
       el.addEventListener('touchend',    stop);
       el.addEventListener('touchcancel', stop);
       window.addEventListener('blur',    stop);
+      el.addEventListener('keydown', function (e) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          fn();
+        }
+      });
     }
 
     flavours.forEach(function (f) {
@@ -407,6 +527,7 @@
           if (getTotal() >= MAX_TOTAL) return false;
           f.amount = clamp(f.amount + STEP);
           updateUI();
+          triggerAnim(f, true);
           if (getTotal() === MAX_TOTAL) {
             var savePanel = document.getElementById('wb-save-panel');
             if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -421,6 +542,7 @@
           if (f.amount <= 0) return false;
           f.amount = clamp(f.amount - STEP);
           updateUI();
+          triggerAnim(f, false);
         });
       }
     });

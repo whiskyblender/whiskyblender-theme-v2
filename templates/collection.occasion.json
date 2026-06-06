@@ -92,48 +92,18 @@
         "padding_bottom": 0
       }
     },
-    "image_with_text_p79KiF": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading_3br9Ux": {
-          "type": "heading",
-          "settings": {
-            "heading": "Create something unique",
-            "heading_size": "h1"
-          }
-        },
-        "text_bKFi6p": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you’ll be proud to pour, share, and savor.</p>",
-            "text_style": "body"
-          }
-        },
-        "button_QWM7By": {
-          "type": "button",
-          "settings": {
-            "button_label": "Enter the lab",
-            "button_link": "shopify://pages/create",
-            "button_style_secondary": true
-          }
-        }
-      },
-      "block_order": ["heading_3br9Ux", "text_bKFi6p", "button_QWM7By"],
-      "name": "t:sections.image-with-text.presets.name",
+    "wb_cta_something_unique": {
+      "type": "wb-cta",
+      "name": "CTA - Something unique",
       "settings": {
-        "image": "shopify://shop_images/wb-unique-baked.png",
-        "height": "medium",
-        "desktop_image_width": "medium",
-        "layout": "text_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "top",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "",
-        "color_scheme": "",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "heading": "Something unique...",
+        "description": "Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you’ll be proud to pour, share, and savour.",
+        "image": "shopify://shop_images/wb-foryersel.png",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "Enter the lab",
+        "primary_button_url": "shopify://pages/the-lab",
+        "secondary_button_text": "Perfect drams",
+        "secondary_button_url": "shopify://pages/perfect-drams"
       }
     }
   },
@@ -143,6 +113,6 @@
     "banner",
     "product-grid",
     "featured_collection_HRFpeB",
-    "image_with_text_p79KiF"
+    "wb_cta_something_unique"
   ]
 }
