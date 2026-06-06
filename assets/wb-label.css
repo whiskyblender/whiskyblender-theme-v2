@@ -1,0 +1,427 @@
+/* ── Reset ─────────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: content-box; }
+
+body {
+  background: #000;
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Toolbar ───────────────────────────────────────────────────────────────── */
+
+#wb-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+
+.wb-btn {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.wb-btn--back  { background: transparent; color: #888; border: 1px solid #333; }
+.wb-btn--back:hover { color: #fff; border-color: #666; }
+.wb-btn--edit  { background: transparent; color: #aaa; border: 1px solid #333; }
+.wb-btn--edit:hover { color: #fff; border-color: #666; }
+.wb-btn--edit.is-active { color: #c8a050; border-color: #c8a050; }
+.wb-btn--copy  { background: transparent; color: #aaa; border: 1px solid #333; }
+.wb-btn--copy:hover { color: #fff; border-color: #666; }
+.wb-btn--print { background: #c8a050; color: #111; }
+.wb-btn--print:hover { background: #d4b060; }
+
+/* ── Form panel ────────────────────────────────────────────────────────────── */
+
+#wb-form-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 24;
+  background: #141414;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 70px 20px 28px;
+  display: none;
+}
+
+#wb-form-panel.is-visible { display: block; }
+
+#wb-form-inner {
+  max-width: 580px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.wb-field { display: flex; flex-direction: column; gap: 6px; }
+.wb-field--full { grid-column: 1 / -1; }
+
+.wb-field label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+}
+
+.wb-field input,
+.wb-field select {
+  box-sizing: border-box;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  padding: 9px 11px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.wb-field input::placeholder { color: #444; }
+.wb-field input:focus,
+.wb-field select:focus { border-color: #c8a050; }
+.wb-field select option { background: #1e1e1e; }
+
+.wb-field--blend-code { display: flex; gap: 6px; align-items: flex-end; }
+.wb-field--blend-code input { flex: 1; }
+
+.wb-btn--load {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 9px 14px;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #c8a050;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.wb-btn--load:hover { background: #333; }
+
+/* ── Page wrapper ──────────────────────────────────────────────────────────── */
+
+#wb-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ── Label page ────────────────────────────────────────────────────────────── */
+
+#page {
+  box-sizing: content-box;
+  background: #fff;
+  position: relative;
+  margin: 0 auto;
+  padding-top: 128px;
+  overflow: hidden;
+}
+
+#page.size50 { width: 794px; height: 432px; margin-top: calc(50vh - 280px); }
+#page.size20 { width: 562px; padding-top: 146px; height: 252px; margin-top: calc(50vh - 199px); }
+
+/* ── Summary zone (Zone 1 — above cropmarks, inside #page) ─────────────────── */
+
+#wb-summary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 20px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.size20 #wb-summary { padding: 5% 14% 0; }
+.size50 #wb-summary { padding: 10% 18% 0; }
+
+.wb-summary-item {
+  display: flex;
+  gap: 4px;
+  align-items: baseline;
+  font-size: 9px;
+}
+
+.wb-summary-item__label {
+  font-size: 7px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #999;
+}
+
+.wb-summary-item__value { color: #444; }
+
+/* ── Label area wrapper (holds crops + label) ──────────────────────────────── */
+
+.wb-label-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.size20 .wb-label-area {
+  padding-top: 73px;
+  height: 325px; /* content-box: 325 + 73 padding = 398px total (cropsH) */
+}
+
+.size50 .wb-label-area {
+  padding-top: 128px;
+  height: 432px; /* content-box: 432 + 128 padding = 560px total (cropsH) */
+}
+
+/* ── Crop marks ────────────────────────────────────────────────────────────── */
+
+.crops {
+  top: 0; left: 0;
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.size50 .crops { width: 794px; height: 560px; background: url(crops50.png) center center no-repeat; }
+.size20 .crops { width: 562px; height: 398px; background: url(crops20.png) center center no-repeat; }
+
+/* ── Label area ────────────────────────────────────────────────────────────── */
+
+#label {
+  position: relative;
+  margin: 0 auto;
+}
+
+.size50 #label { width: 552px; height: 303px; }
+.size20 #label { width: 427px; height: 252px; }
+
+/* ── Blend name ────────────────────────────────────────────────────────────── */
+
+#outer {
+  font-family: 'trimPosterCompressed', sans-serif;
+  font-weight: 400;
+  position: absolute;
+  width: 90px; height: 80px;
+  text-transform: uppercase;
+  place-content: center;
+  display: grid;
+  justify-content: start;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.size50 #outer { top: 56px; left: 195px; scale: 2.2; }
+.size20 #outer { top: 36px; left: 145px; scale: 1.6; }
+
+/* ── Author / distillery name ──────────────────────────────────────────────── */
+
+.side {
+  font-family: 'Raleway', sans-serif;
+  position: absolute;
+  width: 116px; height: 12px;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.size50 .side { top: 204px; left: 210px; scale: 2.2; }
+.size20 .side { top: 158px; left: 153px; scale: 1.6; }
+
+.side__name { font-size: 7px !important; line-height: 10px !important; font-weight: 700; }
+
+/* ── "Distilled at" label (single malt only) ───────────────────────────────── */
+
+.side-label {
+  position: absolute;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+/* ── Reference tag ─────────────────────────────────────────────────────────── */
+
+.reference {
+  position: absolute;
+  transform: rotate(-90deg);
+  z-index: 2;
+  text-align: right;
+  opacity: 0.6;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.size50 .reference { right: -30px; top: 45px; height: 20px; width: 80px; font-size: 8px; line-height: 10px; }
+.size20 .reference { right: -36px; top: 45px; height: 20px; width: 80px; font-size: 6px; line-height: 8px; }
+
+/* ── Artwork image ─────────────────────────────────────────────────────────── */
+
+.image {
+  position: absolute;
+  z-index: 1;
+  background-position: center center;
+  background-size: cover;
+}
+
+/* Custom blend — centred artwork panel */
+.size50 .image { top: -8px; left: 102px; width: 458px; height: 244px; }
+.size20 .image { top: -7px; left: 93px; width: 342px; height: 188px; }
+
+/* Single malt / cask — full-width roundel image that bleeds left */
+.size50.singlemalt .image,
+.size50.singlecask .image { top: 4px; left: -9px; width: 570px; height: 232px; }
+.size20.singlemalt .image,
+.size20.singlecask .image { top: 4px; left: -9px; width: 445px; height: 193px; }
+
+/* Gold bars background — single malt / cask (500ml only until 200ml file exists) */
+#page.size50.singlemalt,
+#page.size50.singlecask {
+  background-image: url(sample50cl-bars.png);
+  background-size: cover;
+}
+
+/* ── Recipe panel (Zone 3 — below cropmarks, inside #page) ─────────────────── */
+
+#wb-recipe-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.size20 #wb-recipe-panel { padding: 0 14% 5%; }
+.size50 #wb-recipe-panel { padding: 0 18% 10%; }
+
+#wb-recipe-panel h2 {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #999;
+  margin: 0 0 12px;
+}
+
+#wb-recipe-loading,
+#wb-recipe-error { font-size: 12px; color: #999; margin: 0; }
+#wb-recipe-error { color: #c55; }
+
+#wb-recipe-list {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 20px;
+}
+
+#wb-recipe-list li {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+}
+
+.wb-recipe-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.wb-recipe-ml { font-weight: 700; font-family: 'Roboto Mono', monospace; font-size: 9px; color: #333; }
+.wb-recipe-name { color: #666; }
+
+/* ── Miniature contact sheet ────────────────────────────────────────────────── */
+
+#wb-contact-sheet { display: none; justify-content: center; padding: 24px; }
+#wb-contact-sheet.is-visible { display: flex; }
+
+.wb-contact-page { background: #fff; position: relative; flex-shrink: 0; }
+
+.wb-contact-grid {
+  position: absolute;
+  display: grid;
+}
+
+.wb-mini-label {
+  width: 250px; height: 250px;
+  display: flex; flex-direction: column;
+  border: 0.5px solid #aaa;
+  overflow: hidden;
+  background: #fff;
+  font-family: 'Raleway', sans-serif;
+}
+
+.wb-mini-row { display: flex; flex: 1; overflow: hidden; }
+
+.wb-mini-strip {
+  width: 28px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.wb-mini-strip--left  { border-right: 0.5px solid #ddd; }
+.wb-mini-strip--right { border-left:  0.5px solid #ddd; }
+
+.wb-mini-strip span { writing-mode: vertical-rl; font-size: 5.5px; letter-spacing: 0.06em; white-space: nowrap; color: #666; }
+.wb-mini-strip--left span { transform: rotate(180deg); }
+
+.wb-mini-centre { flex: 1; display: flex; align-items: center; justify-content: center; padding: 8px 6px; }
+
+.wb-mini-frame {
+  width: 100%; height: 100%;
+  border: 1px solid #c8a050;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 6px; text-align: center; gap: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.wb-mini-name  { font-family: 'trimPosterCompressed', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; color: #111; }
+.wb-mini-by    { font-size: 7px; color: #555; }
+.wb-mini-author { font-size: 8px; font-weight: 600; color: #111; line-height: 1.2; }
+.wb-mini-ref   { position: absolute; bottom: 3px; right: 4px; font-size: 5px; color: #aaa; font-family: 'Roboto Mono', monospace; letter-spacing: 0.04em; }
+.wb-mini-bar   { height: 38px; flex-shrink: 0; background: #111; color: #c8a050; display: flex; align-items: center; justify-content: center; font-size: 5.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+
+/* ── Print ─────────────────────────────────────────────────────────────────── */
+
+@media print {
+  @page { margin: 0; }
+
+  body { background: #fff !important; }
+
+  #wb-toolbar,
+  #wb-form-panel { display: none !important; }
+
+  #wb-page-wrapper { padding: 0; justify-content: center; }
+
+  #wb-summary { padding: 10px 20px 8px; }
+
+  #wb-recipe-panel { display: flex; }
+
+  #wb-contact-sheet { padding: 0; }
+}

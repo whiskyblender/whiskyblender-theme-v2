@@ -131,20 +131,38 @@
       };
     });
 
-    /* ── Pre-load recipe from Perfect Drams sessionStorage ── */
+    /* ── Pre-load blend from API if ?blend= param is present ──── */
+    /* Covers two cases: "Change" from product page (real saved blend)
+       and any premade blend link. Matches amounts by identifier so
+       option order changes don't corrupt the recipe. Also prefills
+       the name and author fields. */
     (function () {
-      try {
-        var params = new URLSearchParams(window.location.search);
-        var code = params.get('blend');
-        if (!code) return;
-        var stored = sessionStorage.getItem('wb_' + code);
-        if (!stored) return;
-        var preload = JSON.parse(stored);
-        if (!preload || !Array.isArray(preload.recipe)) return;
-        preload.recipe.forEach(function (amount, idx) {
-          if (flavours[idx] !== undefined) flavours[idx].amount = amount;
-        });
-      } catch (e) {}
+      var slug = new URLSearchParams(window.location.search).get('blend');
+      if (!slug) return;
+
+      fetch(apiBase + '/api/blend?slug=' + encodeURIComponent(slug))
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .then(function (blend) {
+          if (!blend) return;
+
+          /* Prefill amounts — match by identifier, not array index */
+          var recipe = Array.isArray(blend.recipe) ? blend.recipe : [];
+          recipe.forEach(function (item) {
+            for (var i = 0; i < flavours.length; i++) {
+              if (flavours[i].identifier === item.identifier) {
+                flavours[i].amount = item.amount || 0;
+                break;
+              }
+            }
+          });
+
+          /* Prefill name and author — only if the fields are still empty */
+          if (titleInput  && !titleInput.value  && blend.title)  titleInput.value  = blend.title;
+          if (authorInput && !authorInput.value && blend.author) authorInput.value = blend.author;
+
+          updateUI();
+        })
+        .catch(function () {}); /* silent fail — don't break the lab */
     })();
 
     /* ── Save panel ── */
@@ -234,7 +252,7 @@
         } else if (!title || !author) {
           saveBtn.textContent = 'Fill in your details';
         } else {
-          saveBtn.textContent = 'Save my blend';
+          saveBtn.textContent = 'Bottle your whisky';
         }
       }
     }
@@ -322,7 +340,7 @@
           })
           .catch(function (err) {
             saveBtn.disabled = false;
-            saveBtn.textContent = 'Save my blend';
+            saveBtn.textContent = 'Bottle your whisky';
             showError(err.message || 'Something went wrong. Please try again.');
           });
       });
@@ -346,6 +364,67 @@
     if (titleInput)  titleInput.addEventListener('input',  updateUI);
     if (authorInput) authorInput.addEventListener('input', updateUI);
 
+    /* ── Press-and-hold controls ─────────────────────────────────── */
+    /* Fires action immediately, then repeatedly after an initial delay.
+       Returning false from action stops the repeat (used when hitting limit).
+       window blur stops repeat if user tabs away while holding. */
+
+    function withRepeat(el, fn) {
+      var timer = null;
+
+      function stop() {
+        if (timer) { clearTimeout(timer); timer = null; }
+      }
+
+      function fire() {
+        var result = fn();
+        if (result !== false) timer = setTimeout(fire, 120);
+        else timer = null;
+      }
+
+      function start(e) {
+        e.preventDefault();
+        fn();
+        timer = setTimeout(fire, 380);
+      }
+
+      el.addEventListener('mousedown',   start);
+      el.addEventListener('touchstart',  function (e) { start(e); }, { passive: false });
+      el.addEventListener('mouseup',     stop);
+      el.addEventListener('mouseleave',  stop);
+      el.addEventListener('touchend',    stop);
+      el.addEventListener('touchcancel', stop);
+      window.addEventListener('blur',    stop);
+    }
+
+    flavours.forEach(function (f) {
+      var addBtn    = f.card.querySelector('[data-action="add"]');
+      var removeBtn = f.card.querySelector('[data-action="remove"]');
+
+      if (addBtn) {
+        withRepeat(addBtn, function () {
+          if (blendSaved) return false;
+          if (getTotal() >= MAX_TOTAL) return false;
+          f.amount = clamp(f.amount + STEP);
+          updateUI();
+          if (getTotal() === MAX_TOTAL) {
+            var savePanel = document.getElementById('wb-save-panel');
+            if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return false; // blend complete — stop repeating
+          }
+        });
+      }
+
+      if (removeBtn) {
+        withRepeat(removeBtn, function () {
+          if (blendSaved) return false;
+          if (f.amount <= 0) return false;
+          f.amount = clamp(f.amount - STEP);
+          updateUI();
+        });
+      }
+    });
+
     /* ── Name generator ── */
     var generateBtn = document.getElementById('wb-generate-name');
     if (generateBtn && titleInput) {
@@ -358,32 +437,6 @@
       });
     }
 
-    /* ── Event delegation ── */
-    container.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-action]');
-      if (!btn) return;
-      if (blendSaved) return;
-
-      var action = btn.getAttribute('data-action');
-      var idx = parseInt(btn.getAttribute('data-flavour-index'), 10);
-      if (isNaN(idx) || !flavours[idx]) return;
-
-      var totalBefore = getTotal();
-
-      if (action === 'add' && totalBefore < MAX_TOTAL) {
-        flavours[idx].amount = clamp(flavours[idx].amount + STEP);
-      } else if (action === 'remove' && flavours[idx].amount > 0) {
-        flavours[idx].amount = clamp(flavours[idx].amount - STEP);
-      }
-
-      updateUI();
-
-      /* Scroll to the name/author form when the blend first hits 100% */
-      if (action === 'add' && getTotal() === MAX_TOTAL) {
-        var savePanel = document.getElementById('wb-save-panel');
-        if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
 
     /* Initial render */
     updateUI();

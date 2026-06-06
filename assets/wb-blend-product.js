@@ -74,27 +74,40 @@
 
   /* ── Hidden cart properties ──────────────────────────────────────── */
 
-  function injectCartProperties(blend) {
-    var form = document.querySelector('form[action="/cart/add"]');
+  function injectCartProperties(blend, variantsJson, labelPage, bottleSize) {
+    /* Two forms share action="/cart/add" — the main product form and an
+       installment/BNPL form. Skip the installment one explicitly. */
+    var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
 
-    var props = {
-      '_blend_slug':   blend.slug,
-      '_blend_title':  blend.title,
-      '_blend_author': blend.author,
-      '_blend_recipe': JSON.stringify(blend.recipe),
-    };
+    form.addEventListener('formdata', function (e) {
+      var variantTitle = '';
+      try {
+        var variants = JSON.parse(variantsJson || '[]');
+        var idInput  = form.querySelector('[name="id"]');
+        if (idInput) {
+          var selected = variants.find(function (v) { return String(v.id) === String(idInput.value); });
+          if (selected) variantTitle = selected.title;
+        }
+      } catch (err) { /* ignore */ }
 
-    Object.keys(props).forEach(function (key) {
-      var input = form.querySelector('input[name="properties[' + key + ']"]');
-      if (!input) {
-        input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'properties[' + key + ']';
-        form.appendChild(input);
-      }
-      input.value = props[key] || '';
+      var labelText  = (document.getElementById('label-text') || {}).value || '';
+      var authorText = (document.getElementById('created-by') || {}).value || '';
+
+      var labelUrl = window.location.origin + (labelPage || '/pages/label') +
+        '?blend='   + encodeURIComponent(blend.slug) +
+        '&product=customblend' +
+        '&variant=' + encodeURIComponent(variantTitle) +
+        '&text='    + encodeURIComponent(labelText) +
+        '&author='  + encodeURIComponent(authorText) +
+        (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
+
+      e.formData.set('properties[_blend_slug]',   blend.slug);
+      e.formData.set('properties[_blend_title]',  blend.title);
+      e.formData.set('properties[_blend_author]', blend.author);
+      e.formData.set('properties[_blend_url]',    labelUrl);
     });
+
   }
 
   /* ── No-blend state ──────────────────────────────────────────────── */
@@ -161,9 +174,13 @@
     var container = document.getElementById('wb-blend-product-loader');
     if (!container) return;
 
-    var apiBase = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
-    var labUrl  = container.getAttribute('data-lab-url') || '';
-    var slug    = new URLSearchParams(window.location.search).get('blend');
+    var apiBase      = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
+    var labUrl       = container.getAttribute('data-lab-url')   || '';
+    var labelPage    = container.getAttribute('data-label-page')|| '/pages/label';
+    var bottleSize   = container.getAttribute('data-bottle-size') || '';
+    var variantsEl   = document.getElementById('wb-variants-data');
+    var variantsJson = variantsEl ? variantsEl.textContent : '[]';
+    var slug         = new URLSearchParams(window.location.search).get('blend');
 
     if (!slug) {
       showNoBlendState();
@@ -190,7 +207,7 @@
 
         renderRecipe(result.data, labUrl);
         populateInputs(result.data);
-        injectCartProperties(result.data);
+        injectCartProperties(result.data, variantsJson, labelPage, bottleSize);
       })
       .catch(function () {
         hide(loadingEl);

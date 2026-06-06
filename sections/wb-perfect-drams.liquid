@@ -1,5 +1,7 @@
 {{ 'wb-perfectdrams.css' | asset_url | stylesheet_tag }}
 
+{%- assign options_base = section.settings.custom_options_url | default: '/pages/custom-options' | strip -%}
+
 <section class="wb-first-item">
   <div class="wb-container">
     <div class="wb-padding wb-collection-copy">
@@ -8,12 +10,14 @@
 
       <ul class="wb-cards wb-main-cards" id="wb-perfect-drams-cards">
         {%- for block in section.blocks -%}
-          {%- assign href = block.settings.url | default: '/pages/the-lab' -%}
+          {%- assign blend_code = block.settings.blend_code | strip -%}
+          {%- if blend_code != blank -%}
+            {%- assign href = options_base | append: '?blend=' | append: blend_code -%}
+          {%- else -%}
+            {%- assign href = options_base -%}
+          {%- endif -%}
           <li
             onclick="location.href='{{ href }}';"
-            data-href="{{ href }}"
-            data-recipe="{{ block.settings.recipe }}"
-            data-name="{{ block.settings.name | escape }}"
             {{ block.shopify_attributes }}
           >
             <div class="wb-card-image">
@@ -37,31 +41,6 @@
   </div>
 </section>
 
-<script>
-(function () {
-  var cards = document.querySelectorAll('#wb-perfect-drams-cards li');
-  cards.forEach(function (card) {
-    var recipeStr = card.getAttribute('data-recipe') || '';
-    var recipe = recipeStr.split(',').map(function (n) { return parseInt(n.trim(), 10) || 0; });
-    if (recipe.length !== 5 || recipe.reduce(function (a, b) { return a + b; }, 0) !== 100) return;
-
-    var code = 'WB' + (Math.floor(Math.random() * 900000) + 100000);
-    try {
-      sessionStorage.setItem('wb_' + code, JSON.stringify({
-        name:    card.getAttribute('data-name') || '',
-        creator: 'whiskyblender.com',
-        recipe:  recipe,
-      }));
-    } catch (e) {}
-
-    var href = (card.getAttribute('data-href') || '/pages/the-lab') + '?blend=' + code;
-    card.setAttribute('onclick', "location.href='" + href + "';");
-    var link = card.querySelector('a');
-    if (link) link.href = href;
-  });
-})();
-</script>
-
 {% schema %}
 {
   "name": "WB - Perfect Drams",
@@ -77,6 +56,12 @@
       "id": "intro",
       "label": "Intro text",
       "default": "Forget about what they like, and think about what THEY'RE like. Different whiskies have different characteristics, just like people. Find one that sounds perfect for the person you're buying for and label it up for them."
+    },
+    {
+      "type": "url",
+      "id": "custom_options_url",
+      "label": "Bottle options page URL",
+      "info": "The page where customers choose their bottle format. Each dram card links here with the blend code appended."
     }
   ],
   "blocks": [
@@ -94,7 +79,7 @@
           "type": "text",
           "id": "image_asset",
           "label": "Theme asset filename",
-          "info": "Used as a fallback if no image is selected above (e.g. wb-richandbold.png)"
+          "info": "Fallback if no image selected above (e.g. wb-richandbold.png)"
         },
         {
           "type": "text",
@@ -112,15 +97,10 @@
           "label": "Description"
         },
         {
-          "type": "url",
-          "id": "url",
-          "label": "Card link URL"
-        },
-        {
           "type": "text",
-          "id": "recipe",
-          "label": "Lab recipe",
-          "info": "5 comma-separated percentages summing to 100. Order: Banana split, Malted bacon, Spicy beeswax, Salty butter, Charred marshmallow."
+          "id": "blend_code",
+          "label": "Blend code",
+          "info": "The premade blend's slug from the app — e.g. WB000042. Create premade blends in the Shopify app admin."
         }
       ]
     }
