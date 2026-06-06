@@ -85,8 +85,8 @@ ul {
   margin: 0 auto;
 }
 
-.wb-banded {
-  overflow: hidden;
+main {
+  overflow-x: hidden;
 }
 
 section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-section:nth-of-type(even) section.wb-banded {
