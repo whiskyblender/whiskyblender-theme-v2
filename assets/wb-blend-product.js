@@ -212,7 +212,7 @@
 
         if (!result.ok) {
           showNoBlendState(slug);
-          showError(‘We can\’t find that blend. Either your code is wrong or it\’s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.’);
+          showError('We can\'t find that blend. Either your code is wrong or it\'s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
           return;
         }
 
