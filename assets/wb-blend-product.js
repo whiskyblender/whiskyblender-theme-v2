@@ -120,6 +120,7 @@
   }
 
   function showBuyForm() {
+    document.documentElement.classList.remove('wb-blend-loading');
     show(document.querySelector('[name="add"]'));
     show(document.querySelector('.product-form__quantity'));
     var bottleForms = document.querySelectorAll('.wb-bottle-form');
