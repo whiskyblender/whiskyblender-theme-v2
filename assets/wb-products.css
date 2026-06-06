@@ -281,14 +281,10 @@ span.wb-radio input {
   display: none;
 }
 
-.wb-radio {
-  margin-top: 2px;
-}
-
 span.wb-radio {
   display: inline-block;
   margin-bottom: 8px;
-  margin-right: 10px;
+  margin-right: 8px;
 }
 
 span.wb-radio label {
