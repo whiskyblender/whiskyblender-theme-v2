@@ -398,9 +398,10 @@ body {
   align-items: center; justify-content: center;
   padding: 6px; text-align: center; gap: 3px;
   position: relative;
+  overflow: hidden;
 }
 
-.wb-mini-name  { font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.15; color: #111; }
+.wb-mini-name  { font-family: 'trimPosterCompressed', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; color: #111; }
 .wb-mini-by    { font-size: 7px; color: #555; }
 .wb-mini-author { font-size: 8px; font-weight: 600; color: #111; line-height: 1.2; }
 .wb-mini-ref   { position: absolute; bottom: 3px; right: 4px; font-size: 5px; color: #aaa; font-family: 'Roboto Mono', monospace; letter-spacing: 0.04em; }

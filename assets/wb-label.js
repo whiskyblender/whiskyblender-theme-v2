@@ -102,6 +102,21 @@
     });
   }
 
+  function resizeMiniText(el) {
+    var min = 6, max = 26, step = 0.5;
+    var parent = el.parentNode;
+    var i = min;
+    while (i < max) {
+      el.style.fontSize   = i + 'px';
+      el.style.lineHeight = (i * 0.9) + 'px';
+      if (parent.scrollHeight > parent.clientHeight || parent.scrollWidth > parent.clientWidth) break;
+      i += step;
+    }
+    var final = Math.max(min, i - step);
+    el.style.fontSize   = final + 'px';
+    el.style.lineHeight = (final * 0.9) + 'px';
+  }
+
   function buildZigzagClip(w, h, step, depth) {
     var count = Math.ceil(w / step);
     var pts = [];
@@ -427,6 +442,10 @@
     var html = '';
     for (var i = 0; i < CONTACT.cols * CONTACT.rows; i++) html += buildMiniLabel();
     grid.innerHTML = html;
+
+    document.fonts.ready.then(function () {
+      document.querySelectorAll('.wb-mini-name').forEach(resizeMiniText);
+    });
   }
 
   /* ── Zone 3: Recipe panel ───────────────────────────────────────────────────── */
