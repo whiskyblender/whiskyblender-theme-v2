@@ -188,7 +188,7 @@ body {
 
 .size50 .wb-label-area {
   padding-top: 128px;
-  height: 432px; /* content-box: 432 + 128 padding = 580px total (cropsH) */
+  height: 432px; /* content-box: 432 + 128 padding = 560px total (cropsH) */
 }
 
 /* ── Crop marks ────────────────────────────────────────────────────────────── */
@@ -200,7 +200,7 @@ body {
   z-index: 10;
 }
 
-.size50 .crops { width: 794px; height: 580px; background: url(crops50.png) center center no-repeat; }
+.size50 .crops { width: 794px; height: 560px; background: url(crops50.png) center center no-repeat; }
 .size20 .crops { width: 562px; height: 398px; background: url(crops20.png) center center no-repeat; }
 
 /* ── Label area ────────────────────────────────────────────────────────────── */
