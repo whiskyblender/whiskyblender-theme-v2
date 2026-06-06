@@ -134,12 +134,14 @@
   }
 
   function fireConfetti(slug) {
-    if (typeof confetti === 'undefined') return;
-    var key = 'wb_confetti_' + slug;
-    if (sessionStorage.getItem(key)) return;
-    sessionStorage.setItem(key, '1');
-    setTimeout(function () { confetti.start(); }, 600);
-    setTimeout(function () { confetti.stop(); }, 4000);
+    if (typeof window.confetti === 'undefined' || typeof window.confetti.start !== 'function') return;
+    try {
+      var key = 'wb_confetti_' + slug;
+      if (sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key, '1');
+    } catch (e) { /* sessionStorage unavailable — fire anyway */ }
+    setTimeout(function () { window.confetti.start(); }, 600);
+    setTimeout(function () { window.confetti.stop(); }, 4000);
   }
 
   /* ── Inactive option warning ─────────────────────────────────────── */
