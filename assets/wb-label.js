@@ -308,7 +308,7 @@
   }
 
   function renderLabel() {
-    var isMini = (state.product === 'miniatures');
+    var isMini = (state.product === 'miniatures') || (state.product === 'customblend' && state.size === '50ml');
     var pageEl = document.getElementById('page');
     var contactSheet = document.getElementById('wb-contact-sheet');
 
