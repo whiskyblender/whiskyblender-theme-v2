@@ -49,16 +49,14 @@
   /* ── State ─────────────────────────────────────────────────────────────────── */
 
   var state = {
-    type:       'blend',
+    product:    'customblend',  /* customblend | singlemalt | singlecask */
     blend:      '',
     text:       '',
     author:     '',
     distillery: '',
     strength:   '46',
-    singlecask: false,
     variant:    'standard',
     size:       '200ml',
-    product:    '',
     fg:         '#111111',
     bg:         '#ffffff',
     reference:  '',
@@ -139,13 +137,11 @@
 
   function readParams() {
     var p = new URLSearchParams(window.location.search);
-    if (p.get('type'))       state.type       = p.get('type');
     if (p.get('blend'))      state.blend      = p.get('blend');
     if (p.get('text'))       state.text       = p.get('text');
     if (p.get('author'))     state.author     = p.get('author');
     if (p.get('distillery')) state.distillery = p.get('distillery');
     if (p.get('strength'))   state.strength   = p.get('strength');
-    if (p.get('singlecask')) state.singlecask = p.get('singlecask') === 'true';
     if (p.get('variant'))    state.variant    = p.get('variant');
     if (p.get('size'))       state.size       = p.get('size');
     if (p.get('product'))    state.product    = p.get('product');
@@ -153,9 +149,15 @@
     if (p.get('bg'))         state.bg         = p.get('bg');
     if (p.get('reference'))  state.reference  = p.get('reference');
 
-    /* Fallback: derive product from legacy type param for old URLs */
-    if (!state.product) {
-      state.product = state.type === 'single-malt' ? 'singlemalt' : 'customblend';
+    /* Legacy: map old type= and singlecask= params to product slug */
+    if (!p.get('product')) {
+      var legacyType = p.get('type');
+      var legacySC   = p.get('singlecask') === 'true';
+      if (legacyType === 'single-malt') {
+        state.product = legacySC ? 'singlecask' : 'singlemalt';
+      } else {
+        state.product = 'customblend';
+      }
     }
   }
 
@@ -163,16 +165,14 @@
 
   function buildUrl() {
     var p = new URLSearchParams();
-    p.set('type', state.type);
+    p.set('product', state.product);
     if (state.blend)      p.set('blend',      state.blend);
     if (state.text)       p.set('text',       state.text);
     if (state.author)     p.set('author',     state.author);
     if (state.distillery) p.set('distillery', state.distillery);
     if (state.strength)   p.set('strength',   state.strength);
-    if (state.singlecask) p.set('singlecask', 'true');
     if (state.variant)    p.set('variant',    state.variant);
     if (state.size)       p.set('size',       state.size);
-    if (state.product)    p.set('product',    state.product);
     if (state.fg && state.fg !== '#111111') p.set('fg', state.fg);
     if (state.bg && state.bg !== '#ffffff') p.set('bg', state.bg);
     if (state.reference)  p.set('reference',  state.reference);
@@ -186,7 +186,7 @@
     if (!el) return;
     var items = [];
     if (state.reference) items.push({ label: 'Order', value: state.reference });
-    if (state.type === 'blend') {
+    if (state.product === 'customblend') {
       if (state.blend) items.push({ label: 'Blend', value: state.blend });
       if (state.author) items.push({ label: 'Created by', value: state.author });
     } else {
@@ -251,7 +251,7 @@
     label.appendChild(info);
 
     /* Single cask strip */
-    if (state.singlecask) {
+    if (state.product === 'singlecask') {
       var sc = document.createElement('div');
       sc.className = 'wb-side-panel';
       sc.style.cssText = [
@@ -329,15 +329,15 @@
     /* Side name (author or distillery) */
     var sideNameEl = document.getElementById('sideName');
     if (sideNameEl) {
-      sideNameEl.textContent = state.type === 'blend' ? (state.author || '') : (state.distillery || '');
+      sideNameEl.textContent = state.product === 'customblend' ? (state.author || '') : (state.distillery || '');
       sideNameEl.style.color = fg;
       sideNameEl.style.textShadow = '1px 1px ' + shadow;
     }
 
-    /* Side label ("Distilled at" — single malt only; blend shows author with no label) */
+    /* Side label ("Distilled at" — single malt/cask only; blend shows author with no label) */
     var sideLabelEl = document.getElementById('sideLabel');
     if (sideLabelEl) {
-      if (state.type === 'blend') {
+      if (state.product === 'customblend') {
         sideLabelEl.style.display = 'none';
       } else {
         sideLabelEl.style.display = '';
@@ -355,8 +355,8 @@
       refEl.textContent = state.reference || '';
     }
 
-    /* Side panel — single malt only (ABV / domain / ml strip) */
-    if (state.type !== 'blend') {
+    /* Side panel — single malt / single cask only (ABV / domain / ml strip) */
+    if (state.product !== 'customblend') {
       renderSidePanel(d);
     } else {
       removeSidePanels();
@@ -372,7 +372,7 @@
 
   function buildMiniLabel() {
     var name = state.text || '';
-    var author = state.type === 'blend' ? (state.author || '') : (state.distillery || '');
+    var author = state.product === 'customblend' ? (state.author || '') : (state.distillery || '');
     var ref = state.reference || '';
     var strength = state.strength || '46';
 
@@ -433,7 +433,7 @@
     var list    = document.getElementById('wb-recipe-list');
     if (!panel) return;
 
-    if (state.type !== 'blend') {
+    if (state.product !== 'customblend') {
       panel.style.display = 'none';
       return;
     }
@@ -520,13 +520,12 @@
     var bg       = document.getElementById('wb-f-bg');
     var ref      = document.getElementById('wb-f-reference');
 
-    if (t)        t.value        = state.type;
+    if (t)        t.value        = state.product;
     if (blend)    blend.value    = state.blend;
     if (text)     text.value     = state.text;
     if (author)   author.value   = state.author;
     if (dist)     dist.value     = state.distillery;
     if (strength) strength.value = state.strength;
-    if (scask)    scask.value    = state.singlecask ? 'true' : '';
     if (size)     size.value     = state.size;
     if (variant)  variant.value  = state.variant;
     if (fg)       fg.value       = state.fg;
@@ -537,7 +536,7 @@
   }
 
   function updateTypeVisibility() {
-    var isBlend = state.type === 'blend';
+    var isBlend = state.product === 'customblend';
     document.querySelectorAll('.wb-blend-only').forEach(function (el) {
       el.style.display = isBlend ? '' : 'none';
     });
@@ -559,7 +558,7 @@
     var t = document.getElementById('wb-f-type');
     if (t) {
       t.addEventListener('change', function () {
-        state.type = t.value;
+        state.product = t.value;
         state.recipe = null;
         updateTypeVisibility();
         render();
@@ -572,14 +571,6 @@
     onChange('distillery', document.getElementById('wb-f-distillery'),  null);
     onChange('strength',   document.getElementById('wb-f-strength'),    null);
     onChange('reference',  document.getElementById('wb-f-reference'),   null);
-
-    var scask = document.getElementById('wb-f-singlecask');
-    if (scask) {
-      scask.addEventListener('change', function () {
-        state.singlecask = scask.value === 'true';
-        render();
-      });
-    }
 
     var size = document.getElementById('wb-f-size');
     if (size) {
@@ -662,7 +653,7 @@
     initForm();
 
     /* Auto-fetch blend recipe if slug present */
-    if (state.type === 'blend' && state.blend) {
+    if (state.product === 'customblend' && state.blend) {
       loadBlend(state.blend);
     }
   }

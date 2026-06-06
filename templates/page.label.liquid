@@ -35,10 +35,11 @@
     <div id="wb-form-inner">
 
       <div class="wb-field wb-field--full">
-        <label for="wb-f-type">Type</label>
+        <label for="wb-f-type">Product</label>
         <select id="wb-f-type">
-          <option value="blend">Custom Blend</option>
-          <option value="single-malt">Single Malt</option>
+          <option value="customblend">Custom Blend</option>
+          <option value="singlemalt">Single Malt</option>
+          <option value="singlecask">Single Cask</option>
         </select>
       </div>
 
@@ -68,14 +69,6 @@
       <div class="wb-field wb-singlemalt-only">
         <label for="wb-f-strength">Strength</label>
         <input type="number" id="wb-f-strength" placeholder="46" min="0" max="99">
-      </div>
-
-      <div class="wb-field wb-singlemalt-only">
-        <label for="wb-f-singlecask">Single cask</label>
-        <select id="wb-f-singlecask">
-          <option value="">No</option>
-          <option value="true">Yes</option>
-        </select>
       </div>
 
       <div class="wb-field">
