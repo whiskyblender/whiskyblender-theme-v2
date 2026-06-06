@@ -85,8 +85,8 @@
 }
 
 .wb-age-gate__btn-main {
-  font-family: TrimPosterWebCompressed, sans-serif;
-  font-size: 52px;
+  font-family: 'trimPosterCompressed', sans-serif;
+  font-size: 80px;
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
@@ -194,8 +194,7 @@
   }
 
   function decline() {
-    document.getElementById('wb-age-gate').querySelector('.wb-age-gate__content').style.display = 'none';
-    document.getElementById('wb-age-sorry').style.display = 'block';
+    window.location.href = 'https://www.drinkaware.co.uk';
   }
 
   document.getElementById('wb-age-yes').addEventListener('click', dismiss);
