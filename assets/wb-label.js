@@ -120,8 +120,10 @@
 
   function getArtworkUrl(product, variant, size) {
     if (!product || !variant) return null;
-    var cdn = document.getElementById('wb-label-root').getAttribute('data-cdn') || '';
-    return cdn + 'wb-' + product + '-' + slugify(variant) + '-' + size + '.jpg';
+    var root = document.getElementById('wb-label-root');
+    var cdn = root.getAttribute('data-cdn') || '';
+    var av  = root.getAttribute('data-av') || '1';
+    return cdn + 'wb-' + product + '-' + slugify(variant) + '-' + size + '.jpg?v=' + av;
   }
 
   function luminance(hex) {
