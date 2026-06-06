@@ -79,7 +79,7 @@
 
   /* ── Main init ─────────────────────────────────────────────────── */
   function init() {
-    var container = document.getElementById('wb-lab-flavours');
+    var container  = document.getElementById('wb-lab-flavours');
     if (!container) return;
 
     var apiBase = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
@@ -88,17 +88,68 @@
       return;
     }
 
-    fetch(apiBase + '/api/whisky-options')
-      .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      })
-      .then(function (options) {
+    var loaderEl   = document.getElementById('wb-loader');
+    var errorEl    = document.getElementById('wb-load-error');
+    var meterEl    = document.getElementById('wb-lab-meter');
+    var savePanelEl = document.getElementById('wb-save-panel');
+    var retryBtn   = document.getElementById('wb-retry-btn');
+
+    /* ── State preview via URL param (?wb_state=loading|error) ── */
+    var debugState = new URLSearchParams(window.location.search).get('wb_state');
+    if (debugState === 'loading') return;
+    if (debugState === 'error') {
+      if (loaderEl) loaderEl.style.display = 'none';
+      if (errorEl)  errorEl.style.display  = '';
+      return;
+    }
+
+    function showUI(options) {
+      if (loaderEl) {
+        loaderEl.style.transition = 'opacity 0.3s';
+        loaderEl.style.opacity = '0';
+        setTimeout(function () {
+          loaderEl.style.display = 'none';
+          container.style.display    = '';
+          if (meterEl)     meterEl.style.display     = '';
+          if (savePanelEl) savePanelEl.style.display  = '';
+          renderLab(container, options, apiBase);
+        }, 300);
+      } else {
+        container.style.display = '';
+        if (meterEl)     meterEl.style.display     = '';
+        if (savePanelEl) savePanelEl.style.display  = '';
         renderLab(container, options, apiBase);
-      })
-      .catch(function (err) {
-        console.error('[WB Lab] Failed to load whisky options:', err);
-      });
+      }
+    }
+
+    function showError() {
+      if (loaderEl) loaderEl.style.display = 'none';
+      if (errorEl)  errorEl.style.display  = '';
+    }
+
+    function loadOptions() {
+      if (loaderEl) {
+        loaderEl.style.opacity    = '1';
+        loaderEl.style.transition = '';
+        loaderEl.style.display    = '';
+      }
+      if (errorEl) errorEl.style.display = 'none';
+
+      fetch(apiBase + '/api/whisky-options')
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(showUI)
+        .catch(function (err) {
+          console.error('[WB Lab] Failed to load whisky options:', err);
+          showError();
+        });
+    }
+
+    if (retryBtn) retryBtn.addEventListener('click', loadOptions);
+
+    loadOptions();
   }
 
   /* ── Render ────────────────────────────────────────────────────── */
