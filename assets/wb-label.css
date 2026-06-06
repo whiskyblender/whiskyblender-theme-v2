@@ -136,7 +136,7 @@ body {
   overflow: hidden;
 }
 
-#page.size50 { width: 794px; height: 432px; }
+#page.size50 { width: 794px; height: 432px; margin-top: calc(50vh - 280px); }
 #page.size20 { width: 562px; padding-top: 146px; height: 252px; margin-top: calc(50vh - 199px); }
 
 /* ── Summary zone (Zone 1 — above cropmarks, inside #page) ─────────────────── */
