@@ -183,6 +183,7 @@
     if (state.reference) items.push({ label: 'Order', value: state.reference });
     if (state.type === 'blend') {
       if (state.blend) items.push({ label: 'Blend', value: state.blend });
+      if (state.author) items.push({ label: 'Created by', value: state.author });
     } else {
       if (state.distillery) items.push({ label: 'Product', value: state.distillery });
     }
