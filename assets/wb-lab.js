@@ -124,22 +124,37 @@
     }
 
     function showUI(options) {
-      if (loaderEl) {
-        loaderEl.style.transition = 'opacity 0.3s';
+      /* Reveal the UI elements behind the loader so they render offscreen */
+      container.style.display = '';
+      if (meterEl)     meterEl.style.display    = '';
+      if (savePanelEl) savePanelEl.style.display = '';
+
+      /* Render the lab — inserts cards and pie into the DOM */
+      renderLab(container, options, apiBase);
+
+      /* Collect all image URLs from the options data */
+      var imageUrls = [];
+      options.forEach(function (o) {
+        if (o.image)     imageUrls.push(o.image);
+        if (o.caskImage) imageUrls.push(o.caskImage);
+      });
+
+      /* Wait for every card image + fonts to load, then fade the loader out */
+      var imagePromises = imageUrls.map(function (url) {
+        return new Promise(function (resolve) {
+          var img = new Image();
+          img.onload  = resolve;
+          img.onerror = resolve; /* resolve on error so we never hang */
+          img.src = url;
+        });
+      });
+
+      Promise.all([document.fonts.ready].concat(imagePromises)).then(function () {
+        if (!loaderEl) return;
+        loaderEl.style.transition = 'opacity 0.4s';
         loaderEl.style.opacity = '0';
-        setTimeout(function () {
-          loaderEl.style.display = 'none';
-          container.style.display    = '';
-          if (meterEl)     meterEl.style.display     = '';
-          if (savePanelEl) savePanelEl.style.display  = '';
-          renderLab(container, options, apiBase);
-        }, 300);
-      } else {
-        container.style.display = '';
-        if (meterEl)     meterEl.style.display     = '';
-        if (savePanelEl) savePanelEl.style.display  = '';
-        renderLab(container, options, apiBase);
-      }
+        setTimeout(function () { loaderEl.style.display = 'none'; }, 420);
+      });
     }
 
     function showError() {
