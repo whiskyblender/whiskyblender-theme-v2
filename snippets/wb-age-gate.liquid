@@ -164,7 +164,7 @@
       >
     </div>
 
-    <div class="wb-age-gate__content">
+    <div class="wb-age-gate__content" id="wb-age-gate-content">
       <h1 class="wb-age-gate__question" id="wb-age-gate-heading">Are you of legal drinking age in your country?</h1>
       <div class="wb-age-gate__buttons">
         <button class="wb-age-gate__btn wb-age-gate__btn--yes" id="wb-age-yes" type="button">
@@ -204,83 +204,97 @@
     document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax; Secure';
   }
 
+  var stopRain = null;
+
   function dismiss() {
     setCookie('wb_age_verified', '1', 365);
     document.body.style.overflow = '';
     gate.classList.add('wb-age-gate--hidden');
+    if (stopRain) stopRain();
     setTimeout(function () { gate.style.display = 'none'; }, 420);
   }
 
   function decline() {
-    window.location.href = 'https://www.drinkaware.co.uk';
+    document.getElementById('wb-age-gate-content').style.display = 'none';
+    document.getElementById('wb-age-sorry').style.display = 'block';
+    setTimeout(function () {
+      window.location.href = 'https://www.drinkaware.co.uk';
+    }, 2500);
   }
 
   document.getElementById('wb-age-yes').addEventListener('click', dismiss);
   document.getElementById('wb-age-no').addEventListener('click', decline);
 
   /* Rain effect */
-  (function () {
-    var canvas = document.getElementById('wb-age-gate-rain');
-    var ctx = canvas.getContext('2d');
-    var drops = [];
-    var DROP_COUNT = 120;
-    var raf;
+  var canvas = document.getElementById('wb-age-gate-rain');
+  var ctx = canvas.getContext('2d');
+  var drops = [];
+  var DROP_COUNT = 120;
+  var raf;
+  var windX = 0;
 
-    var windX = 0;
+  function setWind(relX) {
+    windX = (relX - 0.5) * 6;
+  }
 
-    gate.addEventListener('mousemove', function (e) {
-      var rect = canvas.getBoundingClientRect();
-      var relX = (e.clientX - rect.left) / rect.width - 0.5;
-      windX = relX * 6;
-    });
+  gate.addEventListener('mousemove', function (e) {
+    var rect = canvas.getBoundingClientRect();
+    setWind((e.clientX - rect.left) / rect.width);
+  });
 
-    function resize() {
-      canvas.width = gate.offsetWidth;
-      canvas.height = gate.offsetHeight;
+  gate.addEventListener('touchmove', function (e) {
+    var rect = canvas.getBoundingClientRect();
+    setWind((e.touches[0].clientX - rect.left) / rect.width);
+  }, { passive: true });
+
+  function resize() {
+    canvas.width = gate.offsetWidth;
+    canvas.height = gate.offsetHeight;
+  }
+
+  function initDrops() {
+    drops = [];
+    for (var i = 0; i < DROP_COUNT; i++) {
+      drops.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        len: Math.random() * 20 + 10,
+        speed: Math.random() * 8 + 8,
+        opacity: Math.random() * 0.3 + 0.1,
+        width: Math.random() < 0.3 ? 1.5 : 1
+      });
     }
+  }
 
-    function initDrops() {
-      drops = [];
-      for (var i = 0; i < DROP_COUNT; i++) {
-        drops.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          len: Math.random() * 20 + 10,
-          speed: Math.random() * 8 + 8,
-          opacity: Math.random() * 0.3 + 0.1,
-          width: Math.random() < 0.3 ? 1.5 : 1
-        });
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < drops.length; i++) {
+      var d = drops[i];
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x + windX, d.y + d.len);
+      ctx.strokeStyle = 'rgba(180, 200, 220, ' + d.opacity + ')';
+      ctx.lineWidth = d.width;
+      ctx.stroke();
+      d.y += d.speed;
+      d.x += windX * 0.3;
+      if (d.y > canvas.height + d.len) {
+        d.y = -d.len;
+        d.x = Math.random() * canvas.width;
       }
     }
+    raf = requestAnimationFrame(draw);
+  }
 
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (var i = 0; i < drops.length; i++) {
-        var d = drops[i];
-        ctx.beginPath();
-        ctx.moveTo(d.x, d.y);
-        ctx.lineTo(d.x + windX, d.y + d.len);
-        ctx.strokeStyle = 'rgba(180, 200, 220, ' + d.opacity + ')';
-        ctx.lineWidth = d.width;
-        ctx.stroke();
-        d.y += d.speed;
-        d.x += windX * 0.3;
-        if (d.y > canvas.height + d.len) {
-          d.y = -d.len;
-          d.x = Math.random() * canvas.width;
-        }
-      }
-      raf = requestAnimationFrame(draw);
-    }
+  stopRain = function () { cancelAnimationFrame(raf); };
 
+  resize();
+  initDrops();
+  draw();
+
+  window.addEventListener('resize', function () {
     resize();
     initDrops();
-    draw();
-
-    window.addEventListener('resize', function () {
-      resize();
-      initDrops();
-    });
-  })();
+  });
 })();
 </script>
