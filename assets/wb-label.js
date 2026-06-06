@@ -103,18 +103,16 @@
   }
 
   function resizeMiniText(el) {
-    var min = 6, max = 26, step = 0.5;
-    var parent = el.parentNode;
-    var i = min;
-    while (i < max) {
+    var max = 26, min = 6, step = 0.5;
+    var frame = el.parentNode;
+    var i = max;
+    el.style.fontSize   = i + 'px';
+    el.style.lineHeight = (i * 0.9) + 'px';
+    while (i > min && (frame.scrollHeight > frame.clientHeight || el.scrollWidth > frame.clientWidth)) {
+      i -= step;
       el.style.fontSize   = i + 'px';
       el.style.lineHeight = (i * 0.9) + 'px';
-      if (parent.scrollHeight > parent.clientHeight || parent.scrollWidth > parent.clientWidth) break;
-      i += step;
     }
-    var final = Math.max(min, i - step);
-    el.style.fontSize   = final + 'px';
-    el.style.lineHeight = (final * 0.9) + 'px';
   }
 
   function buildZigzagClip(w, h, step, depth) {
@@ -444,7 +442,9 @@
     grid.innerHTML = html;
 
     document.fonts.ready.then(function () {
-      document.querySelectorAll('.wb-mini-name').forEach(resizeMiniText);
+      requestAnimationFrame(function () {
+        document.querySelectorAll('.wb-mini-name').forEach(resizeMiniText);
+      });
     });
   }
 
