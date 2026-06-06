@@ -147,6 +147,7 @@ body {
   padding: 14px 20px 10px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 6px 24px;
   font-family: 'Raleway', sans-serif;
 }
@@ -289,10 +290,10 @@ body {
   z-index: 20;
   padding: 20px 20px 28px;
   font-family: 'Raleway', sans-serif;
-  display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-#wb-recipe-panel.is-visible { display: block; }
 
 #wb-recipe-panel h2 {
   font-size: 10px;
@@ -311,8 +312,10 @@ body {
   list-style: none;
   margin: 0; padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: 7px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px 20px;
 }
 
 #wb-recipe-list li {
@@ -391,7 +394,7 @@ body {
 
   #wb-summary { padding: 10px 20px 8px; }
 
-  #wb-recipe-panel.is-visible { display: block; }
+  #wb-recipe-panel { display: flex; }
 
   #wb-contact-sheet { padding: 0; }
 }
