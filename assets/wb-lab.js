@@ -457,6 +457,28 @@
     if (authorInput) authorInput.addEventListener('input', updateUI);
 
     /* ── Press-and-hold controls ─────────────────────────────────── */
+    /* ── Button press animations ───────────────────────────────────── */
+    function triggerAnim(f, adding) {
+      var amount  = f.card.querySelector('.wb-option-amount');
+      var btn     = f.card.querySelector(adding ? '[data-action="add"]' : '[data-action="remove"]');
+      var fillBar = document.getElementById('wb-lab-meter');
+      var cls     = adding ? 'wb-anim-add' : 'wb-anim-remove';
+
+      [amount, btn, fillBar].forEach(function (el) {
+        if (!el) return;
+        el.classList.remove('wb-anim-add', 'wb-anim-remove');
+        void el.offsetWidth; /* force reflow to restart animation */
+        el.classList.add(cls);
+      });
+
+      if (adding && f.colour) {
+        f.card.style.setProperty('--flash-color', f.colour);
+        f.card.classList.remove('wb-anim-border');
+        void f.card.offsetWidth;
+        f.card.classList.add('wb-anim-border');
+      }
+    }
+
     /* Fires action immediately, then repeatedly after an initial delay.
        Returning false from action stops the repeat (used when hitting limit).
        window blur stops repeat if user tabs away while holding. */
@@ -505,6 +527,7 @@
           if (getTotal() >= MAX_TOTAL) return false;
           f.amount = clamp(f.amount + STEP);
           updateUI();
+          triggerAnim(f, true);
           if (getTotal() === MAX_TOTAL) {
             var savePanel = document.getElementById('wb-save-panel');
             if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -519,6 +542,7 @@
           if (f.amount <= 0) return false;
           f.amount = clamp(f.amount - STEP);
           updateUI();
+          triggerAnim(f, false);
         });
       }
     });
