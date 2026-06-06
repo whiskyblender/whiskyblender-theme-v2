@@ -42,7 +42,6 @@
         </select>
       </div>
 
-      <!-- Blend only -->
       <div class="wb-field wb-field--full wb-blend-only">
         <label for="wb-f-blend">Blend code</label>
         <div class="wb-field--blend-code">
@@ -56,25 +55,21 @@
         <input type="text" id="wb-f-text" placeholder="Name on the label">
       </div>
 
-      <!-- Blend only -->
       <div class="wb-field wb-blend-only">
         <label for="wb-f-author">Created by</label>
         <input type="text" id="wb-f-author" placeholder="Blender's name">
       </div>
 
-      <!-- Single malt only -->
       <div class="wb-field wb-singlemalt-only">
         <label for="wb-f-distillery">Distillery</label>
         <input type="text" id="wb-f-distillery" placeholder="e.g. Aultmore 2011">
       </div>
 
-      <!-- Single malt only -->
       <div class="wb-field wb-singlemalt-only">
         <label for="wb-f-strength">Strength</label>
         <input type="number" id="wb-f-strength" placeholder="46" min="0" max="99">
       </div>
 
-      <!-- Single malt only -->
       <div class="wb-field wb-singlemalt-only">
         <label for="wb-f-singlecask">Single cask</label>
         <select id="wb-f-singlecask">
@@ -136,42 +131,52 @@
     </div>
   </div>
 
-  <!-- ── Zone 1: Order summary ─────────────────────────────────────────── -->
-  <div id="wb-summary"></div>
-
-  <!-- ── Zone 2: Label (standard sizes) ───────────────────────────────── -->
+  <!-- ── Page wrapper (centres #page on dark background) ───────────────── -->
   <div id="wb-page-wrapper">
+
+    <!-- ── Standard label page ────────────────────────────────────────── -->
     <div id="page">
-      <div class="crops"></div>
-      <div id="label">
-        <div id="outer">
-          <div class="text" id="blendName"></div>
+
+      <!-- Label area: fills #page, positions crops + label + overlaid zones -->
+      <div class="wb-label-area">
+
+        <!-- Zone 1: Order summary (above cropmarks) -->
+        <div id="wb-summary"></div>
+
+        <div class="crops"></div>
+        <div id="label">
+          <div id="outer">
+            <div class="text" id="blendName"></div>
+          </div>
+          <div class="side">
+            <div class="side__name text" id="sideName"></div>
+          </div>
+          <div id="sideLabel" class="side-label"></div>
+          <div class="reference" id="reference"></div>
+          <div class="image" id="artwork"></div>
+          <!-- Side info panel and single cask strip rendered by JS -->
         </div>
-        <div class="side">
-          <div class="side__name text" id="sideName"></div>
+
+        <!-- Zone 3: Recipe (below cropmarks, blend only) -->
+        <div id="wb-recipe-panel">
+          <h2>Recipe</h2>
+          <p id="wb-recipe-loading" style="display:none">Loading recipe&hellip;</p>
+          <p id="wb-recipe-error" style="display:none"></p>
+          <ul id="wb-recipe-list" style="display:none"></ul>
         </div>
-        <div id="sideLabel" class="side-label"></div>
-        <div class="reference" id="reference"></div>
-        <div class="image" id="artwork"></div>
-        <!-- Side info panel and single cask strip rendered by JS -->
+
+      </div>
+
+    </div>
+
+    <!-- ── Miniature contact sheet (shown instead of #page for miniature) -->
+    <div id="wb-contact-sheet">
+      <div class="wb-contact-page" id="wb-contact-page">
+        <div class="wb-contact-grid" id="wb-contact-grid"></div>
       </div>
     </div>
-  </div>
 
-  <!-- ── Zone 2: Miniature contact sheet ──────────────────────────────── -->
-  <div id="wb-contact-sheet">
-    <div class="wb-contact-page" id="wb-contact-page">
-      <div class="wb-contact-grid" id="wb-contact-grid"></div>
-    </div>
-  </div>
-
-  <!-- ── Zone 3: Recipe / details ─────────────────────────────────────── -->
-  <div id="wb-recipe-panel">
-    <h2>Recipe</h2>
-    <p id="wb-recipe-loading" style="display:none">Loading recipe&hellip;</p>
-    <p id="wb-recipe-error" style="display:none"></p>
-    <ul id="wb-recipe-list" style="display:none"></ul>
-  </div>
+  </div><!-- /wb-page-wrapper -->
 
   <!-- Hidden: single cask SVG template -->
   <svg id="wb-singlecask-svg" style="display:none" viewBox="0 0 136.43 22.62" xmlns="http://www.w3.org/2000/svg">
@@ -188,6 +193,6 @@
   </svg>
 
 </div>
-{{ 'wb-label.js' | asset_url | script_tag }}
+<script src="{{ 'wb-label.js' | asset_url }}" defer></script>
 </body>
 </html>
