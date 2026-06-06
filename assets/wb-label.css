@@ -132,7 +132,7 @@ body {
   padding-top: 128px;
 }
 
-#page.size50 { width: 794px; }
+#page.size50 { width: 794px; height: 432px; }
 #page.size20 { width: 562px; padding-top: 146px; }
 
 /* ── Summary zone (Zone 1 — above cropmarks, inside #page) ─────────────────── */
