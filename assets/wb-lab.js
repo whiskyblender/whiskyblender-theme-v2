@@ -471,6 +471,14 @@
         el.classList.add(cls);
       });
 
+      if (adding) {
+        f.card.classList.add('wb-card-active');
+        if (f._activeTimer) clearTimeout(f._activeTimer);
+        f._activeTimer = setTimeout(function () {
+          f.card.classList.remove('wb-card-active');
+        }, 1200);
+      }
+
       if (adding && f.colour) {
         f.card.style.setProperty('--flash-color', f.colour);
         f.card.classList.remove('wb-anim-border');
