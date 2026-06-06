@@ -157,13 +157,13 @@ body {
 
 .wb-summary-item {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   align-items: baseline;
-  font-size: 11px;
+  font-size: 9px;
 }
 
 .wb-summary-item__label {
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -324,12 +324,12 @@ body {
 #wb-recipe-list li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
+  gap: 5px;
+  font-size: 10px;
 }
 
-.wb-recipe-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
-.wb-recipe-ml { font-weight: 700; min-width: 40px; font-family: 'Roboto Mono', monospace; font-size: 11px; color: #333; }
+.wb-recipe-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.wb-recipe-ml { font-weight: 700; min-width: 32px; font-family: 'Roboto Mono', monospace; font-size: 9px; color: #333; }
 .wb-recipe-name { color: #666; }
 
 /* ── Miniature contact sheet ────────────────────────────────────────────────── */
