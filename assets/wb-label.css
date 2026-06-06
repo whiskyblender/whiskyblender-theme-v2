@@ -329,7 +329,7 @@ body {
 }
 
 .wb-recipe-swatch { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
-.wb-recipe-ml { font-weight: 700; min-width: 32px; font-family: 'Roboto Mono', monospace; font-size: 9px; color: #333; }
+.wb-recipe-ml { font-weight: 700; font-family: 'Roboto Mono', monospace; font-size: 9px; color: #333; }
 .wb-recipe-name { color: #666; }
 
 /* ── Miniature contact sheet ────────────────────────────────────────────────── */
