@@ -226,6 +226,14 @@
     var DROP_COUNT = 120;
     var raf;
 
+    var windX = 0;
+
+    gate.addEventListener('mousemove', function (e) {
+      var rect = canvas.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width - 0.5;
+      windX = relX * 6;
+    });
+
     function resize() {
       canvas.width = gate.offsetWidth;
       canvas.height = gate.offsetHeight;
@@ -238,7 +246,7 @@
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           len: Math.random() * 20 + 10,
-          speed: Math.random() * 4 + 3,
+          speed: Math.random() * 8 + 8,
           opacity: Math.random() * 0.3 + 0.1,
           width: Math.random() < 0.3 ? 1.5 : 1
         });
@@ -251,11 +259,12 @@
         var d = drops[i];
         ctx.beginPath();
         ctx.moveTo(d.x, d.y);
-        ctx.lineTo(d.x - d.len * 0.15, d.y + d.len);
+        ctx.lineTo(d.x + windX, d.y + d.len);
         ctx.strokeStyle = 'rgba(180, 200, 220, ' + d.opacity + ')';
         ctx.lineWidth = d.width;
         ctx.stroke();
         d.y += d.speed;
+        d.x += windX * 0.3;
         if (d.y > canvas.height + d.len) {
           d.y = -d.len;
           d.x = Math.random() * canvas.width;
