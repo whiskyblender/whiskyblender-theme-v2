@@ -119,7 +119,7 @@
   }
 
   function getArtworkUrl(product, variant, size) {
-    if (!product || !variant || variant === 'standard') return null;
+    if (!product || !variant) return null;
     var cdn = document.getElementById('wb-label-root').getAttribute('data-cdn') || '';
     return cdn + 'wb-' + product + '-' + slugify(variant) + '-' + size + '.jpg';
   }
