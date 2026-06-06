@@ -105,7 +105,7 @@
         el.style.right     = '0';
         el.style.bottom    = '0';
         el.style.left      = '0';
-        el.style.background = '#ffffff';
+        el.style.backgroundColor = '#ffffff';
         el.style.zIndex    = '100';
         el.style.overflowY = 'auto';
         mainEl.insertBefore(el, mainEl.firstChild);
