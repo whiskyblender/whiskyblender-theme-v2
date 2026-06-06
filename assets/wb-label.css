@@ -1,4 +1,4 @@
-/* ── Reset ───────────────────────────────────────────────────────────────────── */
+/* ── Reset ─────────────────────────────────────────────────────────────────── */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -6,90 +6,225 @@ body {
   background: #000;
   margin: 0;
   padding: 0;
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── Toolbar ─────────────────────────────────────────────────────────────────── */
+/* ── Toolbar ───────────────────────────────────────────────────────────────── */
 
-#wb-label-toolbar {
+#wb-toolbar {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 24px;
+  gap: 10px;
+  padding: 10px 16px;
   background: #111;
+  border-bottom: 1px solid #222;
 }
 
-.wb-label-back,
-.wb-label-print {
+.wb-btn {
   font-family: 'Raleway', sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  padding: 8px 18px;
-  border: none;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 7px 14px;
   border-radius: 3px;
+  border: none;
   cursor: pointer;
+  transition: background 0.15s, color 0.15s;
 }
 
-.wb-label-back {
+.wb-btn--back {
+  background: transparent;
+  color: #888;
+  border: 1px solid #333;
+}
+.wb-btn--back:hover { color: #fff; border-color: #666; }
+
+.wb-btn--edit {
   background: transparent;
   color: #aaa;
-  border: 1px solid #444;
+  border: 1px solid #333;
 }
+.wb-btn--edit:hover { color: #fff; border-color: #666; }
+.wb-btn--edit.is-active { color: #c8a050; border-color: #c8a050; }
 
-.wb-label-back:hover { color: #fff; border-color: #888; }
+.wb-btn--copy {
+  background: transparent;
+  color: #aaa;
+  border: 1px solid #333;
+}
+.wb-btn--copy:hover { color: #fff; border-color: #666; }
 
-.wb-label-print {
+.wb-btn--print {
   background: #c8a050;
   color: #111;
 }
+.wb-btn--print:hover { background: #d4b060; }
 
-.wb-label-print:hover { background: #d4b060; }
+/* ── Form panel ────────────────────────────────────────────────────────────── */
 
-/* ── Label page ──────────────────────────────────────────────────────────────── */
+#wb-form-panel {
+  background: #141414;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 24px 20px 28px;
+  display: none;
+}
+
+#wb-form-panel.is-visible { display: block; }
+
+#wb-form-inner {
+  max-width: 560px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.wb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wb-field--full { grid-column: 1 / -1; }
+
+.wb-field label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #666;
+}
+
+.wb-field input,
+.wb-field select {
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  padding: 9px 11px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.wb-field input::placeholder { color: #444; }
+.wb-field input:focus,
+.wb-field select:focus { border-color: #c8a050; }
+.wb-field select option { background: #1e1e1e; }
+
+.wb-field--blend-code {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.wb-field--blend-code input { flex: 1; }
+
+.wb-btn--load {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 9px 14px;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #c8a050;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.wb-btn--load:hover { background: #333; }
+
+.wb-field-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Summary zone (Zone 1 — above label) ───────────────────────────────────── */
+
+#wb-summary {
+  max-width: 794px;
+  margin: 20px auto 0;
+  padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+}
+
+.wb-summary-item {
+  font-size: 11px;
+  color: #555;
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.wb-summary-item__label {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #444;
+  font-size: 9px;
+}
+
+.wb-summary-item__value { color: #888; }
+
+/* ── Page wrapper ──────────────────────────────────────────────────────────── */
+
+#wb-page-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px 20px 0;
+}
+
+/* ── Label page ────────────────────────────────────────────────────────────── */
 
 #page {
-  background: #ffffff;
+  background: #fff;
   position: relative;
   margin: 0 auto;
   background-size: cover;
-  text-shadow: 1px 1px #ffffff;
+  text-shadow: 1px 1px #fff;
 }
 
 #page.size50 {
   width: 794px;
   height: 432px;
   padding-top: 128px;
-  margin-top: calc(50vh - 280px);
 }
 
 #page.size20 {
   width: 562px;
-  height: 392px;
+  height: 325px;
   padding-top: 73px;
-  margin-top: 40px;
 }
 
-/* ── Crop marks ──────────────────────────────────────────────────────────────── */
+/* ── Crop marks ────────────────────────────────────────────────────────────── */
 
 .crops {
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   position: absolute;
   pointer-events: none;
+  z-index: 10;
 }
 
 .size50 .crops {
-  width: 794px;
-  height: 560px;
+  width: 794px; height: 560px;
   background: url(crops50.png) center center no-repeat;
 }
 
 .size20 .crops {
-  width: 562px;
-  height: 398px;
+  width: 562px; height: 398px;
   background: url(crops20.png) center center no-repeat;
 }
 
-/* ── Label area ──────────────────────────────────────────────────────────────── */
+/* ── Label area ────────────────────────────────────────────────────────────── */
 
 #label {
   position: relative;
@@ -99,14 +234,13 @@ body {
 .size50 #label { width: 552px; height: 303px; }
 .size20 #label { width: 427px; height: 252px; }
 
-/* ── Blend name ──────────────────────────────────────────────────────────────── */
+/* ── Blend name ────────────────────────────────────────────────────────────── */
 
 #outer {
   font-family: 'trimPosterCompressed', sans-serif;
   font-weight: 400;
   position: absolute;
-  width: 90px;
-  height: 80px;
+  width: 90px; height: 80px;
   text-transform: uppercase;
   place-content: center;
   display: grid;
@@ -118,13 +252,12 @@ body {
 .size50 #outer { top: 56px; left: 195px; scale: 2.2; }
 .size20 #outer { top: 36px; left: 145px; scale: 1.6; }
 
-/* ── Creator name ────────────────────────────────────────────────────────────── */
+/* ── Creator / distillery name ─────────────────────────────────────────────── */
 
 .side {
   font-family: 'Raleway', sans-serif;
   position: absolute;
-  width: 116px;
-  height: 12px;
+  width: 116px; height: 12px;
   z-index: 3;
   overflow: hidden;
 }
@@ -132,33 +265,40 @@ body {
 .size50 .side { top: 204px; left: 210px; scale: 2.2; }
 .size20 .side { top: 158px; left: 153px; scale: 1.6; }
 
-.side .blender-name {
+.side__name {
   font-size: 7px !important;
   line-height: 10px !important;
   font-weight: 700;
 }
 
-/* ── Reference tag ───────────────────────────────────────────────────────────── */
+/* ── "Created by" / "Distilled at" label ───────────────────────────────────── */
+
+.side-label {
+  position: absolute;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+/* positions set by JS based on size */
+
+/* ── Reference tag ─────────────────────────────────────────────────────────── */
 
 .reference {
   position: absolute;
   transform: rotate(-90deg);
   z-index: 2;
   text-align: right;
-}
-
-.size50 .reference { right: -30px; top: 45px; height: 20px; width: 80px; }
-.size20 .reference { right: -36px; top: 45px; height: 20px; width: 80px; }
-
-.reference .ref-number {
   opacity: 0.6;
   font-family: 'Roboto Mono', monospace;
 }
 
-.size50 .reference .ref-number { font-size: 8px !important; line-height: 10px !important; }
-.size20 .reference .ref-number { font-size: 6px !important; line-height: 8px !important; }
+.size50 .reference { right: -30px; top: 45px; height: 20px; width: 80px; font-size: 8px; line-height: 10px; }
+.size20 .reference { right: -36px; top: 45px; height: 20px; width: 80px; font-size: 6px; line-height: 8px; }
 
-/* ── Artwork image ───────────────────────────────────────────────────────────── */
+/* ── Artwork image ─────────────────────────────────────────────────────────── */
 
 .image {
   position: absolute;
@@ -170,38 +310,159 @@ body {
 .size50 .image { top: -8px; left: 112px; width: 448px; height: 244px; }
 .size20 .image { top: -7px; left: 93px;  width: 342px; height: 188px; }
 
-/* ── Text colours ────────────────────────────────────────────────────────────── */
+/* ── Side info panel (rendered by JS as inline styles) ─────────────────────── */
+/* Panel and single cask strip are absolutely positioned, rotated 90deg */
+/* Styles applied inline by JS — no CSS rules needed here */
 
-.colorblack  { color: #000000; }
-.colorwhite  { color: #ffffff; text-shadow: 1px 1px #000000; }
-.colorgreen  { color: #006858; }
-.colorblue   { color: #27468f; }
-.colorred    { color: #9d0500; }
-.colorgold   { color: #c8a050; }
+/* ── Miniature contact sheet ────────────────────────────────────────────────── */
 
-/* ── Recipe panel (screen only) ──────────────────────────────────────────────── */
+#wb-contact-sheet {
+  display: none;
+  justify-content: center;
+  padding: 20px;
+}
 
-#wb-recipe-panel {
-  max-width: 562px;
-  margin: 40px auto;
-  padding: 0 24px 40px;
-  color: #eee;
+#wb-contact-sheet.is-visible { display: flex; }
+
+.wb-contact-page {
+  width: 794px;
+  height: 1123px;
+  background: #fff;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.wb-contact-grid {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  gap: 4px;
+}
+
+.wb-mini-label {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid #aaa;
+  overflow: hidden;
+  background: #fff;
   font-family: 'Raleway', sans-serif;
 }
 
-.wb-recipe-heading {
-  font-size: 13px;
+.wb-mini-row {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.wb-mini-strip {
+  width: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wb-mini-strip--left { border-right: 0.5px solid #ddd; }
+.wb-mini-strip--right { border-left: 0.5px solid #ddd; }
+
+.wb-mini-strip span {
+  writing-mode: vertical-rl;
+  font-size: 5.5px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  color: #666;
+}
+
+.wb-mini-strip--left span { transform: rotate(180deg); }
+
+.wb-mini-centre {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 6px;
+}
+
+.wb-mini-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #c8a050;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  text-align: center;
+  gap: 3px;
+  position: relative;
+}
+
+.wb-mini-name {
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  color: #111;
+}
+
+.wb-mini-by { font-size: 7px; color: #555; }
+
+.wb-mini-author {
+  font-size: 8px;
+  font-weight: 600;
+  color: #111;
+  line-height: 1.2;
+}
+
+.wb-mini-ref {
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  font-size: 5px;
+  color: #aaa;
+  font-family: 'Roboto Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+.wb-mini-bar {
+  height: 38px;
+  flex-shrink: 0;
+  background: #111;
+  color: #c8a050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Recipe / details panel (Zone 3 — below label) ─────────────────────────── */
+
+#wb-recipe-panel {
+  max-width: 794px;
+  margin: 24px auto 40px;
+  padding: 0 20px;
+  color: #eee;
+}
+
+#wb-recipe-panel h2 {
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #c8a050;
-  margin: 0 0 16px;
+  margin: 0 0 14px;
 }
 
 #wb-recipe-loading,
 #wb-recipe-error {
   font-size: 13px;
-  color: #888;
+  color: #555;
   margin: 0;
 }
 
@@ -219,47 +480,57 @@ body {
 #wb-recipe-list li {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: 13px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .wb-recipe-swatch {
-  width: 12px;
-  height: 12px;
+  width: 12px; height: 12px;
   border-radius: 2px;
   flex-shrink: 0;
 }
 
-.wb-recipe-pct {
+.wb-recipe-ml {
   font-weight: 700;
-  min-width: 36px;
-  text-align: right;
+  min-width: 44px;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
 }
 
-.wb-recipe-name { color: #ccc; }
+.wb-recipe-name { color: #999; }
 
-/* ── Print ───────────────────────────────────────────────────────────────────── */
+/* ── Print ─────────────────────────────────────────────────────────────────── */
 
 @media print {
-  body { background: #fff; }
+  @page { margin: 0; }
 
-  #wb-label-toolbar { display: none !important; }
+  body { background: #fff !important; }
 
-  #page {
-    margin: 0 auto !important;
-    margin-top: 0 !important;
-  }
+  #wb-toolbar,
+  #wb-form-panel { display: none !important; }
 
-  #wb-recipe-panel {
+  #wb-summary {
     color: #000;
-    padding: 20px 0;
-    max-width: 562px;
+    padding: 12px 20px;
     margin: 0 auto;
   }
 
-  .wb-recipe-heading { color: #000; }
+  .wb-summary-item__label { color: #666; }
+  .wb-summary-item__value { color: #333; }
 
+  #wb-page-wrapper { padding: 0; }
+
+  #page { margin: 0 auto; }
+
+  #wb-recipe-panel {
+    color: #000;
+    margin: 16px auto 0;
+  }
+
+  #wb-recipe-panel h2 { color: #000; }
+  .wb-recipe-name { color: #333; }
   #wb-recipe-list li { color: #000; }
 
-  .wb-recipe-name { color: #333; }
+  #wb-contact-sheet { padding: 0; }
 }
