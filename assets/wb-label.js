@@ -34,7 +34,7 @@
       refRight: -30, refTop: 45,
       imgTop: -8, imgLeft: 112, imgW: 448, imgH: 244,
       roundelTop: 4,  roundelLeft: -9, roundelW: 570, roundelH: 232,
-      panelLength: 232, panelTop: -33,
+      panelLength: 200, panelTop: -33,
       scCaskLeft: 102,
       tallFont: 14, domainFont: 9,
       svgW: 202, svgH: 34,
