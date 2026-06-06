@@ -14,6 +14,12 @@
   transition: opacity 0.4s ease;
 }
 
+#wb-age-gate-rain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 #wb-age-gate.wb-age-gate--hidden {
   opacity: 0;
   pointer-events: none;
@@ -145,6 +151,7 @@
 </style>
 
 <div id="wb-age-gate" role="dialog" aria-modal="true" aria-labelledby="wb-age-gate-heading">
+  <canvas id="wb-age-gate-rain" aria-hidden="true"></canvas>
   <div class="wb-age-gate__inner">
 
     <div class="wb-age-gate__logo">
@@ -210,5 +217,61 @@
 
   document.getElementById('wb-age-yes').addEventListener('click', dismiss);
   document.getElementById('wb-age-no').addEventListener('click', decline);
+
+  /* Rain effect */
+  (function () {
+    var canvas = document.getElementById('wb-age-gate-rain');
+    var ctx = canvas.getContext('2d');
+    var drops = [];
+    var DROP_COUNT = 120;
+    var raf;
+
+    function resize() {
+      canvas.width = gate.offsetWidth;
+      canvas.height = gate.offsetHeight;
+    }
+
+    function initDrops() {
+      drops = [];
+      for (var i = 0; i < DROP_COUNT; i++) {
+        drops.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          len: Math.random() * 20 + 10,
+          speed: Math.random() * 4 + 3,
+          opacity: Math.random() * 0.3 + 0.1,
+          width: Math.random() < 0.3 ? 1.5 : 1
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (var i = 0; i < drops.length; i++) {
+        var d = drops[i];
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x - d.len * 0.15, d.y + d.len);
+        ctx.strokeStyle = 'rgba(180, 200, 220, ' + d.opacity + ')';
+        ctx.lineWidth = d.width;
+        ctx.stroke();
+        d.y += d.speed;
+        if (d.y > canvas.height + d.len) {
+          d.y = -d.len;
+          d.x = Math.random() * canvas.width;
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    }
+
+    resize();
+    initDrops();
+    draw();
+
+    window.addEventListener('resize', function () {
+      resize();
+      initDrops();
+    });
+  })();
 })();
 </script>
