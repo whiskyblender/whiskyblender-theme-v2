@@ -157,6 +157,8 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     function submit() {
       var code = codeInput.value.trim().toUpperCase();
       if (code.length >= 6) {
+        codeBtn.disabled = true;
+        codeBtn.textContent = 'Loading…';
         window.location.href = window.location.pathname + '?blend=' + encodeURIComponent(code);
       }
     }
