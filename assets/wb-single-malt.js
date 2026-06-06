@@ -19,6 +19,7 @@
 
     var productSlug  = loader.getAttribute('data-product-slug') || 'singlemalt';
     var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
+    var bottleSize   = loader.getAttribute('data-bottle-size') || '';
     var labelPage    = loader.getAttribute('data-label-page') || '/pages/label';
     var variantsEl   = document.getElementById('wb-sm-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
@@ -45,7 +46,8 @@
         '?product='    + encodeURIComponent(productSlug) +
         '&distillery=' + encodeURIComponent(distillery) +
         '&variant='    + encodeURIComponent(variantTitle) +
-        '&text='       + encodeURIComponent(labelText);
+        '&text='       + encodeURIComponent(labelText) +
+        (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
 
       e.formData.set('properties[_label_url]', labelUrl);
     });
