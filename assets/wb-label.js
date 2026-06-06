@@ -145,8 +145,10 @@
     if (p.get('distillery')) state.distillery = p.get('distillery');
     if (p.get('strength'))   state.strength   = p.get('strength');
     if (p.get('variant'))    state.variant    = p.get('variant');
-    if (p.get('size'))       state.size       = p.get('size');
     if (p.get('product'))    state.product    = p.get('product');
+    /* Legacy: size=miniature used to drive the contact sheet — now a product slug */
+    if (!p.get('product') && p.get('size') === 'miniature') state.product = 'miniature';
+    if (p.get('size') && p.get('size') !== 'miniature') state.size = p.get('size');
     if (p.get('fg'))         state.fg         = p.get('fg');
     if (p.get('bg'))         state.bg         = p.get('bg');
     if (p.get('reference'))  state.reference  = p.get('reference');
@@ -222,7 +224,7 @@
 
     var s = d.panelLength / 232;
     var pad = Math.round(10 * s) + 'px ' + Math.round(16 * s) + 'px ' + Math.round(17 * s) + 'px';
-    var sizeText = (state.size === 'miniature' ? '50' : d.volume) + 'ml ℮';
+    var sizeText = d.volume + 'ml ℮';
 
     /* Info strip */
     var info = document.createElement('div');
@@ -291,7 +293,7 @@
   }
 
   function renderLabel() {
-    var isMini = (state.size === 'miniature');
+    var isMini = (state.product === 'miniature');
     var pageWrapper = document.getElementById('wb-page-wrapper');
     var contactSheet = document.getElementById('wb-contact-sheet');
 
@@ -382,7 +384,7 @@
 
   function buildMiniLabel() {
     var name = state.text || '';
-    var author = state.product === 'customblend' ? (state.author || '') : (state.distillery || '');
+    var author = (state.product === 'customblend' || state.product === 'miniature') ? (state.author || '') : (state.distillery || '');
     var ref = state.reference || '';
     var strength = state.strength || '46';
 
@@ -547,11 +549,28 @@
 
   function updateTypeVisibility() {
     var isBlend = state.product === 'customblend';
-    document.querySelectorAll('.wb-blend-only').forEach(function (el) {
+    var isMalt  = state.product === 'singlemalt' || state.product === 'singlecask';
+    var isMini  = state.product === 'miniature';
+
+    /* Blend code: customblend only */
+    document.querySelectorAll('.wb-blendcode-only').forEach(function (el) {
       el.style.display = isBlend ? '' : 'none';
     });
+    /* Author ("Created by"): customblend + miniature */
+    document.querySelectorAll('.wb-has-author').forEach(function (el) {
+      el.style.display = (isBlend || isMini) ? '' : 'none';
+    });
+    /* Distillery + fg/bg pickers: singlemalt + singlecask only */
     document.querySelectorAll('.wb-singlemalt-only').forEach(function (el) {
-      el.style.display = isBlend ? 'none' : '';
+      el.style.display = isMalt ? '' : 'none';
+    });
+    /* Strength: singlemalt + singlecask + miniature */
+    document.querySelectorAll('.wb-has-strength').forEach(function (el) {
+      el.style.display = (isMalt || isMini) ? '' : 'none';
+    });
+    /* Bottle size: all except miniature */
+    document.querySelectorAll('.wb-nonmini-only').forEach(function (el) {
+      el.style.display = isMini ? 'none' : '';
     });
   }
 

@@ -41,10 +41,11 @@
           <option value="customblend">Custom Blend</option>
           <option value="singlemalt">Single Malt</option>
           <option value="singlecask">Single Cask</option>
+          <option value="miniature">Miniature</option>
         </select>
       </div>
 
-      <div class="wb-field wb-field--full wb-blend-only">
+      <div class="wb-field wb-field--full wb-blendcode-only">
         <label for="wb-f-blend">Blend code</label>
         <div class="wb-field--blend-code">
           <input type="text" id="wb-f-blend" placeholder="WB00000001">
@@ -57,7 +58,7 @@
         <input type="text" id="wb-f-text" placeholder="Name on the label">
       </div>
 
-      <div class="wb-field wb-blend-only">
+      <div class="wb-field wb-has-author">
         <label for="wb-f-author">Created by</label>
         <input type="text" id="wb-f-author" placeholder="Blender's name">
       </div>
@@ -67,17 +68,16 @@
         <input type="text" id="wb-f-distillery" placeholder="e.g. Aultmore 2011">
       </div>
 
-      <div class="wb-field wb-singlemalt-only">
+      <div class="wb-field wb-has-strength">
         <label for="wb-f-strength">Strength</label>
         <input type="number" id="wb-f-strength" placeholder="46" min="0" max="99">
       </div>
 
-      <div class="wb-field">
+      <div class="wb-field wb-nonmini-only">
         <label for="wb-f-size">Bottle size</label>
         <select id="wb-f-size">
           <option value="200ml">200ml</option>
           <option value="500ml">500ml</option>
-          <option value="miniature">Miniature</option>
         </select>
       </div>
 
