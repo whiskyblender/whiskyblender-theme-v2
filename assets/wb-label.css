@@ -169,12 +169,12 @@ body {
 
 .size20 .wb-label-area {
   padding-top: 73px;
-  min-height: 325px; /* 398px crops − 73px padding */
+  min-height: 398px;
 }
 
 .size50 .wb-label-area {
   padding-top: 128px;
-  min-height: 432px; /* 560px crops − 128px padding */
+  min-height: 560px;
 }
 
 /* ── Crop marks ────────────────────────────────────────────────────────────── */
