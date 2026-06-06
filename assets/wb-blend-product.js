@@ -124,17 +124,20 @@
     for (var i = 0; i < bottleForms.length; i++) { hide(bottleForms[i]); }
   }
 
-  function showBuyForm() {
+  function showBuyForm(slug) {
     document.documentElement.classList.remove('wb-blend-loading');
     show(document.querySelector('[name="add"]'));
     show(document.querySelector('.product-form__quantity'));
     var bottleForms = document.querySelectorAll('.wb-bottle-form');
     for (var i = 0; i < bottleForms.length; i++) { show(bottleForms[i]); }
-    fireConfetti();
+    fireConfetti(slug);
   }
 
-  function fireConfetti() {
+  function fireConfetti(slug) {
     if (typeof confetti === 'undefined') return;
+    var key = 'wb_confetti_' + slug;
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, '1');
     setTimeout(function () { confetti.start(); }, 600);
     setTimeout(function () { confetti.stop(); }, 4000);
   }
@@ -298,7 +301,7 @@
         }
 
         injectCartProperties(blend, variantsJson, labelPage, bottleSize);
-        showBuyForm();
+        showBuyForm(slug);
       })
       .catch(function () {
         hide(loadingEl);
