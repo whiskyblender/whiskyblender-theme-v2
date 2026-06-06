@@ -162,8 +162,6 @@
       }
     }
 
-    /* customblend always uses white foreground */
-    if (state.product === 'customblend') state.fg = '#111111';
   }
 
   /* ── Build shareable URL from state ────────────────────────────────────────── */
@@ -321,36 +319,38 @@
     var artworkUrl = getArtworkUrl(state.product, state.variant, state.size);
     if (artworkEl) artworkEl.style.backgroundImage = artworkUrl ? 'url(' + artworkUrl + ')' : 'none';
 
-    /* Text colour */
-    var fg = state.fg || '#111111';
-    var shadow = shadowColor(fg);
+    /* Label text colour — fixed by product type, independent of fg/bg picker.
+       customblend: black; singlemalt/singlecask: white (text sits on dark artwork) */
+    var isBlend = state.product === 'customblend';
+    var labelColor  = isBlend ? '#111111' : '#ffffff';
+    var labelShadow = isBlend ? '#ffffff' : '#000000';
 
     /* Blend name */
     var blendNameEl = document.getElementById('blendName');
     if (blendNameEl) {
       blendNameEl.innerHTML = esc(insertSpaceForLongWords(state.text || ''));
-      blendNameEl.style.color = fg;
-      blendNameEl.style.textShadow = '1px 1px ' + shadow;
+      blendNameEl.style.color = labelColor;
+      blendNameEl.style.textShadow = '1px 1px ' + labelShadow;
     }
 
     /* Side name (author or distillery) */
     var sideNameEl = document.getElementById('sideName');
     if (sideNameEl) {
-      sideNameEl.textContent = state.product === 'customblend' ? (state.author || '') : (state.distillery || '');
-      sideNameEl.style.color = fg;
-      sideNameEl.style.textShadow = '1px 1px ' + shadow;
+      sideNameEl.textContent = isBlend ? (state.author || '') : (state.distillery || '');
+      sideNameEl.style.color = labelColor;
+      sideNameEl.style.textShadow = '1px 1px ' + labelShadow;
     }
 
-    /* Side label ("Distilled at" — single malt/cask only; blend shows author with no label) */
+    /* Side label ("Distilled at" — single malt/cask only) */
     var sideLabelEl = document.getElementById('sideLabel');
     if (sideLabelEl) {
-      if (state.product === 'customblend') {
+      if (isBlend) {
         sideLabelEl.style.display = 'none';
       } else {
         sideLabelEl.style.display = '';
         sideLabelEl.textContent = 'Distilled at';
-        sideLabelEl.style.color = fg;
-        sideLabelEl.style.textShadow = '1px 1px ' + shadow;
+        sideLabelEl.style.color = labelColor;
+        sideLabelEl.style.textShadow = '1px 1px ' + labelShadow;
         sideLabelEl.style.top  = d.sideLabelTop + 'px';
         sideLabelEl.style.left = d.sideLabelLeft + 'px';
       }
