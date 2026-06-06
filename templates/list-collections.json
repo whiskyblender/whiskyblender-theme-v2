@@ -1,9 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "wb_collections": {
       "type": "wb-collections-page",
       "settings": {
-        "main_collections": "andrews-of-bothwell,wee-bits,custom,collaborations,football",
+        "main_collections": "Personalised, andrews-of-bothwell,wee-bits,collaborations,football",
         "regulars_collections": "royal-anglian-regiment",
         "occasions_collections": "anniversaries,birthdays,celebrations,christmas,thankyous,weddings"
       }
