@@ -2,12 +2,13 @@
  * wb-single-malt.js — cart property injection for personalised single malt product pages
  *
  * Injects a hidden `_label_url` cart property on form submission, constructed from:
- *   - product title (distillery name, e.g. "Aultmore 2011")
+ *   - product slug (singlemalt or singlecask, from data-product-slug)
+ *   - distillery name (from custom.distilled metafield via data-distillery)
  *   - selected variant title (label style, e.g. "Birthday")
  *   - label text input value (user's personalisation)
  *
  * URL format:
- *   /pages/label?type=single-malt&distillery=<product_title>&variant=<variant_title>&text=<label_text>
+ *   /pages/label?product=singlemalt&distillery=<distillery>&variant=<variant_title>&text=<label_text>
  */
 (function () {
   'use strict';
@@ -16,7 +17,8 @@
     var loader = document.getElementById('wb-single-malt-loader');
     if (!loader) return;
 
-    var productTitle = loader.getAttribute('data-product-title') || '';
+    var productSlug  = loader.getAttribute('data-product-slug') || 'singlemalt';
+    var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
     var labelPage    = loader.getAttribute('data-label-page') || '/pages/label';
     var variantsEl   = document.getElementById('wb-sm-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
@@ -40,8 +42,8 @@
       var labelText = (document.getElementById('label-text') || {}).value || '';
 
       var labelUrl = window.location.origin + labelPage +
-        '?type=single-malt' +
-        '&distillery=' + encodeURIComponent(productTitle) +
+        '?product='    + encodeURIComponent(productSlug) +
+        '&distillery=' + encodeURIComponent(distillery) +
         '&variant='    + encodeURIComponent(variantTitle) +
         '&text='       + encodeURIComponent(labelText);
 
