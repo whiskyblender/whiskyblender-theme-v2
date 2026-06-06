@@ -161,7 +161,7 @@
     }
 
     /* customblend always uses white foreground */
-    if (state.product === 'customblend') state.fg = '#ffffff';
+    if (state.product === 'customblend') state.fg = '#111111';
   }
 
   /* ── Build shareable URL from state ────────────────────────────────────────── */
@@ -566,7 +566,7 @@
       t.addEventListener('change', function () {
         state.product = t.value;
         state.recipe = null;
-        if (state.product === 'customblend') state.fg = '#ffffff';
+        if (state.product === 'customblend') state.fg = '#111111';
         updateTypeVisibility();
         render();
       });
