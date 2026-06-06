@@ -164,8 +164,9 @@
     /* Backward compat: product=miniature (singular) → miniatures */
     if (state.product === 'miniature') state.product = 'miniatures';
     if (p.get('size') && p.get('size') !== 'miniature') state.size = p.get('size');
-    if (p.get('fg'))         state.fg         = p.get('fg');
-    if (p.get('bg'))         state.bg         = p.get('bg');
+    var hexRe = /^#[0-9A-Fa-f]{3,6}$/;
+    if (p.get('fg') && hexRe.test(p.get('fg'))) state.fg = p.get('fg');
+    if (p.get('bg') && hexRe.test(p.get('bg'))) state.bg = p.get('bg');
     if (p.get('reference'))  state.reference  = p.get('reference');
 
     /* Legacy: map old type= and singlecask= params to product slug */
