@@ -263,10 +263,15 @@
       saveBtn.removeAttribute('disabled');
 
       saveBtn.addEventListener('click', function () {
-        /* Not ready — scroll back up to the blending options */
+        /* Not ready — scroll to whichever step is outstanding */
         if (saveBtn.classList.contains('wb-button-disabled')) {
-          var flavoursEl = document.getElementById('wb-lab-flavours');
-          if (flavoursEl) flavoursEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (total < MAX_TOTAL) {
+            var flavoursEl = document.getElementById('wb-lab-flavours');
+            if (flavoursEl) flavoursEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            var savePanel = document.getElementById('wb-save-panel');
+            if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
           return;
         }
 
