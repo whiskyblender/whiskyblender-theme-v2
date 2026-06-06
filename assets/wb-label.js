@@ -179,6 +179,11 @@
       }
     }
 
+    /* singlemalt/singlecask only have 500ml artwork — upgrade silently if size is missing or 200ml */
+    if ((state.product === 'singlemalt' || state.product === 'singlecask') && state.size !== '500ml') {
+      state.size = '500ml';
+    }
+
   }
 
   /* ── Build shareable URL from state ────────────────────────────────────────── */
