@@ -96,6 +96,7 @@
 
       var labelUrl = window.location.origin + (labelPage || '/pages/label') +
         '?blend='   + encodeURIComponent(blend.slug) +
+        '&product=customblend' +
         '&variant=' + encodeURIComponent(variantTitle) +
         '&text='    + encodeURIComponent(labelText) +
         '&author='  + encodeURIComponent(authorText);
