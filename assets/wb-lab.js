@@ -46,20 +46,22 @@
           '<div class="wb-cask"' + (caskStyle ? ' style="' + caskStyle + '"' : '') + '></div>' +
           '<div class="wb-option-amount wb-background-' + color + '" style="display:none">0%</div>' +
           '<div class="wb-option-controls">' +
-            '<div class="wb-liquidGlass-wrapper wb-option-control wb-remove-option wb-' + color + '-option wb-disabled-option"' +
-                ' data-action="remove" data-flavour-index="' + index + '">' +
+            '<button type="button" class="wb-liquidGlass-wrapper wb-option-control wb-remove-option wb-' + color + '-option wb-disabled-option"' +
+                ' data-action="remove" data-flavour-index="' + index + '"' +
+                ' aria-label="Remove ' + escapeHtml(option.name) + '">' +
               '<div class="wb-liquidGlass-effect"></div>' +
               '<div class="wb-liquidGlass-tint"></div>' +
               '<div class="wb-liquidGlass-shine"></div>' +
-              '<span class="wb-liquidGlass-text">-</span>' +
-            '</div>' +
-            '<div class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-' + color + '-option"' +
-                ' data-action="add" data-flavour-index="' + index + '">' +
+              '<span class="wb-liquidGlass-text" aria-hidden="true">-</span>' +
+            '</button>' +
+            '<button type="button" class="wb-liquidGlass-wrapper wb-option-control wb-add-option wb-' + color + '-option"' +
+                ' data-action="add" data-flavour-index="' + index + '"' +
+                ' aria-label="Add ' + escapeHtml(option.name) + '">' +
               '<div class="wb-liquidGlass-effect"></div>' +
               '<div class="wb-liquidGlass-tint"></div>' +
               '<div class="wb-liquidGlass-shine"></div>' +
-              '<span class="wb-liquidGlass-text">+</span>' +
-            '</div>' +
+              '<span class="wb-liquidGlass-text" aria-hidden="true">+</span>' +
+            '</button>' +
           '</div>' +
         '</div>' +
         '<div class="wb-card-details">' +
@@ -265,11 +267,10 @@
       saveBtn.addEventListener('click', function () {
         /* Not ready — scroll to whichever step is outstanding */
         if (saveBtn.classList.contains('wb-button-disabled')) {
-          if (total < MAX_TOTAL) {
+          if (getTotal() < MAX_TOTAL) {
             var flavoursEl = document.getElementById('wb-lab-flavours');
             if (flavoursEl) flavoursEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
           } else {
-            var savePanel = document.getElementById('wb-save-panel');
             if (savePanel) savePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
           return;
@@ -400,6 +401,12 @@
       el.addEventListener('touchend',    stop);
       el.addEventListener('touchcancel', stop);
       window.addEventListener('blur',    stop);
+      el.addEventListener('keydown', function (e) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          fn();
+        }
+      });
     }
 
     flavours.forEach(function (f) {
