@@ -28,8 +28,7 @@
             "name": "Rich and bold",
             "emoji": "👑",
             "description": "A whisky with presence. Deep flavours, often full of oak, spice, or smoke, it makes a statement from the first sip. Confident and uncompromising, this is the dram that likes to take center stage.",
-            "url": "",
-            "recipe": "0,0,55,5,40"
+            "blend_code": "WB00000041"
           }
         },
         "dram_littlesweetie": {
@@ -40,8 +39,7 @@
             "name": "Little sweetie",
             "emoji": "🍯",
             "description": "Soft, gentle, and welcoming. Think honeyed notes, vanilla, or ripe fruits. This whisky is a hug in a glass, perfect for someone who brings sweetness wherever they go.",
-            "url": "",
-            "recipe": "65,0,0,20,15"
+            "blend_code": "WB00000042"
           }
         },
         "dram_wellbalanced": {
@@ -52,8 +50,7 @@
             "name": "Well balanced",
             "emoji": "⚖️",
             "description": "Harmony in liquid form. Smooth layers of fruit, malt, and spice come together in a whisky that feels effortless. Reliable and composed, it never tries too hard, but always delivers.",
-            "url": "",
-            "recipe": "20,20,20,20,20"
+            "blend_code": "WB00000043"
           }
         },
         "dram_wildatheart": {
@@ -64,8 +61,7 @@
             "name": "Wild at heart",
             "emoji": "🐺",
             "description": "Fiery and untamed. Whether it's a burst of smoke, a punch of spice, or a high-strength kick, this whisky has an adventurous edge that refuses to be tamed.",
-            "url": "",
-            "recipe": "25,30,5,35,5"
+            "blend_code": "WB00000044"
           }
         },
         "dram_quietlypowerful": {
@@ -76,8 +72,7 @@
             "name": "Quietly powerful",
             "emoji": "💪",
             "description": "Understated at first, but with a depth that reveals itself slowly. A whisky with quiet confidence: refined, layered, and lasting long after the glass is empty.",
-            "url": "",
-            "recipe": "0,10,35,15,40"
+            "blend_code": "WB00000045"
           }
         },
         "dram_lovelybutweird": {
@@ -88,8 +83,7 @@
             "name": "Lovely but weird",
             "emoji": "🌀",
             "description": "Unexpected and quirky. Flavours you might not see coming — floral, herbal, or a little eccentric — make this whisky as surprising as it is endearing. For those who delight in the unusual.",
-            "url": "",
-            "recipe": "15,35,10,30,10"
+            "blend_code": "WB00000046"
           }
         }
       },
@@ -103,7 +97,8 @@
       ],
       "settings": {
         "heading": "Perfect drams",
-        "intro": "Forget about what they like, and think about what THEY'RE like. Different whiskies have different characteristics, just like people. Find one that sounds perfect for the person you're buying for and label it up for them."
+        "intro": "Forget about what they like, and think about what THEY'RE like. Different whiskies have different characteristics, just like people. Find one that sounds perfect for the person you're buying for and label it up for them.",
+        "custom_options_url": ""
       }
     }
   },

@@ -40,8 +40,8 @@
           "type": "option",
           "settings": {
             "icon": "🤏",
-            "heading": "Label up wee <a href=\"/products/miniatures\">whisky miniatures</a>",
-            "url": "shopify://products/miniatures"
+            "heading": "Label up wee <a href=\"/products/custom-miniatures\">whisky miniatures</a>",
+            "url": "shopify://products/custom-miniatures"
           }
         },
         "option_bkNwYD": {
