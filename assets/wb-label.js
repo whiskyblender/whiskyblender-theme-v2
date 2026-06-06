@@ -306,8 +306,10 @@
     var label = document.getElementById('label');
     if (!page || !label) return;
 
-    /* Size class */
-    page.className = state.size === '500ml' ? 'size50' : 'size20';
+    /* Size + product class */
+    var sizeClass = state.size === '500ml' ? 'size50' : 'size20';
+    var productClass = (state.product === 'singlemalt' || state.product === 'singlecask') ? state.product : '';
+    page.className = (sizeClass + ' ' + productClass).trim();
 
     /* Artwork */
     var artworkEl = document.getElementById('artwork');
@@ -357,7 +359,8 @@
 
     /* Side panel — single malt / single cask only (ABV / domain / ml strip) */
     if (state.product !== 'customblend') {
-      renderSidePanel(d);
+      /* panelTop shifts to roundelTop (4) so strip sits alongside the artwork */
+      renderSidePanel(Object.assign({}, d, { panelTop: d.roundelTop }));
     } else {
       removeSidePanels();
     }
