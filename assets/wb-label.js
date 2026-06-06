@@ -222,7 +222,7 @@
 
     var s = d.panelLength / 232;
     var pad = Math.round(10 * s) + 'px ' + Math.round(16 * s) + 'px ' + Math.round(17 * s) + 'px';
-    var sizeText = (state.size === 'miniature' ? '50' : d.volume) + 'ml ℓ';
+    var sizeText = (state.size === 'miniature' ? '50' : d.volume) + 'ml ℮';
 
     /* Info strip */
     var info = document.createElement('div');
