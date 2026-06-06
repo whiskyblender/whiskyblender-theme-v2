@@ -1,8 +1,7 @@
-<!-- DEBUG: {% for c in product.collections %}{{ c.title }}:{{ c.template_suffix }}|{% endfor %} -->
 <p class="wb-collection-ref">
   {%- assign filtered_count = 0 -%}
   {%- for collection in product.collections -%}
-    {%- unless collection.template_suffix == 'unlisted-collection' or collection.template_suffix == 'occasion' -%}
+    {%- unless collection.template_suffix == 'unlisted-collection' or collection.template_suffix == 'occasion' or collection.template_suffix == 'hidden' -%}
       {%- assign filtered_count = filtered_count | plus: 1 -%}
     {%- endunless -%}
   {%- endfor -%}
@@ -11,7 +10,7 @@
     Part of the&nbsp;
     {%- assign output_count = 0 -%}
     {%- for collection in product.collections -%}
-      {%- unless collection.template_suffix == 'unlisted-collection' or collection.template_suffix == 'occasion' -%}
+      {%- unless collection.template_suffix == 'unlisted-collection' or collection.template_suffix == 'occasion' or collection.template_suffix == 'hidden' -%}
         {%- assign output_count = output_count | plus: 1 -%}
         <a href="{{ collection.url }}">{{ collection.title }}</a>
         {%- if output_count < filtered_count -%}
