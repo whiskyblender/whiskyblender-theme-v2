@@ -28,19 +28,24 @@
 
   /* ── Recipe bar chart ────────────────────────────────────────────── */
 
-  function renderRecipe(blend, labUrl) {
+  /* inactiveIds: optional array of identifiers to render greyed/desaturated */
+  function renderRecipe(blend, labUrl, inactiveIds) {
     var recipeEl = document.getElementById('wb-blend-recipe');
     if (!recipeEl) return;
 
+    var inactiveSet = inactiveIds || [];
     var recipe  = Array.isArray(blend.recipe) ? blend.recipe : [];
     var maxAmt  = recipe.reduce(function (m, i) { return Math.max(m, i.amount || 0); }, 0);
 
     var rows = recipe
       .filter(function (i) { return i.amount > 0; })
       .map(function (item) {
-        var barLeft = maxAmt > 0 ? ((item.amount / maxAmt) * 100).toFixed(1) + '%' : '0%';
+        var isInactive = inactiveSet.indexOf(item.identifier) !== -1;
+        var barLeft    = maxAmt > 0 ? ((item.amount / maxAmt) * 100).toFixed(1) + '%' : '0%';
+        var bgColor    = isInactive ? '#cccccc' : esc(item.colour || '#cccccc');
+        var liClass    = isInactive ? ' class="wb-recipe-item--inactive"' : '';
         return (
-          '<li style="background-color:' + esc(item.colour || '#cccccc') + '">' +
+          '<li' + liClass + ' style="background-color:' + bgColor + '">' +
             '<span class="wb-label">' + esc(String(item.amount)) + '% ' + esc(item.name) + '</span>' +
             '<span class="wb-recipebar" style="left:' + barLeft + '"></span>' +
           '</li>'
@@ -134,6 +139,27 @@
     setTimeout(function () { confetti.stop(); }, 4000);
   }
 
+  /* ── Inactive option warning ─────────────────────────────────────── */
+
+  /* Called after renderRecipe — appends warning panel below the chart.
+     slug + labUrl are used to build a "Return to lab" link that pre-loads
+     the blend so the user can fill the inactive slots with active options. */
+  function showInactiveWarning(names, slug, labUrl) {
+    document.documentElement.classList.remove(‘wb-blend-loading’);
+    hideBuyForm();
+    var recipeEl = document.getElementById(‘wb-blend-recipe’);
+    if (!recipeEl) return;
+    var labHref  = (labUrl && slug) ? labUrl + ‘?blend=’ + encodeURIComponent(slug) : ‘/pages/the-lab’;
+    var nameList = names.map(function (n) { return ‘‘’ + esc(n) + ‘’’; }).join(‘, ‘);
+    var verb     = names.length === 1 ? ‘is’ : ‘are’;
+    var warn = document.createElement(‘div’);
+    warn.className = ‘wb-inactive-warning’;
+    warn.innerHTML =
+      ‘<p>’ + nameList + ‘ ‘ + verb + ‘ no longer available.</p>’ +
+      ‘<p><a href="’ + esc(labHref) + ‘">Return to the lab</a> to complete your recipe with our current whiskies.</p>’;
+    recipeEl.appendChild(warn);
+  }
+
   /* ── No-blend state ──────────────────────────────────────────────── */
 
   function showNoBlendState(failedSlug) {
@@ -225,22 +251,53 @@
     var loadingEl = document.getElementById('wb-blend-loading');
     show(loadingEl);
 
-    fetch(apiBase + '/api/blend?slug=' + encodeURIComponent(slug))
-      .then(function (res) {
-        return res.json().then(function (data) { return { ok: res.ok, data: data }; });
-      })
-      .then(function (result) {
+    /* Fetch blend + active options in parallel — options are needed to guard
+       against inactive whiskies being purchased. If options fetch fails we
+       fail open (don't block purchase for a network error). */
+    Promise.all([
+      fetch(apiBase + '/api/blend?slug=' + encodeURIComponent(slug))
+        .then(function (res) {
+          return res.json().then(function (data) { return { ok: res.ok, data: data }; });
+        }),
+      fetch(apiBase + '/api/whisky-options')
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .catch(function () { return null; }),
+    ])
+      .then(function (results) {
         hide(loadingEl);
+        var blendResult   = results[0];
+        var activeOptions = results[1]; /* null = fetch failed — skip guard */
 
-        if (!result.ok) {
+        if (!blendResult.ok) {
           showNoBlendState(slug);
           showError('We can\'t find that blend. Either your code is wrong or it\'s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
           return;
         }
 
-        renderRecipe(result.data, labUrl);
-        populateInputs(result.data);
-        injectCartProperties(result.data, variantsJson, labelPage, bottleSize);
+        var blend  = blendResult.data;
+        var recipe = Array.isArray(blend.recipe) ? blend.recipe : [];
+
+        /* Determine inactive IDs before rendering so the chart can grey them */
+        var inactiveIds   = [];
+        var inactiveNames = [];
+        if (activeOptions !== null) {
+          var activeIds     = activeOptions.map(function (o) { return o.identifier; });
+          var inactiveItems = recipe.filter(function (item) {
+            return item.amount > 0 && activeIds.indexOf(item.identifier) === -1;
+          });
+          inactiveIds   = inactiveItems.map(function (i) { return i.identifier; });
+          inactiveNames = inactiveItems.map(function (i) { return i.name; });
+        }
+
+        renderRecipe(blend, labUrl, inactiveIds);
+        populateInputs(blend);
+
+        if (inactiveIds.length > 0) {
+          showInactiveWarning(inactiveNames, slug, labUrl);
+          return;
+        }
+
+        injectCartProperties(blend, variantsJson, labelPage, bottleSize);
         showBuyForm();
       })
       .catch(function () {
