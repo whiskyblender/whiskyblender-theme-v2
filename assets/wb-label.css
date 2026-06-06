@@ -130,14 +130,20 @@ body {
   position: relative;
   margin: 0 auto;
   padding-top: 128px;
+  overflow: hidden;
 }
 
 #page.size50 { width: 794px; height: 432px; }
-#page.size20 { width: 562px; padding-top: 146px; }
+#page.size20 { width: 562px; padding-top: 146px; height: 252px; }
 
 /* ── Summary zone (Zone 1 — above cropmarks, inside #page) ─────────────────── */
 
 #wb-summary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
   padding: 14px 20px 10px;
   display: flex;
   flex-wrap: wrap;
@@ -165,17 +171,20 @@ body {
 /* ── Label area wrapper (holds crops + label) ──────────────────────────────── */
 
 .wb-label-area {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .size20 .wb-label-area {
   padding-top: 73px;
-  min-height: 398px;
+  height: 325px; /* content-box: 325 + 73 padding = 398px total (cropsH) */
 }
 
 .size50 .wb-label-area {
   padding-top: 128px;
-  min-height: 560px;
+  height: 432px; /* content-box: 432 + 128 padding = 560px total (cropsH) */
 }
 
 /* ── Crop marks ────────────────────────────────────────────────────────────── */
@@ -273,6 +282,11 @@ body {
 /* ── Recipe panel (Zone 3 — below cropmarks, inside #page) ─────────────────── */
 
 #wb-recipe-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
   padding: 20px 20px 28px;
   font-family: 'Raleway', sans-serif;
   display: none;
