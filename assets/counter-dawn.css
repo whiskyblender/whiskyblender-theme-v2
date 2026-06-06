@@ -61,10 +61,6 @@
     z-index: 2;
 }
 
-.image-with-text {
-    overflow: hidden;
-}
-
 .image-with-text__media {
     border: none;
 }
