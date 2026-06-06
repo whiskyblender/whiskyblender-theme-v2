@@ -125,6 +125,13 @@
     show(document.querySelector('.product-form__quantity'));
     var bottleForms = document.querySelectorAll('.wb-bottle-form');
     for (var i = 0; i < bottleForms.length; i++) { show(bottleForms[i]); }
+    fireConfetti();
+  }
+
+  function fireConfetti() {
+    if (typeof confetti === 'undefined') return;
+    setTimeout(function () { confetti.start(); }, 600);
+    setTimeout(function () { confetti.stop(); }, 4000);
   }
 
   /* ── No-blend state ──────────────────────────────────────────────── */
