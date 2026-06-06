@@ -129,6 +129,7 @@ body {
   background: #fff;
   position: relative;
   margin: 0 auto;
+  padding-top: 128px;
 }
 
 #page.size50 { width: 794px; }
