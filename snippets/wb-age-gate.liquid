@@ -266,8 +266,13 @@
   function applyBannerOffset() {
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        var banner = document.getElementById('wb-banner');
-        gate.style.paddingTop = (banner ? banner.offsetHeight : 0) + 'px';
+        var realHeader = document.getElementById('wb-header');
+        if (realHeader) {
+          gate.style.paddingTop = Math.max(0, realHeader.getBoundingClientRect().top) + 'px';
+        } else {
+          var banner = document.getElementById('wb-banner');
+          gate.style.paddingTop = (banner ? banner.offsetHeight : 0) + 'px';
+        }
       });
     });
   }
