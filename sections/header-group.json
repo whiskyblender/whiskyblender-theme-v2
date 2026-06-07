@@ -14,13 +14,6 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_KXyi8M": {
-          "type": "announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": ""
-          }
-        },
         "announcement_KpKexp": {
           "type": "announcement",
           "disabled": true,
@@ -35,12 +28,19 @@
             "text": "🚢 Free UK shipping.",
             "link": ""
           }
+        },
+        "announcement_KXyi8M": {
+          "type": "announcement",
+          "settings": {
+            "text": "🇺🇸 US customers: Duties & taxes calculated at checkout.",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement_KXyi8M",
         "announcement_KpKexp",
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement_KXyi8M"
       ],
       "settings": {
         "auto_rotate": true,
