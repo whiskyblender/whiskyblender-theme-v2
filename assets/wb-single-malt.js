@@ -27,6 +27,17 @@
     var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
 
+    /* Require at least 1 character in label text before allowing add to cart */
+    var labelInput = document.getElementById('label-text');
+    var addBtn     = form.querySelector('[name="add"]');
+    if (labelInput && addBtn) {
+      function syncBtn() {
+        addBtn.disabled = labelInput.value.trim().length === 0;
+      }
+      syncBtn();
+      labelInput.addEventListener('input', syncBtn);
+    }
+
     form.addEventListener('formdata', function (e) {
       var variantTitle = '';
       try {
