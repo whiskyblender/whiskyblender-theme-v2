@@ -88,11 +88,15 @@
     function prevResizeText(el) {
       var min = 18, max = 52, step = 0.5;
       var parent = el.parentNode;
+      var maxH = parent.clientHeight || 80;
+      var maxW = parent.clientWidth  || 90;
       var i = min, overflow = false;
       while (!overflow && i < max) {
         el.style.fontSize   = i + 'px';
         el.style.lineHeight = (i * 0.74) + 'px';
-        overflow = parent.scrollWidth > parent.clientWidth || parent.scrollHeight > parent.clientHeight;
+        /* Check child's natural dimensions — more reliable than parent.scrollHeight
+           with display:grid + overflow:hidden (grid clips but scrollHeight stays == clientHeight) */
+        overflow = el.scrollHeight > maxH || el.scrollWidth > maxW;
         if (!overflow) i += step;
       }
       var final = Math.max(min, i - step - 1);
@@ -129,7 +133,22 @@
       }
 
       var cropsEl = previewContainer.querySelector('.wbp-crops');
-      if (cropsEl && cropsUrl) cropsEl.style.backgroundImage = 'url(' + cropsUrl + ')';
+      if (cropsEl) {
+        cropsEl.style.cssText = [
+          'display:block',
+          'position:absolute',
+          'top:0',
+          'left:0',
+          'width:794px',
+          'height:560px',
+          'pointer-events:none',
+          'z-index:10',
+          cropsUrl ? 'background-image:url(' + cropsUrl + ')' : '',
+          'background-position:center center',
+          'background-repeat:no-repeat',
+          'background-size:auto',
+        ].filter(Boolean).join(';');
+      }
 
       var artworkEl = previewContainer.querySelector('.wbp-image');
       if (artworkEl) {
@@ -137,6 +156,7 @@
         var artworkProduct = productSlug === 'singlecask' ? 'singlemalt' : productSlug;
         var artworkUrl = cdn + 'wb-' + artworkProduct + '-' + variantSlug + '-500ml.jpg?v=' + av;
         artworkEl.style.cssText = [
+          'display:block',
           'position:absolute',
           'top:4px',
           'left:-9px',
