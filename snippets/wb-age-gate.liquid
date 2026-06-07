@@ -199,20 +199,22 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
-  /* Offset logo to match nav logo position when announcement bar is visible.
-     Deferred to DOMContentLoaded because #wb-banner is rendered after this snippet. */
-  function applyBannerOffset() {
-    var banner = document.getElementById('wb-banner');
-    var bannerH = banner ? banner.offsetHeight : 0;
-    if (bannerH > 0) {
-      var logo = gate.querySelector('.wb-age-gate__logo');
-      if (logo) logo.style.marginTop = 'calc(' + bannerH + 'px + 1vw)';
-    }
+  /* Align gate top padding with the header container, accounting for the
+     announcement bar height. Both elements are rendered after this snippet
+     so we defer to DOMContentLoaded to read their computed values. */
+  function applyTopOffset() {
+    var banner          = document.getElementById('wb-banner');
+    var headerContainer = document.querySelector('#wb-header .wb-container');
+    var bannerH         = banner ? banner.offsetHeight : 0;
+    var headerPadding   = headerContainer
+      ? parseInt(window.getComputedStyle(headerContainer).paddingTop, 10)
+      : 20;
+    gate.style.paddingTop = (bannerH + headerPadding) + 'px';
   }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyBannerOffset);
+    document.addEventListener('DOMContentLoaded', applyTopOffset);
   } else {
-    applyBannerOffset();
+    applyTopOffset();
   }
 
   function setCookie(name, value, days) {
