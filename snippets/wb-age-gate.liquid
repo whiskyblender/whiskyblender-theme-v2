@@ -27,14 +27,15 @@
 
 /* ── Header overlay ────────────────────────────────────────────── */
 
+/* matches #wb-header: position:relative makes it the containing block for .wb-age-gate__byline-row */
 .wb-age-gate__header {
   width: 100%;
   pointer-events: none;
+  position: relative;
 }
 
-
+/* matches .wb-container: no position:relative so byline anchors to .wb-age-gate__header above */
 .wb-age-gate__header-body {
-  position: relative;
   padding: 20px 0 10px 0;
   text-align: center;
 }
@@ -85,7 +86,6 @@
   }
 
   .wb-age-gate__byline-row {
-    gap: 210px;
     font-size: 9px;
     height: 48px;
     letter-spacing: 3px;
@@ -260,21 +260,11 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
-  /* Align the gate header overlay with the real header beneath.
-     Reads #wb-header's actual top position so any banner height change
-     (e.g. after fonts load) is accounted for. Double-rAF ensures the
-     browser has run layout before we measure. Re-applies on window load
-     in case font metrics change the banner height after DOMContentLoaded. */
   function applyBannerOffset() {
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        var realHeader = document.getElementById('wb-header');
-        if (realHeader) {
-          gate.style.paddingTop = Math.max(0, realHeader.getBoundingClientRect().top) + 'px';
-        } else {
-          var banner = document.getElementById('wb-banner');
-          gate.style.paddingTop = (banner ? banner.offsetHeight : 0) + 'px';
-        }
+        var banner = document.getElementById('wb-banner');
+        gate.style.paddingTop = (banner ? banner.offsetHeight : 0) + 'px';
       });
     });
   }
