@@ -31,8 +31,13 @@
     var labelInput = document.getElementById('label-text');
     var addBtn     = form.querySelector('[name="add"]');
     if (labelInput && addBtn) {
+      var btnSpan    = addBtn.querySelector('span');
+      var defaultText = btnSpan ? btnSpan.textContent.trim() : '';
       function syncBtn() {
-        addBtn.disabled = labelInput.value.trim().length === 0;
+        var hasText = labelInput.value.trim().length > 0;
+        addBtn.disabled = !hasText;
+        addBtn.classList.toggle('wb-button-disabled', !hasText);
+        if (btnSpan) btnSpan.textContent = hasText ? defaultText : 'Fill in label';
       }
       syncBtn();
       labelInput.addEventListener('input', syncBtn);
