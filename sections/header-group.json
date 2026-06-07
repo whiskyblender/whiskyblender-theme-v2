@@ -35,12 +35,20 @@
             "text": "🇺🇸 US customers: Duties & taxes calculated at checkout.",
             "link": ""
           }
+        },
+        "announcement_UJ4bzH": {
+          "type": "announcement",
+          "settings": {
+            "text": "🤝 Working on a commercial project? Let's collaborate →",
+            "link": "https://andrewsofbothwell.com"
+          }
         }
       },
       "block_order": [
         "announcement_KpKexp",
         "announcement-bar-0",
-        "announcement_KXyi8M"
+        "announcement_KXyi8M",
+        "announcement_UJ4bzH"
       ],
       "settings": {
         "auto_rotate": true,
