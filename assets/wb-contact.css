@@ -43,10 +43,7 @@
 
 /* Tracker — static, always in place, label + bar update via JS */
 .wbcw-tracker {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 32px;
+    display: none;
 }
 
 .wbcw-tracker .wbcw-progress {
