@@ -199,6 +199,18 @@
     var pieContainer = document.getElementById('wb-lab-pie');
     if (pieContainer) {
       pieContainer.innerHTML = options.map(buildPieHTML).join('');
+
+      /* Click-to-scroll: clicking a pie segment scrolls to its option card */
+      pieContainer.querySelectorAll('.wb-pie[data-pie-for]').forEach(function (seg) {
+        seg.addEventListener('click', function () {
+          var idx  = parseInt(seg.getAttribute('data-pie-for'), 10);
+          var card = container.querySelector('[data-flavour-index="' + idx + '"]');
+          if (!card) return;
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          card.classList.add('wb-card-active');
+          setTimeout(function () { card.classList.remove('wb-card-active'); }, 2000);
+        });
+      });
     }
 
     /* Build flavour state — keep full option data for recipe building */
@@ -326,6 +338,17 @@
         if (label) {
           label.textContent = total + '% filled';
         }
+      }
+
+      /* Screen reader pie summary */
+      var srEl = document.getElementById('wb-pie-sr');
+      if (srEl) {
+        var nonZero = flavours.filter(function (f) { return f.amount > 0; });
+        srEl.textContent = nonZero.length === 0
+          ? 'Blend chart: no whisky selected yet.'
+          : 'Blend chart: ' + nonZero.map(function (f) {
+              return f.name + ' ' + f.amount + '%';
+            }).join(', ') + '.';
       }
 
       /* Save button state — disabled until blend is 100% and both fields are filled */

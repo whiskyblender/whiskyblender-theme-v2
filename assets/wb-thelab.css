@@ -227,6 +227,11 @@
   z-index: 100;
   border: 10px solid #ffffff;
   border-radius: 50%;
+  pointer-events: none;
+}
+
+.wb-pie[data-pie-for] {
+  cursor: pointer;
 }
 
 .wb-sticky-lab {

@@ -36,12 +36,13 @@
 >
   {%- comment -%} Cards injected by wb-lab.js after fetching /api/whisky-options {%- endcomment -%}
   <li class="wb-notoption">
-    <div class="wb-pies">
+    <div class="wb-pies" aria-hidden="true">
       <div class="wb-pie-grid" style="background-image: url({{ 'wb-piegrid.svg' | asset_url }})">&nbsp;</div>
       <div class="wb-rotate" id="wb-lab-pie">
         {%- comment -%} Pie slices injected by wb-lab.js {%- endcomment -%}
       </div>
     </div>
+    <p id="wb-pie-sr" class="visually-hidden" aria-live="polite">Blend chart: no whisky selected yet.</p>
   </li>
 </ul>
 

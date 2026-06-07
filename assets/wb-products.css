@@ -48,6 +48,9 @@
 }
 
 .wb-productitem {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   padding-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 6px;
@@ -625,4 +628,12 @@ ul.wb-product-drawers li {
   font-size: 12px;
   color: #999;
   margin: 4px 0 12px;
+}
+
+.wb-share-recipe-btn {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
 }

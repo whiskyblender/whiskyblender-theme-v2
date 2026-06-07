@@ -199,6 +199,16 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
+  /* Offset logo to match nav logo position when announcement bar is visible */
+  (function () {
+    var banner = document.getElementById('wb-banner');
+    var bannerH = banner ? banner.offsetHeight : 0;
+    if (bannerH > 0) {
+      var logo = gate.querySelector('.wb-age-gate__logo');
+      if (logo) logo.style.marginTop = bannerH + 'px';
+    }
+  })();
+
   function setCookie(name, value, days) {
     var expires = new Date(Date.now() + days * 864e5).toUTCString();
     document.cookie = name + '=' + value + '; expires=' + expires + '; path=/; SameSite=Lax; Secure';

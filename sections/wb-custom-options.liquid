@@ -46,9 +46,9 @@
             {%- assign hover_img = product.images[1] -%}
 
             <li class="wb-productcell{% if sold_out %} wb-soldout{% endif %}">
-              <div
+              <a
                 class="wb-productitem{% if sold_out %} wb-soldout{% endif %}"
-                onclick="location.href='{{ product.url }}';"
+                href="{{ product.url }}"
                 data-product-url="{{ product.url }}"
               >
                 <div class="wb-productmedia">
@@ -77,9 +77,7 @@
                 </div>
                 <div class="wb-productcontent">
                   <div class="wb-productinfo">
-                    <h3 class="wb-producttitle wb-tiny-heading">
-                      <a href="{{ product.url }}" data-product-url="{{ product.url }}">{{ product.title }}</a>
-                    </h3>
+                    <h3 class="wb-producttitle wb-tiny-heading">{{ product.title }}</h3>
                     <div class="wb-productdetails">
                       <div class="wb-productcosts">
                         {%- if sold_out -%}
@@ -91,7 +89,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </li>
           {%- endfor -%}
         </ul>
@@ -194,12 +192,8 @@
     heading.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
     sub.textContent     = 'Now choose how you want to bottle your whisky…';
 
-    document.querySelectorAll('.wb-productitem[data-product-url]').forEach(function (item) {
-      var url = item.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
-      item.setAttribute('onclick', "location.href='" + url + "';");
-    });
-    document.querySelectorAll('a[data-product-url]').forEach(function (a) {
-      a.href = a.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
+    document.querySelectorAll('[data-product-url]').forEach(function (el) {
+      el.href = el.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
     });
 
     bottom.style.display = '';

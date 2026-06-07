@@ -1,3 +1,13 @@
+/* Card-link stretch — makes entire card clickable via h3 a::before */
+.wb-main-cards li {
+  position: relative;
+}
+.wb-main-cards li h3 a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
 img.wb-unique {
     transform: rotate(-4deg);
 }
