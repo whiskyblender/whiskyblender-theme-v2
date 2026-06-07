@@ -19,6 +19,7 @@
           <li
             {{ block.shopify_attributes }}
           >
+            <a href="{{ href }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
             <div class="wb-card-image">
               {%- if block.settings.image -%}
                 {{ block.settings.image | image_url: width: 800 | image_tag: alt: block.settings.name, loading: 'lazy' }}
