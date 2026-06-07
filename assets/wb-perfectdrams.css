@@ -2,6 +2,12 @@
 .wb-main-cards li {
   position: relative;
 }
+/* wb-card-details has position:relative in wb-global.css and counter-dawn.css,
+   which makes h3 a::before anchor to it instead of the li. Override to static
+   so the ::before covers the full card including the image area. */
+.wb-main-cards .wb-card-details {
+  position: static;
+}
 .wb-main-cards li h3 a::before {
   content: '';
   position: absolute;
