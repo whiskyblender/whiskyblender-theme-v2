@@ -135,7 +135,6 @@
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
         var artworkUrl = cdn + 'wb-' + productSlug + '-' + variantSlug + '-500ml.jpg?v=' + av;
-        console.log('[WB preview] cdn:', cdn, '| productSlug:', productSlug, '| variantSlug:', variantSlug, '| artworkUrl:', artworkUrl);
         artworkEl.style.backgroundImage = 'url(' + artworkUrl + ')';
       }
 
