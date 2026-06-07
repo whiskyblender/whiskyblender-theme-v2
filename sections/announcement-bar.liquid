@@ -27,7 +27,7 @@
   {%- endif -%}
   {%- if section.blocks.size == 1 -%}
     <div
-      class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
+      class="wb-announcement-bar announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
       role="region"
       aria-label="{{ 'sections.header.announcement' | t }}"
       {{ section.blocks.first.shopify_attributes }}
@@ -36,10 +36,10 @@
         {%- if section.blocks.first.settings.link != blank -%}
           <a
             href="{{ section.blocks.first.settings.link }}"
-            class="announcement-bar__link link link--text focus-inset animate-arrow"
+            class="wb-announcement-bar announcement-bar__link link link--text focus-inset animate-arrow"
           >
         {%- endif -%}
-        <p class="announcement-bar__message h5">
+        <p class="wb-announcement-bar announcement-bar__message h5">
           <span>{{ section.blocks.first.settings.text | escape }}</span>
           {%- if section.blocks.first.settings.link != blank -%}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -66,7 +66,7 @@
           aria-controls="Slider-{{ section.id }}"
         >
           <span class="svg-wrapper">
-            {{- 'icon-caret.svg' | inline_asset_content -}}
+            <img src="{{ 'wb-caret-white.svg' | asset_url }}" alt="" width="6" height="4">
           </span>
         </button>
         <div
@@ -121,7 +121,7 @@
           aria-controls="Slider-{{ section.id }}"
         >
           <span class="svg-wrapper">
-            {{- 'icon-caret.svg' | inline_asset_content -}}
+            <img src="{{ 'wb-caret-white.svg' | asset_url }}" alt="" width="6" height="4">
           </span>
         </button>
       </div>
