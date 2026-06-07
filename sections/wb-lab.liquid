@@ -114,7 +114,7 @@
 </div>
 
 {%- comment -%} Optional teardown panel — configurable in theme editor {%- endcomment -%}
-{%- if section.settings.teardown_heading != blank or section.settings.teardown_content != blank -%}
+{%- if section.settings.teardown_heading != blank or section.settings.teardown_content != blank or section.settings.bottle_options_url != blank -%}
 <div class="wb-lab-teardown">
   <div class="wb-container">
     <div class="wb-padding">
@@ -124,9 +124,48 @@
       {%- if section.settings.teardown_content != blank -%}
         {{ section.settings.teardown_content }}
       {%- endif -%}
+      {%- if section.settings.bottle_options_url != blank -%}
+        <div class="wb-noblend-divider">or</div>
+        <p class="wb-noblend-codelabel">Already have a blend code?</p>
+        <div class="wb-noblend-form">
+          <input
+            type="text"
+            id="wb-lab-code-input"
+            placeholder="WB123456"
+            maxlength="10"
+            autocomplete="off"
+            autocapitalize="characters"
+          />
+          <button class="wb-button wb-primary-button" id="wb-lab-code-go" disabled>Go</button>
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </div>
+<script>
+(function () {
+  var input = document.getElementById('wb-lab-code-input');
+  var btn   = document.getElementById('wb-lab-code-go');
+  if (!input || !btn) return;
+  var dest  = {{ section.settings.bottle_options_url | json }};
+
+  input.addEventListener('input', function () {
+    btn.disabled = input.value.trim().length < 6;
+  });
+
+  function go() {
+    var code = input.value.trim().toUpperCase();
+    if (code.length >= 6) {
+      window.location.href = dest + '?blend=' + encodeURIComponent(code);
+    }
+  }
+
+  btn.addEventListener('click', go);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') go();
+  });
+})();
+</script>
 {%- endif -%}
 
 <script src="{{ 'wb-lab.js' | asset_url }}" defer="defer"></script>

@@ -7,6 +7,7 @@
 .wb-card-link-overlay {
   position: absolute;
   inset: 0;
+  z-index: 2;
 }
 
 /* Custom options: no emoji, so position:static is safe and lets h3 a::before
