@@ -55,49 +55,10 @@
   background-repeat: no-repeat;
 }
 
-.wb-age-gate__byline-row {
-  position: absolute;
-  top: 1vw;
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  gap: 180px;
-  height: 46px;
-  padding: 30px 0 10px 0;
-  align-items: center;
-  font-size: 6px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #b88d60;
-  text-shadow: #000000 2px 2px 2px;
-  animation: wb-coppercolor 6s ease infinite;
-}
-
-@media screen and (min-width: 375px) {
-  .wb-age-gate__byline-row {
-    font-size: 8px;
-    letter-spacing: 2px;
-  }
-}
-
 @media screen and (min-width: 768px) {
   .wb-age-gate__logo-link {
     width: 210px;
     height: 30px;
-  }
-
-  .wb-age-gate__byline-row {
-    gap: 210px;
-    font-size: 9px;
-    height: 48px;
-    letter-spacing: 3px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .wb-age-gate__byline-row {
-    font-size: 10px;
-    letter-spacing: 6px;
   }
 }
 
@@ -220,7 +181,7 @@
   <div class="wb-age-gate__header" aria-hidden="true">
     <div class="wb-age-gate__header-body">
       <div class="wb-age-gate__logo-link">Whisky Blender</div>
-      <div class="wb-age-gate__byline-row">
+      <div class="wb-byline">
         <div class="wb-left-byline"><span class="wb-hide-onmobile">Bothwell, </span>Scotland</div>
         <div class="wb-right-byline">Est<span class="wb-hide-onmobile">ablished</span> 2011</div>
       </div>
