@@ -8,9 +8,9 @@
   background-size: cover;
   background-position: center;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 20px 24px 40px;
+  padding: 0 24px 40px;
   transition: opacity 0.4s ease;
 }
 
@@ -25,28 +25,45 @@
   pointer-events: none;
 }
 
-.wb-age-gate__inner {
-  text-align: center;
-  max-width: 480px;
-  width: 100%;
-}
+/* ── Header overlay ────────────────────────────────────────────── */
 
-.wb-age-gate__logo {
-  position: relative;
-  margin: 1vw auto 48px;
-}
-
-.wb-age-gate__logo img {
-  width: 180px;
-  height: 26px;
-}
-
-.wb-age-gate__byline {
+.wb-age-gate__header {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wb-age-gate__banner-space {
+  /* height set by JS to match announcement bar */
+}
+
+.wb-age-gate__header-body {
+  position: relative;
+  padding: 20px 0 10px 0;
+  text-align: center;
+}
+
+.wb-age-gate__logo-link {
+  margin: 1vw auto;
+  display: block;
+  width: 180px;
+  height: 26px;
+  overflow: hidden;
+  text-indent: 500px;
+  font-size: 0;
+  background-image: url({{ 'wb-logo-white.svg' | asset_url }});
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.wb-age-gate__byline-row {
+  position: absolute;
+  top: 1vw;
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
   gap: 180px;
@@ -57,25 +74,24 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   color: #b88d60;
-  pointer-events: none;
   text-shadow: #000000 2px 2px 2px;
   animation: wb-coppercolor 6s ease infinite;
 }
 
 @media screen and (min-width: 375px) {
-  .wb-age-gate__byline {
+  .wb-age-gate__byline-row {
     font-size: 8px;
     letter-spacing: 2px;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .wb-age-gate__logo img {
+  .wb-age-gate__logo-link {
     width: 210px;
     height: 30px;
   }
 
-  .wb-age-gate__byline {
+  .wb-age-gate__byline-row {
     gap: 210px;
     font-size: 9px;
     height: 48px;
@@ -84,10 +100,20 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .wb-age-gate__byline {
+  .wb-age-gate__byline-row {
     font-size: 10px;
     letter-spacing: 6px;
   }
+}
+
+/* ── Gate content ──────────────────────────────────────────────── */
+
+.wb-age-gate__inner {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
 }
 
 .wb-age-gate__question {
@@ -187,7 +213,6 @@
 
 @media (max-width: 440px) {
   .wb-age-gate__btn-main { font-size: 56px; }
-  .wb-age-gate__logo { margin-bottom: 36px; }
   .wb-age-gate__question { margin-bottom: 36px; }
 }
 
@@ -195,22 +220,20 @@
 
 <div id="wb-age-gate" role="dialog" aria-modal="true" aria-labelledby="wb-age-gate-heading">
   <canvas id="wb-age-gate-rain" aria-hidden="true"></canvas>
-  <div class="wb-age-gate__inner">
 
-    <div class="wb-age-gate__logo">
-      <img
-        src="{{ 'wb-logo-white.svg' | asset_url }}"
-        alt="Whisky Blender"
-        width="180"
-        height="26"
-        loading="eager"
-      >
-      <div class="wb-age-gate__byline" aria-hidden="true">
+  <!-- Header overlay: replicates #wb-header structure without backgrounds -->
+  <div class="wb-age-gate__header" aria-hidden="true">
+    <div class="wb-age-gate__banner-space" id="wb-gate-banner-space"></div>
+    <div class="wb-age-gate__header-body">
+      <div class="wb-age-gate__logo-link">Whisky Blender</div>
+      <div class="wb-age-gate__byline-row">
         <div class="wb-left-byline"><span class="wb-hide-onmobile">Bothwell, </span>Scotland</div>
         <div class="wb-right-byline">Est<span class="wb-hide-onmobile">ablished</span> 2011</div>
       </div>
     </div>
+  </div>
 
+  <div class="wb-age-gate__inner">
     <div class="wb-age-gate__content" id="wb-age-gate-content">
       <h1 class="wb-age-gate__question" id="wb-age-gate-heading">Are you of legal drinking age in your country?</h1>
       <div class="wb-age-gate__buttons">
@@ -229,7 +252,6 @@
       <p>Sorry, you must be of legal drinking age to enter this site.</p>
       <p>Please visit <a href="https://www.drinkaware.co.uk" target="_blank" rel="noopener">Drinkaware.co.uk</a> for support and information about alcohol.</p>
     </div>
-
   </div>
 </div>
 
@@ -246,22 +268,17 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
-  /* Align gate top padding with the header container, accounting for the
-     announcement bar height. Both elements are rendered after this snippet
-     so we defer to DOMContentLoaded to read their computed values. */
-  function applyTopOffset() {
-    var banner          = document.getElementById('wb-banner');
-    var headerContainer = document.querySelector('#wb-header .wb-container');
-    var bannerH         = banner ? banner.offsetHeight : 0;
-    var headerPadding   = headerContainer
-      ? parseInt(window.getComputedStyle(headerContainer).paddingTop, 10)
-      : 20;
-    gate.style.paddingTop = (bannerH + headerPadding) + 'px';
+  /* Push the header overlay down by the announcement banner height so the
+     logo and bylines sit exactly over their counterparts in the real header. */
+  function applyBannerOffset() {
+    var banner      = document.getElementById('wb-banner');
+    var bannerSpace = document.getElementById('wb-gate-banner-space');
+    if (bannerSpace) bannerSpace.style.height = (banner ? banner.offsetHeight : 0) + 'px';
   }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', applyTopOffset);
+    document.addEventListener('DOMContentLoaded', applyBannerOffset);
   } else {
-    applyTopOffset();
+    applyBannerOffset();
   }
 
   function setCookie(name, value, days) {
