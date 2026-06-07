@@ -134,7 +134,9 @@
       var artworkEl = previewContainer.querySelector('.wbp-image');
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
-        artworkEl.style.backgroundImage = 'url(' + cdn + 'wb-' + productSlug + '-' + variantSlug + '-500ml.jpg?v=' + av + ')';
+        var artworkUrl = cdn + 'wb-' + productSlug + '-' + variantSlug + '-500ml.jpg?v=' + av;
+        console.log('[WB preview] cdn:', cdn, '| productSlug:', productSlug, '| variantSlug:', variantSlug, '| artworkUrl:', artworkUrl);
+        artworkEl.style.backgroundImage = 'url(' + artworkUrl + ')';
       }
 
       var text = labelInput ? labelInput.value : '';
