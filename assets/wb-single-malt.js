@@ -134,7 +134,8 @@
       var artworkEl = previewContainer.querySelector('.wbp-image');
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
-        var artworkUrl = cdn + 'wb-' + productSlug + '-' + variantSlug + '-500ml.jpg?v=' + av;
+        var artworkProduct = productSlug === 'singlecask' ? 'singlemalt' : productSlug;
+        var artworkUrl = cdn + 'wb-' + artworkProduct + '-' + variantSlug + '-500ml.jpg?v=' + av;
         artworkEl.style.backgroundImage = 'url(' + artworkUrl + ')';
       }
 
