@@ -407,6 +407,24 @@ body {
 .wb-mini-ref   { position: absolute; bottom: 3px; right: 4px; font-size: 5px; color: #aaa; font-family: 'Roboto Mono', monospace; letter-spacing: 0.04em; }
 .wb-mini-bar   { height: 38px; flex-shrink: 0; background: #111; color: #c8a050; display: flex; align-items: center; justify-content: center; font-size: 5.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
 
+/* ── Preview mode (embedded iframe on product page) ────────────────────────── */
+
+body.wb-preview-mode {
+  background: transparent;
+  overflow: hidden;
+}
+
+body.wb-preview-mode #wb-toolbar,
+body.wb-preview-mode #wb-form-panel,
+body.wb-preview-mode #wb-summary,
+body.wb-preview-mode #wb-recipe-panel { display: none !important; }
+
+body.wb-preview-mode #wb-page-wrapper {
+  background: transparent;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 /* ── Print ─────────────────────────────────────────────────────────────────── */
 
 @media print {

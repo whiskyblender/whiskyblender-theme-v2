@@ -706,13 +706,39 @@
   /* ── Init ──────────────────────────────────────────────────────────────────── */
 
   function init() {
+    var isPreview = window !== window.parent;
+
+    if (isPreview) {
+      document.body.classList.add('wb-preview-mode');
+      window.addEventListener('message', function (e) {
+        if (!e.data || e.data.type !== 'wb-preview-update') return;
+        var p = e.data.params;
+        if (p.text        !== undefined) state.text        = p.text;
+        if (p.variant     !== undefined) state.variant     = p.variant;
+        if (p.distillery  !== undefined) state.distillery  = p.distillery;
+        if (p.size        !== undefined) state.size        = p.size;
+        if (p.product     !== undefined) state.product     = p.product;
+        if (p.strength    !== undefined) state.strength    = p.strength;
+        if (p.fg          !== undefined) state.fg          = p.fg;
+        if (p.bg          !== undefined) state.bg          = p.bg;
+        renderLabel();
+      });
+    }
+
     readParams();
     render();
-    initForm();
 
-    /* Auto-fetch blend recipe if slug present */
-    if (state.product === 'customblend' && state.blend) {
-      loadBlend(state.blend);
+    if (!isPreview) {
+      initForm();
+      if (state.product === 'customblend' && state.blend) {
+        loadBlend(state.blend);
+      }
+    }
+
+    if (isPreview) {
+      document.fonts.ready.then(function () {
+        window.parent.postMessage({ type: 'wb-preview-ready' }, '*');
+      });
     }
   }
 
