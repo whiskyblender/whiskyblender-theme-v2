@@ -339,9 +339,10 @@
     var productClass = (state.product === 'singlemalt' || state.product === 'singlecask') ? state.product : '';
     page.className = (sizeClass + ' ' + productClass).trim();
 
-    /* Artwork */
+    /* Artwork — singlecask shares singlemalt image files */
     var artworkEl = document.getElementById('artwork');
-    var artworkUrl = getArtworkUrl(state.product, state.variant, state.size);
+    var artworkProduct = state.product === 'singlecask' ? 'singlemalt' : state.product;
+    var artworkUrl = getArtworkUrl(artworkProduct, state.variant, state.size);
     if (artworkEl) artworkEl.style.backgroundImage = artworkUrl ? 'url(' + artworkUrl + ')' : 'none';
 
     /* Label text colour — fixed by product type, independent of fg/bg picker.
