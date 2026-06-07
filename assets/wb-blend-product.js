@@ -15,9 +15,6 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
   function show(el) { if (el) el.style.display = ''; }
   function hide(el) { if (el) el.style.display = 'none'; }
 
-  var SHARE_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
-  var TICK_SVG  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
-
   function renderRecipe(blend, labUrl, inactiveIds) {
     var recipeEl = document.getElementById('wb-blend-recipe');
     if (!recipeEl) return;
@@ -48,29 +45,6 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
       '<p class="wb-blend-ref">Blend code: ' + esc(blend.slug) +
       ' <a href="' + esc(changeHref) + '">(Change)</a></p>' +
       '<ul class="wb-recipe">' + rows + '</ul>';
-
-    /* Share button */
-    var shareUrl = window.location.href;
-    var shareBtn = document.createElement('button');
-    shareBtn.type = 'button';
-    shareBtn.className = 'wb-button wb-share-recipe-btn';
-    shareBtn.innerHTML = SHARE_SVG + '&nbsp;Share this blend';
-    shareBtn.addEventListener('click', function () {
-      if (navigator.share) {
-        navigator.share({
-          title: blend.title + ' by ' + blend.author,
-          url: shareUrl,
-        }).catch(function () {});
-      } else {
-        navigator.clipboard.writeText(shareUrl).then(function () {
-          shareBtn.innerHTML = TICK_SVG + '&nbsp;Link copied!';
-          setTimeout(function () {
-            shareBtn.innerHTML = SHARE_SVG + '&nbsp;Share this blend';
-          }, 2500);
-        }).catch(function () {});
-      }
-    });
-    recipeEl.appendChild(shareBtn);
 
     show(recipeEl);
   }
