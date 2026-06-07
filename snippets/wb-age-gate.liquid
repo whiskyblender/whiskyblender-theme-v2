@@ -32,6 +32,7 @@
 }
 
 .wb-age-gate__logo {
+  position: relative;
   margin: 1vw auto 48px;
 }
 
@@ -40,10 +41,52 @@
   height: 26px;
 }
 
+.wb-age-gate__byline {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 180px;
+  height: 46px;
+  padding: 30px 0 10px 0;
+  align-items: center;
+  font-size: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #b88d60;
+  pointer-events: none;
+  text-shadow: #000000 2px 2px 2px;
+  animation: wb-coppercolor 6s ease infinite;
+}
+
+@media screen and (min-width: 375px) {
+  .wb-age-gate__byline {
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+}
+
 @media screen and (min-width: 768px) {
   .wb-age-gate__logo img {
     width: 210px;
     height: 30px;
+  }
+
+  .wb-age-gate__byline {
+    gap: 210px;
+    font-size: 9px;
+    height: 48px;
+    letter-spacing: 3px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .wb-age-gate__byline {
+    font-size: 10px;
+    letter-spacing: 6px;
   }
 }
 
@@ -162,6 +205,10 @@
         height="26"
         loading="eager"
       >
+      <div class="wb-age-gate__byline" aria-hidden="true">
+        <div class="wb-left-byline"><span class="wb-hide-onmobile">Bothwell, </span>Scotland</div>
+        <div class="wb-right-byline">Est<span class="wb-hide-onmobile">ablished</span> 2011</div>
+      </div>
     </div>
 
     <div class="wb-age-gate__content" id="wb-age-gate-content">
