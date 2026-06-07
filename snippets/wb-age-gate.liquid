@@ -206,7 +206,7 @@
     var bannerH = banner ? banner.offsetHeight : 0;
     if (bannerH > 0) {
       var logo = gate.querySelector('.wb-age-gate__logo');
-      if (logo) logo.style.marginTop = bannerH + 'px';
+      if (logo) logo.style.marginTop = 'calc(' + bannerH + 'px + 1vw)';
     }
   }
   if (document.readyState === 'loading') {
