@@ -28,8 +28,6 @@
 /* ── Header overlay ────────────────────────────────────────────── */
 
 .wb-age-gate__header {
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
   pointer-events: none;
 }
@@ -262,12 +260,22 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
-  /* Pad the gate down by the announcement banner height so the header
-     overlay aligns with the real header beneath. */
+  /* Align the gate header overlay with the real header beneath.
+     Reads #wb-header's actual top position so any banner height change
+     (e.g. after fonts load) is accounted for. Double-rAF ensures the
+     browser has run layout before we measure. Re-applies on window load
+     in case font metrics change the banner height after DOMContentLoaded. */
   function applyBannerOffset() {
     requestAnimationFrame(function () {
-      var banner = document.getElementById('wb-banner');
-      gate.style.paddingTop = (banner ? banner.offsetHeight : 0) + 'px';
+      requestAnimationFrame(function () {
+        var realHeader = document.getElementById('wb-header');
+        if (realHeader) {
+          gate.style.paddingTop = Math.max(0, realHeader.getBoundingClientRect().top) + 'px';
+        } else {
+          var banner = document.getElementById('wb-banner');
+          gate.style.paddingTop = (banner ? banner.offsetHeight : 0) + 'px';
+        }
+      });
     });
   }
   if (document.readyState === 'loading') {
@@ -275,6 +283,7 @@
   } else {
     applyBannerOffset();
   }
+  window.addEventListener('load', applyBannerOffset);
 
   function setCookie(name, value, days) {
     var expires = new Date(Date.now() + days * 864e5).toUTCString();
