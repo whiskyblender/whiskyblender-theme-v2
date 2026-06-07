@@ -14,8 +14,17 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_KXyi8M": {
+          "type": "announcement",
+          "disabled": true,
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
         "announcement_KpKexp": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "We close for Christmas 20 December ❄️ Place orders before then or they'll be sent out in the New Year 🎁",
             "link": ""
@@ -24,16 +33,16 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Purchase multiple bottles to save on shipping  🚢",
+            "text": "🚢 Free UK shipping.",
             "link": ""
           }
         }
       },
       "block_order": [
+        "announcement_KXyi8M",
         "announcement_KpKexp",
         "announcement-bar-0"
       ],
-      "disabled": true,
       "settings": {
         "auto_rotate": true,
         "change_slides_speed": 10,
