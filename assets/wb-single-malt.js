@@ -1,14 +1,9 @@
 /**
- * wb-single-malt.js — cart property injection for personalised single malt product pages
+ * wb-single-malt.js — personalised single malt product page
  *
- * Injects a hidden `_label_url` cart property on form submission, constructed from:
- *   - product slug (singlemalt or singlecask, from data-product-slug)
- *   - distillery name (from custom.distilled metafield via data-distillery)
- *   - selected variant title (label style, e.g. "Birthday")
- *   - label text input value (user's personalisation)
- *
- * URL format:
- *   /pages/label?product=singlemalt&distillery=<distillery>&variant=<variant_title>&text=<label_text>
+ * 1. Requires at least 1 character in label text before allowing add to cart.
+ * 2. Shows an inline label preview below the label text input.
+ * 3. Injects a hidden _label_url cart property on form submission.
  */
 (function () {
   'use strict';
@@ -21,17 +16,21 @@
     var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
     var bottleSize   = loader.getAttribute('data-bottle-size') || '';
     var labelPage    = loader.getAttribute('data-label-page') || '/pages/label';
+    var cdn          = loader.getAttribute('data-cdn') || '';
+    var av           = loader.getAttribute('data-av') || '1';
     var variantsEl   = document.getElementById('wb-sm-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
 
     var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
 
-    /* Require at least 1 character in label text before allowing add to cart */
     var labelInput = document.getElementById('label-text');
     var addBtn     = form.querySelector('[name="add"]');
+
+    /* ── Add to cart guard ──────────────────────────────────────────────── */
+
     if (labelInput && addBtn) {
-      var btnSpan    = addBtn.querySelector('span');
+      var btnSpan     = addBtn.querySelector('span');
       var defaultText = btnSpan ? btnSpan.textContent.trim() : '';
       function syncBtn() {
         var hasText = labelInput.value.trim().length > 0;
@@ -42,6 +41,220 @@
       syncBtn();
       labelInput.addEventListener('input', syncBtn);
     }
+
+    /* ── Preview utilities ──────────────────────────────────────────────── */
+
+    var PREVIEW_PAGE_W = 794;
+    var PREVIEW_CROP_H = 560;
+
+    var PREVIEW_D = {
+      sideLabelTop: 184, sideLabelLeft: 142,
+      panelLength: 232, panelTop: 4,
+      tallFont: 14, domainFont: 9,
+    };
+
+    function prevEsc(s) {
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function prevSlugify(s) {
+      return String(s || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    }
+
+    function prevWordWrap(s) {
+      return String(s || '').split(' ').map(function (w) {
+        if (w.length > 14) {
+          var out = '';
+          for (var i = 0; i < w.length; i += 14) out += w.slice(i, i + 14) + ' ';
+          return out.trim();
+        }
+        return w;
+      }).join(' ');
+    }
+
+    function prevZigzag(w, h, step, depth) {
+      var count = Math.ceil(w / step), pts = [];
+      for (var i = 0; i <= count; i++) {
+        var x = Math.min(i * step, w);
+        pts.push(x + 'px ' + (i % 2 === 0 ? 0 : depth) + 'px');
+      }
+      pts.push(w + 'px ' + h + 'px');
+      pts.push('0px ' + h + 'px');
+      return 'polygon(' + pts.join(', ') + ')';
+    }
+
+    function prevResizeText(el) {
+      var min = 18, max = 52, step = 0.5;
+      var parent = el.parentNode;
+      var i = min, overflow = false;
+      while (!overflow && i < max) {
+        el.style.fontSize   = i + 'px';
+        el.style.lineHeight = (i * 0.74) + 'px';
+        overflow = parent.scrollWidth > parent.clientWidth || parent.scrollHeight > parent.clientHeight;
+        if (!overflow) i += step;
+      }
+      var final = Math.max(min, i - step - 1);
+      el.style.fontSize   = final + 'px';
+      el.style.lineHeight = (final * 0.74) + 'px';
+    }
+
+    function getCurrentVariantTitle() {
+      try {
+        var variants = JSON.parse(variantsJson || '[]');
+        var idInput = form.querySelector('input[name="id"]');
+        if (idInput) {
+          var v = variants.find(function (x) { return String(x.id) === String(idInput.value); });
+          if (v) return v.title;
+        }
+      } catch (e) {}
+      return 'Standard';
+    }
+
+    /* ── Preview state ──────────────────────────────────────────────────── */
+
+    var previewWrap      = null;
+    var previewContainer = null;
+    var previewDebounce  = null;
+
+    function renderPreviewLabel() {
+      if (!previewContainer) return;
+      var d = PREVIEW_D;
+
+      var pageEl = previewContainer.querySelector('.wbp-page');
+      if (pageEl) pageEl.className = 'wbp-page size50 ' + productSlug;
+
+      var artworkEl = previewContainer.querySelector('.wbp-image');
+      if (artworkEl) {
+        var variantSlug = prevSlugify(getCurrentVariantTitle());
+        artworkEl.style.backgroundImage = 'url(' + cdn + 'wb-' + productSlug + '-' + variantSlug + '-500ml.jpg?v=' + av + ')';
+      }
+
+      var text = labelInput ? labelInput.value : '';
+      var blendNameEl = previewContainer.querySelector('.wbp-blend-name');
+      if (blendNameEl) {
+        blendNameEl.innerHTML = prevEsc(prevWordWrap(text));
+        blendNameEl.style.color = '#ffffff';
+        blendNameEl.style.textShadow = '1px 1px #000000';
+        document.fonts.ready.then(function () { prevResizeText(blendNameEl); });
+      }
+
+      var sideNameEl = previewContainer.querySelector('.wbp-side-name');
+      if (sideNameEl) {
+        sideNameEl.textContent = distillery;
+        sideNameEl.style.color = '#ffffff';
+        sideNameEl.style.textShadow = '1px 1px #000000';
+      }
+
+      var sideLabelEl = previewContainer.querySelector('.wbp-side-label');
+      if (sideLabelEl) {
+        sideLabelEl.textContent = 'Distilled at';
+        sideLabelEl.style.color = '#ffffff';
+        sideLabelEl.style.textShadow = '1px 1px #000000';
+        sideLabelEl.style.top  = d.sideLabelTop + 'px';
+        sideLabelEl.style.left = d.sideLabelLeft + 'px';
+      }
+
+      /* Side info panel */
+      previewContainer.querySelectorAll('.wbp-side-panel').forEach(function (el) {
+        el.parentNode.removeChild(el);
+      });
+      var labelEl = previewContainer.querySelector('.wbp-label');
+      if (labelEl) {
+        var s = d.panelLength / 232;
+        var pad = Math.round(10 * s) + 'px ' + Math.round(16 * s) + 'px ' + Math.round(17 * s) + 'px';
+        var info = document.createElement('div');
+        info.className = 'wbp-side-panel';
+        info.style.cssText = [
+          'box-sizing:border-box',
+          'position:absolute',
+          'top:' + d.panelTop + 'px',
+          'left:47px',
+          'width:' + d.panelLength + 'px',
+          'height:56px',
+          'transform:rotate(90deg)',
+          'transform-origin:left top',
+          'clip-path:' + prevZigzag(d.panelLength, 56, 8, 5),
+          'background-color:#ffffff',
+          'color:#111111',
+          'text-shadow:none',
+          'display:grid',
+          'grid-template-columns:1fr 1fr 1fr',
+          'align-items:center',
+          'padding:' + pad,
+          'z-index:2',
+        ].join(';');
+        var tall = 'font-family:Antonio,sans-serif;font-weight:300;font-size:' + d.tallFont + 'px;text-transform:uppercase;letter-spacing:-0.5px';
+        info.innerHTML =
+          '<span style="' + tall + '">46% abv</span>' +
+          '<span style="font-size:' + d.domainFont + 'px;font-weight:700;text-align:center;letter-spacing:0.4px;font-family:Raleway,sans-serif">whiskyblender.com</span>' +
+          '<span style="' + tall + ';text-align:right">500ml &#8467;</span>';
+        labelEl.appendChild(info);
+      }
+    }
+
+    function scalePreview() {
+      if (!previewWrap || !previewContainer) return;
+      var w = previewWrap.offsetWidth;
+      if (!w) return;
+      var scale = w / PREVIEW_PAGE_W;
+      previewContainer.style.transform = 'scale(' + scale + ')';
+      previewContainer.style.transformOrigin = 'top left';
+      previewWrap.style.height = Math.round(PREVIEW_CROP_H * scale) + 'px';
+    }
+
+    function initPreview() {
+      if (previewContainer) return;
+
+      previewWrap = document.createElement('div');
+      previewWrap.id = 'wb-label-preview-wrap';
+
+      var heading = document.createElement('p');
+      heading.className = 'wb-preview-heading';
+      heading.textContent = 'Your label';
+      previewWrap.appendChild(heading);
+
+      previewContainer = document.createElement('div');
+      previewContainer.className = 'wbp-scale-wrap';
+      previewContainer.innerHTML =
+        '<div class="wbp-page size50 ' + productSlug + '">' +
+          '<div class="wbp-label-area">' +
+            '<div class="wbp-crops"></div>' +
+            '<div class="wbp-label">' +
+              '<div class="wbp-outer"><div class="wbp-blend-name"></div></div>' +
+              '<div class="wbp-side"><div class="wbp-side-name"></div></div>' +
+              '<div class="wbp-side-label"></div>' +
+              '<div class="wbp-image"></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      previewWrap.appendChild(previewContainer);
+
+      var anchor = labelInput ? (labelInput.closest('.wb-bottle-form') || form) : form;
+      anchor.insertAdjacentElement('afterend', previewWrap);
+
+      renderPreviewLabel();
+      scalePreview();
+      window.addEventListener('resize', scalePreview);
+    }
+
+    /* ── Input + variant listeners ──────────────────────────────────────── */
+
+    if (labelInput) {
+      labelInput.addEventListener('input', function () {
+        if (!previewContainer && labelInput.value.trim().length > 0) initPreview();
+        clearTimeout(previewDebounce);
+        previewDebounce = setTimeout(renderPreviewLabel, 200);
+      });
+    }
+
+    var variantIdInput = form.querySelector('input[name="id"]');
+    if (variantIdInput) {
+      variantIdInput.addEventListener('change', function () {
+        renderPreviewLabel();
+      });
+    }
+
+    /* ── Cart property injection ────────────────────────────────────────── */
 
     form.addEventListener('formdata', function (e) {
       var variantTitle = '';
@@ -54,7 +267,7 @@
           });
           if (selected) variantTitle = selected.title;
         }
-      } catch (err) { /* ignore */ }
+      } catch (err) {}
 
       var labelText = (document.getElementById('label-text') || {}).value || '';
 

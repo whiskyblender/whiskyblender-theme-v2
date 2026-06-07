@@ -13,8 +13,12 @@
   data-product-slug="{{ product.metafields.custom.label_product_slug | default: 'singlemalt' | escape }}"
   data-bottle-size="{{ product.metafields.custom.bottle_size | escape }}"
   data-label-page="/pages/label"
+  data-cdn="{{ 'wb-label.css' | asset_url | split: 'wb-label.css' | first }}"
+  data-av="9"
 ></div>
 
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+{{ 'wb-preview.css' | asset_url | stylesheet_tag }}
 {{ 'wb-single-malt.js' | asset_url | script_tag }}
 
 {% schema %}
