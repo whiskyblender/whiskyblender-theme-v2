@@ -45,6 +45,7 @@
             {%- endfor -%}
 
             <li{% if sold_out %} class="wb-soldout"{% endif %}>
+              <a href="{{ product.url }}" data-product-url="{{ product.url }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
               <div class="wb-card-image">
                 {%- if product.featured_image -%}
                   <img
