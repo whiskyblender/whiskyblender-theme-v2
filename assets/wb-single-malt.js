@@ -136,7 +136,17 @@
         var variantSlug = prevSlugify(getCurrentVariantTitle());
         var artworkProduct = productSlug === 'singlecask' ? 'singlemalt' : productSlug;
         var artworkUrl = cdn + 'wb-' + artworkProduct + '-' + variantSlug + '-500ml.jpg?v=' + av;
-        artworkEl.style.backgroundImage = 'url(' + artworkUrl + ')';
+        artworkEl.style.cssText = [
+          'position:absolute',
+          'top:4px',
+          'left:-9px',
+          'width:570px',
+          'height:232px',
+          'background-image:url(' + artworkUrl + ')',
+          'background-size:cover',
+          'background-position:center center',
+          'z-index:1',
+        ].join(';');
       }
 
       var text = labelInput ? labelInput.value : '';
