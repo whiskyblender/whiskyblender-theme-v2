@@ -199,15 +199,21 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
-  /* Offset logo to match nav logo position when announcement bar is visible */
-  (function () {
+  /* Offset logo to match nav logo position when announcement bar is visible.
+     Deferred to DOMContentLoaded because #wb-banner is rendered after this snippet. */
+  function applyBannerOffset() {
     var banner = document.getElementById('wb-banner');
     var bannerH = banner ? banner.offsetHeight : 0;
     if (bannerH > 0) {
       var logo = gate.querySelector('.wb-age-gate__logo');
       if (logo) logo.style.marginTop = bannerH + 'px';
     }
-  })();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyBannerOffset);
+  } else {
+    applyBannerOffset();
+  }
 
   function setCookie(name, value, days) {
     var expires = new Date(Date.now() + days * 864e5).toUTCString();
