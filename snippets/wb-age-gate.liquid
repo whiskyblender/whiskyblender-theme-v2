@@ -268,12 +268,14 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
-  /* Push the header overlay down by the announcement banner height so the
-     logo and bylines sit exactly over their counterparts in the real header. */
+  /* Set the banner spacer height to match the top of #wb-header in the viewport —
+     whatever sits above it (announcement bar etc.) is accounted for automatically. */
   function applyBannerOffset() {
-    var banner      = document.getElementById('wb-banner');
+    var header      = document.getElementById('wb-header');
     var bannerSpace = document.getElementById('wb-gate-banner-space');
-    if (bannerSpace) bannerSpace.style.height = (banner ? banner.offsetHeight : 0) + 'px';
+    if (header && bannerSpace) {
+      bannerSpace.style.height = header.getBoundingClientRect().top + 'px';
+    }
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', applyBannerOffset);
