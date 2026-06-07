@@ -1,6 +1,27 @@
 .wb-recipe {
 }
 
+/* Custom options product cards */
+.wb-custom-card-price {
+  font-size: 14px;
+  color: #666;
+  margin: 4px 0 0;
+}
+
+/* Square image container for upright product photos (overrides vw-based height from wb-global.css) */
+#wb-custom-grid .wb-card-image {
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+#wb-custom-grid .wb-card-image img {
+  object-fit: contain;
+}
+
+#wb-custom-grid li.wb-soldout .wb-card-image {
+  opacity: 0.4;
+}
+
 /* ── Banded bottom panel ── */
 .wb-custom-bottom {
     background-color: #efefef;

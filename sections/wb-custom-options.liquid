@@ -34,7 +34,7 @@
       </div>
 
       {%- if opts_collection != blank and opts_collection.products.size > 0 -%}
-        <ul class="wb-productsgrid wb-tightergrid" id="wb-custom-grid">
+        <ul class="wb-cards wb-main-cards" id="wb-custom-grid">
           {%- for product in opts_collection.products -%}
             {%- assign sold_out = true -%}
             {%- for variant in product.variants -%}
@@ -43,53 +43,32 @@
                 {%- break -%}
               {%- endif -%}
             {%- endfor -%}
-            {%- assign hover_img = product.images[1] -%}
 
-            <li class="wb-productcell{% if sold_out %} wb-soldout{% endif %}">
-              <a
-                class="wb-productitem{% if sold_out %} wb-soldout{% endif %}"
-                href="{{ product.url }}"
-                data-product-url="{{ product.url }}"
-              >
-                <div class="wb-productmedia">
-                  <div class="wb-productimage">
-                    {%- if product.featured_image -%}
-                      <img
-                        src="{{ product.featured_image | image_url: width: 600 }}"
-                        alt="{{ product.featured_image.alt | escape }}"
-                        loading="lazy"
-                      />
-                    {%- endif -%}
-                    {%- if hover_img -%}
-                      <img
-                        src="{{ hover_img | image_url: width: 600 }}"
-                        alt=""
-                        class="wb-img-hover"
-                        loading="lazy"
-                      />
-                    {%- endif -%}
+            <li{% if sold_out %} class="wb-soldout"{% endif %}>
+              <div class="wb-card-image">
+                {%- if product.featured_image -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    width="{{ product.featured_image.width }}"
+                    height="{{ product.featured_image.height }}"
+                    loading="lazy"
+                  />
+                {%- endif -%}
+                {%- if sold_out -%}
+                  <div class="wb-productbadge">
+                    <div class="wb-soldoutbadge">Sold out</div>
                   </div>
-                  {%- if sold_out -%}
-                    <div class="wb-productbadge">
-                      <div class="wb-soldoutbadge">Sold out</div>
-                    </div>
-                  {%- endif -%}
-                </div>
-                <div class="wb-productcontent">
-                  <div class="wb-productinfo">
-                    <h3 class="wb-producttitle wb-tiny-heading">{{ product.title }}</h3>
-                    <div class="wb-productdetails">
-                      <div class="wb-productcosts">
-                        {%- if sold_out -%}
-                          <div class="wb-product-price">Sold out</div>
-                        {%- else -%}
-                          <div class="wb-product-price">From {{ product.price_min | money }}</div>
-                        {%- endif -%}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
+                {%- endif -%}
+              </div>
+              <div class="wb-card-details">
+                <h3 class="wb-small-heading">
+                  <a href="{{ product.url }}" data-product-url="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+                <p class="wb-custom-card-price">
+                  {%- if sold_out -%}Sold out{%- else -%}From {{ product.price_min | money }}{%- endif -%}
+                </p>
+              </div>
             </li>
           {%- endfor -%}
         </ul>
