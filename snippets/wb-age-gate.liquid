@@ -268,14 +268,16 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
-  /* Set the banner spacer height to match the top of #wb-header in the viewport —
-     whatever sits above it (announcement bar etc.) is accounted for automatically. */
+  /* Set the banner spacer height to push the gate header overlay down by
+     however much the announcement bar takes up above the real header. */
   function applyBannerOffset() {
-    var header      = document.getElementById('wb-header');
-    var bannerSpace = document.getElementById('wb-gate-banner-space');
-    if (header && bannerSpace) {
-      bannerSpace.style.height = header.getBoundingClientRect().top + 'px';
-    }
+    requestAnimationFrame(function () {
+      var banner      = document.getElementById('wb-banner');
+      var bannerSpace = document.getElementById('wb-gate-banner-space');
+      if (bannerSpace) {
+        bannerSpace.style.height = (banner ? banner.offsetHeight : 0) + 'px';
+      }
+    });
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', applyBannerOffset);
