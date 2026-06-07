@@ -32,9 +32,6 @@
   pointer-events: none;
 }
 
-.wb-age-gate__banner-space {
-  /* height set by JS to match announcement bar */
-}
 
 .wb-age-gate__header-body {
   position: relative;
@@ -223,7 +220,6 @@
 
   <!-- Header overlay: replicates #wb-header structure without backgrounds -->
   <div class="wb-age-gate__header" aria-hidden="true">
-    <div class="wb-age-gate__banner-space" id="wb-gate-banner-space"></div>
     <div class="wb-age-gate__header-body">
       <div class="wb-age-gate__logo-link">Whisky Blender</div>
       <div class="wb-age-gate__byline-row">
@@ -268,15 +264,12 @@
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
 
-  /* Set the banner spacer height to push the gate header overlay down by
-     however much the announcement bar takes up above the real header. */
+  /* Pad the gate down by the announcement banner height so the header
+     overlay aligns with the real header beneath. */
   function applyBannerOffset() {
     requestAnimationFrame(function () {
-      var banner      = document.getElementById('wb-banner');
-      var bannerSpace = document.getElementById('wb-gate-banner-space');
-      if (bannerSpace) {
-        bannerSpace.style.height = (banner ? banner.offsetHeight : 0) + 'px';
-      }
+      var banner = document.getElementById('wb-banner');
+      gate.style.paddingTop = (banner ? banner.offsetHeight : 0) + 'px';
     });
   }
   if (document.readyState === 'loading') {
