@@ -18,6 +18,8 @@
     var labelPage    = loader.getAttribute('data-label-page') || '/pages/label';
     var cdn          = loader.getAttribute('data-cdn') || '';
     var av           = loader.getAttribute('data-av') || '1';
+    var barsUrl      = loader.getAttribute('data-bars-url') || '';
+    var cropsUrl     = loader.getAttribute('data-crops-url') || '';
     var variantsEl   = document.getElementById('wb-sm-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
 
@@ -121,7 +123,13 @@
       var d = PREVIEW_D;
 
       var pageEl = previewContainer.querySelector('.wbp-page');
-      if (pageEl) pageEl.className = 'wbp-page size50 ' + productSlug;
+      if (pageEl) {
+        pageEl.className = 'wbp-page size50 ' + productSlug;
+        if (barsUrl) pageEl.style.backgroundImage = 'url(' + barsUrl + ')';
+      }
+
+      var cropsEl = previewContainer.querySelector('.wbp-crops');
+      if (cropsEl && cropsUrl) cropsEl.style.backgroundImage = 'url(' + cropsUrl + ')';
 
       var artworkEl = previewContainer.querySelector('.wbp-image');
       if (artworkEl) {
