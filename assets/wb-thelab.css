@@ -633,6 +633,76 @@
 
 /* ── Save panel ──────────────────────────────────────────────────── */
 
+/* ── Blend complete banner ─────────────────────────────────────── */
+
+.wb-blend-complete-banner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding: 18px 24px;
+  border-radius: 10px;
+  background: linear-gradient(-45deg, #9a5c30, #c8915a, #b88d60, #a56437, #c8915a);
+  background-size: 400% 400%;
+  animation: wb-copperbg 8s ease infinite;
+  color: #ffffff;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.wb-blend-complete-banner.is-entering {
+  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both,
+             wb-copperbg 8s ease 0.45s infinite;
+}
+
+@keyframes wb-banner-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+.wb-blend-complete-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.22), transparent);
+  animation: wb-banner-sheen 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes wb-banner-sheen {
+  0%   { left: -75%; }
+  55%  { left: 125%; }
+  100% { left: 125%; }
+}
+
+.wb-banner-star {
+  flex-shrink: 0;
+  font-size: 1.15em;
+  animation: wb-banner-pulse 2.2s ease-in-out infinite;
+}
+
+.wb-banner-star:last-child {
+  animation-delay: 1.1s;
+}
+
+@keyframes wb-banner-pulse {
+  0%, 100% { transform: scale(1)    rotate(0deg);   opacity: 0.85; }
+  50%       { transform: scale(1.35) rotate(20deg);  opacity: 1;    }
+}
+
+.wb-blend-complete-banner strong {
+  color: #ffffff;
+}
+
+/* ── Save panel ──────────────────────────────────────────────────── */
+
 .wb-save-panel {
   border-top: 1px solid #eeeeee;
   margin-top: 40px;

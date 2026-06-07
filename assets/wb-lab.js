@@ -11,6 +11,19 @@
 
   var STEP = 5;
   var MAX_TOTAL = 100;
+  var INCREMENTS = MAX_TOTAL / STEP; /* 20 */
+
+  function combinations(n, k) {
+    var result = 1;
+    for (var i = 0; i < k; i++) result = result * (n - i) / (i + 1);
+    return Math.round(result);
+  }
+
+  function floorToRound(n) {
+    if (n < 1) return 0;
+    var mag = Math.pow(10, Math.floor(Math.log(n) / Math.LN10));
+    return Math.floor(n / mag) * mag;
+  }
 
   /* ── Visitor token ─────────────────────────────────────────────── */
   function getVisitorToken() {
@@ -337,6 +350,25 @@
         if (visual) visual.style.width = total + '%';
         if (label) {
           label.textContent = total + '% filled';
+        }
+      }
+
+      /* Blend complete banner */
+      var banner = document.getElementById('wb-blend-complete-banner');
+      if (banner) {
+        if (total === MAX_TOTAL) {
+          var countEl = document.getElementById('wb-combinations-count');
+          if (countEl && !countEl.textContent) {
+            var combos = combinations(INCREMENTS + flavours.length - 1, flavours.length - 1);
+            countEl.textContent = floorToRound(combos).toLocaleString();
+          }
+          if (banner.style.display === 'none') {
+            banner.style.display = '';
+            requestAnimationFrame(function () { banner.classList.add('is-entering'); });
+          }
+        } else {
+          banner.style.display = 'none';
+          banner.classList.remove('is-entering');
         }
       }
 
