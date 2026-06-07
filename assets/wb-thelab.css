@@ -650,8 +650,16 @@
   animation: wb-copperbg 8s ease infinite;
   color: #ffffff;
   text-align: center;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: normal;
+}
+
+@media screen and (min-width: 600px) {
+  .wb-blend-complete-banner {
+    font-size: 18px;
+    font-weight: 600;
+  }
 }
 
 .wb-blend-complete-banner.is-entering {
