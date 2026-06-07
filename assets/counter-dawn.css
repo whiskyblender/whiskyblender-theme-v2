@@ -132,7 +132,7 @@ a.wb-button.button, a.wb-button.button.button--primary {
     column-gap: 20px;
 }
 
-footer h5.wb-tiny-heading {
+footer .wb-tiny-heading {
     color: #cccccc;
     font-weight: 700;
 }
