@@ -132,6 +132,34 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     recipeEl.appendChild(warn);
   }
 
+  function initInputGuard() {
+    var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
+    if (!form) return;
+    var labelInput  = document.getElementById('label-text');
+    var authorInput = document.getElementById('created-by');
+    var addBtn      = form.querySelector('[name="add"]');
+    if (!addBtn) return;
+    var btnSpan     = addBtn.querySelector('span');
+    var defaultText = btnSpan ? btnSpan.textContent.trim() : '';
+
+    function syncBtn() {
+      var hasLabel  = labelInput  ? labelInput.value.trim().length  > 0 : true;
+      var hasAuthor = authorInput ? authorInput.value.trim().length > 0 : true;
+      var ok = hasLabel && hasAuthor;
+      addBtn.disabled = !ok;
+      addBtn.classList.toggle('wb-button-disabled', !ok);
+      if (btnSpan) {
+        if (ok)           btnSpan.textContent = defaultText;
+        else if (!hasLabel) btnSpan.textContent = 'Fill in label';
+        else              btnSpan.textContent = 'Add your name';
+      }
+    }
+
+    syncBtn();
+    if (labelInput)  labelInput.addEventListener('input', syncBtn);
+    if (authorInput) authorInput.addEventListener('input', syncBtn);
+  }
+
   function showNoBlendState(failedSlug) {
     hideBuyForm();
     var panel = document.getElementById('wb-noblend-panel');
@@ -255,6 +283,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
 
         injectCartProperties(blend, variantsJson, labelPage, bottleSize);
         showBuyForm(slug);
+        initInputGuard();
       })
       .catch(function () {
         hide(loadingEl);
