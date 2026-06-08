@@ -97,37 +97,6 @@ nav#wb-nav {
   color: #ffffff;
   padding: 0;
   text-align: center;
-  position: relative;
-}
-
-/* Search modal trigger — matches existing .wb-navicons li a style */
-ul.wb-navicons li details-modal,
-ul.wb-navicons li details-modal details {
-  display: block;
-  height: 100%;
-}
-
-ul.wb-navicons li details-modal summary {
-  display: block;
-  color: #eeeeee;
-  padding: 10px;
-  cursor: pointer;
-  background-color: #000000;
-  transition: background-color 0.2s;
-  list-style: none;
-}
-
-ul.wb-navicons li details-modal summary:hover {
-  background-color: #222222;
-}
-
-ul.wb-navicons li details-modal summary::-webkit-details-marker {
-  display: none;
-}
-
-ul.wb-navicons li details-modal summary img {
-  height: 12px;
-  vertical-align: middle;
 }
 
 ul.wb-topnav {
