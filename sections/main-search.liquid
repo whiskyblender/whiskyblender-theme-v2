@@ -2,7 +2,7 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
-  <div class="wb-banded">
+  <div>
 
 {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
   {{ 'component-facets.css' | asset_url | stylesheet_tag }}
@@ -17,7 +17,7 @@
 
 <style>
   .template-search__header {
-    margin-bottom: 3rem;
+    margin-bottom: 0;
   }
 
   .template-search__search {
@@ -35,7 +35,7 @@
 
   @media screen and (min-width: 750px) {
     .template-search__header {
-      margin-bottom: 5rem;
+      margin-bottom: 0;
     }
   }
 
