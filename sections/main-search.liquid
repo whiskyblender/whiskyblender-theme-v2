@@ -42,6 +42,70 @@
   .search__button .icon {
     height: 1.8rem;
   }
+
+  /* Progressive search bar sizing */
+  .template-search__search .field {
+    --inputs-radius: 2.4rem;
+    --inputs-radius-outset: calc(2.4rem + var(--inputs-border-width));
+  }
+  .template-search__search .field__input {
+    height: 5.2rem;
+    font-size: 1.7rem;
+    padding-left: 2rem;
+    padding-right: 10rem;
+  }
+  .template-search__search .field__label {
+    top: calc(1.4rem + var(--inputs-border-width));
+    left: calc(var(--inputs-border-width) + 2rem);
+  }
+  .template-search__search .search__button,
+  .template-search__search .reset__button {
+    height: calc(5.2rem - var(--inputs-border-width) * 2);
+  }
+
+  @media screen and (min-width: 600px) {
+    .template-search__search .field {
+      --inputs-radius: 3rem;
+      --inputs-radius-outset: calc(3rem + var(--inputs-border-width));
+    }
+    .template-search__search .field__input {
+      height: 6.4rem;
+      font-size: 2rem;
+    }
+    .template-search__search .field__label {
+      top: calc(2rem + var(--inputs-border-width));
+    }
+    .template-search__search .search__button,
+    .template-search__search .reset__button {
+      height: calc(6.4rem - var(--inputs-border-width) * 2);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .template-search__search .field {
+      --inputs-radius: 4rem;
+      --inputs-radius-outset: calc(4rem + var(--inputs-border-width));
+    }
+    .template-search__search .field__input {
+      height: 8rem;
+      font-size: 2.6rem;
+      padding-left: 3rem;
+      padding-right: 14rem;
+    }
+    .template-search__search .field__label {
+      top: calc(2.6rem + var(--inputs-border-width));
+      left: calc(var(--inputs-border-width) + 3rem);
+    }
+    .template-search__search .search__button,
+    .template-search__search .reset__button {
+      height: calc(8rem - var(--inputs-border-width) * 2);
+    }
+    .template-search__search .search__button .icon,
+    .template-search__search .reset__button .icon {
+      height: 2.4rem;
+      width: 2.4rem;
+    }
+  }
 </style>
 
 {%- liquid
