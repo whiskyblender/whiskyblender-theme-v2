@@ -37,6 +37,11 @@
     <div id="wb-form-inner">
 
       <div class="wb-field wb-field--full">
+        <label for="wb-f-productname">Product name</label>
+        <input type="text" id="wb-f-productname" placeholder="e.g. Custom Blend 500ml">
+      </div>
+
+      <div class="wb-field wb-field--full">
         <label for="wb-f-type">Product</label>
         <select id="wb-f-type">
           <option value="customblend">Custom Blend</option>
@@ -56,12 +61,12 @@
 
       <div class="wb-field wb-field--full">
         <label for="wb-f-text">Label text</label>
-        <input type="text" id="wb-f-text" placeholder="Name on the label">
+        <input type="text" id="wb-f-text" placeholder="Name on the label" maxlength="32">
       </div>
 
       <div class="wb-field wb-has-author">
         <label for="wb-f-author">Created by</label>
-        <input type="text" id="wb-f-author" placeholder="Blender's name">
+        <input type="text" id="wb-f-author" placeholder="Blender's name" maxlength="40">
       </div>
 
       <div class="wb-field wb-singlemalt-only">

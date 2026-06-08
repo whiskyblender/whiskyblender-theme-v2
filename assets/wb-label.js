@@ -168,6 +168,7 @@
     if (p.get('fg') && hexRe.test(p.get('fg'))) state.fg = p.get('fg');
     if (p.get('bg') && hexRe.test(p.get('bg'))) state.bg = p.get('bg');
     if (p.get('reference'))  state.reference  = p.get('reference');
+    if (p.get('productname')) state.productname = p.get('productname');
 
     /* Legacy: map old type= and singlecask= params to product slug */
     if (!p.get('product')) {
@@ -202,6 +203,7 @@
     if (state.fg && state.fg !== '#111111') p.set('fg', state.fg);
     if (state.bg && state.bg !== '#ffffff') p.set('bg', state.bg);
     if (state.reference)  p.set('reference',  state.reference);
+    if (state.productname) p.set('productname', state.productname);
     return window.location.pathname + '?' + p.toString();
   }
 
@@ -211,6 +213,7 @@
     var el = document.getElementById('wb-summary');
     if (!el) return;
     var items = [];
+    if (state.productname) items.push({ label: 'Product', value: state.productname });
     if (state.reference) items.push({ label: 'Order', value: state.reference });
     if (state.product === 'customblend') {
       if (state.blend) items.push({ label: 'Blend', value: state.blend });
@@ -559,6 +562,7 @@
     var fg       = document.getElementById('wb-f-fg');
     var bg       = document.getElementById('wb-f-bg');
     var ref      = document.getElementById('wb-f-reference');
+    var pname    = document.getElementById('wb-f-productname');
 
     if (t)        t.value        = state.product;
     if (blend)    blend.value    = state.blend;
@@ -571,6 +575,7 @@
     if (fg)       fg.value       = state.fg;
     if (bg)       bg.value       = state.bg;
     if (ref)      ref.value      = state.reference;
+    if (pname)    pname.value    = state.productname;
 
     updateTypeVisibility();
   }
@@ -629,6 +634,7 @@
     onChange('distillery', document.getElementById('wb-f-distillery'),  null);
     onChange('strength',   document.getElementById('wb-f-strength'),    null);
     onChange('reference',  document.getElementById('wb-f-reference'),   null);
+    onChange('productname', document.getElementById('wb-f-productname'), null);
 
     var size = document.getElementById('wb-f-size');
     if (size) {

@@ -309,7 +309,7 @@
         }
       } catch (err) {}
 
-      var labelText = (document.getElementById('label-text') || {}).value || '';
+      var labelText = ((document.getElementById('label-text') || {}).value || '').slice(0, 32);
 
       var labelUrl = window.location.origin + labelPage +
         '?product='    + encodeURIComponent(productSlug) +

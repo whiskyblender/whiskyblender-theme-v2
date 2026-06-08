@@ -71,8 +71,8 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         }
       } catch (err) {}
 
-      var labelText  = (document.getElementById('label-text') || {}).value || '';
-      var authorText = (document.getElementById('created-by') || {}).value || '';
+      var labelText  = ((document.getElementById('label-text') || {}).value || '').slice(0, 32);
+      var authorText = ((document.getElementById('created-by') || {}).value || '').slice(0, 40);
 
       var labelUrl = window.location.origin + (labelPage || '/pages/label') +
         '?blend='   + encodeURIComponent(blend.slug) +
@@ -80,7 +80,8 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         '&variant=' + encodeURIComponent(variantTitle) +
         '&text='    + encodeURIComponent(labelText) +
         '&author='  + encodeURIComponent(authorText) +
-        (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
+        (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '') +
+        (productTitle ? '&productname=' + encodeURIComponent(productTitle) : '');
 
       e.formData.set('properties[_blend_slug]',   blend.slug);
       e.formData.set('properties[_blend_title]',  blend.title);
@@ -223,7 +224,8 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     var apiBase      = (container.getAttribute('data-api-base') || '').replace(/\/$/, '');
     var labUrl       = container.getAttribute('data-lab-url')   || '';
     var labelPage    = container.getAttribute('data-label-page') || '/pages/label';
-    var bottleSize   = container.getAttribute('data-bottle-size') || '';
+    var bottleSize    = container.getAttribute('data-bottle-size') || '';
+    var productTitle  = container.getAttribute('data-product-title') || '';
     var variantsEl   = document.getElementById('wb-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
     var slug         = new URLSearchParams(window.location.search).get('blend');
