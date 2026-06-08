@@ -317,7 +317,7 @@
   var windX = 0;
 
   function setWind(relX) {
-    windX = (relX - 0.5) * 10;
+    windX = (relX - 0.5) * 18;
   }
 
   gate.addEventListener('mousemove', function (e) {
@@ -343,8 +343,8 @@
         y: Math.random() * canvas.height,
         len: Math.random() * 35 + 18,
         speed: Math.random() * 14 + 14,
-        opacity: Math.random() * 0.45 + 0.2,
-        width: Math.random() < 0.4 ? 2 : 1.5
+        opacity: Math.random() * 0.3 + 0.1,
+        width: Math.random() < 0.3 ? 1.5 : 1
       });
     }
   }
@@ -360,7 +360,7 @@
       ctx.lineWidth = d.width;
       ctx.stroke();
       d.y += d.speed;
-      d.x += windX * 0.3;
+      d.x += windX * 0.5;
       if (d.y > canvas.height + d.len) {
         d.y = -d.len;
         d.x = Math.random() * canvas.width;
