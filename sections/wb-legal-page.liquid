@@ -15,7 +15,7 @@
 <div id="wb-legal">
   <h1 style="display:none">Policies</h1>
   {%- for policy in shop.policies -%}
-    {%- if policy.url == '/policies/cookie-preferences' -%}{%- continue -%}{%- endif -%}
+    {%- if policy.title == 'Cookie preferences' -%}{%- continue -%}{%- endif -%}
     <section class="wb-banded">
       <div class="wb-container">
         <div class="wb-padding">
