@@ -1,0 +1,170 @@
+/* ── TrimPoster font (label heading) ───────────────────────────────────────── */
+
+@font-face {
+  font-family: 'trimPosterCompressed';
+  src: url('TrimPosterWeb-Compressed.woff') format('woff'),
+       url('TrimPosterWeb-Compressed.ttf') format('truetype');
+}
+
+/* ── Override Dawn's border-box for all preview elements ───────────────────── */
+
+.wbp-scale-wrap,
+.wbp-scale-wrap * { box-sizing: content-box; }
+
+/* ── Scale wrapper ─────────────────────────────────────────────────────────── */
+
+.wbp-scale-wrap {
+  display: block;
+  /* transform and height set inline by JS */
+}
+
+/* ── Page ──────────────────────────────────────────────────────────────────── */
+
+.wbp-page {
+  background: #fff;
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+}
+
+.wbp-page.size50 {
+  width: 794px;
+  height: 432px;
+  padding-top: 128px;
+}
+
+.wbp-page.size50.singlemalt,
+.wbp-page.size50.singlecask {
+  background-image: url(sample50cl-bars.png);
+  background-size: cover;
+}
+
+/* ── Label area ────────────────────────────────────────────────────────────── */
+
+.wbp-label-area {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+}
+
+.wbp-page.size50 .wbp-label-area {
+  padding-top: 128px;
+  height: 432px;
+}
+
+/* ── Crop marks ────────────────────────────────────────────────────────────── */
+
+.wbp-crops {
+  position: absolute;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.wbp-page.size50 .wbp-crops {
+  width: 794px;
+  height: 560px;
+  background: url(crops50.png) center center no-repeat;
+}
+
+/* ── Label ─────────────────────────────────────────────────────────────────── */
+
+.wbp-label {
+  position: relative;
+  margin: 0 auto;
+}
+
+.wbp-page.size50 .wbp-label {
+  width: 552px;
+  height: 303px;
+}
+
+/* ── Blend name / label text ───────────────────────────────────────────────── */
+
+.wbp-outer {
+  font-family: 'trimPosterCompressed', sans-serif;
+  font-weight: 400;
+  position: absolute;
+  width: 90px;
+  height: 80px;
+  text-transform: uppercase;
+  place-content: center;
+  display: grid;
+  justify-content: start;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.wbp-page.size50 .wbp-outer {
+  top: 56px;
+  left: 195px;
+  scale: 2.2;
+}
+
+/* ── Distillery / side name ────────────────────────────────────────────────── */
+
+.wbp-side {
+  font-family: 'Raleway', sans-serif;
+  position: absolute;
+  width: 116px;
+  height: 12px;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.wbp-page.size50 .wbp-side {
+  top: 204px;
+  left: 210px;
+  scale: 2.2;
+}
+
+.wbp-side-name {
+  font-size: 7px !important;
+  line-height: 10px !important;
+  font-weight: 700;
+}
+
+/* ── "Distilled at" label ──────────────────────────────────────────────────── */
+
+.wbp-side-label {
+  position: absolute;
+  z-index: 2;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-size: 8px;
+  font-weight: 700;
+  /* top + left set inline by JS */
+}
+
+/* ── Artwork ───────────────────────────────────────────────────────────────── */
+
+.wbp-image {
+  position: absolute;
+  z-index: 1;
+  background-position: center center;
+  background-size: cover;
+}
+
+.wbp-page.size50.singlemalt .wbp-image,
+.wbp-page.size50.singlecask .wbp-image {
+  top: 4px;
+  left: -9px;
+  width: 570px;
+  height: 232px;
+}
+
+/* ── Preview heading + wrapper ─────────────────────────────────────────────── */
+
+#wb-label-preview-wrap {
+  margin: 28px 0 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.wb-preview-heading {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #b88d60;
+  margin: 0 0 10px;
+}

@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "wb_policy_content": {
+      "type": "wb-policy-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "wb_policy_content"
+  ]
+}
