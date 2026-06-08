@@ -312,12 +312,12 @@
   var canvas = document.getElementById('wb-age-gate-rain');
   var ctx = canvas.getContext('2d');
   var drops = [];
-  var DROP_COUNT = 120;
+  var DROP_COUNT = 280;
   var raf;
   var windX = 0;
 
   function setWind(relX) {
-    windX = (relX - 0.5) * 6;
+    windX = (relX - 0.5) * 10;
   }
 
   gate.addEventListener('mousemove', function (e) {
@@ -341,10 +341,10 @@
       drops.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        len: Math.random() * 20 + 10,
-        speed: Math.random() * 8 + 8,
-        opacity: Math.random() * 0.3 + 0.1,
-        width: Math.random() < 0.3 ? 1.5 : 1
+        len: Math.random() * 35 + 18,
+        speed: Math.random() * 14 + 14,
+        opacity: Math.random() * 0.45 + 0.2,
+        width: Math.random() < 0.4 ? 2 : 1.5
       });
     }
   }
