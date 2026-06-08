@@ -1,6 +1,6 @@
 <style>
-  #wb-legal h2,
-  #wb-legal h3 {
+  #wb-legal .wb-policy-body h2,
+  #wb-legal .wb-policy-body h3 {
     font-size: 1em;
     font-weight: 700;
     margin: 24px 0 8px;
@@ -26,7 +26,7 @@
         <div class="wb-container">
           <div class="wb-padding">
             <h2 class="wb-medium-heading">{{ display_title }}</h2>
-            {{ policy.body }}
+            <div class="wb-policy-body">{{ policy.body }}</div>
           </div>
         </div>
       </section>
