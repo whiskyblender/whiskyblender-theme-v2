@@ -16,10 +16,17 @@
   <h1 style="display:none">Legal</h1>
   {%- for policy in shop.policies -%}
     {%- unless policy.url == '/policies/privacy-policy' -%}
+      {%- case policy.url -%}
+        {%- when '/policies/terms-of-service' -%}{%- assign display_title = 'Terms & conditions' -%}
+        {%- when '/policies/shipping-policy' -%}{%- assign display_title = 'Disclaimer' -%}
+        {%- when '/policies/contact-information' -%}{%- assign display_title = 'Company information' -%}
+        {%- when '/policies/refund-policy' -%}{%- assign display_title = 'Return & refund policy' -%}
+        {%- else -%}{%- assign display_title = policy.title -%}
+      {%- endcase -%}
       <section class="wb-banded">
         <div class="wb-container">
           <div class="wb-padding">
-            <h2 class="wb-medium-heading">{{ policy.title }}</h2>
+            <h2 class="wb-medium-heading">{{ display_title }}</h2>
             {{ policy.body }}
           </div>
         </div>

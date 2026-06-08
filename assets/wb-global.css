@@ -749,3 +749,55 @@ img.wb-yourownbrand {
     top: -80px;
   }
 }
+
+/* ── Shopify-native policy pages (/policies/*) ─────────────────────────────── */
+
+.shopify-policy__title,
+.shopify-policy__body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px 0;
+}
+
+.shopify-policy__body {
+  padding-bottom: 40px;
+}
+
+.shopify-policy__title h1 {
+  font-family: 'trimPosterCompressed', sans-serif;
+  font-weight: 100;
+  font-size: 52px;
+  line-height: 42px;
+  margin: 12px 0;
+  color: #000000;
+  word-break: break-word;
+}
+
+@media screen and (min-width: 600px) {
+  .shopify-policy__title h1 { font-size: 62px; line-height: 50px; }
+}
+
+@media screen and (min-width: 1024px) {
+  .shopify-policy__title h1 { font-size: 82px; line-height: 64px; }
+}
+
+.shopify-policy__body .rte h1,
+.shopify-policy__body .rte h2,
+.shopify-policy__body .rte h3 {
+  font-size: 1em;
+  font-weight: 700;
+  margin: 24px 0 8px;
+  line-height: 160%;
+}
+
+.shopify-policy__body .rte ul {
+  padding-left: 24px;
+}
+
+.shopify-policy__body .rte li {
+  margin-bottom: 8px;
+}
+
+.shopify-policy__body .rte a {
+  color: inherit;
+}
