@@ -15,14 +15,13 @@
 <div id="wb-legal">
   <h1 style="display:none">Legal</h1>
   {%- for policy in shop.policies -%}
-    {%- unless policy.url == '/policies/privacy-policy' -%}
-      {%- case policy.url -%}
-        {%- when '/policies/terms-of-service' -%}{%- assign display_title = 'Terms & conditions' -%}
-        {%- when '/policies/shipping-policy' -%}{%- assign display_title = 'Disclaimer' -%}
-        {%- when '/policies/contact-information' -%}{%- assign display_title = 'Company information' -%}
-        {%- when '/policies/refund-policy' -%}{%- assign display_title = 'Return & refund policy' -%}
-        {%- else -%}{%- assign display_title = policy.title -%}
-      {%- endcase -%}
+    {%- case policy.url -%}
+      {%- when '/policies/terms-of-service' -%}{%- assign display_title = 'Terms & conditions' -%}
+      {%- when '/policies/shipping-policy' -%}{%- assign display_title = 'Disclaimer' -%}
+      {%- when '/policies/contact-information' -%}{%- assign display_title = 'Company information' -%}
+      {%- else -%}{%- assign display_title = nil -%}
+    {%- endcase -%}
+    {%- if display_title -%}
       <section class="wb-banded">
         <div class="wb-container">
           <div class="wb-padding">
@@ -31,7 +30,7 @@
           </div>
         </div>
       </section>
-    {%- endunless -%}
+    {%- endif -%}
   {%- endfor -%}
 </div>
 
