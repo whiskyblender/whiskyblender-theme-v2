@@ -1,0 +1,36 @@
+<style>
+  #wb-legal h2,
+  #wb-legal h3 {
+    font-size: 1em;
+    font-weight: 700;
+    margin: 24px 0 8px;
+  }
+  #wb-legal ul {
+    padding-left: 24px;
+  }
+  #wb-legal li { margin-bottom: 8px; }
+  #wb-legal a { color: inherit; }
+</style>
+
+<div id="wb-legal">
+  <h1 style="display:none">Legal</h1>
+  {%- for policy in shop.policies -%}
+    {%- unless policy.url == '/policies/privacy-policy' -%}
+      <section class="wb-banded">
+        <div class="wb-container">
+          <div class="wb-padding">
+            <h2 class="wb-medium-heading">{{ policy.title }}</h2>
+            {{ policy.body }}
+          </div>
+        </div>
+      </section>
+    {%- endunless -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "WB - Legal Page",
+  "settings": []
+}
+{% endschema %}

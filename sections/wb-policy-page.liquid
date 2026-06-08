@@ -1,0 +1,35 @@
+<style>
+  #wb-policy h2 {
+    font-size: 1em;
+    font-weight: 700;
+    margin: 24px 0 8px;
+  }
+  #wb-policy h3 {
+    font-size: 1em;
+    font-weight: 700;
+    margin: 24px 0 8px;
+  }
+  #wb-policy ul {
+    padding-left: 24px;
+  }
+  #wb-policy li { margin-bottom: 8px; }
+  #wb-policy a { color: inherit; }
+</style>
+
+<div id="wb-policy">
+  <section class="wb-first-item">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <h1 class="wb-medium-heading">{{ policy.title }}</h1>
+        {{ policy.body }}
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "WB - Policy Page",
+  "settings": []
+}
+{% endschema %}
