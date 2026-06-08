@@ -275,7 +275,7 @@ body {
   font-family: 'Roboto Mono', monospace;
 }
 
-.size50 .reference { right: -30px; top: 45px; height: 20px; width: 80px; font-size: 8px; line-height: 10px; }
+.size50 .reference { right: -24px; top: 45px; height: 11px; width: 80px; font-size: 8px; line-height: 10px; white-space: nowrap; text-align: right; text-shadow: 1px 1px 0 white; }
 .size20 .reference { right: -36px; top: 45px; height: 20px; width: 80px; font-size: 6px; line-height: 8px; }
 
 /* ── Artwork image ─────────────────────────────────────────────────────────── */
