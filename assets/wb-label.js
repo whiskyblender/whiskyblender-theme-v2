@@ -396,7 +396,8 @@
     /* Reference */
     var refEl = document.getElementById('reference');
     if (refEl) {
-      refEl.textContent = state.reference || '';
+      var refParts = [state.blend, state.reference].filter(Boolean);
+      refEl.textContent = refParts.join(' · ');
     }
 
     /* Side panel — single malt / single cask only (ABV / domain / ml strip) */

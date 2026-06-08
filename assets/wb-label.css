@@ -425,6 +425,10 @@ body.wb-preview-mode #wb-page-wrapper {
   align-items: flex-start;
 }
 
+.size20 #wb-summary {
+  padding: 4% 13% 0;
+}
+
 /* ── Print ─────────────────────────────────────────────────────────────────── */
 
 @media print {
