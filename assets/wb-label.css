@@ -155,7 +155,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 4px 20px;
+  gap: 2px 10px;
   font-family: 'Raleway', sans-serif;
 }
 
