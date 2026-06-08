@@ -134,6 +134,14 @@
   function getArtworkUrl(product, variant, size) {
     if (!product || !variant) return null;
     var root = document.getElementById('wb-label-root');
+    var key = product + '-' + slugify(variant) + '-' + size;
+    var mapAttr = root.getAttribute('data-artwork-map');
+    if (mapAttr) {
+      try {
+        var map = JSON.parse(mapAttr);
+        if (map[key]) return map[key];
+      } catch (e) {}
+    }
     var cdn = root.getAttribute('data-cdn') || '';
     var av  = root.getAttribute('data-av') || '1';
     return cdn + 'wb-' + product + '-' + slugify(variant) + '-' + size + '.jpg?v=' + av;
