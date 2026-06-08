@@ -106,26 +106,6 @@
     var meterEl     = document.getElementById('wb-lab-meter');
     var savePanelEl = document.getElementById('wb-save-panel');
     var retryBtn    = document.getElementById('wb-retry-btn');
-    var mainEl      = document.getElementById('MainContent');
-
-    /* Move loader + error to <main> so they cover the full content area */
-    function coverMain(el) {
-      if (!el) return;
-      if (mainEl) {
-        mainEl.style.position = 'relative';
-        el.style.position  = 'absolute';
-        el.style.top       = '0';
-        el.style.right     = '0';
-        el.style.bottom    = '0';
-        el.style.left      = '0';
-        el.style.backgroundColor = '#ffffff';
-        el.style.zIndex    = '100';
-        el.style.overflowY = 'auto';
-        mainEl.insertBefore(el, mainEl.firstChild);
-      }
-    }
-    coverMain(loaderEl);
-    coverMain(errorEl);
 
     /* ── State preview via URL param (?wb_state=loading|error) ── */
     var debugState = new URLSearchParams(window.location.search).get('wb_state');

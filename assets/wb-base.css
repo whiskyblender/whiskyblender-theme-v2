@@ -38,17 +38,20 @@ section {
 }
 
 #wb-loader {
-  position: relative;
-  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #ffffff;
   background-repeat: no-repeat;
-  background-position: center 120px;
+  background-position: center 40%;
   background-size: 80px;
-  text-align: center;
-  padding: 220px 60px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 28%;
   font-style: italic;
   font-weight: 600;
   font-size: 14px;
-  min-height: calc(100vh - 640px);
 }
 
 .wb-overflow-hidden-x {
