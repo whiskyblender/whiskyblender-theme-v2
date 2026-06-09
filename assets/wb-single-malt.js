@@ -126,6 +126,7 @@
     /* ── Preview state ──────────────────────────────────────────────────── */
 
     var previewWrap      = null;
+    var previewCrop      = null;
     var previewContainer = null;
     var previewDebounce  = null;
 
@@ -276,9 +277,9 @@
       if (!h) return;
       previewWrap.style.top    = (mediaRect.top - galleryRect.top) + 'px';
       previewWrap.style.height = h + 'px';
-      var scale = (h / PREVIEW_LABEL_H) * 0.97;
-      previewContainer.style.transform = 'scale(' + scale + ') translate(' + (-PREVIEW_LABEL_X) + 'px, ' + (-PREVIEW_LABEL_Y) + 'px)';
-      previewContainer.style.transformOrigin = 'top left';
+      var scale = (h / PREVIEW_LABEL_H);
+      previewCrop.style.transform = 'scale(' + scale + ') translate(' + (-PREVIEW_LABEL_X) + 'px, ' + (-PREVIEW_LABEL_Y) + 'px)';
+      previewCrop.style.transformOrigin = 'top left';
     }
 
     function initPreview() {
@@ -287,7 +288,7 @@
       previewWrap = document.createElement('div');
       previewWrap.id = 'wb-label-preview-wrap';
 
-      var previewCrop = document.createElement('div');
+      previewCrop = document.createElement('div');
       previewCrop.className = 'wbp-preview-crop';
 
       previewContainer = document.createElement('div');
