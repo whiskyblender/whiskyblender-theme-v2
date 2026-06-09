@@ -26,6 +26,7 @@
   display: block;
   margin-top: -4px;
   margin-left: -10px;
+  scale: 0.92;
   /* transform set inline by JS */
 }
 
