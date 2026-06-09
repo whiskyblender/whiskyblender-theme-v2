@@ -335,6 +335,7 @@
     var variantIdInput = form.querySelector('input[name="id"]');
     if (variantIdInput) {
       variantIdInput.addEventListener('change', function () {
+        if (!previewContainer && labelInput && labelInput.value.trim().length > 0) initPreview();
         renderPreviewLabel();
       });
     }
