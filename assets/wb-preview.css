@@ -28,6 +28,7 @@
   display: block;
   margin-top: 80px;
   margin-left: 46px;
+  background: url(singlemaltlabelmock.png) no-repeat center center / contain;
   /* transform set inline by JS */
 }
 
