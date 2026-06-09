@@ -11,11 +11,20 @@
 .wbp-scale-wrap,
 .wbp-scale-wrap * { box-sizing: content-box; }
 
+/* ── Crop layer ────────────────────────────────────────────────────────────── */
+
+.wbp-preview-crop {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
 /* ── Scale wrapper ─────────────────────────────────────────────────────────── */
 
 .wbp-scale-wrap {
   display: block;
-  /* transform and height set inline by JS */
+  /* transform set inline by JS */
 }
 
 /* ── Page ──────────────────────────────────────────────────────────────────── */

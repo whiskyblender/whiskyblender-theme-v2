@@ -46,8 +46,12 @@
 
     /* ── Preview utilities ──────────────────────────────────────────────── */
 
-    var PREVIEW_PAGE_W = 794;
-    var PREVIEW_CROP_H = 560;
+    var PREVIEW_PAGE_W  = 794;
+    var PREVIEW_CROP_H  = 560;
+    var PREVIEW_LABEL_W = 552;
+    var PREVIEW_LABEL_H = 303;
+    var PREVIEW_LABEL_X = (PREVIEW_PAGE_W - PREVIEW_LABEL_W) / 2; // 121px from page left
+    var PREVIEW_LABEL_Y = 128; // px from page top
 
     var PREVIEW_D = {
       sideLabelTop: 184, sideLabelLeft: 142,
@@ -236,8 +240,8 @@
       if (!previewWrap || !previewContainer) return;
       var w = previewWrap.offsetWidth;
       if (!w) return;
-      var scale = w / PREVIEW_PAGE_W;
-      previewContainer.style.transform = 'scale(' + scale + ')';
+      var scale = w / PREVIEW_LABEL_W;
+      previewContainer.style.transform = 'scale(' + scale + ') translate(' + (-PREVIEW_LABEL_X) + 'px, ' + (-PREVIEW_LABEL_Y) + 'px)';
       previewContainer.style.transformOrigin = 'top left';
     }
 
@@ -247,11 +251,7 @@
       previewWrap = document.createElement('div');
       previewWrap.id = 'wb-label-preview-wrap';
 
-      var mediaContainer = document.querySelector('.product-media-container');
-      if (mediaContainer) {
-        var ratio = parseFloat(getComputedStyle(mediaContainer).getPropertyValue('--preview-ratio'));
-        if (ratio) previewWrap.style.aspectRatio = ratio + ' / 1';
-      }
+      previewWrap.style.aspectRatio = PREVIEW_LABEL_W + ' / ' + PREVIEW_LABEL_H;
 
       var previewCrop = document.createElement('div');
       previewCrop.className = 'wbp-preview-crop';
