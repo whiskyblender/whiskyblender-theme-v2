@@ -39,6 +39,7 @@
   position: relative;
   margin: 0;
   overflow: hidden;
+  mix-blend-mode: multiply;
 }
 
 .wbp-page.size50 {
