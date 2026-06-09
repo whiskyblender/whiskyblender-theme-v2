@@ -150,12 +150,21 @@
   var TICK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   var SHARE_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
 
+  function esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
   var rawBlend  = new URLSearchParams(window.location.search).get('blend') || '';
   var blend     = rawBlend.trim();
   var looksValid = blend.length >= 6 && /^[A-Za-z0-9_-]+$/.test(blend);
   var heading   = document.getElementById('wb-custom-heading');
   var sub       = document.getElementById('wb-custom-sub');
   var bottom    = document.getElementById('wb-custom-bottom');
+  var grid      = document.getElementById('wb-custom-grid');
 
   /* ── Invalid code in URL ─────────────────────────────────────── */
   if (blend && !looksValid) {
@@ -169,55 +178,118 @@
 
   /* ── With valid blend code ───────────────────────────────────── */
   if (blend) {
-    heading.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
-    sub.textContent     = 'Now choose how you want to bottle your whisky…';
+    heading.textContent = 'Loading…';
+    sub.textContent     = '';
+    if (grid) grid.style.visibility = 'hidden';
 
-    document.querySelectorAll('[data-product-url]').forEach(function (el) {
-      el.href = el.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
-    });
+    function buildBlendCodeUi() {
+      var shareUrl = window.location.origin + window.location.pathname + '?blend=' + encodeURIComponent(blend);
+      var ui = document.getElementById('wb-blendcode-ui');
+      var actions = document.createElement('div');
+      actions.className = 'wb-custom-blend-actions';
 
-    bottom.style.display = '';
-    document.getElementById('wb-blend-panel').style.display = '';
+      var box = document.createElement('div');
+      box.className = 'wb-blendcode-box';
+      box.innerHTML = '<span class="wb-blendcode-digits">' + blend + '</span>';
 
-    var shareUrl = window.location.origin + window.location.pathname + '?blend=' + encodeURIComponent(blend);
-    var ui = document.getElementById('wb-blendcode-ui');
-    var actions = document.createElement('div');
-    actions.className = 'wb-custom-blend-actions';
-
-    var box = document.createElement('div');
-    box.className = 'wb-blendcode-box';
-    box.innerHTML = '<span class="wb-blendcode-digits">' + blend + '</span>';
-
-    var copyBtn = document.createElement('button');
-    copyBtn.className = 'wb-button wb-primary-button';
-    copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link';
-    copyBtn.addEventListener('click', function () {
-      copyBtn.style.minWidth = copyBtn.offsetWidth + 'px';
-      navigator.clipboard.writeText(shareUrl).then(function () {
-        copyBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
-        setTimeout(function () { copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link'; }, 2000);
-      });
-    });
-
-    actions.appendChild(box);
-    actions.appendChild(copyBtn);
-
-    var shareBtn = document.createElement('button');
-    shareBtn.className = 'wb-button';
-    shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share';
-    shareBtn.addEventListener('click', function () {
-      if (navigator.share) {
-        navigator.share({ title: 'My Whisky Blend', url: shareUrl });
-      } else {
+      var copyBtn = document.createElement('button');
+      copyBtn.className = 'wb-button wb-primary-button';
+      copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link';
+      copyBtn.addEventListener('click', function () {
+        copyBtn.style.minWidth = copyBtn.offsetWidth + 'px';
         navigator.clipboard.writeText(shareUrl).then(function () {
-          shareBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
-          setTimeout(function () { shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share'; }, 2000);
+          copyBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
+          setTimeout(function () { copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link'; }, 2000);
         });
-      }
-    });
-    actions.appendChild(shareBtn);
+      });
 
-    ui.appendChild(actions);
+      actions.appendChild(box);
+      actions.appendChild(copyBtn);
+
+      var shareBtn = document.createElement('button');
+      shareBtn.className = 'wb-button';
+      shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share';
+      shareBtn.addEventListener('click', function () {
+        if (navigator.share) {
+          navigator.share({ title: 'My Whisky Blend', url: shareUrl });
+        } else {
+          navigator.clipboard.writeText(shareUrl).then(function () {
+            shareBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
+            setTimeout(function () { shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share'; }, 2000);
+          });
+        }
+      });
+      actions.appendChild(shareBtn);
+      ui.appendChild(actions);
+    }
+
+    function revealNormal() {
+      heading.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+      sub.textContent     = 'Now choose how you want to bottle your whisky…';
+
+      document.querySelectorAll('[data-product-url]').forEach(function (el) {
+        el.href = el.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
+      });
+
+      if (grid) grid.style.visibility = '';
+      bottom.style.display = '';
+      document.getElementById('wb-blend-panel').style.display = '';
+      buildBlendCodeUi();
+    }
+
+    function showInactiveWarning(names) {
+      var verb     = names.length === 1 ? 'is' : 'are';
+      var nameList = names.map(function (n) { return '‘' + esc(n) + '’'; }).join(', ');
+      var labHref  = '/pages/the-lab?blend=' + encodeURIComponent(blend);
+
+      heading.textContent = 'There’s a wee problem…';
+      sub.textContent     = '';
+
+      var warn = document.createElement('div');
+      warn.className = 'wb-inactive-warning';
+      warn.innerHTML =
+        '<p><strong>' + nameList + ' ' + verb + ' no longer available.</strong></p>' +
+        '<p>Return to the lab to complete your recipe with our current whiskies.</p>' +
+        '<a href="' + esc(labHref) + '" class="wb-button wb-primary-button" style="margin-top:12px;display:inline-block">Return to the lab</a>';
+
+      if (grid) {
+        grid.style.visibility = '';
+        grid.style.display = 'none';
+        grid.parentNode.insertBefore(warn, grid);
+      } else {
+        document.getElementById('wb-custom-heading').insertAdjacentElement('afterend', warn);
+      }
+    }
+
+    Promise.all([
+      fetch('https://lab.whiskyblender.com/api/blend?slug=' + encodeURIComponent(blend))
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .catch(function () { return null; }),
+      fetch('https://lab.whiskyblender.com/api/whisky-options')
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .catch(function () { return null; })
+    ]).then(function (results) {
+      var blendData     = results[0];
+      var activeOptions = results[1];
+
+      var inactiveNames = [];
+      if (blendData && activeOptions) {
+        var activeIds     = activeOptions.map(function (o) { return o.identifier; });
+        var recipe        = Array.isArray(blendData.recipe) ? blendData.recipe : [];
+        var inactiveItems = recipe.filter(function (item) {
+          return item.amount > 0 && activeIds.indexOf(item.identifier) === -1;
+        });
+        inactiveNames = inactiveItems.map(function (i) { return i.name; });
+      }
+
+      if (inactiveNames.length > 0) {
+        showInactiveWarning(inactiveNames);
+      } else {
+        revealNormal();
+      }
+    }).catch(function () {
+      revealNormal();
+    });
 
   /* ── No blend code ───────────────────────────────────────────── */
   } else {

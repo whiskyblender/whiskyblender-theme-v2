@@ -128,7 +128,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     var warn     = document.createElement('div');
     warn.className = 'wb-inactive-warning';
     warn.innerHTML =
-      '<p>' + nameList + ' ' + verb + ' no longer available.</p>' +
+      '<p><strong>' + nameList + ' ' + verb + ' no longer available.</strong></p>' +
       '<p><a href="' + esc(labHref) + '">Return to the lab</a> to complete your recipe with our current whiskies.</p>';
     recipeEl.appendChild(warn);
   }
