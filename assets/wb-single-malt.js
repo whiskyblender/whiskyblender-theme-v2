@@ -313,7 +313,10 @@
       previewWrap.appendChild(previewCrop);
 
       var loaderEl = document.getElementById('wb-single-malt-loader');
-      var isPreviewTest = loaderEl && loaderEl.dataset.template === 'product.preview-test';
+      var isPreviewTest = loaderEl && (
+        loaderEl.dataset.template === 'product.preview-test' ||
+        loaderEl.dataset.template === 'product.personalised-whisky'
+      );
       var mediaGallery = isPreviewTest && document.querySelector('media-gallery');
       if (mediaGallery) {
         mediaGallery.appendChild(previewWrap);
