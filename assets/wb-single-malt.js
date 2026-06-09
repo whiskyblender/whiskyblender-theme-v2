@@ -269,6 +269,11 @@
       if (!previewWrap || !previewContainer) return;
       var w = previewWrap.offsetWidth;
       if (!w) return;
+      var mediaContainer = document.querySelector('.product-media-container');
+      if (mediaContainer) {
+        var h = mediaContainer.offsetHeight;
+        if (h) previewWrap.style.height = h + 'px';
+      }
       var scale = (w / PREVIEW_LABEL_W) * 1.12;
       previewContainer.style.transform = 'scale(' + scale + ') translate(' + (-PREVIEW_LABEL_X) + 'px, ' + (-PREVIEW_LABEL_Y) + 'px)';
       previewContainer.style.transformOrigin = 'top left';
@@ -279,12 +284,6 @@
 
       previewWrap = document.createElement('div');
       previewWrap.id = 'wb-label-preview-wrap';
-
-      var mediaContainer = document.querySelector('.product-media-container');
-      if (mediaContainer) {
-        var ratio = parseFloat(getComputedStyle(mediaContainer).getPropertyValue('--preview-ratio'));
-        if (ratio) previewWrap.style.aspectRatio = ratio + ' / 1';
-      }
 
       var previewCrop = document.createElement('div');
       previewCrop.className = 'wbp-preview-crop';
