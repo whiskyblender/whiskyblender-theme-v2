@@ -251,7 +251,11 @@
       previewWrap = document.createElement('div');
       previewWrap.id = 'wb-label-preview-wrap';
 
-      previewWrap.style.aspectRatio = PREVIEW_LABEL_W + ' / ' + PREVIEW_LABEL_H;
+      var mediaContainer = document.querySelector('.product-media-container');
+      if (mediaContainer) {
+        var ratio = parseFloat(getComputedStyle(mediaContainer).getPropertyValue('--preview-ratio'));
+        if (ratio) previewWrap.style.aspectRatio = ratio + ' / 1';
+      }
 
       var previewCrop = document.createElement('div');
       previewCrop.className = 'wbp-preview-crop';
