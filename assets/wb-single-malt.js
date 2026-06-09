@@ -276,7 +276,7 @@
       if (!h) return;
       previewWrap.style.top    = (mediaRect.top - galleryRect.top) + 'px';
       previewWrap.style.height = h + 'px';
-      var scale = (h / PREVIEW_LABEL_H) * 1.06;
+      var scale = (h / PREVIEW_LABEL_H) * 0.97;
       previewContainer.style.transform = 'scale(' + scale + ') translate(' + (-PREVIEW_LABEL_X) + 'px, ' + (-PREVIEW_LABEL_Y) + 'px)';
       previewContainer.style.transformOrigin = 'top left';
     }
