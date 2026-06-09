@@ -47,11 +47,14 @@
     /* ── Preview utilities ──────────────────────────────────────────────── */
 
     var PREVIEW_PAGE_W  = 794;
+    var PREVIEW_PAGE_H  = 432;
     var PREVIEW_CROP_H  = 560;
     var PREVIEW_LABEL_W = 552;
     var PREVIEW_LABEL_H = 303;
     var PREVIEW_LABEL_X = (PREVIEW_PAGE_W - PREVIEW_LABEL_W) / 2; // 121px from page left
     var PREVIEW_LABEL_Y = 128; // px from page top
+    // vertical offset to centre label in page: page centre - label centre
+    var PREVIEW_CENTER_TY = (PREVIEW_PAGE_H / 2) - (PREVIEW_LABEL_Y + PREVIEW_LABEL_H / 2); // -63.5
 
     var PREVIEW_D = {
       sideLabelTop: 184, sideLabelLeft: 142,
@@ -277,9 +280,10 @@
       if (!h) return;
       previewWrap.style.top    = (mediaRect.top - galleryRect.top) + 'px';
       previewWrap.style.height = h + 'px';
-      var scale = (h / PREVIEW_LABEL_H);
-      previewCrop.style.transform = 'scale(' + scale + ') translate(' + (-PREVIEW_LABEL_X) + 'px, ' + (-PREVIEW_LABEL_Y) + 'px)';
-      previewCrop.style.transformOrigin = 'top left';
+      var scale = (h / PREVIEW_LABEL_H) * 0.92;
+      previewContainer.style.transform = 'scale(' + scale + ') translate(0, ' + PREVIEW_CENTER_TY + 'px)';
+      previewContainer.style.transformOrigin = 'center center';
+      previewCrop.style.transform = '';
     }
 
     function initPreview() {

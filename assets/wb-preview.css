@@ -17,17 +17,16 @@
   width: 100%;
   height: 45.6%;
   overflow: hidden;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ── Scale wrapper ─────────────────────────────────────────────────────────── */
 
 .wbp-scale-wrap {
   display: block;
-  margin-top: -4px;
-  margin-left: -10px;
-  transform: scale(0.92);
-  transform-origin: top left;
+  /* transform set inline by JS */
 }
 
 /* ── Page ──────────────────────────────────────────────────────────────────── */
