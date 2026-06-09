@@ -163,6 +163,8 @@
   aspect-ratio: 1 / 1;
   display: block;
   height: auto;
+  border-radius: 6px;
+  background: #ccd3db;
 }
 
 .wb-preview-heading {
