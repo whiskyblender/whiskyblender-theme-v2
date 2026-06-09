@@ -4,10 +4,22 @@
     <script>
       (function() {
         var v = 'v3';
-        if (localStorage.getItem('wb_theme') !== v) {
-          localStorage.setItem('wb_theme', v);
-          window.location.reload();
-        }
+        var key = 'wb_theme';
+        try {
+          if (localStorage.getItem(key) !== v) {
+            localStorage.setItem(key, v);
+            if (window.location.search.indexOf('_wb=') === -1) {
+              var sep = window.location.search ? '&' : '?';
+              window.location.replace(window.location.href + sep + '_wb=' + v);
+            }
+          } else if (window.location.search.indexOf('_wb=') !== -1) {
+            try {
+              var clean = new URL(window.location.href);
+              clean.searchParams.delete('_wb');
+              history.replaceState(null, '', clean.toString());
+            } catch(e) {}
+          }
+        } catch(e) {}
       })();
     </script>
     <meta charset="utf-8">
