@@ -160,7 +160,8 @@
   position: absolute;
   top: 0;
   width: 100%;
-  display: block;
+  display: flex;
+  align-items: center;
   height: auto;
   border-radius: 6px;
   background: #ccd3db;
