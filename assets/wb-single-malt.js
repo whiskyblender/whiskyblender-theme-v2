@@ -268,9 +268,13 @@
     function scalePreview() {
       if (!previewWrap || !previewContainer) return;
       var mediaEl = document.querySelector('.product-media-container.constrain-height .media');
-      if (!mediaEl) return;
-      var h = parseFloat(getComputedStyle(mediaEl).paddingTop);
+      var gallery = document.querySelector('media-gallery');
+      if (!mediaEl || !gallery) return;
+      var mediaRect  = mediaEl.getBoundingClientRect();
+      var galleryRect = gallery.getBoundingClientRect();
+      var h = mediaRect.height;
       if (!h) return;
+      previewWrap.style.top    = (mediaRect.top - galleryRect.top) + 'px';
       previewWrap.style.height = h + 'px';
       var scale = (h / PREVIEW_LABEL_H) * 1.12;
       previewContainer.style.transform = 'scale(' + scale + ') translate(' + (-PREVIEW_LABEL_X) + 'px, ' + (-PREVIEW_LABEL_Y) + 'px)';
