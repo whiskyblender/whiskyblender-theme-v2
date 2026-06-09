@@ -267,9 +267,9 @@
 
     function scalePreview() {
       if (!previewWrap || !previewContainer) return;
-      var mediaContainer = document.querySelector('.product-media-container');
-      if (!mediaContainer) return;
-      var h = mediaContainer.offsetHeight;
+      var mediaEl = document.querySelector('.product-media-container.constrain-height .media');
+      if (!mediaEl) return;
+      var h = parseFloat(getComputedStyle(mediaEl).paddingTop);
       if (!h) return;
       previewWrap.style.height = h + 'px';
       var scale = (h / PREVIEW_LABEL_H) * 1.12;
