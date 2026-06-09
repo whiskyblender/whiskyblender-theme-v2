@@ -269,8 +269,15 @@
         '</div>';
       previewWrap.appendChild(previewContainer);
 
-      var anchor = labelInput ? (labelInput.closest('.wb-bottle-form') || form) : form;
-      anchor.insertAdjacentElement('afterend', previewWrap);
+      var loaderEl = document.getElementById('wb-single-malt-loader');
+      var isPreviewTest = loaderEl && loaderEl.dataset.template === 'product.preview-test';
+      var mediaGallery = isPreviewTest && document.querySelector('media-gallery');
+      if (mediaGallery) {
+        mediaGallery.appendChild(previewWrap);
+      } else {
+        var anchor = labelInput ? (labelInput.closest('.wb-bottle-form') || form) : form;
+        anchor.insertAdjacentElement('afterend', previewWrap);
+      }
 
       renderPreviewLabel();
       scalePreview();

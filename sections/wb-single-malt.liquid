@@ -8,6 +8,7 @@
 </script>
 
 <div id="wb-single-malt-loader"
+  data-template="{{ template }}"
   data-product-title="{{ product.title | escape }}"
   data-distillery="{{ product.metafields.custom.distilled | escape }}"
   data-product-slug="{{ product.metafields.custom.label_product_slug | default: 'singlemalt' | escape }}"
