@@ -297,6 +297,8 @@
 
       previewContainer = document.createElement('div');
       previewContainer.className = 'wbp-scale-wrap';
+      var mockImg = productSlug === 'customblend' ? 'customblendlabelmock.png' : 'singlemaltlabelmock.png';
+      previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + ')';
       previewContainer.innerHTML =
         '<div class="wbp-page size50 ' + productSlug + '">' +
           '<div class="wbp-label-area">' +
