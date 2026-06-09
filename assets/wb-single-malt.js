@@ -316,7 +316,7 @@
       var isPreviewTest = loaderEl && (
         loaderEl.dataset.template === 'product.preview-test' ||
         loaderEl.dataset.template === 'product.personalised-whisky'
-      );
+      ) && productSlug !== 'customblend';
       var mediaGallery = isPreviewTest && document.querySelector('media-gallery');
       if (mediaGallery) {
         mediaGallery.appendChild(previewWrap);
