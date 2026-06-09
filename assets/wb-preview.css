@@ -41,7 +41,7 @@
 .wbp-page.size50 {
   width: 794px;
   height: 432px;
-  padding-top: 128px;
+  padding: 0;
 }
 
 .wbp-page.size50.singlemalt,
