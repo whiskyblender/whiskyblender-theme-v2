@@ -269,7 +269,7 @@
       if (!previewWrap || !previewContainer) return;
       var w = previewWrap.offsetWidth;
       if (!w) return;
-      var scale = (w / PREVIEW_LABEL_W) * 1.08;
+      var scale = (w / PREVIEW_LABEL_W) * 1.12;
       previewContainer.style.transform = 'scale(' + scale + ') translate(' + (-PREVIEW_LABEL_X) + 'px, ' + (-PREVIEW_LABEL_Y) + 'px)';
       previewContainer.style.transformOrigin = 'top left';
     }
