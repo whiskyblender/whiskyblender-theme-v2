@@ -26,7 +26,7 @@
 
 .wbp-scale-wrap {
   display: block;
-  margin-top: 80px;
+  margin-top: 250px;
   margin-left: 46px;
   background: url(singlemaltlabelmock.png) no-repeat center center / cover;
   /* transform set inline by JS */
@@ -38,6 +38,7 @@
   background: #fff;
   position: relative;
   margin: 0;
+  margin-top: -127px;
   overflow: hidden;
   mix-blend-mode: multiply;
 }
