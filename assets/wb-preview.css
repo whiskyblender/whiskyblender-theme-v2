@@ -18,6 +18,8 @@
   height: 42%;
   overflow: hidden;
   position: relative;
+  transform: scale(1.11594) translate(-121px, -132px);
+  transform-origin: top left;
 }
 
 /* ── Scale wrapper ─────────────────────────────────────────────────────────── */
