@@ -171,6 +171,11 @@
   to   { opacity: 1; }
 }
 
+#wb-label-preview-wrap,
+#wb-label-preview-wrap * {
+  pointer-events: none;
+}
+
 #wb-label-preview-wrap {
   margin: 0;
   overflow: hidden;
@@ -182,7 +187,6 @@
   height: auto;
   border-radius: 6px;
   background: #ccd3db;
-  pointer-events: none;
   animation: wbp-fadein 0.5s ease;
 }
 
