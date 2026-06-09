@@ -29,7 +29,7 @@
       </div>
       <div class="wb-overvideo">
         <div class="wb-padding">
-          <h1 class="wb-large-heading">{{ hero_title }}</h1>
+          <h1 class="wb-large-heading" id="wb-landing-heading">{{ hero_title }}</h1>
           <p>{{ section.settings.description }}</p>
           <div class="wb-buttons">
             <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">{{ section.settings.primary_button_text }}</a>
@@ -40,6 +40,19 @@
     {%- endif -%}
   </div>
 </section>
+
+{%- if section.settings.title_variants != blank -%}
+<script>
+  (function () {
+    var raw = {{ section.settings.title_variants | json }};
+    var phrases = raw.split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+    if (phrases.length > 1) {
+      var el = document.getElementById('wb-landing-heading');
+      if (el) el.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+    }
+  })();
+</script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -67,7 +80,14 @@
       "type": "text",
       "id": "title",
       "label": "Title text",
+      "info": "Used as the fallback if no variants are set below.",
       "default": "Create something"
+    },
+    {
+      "type": "textarea",
+      "id": "title_variants",
+      "label": "Title variants (comma-separated)",
+      "info": "Enter multiple phrases separated by commas — a random one will be shown on each page load. Leave blank to always show the title above."
     },
     {
       "type": "inline_richtext",
