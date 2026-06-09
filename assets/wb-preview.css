@@ -199,3 +199,7 @@
   color: #b88d60;
   margin: 0 0 10px;
 }
+
+.product__media-wrapper {
+  margin-bottom: 20px;
+}
