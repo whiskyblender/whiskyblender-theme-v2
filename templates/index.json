@@ -17,6 +17,7 @@
         "video_file": "wb-index.mp4",
         "background_image": "shopify://shop_images/wb-index.jpg",
         "title": "Great Scotch!",
+        "title_variants": "Great Scotch!, Your own whisky, Liquid gold, Bottles of magic, Golden nectar, Om nom nom, Something special, Mark the occasion, Label your own",
         "description": "When you're looking for that bottle of whisky nobody else has.",
         "primary_button_text": "Create something",
         "primary_button_url": "shopify://pages/create",
