@@ -142,6 +142,7 @@
   letter-spacing: 8px;
   font-size: 8px;
   font-weight: 700;
+  line-height: normal;
   /* top + left set inline by JS */
 }
 
