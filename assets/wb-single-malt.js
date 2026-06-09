@@ -280,7 +280,7 @@
       if (!h) return;
       previewWrap.style.top    = (mediaRect.top - galleryRect.top) + 'px';
       previewWrap.style.height = h + 'px';
-      var scale = (h / PREVIEW_LABEL_H) * 0.75;
+      var scale = (h / PREVIEW_LABEL_H) * 0.65;
       previewContainer.style.transform = 'scale(' + scale + ') translate(0, ' + (PREVIEW_CENTER_TY - 30) + 'px)';
       previewContainer.style.transformOrigin = 'center center';
       previewCrop.style.transform = '';
