@@ -247,6 +247,15 @@
       previewWrap = document.createElement('div');
       previewWrap.id = 'wb-label-preview-wrap';
 
+      var mediaContainer = document.querySelector('.product-media-container');
+      if (mediaContainer) {
+        var ratio = parseFloat(getComputedStyle(mediaContainer).getPropertyValue('--preview-ratio'));
+        if (ratio) previewWrap.style.aspectRatio = ratio + ' / 1';
+      }
+
+      var previewCrop = document.createElement('div');
+      previewCrop.className = 'wbp-preview-crop';
+
       previewContainer = document.createElement('div');
       previewContainer.className = 'wbp-scale-wrap';
       previewContainer.innerHTML =
@@ -261,7 +270,8 @@
             '</div>' +
           '</div>' +
         '</div>';
-      previewWrap.appendChild(previewContainer);
+      previewCrop.appendChild(previewContainer);
+      previewWrap.appendChild(previewCrop);
 
       var loaderEl = document.getElementById('wb-single-malt-loader');
       var isPreviewTest = loaderEl && loaderEl.dataset.template === 'product.preview-test';
