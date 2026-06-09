@@ -1,6 +1,15 @@
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
+    <script>
+      (function() {
+        var v = 'v2';
+        if (localStorage.getItem('wb_theme') !== v) {
+          localStorage.setItem('wb_theme', v);
+          window.location.reload();
+        }
+      })();
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
