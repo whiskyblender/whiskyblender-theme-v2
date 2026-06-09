@@ -239,7 +239,6 @@
       var scale = w / PREVIEW_PAGE_W;
       previewContainer.style.transform = 'scale(' + scale + ')';
       previewContainer.style.transformOrigin = 'top left';
-      previewWrap.style.height = Math.round(PREVIEW_CROP_H * scale) + 'px';
     }
 
     function initPreview() {
@@ -247,11 +246,6 @@
 
       previewWrap = document.createElement('div');
       previewWrap.id = 'wb-label-preview-wrap';
-
-      var heading = document.createElement('p');
-      heading.className = 'wb-preview-heading';
-      heading.textContent = 'Your label';
-      previewWrap.appendChild(heading);
 
       previewContainer = document.createElement('div');
       previewContainer.className = 'wbp-scale-wrap';
