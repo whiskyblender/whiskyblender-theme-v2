@@ -140,149 +140,128 @@
 <script>
 (function () {
   var PHRASES = [
-    "Ya dancer!", "Yaldy!", "Ya wee blender ye!", "Gie's some!",
-    "Gawjus!", "Belter!", "Tasty AF!", "Magic!", "Amazin'!",
-    "Well done!", "Lookin' guid!", "Canny wait!",
-    "Let's get dressed!", "Liquid gold!"
+    "Ya dancer!", "Yaldy!", "Ya wee blender ye!", "Gie’s some!",
+    "Gawjus!", "Belter!", "Tasty AF!", "Magic!", "Amazin’!",
+    "Well done!", "Lookin’ guid!", "Canny wait!",
+    "Let’s get dressed!", "Liquid gold!"
   ];
 
-  var COPY_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
-  var TICK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-  var SHARE_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
+  var COPY_ICON = ‘<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>’;
+  var TICK_ICON = ‘<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>’;
+  var SHARE_ICON = ‘<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>’;
 
   function esc(str) {
     return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+      .replace(/&/g, ‘&amp;’)
+      .replace(/</g, ‘&lt;’)
+      .replace(/>/g, ‘&gt;’)
+      .replace(/"/g, ‘&quot;’);
   }
 
-  var rawBlend  = new URLSearchParams(window.location.search).get('blend') || '';
-  var blend     = rawBlend.trim();
+  var rawBlend   = new URLSearchParams(window.location.search).get(‘blend’) || ‘’;
+  var blend      = rawBlend.trim();
   var looksValid = blend.length >= 6 && /^[A-Za-z0-9_-]+$/.test(blend);
-  var heading   = document.getElementById('wb-custom-heading');
-  var sub       = document.getElementById('wb-custom-sub');
-  var bottom    = document.getElementById('wb-custom-bottom');
-  var grid      = document.getElementById('wb-custom-grid');
+  var heading    = document.getElementById(‘wb-custom-heading’);
+  var sub        = document.getElementById(‘wb-custom-sub’);
+  var bottom     = document.getElementById(‘wb-custom-bottom’);
+  var grid       = document.getElementById(‘wb-custom-grid’);
 
-  /* ── Invalid code in URL ─────────────────────────────────────── */
-  if (blend && !looksValid) {
-    var dialog = document.getElementById('wb-invalid-dialog');
-    if (dialog && dialog.showModal) {
-      document.getElementById('wb-dialog-ok').addEventListener('click', function () { dialog.close(); });
-      dialog.showModal();
-    }
-    blend = '';
+  function buildBlendCodeUi() {
+    var shareUrl = window.location.origin + window.location.pathname + ‘?blend=’ + encodeURIComponent(blend);
+    var ui       = document.getElementById(‘wb-blendcode-ui’);
+    var actions  = document.createElement(‘div’);
+    actions.className = ‘wb-custom-blend-actions’;
+
+    var box = document.createElement(‘div’);
+    box.className = ‘wb-blendcode-box’;
+    box.innerHTML = ‘<span class="wb-blendcode-digits">’ + blend + ‘</span>’;
+
+    var copyBtn = document.createElement(‘button’);
+    copyBtn.className = ‘wb-button wb-primary-button’;
+    copyBtn.innerHTML = COPY_ICON + ‘&nbsp;Copy link’;
+    copyBtn.addEventListener(‘click’, function () {
+      copyBtn.style.minWidth = copyBtn.offsetWidth + ‘px’;
+      navigator.clipboard.writeText(shareUrl).then(function () {
+        copyBtn.innerHTML = TICK_ICON + ‘&nbsp;Copied!’;
+        setTimeout(function () { copyBtn.innerHTML = COPY_ICON + ‘&nbsp;Copy link’; }, 2000);
+      });
+    });
+    actions.appendChild(box);
+    actions.appendChild(copyBtn);
+
+    var shareBtn = document.createElement(‘button’);
+    shareBtn.className = ‘wb-button’;
+    shareBtn.innerHTML = SHARE_ICON + ‘&nbsp;Share’;
+    shareBtn.addEventListener(‘click’, function () {
+      if (navigator.share) {
+        navigator.share({ title: ‘My Whisky Blend’, url: shareUrl });
+      } else {
+        navigator.clipboard.writeText(shareUrl).then(function () {
+          shareBtn.innerHTML = TICK_ICON + ‘&nbsp;Copied!’;
+          setTimeout(function () { shareBtn.innerHTML = SHARE_ICON + ‘&nbsp;Share’; }, 2000);
+        });
+      }
+    });
+    actions.appendChild(shareBtn);
+    ui.appendChild(actions);
   }
 
-  /* ── With valid blend code ───────────────────────────────────── */
-  if (blend) {
-    heading.textContent = 'Loading…';
-    sub.textContent     = '';
-    if (grid) grid.style.visibility = 'hidden';
+  function revealNormal() {
+    heading.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
+    sub.textContent     = ‘Now choose how you want to bottle your whisky…’;
+    document.querySelectorAll(‘[data-product-url]’).forEach(function (el) {
+      el.href = el.getAttribute(‘data-product-url’) + ‘?blend=’ + encodeURIComponent(blend);
+    });
+    if (grid) grid.style.visibility = ‘’;
+    bottom.style.display = ‘’;
+    document.getElementById(‘wb-blend-panel’).style.display = ‘’;
+    buildBlendCodeUi();
+  }
 
-    function buildBlendCodeUi() {
-      var shareUrl = window.location.origin + window.location.pathname + '?blend=' + encodeURIComponent(blend);
-      var ui = document.getElementById('wb-blendcode-ui');
-      var actions = document.createElement('div');
-      actions.className = 'wb-custom-blend-actions';
-
-      var box = document.createElement('div');
-      box.className = 'wb-blendcode-box';
-      box.innerHTML = '<span class="wb-blendcode-digits">' + blend + '</span>';
-
-      var copyBtn = document.createElement('button');
-      copyBtn.className = 'wb-button wb-primary-button';
-      copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link';
-      copyBtn.addEventListener('click', function () {
-        copyBtn.style.minWidth = copyBtn.offsetWidth + 'px';
-        navigator.clipboard.writeText(shareUrl).then(function () {
-          copyBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
-          setTimeout(function () { copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link'; }, 2000);
-        });
-      });
-
-      actions.appendChild(box);
-      actions.appendChild(copyBtn);
-
-      var shareBtn = document.createElement('button');
-      shareBtn.className = 'wb-button';
-      shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share';
-      shareBtn.addEventListener('click', function () {
-        if (navigator.share) {
-          navigator.share({ title: 'My Whisky Blend', url: shareUrl });
-        } else {
-          navigator.clipboard.writeText(shareUrl).then(function () {
-            shareBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
-            setTimeout(function () { shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share'; }, 2000);
-          });
-        }
-      });
-      actions.appendChild(shareBtn);
-      ui.appendChild(actions);
+  function showInactiveWarning() {
+    var labHref = ‘/pages/the-lab?blend=’ + encodeURIComponent(blend);
+    heading.textContent = ‘’;
+    sub.textContent     = ‘’;
+    var warn = document.createElement(‘div’);
+    warn.innerHTML =
+      ‘<div style="text-align:center; padding-top:80px; padding-bottom:80px; max-width:560px; margin:0 auto;">’ +
+        ‘<p aria-hidden="true" style="font-size:28px; font-weight:700; margin:0 0 16px;">&#x00AF;\\_(&#x30C4;)_/&#x00AF;</p>’ +
+        ‘<h2 class="wb-medium-heading">A wee problem</h2>’ +
+        ‘<p>The saddest part of great tasting whisky is that every cask eventually empties. Sadly your blend featured some whisky that is officially all gone now.</p>’ +
+        ‘<p style="margin-top:24px;">Now you have a chance to renew your recipe with our current casks.</p>’ +
+        ‘<p style="margin-top:32px;"><a href="’ + esc(labHref) + ‘" class="wb-button wb-primary-button">Back to the lab</a></p>’ +
+      ‘</div>’;
+    if (grid) {
+      grid.style.display = ‘none’;
+      grid.parentNode.insertBefore(warn, grid);
+    } else {
+      heading.insertAdjacentElement(‘afterend’, warn);
     }
+  }
 
-    function revealNormal() {
-      heading.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
-      sub.textContent     = 'Now choose how you want to bottle your whisky…';
-
-      document.querySelectorAll('[data-product-url]').forEach(function (el) {
-        el.href = el.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
-      });
-
-      if (grid) grid.style.visibility = '';
-      bottom.style.display = '';
-      document.getElementById('wb-blend-panel').style.display = '';
-      buildBlendCodeUi();
-    }
-
-    function showInactiveWarning() {
-      var labHref = ‘/pages/the-lab?blend=’ + encodeURIComponent(blend);
-
-      heading.textContent = ‘’;
-      sub.textContent     = ‘’;
-
-      var warn = document.createElement(‘div’);
-      warn.innerHTML =
-        ‘<div style="text-align:center; padding-top:80px; padding-bottom:80px; max-width:560px; margin:0 auto;">’ +
-          ‘<p aria-hidden="true" style="font-size:28px; font-weight:700; margin:0 0 16px;">&#x00AF;\\_(&#x30C4;)_/&#x00AF;</p>’ +
-          ‘<h2 class="wb-medium-heading">A wee problem</h2>’ +
-          ‘<p>The saddest part of great tasting whisky is that every cask eventually empties. Sadly your blend featured some whisky that is officially all gone now.</p>’ +
-          ‘<p style="margin-top:24px;">Now you have a chance to renew your recipe with our current casks.</p>’ +
-          ‘<p style="margin-top:32px;"><a href="’ + esc(labHref) + ‘" class="wb-button wb-primary-button">Back to the lab</a></p>’ +
-        ‘</div>’;
-
-      if (grid) {
-        grid.style.visibility = ‘’;
-        grid.style.display = ‘none’;
-        grid.parentNode.insertBefore(warn, grid);
-      } else {
-        heading.insertAdjacentElement(‘afterend’, warn);
-      }
-    }
+  function checkBlendAndRender() {
+    heading.textContent = ‘Loading…’;
+    sub.textContent     = ‘’;
+    if (grid) grid.style.visibility = ‘hidden’;
 
     Promise.all([
-      fetch('https://lab.whiskyblender.com/api/blend?slug=' + encodeURIComponent(blend))
+      fetch(‘https://lab.whiskyblender.com/api/blend?slug=’ + encodeURIComponent(blend))
         .then(function (res) { return res.ok ? res.json() : null; })
         .catch(function () { return null; }),
-      fetch('https://lab.whiskyblender.com/api/whisky-options')
+      fetch(‘https://lab.whiskyblender.com/api/whisky-options’)
         .then(function (res) { return res.ok ? res.json() : null; })
         .catch(function () { return null; })
     ]).then(function (results) {
       var blendData     = results[0];
       var activeOptions = results[1];
-
       var inactiveNames = [];
       if (blendData && activeOptions) {
-        var activeIds     = activeOptions.map(function (o) { return o.identifier; });
-        var recipe        = Array.isArray(blendData.recipe) ? blendData.recipe : [];
-        var inactiveItems = recipe.filter(function (item) {
-          return item.amount > 0 && activeIds.indexOf(item.identifier) === -1;
-        });
-        inactiveNames = inactiveItems.map(function (i) { return i.name; });
+        var activeIds = activeOptions.map(function (o) { return o.identifier; });
+        var recipe    = Array.isArray(blendData.recipe) ? blendData.recipe : [];
+        inactiveNames = recipe
+          .filter(function (item) { return item.amount > 0 && activeIds.indexOf(item.identifier) === -1; })
+          .map(function (i) { return i.name; });
       }
-
       if (inactiveNames.length > 0) {
         showInactiveWarning();
       } else {
@@ -291,39 +270,47 @@
     }).catch(function () {
       revealNormal();
     });
+  }
 
-  /* ── No blend code ───────────────────────────────────────────── */
-  } else {
-    heading.textContent = 'Bottle options';
-    sub.textContent     = 'There are a few different bottles we can offer, but first you need to decide what to fill it with.';
+  function initNoblend() {
+    heading.textContent = ‘Bottle options’;
+    sub.textContent     = ‘There are a few different bottles we can offer, but first you need to decide what to fill it with.’;
+    document.getElementById(‘wb-noblend-actions’).style.display = ‘’;
+    var cta = document.getElementById(‘wb-noblend-cta’);
+    if (cta) { bottom.style.display = ‘’; cta.style.display = ‘’; }
 
-    document.getElementById('wb-noblend-actions').style.display = '';
-
-    var cta = document.getElementById('wb-noblend-cta');
-    if (cta) {
-      bottom.style.display = '';
-      cta.style.display = '';
-    }
-
-    var codeInput = document.getElementById('wb-code-input');
-    var codeGo    = document.getElementById('wb-code-go');
-
-    codeInput.addEventListener('input', function () {
+    var codeInput = document.getElementById(‘wb-code-input’);
+    var codeGo    = document.getElementById(‘wb-code-go’);
+    codeInput.addEventListener(‘input’, function () {
       codeGo.disabled = codeInput.value.trim().length < 6;
     });
-
     function submitCode() {
       var code = codeInput.value.trim().toUpperCase();
       if (code.length >= 6) {
-        window.location.href = window.location.pathname + '?blend=' + encodeURIComponent(code);
+        window.location.href = window.location.pathname + ‘?blend=’ + encodeURIComponent(code);
       }
     }
-
-    codeGo.addEventListener('click', submitCode);
-    codeInput.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') submitCode();
-    });
+    codeGo.addEventListener(‘click’, submitCode);
+    codeInput.addEventListener(‘keydown’, function (e) { if (e.key === ‘Enter’) submitCode(); });
   }
+
+  /* ── Invalid code in URL ─────────────────────────────────────── */
+  if (blend && !looksValid) {
+    var dialog = document.getElementById(‘wb-invalid-dialog’);
+    if (dialog && dialog.showModal) {
+      document.getElementById(‘wb-dialog-ok’).addEventListener(‘click’, function () { dialog.close(); });
+      dialog.showModal();
+    }
+    blend = ‘’;
+  }
+
+  /* ── Route ───────────────────────────────────────────────────── */
+  if (blend) {
+    checkBlendAndRender();
+  } else {
+    initNoblend();
+  }
+
 })();
 </script>
 
