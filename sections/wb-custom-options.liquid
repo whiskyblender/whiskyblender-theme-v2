@@ -98,7 +98,7 @@
               <div class="wb-right-image">
                 {{ section.settings.cta_image | image_url: width: 400 | image_tag:
                   loading: 'lazy',
-                  alt: '',
+                  alt: section.settings.cta_heading,
                   class: section.settings.cta_image_class
                 }}
               </div>
