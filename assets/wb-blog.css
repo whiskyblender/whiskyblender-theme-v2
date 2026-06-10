@@ -42,23 +42,6 @@
 
 /* ── Article page ────────────────────────────────────────────────────────── */
 
-.wb-article-back-top {
-  display: block;
-  font-size: 13px;
-  color: #888888;
-  text-decoration: none;
-  margin-bottom: 12px;
-}
-
-.wb-article-back-top:hover {
-  color: #333333;
-}
-
-.wb-article-date {
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  color: #555555;
-}
 
 .wb-article-body {
   max-width: 700px;

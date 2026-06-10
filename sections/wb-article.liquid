@@ -5,9 +5,7 @@
     <div class="wb-container">
       <div class="wb-imagebg"{% if article.image %} style="background-image: url({{ article.image | image_url: width: 1920 }})"{% endif %}>
         <div class="wb-padding">
-          <a href="{{ blog.url }}" class="wb-article-back-top">&#8592; {{ blog.title | escape }}</a>
           <h1 class="wb-medium-heading">{{ article.title | escape }}</h1>
-          <p class="wb-collection-sub wb-article-date">{{ article.published_at | date: '%d %B %Y' }}</p>
         </div>
       </div>
     </div>
