@@ -737,6 +737,18 @@
   color: #999;
   margin: 5px 0 0;
   line-height: 1.4;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+#wb-blend-title::placeholder {
+  transition: opacity 0.4s ease;
+}
+
+#wb-blend-title.wb-placeholder-fade::placeholder {
+  opacity: 0;
 }
 
 .wb-hint-link {

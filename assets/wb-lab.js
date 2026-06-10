@@ -536,11 +536,38 @@
       }
       update();
       input.addEventListener('input', update);
-      input.parentNode.appendChild(counter);
+      var hint = input.parentNode.querySelector('.wb-field-hint');
+      (hint || input.parentNode).appendChild(counter);
     }
 
     if (titleInput)  addCounter(titleInput,  32);
     if (authorInput) addCounter(authorInput, 32);
+
+    /* ── Rotating placeholder ────────────────────────────────────────────── */
+
+    if (titleInput) {
+      var suggestions = [
+        "Dad's dram",
+        "Future husband",
+        "Mother of the year",
+        "Teacher's pet",
+        "Doctor's orders",
+        "Big Bro",
+        "Thanks a lot",
+        "Congrats!"
+      ];
+      var suggestionIdx = 0;
+      titleInput.placeholder = suggestions[0];
+      setInterval(function () {
+        if (titleInput.value) return;
+        titleInput.classList.add('wb-placeholder-fade');
+        setTimeout(function () {
+          suggestionIdx = (suggestionIdx + 1) % suggestions.length;
+          titleInput.placeholder = suggestions[suggestionIdx];
+          titleInput.classList.remove('wb-placeholder-fade');
+        }, 400);
+      }, 3000);
+    }
 
     /* ── Press-and-hold controls ─────────────────────────────────── */
     /* ── Button press animations ───────────────────────────────────── */
