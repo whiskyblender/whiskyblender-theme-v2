@@ -407,6 +407,27 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "name": {{ shop.name | json }},
+            "url": {{ request.origin | json }}
+            {%- if settings.logo != blank -%}
+            ,"logo": {{ settings.logo | image_url: width: 500 | prepend: 'https:' | json }}
+            {%- endif -%}
+          },
+          {
+            "@type": "WebSite",
+            "name": {{ shop.name | json }},
+            "url": {{ request.origin | json }}
+          }
+        ]
+      }
+    </script>
+
     <script>
       (function () {
         function markLoaded(img) {

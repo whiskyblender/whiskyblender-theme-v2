@@ -4,7 +4,7 @@
     style="background-image: url({{ product.featured_image | image_url: width:1500, height:900 }})"
   >
     <img
-      alt=" Product image of whisky bottle"
+      alt="{{ product.title | escape }}"
       src="{{ product.featured_image | image_url: width:1500, height:900 }}"
       width="1500"
       height="900"
