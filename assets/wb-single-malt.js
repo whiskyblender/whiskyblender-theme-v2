@@ -44,6 +44,23 @@
       labelInput.addEventListener('input', syncBtn);
     }
 
+    /* ── Character counter ──────────────────────────────────────────────── */
+
+    function addCounter(input, max) {
+      var counter = document.createElement('span');
+      counter.className = 'wb-char-counter';
+      function update() {
+        var left = max - [...input.value].length;
+        counter.textContent = left + ' left';
+        counter.classList.toggle('wb-char-counter--low', left < 5);
+      }
+      update();
+      input.addEventListener('input', update);
+      input.parentNode.appendChild(counter);
+    }
+
+    if (labelInput) addCounter(labelInput, 32);
+
     /* ── Preview utilities ──────────────────────────────────────────────── */
 
     var PREVIEW_PAGE_W  = 794;

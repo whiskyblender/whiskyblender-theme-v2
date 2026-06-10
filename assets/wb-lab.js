@@ -524,6 +524,24 @@
     if (titleInput)  titleInput.addEventListener('input',  updateUI);
     if (authorInput) authorInput.addEventListener('input', updateUI);
 
+    /* ── Character counters ─────────────────────────────────────────────── */
+
+    function addCounter(input, max) {
+      var counter = document.createElement('span');
+      counter.className = 'wb-char-counter';
+      function update() {
+        var left = max - [...input.value].length;
+        counter.textContent = left + ' left';
+        counter.classList.toggle('wb-char-counter--low', left < 5);
+      }
+      update();
+      input.addEventListener('input', update);
+      input.parentNode.appendChild(counter);
+    }
+
+    if (titleInput)  addCounter(titleInput,  32);
+    if (authorInput) addCounter(authorInput, 32);
+
     /* ── Press-and-hold controls ─────────────────────────────────── */
     /* ── Button press animations ───────────────────────────────────── */
     function triggerAnim(f, adding) {
