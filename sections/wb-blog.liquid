@@ -33,7 +33,6 @@
                   <div class="wb-card-image wb-blog-card-placeholder"></div>
                 {%- endif -%}
                 <div class="wb-card-details">
-                  <p class="wb-blog-card-date">{{ article.published_at | date: '%d %B %Y' }}</p>
                   <p class="wb-blog-card-title">{{ article.title | escape }}</p>
                   {%- if article.excerpt_or_content != blank -%}
                     <p class="wb-blog-card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
