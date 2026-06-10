@@ -1,0 +1,61 @@
+{{ 'wb-blog.css' | asset_url | stylesheet_tag }}
+
+<div id="wb-article">
+  <section class="wb-first-item">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <a href="{{ blog.url }}" class="wb-article-back-top">&#8592; {{ blog.title | escape }}</a>
+        <h1 class="wb-medium-heading">{{ article.title | escape }}</h1>
+        <p class="wb-article-meta">
+          <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d %B %Y' }}</time>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {%- if article.image -%}
+    <div class="wb-article-hero">
+      <img
+        src="{{ article.image | image_url: width: 1200 }}"
+        srcset="
+          {{ article.image | image_url: width: 750 }} 750w,
+          {{ article.image | image_url: width: 1100 }} 1100w,
+          {{ article.image | image_url: width: 1500 }} 1500w
+        "
+        sizes="100vw"
+        alt="{{ article.image.alt | default: article.title | escape }}"
+        width="{{ article.image.width }}"
+        height="{{ article.image.height }}"
+        loading="eager"
+        fetchpriority="high"
+      >
+    </div>
+  {%- endif -%}
+
+  <section>
+    <div class="wb-container">
+      <div class="wb-padding wb-article-body">
+        {{ article.content }}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wb-container">
+      <div class="wb-padding" style="padding-top: 0;">
+        <a href="{{ blog.url }}" class="wb-article-back-bottom">&#8592; Back to {{ blog.title | escape }}</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script type="application/ld+json">
+  {{ article | structured_data }}
+</script>
+
+{% schema %}
+{
+  "name": "WB Article",
+  "settings": []
+}
+{% endschema %}

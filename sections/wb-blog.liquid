@@ -1,0 +1,73 @@
+{{ 'wb-blog.css' | asset_url | stylesheet_tag }}
+
+{%- paginate blog.articles by 9 -%}
+<section class="wb-first-item">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <h1 class="wb-medium-heading">{{ blog.title | escape }}</h1>
+      {%- if section.settings.intro_text != blank -%}
+        <div class="wb-blog-intro">{{ section.settings.intro_text }}</div>
+      {%- endif -%}
+
+      {%- if blog.articles_count > 0 -%}
+        <ul class="wb-cards wb-main-cards wb-blog-cards">
+          {%- for article in blog.articles -%}
+            <li>
+              <a href="{{ article.url }}">
+                {%- if article.image -%}
+                  <div class="wb-card-image">
+                    <img
+                      src="{{ article.image | image_url: width: 600 }}"
+                      srcset="
+                        {{ article.image | image_url: width: 400 }} 400w,
+                        {{ article.image | image_url: width: 800 }} 800w
+                      "
+                      sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw"
+                      alt="{{ article.image.alt | default: article.title | escape }}"
+                      width="{{ article.image.width }}"
+                      height="{{ article.image.height }}"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- else -%}
+                  <div class="wb-card-image wb-blog-card-placeholder"></div>
+                {%- endif -%}
+                <div class="wb-card-details">
+                  <p class="wb-blog-card-date">{{ article.published_at | date: '%d %B %Y' }}</p>
+                  <p class="wb-blog-card-title">{{ article.title | escape }}</p>
+                  {%- if article.excerpt_or_content != blank -%}
+                    <p class="wb-blog-card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+                  {%- endif -%}
+                </div>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if paginate.pages > 1 -%}
+          {%- render 'pagination', paginate: paginate -%}
+        {%- endif -%}
+      {%- else -%}
+        <p style="margin-top: 32px; color: #888;">No articles yet — check back soon.</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "WB Blog",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Intro text",
+      "default": "<p>Whisky stories, tasting notes, distillery guides, and tips for blending your perfect dram.</p>"
+    }
+  ],
+  "presets": [
+    { "name": "WB Blog" }
+  ]
+}
+{% endschema %}
