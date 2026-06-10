@@ -122,7 +122,9 @@ a.wb-button.button, a.wb-button.button.button--primary {
 
 .product__media.media.media--transparent {
     border-radius: 6px;
-    background: #ccd3db;
+    background: linear-gradient(90deg, #ccd3db 30%, #dae0e5 50%, #ccd3db 70%);
+    background-size: 600px 100%;
+    animation: wb-shimmer 1.4s ease-in-out infinite;
 }
 
 .collection__title.title-wrapper.title-wrapper--no-top-margin.page-width {

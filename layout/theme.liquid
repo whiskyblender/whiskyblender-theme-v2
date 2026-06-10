@@ -406,5 +406,19 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+      (function () {
+        function markLoaded(img) {
+          img.classList.add('wb-img-loaded');
+          var wrap = img.closest('.wb-card-image, .wb-productimage');
+          if (wrap) wrap.classList.add('wb-img-loaded');
+        }
+        document.querySelectorAll('.wb-card-image img, .wb-productimage img').forEach(function (img) {
+          if (img.complete && img.naturalWidth > 0) { markLoaded(img); }
+          else img.addEventListener('load', function () { markLoaded(img); }, { once: true });
+        });
+      })();
+    </script>
   </body>
 </html>
