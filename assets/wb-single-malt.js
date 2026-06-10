@@ -350,6 +350,14 @@
       });
     }
 
+    /* ── URL param pre-population ───────────────────────────────────────── */
+
+    var urlLabel = new URLSearchParams(window.location.search).get('label');
+    if (urlLabel && labelInput) {
+      labelInput.value = urlLabel.slice(0, 32);
+      labelInput.dispatchEvent(new Event('input'));
+    }
+
     /* ── Cart property injection ────────────────────────────────────────── */
 
     form.addEventListener('formdata', function (e) {
