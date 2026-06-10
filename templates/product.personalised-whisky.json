@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "product_tagline_bz6NMU": {
+          "type": "product_tagline",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "custom_liquid_hyNJqP": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"wb-bottle-form\">\n<label for=\"label-text\">Label text</label>\n<input\n  form=\"product-form-{{ section.id }}\"\n  type=\"text\"\n  id=\"label-text\"\n  name=\"properties[Label text]\"\n  placeholder=\"Your text here\"\n  maxlength=\"32\"\n  value=\"\" />\n</div>"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "custom_liquid_jQT3Qm": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"wb-note\" style=\"display:none\">\n  <i class=\"wb-lightbulb\"><img src=\"{{ 'wb-lightbulb-black.svg' | asset_url }}\" alt=\"\"/></i>\n  Are you a business looking for more than a few bottles?\n  <a href=\"/pages/collaborate#wb-getintouch\">Let's collaborate</a> on something even more bespoke.\n</div>"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "part_of_collection_pnVNAw": {
+          "type": "part_of_collection",
+          "settings": {
+            "excluded_collections": "Anniversaries, Birthdays, Celebrations, Christmas, Thankyous, Weddings"
+          }
+        },
+        "collapsible-row-2": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Tasting Notes",
+            "icon": "none",
+            "content": "<p>{{ product.metafields.custom.tasting_notes | metafield_tag }}</p>",
+            "page": ""
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "product_tagline_bz6NMU",
+        "price",
+        "variant_picker",
+        "custom_liquid_hyNJqP",
+        "quantity_selector",
+        "custom_liquid_jQT3Qm",
+        "buy_buttons",
+        "description",
+        "part_of_collection_pnVNAw",
+        "collapsible-row-2",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "cover",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "wb_single_malt_loader": {
+      "type": "wb-single-malt",
+      "settings": {}
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": ["main", "related-products", "wb_single_malt_loader"]
+}

@@ -158,6 +158,17 @@
       .replace(/"/g, '&quot;');
   }
 
+  var apiBase = 'https://lab.whiskyblender.com';
+
+  function fetchWithTimeout(url, ms) {
+    var ctrl = new AbortController();
+    var id = setTimeout(function () { ctrl.abort(); }, ms);
+    return fetch(url, { signal: ctrl.signal }).then(
+      function (res) { clearTimeout(id); return res; },
+      function (err) { clearTimeout(id); throw err; }
+    );
+  }
+
   var rawBlend   = new URLSearchParams(window.location.search).get('blend') || '';
   var blend      = rawBlend.trim();
   var looksValid = blend.length >= 6 && /^[A-Za-z0-9_-]+$/.test(blend);
@@ -184,7 +195,7 @@
       navigator.clipboard.writeText(shareUrl).then(function () {
         copyBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
         setTimeout(function () { copyBtn.innerHTML = COPY_ICON + '&nbsp;Copy link'; }, 2000);
-      });
+      }).catch(function () {});
     });
     actions.appendChild(box);
     actions.appendChild(copyBtn);
@@ -199,7 +210,7 @@
         navigator.clipboard.writeText(shareUrl).then(function () {
           shareBtn.innerHTML = TICK_ICON + '&nbsp;Copied!';
           setTimeout(function () { shareBtn.innerHTML = SHARE_ICON + '&nbsp;Share'; }, 2000);
-        });
+        }).catch(function () {});
       }
     });
     actions.appendChild(shareBtn);
@@ -245,15 +256,31 @@
     if (grid) grid.style.visibility = 'hidden';
 
     Promise.all([
-      fetch('https://lab.whiskyblender.com/api/blend?slug=' + encodeURIComponent(blend))
+      fetchWithTimeout(apiBase + '/api/blend?slug=' + encodeURIComponent(blend), 10000)
         .then(function (res) { return res.ok ? res.json() : null; })
         .catch(function () { return null; }),
-      fetch('https://lab.whiskyblender.com/api/whisky-options')
+      fetchWithTimeout(apiBase + '/api/whisky-options', 10000)
         .then(function (res) { return res.ok ? res.json() : null; })
         .catch(function () { return null; })
     ]).then(function (results) {
       var blendData     = results[0];
       var activeOptions = results[1];
+
+      /* API is up but blend not found — show the invalid-code dialog */
+      if (!blendData && activeOptions !== null) {
+        var dialog = document.getElementById('wb-invalid-dialog');
+        if (dialog && dialog.showModal) {
+          document.getElementById('wb-dialog-ok').addEventListener('click', function () {
+            dialog.close();
+            initNoblend();
+          });
+          dialog.showModal();
+        } else {
+          initNoblend();
+        }
+        return;
+      }
+
       var inactiveNames = [];
       if (blendData && activeOptions) {
         var activeIds = activeOptions.map(function (o) { return o.identifier; });
@@ -287,6 +314,8 @@
     function submitCode() {
       var code = codeInput.value.trim().toUpperCase();
       if (code.length >= 6) {
+        codeGo.disabled = true;
+        codeGo.textContent = 'Loading…';
         window.location.href = window.location.pathname + '?blend=' + encodeURIComponent(code);
       }
     }

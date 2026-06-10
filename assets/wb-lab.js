@@ -90,6 +90,16 @@
     return '<div class="wb-pie wb-' + color + '-pie wb-pie-0" data-pie-for="' + index + '"><div></div></div>';
   }
 
+  function fetchWithTimeout(url, ms, opts) {
+    var ctrl = new AbortController();
+    var id = setTimeout(function () { ctrl.abort(); }, ms);
+    var fetchOpts = Object.assign({}, opts || {}, { signal: ctrl.signal });
+    return fetch(url, fetchOpts).then(
+      function (res) { clearTimeout(id); return res; },
+      function (err) { clearTimeout(id); throw err; }
+    );
+  }
+
   /* ── Main init ─────────────────────────────────────────────────── */
   function init() {
     var container  = document.getElementById('wb-lab-flavours');
@@ -183,7 +193,7 @@
       }
       if (errorEl) errorEl.style.display = 'none';
 
-      fetch(apiBase + '/api/whisky-options')
+      fetchWithTimeout(apiBase + '/api/whisky-options', 10000)
         .then(function (res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           return res.json();
@@ -253,7 +263,7 @@
       var slug = new URLSearchParams(window.location.search).get('blend');
       if (!slug) return;
 
-      fetch(apiBase + '/api/blend?slug=' + encodeURIComponent(slug))
+      fetchWithTimeout(apiBase + '/api/blend?slug=' + encodeURIComponent(slug), 10000)
         .then(function (res) { return res.ok ? res.json() : null; })
         .then(function (blend) {
           if (!blend) return;
@@ -466,7 +476,7 @@
           payload.variantId = savePanelData.variantId;
         }
 
-        fetch(savePanelData.apiBase + '/api/blends', {
+        fetchWithTimeout(savePanelData.apiBase + '/api/blends', 15000, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),

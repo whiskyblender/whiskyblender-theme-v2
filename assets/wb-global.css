@@ -2,6 +2,19 @@ p {
   max-width: 768px;
 }
 
+.wb-char-counter {
+  display: block;
+  font-size: 11px;
+  color: #888;
+  text-align: right;
+  margin-top: 3px;
+  line-height: normal;
+}
+
+.wb-char-counter--low {
+  color: #c0392b;
+}
+
 h1 a,
 h2 a,
 h3 a {

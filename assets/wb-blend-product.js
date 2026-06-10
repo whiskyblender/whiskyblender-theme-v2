@@ -15,6 +15,28 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
   function show(el) { if (el) el.style.display = ''; }
   function hide(el) { if (el) el.style.display = 'none'; }
 
+  function fetchWithTimeout(url, ms) {
+    var ctrl = new AbortController();
+    var id = setTimeout(function () { ctrl.abort(); }, ms);
+    return fetch(url, { signal: ctrl.signal }).then(
+      function (res) { clearTimeout(id); return res; },
+      function (err) { clearTimeout(id); throw err; }
+    );
+  }
+
+  function addCounter(input, max) {
+    var counter = document.createElement('span');
+    counter.className = 'wb-char-counter';
+    function update() {
+      var left = max - [...input.value].length;
+      counter.textContent = left + ' left';
+      counter.classList.toggle('wb-char-counter--low', left < 5);
+    }
+    update();
+    input.addEventListener('input', update);
+    input.parentNode.appendChild(counter);
+  }
+
   function renderRecipe(blend, labUrl, inactiveIds) {
     var recipeEl = document.getElementById('wb-blend-recipe');
     if (!recipeEl) return;
@@ -71,8 +93,8 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         }
       } catch (err) {}
 
-      var labelText  = ((document.getElementById('label-text') || {}).value || '').slice(0, 32);
-      var authorText = ((document.getElementById('created-by') || {}).value || '').slice(0, 40);
+      var labelText  = [...((document.getElementById('label-text') || {}).value || '')].slice(0, 32).join('');
+      var authorText = [...((document.getElementById('created-by') || {}).value || '')].slice(0, 40).join('');
 
       var labelUrl = window.location.origin + (labelPage || '/pages/label') +
         '?blend='   + encodeURIComponent(blend.slug) +
@@ -159,6 +181,8 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     syncBtn();
     if (labelInput)  labelInput.addEventListener('input', syncBtn);
     if (authorInput) authorInput.addEventListener('input', syncBtn);
+    if (labelInput)  addCounter(labelInput, 32);
+    if (authorInput) addCounter(authorInput, 40);
   }
 
   function showNoBlendState(failedSlug) {
@@ -242,11 +266,11 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     show(loadingEl);
 
     Promise.all([
-      fetch(apiBase + '/api/blend?slug=' + encodeURIComponent(slug))
+      fetchWithTimeout(apiBase + '/api/blend?slug=' + encodeURIComponent(slug), 10000)
         .then(function (res) {
           return res.json().then(function (data) { return { ok: res.ok, data: data }; });
         }),
-      fetch(apiBase + '/api/whisky-options')
+      fetchWithTimeout(apiBase + '/api/whisky-options', 10000)
         .then(function (res) { return res.ok ? res.json() : null; })
         .catch(function () { return null; }),
     ])
@@ -287,10 +311,14 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         showBuyForm(slug);
         initInputGuard();
       })
-      .catch(function () {
+      .catch(function (err) {
         hide(loadingEl);
         showNoBlendState(slug);
-        showError('We can\'t find that blend. Either your code is wrong or it\'s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
+        if (err && err.name === 'AbortError') {
+          showError('The connection timed out. Please check your connection and try again.');
+        } else {
+          showError('We can\'t find that blend. Either your code is wrong or it\'s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
+        }
       });
   }
 
