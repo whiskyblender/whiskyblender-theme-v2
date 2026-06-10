@@ -1,36 +1,17 @@
 {{ 'wb-blog.css' | asset_url | stylesheet_tag }}
 
 <div id="wb-article">
-  <section class="wb-first-item">
+  <section class="wb-overflow-hidden-x">
     <div class="wb-container">
-      <div class="wb-padding">
-        <a href="{{ blog.url }}" class="wb-article-back-top">&#8592; {{ blog.title | escape }}</a>
-        <h1 class="wb-medium-heading">{{ article.title | escape }}</h1>
-        <p class="wb-article-meta">
-          <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d %B %Y' }}</time>
-        </p>
+      <div class="wb-imagebg"{% if article.image %} style="background-image: url({{ article.image | image_url: width: 1920 }})"{% endif %}>
+        <div class="wb-padding">
+          <a href="{{ blog.url }}" class="wb-article-back-top">&#8592; {{ blog.title | escape }}</a>
+          <h1 class="wb-medium-heading">{{ article.title | escape }}</h1>
+          <p class="wb-collection-sub wb-article-date">{{ article.published_at | date: '%d %B %Y' }}</p>
+        </div>
       </div>
     </div>
   </section>
-
-  {%- if article.image -%}
-    <div class="wb-article-hero">
-      <img
-        src="{{ article.image | image_url: width: 1200 }}"
-        srcset="
-          {{ article.image | image_url: width: 750 }} 750w,
-          {{ article.image | image_url: width: 1100 }} 1100w,
-          {{ article.image | image_url: width: 1500 }} 1500w
-        "
-        sizes="100vw"
-        alt="{{ article.image.alt | default: article.title | escape }}"
-        width="{{ article.image.width }}"
-        height="{{ article.image.height }}"
-        loading="eager"
-        fetchpriority="high"
-      >
-    </div>
-  {%- endif -%}
 
   <section>
     <div class="wb-container">
