@@ -40,6 +40,7 @@
   overflow: visible;
   transition: background 5s;
   z-index: 1;
+  animation: none;
 }
 
 .wb-option-cards li .wb-card-image .wb-cask {
