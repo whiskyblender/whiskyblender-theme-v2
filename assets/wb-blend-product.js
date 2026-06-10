@@ -94,7 +94,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
       } catch (err) {}
 
       var labelText  = [...((document.getElementById('label-text') || {}).value || '')].slice(0, 32).join('');
-      var authorText = [...((document.getElementById('created-by') || {}).value || '')].slice(0, 40).join('');
+      var authorText = [...((document.getElementById('created-by') || {}).value || '')].slice(0, 32).join('');
 
       var labelUrl = window.location.origin + (labelPage || '/pages/label') +
         '?blend='   + encodeURIComponent(blend.slug) +
@@ -182,7 +182,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     if (labelInput)  labelInput.addEventListener('input', syncBtn);
     if (authorInput) authorInput.addEventListener('input', syncBtn);
     if (labelInput)  addCounter(labelInput, 32);
-    if (authorInput) addCounter(authorInput, 40);
+    if (authorInput) addCounter(authorInput, 32);
   }
 
   function showNoBlendState(failedSlug) {

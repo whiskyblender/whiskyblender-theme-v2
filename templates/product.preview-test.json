@@ -46,7 +46,7 @@
         "custom_liquid_eEdV4R": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class=\"wb-bottle-form\">\n<label for=\"created-by\">Created by</label>\n<input\n  form=\"product-form-{{ section.id }}\"\n  type=\"text\"\n  id=\"created-by\"\n  name=\"properties[Created by]\"\n  placeholder=\"Wee Shuggy & Big Tam \"\n  maxlength=\"40\"\n  value=\"\" />\n</div>"
+            "custom_liquid": "<div class=\"wb-bottle-form\">\n<label for=\"created-by\">Created by</label>\n<input\n  form=\"product-form-{{ section.id }}\"\n  type=\"text\"\n  id=\"created-by\"\n  name=\"properties[Created by]\"\n  placeholder=\"Wee Shuggy & Big Tam \"\n  maxlength=\"32\"\n  value=\"\" />\n</div>"
           }
         },
         "quantity_selector": {
