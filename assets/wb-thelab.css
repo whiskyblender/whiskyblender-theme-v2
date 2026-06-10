@@ -9,10 +9,10 @@
 
 #wb-lab-hint {
   position: absolute;
-  top: 18px;
+  top: 32px;
   right: 88px;
   background: #fff;
-  border-radius: 20px;
+  border-radius: 6px;
   padding: 7px 12px;
   font-size: 13px;
   font-weight: 600;
