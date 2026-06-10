@@ -13,6 +13,8 @@
   var MAX_TOTAL = 100;
   var INCREMENTS = MAX_TOTAL / STEP; /* 20 */
 
+  var dismissHint = function () {};
+
   function combinations(n, k) {
     var result = 1;
     for (var i = 0; i < k; i++) result = result * (n - i) / (i + 1);
@@ -173,10 +175,16 @@
       });
 
       Promise.all([document.fonts.ready].concat(imagePromises)).then(function () {
-        if (!loaderEl) return;
-        loaderEl.style.transition = 'opacity 0.4s';
-        loaderEl.style.opacity = '0';
-        setTimeout(function () { loaderEl.style.display = 'none'; }, 420);
+        if (loaderEl) {
+          loaderEl.style.transition = 'opacity 0.4s';
+          loaderEl.style.opacity = '0';
+          setTimeout(function () {
+            loaderEl.style.display = 'none';
+            initHint(container);
+          }, 420);
+        } else {
+          initHint(container);
+        }
       });
     }
 
@@ -651,6 +659,7 @@
 
       if (addBtn) {
         withRepeat(addBtn, function () {
+          dismissHint();
           if (blendSaved) return false;
           if (getTotal() >= MAX_TOTAL) return false;
           f.amount = clamp(f.amount + STEP);
@@ -690,6 +699,58 @@
 
     /* Initial render */
     updateUI();
+  }
+
+  /* ── Lab hint sticker ─────────────────────────────────────────── */
+  function initHint(container) {
+    var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    var hint = document.createElement('div');
+    hint.id = 'wb-lab-hint';
+    hint.setAttribute('aria-hidden', 'true');
+    hint.textContent = isTouch ? 'Tap to add' : 'Click to add';
+    hint.classList.add('wb-hint-hidden');
+
+    var currentTarget = null;
+    var obs = null;
+
+    dismissHint = function () {
+      hint.classList.add('wb-hint-hidden');
+      setTimeout(function () { hint.remove(); }, 400);
+      if (obs) { obs.disconnect(); obs = null; }
+      dismissHint = function () {};
+    };
+
+    function showOn(cardImage) {
+      if (!hint || currentTarget === cardImage) return;
+      function attach() {
+        hint.remove();
+        cardImage.appendChild(hint);
+        currentTarget = cardImage;
+        hint.offsetHeight;
+        hint.classList.remove('wb-hint-hidden');
+      }
+      if (currentTarget) {
+        hint.classList.add('wb-hint-hidden');
+        setTimeout(attach, 350);
+      } else {
+        attach();
+      }
+    }
+
+    var cards = container.querySelectorAll('li[data-flavour-index]');
+    if (!cards.length) return;
+    showOn(cards[0].querySelector('.wb-card-image'));
+
+    if (isTouch && cards.length > 1) {
+      obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            showOn(entry.target.querySelector('.wb-card-image'));
+          }
+        });
+      }, { rootMargin: '-25% 0px -25%', threshold: 0 });
+      cards.forEach(function (li) { obs.observe(li); });
+    }
   }
 
   /* ── Bootstrap ─────────────────────────────────────────────────── */
