@@ -297,7 +297,7 @@
       // matches so the label stays centred after scaling.
       var cropW = previewCrop.offsetWidth;
       if (!cropW) return;
-      var scale = cropW / PREVIEW_PAGE_W;
+      var scale = (cropW / PREVIEW_PAGE_W) * 1.25;
       previewContainer.style.transform      = 'scale(' + scale + ')';
       previewContainer.style.transformOrigin = 'center center';
     }
