@@ -12,6 +12,15 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "judge_me_reviews_review_widget_AyNctJ": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        },
         "title": {
           "type": "title",
           "settings": {}
@@ -66,13 +75,10 @@
           "settings": {
             "share_label": "Share"
           }
-        },
-        "judge_me_reviews_preview_badge_VGMi9H": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
         }
       },
       "block_order": [
+        "judge_me_reviews_review_widget_AyNctJ",
         "title",
         "product_tagline_W3AUrB",
         "price",
@@ -82,8 +88,7 @@
         "description",
         "part_of_collection_BpWfEH",
         "collapsible-row-2",
-        "share",
-        "judge_me_reviews_preview_badge_VGMi9H"
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,
