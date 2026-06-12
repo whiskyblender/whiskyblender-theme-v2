@@ -10,32 +10,14 @@
       {%- endif -%}
 
       {%- if blog.articles_count > 0 -%}
-        <ul class="wb-cards wb-main-cards wb-blog-cards">
+        <ul class="wb-cards wb-blog-cards">
           {%- for article in blog.articles -%}
             <li>
-              <a href="{{ article.url }}">
-                {%- if article.image -%}
-                  <div class="wb-card-image">
-                    <img
-                      src="{{ article.image | image_url: width: 600 }}"
-                      srcset="
-                        {{ article.image | image_url: width: 400 }} 400w,
-                        {{ article.image | image_url: width: 800 }} 800w
-                      "
-                      sizes="(min-width: 900px) 33vw, (min-width: 600px) 50vw, 100vw"
-                      alt="{{ article.image.alt | default: article.title | escape }}"
-                      width="{{ article.image.width }}"
-                      height="{{ article.image.height }}"
-                      loading="lazy"
-                    >
-                  </div>
-                {%- else -%}
-                  <div class="wb-card-image wb-blog-card-placeholder"></div>
-                {%- endif -%}
-                <div class="wb-card-details">
-                  <p class="wb-blog-card-title">{{ article.title | escape }}</p>
+              <a class="wb-collection-tile" href="{{ article.url }}"{% if article.image %} style="background-image: url({{ article.image | image_url: width: 800 }})"{% endif %}>
+                <div class="wb-collection-tile-overlay">
+                  <p class="wb-collection-tile-title">{{ article.title | escape }}</p>
                   {%- if article.excerpt_or_content != blank -%}
-                    <p class="wb-blog-card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 120 }}</p>
+                    <p class="wb-collection-tile-count">{{ article.excerpt_or_content | strip_html | truncate: 80 }}</p>
                   {%- endif -%}
                 </div>
               </a>
