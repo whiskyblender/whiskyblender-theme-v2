@@ -15,7 +15,7 @@
 
 .wbp-preview-crop {
   width: 100%;
-  height: 70%;
+  aspect-ratio: 794 / 305;
   overflow: hidden;
   display: flex;
   align-items: center;
