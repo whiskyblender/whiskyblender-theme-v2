@@ -333,7 +333,12 @@
       var closeBtn = document.createElement('button');
       closeBtn.className = 'wbp-close-btn';
       closeBtn.setAttribute('aria-label', 'Close label preview');
-      closeBtn.textContent = 'Close label preview';
+      var closeBtnIcon = document.createElement('span');
+      closeBtnIcon.setAttribute('aria-hidden', 'true');
+      closeBtnIcon.textContent = '✕';
+      closeBtnIcon.style.marginRight = '5px';
+      closeBtn.appendChild(closeBtnIcon);
+      closeBtn.appendChild(document.createTextNode('Close label preview'));
       closeBtn.addEventListener('click', function () {
         previewDismissed = true;
         previewWrap.style.display = 'none';

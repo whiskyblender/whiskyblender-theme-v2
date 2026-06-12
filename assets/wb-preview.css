@@ -171,6 +171,11 @@
   to   { opacity: 1; }
 }
 
+@keyframes wbp-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(-6px); }
+}
+
 #wb-label-preview-wrap {
   margin: 0;
   overflow: hidden;
@@ -220,8 +225,10 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   pointer-events: all;
+  animation: wbp-bob 2.4s ease-in-out infinite;
 }
 
 .wbp-close-btn:hover {
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
+  animation-play-state: paused;
 }
