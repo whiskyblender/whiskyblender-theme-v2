@@ -292,22 +292,14 @@
       previewWrap.style.top    = (mediaRect.top - galleryRect.top) + 'px';
       previewWrap.style.height = h + 'px';
 
-      var cropRect = previewCrop.getBoundingClientRect();
-      var cropW    = cropRect.width;
-      var cropH    = cropRect.height;
+      // Scale based on crop width — fills the crop exactly at every viewport size.
+      // Flex centering on .wbp-preview-crop keeps the mock centred; transform-origin
+      // matches so the label stays centred after scaling.
+      var cropW = previewCrop.offsetWidth;
       if (!cropW) return;
-
-      // Scale to fill crop width exactly — consistent at every viewport size
       var scale = cropW / PREVIEW_PAGE_W;
-
-      // Centre the label area vertically within the crop.
-      // Label centre in scale-wrap coords = (PREVIEW_LABEL_Y - 127) + PREVIEW_LABEL_H/2 = 152.5
-      // (127 = the -127px margin-top on .wbp-page that shifts the page up within the wrap)
-      var labelCentreInWrap = (PREVIEW_LABEL_Y - 127) + PREVIEW_LABEL_H / 2;
-      var ty = cropH / 2 - labelCentreInWrap * scale;
-
-      previewContainer.style.transform       = 'translate(0px,' + ty + 'px) scale(' + scale + ')';
-      previewContainer.style.transformOrigin = '0 0';
+      previewContainer.style.transform      = 'scale(' + scale + ')';
+      previewContainer.style.transformOrigin = 'center center';
     }
 
     function initPreview() {

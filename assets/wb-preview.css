@@ -17,18 +17,17 @@
   width: 100%;
   height: 70%;
   overflow: hidden;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 /* ── Scale wrapper ─────────────────────────────────────────────────────────── */
 
 .wbp-scale-wrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 794px;
-  height: 432px;
+  display: block;
+  flex-shrink: 0;
   background: url(singlemaltlabelmock.png) no-repeat center center / cover;
   /* transform set inline by JS */
 }
