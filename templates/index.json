@@ -218,6 +218,12 @@
         "secondary_button_text": "See collaborations",
         "secondary_button_url": "shopify://collections/collaborations"
       }
+    },
+    "178129257397a9c961": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
@@ -226,6 +232,7 @@
     "featured_collection_93jqNG",
     "wb_occasions_UEFTTm",
     "wb_cta_foryersel",
-    "wb_cta_letscollab"
+    "wb_cta_letscollab",
+    "178129257397a9c961"
   ]
 }
