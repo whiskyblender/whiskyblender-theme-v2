@@ -27,6 +27,11 @@
   height: 71%;
 }
 
+.wbp-customblend .wbp-scale-wrap {
+  margin-top: 43%;
+  margin-left: -20%;
+}
+
 /* ── Scale wrapper ─────────────────────────────────────────────────────────── */
 
 .wbp-scale-wrap {
