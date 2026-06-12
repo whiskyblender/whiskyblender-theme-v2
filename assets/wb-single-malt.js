@@ -320,6 +320,7 @@
 
       previewWrap = document.createElement('div');
       previewWrap.id = 'wb-label-preview-wrap';
+      if (productSlug === 'customblend') previewWrap.classList.add('wbp-customblend');
 
       previewCrop = document.createElement('div');
       previewCrop.className = 'wbp-preview-crop';
