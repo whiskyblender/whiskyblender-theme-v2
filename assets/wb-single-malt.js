@@ -163,24 +163,6 @@
         if (barsUrl && !isBlend) pageEl.style.backgroundImage = 'url(' + barsUrl + ')';
       }
 
-      var cropsEl = previewContainer.querySelector('.wbp-crops');
-      if (cropsEl) {
-        cropsEl.style.cssText = [
-          'display:block',
-          'position:absolute',
-          'top:0',
-          'left:0',
-          'width:794px',
-          'height:560px',
-          'pointer-events:none',
-          'z-index:10',
-          cropsUrl ? 'background-image:url(' + cropsUrl + ')' : '',
-          'background-position:center center',
-          'background-repeat:no-repeat',
-          'background-size:auto',
-        ].filter(Boolean).join(';');
-      }
-
       var artworkEl = previewContainer.querySelector('.wbp-image');
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
@@ -332,7 +314,6 @@
       previewContainer.innerHTML =
         '<div class="wbp-page size50 ' + productSlug + '">' +
           '<div class="wbp-label-area">' +
-            '<div class="wbp-crops"></div>' +
             '<div class="wbp-label">' +
               '<div class="wbp-outer"><div class="wbp-blend-name"></div></div>' +
               '<div class="wbp-side"><div class="wbp-side-name"></div></div>' +
