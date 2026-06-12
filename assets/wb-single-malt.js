@@ -295,7 +295,7 @@
       // Scale based on crop width — fills the crop exactly at every viewport size.
       // Flex centering on .wbp-preview-crop keeps the mock centred; transform-origin
       // matches so the label stays centred after scaling.
-      var cropW = previewCrop.offsetWidth;
+      var cropW = galleryRect.width || previewCrop.offsetWidth;
       if (!cropW) return;
       var scale = (cropW / PREVIEW_PAGE_W) * 1.6;
       previewContainer.style.transform      = 'scale(' + scale + ')';
