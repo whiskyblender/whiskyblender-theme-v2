@@ -341,7 +341,12 @@
       closeBtn.appendChild(document.createTextNode('Close label preview'));
       closeBtn.addEventListener('click', function () {
         previewDismissed = true;
-        previewWrap.style.display = 'none';
+        previewWrap.style.opacity = '0';
+        previewWrap.addEventListener('transitionend', function handler() {
+          previewWrap.removeEventListener('transitionend', handler);
+          previewWrap.style.display = 'none';
+          previewWrap.style.opacity = '';
+        });
       });
       previewWrap.appendChild(closeBtn);
 
