@@ -1,26 +1,33 @@
 {{ 'wb-blog.css' | asset_url | stylesheet_tag }}
+{{ 'wb-perfectdrams.css' | asset_url | stylesheet_tag }}
 
 {%- paginate blog.articles by 9 -%}
 <section class="wb-first-item">
   <div class="wb-container">
-    <div class="wb-padding">
-      <h1 class="wb-medium-heading">{{ blog.title | escape }}</h1>
+    <div class="wb-padding wb-collection-copy">
+      <h1 class="wb-large-heading">{{ blog.title | escape }}</h1>
       {%- if section.settings.intro_text != blank -%}
         <div class="wb-blog-intro">{{ section.settings.intro_text }}</div>
       {%- endif -%}
 
       {%- if blog.articles_count > 0 -%}
-        <ul class="wb-cards wb-blog-cards">
+        <ul class="wb-cards wb-main-cards wb-blog-cards">
           {%- for article in blog.articles -%}
             <li>
-              <a class="wb-collection-tile" href="{{ article.url }}"{% if article.image %} style="background-image: url({{ article.image | image_url: width: 800 }})"{% endif %}>
-                <div class="wb-collection-tile-overlay">
-                  <p class="wb-collection-tile-title">{{ article.title | escape }}</p>
-                  {%- if article.excerpt_or_content != blank -%}
-                    <p class="wb-collection-tile-count">{{ article.excerpt_or_content | strip_html | truncate: 80 }}</p>
-                  {%- endif -%}
-                </div>
-              </a>
+              <a href="{{ article.url }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
+              <div class="wb-card-image">
+                {%- if article.image -%}
+                  {{ article.image | image_url: width: 800 | image_tag: alt: article.image.alt | default: article.title, loading: 'lazy' }}
+                {%- endif -%}
+              </div>
+              <div class="wb-card-details">
+                <h3 class="wb-small-heading">
+                  <a href="{{ article.url }}">{{ article.title | escape }}</a>
+                </h3>
+                {%- if article.excerpt_or_content != blank -%}
+                  <p>{{ article.excerpt_or_content | strip_html | truncate: 120 }} &#8594;</p>
+                {%- endif -%}
+              </div>
             </li>
           {%- endfor -%}
         </ul>

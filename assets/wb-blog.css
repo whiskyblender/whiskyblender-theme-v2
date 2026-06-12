@@ -6,14 +6,6 @@
   color: #555555;
 }
 
-.wb-blog-cards {
-  margin-top: 32px;
-}
-
-.wb-blog-cards.wb-cards li:hover {
-  border-color: transparent;
-}
-
 /* ── Article page ────────────────────────────────────────────────────────── */
 
 .wb-article-body {
@@ -83,11 +75,3 @@
   color: #333333;
 }
 
-/* ── Responsive ──────────────────────────────────────────────────────────── */
-
-@media screen and (min-width: 900px) {
-  .wb-blog-cards.wb-cards li {
-    flex: 30%;
-    max-width: calc(33.333% - 14px);
-  }
-}

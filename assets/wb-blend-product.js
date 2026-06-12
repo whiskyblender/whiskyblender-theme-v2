@@ -78,6 +78,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     if (authorInput && !authorInput.value) authorInput.value = blend.author || '';
   }
 
+
   function injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle) {
     var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
