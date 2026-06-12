@@ -344,7 +344,7 @@
       var isPreviewTest = loaderEl && (
         loaderEl.dataset.template === 'product.preview-test' ||
         loaderEl.dataset.template === 'product.personalised-whisky' ||
-        loaderEl.dataset.template === 'product.custom-blend'
+        loaderEl.dataset.template.indexOf('product.custom-') === 0
       );
       var mediaGallery = isPreviewTest && document.querySelector('media-gallery');
       if (mediaGallery) {
