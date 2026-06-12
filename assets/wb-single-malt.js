@@ -332,8 +332,8 @@
 
       var closeBtn = document.createElement('button');
       closeBtn.className = 'wbp-close-btn';
-      closeBtn.setAttribute('aria-label', 'Close preview');
-      closeBtn.textContent = '×';
+      closeBtn.setAttribute('aria-label', 'Close label preview');
+      closeBtn.textContent = 'Close label preview';
       closeBtn.addEventListener('click', function () {
         previewDismissed = true;
         previewWrap.style.display = 'none';
