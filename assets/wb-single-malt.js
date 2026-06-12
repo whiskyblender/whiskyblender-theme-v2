@@ -336,7 +336,7 @@
       var closeBtnIcon = document.createElement('span');
       closeBtnIcon.setAttribute('aria-hidden', 'true');
       closeBtnIcon.textContent = '✕';
-      closeBtnIcon.style.marginRight = '5px';
+      closeBtnIcon.style.marginRight = '12px';
       closeBtn.appendChild(closeBtnIcon);
       closeBtn.appendChild(document.createTextNode('Close label preview'));
       closeBtn.addEventListener('click', function () {
