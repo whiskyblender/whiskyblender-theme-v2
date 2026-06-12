@@ -160,7 +160,7 @@
       var pageEl = previewContainer.querySelector('.wbp-page');
       if (pageEl) {
         pageEl.className = 'wbp-page size50 ' + productSlug;
-        if (barsUrl) pageEl.style.backgroundImage = 'url(' + barsUrl + ')';
+        if (barsUrl && !isBlend) pageEl.style.backgroundImage = 'url(' + barsUrl + ')';
       }
 
       var cropsEl = previewContainer.querySelector('.wbp-crops');
