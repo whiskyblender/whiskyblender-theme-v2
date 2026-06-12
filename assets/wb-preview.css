@@ -209,17 +209,19 @@
   transform: translateX(-50%);
   white-space: nowrap;
   z-index: 20;
-  background: none;
+  background: #fff;
   border: none;
-  padding: 0;
-  color: #999;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: inherit;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
   font-family: inherit;
+  color: #333;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
   pointer-events: all;
 }
 
 .wbp-close-btn:hover {
-  color: #555;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
 }
