@@ -32,6 +32,10 @@
   /* transform set inline by JS */
 }
 
+.wbp-customblend .wbp-scale-wrap {
+  margin-right: 76px;
+}
+
 /* ── Page ──────────────────────────────────────────────────────────────────── */
 
 .wbp-page {
