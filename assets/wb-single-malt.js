@@ -343,7 +343,8 @@
       var loaderEl = document.getElementById('wb-single-malt-loader');
       var isPreviewTest = loaderEl && (
         loaderEl.dataset.template === 'product.preview-test' ||
-        loaderEl.dataset.template === 'product.personalised-whisky'
+        loaderEl.dataset.template === 'product.personalised-whisky' ||
+        loaderEl.dataset.template === 'product.custom-blend'
       );
       var mediaGallery = isPreviewTest && document.querySelector('media-gallery');
       if (mediaGallery) {
@@ -429,7 +430,9 @@
         '&text='       + encodeURIComponent(labelText) +
         (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
 
-      e.formData.set('properties[_label_url]', labelUrl);
+      if (productSlug !== 'customblend') {
+        e.formData.set('properties[_label_url]', labelUrl);
+      }
     });
   }
 

@@ -74,7 +74,10 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
   function populateInputs(blend) {
     var labelInput  = document.getElementById('label-text');
     var authorInput = document.getElementById('created-by');
-    if (labelInput  && !labelInput.value)  labelInput.value  = blend.title  || '';
+    if (labelInput && !labelInput.value) {
+      labelInput.value = blend.title || '';
+      labelInput.dispatchEvent(new Event('input'));
+    }
     if (authorInput && !authorInput.value) authorInput.value = blend.author || '';
   }
 
