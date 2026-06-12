@@ -173,11 +173,11 @@
 
 #wb-label-preview-wrap {
   margin: 0;
+  overflow: hidden;
   position: absolute;
   top: 0;
   width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   height: auto;
   border-radius: 6px;
@@ -185,7 +185,6 @@
   animation: wbp-fadein 0.5s ease;
   box-shadow: 0 0 0 4px #fff;
   z-index: 100;
-  padding-bottom: 14px;
 }
 
 .wb-preview-heading {
@@ -204,7 +203,12 @@
 /* ── Close button ──────────────────────────────────────────────────────────── */
 
 .wbp-close-btn {
-  margin-top: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 20;
   background: none;
   border: none;
   cursor: pointer;
@@ -213,7 +217,7 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #666;
-  padding: 4px 0;
+  padding: 4px 8px;
   pointer-events: all;
 }
 
