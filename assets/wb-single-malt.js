@@ -26,8 +26,9 @@
     var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
 
-    var labelInput = document.getElementById('label-text');
-    var addBtn     = form.querySelector('[name="add"]');
+    var labelInput     = document.getElementById('label-text');
+    var createdByInput = document.getElementById('created-by');
+    var addBtn         = form.querySelector('[name="add"]');
 
     /* ── Add to cart guard ──────────────────────────────────────────────── */
 
@@ -154,6 +155,7 @@
     function renderPreviewLabel() {
       if (!previewContainer) return;
       var d = PREVIEW_D;
+      var isBlend = productSlug === 'customblend';
 
       var pageEl = previewContainer.querySelector('.wbp-page');
       if (pageEl) {
@@ -184,13 +186,17 @@
         var variantSlug = prevSlugify(getCurrentVariantTitle());
         var artworkProduct = productSlug === 'singlecask' ? 'singlemalt' : productSlug;
         var artworkUrl = cdn + 'wb-' + artworkProduct + '-' + variantSlug + '-500ml.jpg?v=' + av;
+        var artTop  = isBlend ? '-8px'  : '4px';
+        var artLeft = isBlend ? '102px' : '-9px';
+        var artW    = isBlend ? '458px' : '570px';
+        var artH    = isBlend ? '244px' : '232px';
         artworkEl.style.cssText = [
           'display:block',
           'position:absolute',
-          'top:4px',
-          'left:-9px',
-          'width:570px',
-          'height:232px',
+          'top:'    + artTop,
+          'left:'   + artLeft,
+          'width:'  + artW,
+          'height:' + artH,
           'background-image:url(' + artworkUrl + ')',
           'background-size:cover',
           'background-position:center center',
@@ -202,33 +208,38 @@
       var blendNameEl = previewContainer.querySelector('.wbp-blend-name');
       if (blendNameEl) {
         blendNameEl.innerHTML = prevEsc(prevWordWrap(text));
-        blendNameEl.style.color = '#ffffff';
-        blendNameEl.style.textShadow = '1px 1px #000000';
+        blendNameEl.style.color      = isBlend ? '#111111' : '#ffffff';
+        blendNameEl.style.textShadow = isBlend ? '1px 1px #ffffff' : '1px 1px #000000';
         document.fonts.ready.then(function () { prevResizeText(blendNameEl); });
       }
 
       var sideNameEl = previewContainer.querySelector('.wbp-side-name');
       if (sideNameEl) {
-        sideNameEl.textContent = distillery;
-        sideNameEl.style.color = '#ffffff';
-        sideNameEl.style.textShadow = '1px 1px #000000';
+        sideNameEl.textContent       = isBlend ? (createdByInput ? createdByInput.value : '') : distillery;
+        sideNameEl.style.color       = isBlend ? '#111111' : '#ffffff';
+        sideNameEl.style.textShadow  = isBlend ? '1px 1px #ffffff' : '1px 1px #000000';
       }
 
       var sideLabelEl = previewContainer.querySelector('.wbp-side-label');
       if (sideLabelEl) {
-        sideLabelEl.textContent = 'Distilled at';
-        sideLabelEl.style.color = '#ffffff';
-        sideLabelEl.style.textShadow = '1px 1px #000000';
-        sideLabelEl.style.top  = d.sideLabelTop + 'px';
-        sideLabelEl.style.left = d.sideLabelLeft + 'px';
+        if (isBlend) {
+          sideLabelEl.style.display = 'none';
+        } else {
+          sideLabelEl.style.display    = '';
+          sideLabelEl.textContent      = 'Distilled at';
+          sideLabelEl.style.color      = '#ffffff';
+          sideLabelEl.style.textShadow = '1px 1px #000000';
+          sideLabelEl.style.top        = d.sideLabelTop + 'px';
+          sideLabelEl.style.left       = d.sideLabelLeft + 'px';
+        }
       }
 
-      /* Side info panel */
+      /* Side info panel — singlemalt/singlecask only */
       previewContainer.querySelectorAll('.wbp-side-panel').forEach(function (el) {
         el.parentNode.removeChild(el);
       });
       var labelEl = previewContainer.querySelector('.wbp-label');
-      if (labelEl) {
+      if (labelEl && !isBlend) {
         var s = d.panelLength / 232;
         var pad = Math.round(10 * s) + 'px ' + Math.round(16 * s) + 'px ' + Math.round(17 * s) + 'px';
         var info = document.createElement('div');
@@ -374,6 +385,15 @@
         }
         clearTimeout(previewDebounce);
         previewDebounce = setTimeout(renderPreviewLabel, 200);
+      });
+    }
+
+    if (createdByInput) {
+      createdByInput.addEventListener('input', function () {
+        if (previewContainer && !previewDismissed) {
+          clearTimeout(previewDebounce);
+          previewDebounce = setTimeout(renderPreviewLabel, 200);
+        }
       });
     }
 
