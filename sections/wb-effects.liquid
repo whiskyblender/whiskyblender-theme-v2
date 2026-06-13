@@ -1,4 +1,8 @@
-{%- assign effect = section.settings.effect -%}
+{%- comment -%}
+  Per-collection effect: set metafield custom.page_effect on the collection
+  (values: confetti, balloons, snow, none). Falls back to section setting.
+{%- endcomment -%}
+{%- assign effect = collection.metafields.custom.page_effect | default: section.settings.default_effect -%}
 
 {%- if effect == 'confetti' -%}
 
@@ -28,7 +32,7 @@
 .wb-balloon-body::before{content:'';position:absolute;top:18%;left:18%;width:26%;height:18%;border-radius:50%;background:rgba(255,255,255,.38);transform:rotate(-40deg)}
 .wb-balloon-body::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border-left:4px solid transparent;border-right:4px solid transparent;border-top:8px solid var(--wb-bc)}
 .wb-balloon-string{width:1px;height:55px;background:rgba(80,80,80,.28);margin:0 auto}
-@keyframes wb-balloon-rise{0%{transform:translateY(0);opacity:0}8%{opacity:1}85%{opacity:1}100%{transform:translateY(-120vh);opacity:0}}
+@keyframes wb-balloon-rise{from{transform:translateY(0)}to{transform:translateY(-120vh)}}
 @keyframes wb-balloon-sway{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
 </style>
 <div id="wb-balloon-stage" aria-hidden="true"></div>
@@ -46,7 +50,7 @@
     var el = document.createElement('div');
     el.className = 'wb-balloon';
     el.style.left = left;
-    el.style.animation = 'wb-balloon-rise ' + dur + ' ease-in forwards';
+    el.style.animation = 'wb-balloon-rise ' + dur + ' linear forwards';
     var inner = document.createElement('div');
     inner.className = 'wb-balloon-inner';
     inner.style.animation = 'wb-balloon-sway ' + sway + ' ease-in-out infinite alternate';
@@ -125,9 +129,13 @@
   "name": "WB - Page Effect",
   "settings": [
     {
+      "type": "paragraph",
+      "content": "Set the effect per collection using the metafield custom.page_effect (values: confetti, balloons, snow, none). The dropdown below is the fallback default for all collections on this template."
+    },
+    {
       "type": "select",
-      "id": "effect",
-      "label": "Page effect",
+      "id": "default_effect",
+      "label": "Default effect (all collections)",
       "options": [
         { "value": "none",     "label": "None" },
         { "value": "confetti", "label": "Confetti" },
