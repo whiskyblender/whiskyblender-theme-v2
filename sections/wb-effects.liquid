@@ -2,7 +2,11 @@
   Per-collection effect: set metafield custom.page_effect on the collection
   (values: confetti, balloons, snow, none). Falls back to section setting.
 {%- endcomment -%}
-{%- assign effect = collection.metafields.custom.page_effect | default: section.settings.default_effect -%}
+{%- if article -%}
+  {%- assign effect = article.metafields.custom.page_effect | default: section.settings.default_effect -%}
+{%- else -%}
+  {%- assign effect = collection.metafields.custom.page_effect | default: section.settings.default_effect -%}
+{%- endif -%}
 
 {%- if effect == 'confetti' -%}
 
