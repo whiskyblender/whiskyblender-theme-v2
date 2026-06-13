@@ -11,9 +11,163 @@
   "sections": {
     "wb_help_content": {
       "type": "wb-help",
-      "settings": {
-        "help_blog": "on-the-scotch"
-      }
+      "blocks": {
+        "faq_cost": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How much does a bottle cost?",
+            "answer": "<p>The prices will vary depending on the blend you finally select AND the whisky options currently offered. The average price for a bottle is £50 inc VAT if you're in the UK (but the spread is around £30-60).</p><p>Shipping in the UK is free next day on orders over £100.</p><p>Shipping to the USA is expensive for individual bottles but becomes super value once you start sending multiple bottles.</p>"
+          }
+        },
+        "faq_name": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I name my bottle anything?",
+            "answer": "<p>Well, there is a character limit but yeah you can pretty much name it whatever you want!</p><p>As you type, you'll find the label adjusts the size of the text, so you can play around with your brand to get something you're happy with.</p><p>We would add, however, that if you try to name it something potentially misleading like, oh I dunno, JOHNNIE WALKER BLUE 95 YEAR OLD - we won't create this label, as much as we'd like to let you. We can't afford the legal fees.</p><p>We'll contact you and ask for an alternate design, if we don't hear back from you we may refund your order or make up our own variation on your label as close to your own as we deem acceptable. In short, we won't knowingly reproduce copywritten brand names or produce untrue age statements.</p>"
+          }
+        },
+        "faq_brand": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I create a brand for my business?",
+            "answer": "<p>Yes! Contact Andy directly via email andy@whiskyblender.com if you are interested in creating a whisky (or rum) brand for resale or gifting.</p><p>We can offer a fully bespoke service including spirit sourcing, label design, packaging, and bottling. Without minimum orders.</p>"
+          }
+        },
+        "faq_shipping": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What are the shipping costs?",
+            "answer": "<p><strong>United Kingdom - 1-3 Days</strong><br>Orders under £100: £5.00<br>Orders over £100: FREE</p><p><strong>USA (Safe States) - 7-14 Days</strong><br>Orders under £100: £55<br>Between £100-£150: £60<br>Between £150-£199: £75<br>Between £200-499: £90<br>Orders over £500: £120<br>24 bottles or more: FREE</p><p>Shipping to the US is calculated by volumetric weight and includes customs charges. Our &quot;Safe states&quot; for shipping are: CA, CT, DE, D.C., FL, GA, ID, IL, LA, ME, MD, MA, NE, NJ, NM, NY, NC, OR, PA, RI, SC, TX, VT, VA, WA, WY. Alaska (Anchorage only) has a £30 surcharge.</p><p>We promise these rates are amongst the best you'll find anywhere online to send Scotch from the UK. We're working hard with our couriers to improve the pricing without compromising the service.</p><p>Contact us on the chat or via email for &quot;Other International&quot; destinations.</p>"
+          }
+        },
+        "faq_payment": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I pay you?",
+            "answer": "<p>Shopify is our payment service provider — they will accept most card types. When you are ordering your payment details will be securely sent to Stripe for processing. At no point will Whisky Blender view or store your credit card information.</p>"
+          }
+        },
+        "faq_save": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I save my whisky once I've made it?",
+            "answer": "<p>If you don't want to buy it right away, you will be given a special bottle number that you can enter on the find page and this will take you straight to your bottle!</p>"
+          }
+        },
+        "faq_dislike": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if I don't like my whisky?",
+            "answer": "<p>Oh no! We're really sorry if you decide you don't like your whisky but if you send us an email with your tasting note as well as your bottle number and an example of a mainstream whisky you like, we can try and guide you towards something more palatable next time!</p>"
+          }
+        },
+        "faq_date": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I choose the bottled date?",
+            "answer": "<p>We label the bottle accurately, that is to say truthfully. If it was bottled on the 2nd of January then that is what we would put on the label. We're happy to sit on an order and bottle on a requested date, just drop us an email after you've placed your order and we will reply to confirm receipt.</p>"
+          }
+        },
+        "faq_whiskies": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What whiskies do you use?",
+            "answer": "<p>They're OUR secret! We encourage you to use 'the force' when it comes to blending in our Lab. Our tasting notes are your most powerful ally!</p><p>For those in the know, if we threw in a description about the distillery or the age of the whiskies involved then it would almost certainly taint your judgement in making your blend — we want you to pick what flavours appeal to you the most! Don't try to make Johnnie Walker — try to make one for yersel, Jimmy Wonka!</p><p>For the geeks, yes, we know you all too well. The whiskies for blending are unmolested single cask scotch whisky varieties — aside from being cut to 46%abv for an easy life. We use minimal filtration to retain as much original mouthfeel as possible, though we remove as much charcoal and other bits of wid as possible.</p><p>Let us know on social media (or email if you'd prefer) what you think of your whisky and give us your tasting notes! If you can guess what's in it and the age you'll win a prize.</p>"
+          }
+        },
+        "faq_states": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What states are safe to ship to in the USA?",
+            "answer": "<p>So... currently we can send to:</p><p>CALIFORNIA<br>CONNECTICUT<br>DELAWARE<br>DISTRICT OF COLUMBIA<br>FLORIDA<br>GEORGIA<br>IDAHO<br>ILLINOIS<br>LOUISIANA<br>MAINE<br>MARYLAND<br>MASSACHUSETTS<br>NEBRASKA<br>NEW JERSEY<br>NEW MEXICO<br>NEW YORK<br>NORTH CAROLINA<br>OREGON<br>PENNSYLVANIA<br>RHODE ISLAND<br>SOUTH CAROLINA<br>TEXAS<br>VERMONT<br>VIRGINIA<br>WASHINGTON<br>WYOMING<br>ALASKA (Anchorage only at a £30 additional charge) — email us directly if you want to ship there.</p>"
+          }
+        },
+        "faq_country": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can you ship to my country?",
+            "answer": "<p>If you don't find your country listed during the checkout procedure you can email your full shipping address to us and we will try and get a special price for you. Note that customs folks in places like Canada really don't like whisky being imported — so please make sure you know your local customs/laws when ordering from us!</p>"
+          }
+        },
+        "faq_speed": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How quickly will I get my whisky?",
+            "answer": "<p>Obviously we want you to get your whisky as quickly as possible, but despite the fact we've made it look easy, blending is still labour intensive and we don't know how busy the lab will be at any given time. We aim to blend and bottle within 3 working days at most. If your order is urgent, just let us know and we will do our best to get it done!</p><p>Shipping varies depending on destination. UK is a 48 hour service, Europe (when customs aren't rejecting or charging outrageous fees) is normally 2-4 days. The rest of the world seems to vary between 2 days and 3 weeks depending on how lucky you are! Remember that we require a signature upon delivery.</p>"
+          }
+        },
+        "faq_customs": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will I have to pay customs fees as well?",
+            "answer": "<p>We unfortunately can't advise on local duties and taxes. If you're lucky enough to live in the UK, or the USA states that we ship to, you won't need to worry about them.</p><p>We don't know how much you might be asked to pay if you live in another part of the world nor do we know if some customs agent might decide to exchange your bottle for a nice letter saying, &quot;Thanks, that was delicious&quot; — so bear this in mind and know your local laws! Since leaving the EU we've noticed there are more problems than ever before with rejections and mental duty charges.</p>"
+          }
+        },
+        "faq_tracked": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is the parcel tracked?",
+            "answer": "<p>Aye! However, because of the service we're using (to keep the shipping fees as low as possible) we don't always get this information electronically sent to our customers — we ask you to be patient and allow the postal service to work their magic.</p><p>In the case of orders going outside of Europe this is usually between 7 &amp; 14 days on top of the 2-3 days it can take to blend up. If you are REALLY concerned about the delay send us an email (info@whiskyblender.com) and we will get a trace put on your parcel.</p>"
+          }
+        },
+        "faq_return": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I return my blend?",
+            "answer": "<p>We will accept returns under certain circumstances. If you have received your bottle in a less than satisfactory condition (incorrect label, damaged: cork, seal or bottle) we will be happy to refund you in full or arrange for a replacement bottle to be sent. We must insist that we are notified within 48 hours of receiving your bottle in order to receive a full refund.</p>"
+          }
+        },
+        "faq_voucher": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I cancel my gift voucher?",
+            "answer": "<p>With great difficulty!!! Just kiddin'. If you purchased a Whisky Blender gift voucher you can request a full refund on it at any time up to its expiry date — after which the voucher is void and useless — so long as it hasn't been redeemed. Simply contact us via the chat or email (info@whiskyblender.com) quoting the voucher number or order number and we'll handle it as soon as possible.</p>"
+          }
+        },
+        "faq_collect": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Will my whisky be collectable?",
+            "answer": "<p>Part of the reason we decided to relaunch this site was in response to the fact that a friend told us a bottle of Yer Aunt Fanny's Cat's Arsehole turned up on an auction site for £95.</p><p>It was legitimately unavailable so it was, we suppose, collectable. How Macallan can continue to be perceived as collectable when their capacity is something like 15 million litres a year is bonkers. Maybe that means our stuff is ACTUALLY COLLECTIBLE!?</p><p>However, we make our whisky for swallowing in the pursuit of a guid time. Your blend will be kept available in our records for future blending and purchase (if stocks allow). Will it be collectable, who knows? Who cares? We'd prefer if you collected empty bottles of ours, after you've consumed the contents!</p>"
+          }
+        },
+        "faq_casks": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you sell casks?",
+            "answer": "<p>Yes. But we don't sell to the public for long-term maturation, sorry. If you're still keen to ask about it, please reach out — we're happy to offer our free opinions on the subject.</p><p>Starting with... if someone is selling you a barrel of &quot;new make&quot; for multiple thousands of pounds and you think you can make a quick buck on it, you might have more luck going to your nearest casino and putting it all on black or betting on Airdrie to win the Scottish Cup.</p><p>The cask investment world is more or less a nonsense these days — our free advice is to just avoid it. Especially be on guard against firms based in or near London. Or for that matter YouTubers, who have been &quot;in the industry&quot; since the cask investment world blew up and went from selling beans to selling whisky.</p><p>If you're a company interested in buying a cask to bottle, in the immediate to medium term, then of course reach out as we'd be happy to help if we can.</p><p>Alternatively, check out our single cask bottles or ask us if we have any stuff that's not on the site. Sometimes, we forget to market half casks and the odd case or overrun. Remember, everything we have can be fully personalised/branded — that's our shtick.</p>"
+          }
+        },
+        "faq_data": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you sell or share my personal information?",
+            "answer": "<p>As described in our Privacy Policy, we collect personal information from your interactions with us and our website, including through cookies and similar technologies. We may also share this personal information with third parties, including advertising partners. We do this in order to show you ads on other websites that are more relevant to your interests and for other reasons outlined in our privacy policy.</p><p>Sharing of personal information for targeted advertising based on your interaction on different websites may be considered &quot;sales&quot;, &quot;sharing&quot;, or &quot;targeted advertising&quot; under certain U.S. state privacy laws. Depending on where you live, you may have the right to opt out of these activities. If you would like to exercise this opt-out right, please follow the instructions below.</p><p>If you visit our website with the Global Privacy Control opt-out preference signal enabled, depending on where you are, we will treat this as a request to opt-out of activity that may be considered a &quot;sale&quot; or &quot;sharing&quot; of personal information or other uses that may be considered targeted advertising for the device and browser you used to visit our website.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_cost",
+        "faq_name",
+        "faq_brand",
+        "faq_shipping",
+        "faq_payment",
+        "faq_save",
+        "faq_dislike",
+        "faq_date",
+        "faq_whiskies",
+        "faq_states",
+        "faq_country",
+        "faq_speed",
+        "faq_customs",
+        "faq_tracked",
+        "faq_return",
+        "faq_voucher",
+        "faq_collect",
+        "faq_casks",
+        "faq_data"
+      ],
+      "settings": {}
     }
   },
   "order": [
