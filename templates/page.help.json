@@ -11,7 +11,9 @@
   "sections": {
     "wb_help_content": {
       "type": "wb-help",
-      "settings": {}
+      "settings": {
+        "help_blog": "on-the-scotch"
+      }
     }
   },
   "order": [
