@@ -442,7 +442,51 @@
       })();
     </script>
     {%- if collection and collection.handle contains 'birthday' -%}
-      {%- render 'wb-balloons' -%}
+    <style>
+    #wb-balloon-stage{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+    .wb-balloon{position:absolute;bottom:-140px}
+    .wb-balloon-inner{transform-origin:bottom center}
+    .wb-balloon-body{width:var(--size);height:calc(var(--size) * 1.22);border-radius:50% 50% 50% 50%/55% 55% 45% 45%;background:var(--color);position:relative;box-shadow:inset -5px -8px 0 rgba(0,0,0,.1)}
+    .wb-balloon-body::before{content:'';position:absolute;top:18%;left:18%;width:26%;height:18%;border-radius:50%;background:rgba(255,255,255,.38);transform:rotate(-40deg)}
+    .wb-balloon-body::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border-left:4px solid transparent;border-right:4px solid transparent;border-top:8px solid var(--color)}
+    .wb-balloon-string{width:1px;height:55px;background:rgba(80,80,80,.28);margin:0 auto}
+    @keyframes wb-balloon-rise{0%{transform:translateY(0);opacity:0}6%{opacity:1}88%{opacity:1}100%{transform:translateY(calc(-110vh - 160px));opacity:0}}
+    @keyframes wb-balloon-sway{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+    </style>
+    <div id="wb-balloon-stage" aria-hidden="true"></div>
+    <script>
+    (function(){
+      var stage=document.getElementById('wb-balloon-stage');
+      if(!stage)return;
+      var colors=['#ff6b6b','#ff69b4','#ffd166','#74b9ff','#a29bfe','#55efc4','#fd79a8','#fdcb6e','#6c5ce7'];
+      function spawn(){
+        var color=colors[Math.floor(Math.random()*colors.length)];
+        var size=Math.round(Math.random()*22+36)+'px';
+        var left=(Math.random()*86+5).toFixed(1)+'%';
+        var dur=(Math.random()*4+7).toFixed(1)+'s';
+        var sway=(Math.random()*2+1.6).toFixed(1)+'s';
+        var el=document.createElement('div');
+        el.className='wb-balloon';
+        el.style.left=left;
+        el.style.animation='wb-balloon-rise '+dur+' ease-in forwards';
+        var inner=document.createElement('div');
+        inner.className='wb-balloon-inner';
+        inner.style.animation='wb-balloon-sway '+sway+' ease-in-out infinite alternate';
+        var body=document.createElement('div');
+        body.className='wb-balloon-body';
+        body.style.setProperty('--color',color);
+        body.style.setProperty('--size',size);
+        var string=document.createElement('div');
+        string.className='wb-balloon-string';
+        inner.appendChild(body);
+        inner.appendChild(string);
+        el.appendChild(inner);
+        stage.appendChild(el);
+        setTimeout(function(){el.remove();},parseFloat(dur)*1000+600);
+      }
+      for(var i=0;i<14;i++){(function(d){setTimeout(spawn,d);})(Math.random()*10000);}
+    })();
+    </script>
     {%- endif -%}
   </body>
 </html>
