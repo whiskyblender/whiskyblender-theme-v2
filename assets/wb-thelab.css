@@ -697,10 +697,9 @@
   justify-content: center;
   padding: 14px 16px;
   border-radius: 10px;
-  background: linear-gradient(-45deg, #9a5c30, #c8915a, #b88d60, #a56437, #c8915a);
-  background-size: 400% 400%;
-  animation: wb-copperbg 8s ease infinite;
-  color: #ffffff;
+  background: #ffffff;
+  border: 1.5px solid #b88d60;
+  color: #9a5c30;
   text-align: center;
   font-weight: 500;
   font-size: 12px;
@@ -715,16 +714,13 @@
 }
 
 .wb-blend-complete-banners.is-entering .wb-blend-complete-banner:nth-child(1) {
-  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both,
-             wb-copperbg 8s ease 0.45s infinite;
+  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 .wb-blend-complete-banners.is-entering .wb-blend-complete-banner:nth-child(2) {
-  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.1s both,
-             wb-copperbg 8s ease 0.55s infinite;
+  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.1s both;
 }
 .wb-blend-complete-banners.is-entering .wb-blend-complete-banner:nth-child(3) {
-  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s both,
-             wb-copperbg 8s ease 0.65s infinite;
+  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s both;
 }
 
 @keyframes wb-banner-in {
@@ -732,26 +728,8 @@
   to   { opacity: 1; transform: translateY(0)   scale(1);    }
 }
 
-.wb-blend-complete-banner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.22), transparent);
-  animation: wb-banner-sheen 3.5s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes wb-banner-sheen {
-  0%   { left: -75%; }
-  55%  { left: 125%; }
-  100% { left: 125%; }
-}
-
 .wb-blend-complete-banner strong {
-  color: #ffffff;
+  color: #9a5c30;
 }
 
 /* ── Save panel ──────────────────────────────────────────────────── */
