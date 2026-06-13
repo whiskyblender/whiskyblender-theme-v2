@@ -23,9 +23,9 @@
         "primary_button_url": "shopify://pages/create",
         "secondary_button_text": "Get a voucher",
         "secondary_button_url": "shopify://products/gift-voucher",
-        "badge_show": false,
+        "badge_show": true,
         "badge_url": "shopify://blogs/on-the-scotch/15-years",
-        "badge_image": "shopify://shop_images/badge.png",
+        "badge_image": "shopify://shop_images/badge_035a38e4-da49-4dc1-acb1-0241bdcf0ce9.png",
         "badge_aria_label": "Read our birthday blog post"
       }
     },
