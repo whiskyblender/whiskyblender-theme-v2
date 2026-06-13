@@ -870,10 +870,7 @@ html body .shopify-policy__body .rte a {
   /* Dark base so the holographic foil colours pop */
   background: #0e0e18;
 
-  /* Simple drop shadow */
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.55),
-    0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px #0000008c;
 }
 
 /* Holographic foil — rotating rainbow conic gradient, blurred into flowing swirls */
@@ -955,10 +952,7 @@ html body .shopify-policy__body .rte a {
 
 .wb-birthday-badge:hover {
   transform: scale(1.06);
-  box-shadow:
-    0 10px 32px rgba(0, 0, 0, 0.6),
-    0 3px 8px rgba(0, 0, 0, 0.35),
-    0 0 28px rgba(160, 200, 255, 0.4);
+  box-shadow: 0 4px 20px #0000008c;
 }
 
 @media screen and (min-width: 768px) {
