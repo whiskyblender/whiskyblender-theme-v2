@@ -26,6 +26,13 @@
         <video autoplay muted loop playsinline id="wb-video" aria-hidden="true">
           <source src="{{ video_src }}" type="video/mp4">
         </video>
+        {%- if section.settings.badge_show and section.settings.badge_url != blank -%}
+          <a href="{{ section.settings.badge_url }}" class="wb-birthday-badge" aria-label="{{ section.settings.badge_aria_label | default: 'Read our birthday blog post' }}">
+            {%- if section.settings.badge_image != blank -%}
+              <img class="wb-badge-image" src="{{ section.settings.badge_image | image_url: width: 360 }}" alt="" loading="eager">
+            {%- endif -%}
+          </a>
+        {%- endif -%}
       </div>
       <div class="wb-overvideo">
         <div class="wb-padding">
@@ -116,6 +123,34 @@
       "type": "url",
       "id": "secondary_button_url",
       "label": "Secondary button URL"
+    },
+    {
+      "type": "header",
+      "content": "Birthday badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "badge_show",
+      "label": "Show badge",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "badge_url",
+      "label": "Badge link URL",
+      "info": "Leave blank to hide the badge."
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "Badge overlay image",
+      "info": "Use a PNG with transparency so the glitter shines through."
+    },
+    {
+      "type": "text",
+      "id": "badge_aria_label",
+      "label": "Badge screen reader label",
+      "default": "Read our birthday blog post"
     }
   ],
   "presets": [
