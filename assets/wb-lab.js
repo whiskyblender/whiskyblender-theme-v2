@@ -378,7 +378,7 @@
           var activeCasks = flavours.filter(function (f) { return f.amount > 0; }).length;
           var countEl = document.getElementById('wb-combinations-count');
           if (countEl) {
-            var combos = combinations(INCREMENTS + activeCasks - 1, activeCasks - 1);
+            var combos = combinations(INCREMENTS + flavours.length - 1, flavours.length - 1);
             countEl.textContent = floorToRound(combos).toLocaleString();
           }
           var caskCountEl = document.getElementById('wb-cask-count');
