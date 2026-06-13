@@ -929,8 +929,6 @@ html body .shopify-policy__body .rte a {
       rgba(255, 255, 255, 0.22) 0%,
       transparent 100%
     );
-  /* Inset silver rim — the metal crimp of the badge */
-  box-shadow: inset 0 0 0 4px rgba(200, 210, 230, 0.55);
   pointer-events: none;
 }
 
