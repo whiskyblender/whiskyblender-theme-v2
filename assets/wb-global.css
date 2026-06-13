@@ -870,15 +870,10 @@ html body .shopify-policy__body .rte a {
   /* Dark base so the holographic foil colours pop */
   background: #0e0e18;
 
-  /* Drop shadow + silver chrome rim rings + inner dome bevel */
+  /* Simple drop shadow */
   box-shadow:
-    0 8px 28px rgba(0, 0, 0, 0.65),
-    0 3px 8px rgba(0, 0, 0, 0.45),
-    0 0 0 4px #9aa0b4,
-    0 0 0 8px #cdd0de,
-    0 0 0 11px #72788a,
-    inset 0 5px 18px rgba(255, 255, 255, 0.7),
-    inset 0 -5px 16px rgba(0, 0, 0, 0.35);
+    0 6px 20px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* Holographic foil — rotating rainbow conic gradient, blurred into flowing swirls */
@@ -907,7 +902,7 @@ html body .shopify-policy__body .rte a {
   opacity: 0.95;
 }
 
-/* Dome glass shine — convex highlight top-left, faint reflection bottom */
+/* Dome glass — convex curved surface effect */
 .wb-birthday-badge::after {
   content: '';
   position: absolute;
@@ -915,18 +910,27 @@ html body .shopify-policy__body .rte a {
   z-index: 3;
   border-radius: 50%;
   background:
+    /* Bright arc highlight at the top — wide crescent like light off a dome */
     radial-gradient(
-      ellipse 68% 44% at 40% 26%,
-      rgba(255, 255, 255, 0.8) 0%,
-      rgba(255, 255, 255, 0.35) 35%,
-      rgba(255, 255, 255, 0.04) 65%,
-      transparent 80%
+      ellipse 80% 40% at 50% -2%,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(255, 255, 255, 0.45) 40%,
+      transparent 70%
     ),
+    /* Dark vignette around the rim — dome curves away at the edges */
     radial-gradient(
-      ellipse 50% 22% at 50% 94%,
-      rgba(255, 255, 255, 0.18) 0%,
+      circle at 50% 50%,
+      transparent 52%,
+      rgba(0, 0, 0, 0.4) 100%
+    ),
+    /* Faint crescent reflection at the bottom */
+    radial-gradient(
+      ellipse 55% 20% at 50% 102%,
+      rgba(255, 255, 255, 0.22) 0%,
       transparent 100%
     );
+  /* Inset silver rim — the metal crimp of the badge */
+  box-shadow: inset 0 0 0 4px rgba(200, 210, 230, 0.55);
   pointer-events: none;
 }
 
@@ -954,14 +958,9 @@ html body .shopify-policy__body .rte a {
 .wb-birthday-badge:hover {
   transform: scale(1.06);
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.7),
-    0 4px 10px rgba(0, 0, 0, 0.45),
-    0 0 0 4px #9aa0b4,
-    0 0 0 8px #cdd0de,
-    0 0 0 11px #72788a,
-    inset 0 5px 18px rgba(255, 255, 255, 0.7),
-    inset 0 -5px 16px rgba(0, 0, 0, 0.35),
-    0 0 32px rgba(160, 200, 255, 0.45);
+    0 10px 32px rgba(0, 0, 0, 0.6),
+    0 3px 8px rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(160, 200, 255, 0.4);
 }
 
 @media screen and (min-width: 768px) {
