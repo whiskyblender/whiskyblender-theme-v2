@@ -867,92 +867,70 @@ html body .shopify-policy__body .rte a {
   isolation: isolate;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-  /* Gold dome base — lighter at top-left, darker at bottom-right */
-  background: radial-gradient(
-    circle at 38% 32%,
-    #fff9d0 0%,
-    #f0d060 18%,
-    #d4a820 48%,
-    #a07810 76%,
-    #6b4e08 100%
-  );
+  /* Dark base so the holographic foil colours pop */
+  background: #0e0e18;
 
-  /* Outer drop shadow + rim rings (metallic crimp) + inner bevel */
+  /* Drop shadow + silver chrome rim rings + inner dome bevel */
   box-shadow:
-    0 8px 28px rgba(0, 0, 0, 0.55),
-    0 3px 8px rgba(0, 0, 0, 0.35),
-    0 0 0 3px #9a7010,
-    0 0 0 6px rgba(210, 172, 44, 0.75),
-    0 0 0 8px rgba(140, 100, 8, 0.45),
-    inset 0 4px 14px rgba(255, 255, 255, 0.5),
-    inset 0 -5px 14px rgba(60, 30, 0, 0.4);
+    0 8px 28px rgba(0, 0, 0, 0.65),
+    0 3px 8px rgba(0, 0, 0, 0.45),
+    0 0 0 4px #9aa0b4,
+    0 0 0 8px #cdd0de,
+    0 0 0 11px #72788a,
+    inset 0 5px 18px rgba(255, 255, 255, 0.7),
+    inset 0 -5px 16px rgba(0, 0, 0, 0.35);
 }
 
-/* Animated glitter/foil layer — rotating conic gradient with sparkle dots */
+/* Holographic foil — rotating rainbow conic gradient, blurred into flowing swirls */
 .wb-birthday-badge::before {
   content: '';
   position: absolute;
-  width: 200%;
-  height: 200%;
-  top: -50%;
-  left: -50%;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
   z-index: 1;
-  background:
-    /* Sparkle points scattered across the badge */
-    radial-gradient(circle 1.5px at 15% 25%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1px   at 80% 15%, #fff 0%, transparent 100%),
-    radial-gradient(circle 2px   at 50% 60%, rgba(255,255,255,0.7) 0%, transparent 100%),
-    radial-gradient(circle 1px   at 30% 80%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 65% 40%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1px   at 45% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 85% 68%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1px   at 10% 55%, #fff 0%, transparent 100%),
-    radial-gradient(circle 2px   at 55% 85%, rgba(255,240,180,0.8) 0%, transparent 100%),
-    radial-gradient(circle 1px   at 25% 45%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 72% 55%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1px   at 40% 35%, rgba(255,255,220,0.9) 0%, transparent 100%),
-    radial-gradient(circle 2px   at 90% 30%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1px   at 60% 75%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1.5px at 35% 62%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1px   at 18% 70%, rgba(255,255,200,0.8) 0%, transparent 100%),
-    radial-gradient(circle 2px   at 77% 88%, #fff 0%, transparent 100%),
-    radial-gradient(circle 1px   at 50% 10%, #fff 0%, transparent 100%),
-    /* Multi-faceted foil base */
-    repeating-conic-gradient(
-      from 0deg at 50% 50%,
-      rgba(255, 242, 110, 0.88) 0deg   4deg,
-      rgba(255, 255, 255, 0.96) 4deg   8deg,
-      rgba(200, 155, 20,  0.82) 8deg  12deg,
-      rgba(255, 246, 150, 0.90) 12deg 16deg,
-      rgba(175, 120, 0,   0.72) 16deg 20deg,
-      rgba(255, 222, 65,  0.86) 20deg 24deg,
-      rgba(255, 255, 215, 0.93) 24deg 28deg,
-      rgba(210, 158, 32,  0.82) 28deg 32deg,
-      rgba(255, 198, 38,  0.86) 32deg 36deg
-    );
-  animation: wb-badge-spin 7s linear infinite;
-  mix-blend-mode: screen;
-  opacity: 0.88;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #ff0040 0deg,
+    #ff6600 45deg,
+    #ffee00 90deg,
+    #00ff80 135deg,
+    #00eeff 180deg,
+    #0044ff 225deg,
+    #9900ff 270deg,
+    #ff00cc 315deg,
+    #ff0040 360deg
+  );
+  filter: blur(14px) saturate(2);
+  animation: wb-holo-spin 12s linear infinite, wb-holo-hue 7s linear infinite;
+  opacity: 0.95;
 }
 
-/* Dome shine — laminated glass highlight */
+/* Dome glass shine — convex highlight top-left, faint reflection bottom */
 .wb-birthday-badge::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 3;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at 35% 28%,
-    rgba(255, 255, 255, 0.58) 0%,
-    rgba(255, 255, 255, 0.22) 32%,
-    rgba(255, 255, 255, 0.04) 62%,
-    transparent 75%
-  );
+  background:
+    radial-gradient(
+      ellipse 68% 44% at 40% 26%,
+      rgba(255, 255, 255, 0.8) 0%,
+      rgba(255, 255, 255, 0.35) 35%,
+      rgba(255, 255, 255, 0.04) 65%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse 50% 22% at 50% 94%,
+      rgba(255, 255, 255, 0.18) 0%,
+      transparent 100%
+    );
   pointer-events: none;
 }
 
-/* Overlay image sits between glitter and shine */
+/* Overlay image — sits between foil and glass shine */
 .wb-badge-image {
   position: absolute;
   inset: 0;
@@ -963,22 +941,27 @@ html body .shopify-policy__body .rte a {
   display: block;
 }
 
-@keyframes wb-badge-spin {
+@keyframes wb-holo-spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
+}
+
+@keyframes wb-holo-hue {
+  from { filter: blur(14px) saturate(2) hue-rotate(0deg); }
+  to   { filter: blur(14px) saturate(2) hue-rotate(360deg); }
 }
 
 .wb-birthday-badge:hover {
   transform: scale(1.06);
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.6),
-    0 4px 10px rgba(0, 0, 0, 0.4),
-    0 0 0 3px #9a7010,
-    0 0 0 6px rgba(210, 172, 44, 0.75),
-    0 0 0 8px rgba(140, 100, 8, 0.45),
-    inset 0 4px 14px rgba(255, 255, 255, 0.5),
-    inset 0 -5px 14px rgba(60, 30, 0, 0.4),
-    0 0 24px rgba(255, 210, 50, 0.45);
+    0 12px 40px rgba(0, 0, 0, 0.7),
+    0 4px 10px rgba(0, 0, 0, 0.45),
+    0 0 0 4px #9aa0b4,
+    0 0 0 8px #cdd0de,
+    0 0 0 11px #72788a,
+    inset 0 5px 18px rgba(255, 255, 255, 0.7),
+    inset 0 -5px 16px rgba(0, 0, 0, 0.35),
+    0 0 32px rgba(160, 200, 255, 0.45);
 }
 
 @media screen and (min-width: 768px) {
