@@ -24,6 +24,7 @@
         "video_url": "https://cdn.shopify.com/videos/c/o/v/ac19151de1b340ac8ecf9896c14af3f8.mp4",
         "video_file": "",
         "title": "Twa Andras",
+        "title_variants": "",
         "description": "Or \"2 Andrews\". Or \"Andy & Drew\". Or even \"fanny-baws an' heid-tha-baw\". Just like our <a href=\"/collections/personalised\" title=\"Personalised\">custom whisky bottles</a>, you can call us whatever you want.",
         "primary_button_text": "",
         "primary_button_url": "",
@@ -34,6 +35,22 @@
     "about_content_WNcjFw": {
       "type": "about-content",
       "blocks": {
+        "featured_logo_gAGXnU": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/thescotsman.png",
+            "text": "The Scotsman",
+            "url": ""
+          }
+        },
+        "featured_logo_8pLMGe": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/ralfy.png",
+            "text": "ralfy.com",
+            "url": ""
+          }
+        },
         "featured_logo_6fT7Pw": {
           "type": "featured_logo",
           "settings": {
@@ -180,6 +197,8 @@
         }
       },
       "block_order": [
+        "featured_logo_gAGXnU",
+        "featured_logo_8pLMGe",
         "featured_logo_6fT7Pw",
         "featured_logo_PJnPrB",
         "featured_logo_VbNmQh",
