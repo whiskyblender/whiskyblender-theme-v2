@@ -12,7 +12,7 @@
     "wb_effects": {
       "type": "wb-effects",
       "settings": {
-        "effect": "snow"
+        "default_effect": "balloons"
       }
     },
     "main_landing_aMfVgW": {
