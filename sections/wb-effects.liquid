@@ -24,51 +24,92 @@
 
 {%- elsif effect == 'balloons' -%}
 
-<style>
-#wb-balloon-stage{position:fixed;left:0;bottom:0;width:100%;height:100vh;pointer-events:none;z-index:9999;overflow:visible}
-.wb-balloon{position:absolute;bottom:0}
-.wb-balloon-inner{transform-origin:bottom center}
-.wb-balloon-body{width:var(--wb-bs);height:calc(var(--wb-bs)*1.22);border-radius:50% 50% 50% 50%/55% 55% 45% 45%;background:var(--wb-bc);position:relative;box-shadow:inset -5px -8px 0 rgba(0,0,0,.1)}
-.wb-balloon-body::before{content:'';position:absolute;top:18%;left:18%;width:26%;height:18%;border-radius:50%;background:rgba(255,255,255,.38);transform:rotate(-40deg)}
-.wb-balloon-body::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border-left:4px solid transparent;border-right:4px solid transparent;border-top:8px solid var(--wb-bc)}
-.wb-balloon-string{width:1px;height:55px;background:rgba(80,80,80,.28);margin:0 auto}
-@keyframes wb-balloon-rise{from{transform:translateY(0)}to{transform:translateY(-120vh)}}
-@keyframes wb-balloon-sway{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
-</style>
-<div id="wb-balloon-stage" aria-hidden="true"></div>
 <script>
 (function () {
-  var stage = document.getElementById('wb-balloon-stage');
-  if (!stage) return;
-  var colors = ['#ff6b6b','#ff69b4','#ffd166','#74b9ff','#a29bfe','#55efc4','#fd79a8','#fdcb6e','#6c5ce7'];
-  function spawn() {
-    var color = colors[Math.floor(Math.random() * colors.length)];
-    var size  = Math.round(Math.random() * 22 + 36) + 'px';
-    var left  = (Math.random() * 86 + 5).toFixed(1) + '%';
-    var dur   = (Math.random() * 4 + 7).toFixed(1) + 's';
-    var sway  = (Math.random() * 2 + 1.6).toFixed(1) + 's';
-    var el = document.createElement('div');
-    el.className = 'wb-balloon';
-    el.style.left = left;
-    el.style.animation = 'wb-balloon-rise ' + dur + ' linear forwards';
-    var inner = document.createElement('div');
-    inner.className = 'wb-balloon-inner';
-    inner.style.animation = 'wb-balloon-sway ' + sway + ' ease-in-out infinite alternate';
-    var bdy = document.createElement('div');
-    bdy.className = 'wb-balloon-body';
-    bdy.style.setProperty('--wb-bc', color);
-    bdy.style.setProperty('--wb-bs', size);
-    var str = document.createElement('div');
-    str.className = 'wb-balloon-string';
-    inner.appendChild(bdy);
-    inner.appendChild(str);
-    el.appendChild(inner);
-    stage.appendChild(el);
-    setTimeout(function () { el.remove(); }, parseFloat(dur) * 1000 + 600);
+  var canvas = document.createElement('canvas');
+  canvas.setAttribute('aria-hidden', 'true');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999';
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var COLORS = ['#ff6b6b','#ff69b4','#ffd166','#74b9ff','#a29bfe','#55efc4','#fd79a8','#fdcb6e','#6c5ce7'];
+  var balloons = [];
+
+  function addBalloon() {
+    var r = Math.round(Math.random() * 11 + 18);
+    balloons.push({
+      x: (Math.random() * 0.86 + 0.05) * W,
+      y: H + r * 3,
+      r: r,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      speed: Math.random() * 0.7 + 0.5,
+      swayAngle: Math.random() * Math.PI * 2,
+      swaySpeed: Math.random() * 0.018 + 0.008
+    });
   }
+
+  function drawBalloon(b) {
+    var sx = b.x + Math.sin(b.swayAngle) * 14;
+    var sy = b.y;
+    ctx.save();
+    ctx.translate(sx, sy);
+
+    ctx.save();
+    ctx.scale(1, 1.22);
+    ctx.beginPath();
+    ctx.arc(0, 0, b.r, 0, Math.PI * 2);
+    ctx.fillStyle = b.color;
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(-b.r * 0.22, -b.r * 0.18);
+    ctx.scale(0.55, 0.38);
+    ctx.beginPath();
+    ctx.arc(0, 0, b.r * 0.38, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.34)';
+    ctx.fill();
+    ctx.restore();
+
+    var ky = b.r * 1.22;
+    ctx.beginPath();
+    ctx.moveTo(-3, ky);
+    ctx.lineTo(3, ky);
+    ctx.lineTo(0, ky + 6);
+    ctx.closePath();
+    ctx.fillStyle = b.color;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(0, ky + 6);
+    ctx.lineTo(Math.sin(b.swayAngle * 0.5) * 8, ky + 55);
+    ctx.strokeStyle = 'rgba(80,80,80,0.28)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.restore();
+
+    b.y -= b.speed;
+    b.swayAngle += b.swaySpeed;
+  }
+
   for (var i = 0; i < 14; i++) {
-    (function (d) { setTimeout(spawn, d); })(Math.random() * 10000);
+    (function (d) { setTimeout(addBalloon, d); })(Math.random() * 8000);
   }
+  setInterval(addBalloon, 2500);
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = balloons.length - 1; i >= 0; i--) {
+      if (balloons[i].y < -120) { balloons.splice(i, 1); } else { drawBalloon(balloons[i]); }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
 })();
 </script>
 
@@ -83,10 +124,7 @@
   var canvas = document.getElementById('wb-snow-canvas');
   var ctx = canvas.getContext('2d');
   var W, H, flakes = [];
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
   resize();
   window.addEventListener('resize', resize);
   for (var i = 0; i < 100; i++) {
