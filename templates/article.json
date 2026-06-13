@@ -1,11 +1,18 @@
 {
   "sections": {
+    "wb_effects": {
+      "type": "wb-effects",
+      "settings": {
+        "default_effect": "none"
+      }
+    },
     "main": {
       "type": "wb-article",
       "settings": {}
     }
   },
   "order": [
+    "wb_effects",
     "main"
   ]
 }

@@ -1,12 +1,19 @@
 {
   "sections": {
+    "wb_effects": {
+      "type": "wb-effects",
+      "settings": {
+        "default_effect": "none"
+      }
+    },
     "main_landing_aMfVgW": {
       "type": "wb-main-landing",
       "name": "Landing Hero",
       "settings": {
+        "video_url": "",
         "video_file": "",
-        "background_image": "",
         "title": "{{ collection.title }}",
+        "title_variants": "",
         "description": "Give the gift of whisky",
         "primary_button_text": "",
         "primary_button_url": "",
@@ -88,7 +95,7 @@
       "name": "CTA - Something unique",
       "settings": {
         "heading": "Something unique...",
-        "description": "Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you’ll be proud to pour, share, and savour.",
+        "description": "Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you'll be proud to pour, share, and savour.",
         "image": "shopify://shop_images/wb-foryersel.png",
         "image_class": "wb-foryersel",
         "primary_button_text": "Enter the lab",
@@ -99,6 +106,7 @@
     }
   },
   "order": [
+    "wb_effects",
     "main_landing_aMfVgW",
     "custom_liquid_PGKtki",
     "banner",

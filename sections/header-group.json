@@ -14,19 +14,19 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_QWA6C9": {
-          "type": "announcement",
-          "settings": {
-            "text": "👨🏻 Remember, 21 June is Father's Day! →",
-            "link": "https://whiskyblender.com/products/aultmore-2011?variant=57116140208393&label=Dad%27s%20dram"
-          }
-        },
         "announcement_KpKexp": {
           "type": "announcement",
           "disabled": true,
           "settings": {
             "text": "We close for Christmas 20 December ❄️ Place orders before then or they'll be sent out in the New Year 🎁",
             "link": ""
+          }
+        },
+        "announcement_QWA6C9": {
+          "type": "announcement",
+          "settings": {
+            "text": "👨🏻 Remember, 21 June is Father's Day! →",
+            "link": "https://whiskyblender.com/products/aultmore-2011?variant=57116140208393&label=Dad%27s%20dram"
           }
         },
         "announcement-bar-0": {
@@ -43,6 +43,13 @@
             "link": ""
           }
         },
+        "announcement_HtPheX": {
+          "type": "announcement",
+          "settings": {
+            "text": "🎉 This is our 15th birthday! Read more →",
+            "link": "shopify://blogs/on-the-scotch/15-years"
+          }
+        },
         "announcement_UJ4bzH": {
           "type": "announcement",
           "settings": {
@@ -52,10 +59,11 @@
         }
       },
       "block_order": [
-        "announcement_QWA6C9",
         "announcement_KpKexp",
+        "announcement_QWA6C9",
         "announcement-bar-0",
         "announcement_KXyi8M",
+        "announcement_HtPheX",
         "announcement_UJ4bzH"
       ],
       "settings": {

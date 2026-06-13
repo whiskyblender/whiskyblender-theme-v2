@@ -1,0 +1,252 @@
+{%- comment -%}
+  Per-collection effect: set metafield custom.page_effect on the collection
+  (values: confetti, balloons, snow, none). Falls back to section setting.
+{%- endcomment -%}
+{%- if article -%}
+  {%- assign effect = article.metafields.custom.page_effect | default: section.settings.default_effect -%}
+{%- else -%}
+  {%- assign effect = collection.metafields.custom.page_effect | default: section.settings.default_effect -%}
+{%- endif -%}
+
+{%- if effect == 'confetti' -%}
+
+{{ 'confetti.min.js' | asset_url | script_tag }}
+<script>
+(function () {
+  function run() {
+    if (typeof confetti !== 'undefined' && typeof confetti.start === 'function') {
+      confetti.start(5000);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+})();
+</script>
+
+{%- elsif effect == 'balloons' -%}
+
+<script>
+(function () {
+  var canvas = document.createElement('canvas');
+  canvas.setAttribute('aria-hidden', 'true');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999';
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var COLORS = ['#ff6b6b','#ff69b4','#ffd166','#74b9ff','#a29bfe','#55efc4','#fd79a8','#fdcb6e','#6c5ce7'];
+  var balloons = [];
+
+  function addBalloon() {
+    var r = Math.round(Math.random() * 18 + 32);
+    balloons.push({
+      x: (Math.random() * 0.86 + 0.05) * W,
+      y: H + r * 3,
+      r: r,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      speed: Math.random() * 1.5 + 2,
+      swayAngle: Math.random() * Math.PI * 2,
+      swaySpeed: Math.random() * 0.018 + 0.008
+    });
+  }
+
+  function drawBalloon(b) {
+    var sx = b.x + Math.sin(b.swayAngle) * 14;
+    var sy = b.y;
+    ctx.save();
+    ctx.translate(sx, sy);
+
+    ctx.save();
+    ctx.scale(1, 1.22);
+    ctx.beginPath();
+    ctx.arc(0, 0, b.r, 0, Math.PI * 2);
+    ctx.fillStyle = b.color;
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(-b.r * 0.22, -b.r * 0.18);
+    ctx.scale(0.55, 0.38);
+    ctx.beginPath();
+    ctx.arc(0, 0, b.r * 0.38, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.34)';
+    ctx.fill();
+    ctx.restore();
+
+    var ky = b.r * 1.22;
+    ctx.beginPath();
+    ctx.moveTo(-3, ky);
+    ctx.lineTo(3, ky);
+    ctx.lineTo(0, ky + 6);
+    ctx.closePath();
+    ctx.fillStyle = b.color;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(0, ky + 6);
+    ctx.lineTo(Math.sin(b.swayAngle * 0.5) * 8, ky + 55);
+    ctx.strokeStyle = 'rgba(80,80,80,0.28)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.restore();
+
+    b.y -= b.speed;
+    b.swayAngle += b.swaySpeed;
+  }
+
+  for (var i = 0; i < 14; i++) {
+    (function (d) { setTimeout(addBalloon, d); })(Math.random() * 8000);
+  }
+  setInterval(addBalloon, 2500);
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = balloons.length - 1; i >= 0; i--) {
+      if (balloons[i].y < -120) { balloons.splice(i, 1); } else { drawBalloon(balloons[i]); }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+{%- elsif effect == 'snow' -%}
+
+<style>
+#wb-snow-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+</style>
+<canvas id="wb-snow-canvas" aria-hidden="true"></canvas>
+<script>
+(function () {
+  var canvas = document.getElementById('wb-snow-canvas');
+  var ctx = canvas.getContext('2d');
+  var W, H, flakes = [];
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  for (var i = 0; i < 100; i++) {
+    flakes.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 3 + 1,
+      d: Math.random() * 80 + 10,
+      speed: Math.random() * 0.8 + 0.3,
+      sway: Math.random() * 0.4 - 0.2
+    });
+  }
+  var angle = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(255,255,255,0.82)';
+    ctx.beginPath();
+    angle += 0.006;
+    for (var i = 0; i < flakes.length; i++) {
+      var f = flakes[i];
+      ctx.moveTo(f.x, f.y);
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+      f.y += Math.cos(angle + f.d) * 0.5 + f.speed;
+      f.x += f.sway + Math.sin(angle) * 0.2;
+      if (f.y > H + 5) { f.y = -f.r; f.x = Math.random() * W; }
+      if (f.x > W + 5) f.x = -5;
+      if (f.x < -5) f.x = W + 5;
+    }
+    ctx.fill();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+{%- elsif effect == 'wedding' -%}
+
+<script>
+(function () {
+  var canvas = document.createElement('canvas');
+  canvas.setAttribute('aria-hidden', 'true');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999';
+  document.body.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var W, H;
+  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  var COLORS = ['#FFD700','#FFC125','#DAA520','#C0C0C0','#D3D3D3','#E8E8E8','#FFFFFF','#F5F0E8','#E8D5A3'];
+  var pieces = [];
+
+  for (var i = 0; i < 120; i++) {
+    pieces.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight - window.innerHeight,
+      w: Math.random() * 8 + 4,
+      h: Math.random() * 4 + 2,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      speed: Math.random() * 1.2 + 0.6,
+      drift: Math.random() * 0.8 - 0.4,
+      angle: Math.random() * Math.PI * 2,
+      spin: (Math.random() - 0.5) * 0.12
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < pieces.length; i++) {
+      var p = pieces[i];
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      ctx.restore();
+      p.y += p.speed;
+      p.x += p.drift;
+      p.angle += p.spin;
+      if (p.y > H + 10) {
+        p.y = -10;
+        p.x = Math.random() * W;
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "WB - Page Effect",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Set the effect per collection using the metafield custom.page_effect (values: confetti, balloons, snow, wedding, none). The dropdown below is the fallback default for all collections on this template."
+    },
+    {
+      "type": "select",
+      "id": "default_effect",
+      "label": "Default effect (all collections)",
+      "options": [
+        { "value": "none",     "label": "None" },
+        { "value": "confetti", "label": "Confetti" },
+        { "value": "balloons", "label": "Balloons" },
+        { "value": "snow",     "label": "Snow" },
+        { "value": "wedding",  "label": "Wedding confetti" }
+      ],
+      "default": "none"
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB - Page Effect"
+    }
+  ]
+}
+{% endschema %}
