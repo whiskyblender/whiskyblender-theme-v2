@@ -34,6 +34,11 @@
   .wb-faq-content p { margin: 0 0 12px; }
   .wb-faq-content p:last-child { margin-bottom: 0; }
 
+  .wb-help-intro {
+    margin: 16px 0 0;
+    max-width: 640px;
+  }
+
   .wb-help-articles {
     display: grid;
     grid-template-columns: 1fr;
@@ -90,6 +95,9 @@
     <div class="wb-padding">
       <h1 class="wb-medium-heading">Need a haun?</h1>
       {%- assign help_blog = blogs[section.settings.help_blog] -%}
+      {%- if help_blog.description != blank -%}
+        <p class="wb-help-intro">{{ help_blog.description }}</p>
+      {%- endif -%}
       {%- if help_blog -%}
         {%- capture help_articles_html -%}
           {%- for article in help_blog.articles -%}
