@@ -865,7 +865,8 @@ html body .shopify-policy__body .rte a {
   text-decoration: none;
   overflow: hidden;
   isolation: isolate;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transform: rotate(12deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   /* Dark base so the holographic foil colours pop */
   background: #0e0e18;
@@ -951,7 +952,7 @@ html body .shopify-policy__body .rte a {
 }
 
 .wb-birthday-badge:hover {
-  transform: scale(1.06);
+  transform: rotate(0deg) scale(1.06);
   box-shadow: 0 4px 20px #0000008c;
 }
 
