@@ -70,12 +70,6 @@
   <div class="wb-container">
   <div class="wb-padding">
 
-    <div class="wb-blend-complete-banner" id="wb-blend-complete-banner" style="display:none" aria-live="polite">
-      <span class="wb-banner-star" aria-hidden="true">✦</span>
-      <span>Over <strong id="wb-combinations-count"></strong> possible blends (using just these casks) &mdash; but this one is yours.</span>
-      <span class="wb-banner-star" aria-hidden="true">✦</span>
-    </div>
-
     <form class="wb-bottle-form" id="wb-save-form">
       <div class="wb-lab-inputs">
         <div class="wb-lab-input">
@@ -107,6 +101,12 @@
         </button>
       </div>
     </form>
+
+    <div class="wb-blend-complete-banners" id="wb-blend-complete-banners" style="display:none" aria-live="polite">
+      <div class="wb-blend-complete-banner">Your whisky is made from just <strong><span id="wb-cask-count"></span> single malt <span id="wb-cask-word">cask</span></strong></div>
+      <div class="wb-blend-complete-banner">Over <strong id="wb-combinations-count"></strong> possible blends &mdash; this one is all yours</div>
+      <div class="wb-blend-complete-banner">We&rsquo;ll store your creation in our growing database</div>
+    </div>
 
     <p class="wb-save-error" id="wb-save-error" aria-live="polite" style="display:none"></p>
 
