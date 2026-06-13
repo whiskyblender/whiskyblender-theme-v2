@@ -388,6 +388,15 @@
 
     if (createdByInput) {
       createdByInput.addEventListener('input', function () {
+        var labelHasValue = labelInput && labelInput.value.trim().length > 0;
+        if (labelHasValue) {
+          if (previewDismissed) {
+            previewDismissed = false;
+            previewWrap.style.display = '';
+          } else if (!previewContainer) {
+            initPreview();
+          }
+        }
         if (previewContainer && !previewDismissed) {
           clearTimeout(previewDebounce);
           previewDebounce = setTimeout(renderPreviewLabel, 200);
