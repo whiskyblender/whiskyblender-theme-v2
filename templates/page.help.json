@@ -16,7 +16,7 @@
           "type": "faq_item",
           "settings": {
             "question": "How much does a bottle cost?",
-            "answer": "<p>The prices will vary depending on the blend you finally select AND the whisky options currently offered. The average price for a bottle is £50 inc VAT if you're in the UK (but the spread is around £30-60).</p><p>Shipping in the UK is free next day on orders over £100.</p><p>Shipping to the USA is expensive for individual bottles but becomes super value once you start sending multiple bottles.</p>"
+            "answer": "<p><strong>Prices</strong>: Most personalised bottles (500ml flat/round are £59.99. The 200ml is £29.99, and the custom miniatures set is £115.00. Exact price depends on the whisky and the bottle size you choose.</p><p><strong>Shipping</strong>: UK shipping is now free with no minimum spend. For the USA, duties and taxes are calculated at checkout.</p>"
           }
         },
         "faq_name": {
@@ -167,7 +167,9 @@
         "faq_casks",
         "faq_data"
       ],
-      "settings": {}
+      "settings": {
+        "help_blog": "on-the-scotch"
+      }
     }
   },
   "order": [
