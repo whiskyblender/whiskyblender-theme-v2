@@ -22,7 +22,10 @@
         "primary_button_text": "Create something",
         "primary_button_url": "shopify://pages/create",
         "secondary_button_text": "Get a voucher",
-        "secondary_button_url": "shopify://products/gift-voucher"
+        "secondary_button_url": "shopify://products/gift-voucher",
+        "badge_show": true,
+        "badge_url": "shopify://blogs/on-the-scotch/15-years",
+        "badge_aria_label": "Read our birthday blog post"
       }
     },
     "main_reviews": {
