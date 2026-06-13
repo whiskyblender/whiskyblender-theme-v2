@@ -371,22 +371,27 @@
         }
       }
 
-      /* Blend complete banner */
-      var banner = document.getElementById('wb-blend-complete-banner');
-      if (banner) {
+      /* Blend complete banners */
+      var banners = document.getElementById('wb-blend-complete-banners');
+      if (banners) {
         if (total === MAX_TOTAL) {
+          var activeCasks = flavours.filter(function (f) { return f.amount > 0; }).length;
           var countEl = document.getElementById('wb-combinations-count');
-          if (countEl && !countEl.textContent) {
-            var combos = combinations(INCREMENTS + flavours.length - 1, flavours.length - 1);
+          if (countEl) {
+            var combos = combinations(INCREMENTS + activeCasks - 1, activeCasks - 1);
             countEl.textContent = floorToRound(combos).toLocaleString();
           }
-          if (banner.style.display === 'none') {
-            banner.style.display = '';
-            requestAnimationFrame(function () { banner.classList.add('is-entering'); });
+          var caskCountEl = document.getElementById('wb-cask-count');
+          if (caskCountEl) caskCountEl.textContent = activeCasks;
+          var caskWordEl = document.getElementById('wb-cask-word');
+          if (caskWordEl) caskWordEl.textContent = activeCasks === 1 ? 'cask' : 'casks';
+          if (banners.style.display === 'none') {
+            banners.style.display = '';
+            requestAnimationFrame(function () { banners.classList.add('is-entering'); });
           }
         } else {
-          banner.style.display = 'none';
-          banner.classList.remove('is-entering');
+          banners.style.display = 'none';
+          banners.classList.remove('is-entering');
         }
       }
 
