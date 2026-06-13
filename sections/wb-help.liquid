@@ -89,47 +89,40 @@
   <div class="wb-container">
     <div class="wb-padding">
       <h1 class="wb-medium-heading">Need a haun?</h1>
-    </div>
-  </div>
-</section>
-
-{%- assign help_blog = blogs[section.settings.help_blog] -%}
-{%- if help_blog -%}
-  {%- capture help_articles_html -%}
-    {%- for article in help_blog.articles -%}
-      {%- if article.tags contains 'help' -%}
-        <a href="{{ article.url }}" class="wb-help-article">
-          {%- if article.image -%}
-          <div class="wb-help-article__image">
-            <img
-              src="{{ article.image | image_url: width: 600 }}"
-              alt="{{ article.image.alt | default: article.title | escape }}"
-              loading="lazy"
-              width="600">
-          </div>
-          {%- endif -%}
-          <div class="wb-help-article__body">
-            <h3>{{ article.title | escape }}</h3>
-            {%- if article.excerpt != blank -%}
-              <p>{{ article.excerpt | strip_html | truncate: 120 }}</p>
+      {%- assign help_blog = blogs[section.settings.help_blog] -%}
+      {%- if help_blog -%}
+        {%- capture help_articles_html -%}
+          {%- for article in help_blog.articles -%}
+            {%- if article.tags contains 'help' -%}
+              <a href="{{ article.url }}" class="wb-help-article">
+                {%- if article.image -%}
+                <div class="wb-help-article__image">
+                  <img
+                    src="{{ article.image | image_url: width: 600 }}"
+                    alt="{{ article.image.alt | default: article.title | escape }}"
+                    loading="lazy"
+                    width="600">
+                </div>
+                {%- endif -%}
+                <div class="wb-help-article__body">
+                  <h3>{{ article.title | escape }}</h3>
+                  {%- if article.excerpt != blank -%}
+                    <p>{{ article.excerpt | strip_html | truncate: 120 }}</p>
+                  {%- endif -%}
+                </div>
+              </a>
             {%- endif -%}
-          </div>
-        </a>
-      {%- endif -%}
-    {%- endfor -%}
-  {%- endcapture -%}
-  {%- if help_articles_html != blank -%}
-  <section>
-    <div class="wb-container">
-      <div class="wb-padding">
+          {%- endfor -%}
+        {%- endcapture -%}
+        {%- if help_articles_html != blank -%}
         <div class="wb-help-articles">
           {{ help_articles_html }}
         </div>
-      </div>
+        {%- endif -%}
+      {%- endif -%}
     </div>
-  </section>
-  {%- endif -%}
-{%- endif -%}
+  </div>
+</section>
 
 <section class="wb-banded">
   <div class="wb-container">
