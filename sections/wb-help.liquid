@@ -93,21 +93,10 @@
   </div>
 </section>
 
-{%- assign help_articles = '' | split: '' -%}
-{%- for blog in blogs -%}
-  {%- for article in blog.articles -%}
-    {%- if article.tags contains 'help' -%}
-      {%- assign help_articles = help_articles | concat: article -%}
-    {%- endif -%}
-  {%- endfor -%}
-{%- endfor -%}
-
-{%- if help_articles.size > 0 -%}
-<section>
-  <div class="wb-container">
-    <div class="wb-padding">
-      <div class="wb-help-articles">
-        {%- for article in help_articles -%}
+{%- capture help_articles_html -%}
+  {%- for blog in blogs -%}
+    {%- for article in blog.articles -%}
+      {%- if article.tags contains 'help' -%}
         <a href="{{ article.url }}" class="wb-help-article">
           {%- if article.image -%}
           <div class="wb-help-article__image">
@@ -125,7 +114,17 @@
             {%- endif -%}
           </div>
         </a>
-        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if help_articles_html != blank -%}
+<section>
+  <div class="wb-container">
+    <div class="wb-padding">
+      <div class="wb-help-articles">
+        {{ help_articles_html }}
       </div>
     </div>
   </div>
