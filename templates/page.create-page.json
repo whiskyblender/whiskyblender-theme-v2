@@ -48,7 +48,7 @@
           "type": "option",
           "settings": {
             "icon": "🥃",
-            "heading": "Name your own <a href=\"/pages/single-malts\">single malt</a>",
+            "heading": "Name your own <a href=\"/collections/single-malts\">single malt</a>",
             "url": "shopify://collections/single-malts"
           }
         },
