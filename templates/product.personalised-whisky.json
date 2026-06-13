@@ -131,7 +131,42 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "wb_faq_schema": {
+      "type": "wb-faq-schema",
+      "blocks": {
+        "faq_label": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What goes on the label?",
+            "answer": "<p>You choose the text that appears on the label. Just type your name or message into the label text field. The label shows your custom text, the ABV, distillery, and Whisky Blender branding. You can preview it live as you type.</p>"
+          }
+        },
+        "faq_delivery": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>We aim to bottle within 3 working days. UK delivery takes 1 to 3 days. US orders take 7 to 14 days. Contact us for other international destinations.</p>"
+          }
+        },
+        "faq_return": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I return my personalised whisky?",
+            "answer": "<p>We accept returns if the bottle arrives damaged or the label is incorrect. Please notify us within 48 hours of receiving your order.</p>"
+          }
+        },
+        "faq_name": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I name my bottle anything?",
+            "answer": "<p>Yes, within reason. There is a character limit, and we will not reproduce copyrighted brand names or false age statements. Otherwise the label name is yours to choose.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_label", "faq_delivery", "faq_return", "faq_name"],
+      "settings": {}
     }
   },
-  "order": ["main", "related-products", "wb_single_malt_loader"]
+  "order": ["main", "related-products", "wb_single_malt_loader", "wb_faq_schema"]
 }

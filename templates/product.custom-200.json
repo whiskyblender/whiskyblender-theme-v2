@@ -134,10 +134,46 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "wb_faq_schema": {
+      "type": "wb-faq-schema",
+      "blocks": {
+        "faq_choose": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I choose the whisky?",
+            "answer": "<p>Yes, that is the whole point. Use The Lab to blend your own Scotch from our selection of single cask whiskies. Follow your taste using our tasting notes, save your recipe, and you get a unique blend code to reference it.</p>"
+          }
+        },
+        "faq_label": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What goes on the label?",
+            "answer": "<p>Your blend name and your name appear on the label. Both fields are editable on this page, and you can preview the label live as you type.</p>"
+          }
+        },
+        "faq_delivery": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does delivery take?",
+            "answer": "<p>We aim to blend and bottle within 3 working days. UK delivery takes 1 to 3 days. US orders take 7 to 14 days. Contact us for other international destinations.</p>"
+          }
+        },
+        "faq_return": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I return my order?",
+            "answer": "<p>We accept returns if the bottle arrives damaged or the label is incorrect. Please notify us within 48 hours of receiving your order.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_choose", "faq_label", "faq_delivery", "faq_return"],
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "related-products"
+    "related-products",
+    "wb_faq_schema"
   ]
 }
