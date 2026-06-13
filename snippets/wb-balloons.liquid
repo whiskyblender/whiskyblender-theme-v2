@@ -1,0 +1,116 @@
+<style>
+#wb-balloon-stage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 500;
+  overflow: hidden;
+}
+
+.wb-balloon {
+  position: absolute;
+  bottom: -140px;
+}
+
+.wb-balloon-inner {
+  animation: wb-sway var(--sway) ease-in-out infinite alternate;
+  transform-origin: bottom center;
+}
+
+.wb-balloon-body {
+  width: var(--size);
+  height: calc(var(--size) * 1.22);
+  border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+  background: var(--color);
+  position: relative;
+  box-shadow: inset -5px -8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.wb-balloon-body::before {
+  content: '';
+  position: absolute;
+  top: 18%;
+  left: 18%;
+  width: 26%;
+  height: 18%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.38);
+  transform: rotate(-40deg);
+}
+
+.wb-balloon-body::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 8px solid var(--color);
+}
+
+.wb-balloon-string {
+  width: 1px;
+  height: 55px;
+  background: rgba(80, 80, 80, 0.28);
+  margin: 0 auto;
+}
+
+@keyframes wb-balloon-rise {
+  0%   { transform: translateY(0);                      opacity: 0; }
+  6%   { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: translateY(calc(-110vh - 160px));   opacity: 0; }
+}
+
+@keyframes wb-sway {
+  from { transform: rotate(-9deg); }
+  to   { transform: rotate(9deg);  }
+}
+</style>
+
+<div id="wb-balloon-stage" aria-hidden="true"></div>
+
+<script>
+(function () {
+  var stage = document.getElementById('wb-balloon-stage');
+  if (!stage) return;
+
+  var colors = [
+    '#ff6b6b', '#ff69b4', '#ffd166', '#74b9ff',
+    '#a29bfe', '#55efc4', '#fd79a8', '#fdcb6e', '#6c5ce7'
+  ];
+
+  var balloons = 14;
+
+  for (var i = 0; i < balloons; i++) {
+    var color   = colors[Math.floor(Math.random() * colors.length)];
+    var size    = Math.round(Math.random() * 22 + 36) + 'px';  /* 36–58px */
+    var left    = (Math.random() * 86 + 5).toFixed(1) + '%';   /* 5–91% */
+    var dur     = (Math.random() * 4 + 7).toFixed(1) + 's';    /* 7–11s */
+    var delay   = (Math.random() * 10).toFixed(1) + 's';       /* 0–10s */
+    var sway    = (Math.random() * 2 + 1.6).toFixed(1) + 's';  /* 1.6–3.6s */
+
+    var el = document.createElement('div');
+    el.className = 'wb-balloon';
+    el.style.cssText = [
+      'left:' + left,
+      'animation:wb-balloon-rise ' + dur + ' ' + delay + ' ease-in forwards',
+      '--sway:' + sway
+    ].join(';');
+
+    el.innerHTML =
+      '<div class="wb-balloon-inner">' +
+        '<div class="wb-balloon-body" style="--color:' + color + ';--size:' + size + '"></div>' +
+        '<div class="wb-balloon-string"></div>' +
+      '</div>';
+
+    stage.appendChild(el);
+
+    /* Remove from DOM once fully done */
+    (function (node, d, dl) {
+      setTimeout(function () { node.remove(); }, (parseFloat(d) + parseFloat(dl) + 0.6) * 1000);
+    })(el, dur, delay);
+  }
+})();
+</script>
