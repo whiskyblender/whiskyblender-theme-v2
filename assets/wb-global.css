@@ -849,3 +849,127 @@ html body .shopify-policy__body .rte li {
 html body .shopify-policy__body .rte a {
   color: inherit;
 }
+
+/* ── Birthday Badge ─────────────────────────────────────────────────────────── */
+
+.wb-birthday-badge {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 10;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transform: rotate(12deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* Dark base so the holographic foil colours pop */
+  background: #0e0e18;
+
+  box-shadow: 0 4px 20px #0000008c;
+}
+
+/* Holographic foil — rotating rainbow conic gradient, blurred into flowing swirls */
+.wb-birthday-badge::before {
+  content: '';
+  position: absolute;
+  width: 300%;
+  height: 300%;
+  top: -100%;
+  left: -100%;
+  z-index: 1;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    #ff0040 0deg,
+    #ff6600 45deg,
+    #ffee00 90deg,
+    #00ff80 135deg,
+    #00eeff 180deg,
+    #0044ff 225deg,
+    #9900ff 270deg,
+    #ff00cc 315deg,
+    #ff0040 360deg
+  );
+  filter: blur(14px) saturate(2);
+  animation: wb-holo-spin 12s linear infinite, wb-holo-hue 7s linear infinite;
+  opacity: 0.95;
+}
+
+/* Dome glass — convex curved surface effect */
+.wb-birthday-badge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: 50%;
+  background:
+    /* Bright arc highlight at the top — wide crescent like light off a dome */
+    radial-gradient(
+      ellipse 80% 40% at 50% -2%,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(255, 255, 255, 0.45) 40%,
+      transparent 70%
+    ),
+    /* Dark vignette around the rim — dome curves away at the edges */
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 52%,
+      rgba(0, 0, 0, 0.4) 100%
+    ),
+    /* Faint crescent reflection at the bottom */
+    radial-gradient(
+      ellipse 55% 20% at 50% 102%,
+      rgba(255, 255, 255, 0.22) 0%,
+      transparent 100%
+    );
+  pointer-events: none;
+}
+
+/* Overlay image — sits between foil and glass shine */
+.wb-badge-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  display: block;
+}
+
+@keyframes wb-holo-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes wb-holo-hue {
+  from { filter: blur(14px) saturate(2) hue-rotate(0deg); }
+  to   { filter: blur(14px) saturate(2) hue-rotate(360deg); }
+}
+
+.wb-birthday-badge:hover {
+  transform: rotate(0deg) scale(1.06);
+  box-shadow: 0 4px 20px #0000008c;
+}
+
+@media screen and (min-width: 768px) {
+  .wb-birthday-badge {
+    width: 150px;
+    height: 150px;
+    right: 28px;
+    top: 28px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .wb-birthday-badge {
+    width: 280px;
+    height: 280px;
+    right: 40px;
+    top: 40px;
+  }
+}
