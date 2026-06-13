@@ -93,9 +93,10 @@
   </div>
 </section>
 
-{%- capture help_articles_html -%}
-  {%- for blog in blogs -%}
-    {%- for article in blog.articles -%}
+{%- assign help_blog = blogs[section.settings.help_blog] -%}
+{%- if help_blog -%}
+  {%- capture help_articles_html -%}
+    {%- for article in help_blog.articles -%}
       {%- if article.tags contains 'help' -%}
         <a href="{{ article.url }}" class="wb-help-article">
           {%- if article.image -%}
@@ -116,19 +117,18 @@
         </a>
       {%- endif -%}
     {%- endfor -%}
-  {%- endfor -%}
-{%- endcapture -%}
-
-{%- if help_articles_html != blank -%}
-<section>
-  <div class="wb-container">
-    <div class="wb-padding">
-      <div class="wb-help-articles">
-        {{ help_articles_html }}
+  {%- endcapture -%}
+  {%- if help_articles_html != blank -%}
+  <section>
+    <div class="wb-container">
+      <div class="wb-padding">
+        <div class="wb-help-articles">
+          {{ help_articles_html }}
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  {%- endif -%}
 {%- endif -%}
 
 <section class="wb-banded">
@@ -297,6 +297,12 @@
 {% schema %}
 {
   "name": "WB - Help Page",
-  "settings": []
+  "settings": [
+    {
+      "type": "blog",
+      "id": "help_blog",
+      "label": "Help articles blog"
+    }
+  ]
 }
 {% endschema %}
