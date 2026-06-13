@@ -689,18 +689,41 @@
 }
 
 .wb-blend-complete-banner {
+  position: relative;
+  overflow: hidden;
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 14px 16px;
   border-radius: 10px;
-  background: #e8f0fb;
+  background: linear-gradient(135deg, #dce9f8 0%, #eef4fc 50%, #d6e5f6 100%);
   color: #1e3a6e;
   text-align: center;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.4;
+}
+
+.wb-blend-complete-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: wb-banner-sheen 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.wb-blend-complete-banner:nth-child(2)::before { animation-delay: 1.3s; }
+.wb-blend-complete-banner:nth-child(3)::before { animation-delay: 2.6s; }
+
+@keyframes wb-banner-sheen {
+  0%   { left: -75%; }
+  55%  { left: 125%; }
+  100% { left: 125%; }
 }
 
 @media screen and (min-width: 600px) {
