@@ -741,6 +741,39 @@
     }
 
     readParams();
+
+    if (!isPreview) {
+      var p = new URLSearchParams(window.location.search);
+      var productInUrl = !!p.get('product') || !!p.get('type');
+      var missingKey = productInUrl && (
+        (state.product === 'customblend' && !state.blend) ||
+        ((state.product === 'singlemalt' || state.product === 'singlecask') && !state.text)
+      );
+      if (missingKey) {
+        var root = document.getElementById('wb-label-root');
+        if (root) {
+          root.innerHTML = '';
+          var msg = document.createElement('div');
+          msg.style.cssText = 'font-family:sans-serif;padding:40px;max-width:480px;margin:60px auto;text-align:center;';
+          var heading = document.createElement('p');
+          heading.style.cssText = 'font-size:18px;font-weight:700;margin:0 0 12px;';
+          heading.textContent = 'Invalid label URL';
+          var body = document.createElement('p');
+          body.style.cssText = 'font-size:15px;color:#555;margin:0 0 24px;line-height:1.5;';
+          body.textContent = 'This link is missing some required details. Please click “Print Label” again from the order in Shopify admin.';
+          var back = document.createElement('button');
+          back.textContent = '← Go back';
+          back.style.cssText = 'font-size:14px;cursor:pointer;padding:8px 16px;';
+          back.onclick = function () { history.back(); };
+          msg.appendChild(heading);
+          msg.appendChild(body);
+          msg.appendChild(back);
+          root.appendChild(msg);
+        }
+        return;
+      }
+    }
+
     render();
 
     if (!isPreview) {
