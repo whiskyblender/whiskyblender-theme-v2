@@ -441,7 +441,7 @@
         });
       })();
     </script>
-    {%- if request.page_type == 'collection' and collection.handle contains 'birthday' -%}
+    {%- if collection and collection.handle contains 'birthday' -%}
       {%- render 'wb-balloons' -%}
     {%- endif -%}
   </body>
