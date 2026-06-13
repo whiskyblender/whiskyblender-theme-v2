@@ -60,7 +60,7 @@
       input.parentNode.appendChild(counter);
     }
 
-    if (labelInput) addCounter(labelInput, 32);
+    if (labelInput && productSlug !== 'customblend') addCounter(labelInput, 32);
 
     /* ── Preview utilities ──────────────────────────────────────────────── */
 
