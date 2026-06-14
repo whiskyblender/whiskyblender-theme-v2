@@ -65,6 +65,13 @@
             });
             submit.disabled = !email.value.trim();
           }
+
+          const form = document.getElementById('ContactForm');
+          if (form) {
+            form.addEventListener('submit', function () {
+              if (typeof fbq === 'function') fbq('track', 'Contact');
+            }, false);
+          }
         })();
       </script>
     </div>
