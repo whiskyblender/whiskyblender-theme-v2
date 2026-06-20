@@ -8,12 +8,13 @@
   flex-direction: column;
   align-items: stretch;
   padding: 0;
+  overflow: hidden;
   transition: opacity 0.4s ease;
 }
 
 #wb-age-gate-bg {
   position: absolute;
-  inset: -4%;
+  inset: 0;
   background-image: url({{ 'age-gate.jpg' | asset_url }});
   background-size: cover;
   background-position: center;
@@ -350,7 +351,7 @@
 
     (function parallaxLoop() {
       parallaxCurrent += (parallaxTarget - parallaxCurrent) * 0.06;
-      bgEl.style.transform = 'translateX(' + parallaxCurrent + 'px)';
+      bgEl.style.transform = 'scale(1.08) translateX(' + parallaxCurrent + 'px)';
       parallaxRaf = requestAnimationFrame(parallaxLoop);
     })();
   }
