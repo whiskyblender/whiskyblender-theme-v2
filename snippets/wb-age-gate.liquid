@@ -299,6 +299,7 @@
     document.body.style.overflow = '';
     gate.classList.add('wb-age-gate--hidden');
     if (stopRain) stopRain();
+    if (parallaxRaf) cancelAnimationFrame(parallaxRaf);
     gate.addEventListener('transitionend', function () {
       gate.classList.remove('wb-age-gate--visible');
     }, { once: true });
@@ -325,6 +326,25 @@
 
   function setWind(relX) {
     windX = (relX - 0.5) * 18;
+  }
+
+  /* Parallax background — desktop only */
+  var isHoverDevice = window.matchMedia('(hover: hover)').matches;
+  var parallaxX = 50;
+  var parallaxTarget = 50;
+  var parallaxRaf;
+
+  if (isHoverDevice) {
+    gate.addEventListener('mousemove', function (e) {
+      var relX = e.clientX / window.innerWidth;
+      parallaxTarget = 50 + (0.5 - relX) * 6;
+    });
+
+    (function parallaxLoop() {
+      parallaxX += (parallaxTarget - parallaxX) * 0.06;
+      gate.style.backgroundPosition = parallaxX + '% center';
+      parallaxRaf = requestAnimationFrame(parallaxLoop);
+    })();
   }
 
   gate.addEventListener('mousemove', function (e) {
