@@ -7,11 +7,15 @@
   background-image: url({{ 'age-gate.jpg' | asset_url }});
   background-size: cover;
   background-position: center;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: stretch;
   padding: 0;
   transition: opacity 0.4s ease;
+}
+
+#wb-age-gate.wb-age-gate--visible {
+  display: flex;
 }
 
 #wb-age-gate-rain {
@@ -253,11 +257,12 @@
 (function () {
   var gate = document.getElementById('wb-age-gate');
 
-  /* Hide immediately if already verified — runs before first paint */
+  /* Gate is display:none by default; only show it for unverified users */
   if (document.cookie.indexOf('wb_age_verified=1') !== -1) {
-    gate.style.display = 'none';
     return;
   }
+
+  gate.classList.add('wb-age-gate--visible');
 
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
@@ -294,7 +299,9 @@
     document.body.style.overflow = '';
     gate.classList.add('wb-age-gate--hidden');
     if (stopRain) stopRain();
-    setTimeout(function () { gate.style.display = 'none'; }, 420);
+    gate.addEventListener('transitionend', function () {
+      gate.classList.remove('wb-age-gate--visible');
+    }, { once: true });
   }
 
   function decline() {
