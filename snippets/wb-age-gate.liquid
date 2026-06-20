@@ -14,12 +14,15 @@
 
 #wb-age-gate-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url({{ 'age-gate.jpg' | asset_url }});
   background-size: cover;
   background-position: center;
   pointer-events: none;
-  will-change: transform;
+  z-index: 0;
 }
 
 #wb-age-gate.wb-age-gate--visible {
@@ -30,6 +33,13 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  z-index: 1;
+}
+
+.wb-age-gate__header,
+.wb-age-gate__inner {
+  position: relative;
+  z-index: 1;
 }
 
 #wb-age-gate.wb-age-gate--hidden {
