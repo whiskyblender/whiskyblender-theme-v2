@@ -320,9 +320,7 @@
     gate.classList.add('wb-age-gate--hidden');
     if (stopRain) stopRain();
     if (parallaxRaf) cancelAnimationFrame(parallaxRaf);
-    gate.addEventListener('transitionend', function () {
-      gate.classList.remove('wb-age-gate--visible');
-    }, { once: true });
+    setTimeout(function () { gate.classList.remove('wb-age-gate--visible'); }, 420);
   }
 
   function decline() {
