@@ -44,8 +44,8 @@
 
 .wb-field-tooltip {
   position: absolute;
-  left: 0;
-  bottom: calc(100% + 10px);
+  left: -12px;
+  bottom: calc(100% + -10px);
   background: #fff;
   border-radius: 6px;
   padding: 7px 12px;
@@ -66,9 +66,9 @@
   position: absolute;
   left: 16px;
   top: 100%;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 8px solid #fff;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 6px solid #fff;
 }
 
 .wb-field-tooltip.wb-hint-hidden {

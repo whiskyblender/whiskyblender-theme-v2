@@ -734,8 +734,8 @@
         setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 400);
       }
 
-      var hint1 = makeTooltip('Name your blend');
-      var hint2 = makeTooltip('Add your name');
+      var hint1 = makeTooltip('What will you call it?');
+      var hint2 = makeTooltip('Time to take the credit');
 
       function startAuthorHint() {
         if (!authorInput.value.trim()) {
