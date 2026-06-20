@@ -715,48 +715,52 @@
       var authorLabel = document.querySelector('label[for="wb-blend-author"]');
       if (!titleLabel || !authorLabel) return;
 
-      function makeTooltip(text) {
+      function makeTooltip(text, wrapper) {
         var el = document.createElement('div');
         el.className = 'wb-field-tooltip wb-hint-hidden';
         el.setAttribute('aria-hidden', 'true');
         el.textContent = text;
+        wrapper.appendChild(el);
         return el;
       }
 
-      function showTooltip(el, wrapper) {
-        wrapper.appendChild(el);
-        el.offsetHeight;
-        el.classList.remove('wb-hint-hidden');
-      }
+      var hint1 = makeTooltip('What will you call it?', titleLabel.parentNode);
+      var hint2 = makeTooltip('Time to take the credit', authorLabel.parentNode);
+      var hint2Active = false;
 
-      function hideTooltip(el) {
-        el.classList.add('wb-hint-hidden');
-        setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 400);
-      }
+      function show(el) { el.offsetHeight; el.classList.remove('wb-hint-hidden'); }
+      function hide(el) { el.classList.add('wb-hint-hidden'); }
 
-      var hint1 = makeTooltip('What will you call it?');
-      var hint2 = makeTooltip('Time to take the credit');
-
-      function startAuthorHint() {
-        if (!authorInput.value.trim()) {
-          showTooltip(hint2, authorLabel.parentNode);
-          authorInput.addEventListener('focus', function () {
-            hideTooltip(hint2);
-          }, { once: true });
+      function syncHint1() {
+        if (!titleInput.value.trim() && document.activeElement !== titleInput) {
+          show(hint1);
+        } else {
+          hide(hint1);
         }
       }
 
-      if (!titleInput.value.trim()) {
-        showTooltip(hint1, titleLabel.parentNode);
-        titleInput.addEventListener('focus', function () {
-          hideTooltip(hint1);
-          titleInput.addEventListener('blur', function () {
-            startAuthorHint();
-          }, { once: true });
-        }, { once: true });
-      } else {
-        startAuthorHint();
+      function syncHint2() {
+        if (!hint2Active) return;
+        if (!authorInput.value.trim() && document.activeElement !== authorInput) {
+          show(hint2);
+        } else {
+          hide(hint2);
+        }
       }
+
+      titleInput.addEventListener('focus', syncHint1);
+      titleInput.addEventListener('blur',  function () {
+        if (!hint2Active) { hint2Active = true; }
+        syncHint1();
+        syncHint2();
+      });
+      titleInput.addEventListener('input', syncHint1);
+
+      authorInput.addEventListener('focus', syncHint2);
+      authorInput.addEventListener('blur',  syncHint2);
+      authorInput.addEventListener('input', syncHint2);
+
+      syncHint1();
     }
 
     /* Initial render */
