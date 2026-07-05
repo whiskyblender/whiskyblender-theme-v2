@@ -36,6 +36,14 @@
             "url": "shopify://collections/single-malts"
           }
         },
+        "option_V8wMq3": {
+          "type": "option",
+          "settings": {
+            "icon": "🤝",
+            "heading": "Collaborate on some <a href=\"/pages/collaborate\">corporate gifts</a>",
+            "url": "/pages/collaborate"
+          }
+        },
         "option_BziJVq": {
           "type": "option",
           "settings": {
@@ -52,14 +60,6 @@
             "url": "shopify://products/gift-voucher"
           }
         },
-        "option_V8wMq3": {
-          "type": "option",
-          "settings": {
-            "icon": "🤝",
-            "heading": "Collaborate on <a href=\"/pages/collaborate\">your own brand</a>",
-            "url": "/pages/collaborate"
-          }
-        },
         "option_zKrc9g": {
           "type": "option",
           "settings": {
@@ -72,9 +72,9 @@
       "block_order": [
         "option_nWPDyX",
         "option_bkNwYD",
+        "option_V8wMq3",
         "option_BziJVq",
         "option_jjccJk",
-        "option_V8wMq3",
         "option_zKrc9g"
       ],
       "name": "WB - Create Options",
