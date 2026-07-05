@@ -45,6 +45,14 @@
             "url": "shopify://collections/single-malts"
           }
         },
+        "option_V8wMq3": {
+          "type": "option",
+          "settings": {
+            "icon": "🤝",
+            "heading": "Collaborate on some <a href=\"/pages/collaborate\">corporate gifts</a>",
+            "url": "/pages/collaborate"
+          }
+        },
         "option_jjccJk": {
           "type": "option",
           "settings": {
@@ -60,23 +68,15 @@
             "heading": "Label up wee <a href=\"/products/custom-miniatures\">whisky miniatures</a>",
             "url": "shopify://products/custom-miniatures"
           }
-        },
-        "option_V8wMq3": {
-          "type": "option",
-          "settings": {
-            "icon": "🤝",
-            "heading": "Collaborate on some <a href=\"/pages/collaborate\">corporate gifts</a>",
-            "url": "/pages/collaborate"
-          }
         }
       },
       "block_order": [
         "option_nWPDyX",
         "option_zKrc9g",
         "option_bkNwYD",
+        "option_V8wMq3",
         "option_jjccJk",
-        "option_BziJVq",
-        "option_V8wMq3"
+        "option_BziJVq"
       ],
       "name": "WB - Create Options",
       "settings": {
