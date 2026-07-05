@@ -1,10 +1,6 @@
 <style>
-  #wb-policy h2 {
-    font-size: 1em;
-    font-weight: 700;
-    margin: 24px 0 8px;
-  }
-  #wb-policy h3 {
+  #wb-policy .wb-policy-body h2,
+  #wb-policy .wb-policy-body h3 {
     font-size: 1em;
     font-weight: 700;
     margin: 24px 0 8px;
@@ -21,7 +17,7 @@
     <div class="wb-container">
       <div class="wb-padding">
         <h1 class="wb-medium-heading">{{ policy.title }}</h1>
-        {{ policy.body }}
+        <div class="wb-policy-body">{{ policy.body }}</div>
       </div>
     </div>
   </section>
