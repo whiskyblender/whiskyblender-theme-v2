@@ -808,6 +808,14 @@ html body .shopify-policy__container {
   padding: 40px 20px;
 }
 
+@media screen and (min-width: 600px) {
+  html body .shopify-policy__container { padding: 60px 30px; }
+}
+
+@media screen and (min-width: 768px) {
+  html body .shopify-policy__container { padding: 60px 40px; }
+}
+
 html body .shopify-policy__title {
   margin: 0;
   padding: 0;
