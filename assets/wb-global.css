@@ -798,7 +798,7 @@ img.wb-yourownbrand {
 }
 
 
-/* ── Shopify-native policy pages (/policies/*) ─────────────────────────────── */
+/* ── Shopify-native policy pages (/policies/*) v2 ───────────────────────────── */
 /* templates/policy.liquid is ignored by Shopify — native renderer always wins.
    Use html+body prefix to beat Shopify's own policy CSS (loaded after ours). */
 
