@@ -28,12 +28,12 @@
             "url": "shopify://pages/the-lab"
           }
         },
-        "option_zKrc9g": {
+        "option_bkNwYD": {
           "type": "option",
           "settings": {
-            "icon": "⭐",
-            "heading": "Personalise a <a href=\"/pages/perfect-drams\">perfect dram</a>",
-            "url": "shopify://pages/perfect-drams"
+            "icon": "🥃",
+            "heading": "Name your own <a href=\"/collections/single-malts\">single malt</a>",
+            "url": "shopify://collections/single-malts"
           }
         },
         "option_BziJVq": {
@@ -42,14 +42,6 @@
             "icon": "🤏",
             "heading": "Label up wee <a href=\"/products/custom-miniatures\">whisky miniatures</a>",
             "url": "shopify://products/custom-miniatures"
-          }
-        },
-        "option_bkNwYD": {
-          "type": "option",
-          "settings": {
-            "icon": "🥃",
-            "heading": "Name your own <a href=\"/collections/single-malts\">single malt</a>",
-            "url": "shopify://collections/single-malts"
           }
         },
         "option_jjccJk": {
@@ -67,15 +59,23 @@
             "heading": "Collaborate on <a href=\"/pages/collaborate\">your own brand</a>",
             "url": "/pages/collaborate"
           }
+        },
+        "option_zKrc9g": {
+          "type": "option",
+          "settings": {
+            "icon": "⭐",
+            "heading": "Personalise a <a href=\"/pages/perfect-drams\">perfect dram</a>",
+            "url": "shopify://pages/perfect-drams"
+          }
         }
       },
       "block_order": [
         "option_nWPDyX",
-        "option_zKrc9g",
-        "option_BziJVq",
         "option_bkNwYD",
+        "option_BziJVq",
         "option_jjccJk",
-        "option_V8wMq3"
+        "option_V8wMq3",
+        "option_zKrc9g"
       ],
       "name": "WB - Create Options",
       "settings": {
