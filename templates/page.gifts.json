@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -13,12 +22,17 @@
       "name": "Landing Hero",
       "settings": {
         "video_url": "https://cdn.shopify.com/videos/c/o/v/127d588af94e4212955bc22951a85177.mp4",
-        "title": "The gift of whisky",
+        "video_file": "",
+        "title": "Whisky gifts",
+        "title_variants": "",
         "description": "That's certainly the kind of gift that we like to get from people.",
         "primary_button_text": "Get a voucher",
         "primary_button_url": "shopify://products/gift-voucher",
         "secondary_button_text": "Visit the shop",
-        "secondary_button_url": "shopify://pages/shop"
+        "secondary_button_url": "shopify://pages/shop",
+        "badge_show": false,
+        "badge_url": "",
+        "badge_aria_label": "Read our birthday blog post"
       }
     },
     "image_reel": {
