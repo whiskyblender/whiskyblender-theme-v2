@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -14,17 +23,26 @@
         "option_nWPDyX": {
           "type": "option",
           "settings": {
-            "icon": "💡",
+            "icon": "🥃",
             "heading": "Create a new whisky in <a href=\"/pages/the-lab\">the lab</a>",
             "url": "shopify://pages/the-lab"
           }
         },
         "option_zKrc9g": {
           "type": "option",
+          "disabled": true,
           "settings": {
             "icon": "⭐",
             "heading": "Personalise a <a href=\"/pages/perfect-drams\">perfect dram</a>",
             "url": "shopify://pages/perfect-drams"
+          }
+        },
+        "option_bkNwYD": {
+          "type": "option",
+          "settings": {
+            "icon": "🌟",
+            "heading": "Name your own <a href=\"/collections/single-malts\">single malt</a>",
+            "url": "shopify://collections/single-malts"
           }
         },
         "option_BziJVq": {
@@ -33,14 +51,6 @@
             "icon": "🤏",
             "heading": "Label up wee <a href=\"/products/custom-miniatures\">whisky miniatures</a>",
             "url": "shopify://products/custom-miniatures"
-          }
-        },
-        "option_bkNwYD": {
-          "type": "option",
-          "settings": {
-            "icon": "🥃",
-            "heading": "Name your own <a href=\"/collections/single-malts\">single malt</a>",
-            "url": "shopify://collections/single-malts"
           }
         },
         "option_jjccJk": {
@@ -63,8 +73,8 @@
       "block_order": [
         "option_nWPDyX",
         "option_zKrc9g",
-        "option_BziJVq",
         "option_bkNwYD",
+        "option_BziJVq",
         "option_jjccJk",
         "option_V8wMq3"
       ],
