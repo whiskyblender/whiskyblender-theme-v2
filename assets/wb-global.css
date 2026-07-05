@@ -836,7 +836,7 @@ html body .shopify-policy__title h1 {
 
 html body .shopify-policy__body .rte {
   font-family: 'Raleway', sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 160%;
   color: #000000;
@@ -858,6 +858,7 @@ html body .shopify-policy__body .rte ul {
 
 html body .shopify-policy__body .rte li {
   margin-bottom: 8px;
+  list-style: initial;
 }
 
 html body .shopify-policy__body .rte a {
