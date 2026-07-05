@@ -22,6 +22,13 @@
             "link": ""
           }
         },
+        "announcement_QWA6C9": {
+          "type": "announcement",
+          "settings": {
+            "text": "👨🏻 Remember, 21 June is Father's Day! →",
+            "link": "https://whiskyblender.com/products/aultmore-2011?variant=57116140208393&label=Dad%27s%20dram"
+          }
+        },
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
@@ -53,6 +60,7 @@
       },
       "block_order": [
         "announcement_KpKexp",
+        "announcement_QWA6C9",
         "announcement-bar-0",
         "announcement_KXyi8M",
         "announcement_HtPheX",
