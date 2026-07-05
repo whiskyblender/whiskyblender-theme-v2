@@ -64,7 +64,7 @@
           "type": "option",
           "settings": {
             "icon": "⭐",
-            "heading": "Personalise a <a href=\"/pages/perfect-drams\">perfect dram</a>",
+            "heading": "Personalise our <a href=\"/pages/perfect-drams\">perfect drams</a>",
             "url": "shopify://pages/perfect-drams"
           }
         }
