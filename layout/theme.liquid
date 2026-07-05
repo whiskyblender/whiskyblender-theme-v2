@@ -344,7 +344,8 @@
     {% sections 'header-group' %}
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
-      {% if request.page_type == 'policy' %}
+      <!-- wb-debug: page_type={{ request.page_type }} template={{ template }} path={{ request.path }} -->
+      {% if request.path contains '/policies/' %}
         <style>.shopify-policy__container { display: none !important; }</style>
         {% section 'wb-policy-page' %}
       {% else %}
