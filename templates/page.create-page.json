@@ -45,14 +45,6 @@
             "url": "shopify://collections/single-malts"
           }
         },
-        "option_BziJVq": {
-          "type": "option",
-          "settings": {
-            "icon": "🤏",
-            "heading": "Label up wee <a href=\"/products/custom-miniatures\">whisky miniatures</a>",
-            "url": "shopify://products/custom-miniatures"
-          }
-        },
         "option_jjccJk": {
           "type": "option",
           "settings": {
@@ -61,11 +53,19 @@
             "url": "shopify://products/gift-voucher"
           }
         },
+        "option_BziJVq": {
+          "type": "option",
+          "settings": {
+            "icon": "🤏",
+            "heading": "Label up wee <a href=\"/products/custom-miniatures\">whisky miniatures</a>",
+            "url": "shopify://products/custom-miniatures"
+          }
+        },
         "option_V8wMq3": {
           "type": "option",
           "settings": {
             "icon": "🤝",
-            "heading": "Collaborate on <a href=\"/pages/collaborate\">your own brand</a>",
+            "heading": "Collaborate on some <a href=\"/pages/collaborate\">corporate gifts</a>",
             "url": "/pages/collaborate"
           }
         }
@@ -74,8 +74,8 @@
         "option_nWPDyX",
         "option_zKrc9g",
         "option_bkNwYD",
-        "option_BziJVq",
         "option_jjccJk",
+        "option_BziJVq",
         "option_V8wMq3"
       ],
       "name": "WB - Create Options",
