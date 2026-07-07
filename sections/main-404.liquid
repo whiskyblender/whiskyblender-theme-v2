@@ -8,8 +8,6 @@
   } else if (p.indexOf('/blend/') === 0) {
     var id = raw.slice('/blend/'.length);
     window.location.replace('/pages/the-lab' + (id ? '?blend=' + encodeURIComponent(id) : ''));
-  } else if (p.indexOf('/products/') === 0) {
-    window.location.replace('/pages/the-lab');
   } else if (p === '/thelab' || p === '/the-lab') {
     window.location.replace('/pages/the-lab');
   } else if (p === '/create') {
@@ -22,33 +20,74 @@
 })();
 </script>
 
-<style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
+{%- assign req_path = request.path | downcase -%}
+
+{%- if req_path contains '/products/' -%}
+
+  <section class="wb-first-item wb-404-product">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <h1 class="wb-medium-heading">That dram's done.</h1>
+        <p class="wb-404-lede">Every whisky cask is one of a kind. Once it's been drained, it's gone — there's no going back for more of the same.</p>
+        <p>Whatever blend used to live at this address was made from a cask that's now empty. That's just the nature of real whisky. But you can make something just as special — something that's entirely yours.</p>
+        <div class="wb-buttons wb-404-ctas">
+          <a href="/pages/the-lab" class="wb-button wb-primary-button">Blend something new</a>
+          <a href="/pages/shop" class="wb-button">Visit the shop</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{%- else -%}
+
+  <section class="wb-first-item wb-404-generic">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <h1 class="wb-medium-heading">Nothing here.</h1>
+        <p class="wb-404-lede">The page you're looking for doesn't exist at this address — it may have moved, or it was never here in the first place.</p>
+        <ul class="wb-create-options wb-cards">
+          <li onclick="location.href='/pages/the-lab';">
+            <span class="wb-create-icon">💡</span>
+            <h2 class="wb-option-heading">Blend a new whisky in <a href="/pages/the-lab">The Lab</a></h2>
+          </li>
+          <li onclick="location.href='/collections/single-malts';">
+            <span class="wb-create-icon">🥃</span>
+            <h2 class="wb-option-heading">Name your own <a href="/collections/single-malts">single malt</a></h2>
+          </li>
+          <li onclick="location.href='/products/gift-voucher';">
+            <span class="wb-create-icon">💌</span>
+            <h2 class="wb-option-heading">Give someone a <a href="/products/gift-voucher">whisky voucher</a></h2>
+          </li>
+        </ul>
+        <p class="wb-404-help">Need a hand? <a href="/pages/contact">Get in touch</a> and we'll sort it.</p>
+      </div>
+    </div>
+  </section>
+
+{%- endif -%}
+
+<style>
+  .wb-404-lede {
+    font-size: 20px;
+    line-height: 160%;
+    max-width: 560px;
+    margin-top: 16px;
   }
 
-  @media screen and (min-width: 750px) {
-    .template-404 .title + * {
-      margin-top: 2rem;
-    }
+  .wb-404-product p {
+    max-width: 560px;
+  }
+
+  .wb-404-ctas {
+    margin-top: 28px;
+  }
+
+  .wb-404-help {
+    margin-top: 40px;
+    color: #666666;
+  }
+
+  .wb-404-help a {
+    color: inherit;
   }
 </style>
-
-<div class="wb-container template-404">
-  <div class="wb-padding">
-  <p style="display: none;">
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="wb-medium-heading title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <p>You seem to have gotten a little lost. Stravaiging is a verb and it means wandering aimlessly. A stravaiger, of course, is a person who goes stravaiging. We don't mean to suggest you don't have an aim, we just really wanted to use this word on the site.</p>
-  <p>Regardless, the page you wanted isn't at this address (and we've no doubt that the blame lies with us).</p>
-  <p>If you want us to help you out, let us know and we'll see what we can do.</p>
-  <a href="{{ pages.contact.url }}" class="button wb-button wb-primary-button">Get in touch
-  </a><a href="{{ pages.shop.url }}" class="button wb-button wb-secondary-button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
-</div>
-
-</div>
