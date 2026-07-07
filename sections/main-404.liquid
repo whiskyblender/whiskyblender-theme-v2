@@ -1,3 +1,27 @@
+<script>
+(function () {
+  var raw = window.location.pathname;
+  var p = raw.toLowerCase();
+
+  if (p === '/blend') {
+    window.location.replace('/pages/the-lab');
+  } else if (p.indexOf('/blend/') === 0) {
+    var id = raw.slice('/blend/'.length);
+    window.location.replace('/pages/the-lab' + (id ? '?blend=' + encodeURIComponent(id) : ''));
+  } else if (p.indexOf('/products/') === 0) {
+    window.location.replace('/pages/the-lab');
+  } else if (p === '/thelab' || p === '/the-lab') {
+    window.location.replace('/pages/the-lab');
+  } else if (p === '/create') {
+    window.location.replace('/pages/the-lab');
+  } else if (p === '/contact') {
+    window.location.replace('/pages/contact');
+  } else if (p === '/basket') {
+    window.location.replace('/cart');
+  }
+})();
+</script>
+
 <style type="text/css">
   .template-404 .title + * {
     margin-top: 1rem;
