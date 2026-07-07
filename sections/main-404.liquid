@@ -40,33 +40,81 @@
     margin-top: 16px;
   }
 
-  .wb-404-product-section p {
-    max-width: 560px;
-  }
-
   .wb-404-ctas {
     margin-top: 28px;
   }
 
-  .wb-404-help {
-    margin-top: 40px;
-    color: #666666;
+  /* Product 404 layout */
+  .wb-404-product-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
   }
 
-  .wb-404-help a {
-    color: inherit;
+  .wb-404-product-text p {
+    max-width: 520px;
+  }
+
+  .wb-404-barrel {
+    width: 100%;
+    max-width: 160px;
+    display: block;
+  }
+
+  @media screen and (min-width: 768px) {
+    .wb-404-product-layout {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 64px;
+    }
+
+    .wb-404-product-text {
+      flex: 1;
+    }
+
+    .wb-404-product-graphic {
+      flex: 0 0 160px;
+      padding-top: 12px;
+    }
   }
 </style>
 
 <section class="wb-first-item wb-404-product-section">
   <div class="wb-container">
     <div class="wb-padding">
-      <h1 class="wb-medium-heading">That dram's done.</h1>
-      <p class="wb-404-lede wb-collection-copy">Every whisky cask is one of a kind. Once it's been drained, it's gone — there's no going back for more of the same.</p>
-      <p class="wb-collection-copy">Whatever blend used to live at this address was made from a cask that's now empty. That's just the nature of real whisky. But you can make something just as special — something that's entirely yours.</p>
-      <div class="wb-buttons wb-404-ctas">
-        <a href="/pages/the-lab" class="wb-button wb-primary-button">Blend something new</a>
-        <a href="/pages/shop" class="wb-button">Visit the shop</a>
+      <div class="wb-404-product-layout">
+        <div class="wb-404-product-text">
+          <h1 class="wb-medium-heading">Aw done!</h1>
+          <p class="wb-404-lede wb-collection-copy">Every whisky cask is one of a kind. Once it's been drained, it's gone — there's no going back for more of the same.</p>
+          <p class="wb-collection-copy">Whatever blend used to live at this address was made with whisky that's no longer available. That's just the nature of Scotch. But you can make something just as special — something that's entirely yours.</p>
+          <div class="wb-buttons wb-404-ctas">
+            <a href="/pages/the-lab" class="wb-button wb-primary-button">Create a new whisky</a>
+            <a href="/pages/contact" class="wb-button">Get in touch</a>
+          </div>
+        </div>
+        <div class="wb-404-product-graphic">
+          <svg class="wb-404-barrel" viewBox="0 0 140 184" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Barrel body fill -->
+            <path d="M24 24 C-2 64 -2 120 24 160 H116 C142 120 142 64 116 24 Z" fill="#f0e9df"/>
+            <!-- Stave lines (behind hoops) -->
+            <line x1="70" y1="24" x2="70" y2="160" stroke="#d4c8b8" stroke-width="1.5"/>
+            <path d="M47,25 C44,92 44,92 46,159" stroke="#d4c8b8" stroke-width="1.5"/>
+            <path d="M93,25 C96,92 96,92 94,159" stroke="#d4c8b8" stroke-width="1.5"/>
+            <!-- Barrel body outline -->
+            <path d="M24 24 C-2 64 -2 120 24 160 H116 C142 120 142 64 116 24 Z" stroke="#333333" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+            <!-- Top face fill -->
+            <ellipse cx="70" cy="24" rx="46" ry="13" fill="#e0d3c0"/>
+            <!-- Top face outline -->
+            <ellipse cx="70" cy="24" rx="46" ry="13" stroke="#333333" stroke-width="2.5" fill="none"/>
+            <!-- Hoops -->
+            <ellipse cx="70" cy="52" rx="53" ry="14" stroke="#555555" stroke-width="4" fill="none"/>
+            <ellipse cx="70" cy="92" rx="58" ry="15.5" stroke="#555555" stroke-width="4" fill="none"/>
+            <ellipse cx="70" cy="132" rx="53" ry="14" stroke="#555555" stroke-width="4" fill="none"/>
+            <!-- Bung hole (open — empty barrel) -->
+            <circle cx="70" cy="92" r="7" fill="#f0e9df" stroke="#555555" stroke-width="2"/>
+            <circle cx="70" cy="92" r="3" fill="#c8b89a"/>
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -75,12 +123,12 @@
 <section class="wb-first-item wb-404-generic-section">
   <div class="wb-container">
     <div class="wb-padding">
-      <h1 class="wb-medium-heading">Nothing here.</h1>
+      <h1 class="wb-medium-heading">Sorry, boss!</h1>
       <p class="wb-404-lede wb-collection-copy">The page you're looking for doesn't exist at this address — it may have moved, or it was never here in the first place.</p>
       <ul class="wb-create-options wb-cards">
         <li onclick="location.href='/pages/the-lab';">
           <span class="wb-create-icon">💡</span>
-          <h2 class="wb-option-heading">Blend a new whisky in <a href="/pages/the-lab">The Lab</a></h2>
+          <h2 class="wb-option-heading">Create a new whisky in <a href="/pages/the-lab">the lab</a></h2>
         </li>
         <li onclick="location.href='{{ routes.collections_url }}/single-malts';">
           <span class="wb-create-icon">🥃</span>
@@ -91,7 +139,6 @@
           <h2 class="wb-option-heading">Give someone a <a href="/products/gift-voucher">whisky voucher</a></h2>
         </li>
       </ul>
-      <p class="wb-404-help">Need a hand? <a href="/pages/contact">Get in touch</a> and we'll sort it.</p>
     </div>
   </div>
 </section>
