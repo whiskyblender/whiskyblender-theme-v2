@@ -16,57 +16,25 @@
     window.location.replace('/pages/contact');
   } else if (p === '/basket') {
     window.location.replace('/cart');
+  } else {
+    document.documentElement.classList.add(
+      p.indexOf('/products/') === 0 ? 'wb-404-product' : 'wb-404-generic'
+    );
   }
 })();
 </script>
 
-{%- assign req_path = request.path | downcase -%}
-
-{%- if req_path contains '/products/' -%}
-
-  <section class="wb-first-item wb-404-product">
-    <div class="wb-container">
-      <div class="wb-padding">
-        <h1 class="wb-medium-heading">That dram's done.</h1>
-        <p class="wb-404-lede">Every whisky cask is one of a kind. Once it's been drained, it's gone — there's no going back for more of the same.</p>
-        <p>Whatever blend used to live at this address was made from a cask that's now empty. That's just the nature of real whisky. But you can make something just as special — something that's entirely yours.</p>
-        <div class="wb-buttons wb-404-ctas">
-          <a href="/pages/the-lab" class="wb-button wb-primary-button">Blend something new</a>
-          <a href="/pages/shop" class="wb-button">Visit the shop</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-{%- else -%}
-
-  <section class="wb-first-item wb-404-generic">
-    <div class="wb-container">
-      <div class="wb-padding">
-        <h1 class="wb-medium-heading">Nothing here.</h1>
-        <p class="wb-404-lede">The page you're looking for doesn't exist at this address — it may have moved, or it was never here in the first place.</p>
-        <ul class="wb-create-options wb-cards">
-          <li onclick="location.href='/pages/the-lab';">
-            <span class="wb-create-icon">💡</span>
-            <h2 class="wb-option-heading">Blend a new whisky in <a href="/pages/the-lab">The Lab</a></h2>
-          </li>
-          <li onclick="location.href='/collections/single-malts';">
-            <span class="wb-create-icon">🥃</span>
-            <h2 class="wb-option-heading">Name your own <a href="/collections/single-malts">single malt</a></h2>
-          </li>
-          <li onclick="location.href='/products/gift-voucher';">
-            <span class="wb-create-icon">💌</span>
-            <h2 class="wb-option-heading">Give someone a <a href="/products/gift-voucher">whisky voucher</a></h2>
-          </li>
-        </ul>
-        <p class="wb-404-help">Need a hand? <a href="/pages/contact">Get in touch</a> and we'll sort it.</p>
-      </div>
-    </div>
-  </section>
-
-{%- endif -%}
-
 <style>
+  .wb-404-product-section,
+  .wb-404-generic-section {
+    display: none;
+  }
+
+  .wb-404-product .wb-404-product-section,
+  .wb-404-generic .wb-404-generic-section {
+    display: block;
+  }
+
   .wb-404-lede {
     font-size: 20px;
     line-height: 160%;
@@ -74,7 +42,7 @@
     margin-top: 16px;
   }
 
-  .wb-404-product p {
+  .wb-404-product-section p {
     max-width: 560px;
   }
 
@@ -91,3 +59,41 @@
     color: inherit;
   }
 </style>
+
+<section class="wb-first-item wb-404-product-section">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <h1 class="wb-medium-heading">That dram's done.</h1>
+      <p class="wb-404-lede">Every whisky cask is one of a kind. Once it's been drained, it's gone — there's no going back for more of the same.</p>
+      <p>Whatever blend used to live at this address was made from a cask that's now empty. That's just the nature of real whisky. But you can make something just as special — something that's entirely yours.</p>
+      <div class="wb-buttons wb-404-ctas">
+        <a href="/pages/the-lab" class="wb-button wb-primary-button">Blend something new</a>
+        <a href="/pages/shop" class="wb-button">Visit the shop</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wb-first-item wb-404-generic-section">
+  <div class="wb-container">
+    <div class="wb-padding">
+      <h1 class="wb-medium-heading">Nothing here.</h1>
+      <p class="wb-404-lede">The page you're looking for doesn't exist at this address — it may have moved, or it was never here in the first place.</p>
+      <ul class="wb-create-options wb-cards">
+        <li onclick="location.href='/pages/the-lab';">
+          <span class="wb-create-icon">💡</span>
+          <h2 class="wb-option-heading">Blend a new whisky in <a href="/pages/the-lab">The Lab</a></h2>
+        </li>
+        <li onclick="location.href='{{ routes.collections_url }}/single-malts';">
+          <span class="wb-create-icon">🥃</span>
+          <h2 class="wb-option-heading">Name your own <a href="{{ routes.collections_url }}/single-malts">single malt</a></h2>
+        </li>
+        <li onclick="location.href='/products/gift-voucher';">
+          <span class="wb-create-icon">💌</span>
+          <h2 class="wb-option-heading">Give someone a <a href="/products/gift-voucher">whisky voucher</a></h2>
+        </li>
+      </ul>
+      <p class="wb-404-help">Need a hand? <a href="/pages/contact">Get in touch</a> and we'll sort it.</p>
+    </div>
+  </div>
+</section>
