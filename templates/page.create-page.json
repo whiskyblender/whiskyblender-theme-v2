@@ -48,7 +48,7 @@
           "type": "option",
           "settings": {
             "icon": "💌",
-            "heading": "Get emailed a <a href=\"/products/gift-voucher\">gift voucher</a>",
+            "heading": "Give someone a <a href=\"/products/gift-voucher\">gift voucher</a>",
             "url": "shopify://products/gift-voucher"
           }
         },
