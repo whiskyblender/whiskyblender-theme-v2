@@ -3,6 +3,7 @@
   var raw = window.location.pathname;
   var p = raw.toLowerCase();
 
+  /* ── Redirect rules ──────────────────────────────────────────────────────── */
   if (p === '/blend') {
     window.location.replace('/pages/the-lab');
   } else if (p.indexOf('/blend/') === 0) {
@@ -16,10 +17,36 @@
     window.location.replace('/pages/contact');
   } else if (p === '/basket') {
     window.location.replace('/cart');
+
+  /* ── No redirect: render the correct 404 variant ────────────────────────── */
   } else {
-    document.documentElement.classList.add(
-      p.indexOf('/products/') === 0 ? 'wb-404-product' : 'wb-404-generic'
-    );
+    var variant = p.indexOf('/products/') === 0 ? 'product' : 'generic';
+
+    /* Show the right section (CSS hides both by default) */
+    document.documentElement.classList.add('wb-404-' + variant);
+
+    /* Override page title for the product variant */
+    if (variant === 'product') {
+      document.title = 'Blend unavailable – Whisky Blender';
+    }
+
+    /* Fire page-load event — skip headless crawlers */
+    if (!navigator.webdriver && typeof gtag === 'function') {
+      gtag('event', 'error_404', { variant: variant, requested_path: raw });
+    }
+
+    /* Wire CTA click events once the section markup is in the DOM */
+    document.addEventListener('DOMContentLoaded', function () {
+      var section = document.querySelector('.wb-404-' + variant + '-section');
+      if (!section) return;
+      section.querySelectorAll('.wb-button').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (!navigator.webdriver && typeof gtag === 'function') {
+            gtag('event', 'cta_404_click', { variant: variant, requested_path: raw });
+          }
+        });
+      });
+    });
   }
 })();
 </script>
