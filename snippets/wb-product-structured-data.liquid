@@ -1,10 +1,10 @@
 {%- liquid
-  assign _product_path = product.url
-  assign _product_description = product.description | strip_html | strip
+  assign product_path = product.url
+  assign product_description = product.description | strip_html | strip
 -%}
 {
   "@context": "http://schema.org/",
-  "@id": {{ _product_path | append: '#product' | json }},
+  "@id": {{ product_path | append: '#product' | json }},
   "@type": "ProductGroup",
   "brand": {
     "@type": "Brand",
@@ -13,44 +13,45 @@
   {%- if product.type != blank %}
   "category": {{ product.type | json }},
   {%- endif %}
-  "description": {{ _product_description | json }},
+  "description": {{ product_description | json }},
   "hasVariant": [
     {%- for variant in product.variants -%}
     {%- liquid
-      assign _variant_path = _product_path | append: '?variant=' | append: variant.id
-      assign _variant_url  = shop.url | append: _variant_path
-      assign _availability = 'http://schema.org/OutOfStock'
+      assign variant_path = product_path | append: '?variant=' | append: variant.id
+      assign variant_url  = shop.url | append: variant_path
+      assign availability = 'http://schema.org/OutOfStock'
       if variant.available
-        assign _availability = 'http://schema.org/InStock'
+        assign availability = 'http://schema.org/InStock'
       endif
       if variant.featured_image
-        assign _variant_image = variant.featured_image | image_url: width: 1920
+        assign variant_image = variant.featured_image | image_url: width: 1920
       elsif product.featured_image
-        assign _variant_image = product.featured_image | image_url: width: 1920
+        assign variant_image = product.featured_image | image_url: width: 1920
       else
-        assign _variant_image = nil
+        assign variant_image = nil
       endif
       if variant.title == 'Default Title'
-        assign _variant_name = product.title
+        assign variant_name = product.title
       else
-        assign _variant_name = product.title | append: ' - ' | append: variant.title
+        assign variant_name = product.title | append: ' - ' | append: variant.title
       endif
-      assign _variant_price = variant.price | money_without_currency | remove: ','
+      assign variant_price = variant.price | money_without_currency | remove: ','
     -%}
     {
-      "@id": {{ _variant_path | append: '#variant' | json }},
+      "@id": {{ variant_path | append: '#variant' | json }},
       "@type": "Product",
-      {%- if _variant_image %}
-      "image": {{ _variant_image | json }},
+      {%- if variant_image %}
+      "image": {{ variant_image | json }},
       {%- endif %}
-      "name": {{ _variant_name | json }},
+      "name": {{ variant_name | json }},
+      "description": {{ product.description | strip_html | json }},
       "offers": {
-        "@id": {{ _variant_path | append: '#offer' | json }},
+        "@id": {{ variant_path | append: '#offer' | json }},
         "@type": "Offer",
-        "availability": {{ _availability | json }},
-        "price": {{ _variant_price | json }},
+        "availability": {{ availability | json }},
+        "price": {{ variant_price | json }},
         "priceCurrency": {{ cart.currency.iso_code | json }},
-        "url": {{ _variant_url | json }},
+        "url": {{ variant_url | json }},
         "hasMerchantReturnPolicy": {
           "@type": "MerchantReturnPolicy",
           "applicableCountry": "GB",
@@ -92,5 +93,5 @@
   ],
   "name": {{ product.title | json }},
   "productGroupID": "{{ product.id }}",
-  "url": {{ shop.url | append: _product_path | json }}
+  "url": {{ shop.url | append: product_path | json }}
 }
