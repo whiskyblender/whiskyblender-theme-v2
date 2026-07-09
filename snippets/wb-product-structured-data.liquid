@@ -1,0 +1,96 @@
+{%- liquid
+  assign _product_path = product.url
+  assign _product_description = product.description | strip_html | strip
+-%}
+{
+  "@context": "http://schema.org/",
+  "@id": {{ _product_path | append: '#product' | json }},
+  "@type": "ProductGroup",
+  "brand": {
+    "@type": "Brand",
+    "name": {{ product.vendor | json }}
+  },
+  {%- if product.type != blank %}
+  "category": {{ product.type | json }},
+  {%- endif %}
+  "description": {{ _product_description | json }},
+  "hasVariant": [
+    {%- for variant in product.variants -%}
+    {%- liquid
+      assign _variant_path = _product_path | append: '?variant=' | append: variant.id
+      assign _variant_url  = shop.url | append: _variant_path
+      assign _availability = 'http://schema.org/OutOfStock'
+      if variant.available
+        assign _availability = 'http://schema.org/InStock'
+      endif
+      if variant.featured_image
+        assign _variant_image = variant.featured_image | image_url: width: 1920
+      elsif product.featured_image
+        assign _variant_image = product.featured_image | image_url: width: 1920
+      else
+        assign _variant_image = nil
+      endif
+      if variant.title == 'Default Title'
+        assign _variant_name = product.title
+      else
+        assign _variant_name = product.title | append: ' - ' | append: variant.title
+      endif
+      assign _variant_price = variant.price | money_without_currency | remove: ','
+    -%}
+    {
+      "@id": {{ _variant_path | append: '#variant' | json }},
+      "@type": "Product",
+      {%- if _variant_image %}
+      "image": {{ _variant_image | json }},
+      {%- endif %}
+      "name": {{ _variant_name | json }},
+      "offers": {
+        "@id": {{ _variant_path | append: '#offer' | json }},
+        "@type": "Offer",
+        "availability": {{ _availability | json }},
+        "price": {{ _variant_price | json }},
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "url": {{ _variant_url | json }},
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "GB",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 30,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": 0,
+            "currency": "GBP"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "GB"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 1,
+              "maxValue": 2,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 2,
+              "maxValue": 5,
+              "unitCode": "DAY"
+            }
+          }
+        }
+      }
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ],
+  "name": {{ product.title | json }},
+  "productGroupID": "{{ product.id }}",
+  "url": {{ shop.url | append: _product_path | json }}
+}
