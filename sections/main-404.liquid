@@ -39,7 +39,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       var section = document.querySelector('.wb-404-' + variant + '-section');
       if (!section) return;
-      section.querySelectorAll('.wb-button').forEach(function (btn) {
+      section.querySelectorAll('.wb-button, .wb-create-options li').forEach(function (btn) {
         btn.addEventListener('click', function () {
           if (!navigator.webdriver && typeof gtag === 'function') {
             gtag('event', 'cta_404_click', { variant: variant, requested_path: raw });
