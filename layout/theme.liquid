@@ -75,6 +75,19 @@
 
     {{ content_for_header }}
 
+    <script>
+      if (!navigator.webdriver) {
+        var s = document.createElement('script');
+        s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D0P2198RL2';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function(){ dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', 'G-D0P2198RL2', { send_page_view: false });
+        gtag('event', 'human_page', { page_path: location.pathname });
+      }
+    </script>
+
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
