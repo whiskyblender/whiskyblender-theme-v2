@@ -6,13 +6,13 @@
     assign hero_image = section.settings.background_image | image_url: width: 1920
     assign video_poster = section.settings.background_image | image_url: width: 750
   elsif page.handle == 'about'
-    assign _poster_base = '//whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1779876342'
-    assign hero_image = _poster_base | append: '&width=1920'
-    assign video_poster = _poster_base | append: '&width=750'
+    assign poster_base = '//whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1784069412'
+    assign hero_image = poster_base | append: '&width=1920'
+    assign video_poster = poster_base | append: '&width=750'
   elsif page.handle == 'gifts'
-    assign _poster_base = '//whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905'
-    assign hero_image = _poster_base | append: '&width=1920'
-    assign video_poster = _poster_base | append: '&width=750'
+    assign poster_base = '//whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905'
+    assign hero_image = poster_base | append: '&width=1920'
+    assign video_poster = poster_base | append: '&width=750'
   endif
   assign hero_title = section.settings.title | default: collection.title | default: page.title
 -%}
