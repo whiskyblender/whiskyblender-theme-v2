@@ -1,10 +1,10 @@
 {%- liquid
   if collection.image != blank
     assign hero_image = collection.image | image_url: width: 1920
-    assign video_poster = collection.image | image_url: width: 1200
+    assign video_poster = collection.image | image_url: width: 750
   elsif section.settings.background_image != blank
     assign hero_image = section.settings.background_image | image_url: width: 1920
-    assign video_poster = section.settings.background_image | image_url: width: 1200
+    assign video_poster = section.settings.background_image | image_url: width: 750
   endif
   assign hero_title = section.settings.title | default: collection.title | default: page.title
 -%}
@@ -25,8 +25,7 @@
     {%- else -%}
       <div class="wb-videobg" style="background-image: url({{ hero_image }})">
         <div class="wb-videograin"></div>
-        <video autoplay muted loop playsinline preload="none" id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %}>
-          <source src="{{ video_src }}" type="video/mp4">
+        <video muted loop playsinline id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %} data-video-src="{{ video_src }}">
         </video>
         {%- if section.settings.badge_show and section.settings.badge_url != blank -%}
           <a href="{{ section.settings.badge_url }}" class="wb-birthday-badge" aria-label="{{ section.settings.badge_aria_label | default: 'Read our birthday blog post' }}">
@@ -46,6 +45,30 @@
           </div>
         </div>
       </div>
+      <script>
+        (function () {
+          var vid = document.getElementById('wb-video');
+          if (!vid || !vid.dataset.videoSrc) return;
+          var src = vid.dataset.videoSrc;
+          function startVideo() {
+            if (vid.src) return;
+            vid.src = src;
+            vid.play().catch(function () {});
+          }
+          function scheduleStart() {
+            if (window.requestIdleCallback) {
+              requestIdleCallback(startVideo, { timeout: 1500 });
+            } else {
+              setTimeout(startVideo, 1500);
+            }
+          }
+          if (document.readyState === 'complete') {
+            scheduleStart();
+          } else {
+            window.addEventListener('load', scheduleStart, { once: true });
+          }
+        })();
+      </script>
     {%- endif -%}
   </div>
 </section>
