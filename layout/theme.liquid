@@ -1,27 +1,6 @@
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
-    <script>
-      (function() {
-        var v = 'v4';
-        var key = 'wb_theme';
-        try {
-          if (localStorage.getItem(key) !== v) {
-            localStorage.setItem(key, v);
-            if (window.location.search.indexOf('_wb=') === -1) {
-              var sep = window.location.search ? '&' : '?';
-              window.location.replace(window.location.href + sep + '_wb=' + v);
-            }
-          } else if (window.location.search.indexOf('_wb=') !== -1) {
-            try {
-              var clean = new URL(window.location.href);
-              clean.searchParams.delete('_wb');
-              history.replaceState(null, '', clean.toString());
-            } catch(e) {}
-          }
-        } catch(e) {}
-      })();
-    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">

@@ -33,7 +33,7 @@
   class="wb-cards wb-option-cards"
   id="wb-lab-flavours"
   data-api-base="{{ api_base }}"
-  style="display:none"
+  style="visibility:hidden"
 >
   {%- comment -%} Cards injected by wb-lab.js after fetching /api/whisky-options {%- endcomment -%}
   <li class="wb-notoption">
@@ -47,7 +47,7 @@
   </li>
 </ul>
 
-<div class="wb-sticky-lab" id="wb-lab-meter" style="display:none">
+<div class="wb-sticky-lab" id="wb-lab-meter" style="visibility:hidden">
   <div class="wb-lab-fillmeter">
     <span>0% filled</span>
     <div class="wb-lab-fillvisual" style="width: 0%"></div>
@@ -61,7 +61,7 @@
 <div
   class="wb-save-panel"
   id="wb-save-panel"
-  style="display:none"
+  style="visibility:hidden"
   data-api-base="{{ api_base }}"
   data-product-id="{{ section.settings.product_id | strip }}"
   data-variant-id="{{ section.settings.variant_id | strip }}"

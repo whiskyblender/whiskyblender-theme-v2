@@ -1,8 +1,10 @@
 {%- liquid
   if collection.image != blank
     assign hero_image = collection.image | image_url: width: 1920
+    assign video_poster = collection.image | image_url: width: 1200
   elsif section.settings.background_image != blank
     assign hero_image = section.settings.background_image | image_url: width: 1920
+    assign video_poster = section.settings.background_image | image_url: width: 1200
   endif
   assign hero_title = section.settings.title | default: collection.title | default: page.title
 -%}
@@ -23,7 +25,7 @@
     {%- else -%}
       <div class="wb-videobg" style="background-image: url({{ hero_image }})">
         <div class="wb-videograin"></div>
-        <video autoplay muted loop playsinline id="wb-video" aria-hidden="true">
+        <video autoplay muted loop playsinline preload="none" id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %}>
           <source src="{{ video_src }}" type="video/mp4">
         </video>
         {%- if section.settings.badge_show and section.settings.badge_url != blank -%}

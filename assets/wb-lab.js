@@ -150,9 +150,9 @@
 
     function showUI(options) {
       /* Reveal the UI elements behind the loader so they render offscreen */
-      container.style.display = '';
-      if (meterEl)     meterEl.style.display    = '';
-      if (savePanelEl) savePanelEl.style.display = '';
+      container.style.visibility = '';
+      if (meterEl)     meterEl.style.visibility    = '';
+      if (savePanelEl) savePanelEl.style.visibility = '';
 
       /* Render the lab — inserts cards and pie into the DOM */
       renderLab(container, options, apiBase);
