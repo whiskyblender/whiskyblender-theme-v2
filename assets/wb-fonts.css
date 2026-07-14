@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'trimPosterCompressed';
-  font-display: swap;
+  font-display: block;
   src:
     url('TrimPosterWeb-Compressed.eot'),
     url('TrimPosterWeb-Compressed.woff') format('woff'),

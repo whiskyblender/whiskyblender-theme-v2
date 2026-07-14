@@ -34,12 +34,16 @@
         </div>
       </div>
         {%- when 'landing_hero' -%}
+          {%- assign hero_poster_file = nil -%}
+          {%- if page.handle == 'about' -%}{%- assign hero_poster_file = 'wb-cask-heids.jpg' -%}{%- endif -%}
+          {%- if page.handle == 'gifts' -%}{%- assign hero_poster_file = 'wb-whisky-bow.jpg' -%}{%- endif -%}
           <div class="wb-container">
             {%- assign hero = page.metafields.custom.hero_details.value -%}
             <div class="wb-overflow-hidden-x" {{ block.shopify_attributes }}>
                 {% render 'wb-landing-hero-markup',
                   video_file: hero.video.value,
                   background_image: hero.image.value,
+                  poster_file: hero_poster_file,
                   title: hero.title.value,
                   description: hero.subtitle.value,
                   primary_button_text: hero.primary_button_text.value,

@@ -15,8 +15,14 @@
 {%- liquid
   if collection.image != blank
     assign hero_image = collection.image | image_url: width: 1920
+    assign video_poster_url = collection.image | image_url: width: 750
   elsif background_image != blank
-    assign hero_image = background_image | asset_url
+    assign hero_image = background_image | image_url: width: 1920
+    assign video_poster_url = background_image | image_url: width: 750
+  elsif poster_file != blank
+    assign poster_base = poster_file | file_url
+    assign hero_image = poster_base | append: '&width=1920'
+    assign video_poster_url = poster_base | append: '&width=750'
   endif
 -%}
 {%- if video_file == blank -%}
@@ -29,7 +35,7 @@
 {%- else -%}
   <div class="wb-videobg" style="background-image: url({{ hero_image }})">
     <div class="wb-videograin"></div>
-    <video autoplay muted loop id="wb-video">
+    <video autoplay muted loop id="wb-video"{% if video_poster_url %} poster="{{ video_poster_url }}"{% endif %}>
       <source src="{{ video_file | asset_url }}" type="video/mp4">
     </video>
   </div>
