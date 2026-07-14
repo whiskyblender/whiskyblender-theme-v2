@@ -27,14 +27,27 @@
     {% endif %}
 
     {% render 'meta-tags' %}
+    {%- if template.name == 'index' -%}
+      {%- assign _hero_bg = sections['main_landing'].settings.background_image -%}
+      {%- if _hero_bg -%}
+        <link rel="preload" as="image"
+              href="{{ _hero_bg | image_url: width: 1200 }}"
+              imagesrcset="{{ _hero_bg | image_url: width: 750 }} 750w, {{ _hero_bg | image_url: width: 1200 }} 1200w, {{ _hero_bg | image_url: width: 1920 }} 1920w"
+              imagesizes="100vw"
+              fetchpriority="high">
+      {%- endif -%}
+    {%- endif -%}
     {{ 'glide.js' | asset_url | script_tag }}
-    {{ 'glide.core.css' | asset_url | stylesheet_tag }}
-    {{ 'glide.custom.css' | asset_url | stylesheet_tag }}
+    <link rel="preload" href="{{ 'glide.core.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>{{ 'glide.core.css' | asset_url | stylesheet_tag }}</noscript>
+    <link rel="preload" href="{{ 'glide.custom.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>{{ 'glide.custom.css' | asset_url | stylesheet_tag }}</noscript>
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-global.css' | asset_url | stylesheet_tag }}
     {{ 'wb-fonts.css' | asset_url | stylesheet_tag }}
-    {{ 'wb-footer.css' | asset_url | stylesheet_tag }}
+    <link rel="preload" href="{{ 'wb-footer.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>{{ 'wb-footer.css' | asset_url | stylesheet_tag }}</noscript>
     {{ 'wb-header.css' | asset_url | stylesheet_tag }}
     {{ 'wb-home.css' | asset_url | stylesheet_tag }}
     {{ 'wb-products.css' | asset_url | stylesheet_tag }}

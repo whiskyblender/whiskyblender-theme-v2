@@ -25,12 +25,12 @@
     {%- else -%}
       <div class="wb-videobg" style="background-image: url({{ hero_image }})">
         <div class="wb-videograin"></div>
-        <video muted loop playsinline id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %} data-video-src="{{ video_src }}">
+        <video muted loop playsinline fetchpriority="high" id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %} data-video-src="{{ video_src }}">
         </video>
         {%- if section.settings.badge_show and section.settings.badge_url != blank -%}
           <a href="{{ section.settings.badge_url }}" class="wb-birthday-badge" aria-label="{{ section.settings.badge_aria_label | default: 'Read our birthday blog post' }}">
             {%- if section.settings.badge_image != blank -%}
-              <img class="wb-badge-image" src="{{ section.settings.badge_image | image_url: width: 360 }}" alt="" loading="eager">
+              <img class="wb-badge-image" src="{{ section.settings.badge_image | image_url: width: 360 }}" alt="" loading="eager" width="360" height="360">
             {%- endif -%}
           </a>
         {%- endif -%}
