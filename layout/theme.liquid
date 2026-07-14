@@ -38,14 +38,14 @@
       {%- endif -%}
     {%- elsif request.page_type == 'page' and page.handle == 'about' -%}
       <link rel="preload" as="image"
-            href="{{ 'wb-cask-heids.jpg' | file_url }}&width=1200"
-            imagesrcset="{{ 'wb-cask-heids.jpg' | file_url }}&width=750 750w, {{ 'wb-cask-heids.jpg' | file_url }}&width=1200 1200w, {{ 'wb-cask-heids.jpg' | file_url }}&width=1920 1920w"
+            href="//whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1779876342&width=1200"
+            imagesrcset="//whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1779876342&width=750 750w, //whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1779876342&width=1200 1200w, //whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1779876342&width=1920 1920w"
             imagesizes="100vw"
             fetchpriority="high">
     {%- elsif request.page_type == 'page' and page.handle == 'gifts' -%}
       <link rel="preload" as="image"
-            href="{{ 'wb-whisky-bow.jpg' | file_url }}&width=1200"
-            imagesrcset="{{ 'wb-whisky-bow.jpg' | file_url }}&width=750 750w, {{ 'wb-whisky-bow.jpg' | file_url }}&width=1200 1200w, {{ 'wb-whisky-bow.jpg' | file_url }}&width=1920 1920w"
+            href="//whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905&width=1200"
+            imagesrcset="//whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905&width=750 750w, //whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905&width=1200 1200w, //whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905&width=1920 1920w"
             imagesizes="100vw"
             fetchpriority="high">
     {%- endif -%}
