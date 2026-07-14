@@ -2,6 +2,24 @@
   margin-top: 0;
 }
 
+/* Reserve vertical space before JS injects cards — prevents teardown CLS.
+   Values sized for 5 options (1/2/3 col layout). Adjust if option count changes. */
+#wb-lab-flavours {
+  min-height: 1500px;
+}
+
+@media screen and (min-width: 600px) {
+  #wb-lab-flavours {
+    min-height: 950px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #wb-lab-flavours {
+    min-height: 750px;
+  }
+}
+
 @keyframes wb-hint-bob {
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-6px); }
