@@ -1,5 +1,9 @@
 {%- liquid
-  if collection.image != blank
+  if template.name == 'index'
+    assign poster_base = '//whiskyblender.com/cdn/shop/files/wb-index.jpg?v=1779876342'
+    assign hero_image = poster_base | append: '&width=1920'
+    assign video_poster = poster_base | append: '&width=750'
+  elsif collection.image != blank
     assign hero_image = collection.image | image_url: width: 1920
     assign video_poster = collection.image | image_url: width: 750
   elsif section.settings.background_image != blank
@@ -16,6 +20,12 @@
   endif
   assign hero_title = section.settings.title | default: collection.title | default: page.title
 -%}
+{%- if video_poster or hero_image -%}
+<style>
+  .wb-videobg, .wb-imagebg { background-image: url({{ video_poster | default: hero_image }}); }
+  @media (min-width: 768px) { .wb-videobg, .wb-imagebg { background-image: url({{ hero_image | default: video_poster }}); } }
+</style>
+{%- endif -%}
 
 <section class="wb-overflow-hidden-x">
   <div class="wb-container">
@@ -24,14 +34,14 @@
       {%- assign video_src = section.settings.video_file | asset_url -%}
     {%- endif -%}
     {%- if video_src == blank -%}
-      <div class="wb-imagebg" style="background-image: url({{ hero_image }})">
+      <div class="wb-imagebg">
         <div class="wb-padding">
           <h1 class="wb-medium-heading">{{ hero_title }}</h1>
           <p class="wb-collection-sub">{{ section.settings.description }}</p>
         </div>
       </div>
     {%- else -%}
-      <div class="wb-videobg" style="background-image: url({{ hero_image }})">
+      <div class="wb-videobg">
         <div class="wb-videograin"></div>
         <video muted loop playsinline fetchpriority="high" id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %} data-video-src="{{ video_src }}">
         </video>
