@@ -62,19 +62,14 @@
             if (vid.src) return;
             vid.src = src;
             vid.play().catch(function () {});
+            ['pointermove', 'touchstart', 'scroll'].forEach(function (e) {
+              document.removeEventListener(e, startVideo);
+            });
           }
-          function scheduleStart() {
-            if (window.requestIdleCallback) {
-              requestIdleCallback(startVideo, { timeout: 1500 });
-            } else {
-              setTimeout(startVideo, 1500);
-            }
-          }
-          if (document.readyState === 'complete') {
-            scheduleStart();
-          } else {
-            window.addEventListener('load', scheduleStart, { once: true });
-          }
+          var opts = { once: true, passive: true };
+          document.addEventListener('pointermove', startVideo, opts);
+          document.addEventListener('touchstart', startVideo, opts);
+          document.addEventListener('scroll', startVideo, opts);
         })();
       </script>
     {%- endif -%}
