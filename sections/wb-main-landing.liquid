@@ -1,8 +1,7 @@
 {%- liquid
   if template.name == 'index'
-    assign poster_base = '//whiskyblender.com/cdn/shop/files/wb-index.jpg?v=1779876342'
-    assign hero_image = poster_base | append: '&width=1920'
-    assign video_poster = poster_base | append: '&width=750'
+    assign hero_image = images['wb-index.jpg'] | image_url: width: 1920
+    assign video_poster = images['wb-index.jpg'] | image_url: width: 750
   elsif collection.image != blank
     assign hero_image = collection.image | image_url: width: 1920
     assign video_poster = collection.image | image_url: width: 750
@@ -10,13 +9,11 @@
     assign hero_image = section.settings.background_image | image_url: width: 1920
     assign video_poster = section.settings.background_image | image_url: width: 750
   elsif page.handle == 'about'
-    assign poster_base = '//whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1784069412'
-    assign hero_image = poster_base | append: '&width=1920'
-    assign video_poster = poster_base | append: '&width=750'
+    assign hero_image = images['wb-cask-heids.jpg'] | image_url: width: 1920
+    assign video_poster = images['wb-cask-heids.jpg'] | image_url: width: 750
   elsif page.handle == 'gifts'
-    assign poster_base = '//whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905'
-    assign hero_image = poster_base | append: '&width=1920'
-    assign video_poster = poster_base | append: '&width=750'
+    assign hero_image = images['wb-whisky-bow.jpg'] | image_url: width: 1920
+    assign video_poster = images['wb-whisky-bow.jpg'] | image_url: width: 750
   endif
   assign hero_title = section.settings.title | default: collection.title | default: page.title
 -%}

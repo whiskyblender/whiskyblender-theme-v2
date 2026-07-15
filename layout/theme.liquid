@@ -29,18 +29,18 @@
     {% render 'meta-tags' %}
     {%- if template.name == 'index' -%}
       <link rel="preload" as="image" fetchpriority="high"
-            href="//whiskyblender.com/cdn/shop/files/wb-index.jpg?v=1779876342&width=1920"
-            imagesrcset="//whiskyblender.com/cdn/shop/files/wb-index.jpg?v=1779876342&width=750 750w, //whiskyblender.com/cdn/shop/files/wb-index.jpg?v=1779876342&width=1920 1920w"
+            href="{{ images['wb-index.jpg'] | image_url: width: 1920 }}"
+            imagesrcset="{{ images['wb-index.jpg'] | image_url: width: 750 }} 750w, {{ images['wb-index.jpg'] | image_url: width: 1920 }} 1920w"
             imagesizes="100vw">
     {%- elsif request.page_type == 'page' and page.handle == 'about' -%}
       <link rel="preload" as="image" fetchpriority="high"
-            href="//whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1784069412&width=1920"
-            imagesrcset="//whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1784069412&width=750 750w, //whiskyblender.com/cdn/shop/files/wb-cask-heids.jpg?v=1784069412&width=1920 1920w"
+            href="{{ images['wb-cask-heids.jpg'] | image_url: width: 1920 }}"
+            imagesrcset="{{ images['wb-cask-heids.jpg'] | image_url: width: 750 }} 750w, {{ images['wb-cask-heids.jpg'] | image_url: width: 1920 }} 1920w"
             imagesizes="100vw">
     {%- elsif request.page_type == 'page' and page.handle == 'gifts' -%}
       <link rel="preload" as="image" fetchpriority="high"
-            href="//whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905&width=1920"
-            imagesrcset="//whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905&width=750 750w, //whiskyblender.com/cdn/shop/files/wb-whisky-bow.jpg?v=1779875905&width=1920 1920w"
+            href="{{ images['wb-whisky-bow.jpg'] | image_url: width: 1920 }}"
+            imagesrcset="{{ images['wb-whisky-bow.jpg'] | image_url: width: 750 }} 750w, {{ images['wb-whisky-bow.jpg'] | image_url: width: 1920 }} 1920w"
             imagesizes="100vw">
     {%- endif -%}
     {{ 'glide.js' | asset_url | script_tag }}
