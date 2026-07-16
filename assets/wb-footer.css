@@ -75,6 +75,8 @@
   height: auto;
 }
 
+.wb-footer-newsletter { display: none; }
+
 .wb-newsletter-field {
   display: flex;
   gap: 8px;
