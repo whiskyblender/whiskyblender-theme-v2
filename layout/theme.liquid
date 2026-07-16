@@ -60,6 +60,9 @@
     <noscript>{{ 'wb-products.css' | asset_url | stylesheet_tag }}</noscript>
     {{ 'counter-dawn.css' | asset_url | stylesheet_tag }}
     {{ 'wb-cookies.css' | asset_url | stylesheet_tag }}
+    <style>
+      html:has(#wb-age-gate.wb-age-gate--visible:not(.wb-age-gate--hidden)) #shopify-pc__banner { z-index: 99997 !important; }
+    </style>
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
