@@ -75,6 +75,22 @@
   height: auto;
 }
 
+.wb-newsletter-field {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.wb-newsletter-field .field__input {
+  flex: 1;
+  min-width: 180px;
+}
+
+.wb-newsletter-success { color: #169776; margin-top: 8px; font-size: 13px; }
+.wb-newsletter-error { color: #cc4444; margin-top: 8px; font-size: 13px; }
+
 @media screen and (min-width: 600px) {
   .wb-footercolumn {
     padding: 20px 30px 0 30px;
