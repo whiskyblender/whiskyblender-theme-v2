@@ -6,4 +6,8 @@
   {%- if product.metafields.custom.abv.value -%}
     <li>{{ product.metafields.custom.abv.value }} abv.</li>
   {%- endif -%}
+  {%- assign _uv = product.selected_or_first_available_variant -%}
+  {%- if _uv.unit_price_measurement != nil -%}
+    <li>{{ _uv.unit_price | money }}/{% if _uv.unit_price_measurement.reference_value != 1 %}{{ _uv.unit_price_measurement.reference_value }}{% endif %}{{ _uv.unit_price_measurement.reference_unit }}</li>
+  {%- endif -%}
 </ul>
