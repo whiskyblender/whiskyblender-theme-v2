@@ -1,0 +1,120 @@
+{%- liquid
+  assign blend_code   = metaobject.blend_code.value
+  assign blend_title  = metaobject.blend_title.value
+  assign blend_author = metaobject.blend_author.value
+  assign recipe       = metaobject.recipe.value | parse_json
+
+  assign share_url  = canonical_url
+  assign lab_url    = 'https://whiskyblender.com/pages/the-lab?blend=' | append: blend_code
+  assign bottle_url = 'https://whiskyblender.com/pages/custom-options?blend=' | append: blend_code
+
+  assign wa_text = blend_title | append: ' — ' | append: share_url | url_encode
+  assign wa_url  = 'https://wa.me/?text=' | append: wa_text
+  assign fb_url  = 'https://www.facebook.com/sharer/sharer.php?u=' | append: share_url | url_encode
+  assign x_url   = 'https://x.com/intent/tweet?text=' | append: blend_title | url_encode | append: '&url=' | append: share_url | url_encode
+-%}
+
+<div class="wb-container wb-blend-page">
+  <div class="wb-padding">
+    <div class="page-width page-width--narrow">
+
+      <p class="wb-blend-byline">A blend by <strong>{{ blend_author | escape }}</strong></p>
+      <h1 class="wb-large-heading wb-blend-title">{{ blend_title | escape }}</h1>
+      <p class="wb-blend-code">{{ blend_code | escape }}</p>
+
+      {%- if recipe and recipe.size > 0 -%}
+        <div class="wb-blend-recipe">
+          {%- for item in recipe -%}
+            <div class="wb-blend-row">
+              <span class="wb-blend-name">{{ item.name | escape }}</span>
+              <div class="wb-blend-track">
+                <div class="wb-blend-bar" style="width: {{ item.amount }}%; background: {{ item.colour | default: '#b88d60' | escape }}"></div>
+              </div>
+              <span class="wb-blend-pct">{{ item.amount }}%</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="wb-blend-divider"></div>
+
+      <div class="wb-blend-actions">
+        <a href="{{ lab_url }}" class="wb-button wb-secondary-button">Tweak in the Lab</a>
+        <a href="{{ bottle_url }}" class="wb-button wb-primary-button">Bottle It</a>
+      </div>
+
+      <p class="wb-blend-share-label">Share this blend</p>
+      <div class="wb-blend-share-row">
+        <button class="wb-blend-share-btn" id="wb-blend-copy" data-url="{{ share_url | escape }}">Copy link</button>
+        <a href="{{ wa_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-btn">WhatsApp</a>
+        <a href="{{ fb_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-btn">Facebook</a>
+        <a href="{{ x_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-btn">X&nbsp;/&nbsp;Twitter</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .wb-blend-page { padding-top: 48px; padding-bottom: 80px; }
+  .wb-blend-byline { font-size: 13px; color: #888; margin-bottom: 10px; }
+  .wb-blend-byline strong { color: #333; font-weight: 600; }
+  .wb-blend-title { margin-bottom: 8px; }
+  .wb-blend-code { font-size: 12px; color: #bbb; letter-spacing: .1em; margin-bottom: 48px; }
+  .wb-blend-recipe { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+  .wb-blend-row { display: grid; grid-template-columns: minmax(120px, 1fr) 2fr 42px; align-items: center; gap: 14px; }
+  .wb-blend-name { font-size: 14px; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wb-blend-track { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+  .wb-blend-bar { height: 100%; border-radius: 3px; min-width: 4px; }
+  .wb-blend-pct { font-size: 12px; color: #999; text-align: right; }
+  .wb-blend-divider { height: 1px; background: #eee; margin-bottom: 40px; }
+  .wb-blend-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+  .wb-blend-share-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
+  .wb-blend-share-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .wb-blend-share-btn {
+    background: transparent;
+    border: 1px solid #ddd;
+    color: #888;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color .2s, color .2s;
+  }
+  .wb-blend-share-btn:hover { border-color: #999; color: #333; }
+  .wb-blend-share-btn--copied { border-color: #169776; color: #169776; }
+  @media (max-width: 480px) {
+    .wb-blend-row { grid-template-columns: 1fr 1.2fr 36px; gap: 10px; }
+  }
+</style>
+
+<script>
+(function () {
+  var btn = document.getElementById('wb-blend-copy');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var url = btn.getAttribute('data-url');
+    if (navigator.clipboard && url) {
+      navigator.clipboard.writeText(url).then(function () {
+        btn.textContent = 'Copied!';
+        btn.classList.add('wb-blend-share-btn--copied');
+        setTimeout(function () {
+          btn.textContent = 'Copy link';
+          btn.classList.remove('wb-blend-share-btn--copied');
+        }, 2000);
+      });
+    }
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Blend showcase",
+  "target": "section"
+}
+{% endschema %}

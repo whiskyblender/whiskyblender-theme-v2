@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "metaobject-blend",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
