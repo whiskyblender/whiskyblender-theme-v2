@@ -148,8 +148,6 @@
   var input = document.getElementById('wb-lab-code-input');
   var btn   = document.getElementById('wb-lab-code-go');
   if (!input || !btn) return;
-  var dest  = {{ section.settings.bottle_options_url | json }};
-
   input.addEventListener('input', function () {
     btn.disabled = input.value.trim().length < 6;
   });
@@ -157,7 +155,7 @@
   function go() {
     var code = input.value.trim().toUpperCase();
     if (code.length >= 6) {
-      window.location.href = dest + '?blend=' + encodeURIComponent(code);
+      window.location.href = 'https://whiskyblender.com/products/custom-whisky-500ml-flat?blend=' + encodeURIComponent(code);
     }
   }
 
