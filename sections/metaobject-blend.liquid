@@ -2,7 +2,10 @@
   assign blend_code   = metaobject.blend_code.value
   assign blend_title  = metaobject.blend_title.value
   assign blend_author = metaobject.blend_author.value
-  assign recipe       = metaobject.recipe.value | parse_json
+  assign recipe_raw   = metaobject.recipe.value
+  if recipe_raw != blank
+    assign recipe = recipe_raw | parse_json
+  endif
 
   assign share_url  = canonical_url
   assign lab_url    = 'https://whiskyblender.com/pages/the-lab?blend=' | append: blend_code
