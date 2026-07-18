@@ -75,23 +75,48 @@
   height: auto;
 }
 
-.wb-footer-newsletter { display: none; }
-
 .wb-newsletter-field {
   display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 4px;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2px dotted #555;
+  transition: border-color 0.2s, border-style 0.2s;
 }
 
-.wb-newsletter-field .field__input {
+.wb-newsletter-field:focus-within {
+  border-bottom-color: #169776;
+  border-bottom-style: solid;
+}
+
+.wb-newsletter-field input {
   flex: 1;
-  min-width: 180px;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  line-height: 22px;
+  color: #ccc;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
 }
 
-.wb-newsletter-success { color: #169776; margin-top: 8px; font-size: 13px; }
-.wb-newsletter-error { color: #cc4444; margin-top: 8px; font-size: 13px; }
+.wb-newsletter-field input::placeholder { color: #555; }
+
+.wb-newsletter-field button {
+  all: unset;
+  color: #999;
+  font-family: "Raleway", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.wb-newsletter-field button:hover { color: #fff; }
+
+.wb-newsletter-success { color: #169776; margin-top: 10px; font-size: 13px; }
+.wb-newsletter-error { color: #cc4444; margin-top: 10px; font-size: 13px; }
 
 @media screen and (min-width: 600px) {
   .wb-footercolumn {

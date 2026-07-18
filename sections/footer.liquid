@@ -46,9 +46,28 @@
         width="120"
         height="40"
       >
+      <p><strong>Please enjoy responsibly&mdash;or no at aw!</strong></p>
     </div>
     <div class="wb-footercolumn wb-footerblurb">
-      <p><strong>Please enjoy responsibly&mdash;or no at aw!</strong></p>
+      <div class="wb-footer-signup__inner">
+        {%- form 'customer', id: 'FooterNewsletter' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          {%- if form.posted_successfully? -%}
+            <p class="wb-newsletter-success">You're in. Watch yer inbox.</p>
+          {%- else -%}
+            <div class="wb-newsletter-field">
+              <input type="email" name="contact[email]" id="FooterNewsletterEmail"
+                     value="{{ customer.email }}"
+                     autocomplete="email" required placeholder="your@email.com"
+                     aria-label="Email address">
+              <button type="submit">Subscribe &#8594;</button>
+            </div>
+            {%- if form.errors -%}
+              <p class="wb-newsletter-error">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</p>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endform -%}
+      </div>
     </div>
     <div class="wb-footercolumn">
       <ul class="wb-socials">
@@ -78,26 +97,6 @@
           ></a>
         </li>
       </ul>
-    </div>
-    <div class="wb-footercolumn wb-footer-newsletter">
-      <p class="wb-tiny-heading">Nae spam, just drams</p>
-      {%- form 'customer', id: 'FooterNewsletter' -%}
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        {%- if form.posted_successfully? -%}
-          <p class="wb-newsletter-success">You're in. Watch yer inbox.</p>
-        {%- else -%}
-          <div class="wb-newsletter-field">
-            <input type="email" name="contact[email]" id="FooterNewsletterEmail"
-                   class="field__input" value="{{ customer.email }}"
-                   autocomplete="email" required placeholder="your@email.com"
-                   aria-label="Email address">
-            <button type="submit" class="wb-button wb-primary-button">Subscribe</button>
-          </div>
-          {%- if form.errors -%}
-            <p class="wb-newsletter-error">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</p>
-          {%- endif -%}
-        {%- endif -%}
-      {%- endform -%}
     </div>
     <div class="wb-footercolumn wb-copyright">
       <p>
