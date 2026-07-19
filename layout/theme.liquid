@@ -19,11 +19,10 @@
       Homepage title/description are hardcoded here (and in snippets/meta-tags.liquid,
       which has its own scope) — the admin Preferences fields are ignored for the homepage.
     {%- endcomment -%}
-    <meta name="wb-debug" content="t:[{{ template }}] tn:[{{ template.name }}] ts:[{{ template.suffix }}] td:[{{ template.directory }}] pt:[{{ request.page_type }}] mo:[{{ metaobject.blend_title.value }}] mo2:[{{ metaobject.system.type }}]">
     {%- if template.name == 'index' -%}
       {%- assign page_title = 'Whisky Blender | Blend Your Own Personalised Scotch Whisky' -%}
       {%- assign page_description = 'The bottle of whisky nobody else has — blend, name and label your own personalised Scotch. Hand-picked casks, bottled in Scotland. Free UK shipping.' -%}
-    {%- elsif template.name == 'metaobject' and template.suffix == 'wb_blend' and metaobject.blend_title.value != blank -%}
+    {%- elsif template.directory == 'metaobject' and template.name == 'wb_blend' and metaobject.blend_title.value != blank -%}
       {%- assign page_title = metaobject.blend_title.value | append: ' - A Whisky Blend by ' | append: metaobject.blend_author.value | append: ' | Whisky Blender' -%}
       {%- if metaobject.recipe.value != blank -%}
         {%- assign wb_blend_recipe = metaobject.recipe.value | parse_json -%}
