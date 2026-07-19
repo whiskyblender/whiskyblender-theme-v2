@@ -133,7 +133,7 @@
 {%- endstyle -%}
 
 {% paginate search.results by 24 %}
-  <div class="wb-container template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %}">
+  <div class="wb-container wb-first-item template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %}">
     <div class="wb-padding template-search__header {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       <h1 class="wb-medium-heading h2">
         {%- if search.performed -%}
@@ -142,35 +142,35 @@
           {{- 'general.search.search' | t -}}
         {%- endif -%}
       </h1>
+      <p class="wb-noblend-codelabel">Shop products</p>
+      <p class="wb-search-blend-hint">Search bottles, gifts, accessories and more &mdash; not custom blends, that&rsquo;s the second input below.</p>
       <div class="wb-search template-search__search">
         <main-search>
           <form action="{{ routes.search_url }}" method="get" role="search" class="search">
-            <div class="field">
-              <input
-                class="search__input field__input"
-                id="Search-In-Template"
-                type="search"
-                name="q"
-                value="{{ search.terms | escape }}"
-                placeholder="{{ 'general.search.search' | t }}"
-              >
-              <label class="field__label" for="Search-In-Template">Search term</label>
-              <input name="options[prefix]" type="hidden" value="last">
+            <div class="wb-search-row">
+              <div class="field">
+                <input
+                  class="search__input field__input"
+                  id="Search-In-Template"
+                  type="search"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                  placeholder="eg. Wee Man, Scotsman, Fanny"
+                >
+                <label class="field__label" for="Search-In-Template">Search term</label>
+                <input name="options[prefix]" type="hidden" value="last">
 
-              <button
-                type="reset"
-                class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
-                aria-label="{{ 'general.search.reset' | t }}"
-              >
-                <span class="svg-wrapper">
-                  {{- 'icon-reset.svg' | inline_asset_content -}}
-                </span>
-              </button>
-              <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-                <span class="svg-wrapper">
-                  {{- 'icon-search.svg' | inline_asset_content -}}
-                </span>
-              </button>
+                <button
+                  type="reset"
+                  class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
+                  aria-label="{{ 'general.search.reset' | t }}"
+                >
+                  <span class="svg-wrapper">
+                    {{- 'icon-reset.svg' | inline_asset_content -}}
+                  </span>
+                </button>
+              </div>
+              <button type="submit" class="wb-button wb-primary-button" id="wb-search-go"{% if search.terms == blank %} disabled{% endif %}>Go</button>
             </div>
           </form>
         </main-search>
@@ -372,17 +372,14 @@
         </div>
       </div>
     {%- endif -%}
-    </div>
-
-    <div class="wb-padding wb-search-blend-wrap">
       <div class="wb-noblend-divider">or</div>
-      <p class="wb-noblend-codelabel">Have a blend code?</p>
-      <p class="wb-search-blend-hint">Enter a code from the blending lab to pull up the full recipe.</p>
+      <p class="wb-noblend-codelabel">Got a blend code?</p>
+      <p class="wb-search-blend-hint">Enter the code from your custom blend to pick it up and bottle it.</p>
       <div class="wb-noblend-form">
         <input
           type="text"
           id="wb-search-blend-input"
-          placeholder="WB123456"
+          placeholder="eg. WB123456"
           maxlength="10"
           autocomplete="off"
           autocapitalize="characters"
@@ -396,13 +393,22 @@
 {% endpaginate %}
 
 <style>
-  .wb-search-blend-wrap { padding-top: 0; padding-bottom: 48px; }
-  .wb-search-blend-wrap .wb-noblend-divider { margin-top: 0; }
-  .wb-search-blend-hint { margin: 0 0 16px; font-size: 15px; color: rgba(0,0,0,0.55); }
+  .template-search__header .wb-noblend-divider { margin-top: 0; }
+  .wb-search-blend-hint { margin: 0 0 16px; font-size: 16px; line-height: 24px; color: rgba(0,0,0,0.55); }
   .wb-search-blend-error { min-height: 1.4em; margin: 8px 0 0; font-size: 14px; color: #c00; }
 </style>
 
 <script>
+(function () {
+  var searchInput = document.getElementById('Search-In-Template');
+  var searchBtn   = document.getElementById('wb-search-go');
+  if (searchInput && searchBtn) {
+    searchInput.addEventListener('input', function () {
+      searchBtn.disabled = searchInput.value.trim().length < 1;
+    });
+  }
+})();
+
 (function () {
   var input = document.getElementById('wb-search-blend-input');
   var btn   = document.getElementById('wb-search-blend-go');

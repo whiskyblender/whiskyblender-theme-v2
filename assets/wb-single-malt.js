@@ -15,6 +15,11 @@
     var productSlug  = loader.getAttribute('data-product-slug') || 'singlemalt';
     var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
     var bottleSize   = loader.getAttribute('data-bottle-size') || '';
+    if (!bottleSize) {
+      var tpl = loader.getAttribute('data-template') || '';
+      if (tpl.indexOf('custom-200') !== -1) bottleSize = '200ml';
+      else if (tpl.indexOf('custom-50') !== -1) bottleSize = '50ml';
+    }
     var labelPage    = loader.getAttribute('data-label-page') || '/pages/label';
     var cdn          = loader.getAttribute('data-cdn') || '';
     var av           = loader.getAttribute('data-av') || '1';
@@ -64,21 +69,26 @@
 
     /* ── Preview utilities ──────────────────────────────────────────────── */
 
-    var PREVIEW_PAGE_W  = 794;
-    var PREVIEW_PAGE_H  = 432;
-    var PREVIEW_CROP_H  = 560;
-    var PREVIEW_LABEL_W = 552;
-    var PREVIEW_LABEL_H = 303;
-    var PREVIEW_LABEL_X = (PREVIEW_PAGE_W - PREVIEW_LABEL_W) / 2; // 121px from page left
-    var PREVIEW_LABEL_Y = 128; // px from page top
-    // vertical offset to centre label in page: page centre - label centre
-    var PREVIEW_CENTER_TY = (PREVIEW_PAGE_H / 2) - (PREVIEW_LABEL_Y + PREVIEW_LABEL_H / 2); // -63.5
+    var is200ml = (productSlug === 'customblend' && bottleSize === '200ml');
 
-    var PREVIEW_D = {
+    var PREVIEW_PAGE_W  = 794;
+    var PREVIEW_PAGE_H  = is200ml ? 325  : 432;
+    var PREVIEW_LABEL_W = is200ml ? 427  : 552;
+    var PREVIEW_LABEL_H = is200ml ? 252  : 303;
+    var PREVIEW_LABEL_Y = is200ml ? 73   : 128;
+    var PREVIEW_LABEL_X = (PREVIEW_PAGE_W - PREVIEW_LABEL_W) / 2;
+    var PREVIEW_CENTER_TY = (PREVIEW_PAGE_H / 2) - (PREVIEW_LABEL_Y + PREVIEW_LABEL_H / 2);
+
+    var PREVIEW_D = is200ml ? {
+      sideLabelTop: 140, sideLabelLeft: 108,
+      panelLength: 193,  panelTop: -33,
+      tallFont: 12,      domainFont: 7,
+      scCaskLeft: 102,   svgW: 168,   svgH: 28,
+    } : {
       sideLabelTop: 184, sideLabelLeft: 142,
-      panelLength: 232, panelTop: 4,
-      tallFont: 14, domainFont: 9,
-      scCaskLeft: 102, svgW: 202, svgH: 34,
+      panelLength: 232,  panelTop: 4,
+      tallFont: 14,      domainFont: 9,
+      scCaskLeft: 102,   svgW: 202,   svgH: 34,
     };
 
     var SINGLECASK_SVG_PATHS = '<path d="M.12,15.12l1.73-3.07.15.06c-.88,6.92,1.52,9.69,4.31,9.81,2.76.12,4.83-2.79,4.04-5.77C9.2,11.75.36,10.57.36,5.16.36,2.13,3.19,0,6.16,0,9.32,0,11.66,1.76,12.21,5.13l-1.52,3.07-.15-.06c.21-4.43-1.46-7.23-4.22-7.44-1.91-.15-4.52,1.21-3.98,4.46.7,4.16,10.05,5.65,10.05,11.3,0,4.19-3.49,6.16-6.13,6.16-3.43,0-6.95-2.61-6.13-7.5Z"/><path d="M13.03,22.01c.82-.39,1.43-1.24,1.43-2.58V3.19c0-1.09-.49-2.16-1.43-2.58v-.15h4.77v.15c-.97.43-1.43,1.49-1.43,2.58v16.25c0,1.34.67,2.19,1.43,2.58v.15h-4.77v-.15Z"/><path d="M19.28,22.01c.85-.46,1.37-1.37,1.37-2.58V3.19c0-1.25-.52-2.16-1.37-2.58v-.15h4.65v.15c-.85.43-1.37,1.34-1.37,2.58v2.64C23.69,1.97,25.69,0,28.36,0c3.8,0,5.77,3.13,6.13,7.29.27,3.28-.61,7.83-2.43,12.15-.46,1.06-.15,1.97.97,2.58v.15h-4.52v-.15c.39-.12,1-1.03,1.7-2.58,1.76-3.89,2.52-8.2,2.34-11.42-.21-3.8-1.03-7.29-4.19-7.32-4.28-.03-5.8,8.87-5.8,12.09v6.65c0,1.21.52,2.12,1.37,2.58v.15h-4.65v-.15Z"/><path d="M35.53,11.42C35.53,4.62,38.23,0,42.6,0c2,0,3.7.88,4.74,2.13l-.82,3.07-.15.06c-.42-3.13-2.12-4.56-3.76-4.56-3.07,0-4.46,4.98-4.92,8.53h12.66v.15c-.76.4-1.43,1.18-1.43,2.52v6.16c-1,2.73-2.79,4.55-5.98,4.55-4.65,0-7.41-4.49-7.41-11.2ZM46.98,16.85v-3.61c0-3.13-.7-3.25-6.13-3.25h-3.25c-.03.55-.06,1.06-.06,1.49,0,6.13,2.22,10.45,5.41,10.45,1.91,0,4.04-1.85,4.04-5.07Z"/><path d="M62.31,17.61l-1.73,4.55h-10.11v-.15c.82-.39,1.43-1.24,1.43-2.58V3.19c0-1.09-.49-2.16-1.43-2.58v-.15h4.77v.15c-.97.43-1.43,1.49-1.43,2.58v16.25c0,.39.06.76.15,1.06.3.64,1,.97,1.82.97,2.64,0,4.8-1,6.32-3.92l.21.06Z"/><path d="M62.22,11.39C62.22,4.56,65.13,0,69.51,0c3.25,0,5.13,1.76,6.07,5.13l-1.52,3.07-.15-.06c.21-4.43-1.64-7.44-4.46-7.44-2.67,0-4.65,3.34-5.1,8.5h3.49c1.09,0,2.22-.49,2.64-1.43h.15v3.64h-.15c-.43-.97-1.55-1.4-2.64-1.4h-3.55c-.03.46-.06.91-.06,1.37-.06,6.32,2.07,10.54,5.28,10.54,2.82,0,4.68-3.01,4.46-7.44l.15-.06,1.52,3.07c-.94,3.37-2.82,5.13-6.07,5.13-4.43,0-7.35-4.49-7.35-11.23Z"/><path d="M81.78,11.39C81.78,4.56,84.69,0,89.06,0c3.25,0,5.13,1.76,6.07,5.13l-1.52,3.07-.15-.06c.21-4.43-1.64-7.44-4.46-7.44-3.04,0-5.16,4.28-5.22,10.69-.06,6.32,2.06,10.54,5.28,10.54,2.82,0,4.68-3.01,4.46-7.44l.15-.06,1.52,3.07c-.94,3.37-2.82,5.13-6.07,5.13-4.43,0-7.35-4.49-7.35-11.23Z"/><path d="M94.56,22.01c.39-.12,1.4-1.21,1.91-3.34l3.64-15.15c.24-1.73-.58-2.55-1.34-2.92v-.15h4.65l4.37,18.19c.52,2.13,1.52,3.25,1.91,3.37v.15h-5.16v-.15c.82-.39,1.73-1.34,1.25-3.34l-.91-3.83v.06h-6.47l-.88,3.77c-.49,2,.42,2.95,1.25,3.34v.15h-4.22v-.15ZM104.7,14.06l-3.04-12.75-3.04,12.75h6.07Z"/><path d="M109.13,15.12l1.73-3.07.15.06c-.88,6.92,1.52,9.69,4.31,9.81,2.76.12,4.83-2.79,4.04-5.77-1.15-4.4-9.99-5.59-9.99-10.99C109.38,2.13,112.2,0,115.18,0c3.16,0,5.5,1.76,6.04,5.13l-1.52,3.07-.15-.06c.21-4.43-1.46-7.23-4.22-7.44-1.91-.15-4.52,1.21-3.98,4.46.7,4.16,10.05,5.65,10.05,11.3,0,4.19-3.49,6.16-6.13,6.16-3.43,0-6.95-2.61-6.13-7.5Z"/><path d="M122.04,22.01c.82-.39,1.43-1.24,1.43-2.58V3.19c0-1.09-.49-2.16-1.43-2.58v-.15h4.77v.15c-.97.43-1.43,1.49-1.43,2.58v8.56l6.16-8.56c1.12-1.55-.18-2.55-.27-2.58v-.15h4.25v.15c-.21.09-1.31.61-2.46,2.16l-3.89,5.25,5.1,10.66c1,2.1,1.79,3.01,2.16,3.34v.15h-4.71v-.15c.76-.39,1.55-1.06.61-3.04l-4.4-9.26-2.55,3.46v6.26c0,1.34.61,2.19,1.37,2.58v.15h-4.71v-.15Z"/>';
@@ -159,7 +169,7 @@
 
       var pageEl = previewContainer.querySelector('.wbp-page');
       if (pageEl) {
-        pageEl.className = 'wbp-page size50 ' + productSlug;
+        pageEl.className = 'wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug;
         if (barsUrl && !isBlend) pageEl.style.backgroundImage = 'url(' + barsUrl + ')';
       }
 
@@ -167,11 +177,12 @@
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
         var artworkProduct = productSlug === 'singlecask' ? 'singlemalt' : productSlug;
-        var artworkUrl = cdn + 'wb-' + artworkProduct + '-' + variantSlug + '-500ml.jpg?v=' + av;
-        var artTop  = isBlend ? '-8px'  : '4px';
-        var artLeft = isBlend ? '102px' : '-9px';
-        var artW    = isBlend ? '458px' : '570px';
-        var artH    = isBlend ? '244px' : '232px';
+        var artworkSize = isBlend ? bottleSize || '500ml' : '500ml';
+        var artworkUrl = cdn + 'wb-' + artworkProduct + '-' + variantSlug + '-' + artworkSize + '.jpg?v=' + av;
+        var artTop  = isBlend ? (is200ml ? '-7px'  : '-8px')  : '4px';
+        var artLeft = isBlend ? (is200ml ? '93px'  : '102px') : '-9px';
+        var artW    = isBlend ? (is200ml ? '342px' : '458px') : '570px';
+        var artH    = isBlend ? (is200ml ? '188px' : '244px') : '232px';
         artworkEl.style.cssText = [
           'display:block',
           'position:absolute',
@@ -297,7 +308,8 @@
       // matches so the label stays centred after scaling.
       var cropW = galleryRect.width || previewCrop.offsetWidth;
       if (!cropW) return;
-      var scale = (cropW / PREVIEW_PAGE_W) * 1.6;
+      var pageW = is200ml ? 554 : PREVIEW_PAGE_W;
+      var scale = (cropW / pageW) * 1.6;
       previewContainer.style.transform      = 'scale(' + scale + ')';
       previewContainer.style.transformOrigin = 'center center';
     }
@@ -311,13 +323,14 @@
 
       previewCrop = document.createElement('div');
       previewCrop.className = 'wbp-preview-crop';
+      previewCrop.style.aspectRatio = is200ml ? '123 / 87' : '794 / 488';
 
       previewContainer = document.createElement('div');
       previewContainer.className = 'wbp-scale-wrap';
-      var mockImg = productSlug === 'customblend' ? 'customblendlabelmock.png' : 'singlemaltlabelmock.png';
+      var mockImg = productSlug === 'customblend' ? (is200ml ? 'customblendlabelmock200.png' : 'customblendlabelmock.png') : 'singlemaltlabelmock.png';
       previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + '?v=' + av + ')';
       previewContainer.innerHTML =
-        '<div class="wbp-page size50 ' + productSlug + '">' +
+        '<div class="wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + '">' +
           '<div class="wbp-label-area">' +
             '<div class="wbp-label">' +
               '<div class="wbp-outer"><div class="wbp-blend-name"></div></div>' +

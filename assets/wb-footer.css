@@ -77,33 +77,36 @@
 
 .wb-newsletter-field {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  border-bottom: 2px dotted #555;
-  transition: border-color 0.2s, border-style 0.2s;
+  align-items: center;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  transition: border-color 0.2s;
+  overflow: hidden;
 }
 
 .wb-newsletter-field:focus-within {
-  border-bottom-color: #169776;
-  border-bottom-style: solid;
+  border-color: rgba(255,255,255,0.4);
 }
 
 .wb-newsletter-field input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   outline: none;
-  padding: 10px 0;
+  padding: 10px 14px;
   line-height: 22px;
   color: #ccc;
   font-family: "Raleway", sans-serif;
   font-size: 18px;
 }
 
-.wb-newsletter-field input::placeholder { color: #555; }
+.wb-newsletter-field input::placeholder { color: rgba(255,255,255,0.25); }
 
 .wb-newsletter-field button {
   all: unset;
+  flex-shrink: 0;
   color: #999;
   font-family: "Raleway", sans-serif;
   font-size: 13px;
@@ -111,6 +114,7 @@
   cursor: pointer;
   white-space: nowrap;
   transition: color 0.2s;
+  padding: 0 14px;
 }
 
 .wb-newsletter-field button:hover { color: #fff; }

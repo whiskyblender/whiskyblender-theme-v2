@@ -130,7 +130,7 @@
 .wb-noblend-codelabel {
     font-size: 16px;
     font-weight: 700;
-    margin: 0 0 10px;
+    margin: 0;
 }
 
 .wb-noblend-form {
@@ -156,6 +156,11 @@
 .wb-noblend-form input:focus {
     outline: none;
     border-color: rgba(0, 0, 0, 0.4);
+}
+
+.wb-noblend-form input::placeholder {
+    color: rgba(0,0,0,0.35);
+    font-weight: 700;
 }
 
 .wb-noblend-form .wb-button:disabled {

@@ -33,7 +33,7 @@
 }
 
 .wbp-customblend .wbp-scale-wrap {
-  margin-right: 10%;
+  margin-right: 6%;
 }
 
 /* ── Page ──────────────────────────────────────────────────────────────────── */
@@ -51,6 +51,13 @@
   width: 794px;
   height: 432px;
   padding: 0;
+}
+
+.wbp-page.size20 {
+  width: 554px;
+  height: 325px;
+  padding: 0;
+  margin-top: -72px;
 }
 
 .wbp-page.size50.singlemalt,
@@ -71,6 +78,11 @@
   height: 432px;
 }
 
+.wbp-page.size20 .wbp-label-area {
+  padding-top: 73px;
+  height: 325px;
+}
+
 /* ── Crop marks ────────────────────────────────────────────────────────────── */
 
 .wbp-crops {
@@ -87,6 +99,11 @@
 .wbp-page.size50 .wbp-label {
   width: 552px;
   height: 303px;
+}
+
+.wbp-page.size20 .wbp-label {
+  width: 427px;
+  height: 252px;
 }
 
 /* ── Blend name / label text ───────────────────────────────────────────────── */
@@ -111,6 +128,12 @@
   scale: 2.2;
 }
 
+.wbp-page.size20 .wbp-outer {
+  top: 36px;
+  left: 145px;
+  scale: 1.6;
+}
+
 /* ── Distillery / side name ────────────────────────────────────────────────── */
 
 .wbp-side {
@@ -126,6 +149,12 @@
   top: 204px;
   left: 210px;
   scale: 2.2;
+}
+
+.wbp-page.size20 .wbp-side {
+  top: 158px;
+  left: 153px;
+  scale: 1.6;
 }
 
 .wbp-side-name {

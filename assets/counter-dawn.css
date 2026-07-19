@@ -214,8 +214,111 @@ footer .wb-tiny-heading {
 }
 
 .wb-search.template-search__search {
-    margin: 0;
+    margin: 0 0 20px 0;
     max-width: 100%;
+}
+.template-search__search .search {
+    margin-top: 0;
+}
+
+/* Search page — unified input style matching wb-noblend-form input.
+   Dawn renders its "border" via box-shadow on ::after, not a real CSS border.
+   Zero both pseudo-elements, then apply our own border on the container. */
+.template-search .field {
+    border: 2px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    transition: border-color 0.2s;
+}
+.template-search .field:focus-within {
+    border-color: rgba(0,0,0,0.4);
+}
+.template-search .field:before,
+.template-search .field:after,
+.template-search .field:hover.field:after {
+    box-shadow: none !important;
+    border: none !important;
+}
+.template-search .field__label {
+    display: none !important;
+}
+.template-search .reset__button {
+    display: none;
+}
+.template-search .field__input {
+    height: auto !important;
+    padding: 14px 3rem 14px 16px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent;
+    font-family: "Raleway", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    color: #333;
+}
+.template-search .field__input:focus,
+.template-search .field__input:focus-visible {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none;
+}
+.template-search .field__input::placeholder {
+    opacity: 1;
+    color: rgba(0,0,0,0.35);
+    font-weight: 700;
+}
+.template-search .wb-search-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+.template-search .wb-search-row .field {
+    flex: 1;
+    min-width: 0;
+}
+.template-search .wb-search-row > .wb-button {
+    flex-shrink: 0;
+    margin: 0;
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    align-self: stretch;
+    height: auto;
+}
+.template-search .wb-search-row > .wb-button:disabled {
+    border-color: #999999;
+    background-color: #999999;
+    color: #ffffff;
+}
+@media screen and (max-width: 399px) {
+    .template-search .wb-search-row {
+        flex-direction: column;
+    }
+    .template-search .wb-search-row > .wb-button {
+        width: 100%;
+    }
+}
+@media screen and (min-width: 600px) {
+    .template-search .field__input {
+        padding: 16px 3rem 16px 16px !important;
+    }
+}
+@media screen and (min-width: 768px) {
+    .template-search .field__input {
+        font-size: 20px;
+    }
+}
+@media screen and (min-width: 990px) {
+    .template-search__search .search__button,
+    .template-search__search .reset__button {
+        height: 62px;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .template-search__search .field__button {
+        width: 26px;
+    }
 }
 
 #main-search-filters {

@@ -15,14 +15,14 @@
   data-bottle-size="{{ product.metafields.custom.bottle_size | escape }}"
   data-label-page="/pages/label"
   data-cdn="{{ 'wb-label.css' | asset_url | split: 'wb-label.css' | first }}"
-  data-av="11"
+  data-av="14"
   data-bars-url="{{ 'sample50cl-bars.png' | asset_url }}"
   data-crops-url="{{ 'crops50.png' | asset_url }}"
 ></div>
 
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
 {{ 'wb-preview.css' | asset_url | stylesheet_tag }}
-{{ 'wb-single-malt.js' | asset_url | script_tag }}
+<script src="{{ 'wb-single-malt.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

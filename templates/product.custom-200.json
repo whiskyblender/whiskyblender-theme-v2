@@ -135,6 +135,10 @@
         "padding_bottom": 0
       }
     },
+    "wb_single_malt_loader": {
+      "type": "wb-single-malt",
+      "settings": {}
+    },
     "wb_faq_schema": {
       "type": "wb-faq-schema",
       "blocks": {
@@ -174,6 +178,7 @@
   "order": [
     "main",
     "related-products",
+    "wb_single_malt_loader",
     "wb_faq_schema"
   ]
 }
