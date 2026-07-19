@@ -15,6 +15,15 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
+    {%- comment -%}
+      Homepage title/description are hardcoded here (and in snippets/meta-tags.liquid,
+      which has its own scope) — the admin Preferences fields are ignored for the homepage.
+    {%- endcomment -%}
+    {%- if template.name == 'index' -%}
+      {%- assign page_title = 'Whisky Blender | Blend Your Own Personalised Scotch Whisky' -%}
+      {%- assign page_description = 'The bottle of whisky nobody else has — blend, name and label your own personalised Scotch. Hand-picked casks, bottled in Scotland. Free UK shipping.' -%}
+    {%- endif -%}
+
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}

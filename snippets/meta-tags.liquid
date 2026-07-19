@@ -1,4 +1,10 @@
 {%- liquid
+  # Homepage overrides — must match the hardcoded values in layout/theme.liquid
+  if template.name == 'index'
+    assign page_title = 'Whisky Blender | Blend Your Own Personalised Scotch Whisky'
+    assign page_description = 'The bottle of whisky nobody else has — blend, name and label your own personalised Scotch. Hand-picked casks, bottled in Scotland. Free UK shipping.'
+  endif
+
   assign og_title = page_title | default: shop.name
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
