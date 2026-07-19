@@ -25,11 +25,6 @@
   50%       { transform: translateY(-6px); }
 }
 
-@keyframes wb-hint-bob-x {
-  0%, 100% { transform: translateY(-50%) translateX(0); }
-  50%       { transform: translateY(-50%) translateX(-6px); }
-}
-
 #wb-lab-hint {
   position: absolute;
   top: 32px;
@@ -67,9 +62,8 @@
 
 .wb-field-tooltip {
   position: absolute;
-  left: calc(100% + 6px);
-  top: 0;
-  transform: translateY(-50%);
+  left: -12px;
+  bottom: calc(100% + -10px);
   background: #fff;
   border-radius: 6px;
   padding: 7px 12px;
@@ -79,7 +73,7 @@
   white-space: nowrap;
   pointer-events: none;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  animation: wb-hint-bob-x 2.4s ease-in-out infinite;
+  animation: wb-hint-bob 2.4s ease-in-out infinite;
   opacity: 1;
   transition: opacity 0.35s ease;
   z-index: 10;
@@ -88,12 +82,11 @@
 .wb-field-tooltip::after {
   content: '';
   position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  border-top: 6px solid transparent;
-  border-bottom: 6px solid transparent;
-  border-right: 8px solid #fff;
+  left: 16px;
+  top: 100%;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 6px solid #fff;
 }
 
 .wb-field-tooltip.wb-hint-hidden {
@@ -790,8 +783,8 @@
   align-items: center;
   justify-content: center;
   padding: 14px 16px;
-  border-radius: 0 0 28px 28px;
-  background: linear-gradient(0deg, #dce9f8, #ffffff);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #dce9f8 0%, #eef4fc 50%, #d6e5f6 100%);
   color: #1e3a6e;
   text-align: center;
   font-weight: 500;

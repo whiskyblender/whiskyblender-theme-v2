@@ -728,16 +728,12 @@
       var hint2 = makeTooltip('Time to take the credit', authorLabel.parentNode);
       var hint2Active = false;
 
-      function position(el, inputEl) {
-        el.style.top = (inputEl.offsetTop + inputEl.offsetHeight / 2) + 'px';
-      }
-
-      function show(el, inputEl) { position(el, inputEl); el.offsetHeight; el.classList.remove('wb-hint-hidden'); }
+      function show(el) { el.offsetHeight; el.classList.remove('wb-hint-hidden'); }
       function hide(el) { el.classList.add('wb-hint-hidden'); }
 
       function syncHint1() {
         if (!titleInput.value.trim() && document.activeElement !== titleInput) {
-          show(hint1, titleInput);
+          show(hint1);
         } else {
           hide(hint1);
         }
@@ -746,7 +742,7 @@
       function syncHint2() {
         if (!hint2Active) return;
         if (!authorInput.value.trim() && document.activeElement !== authorInput) {
-          show(hint2, authorInput);
+          show(hint2);
         } else {
           hide(hint2);
         }
