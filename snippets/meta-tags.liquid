@@ -1,8 +1,17 @@
 {%- liquid
-  # Homepage overrides — must match the hardcoded values in layout/theme.liquid
+  # SEO overrides — must match the hardcoded logic in layout/theme.liquid
   if template.name == 'index'
     assign page_title = 'Whisky Blender | Blend Your Own Personalised Scotch Whisky'
     assign page_description = 'The bottle of whisky nobody else has — blend, name and label your own personalised Scotch. Hand-picked casks, bottled in Scotland. Free UK shipping.'
+  elsif template.name == 'metaobject' and template.suffix == 'wb_blend' and metaobject.blend_title.value != blank
+    assign page_title = metaobject.blend_title.value | append: ' - A Whisky Blend by ' | append: metaobject.blend_author.value | append: ' | Whisky Blender'
+    if metaobject.recipe.value != blank
+      assign wb_blend_recipe = metaobject.recipe.value | parse_json
+      assign wb_blend_ingredients = wb_blend_recipe | map: 'name' | join: ', '
+      assign page_description = 'A whisky blend created by ' | append: metaobject.blend_author.value | append: ' featuring ' | append: wb_blend_ingredients | append: '. Blend your own at Whisky Blender.' | truncate: 155
+    else
+      assign page_description = 'A whisky blend created by ' | append: metaobject.blend_author.value | append: ' at Whisky Blender.'
+    endif
   endif
 
   assign og_title = page_title | default: shop.name
