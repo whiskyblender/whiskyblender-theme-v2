@@ -291,6 +291,14 @@ footer .wb-tiny-heading {
     background-color: #999999;
     color: #ffffff;
 }
+@media screen and (max-width: 399px) {
+    .template-search .wb-search-row {
+        flex-direction: column;
+    }
+    .template-search .wb-search-row > .wb-button {
+        width: 100%;
+    }
+}
 @media screen and (min-width: 600px) {
     .template-search .field__input {
         padding: 16px 3rem 16px 16px !important;
