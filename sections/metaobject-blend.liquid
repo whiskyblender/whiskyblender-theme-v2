@@ -15,6 +15,19 @@
   assign wa_url  = 'https://wa.me/?text=' | append: wa_text
   assign fb_url  = 'https://www.facebook.com/sharer/sharer.php?u=' | append: share_url | url_encode
   assign x_url   = 'https://x.com/intent/tweet?text=' | append: blend_title | url_encode | append: '&url=' | append: share_url | url_encode
+
+  assign ingredient_list = ''
+  if recipe and recipe.size > 0
+    assign ingredient_list = recipe | map: 'name' | join: ', '
+  endif
+
+  assign page_title = blend_title | append: ' - A Whisky Blend by ' | append: blend_author | append: ' | Whisky Blender'
+
+  if ingredient_list != blank
+    assign page_description = 'A whisky blend created by ' | append: blend_author | append: ' featuring ' | append: ingredient_list | append: '. Blend your own at Whisky Blender.' | truncate: 155
+  else
+    assign page_description = 'A whisky blend created by ' | append: blend_author | append: ' at Whisky Blender.'
+  endif
 -%}
 
 <div class="wb-container wb-blend-page">

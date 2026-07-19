@@ -8,6 +8,11 @@
 (function () {
   'use strict';
 
+  var wbFontLink = document.createElement('link');
+  wbFontLink.rel = 'stylesheet';
+  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap';
+  document.head.appendChild(wbFontLink);
+
   function init() {
     var loader = document.getElementById('wb-single-malt-loader');
     if (!loader) return;
