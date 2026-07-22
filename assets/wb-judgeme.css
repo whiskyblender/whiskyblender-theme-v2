@@ -122,6 +122,12 @@
   margin: 0;
 }
 
+.jdgm-row-rating,
+.jdgm-row-profile {
+  display: inline-block;
+  margin-right: 12px;
+}
+
 .jdgm-rev__author {
   font-weight: 700;
   font-size: 14px;
