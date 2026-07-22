@@ -135,7 +135,8 @@
 }
 
 .jdgm-rev__icon,
-.jdgm-row-extra {
+.jdgm-row-extra,
+.jdgm-rev__actions {
   display: none !important;
 }
 
