@@ -24,17 +24,17 @@
           "type": "price",
           "settings": {}
         },
+        "blend_loader": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{{ 'wb-products.css' | asset_url | stylesheet_tag }}{{ 'wb-custom.css' | asset_url | stylesheet_tag }}<script>(function(){if(new URLSearchParams(window.location.search).get('blend')){document.documentElement.classList.add('wb-blend-loading');}})()</script><style>.wb-blend-loading [name=\"add\"],.wb-blend-loading .product-form__quantity,.wb-blend-loading .wb-bottle-form{display:none!important}</style><script id=\"wb-variants-data\" type=\"application/json\">[{% for v in product.variants %}{\"id\":{{ v.id }},\"title\":{{ v.title | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script><div id=\"wb-blend-product-loader\" data-api-base=\"https://lab.whiskyblender.com\" data-lab-url=\"/pages/the-lab\" data-label-page=\"/pages/label\" data-bottle-size=\"{{ product.metafields.custom.bottle_size | escape }}\" data-product-title=\"{{ product.title | escape }}\"><p id=\"wb-blend-loading\" style=\"display:none\">Loading your blend…</p><div id=\"wb-blend-recipe\" style=\"display:none\"></div><div id=\"wb-noblend-panel\" class=\"wb-info wb-largepanel\" style=\"display:none\"><p class=\"wb-noblend-heading\">Choose how to fill it&hellip;</p><ul><li>Craft <a href=\"/pages/the-lab\">your own whisky</a></li><li>Check our <a href=\"/pages/perfect-drams\">perfect drams</a></li></ul><div class=\"wb-noblend-divider\"><span>or</span></div><p class=\"wb-noblend-codelabel\">Already have a blend code?</p><div class=\"wb-noblend-form\"><input type=\"text\" id=\"wb-blend-code-input\" placeholder=\"e.g. WB000042\" maxlength=\"10\" autocomplete=\"off\" autocapitalize=\"characters\" /><button class=\"wb-button wb-primary-button\" id=\"wb-blend-code-go\" type=\"button\" disabled>&rarr;</button></div><p id=\"wb-blend-error\" class=\"wb-blend-error\" aria-live=\"polite\" style=\"display:none\"></p></div></div><script src=\"{{ 'confetti.min.js' | asset_url }}\"></script><script src=\"{{ 'wb-blend-product.js' | asset_url }}\" defer=\"defer\"></script>"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
             "swatch_shape": "circle"
-          }
-        },
-        "blend_loader": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{{ 'wb-products.css' | asset_url | stylesheet_tag }}{{ 'wb-custom.css' | asset_url | stylesheet_tag }}<script>(function(){if(new URLSearchParams(window.location.search).get('blend')){document.documentElement.classList.add('wb-blend-loading');}})()</script><style>.wb-blend-loading [name=\"add\"],.wb-blend-loading .product-form__quantity,.wb-blend-loading .wb-bottle-form{display:none!important}</style><script id=\"wb-variants-data\" type=\"application/json\">[{% for v in product.variants %}{\"id\":{{ v.id }},\"title\":{{ v.title | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]</script><div id=\"wb-blend-product-loader\" data-api-base=\"https://lab.whiskyblender.com\" data-lab-url=\"/pages/the-lab\" data-label-page=\"/pages/label\" data-bottle-size=\"{{ product.metafields.custom.bottle_size | escape }}\" data-product-title=\"{{ product.title | escape }}\"><p id=\"wb-blend-loading\" style=\"display:none\">Loading your blend…</p><div id=\"wb-blend-recipe\" style=\"display:none\"></div><div id=\"wb-noblend-panel\" class=\"wb-info wb-largepanel\" style=\"display:none\"><p class=\"wb-noblend-heading\">Choose how to fill it&hellip;</p><ul><li>Craft <a href=\"/pages/the-lab\">your own whisky</a></li><li>Check our <a href=\"/pages/perfect-drams\">perfect drams</a></li></ul><div class=\"wb-noblend-divider\"><span>or</span></div><p class=\"wb-noblend-codelabel\">Already have a blend code?</p><div class=\"wb-noblend-form\"><input type=\"text\" id=\"wb-blend-code-input\" placeholder=\"e.g. WB000042\" maxlength=\"10\" autocomplete=\"off\" autocapitalize=\"characters\" /><button class=\"wb-button wb-primary-button\" id=\"wb-blend-code-go\" type=\"button\" disabled>&rarr;</button></div><p id=\"wb-blend-error\" class=\"wb-blend-error\" aria-live=\"polite\" style=\"display:none\"></p></div></div><script src=\"{{ 'confetti.min.js' | asset_url }}\"></script><script src=\"{{ 'wb-blend-product.js' | asset_url }}\" defer=\"defer\"></script>"
           }
         },
         "custom_liquid_bTJABx": {
@@ -117,6 +117,26 @@
         "padding_bottom": 0
       }
     },
+    "1784747760704f5276": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_Gk8PnT": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_Gk8PnT"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -125,6 +145,7 @@
         "products_to_show": 4,
         "columns_desktop": 4,
         "columns_mobile": "2",
+        "excluded_collection_handles": "featured,anniversaries,birthdays,celebrations,christmas,thankyous,weddings,football,royal-anglian-regiment,custom",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
@@ -167,12 +188,18 @@
           }
         }
       },
-      "block_order": ["faq_choose", "faq_label", "faq_delivery", "faq_return"],
+      "block_order": [
+        "faq_choose",
+        "faq_label",
+        "faq_delivery",
+        "faq_return"
+      ],
       "settings": {}
     }
   },
   "order": [
     "main",
+    "1784747760704f5276",
     "related-products",
     "wb_faq_schema"
   ]

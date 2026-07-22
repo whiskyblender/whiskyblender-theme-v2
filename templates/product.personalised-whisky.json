@@ -110,9 +110,25 @@
         "padding_bottom": 0
       }
     },
-    "wb_single_malt_loader": {
-      "type": "wb-single-malt",
-      "settings": {}
+    "1784747827007815c8": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_yqkQ7T": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_yqkQ7T"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     },
     "related-products": {
       "type": "related-products",
@@ -122,6 +138,7 @@
         "products_to_show": 4,
         "columns_desktop": 4,
         "columns_mobile": "2",
+        "excluded_collection_handles": "featured,anniversaries,birthdays,celebrations,christmas,thankyous,weddings,football,royal-anglian-regiment,custom",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
@@ -131,6 +148,10 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "wb_single_malt_loader": {
+      "type": "wb-single-malt",
+      "settings": {}
     },
     "wb_faq_schema": {
       "type": "wb-faq-schema",
@@ -164,9 +185,20 @@
           }
         }
       },
-      "block_order": ["faq_label", "faq_delivery", "faq_return", "faq_name"],
+      "block_order": [
+        "faq_label",
+        "faq_delivery",
+        "faq_return",
+        "faq_name"
+      ],
       "settings": {}
     }
   },
-  "order": ["main", "related-products", "wb_single_malt_loader", "wb_faq_schema"]
+  "order": [
+    "main",
+    "1784747827007815c8",
+    "related-products",
+    "wb_single_malt_loader",
+    "wb_faq_schema"
+  ]
 }
