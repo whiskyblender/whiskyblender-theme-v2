@@ -134,7 +134,8 @@
   margin-left: 8px;
 }
 
-.jdgm-rev__icon {
+.jdgm-rev__icon,
+.jdgm-row-extra {
   display: none !important;
 }
 
