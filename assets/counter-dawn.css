@@ -8,6 +8,10 @@
     max-width: 1200px;
 }
 
+.rte ul li {
+    list-style: disc;
+}
+
 .card-wrapper, .card--standard>.card__content.wb-productcontent .card__information {
     padding: 0;
 }
