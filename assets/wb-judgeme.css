@@ -13,6 +13,8 @@
   color: #333;
   padding: 40px 20px !important;
   position: relative;
+  background: #eeeeee;
+  border-radius: 20px;
 }
 
 @media screen and (min-width: 600px) {
