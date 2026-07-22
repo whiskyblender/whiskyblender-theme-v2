@@ -143,9 +143,12 @@
 .jdgm-row-extra,
 .jdgm-rev__actions,
 .jdgm-rev__custom-form,
-.jdgm-row-actions,
-.jdgm-rev__body {
+.jdgm-row-actions {
   display: none !important;
+}
+
+.jdgm-rev__body {
+  display: block !important;
 }
 
 .jdgm-rev__title {
