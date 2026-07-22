@@ -11,18 +11,18 @@
   font-family: Raleway, sans-serif;
   font-size: 14px;
   color: #333;
-  padding: 40px 20px !important;
+  padding: 20px !important;
   position: relative;
   background: #eeeeee;
   border-radius: 20px;
 }
 
 @media screen and (min-width: 600px) {
-  .jdgm-rev-widg { padding: 60px 30px !important; }
+  .jdgm-rev-widg { padding: 30px !important; }
 }
 
 @media screen and (min-width: 768px) {
-  .jdgm-rev-widg { padding: 60px 40px !important; }
+  .jdgm-rev-widg { padding: 40px !important; }
 }
 
 /* Header: title + summary */
