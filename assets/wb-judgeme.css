@@ -1,9 +1,25 @@
 /* Judge.me review widget styles */
 
+#judgeme_product_reviews {
+  max-width: 1200px;
+  position: relative;
+  margin: 0 auto;
+}
+
 .jdgm-rev-widg {
   font-family: Raleway, sans-serif;
   font-size: 14px;
   color: #333;
+  padding: 40px 20px;
+  position: relative;
+}
+
+@media screen and (min-width: 600px) {
+  .jdgm-rev-widg { padding: 60px 30px; }
+}
+
+@media screen and (min-width: 768px) {
+  .jdgm-rev-widg { padding: 60px 40px; }
 }
 
 /* Header: title + summary */
@@ -257,8 +273,3 @@ input.jdgm-submit-rev:hover {
   color: #169776;
 }
 
-/* Section-level padding reduction */
-.shopify-section:has(.jdgm-widget) {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
