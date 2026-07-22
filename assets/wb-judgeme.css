@@ -1,0 +1,264 @@
+/* Judge.me review widget styles */
+
+.jdgm-rev-widg {
+  font-family: Raleway, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Header: title + summary */
+.jdgm-rev-widg__title {
+  font-family: Raleway, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0 0 12px;
+  color: #000;
+}
+
+.jdgm-rev-widg__header {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.jdgm-rev-widg__summary-average {
+  font-size: 13px;
+  color: #555;
+}
+
+.jdgm-rev-widg__summary-text {
+  font-size: 13px;
+  color: #555;
+  margin-top: 4px;
+}
+
+/* Stars */
+.jdgm-star {
+  font-size: 14px;
+}
+
+.jdgm-star.jdgm--on {
+  color: #169776;
+}
+
+.jdgm-star.jdgm--half {
+  color: #169776;
+}
+
+.jdgm-star.jdgm--off {
+  color: #ccc;
+}
+
+/* "Write a review" link */
+.jdgm-write-rev-link {
+  display: inline-block;
+  padding: 8px 16px;
+  background: #000;
+  color: #fff !important;
+  font-family: Raleway, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none !important;
+  border-radius: 2px;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.jdgm-write-rev-link:hover {
+  background: #169776;
+}
+
+/* Sort dropdown */
+.jdgm-sort-dropdown-wrapper {
+  font-size: 13px;
+}
+
+.jdgm-sort-dropdown {
+  font-family: Raleway, sans-serif;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  padding: 4px 28px 4px 8px;
+  border-radius: 2px;
+  background: #fff;
+  color: #333;
+}
+
+/* Individual reviews */
+.jdgm-rev {
+  padding: 16px 0;
+  font-size: 14px;
+}
+
+.jdgm-rev.jdgm-divider-top {
+  border-top: 1px solid #e8e8e8;
+}
+
+.jdgm-rev__header {
+  margin-bottom: 8px;
+}
+
+.jdgm-rev__author {
+  font-weight: 700;
+  font-size: 14px;
+  color: #000;
+}
+
+.jdgm-rev__timestamp {
+  font-size: 12px;
+  color: #999;
+  margin-left: 8px;
+}
+
+.jdgm-rev__icon {
+  display: none;
+}
+
+.jdgm-rev__title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.jdgm-rev__body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  margin-top: 4px;
+}
+
+.jdgm-rev__body p {
+  margin: 0;
+}
+
+/* Verification badge — shrink the image */
+.jdgm-rev__verification-badge-img {
+  height: 14px;
+  width: auto;
+  vertical-align: middle;
+  margin-left: 4px;
+  opacity: 0.6;
+}
+
+/* Transparency badge ("Review written in Shop App") */
+.jdgm-rev__transparency-badge-wrapper {
+  margin-top: 8px;
+}
+
+.jdgm-rev__transparency-badge {
+  font-size: 11px !important;
+  color: #bbb !important;
+  border-color: #e8e8e8 !important;
+  padding: 2px 6px !important;
+  border-radius: 2px !important;
+}
+
+/* Pagination */
+.jdgm-paginate {
+  margin-top: 20px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.jdgm-paginate__page {
+  font-family: Raleway, sans-serif;
+  font-size: 13px;
+  padding: 4px 10px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+}
+
+.jdgm-paginate__page.jdgm-curt {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.jdgm-paginate__page:hover:not(.jdgm-curt) {
+  border-color: #169776;
+  color: #169776;
+}
+
+/* Form */
+.jdgm-form__title {
+  font-family: Raleway, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #000;
+}
+
+.jdgm-form__fieldset label,
+.jdgm-form__inline-label {
+  font-family: Raleway, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.jdgm-form__fieldset input[type="text"],
+.jdgm-form__fieldset input[type="email"],
+.jdgm-form__fieldset textarea {
+  font-family: Raleway, sans-serif;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 8px 12px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.jdgm-form__fieldset input:focus,
+.jdgm-form__fieldset textarea:focus {
+  outline: none;
+  border-color: #169776;
+}
+
+.jdgm-btn {
+  font-family: Raleway, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 8px 20px;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+}
+
+.jdgm-btn.jdgm-btn--solid,
+input.jdgm-submit-rev {
+  background: #000;
+  color: #fff;
+  border: none;
+}
+
+.jdgm-btn.jdgm-btn--solid:hover,
+input.jdgm-submit-rev:hover {
+  background: #169776;
+}
+
+.jdgm-btn.jdgm-btn--border {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.jdgm-btn.jdgm-btn--border:hover {
+  border-color: #169776;
+  color: #169776;
+}
+
+/* Section-level padding reduction */
+.shopify-section:has(.jdgm-widget) {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
