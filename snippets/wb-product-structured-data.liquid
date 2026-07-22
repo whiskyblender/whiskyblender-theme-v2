@@ -94,4 +94,14 @@
   "name": {{ product.title | json }},
   "productGroupID": "{{ product.id }}",
   "url": {{ shop.url | append: product_path | json }}
+  {%- assign jm_count = product.metafields.reviews.rating_count | plus: 0 -%}
+  {%- if product.metafields.reviews.rating.value != blank and jm_count > 0 -%}
+  ,"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": {{ product.metafields.reviews.rating.value.rating | round: 1 | json }},
+    "reviewCount": {{ jm_count }},
+    "bestRating": {{ product.metafields.reviews.rating.value.scale_max | json }},
+    "worstRating": "1"
+  }
+  {%- endif -%}
 }
