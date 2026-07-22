@@ -143,7 +143,8 @@
 .jdgm-row-extra,
 .jdgm-rev__actions,
 .jdgm-rev__custom-form,
-.jdgm-row-actions {
+.jdgm-row-actions,
+.jdgm-rev__body {
   display: none !important;
 }
 
