@@ -53,7 +53,7 @@
 }
 
 .jdgm-histogram {
-  display: none;
+  display: none !important;
 }
 
 /* Stars */
