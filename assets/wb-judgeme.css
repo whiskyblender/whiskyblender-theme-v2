@@ -1,6 +1,6 @@
 /* Judge.me review widget styles */
 
-#judgeme_product_reviews {
+.jdgm-legacy-widget-content {
   max-width: 1200px;
   position: relative;
   margin: 0 auto;
