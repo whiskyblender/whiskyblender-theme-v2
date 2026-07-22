@@ -52,6 +52,10 @@
   margin-top: 4px;
 }
 
+.jdgm-histogram {
+  display: none;
+}
+
 /* Stars */
 .jdgm-star {
   font-size: 14px;
