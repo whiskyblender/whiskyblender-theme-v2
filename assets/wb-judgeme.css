@@ -159,7 +159,6 @@
 }
 
 .jdgm-rev__body {
-  font-size: 14px;
   line-height: 1.6;
   color: #444;
   margin-top: 4px;
@@ -167,6 +166,11 @@
 
 .jdgm-rev__body p {
   margin: 0;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+  .jdgm-rev__body p { font-size: 18px; }
 }
 
 /* Verification badge — shrink the image */
