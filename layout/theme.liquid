@@ -69,7 +69,6 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-global.css' | asset_url | stylesheet_tag }}
-    {{ 'wb-judgeme.css' | asset_url | stylesheet_tag }}
     {{ 'wb-fonts.css' | asset_url | stylesheet_tag }}
     <link rel="preload" href="{{ 'wb-footer.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>{{ 'wb-footer.css' | asset_url | stylesheet_tag }}</noscript>
@@ -78,6 +77,7 @@
     <link rel="preload" href="{{ 'wb-products.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>{{ 'wb-products.css' | asset_url | stylesheet_tag }}</noscript>
     <link rel="stylesheet" href="{{ 'counter-dawn.css' | asset_url }}" media="print" onload="this.media='all'">
+    {{ 'wb-judgeme.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'wb-cookies.css' | asset_url }}" media="print" onload="this.media='all'">
     <style>
       html:has(#wb-age-gate.wb-age-gate--visible:not(.wb-age-gate--hidden)) #shopify-pc__banner { z-index: 99997 !important; }
