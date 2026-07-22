@@ -996,3 +996,6 @@ html body .shopify-policy__body .rte a {
     top: 40px;
   }
 }
+
+small.unit-price { display: none; }
+product-info small.unit-price { display: revert; }
