@@ -38,7 +38,7 @@
 .jdgm-rev-widg__header {
   padding-bottom: 20px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #e8e8e8;
+  border: none;
 }
 
 .jdgm-rev-widg__summary-average {
