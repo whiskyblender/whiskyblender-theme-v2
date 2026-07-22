@@ -66,11 +66,6 @@
           "settings": {
             "share_label": "Share"
           }
-        },
-        "judgeme_widget": {
-          "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "disabled": false,
-          "settings": {}
         }
       },
       "block_order": [
@@ -83,8 +78,7 @@
         "description",
         "part_of_collection_BpWfEH",
         "collapsible-row-2",
-        "share",
-        "judgeme_widget"
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,
