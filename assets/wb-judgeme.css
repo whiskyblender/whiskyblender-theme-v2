@@ -135,7 +135,7 @@
 }
 
 .jdgm-rev__icon {
-  display: none;
+  display: none !important;
 }
 
 .jdgm-rev__title {
