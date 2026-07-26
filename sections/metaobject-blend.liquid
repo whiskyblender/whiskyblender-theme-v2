@@ -78,18 +78,6 @@
         </ul>
       {%- endif -%}
 
-      <div class="wb-blend-complete-banners">
-        <div class="wb-blend-complete-banner">
-          <span>Your whisky draws from <strong>{{ active_cask_count }} single malt {{ cask_word }}</strong></span>
-        </div>
-        <div class="wb-blend-complete-banner">
-          <span>One of over <strong id="wb-blend-combos">…</strong> possible combinations</span>
-        </div>
-        <div class="wb-blend-complete-banner">
-          <span>Stored forever in our blend database</span>
-        </div>
-      </div>
-
       <p class="wb-blend-share-label">Share this blend</p>
       <div class="wb-blend-share-row">
         <a href="{{ wa_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on WhatsApp" aria-label="Share on WhatsApp">
@@ -101,6 +89,21 @@
         <a href="{{ x_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on X / Twitter" aria-label="Share on X / Twitter">
           <span class="svg-wrapper">{{- 'icon-twitter.svg' | inline_asset_content -}}</span>
         </a>
+      </div>
+
+      <div class="wb-blend-stats">
+        <div class="wb-blend-stat">
+          <span class="wb-blend-stat-value">{{ active_cask_count }}</span>
+          <span class="wb-blend-stat-label">single malt {{ cask_word }}</span>
+        </div>
+        <div class="wb-blend-stat">
+          <span class="wb-blend-stat-value" id="wb-blend-combos">…</span>
+          <span class="wb-blend-stat-label">possible combinations</span>
+        </div>
+        <div class="wb-blend-stat">
+          <span class="wb-blend-stat-value">&#x221e;</span>
+          <span class="wb-blend-stat-label">stored in our blend database</span>
+        </div>
       </div>
 
     </div>
@@ -145,8 +148,8 @@
   .wb-blend-code-actions { margin-bottom: 40px; }
   .wb-blend-recipe { margin-top: 40px; margin-bottom: 0; }
 
-  /* Stats banners — adapted from wb-thelab.css */
-  .wb-blend-complete-banners {
+  /* Stats panels */
+  .wb-blend-stats {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -154,44 +157,61 @@
     margin-bottom: 40px;
   }
   @media screen and (min-width: 600px) {
-    .wb-blend-complete-banners { flex-direction: row; }
+    .wb-blend-stats { flex-direction: row; }
   }
-  .wb-blend-complete-banner {
+  .wb-blend-stat {
     position: relative;
     overflow: hidden;
     flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 14px 16px;
+    gap: 6px;
+    padding: 32px 20px;
     border-radius: 0 0 28px 28px;
-    background: linear-gradient(0deg, #dce9f8, #ffffff);
-    color: #1e3a6e;
+    background: linear-gradient(160deg, #1e3a6e, #2a5298);
+    color: #fff;
     text-align: center;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.4;
   }
-  .wb-blend-complete-banner::before {
+  .wb-blend-stat::before {
     content: '';
     position: absolute;
     top: 0;
     left: -75%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
-    animation: wb-banner-sheen 4s ease-in-out infinite;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.12), transparent);
+    animation: wb-stat-sheen 5s ease-in-out infinite;
     pointer-events: none;
   }
-  .wb-blend-complete-banner:nth-child(2)::before { animation-delay: 1.3s; }
-  .wb-blend-complete-banner:nth-child(3)::before { animation-delay: 2.6s; }
-  @keyframes wb-banner-sheen {
+  .wb-blend-stat:nth-child(2)::before { animation-delay: 1.6s; }
+  .wb-blend-stat:nth-child(3)::before { animation-delay: 3.2s; }
+  @keyframes wb-stat-sheen {
     0%   { left: -75%; }
-    55%  { left: 125%; }
+    50%  { left: 125%; }
     100% { left: 125%; }
   }
+  .wb-blend-stat-value {
+    display: block;
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .wb-blend-stat-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.3;
+  }
   @media screen and (min-width: 600px) {
-    .wb-blend-complete-banner { font-size: 15px; padding: 18px 16px; }
+    .wb-blend-stat { padding: 40px 24px; }
+    .wb-blend-stat-value { font-size: 56px; }
+    .wb-blend-stat-label { font-size: 14px; }
   }
 
   /* Bottle strip */
@@ -203,7 +223,7 @@
   }
 
   /* Social share */
-  .wb-blend-share-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
+  .wb-blend-share-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #bbb; margin-top: 40px; margin-bottom: 12px; }
   .wb-blend-share-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .wb-blend-share-icon {
     display: inline-flex;
