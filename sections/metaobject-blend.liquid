@@ -7,17 +7,34 @@
     assign recipe = recipe_raw | parse_json
   endif
 
-  assign share_url  = canonical_url
-  assign lab_url    = 'https://whiskyblender.com/pages/the-lab?blend=' | append: blend_code
-  assign bottle_url = 'https://whiskyblender.com/pages/custom-options?blend=' | append: blend_code
+  assign share_url = canonical_url
+  assign lab_url   = 'https://whiskyblender.com/pages/the-lab?blend=' | append: blend_code
 
   assign wa_text = blend_title | append: ' — ' | append: share_url | url_encode
   assign wa_url  = 'https://wa.me/?text=' | append: wa_text
   assign fb_url  = 'https://www.facebook.com/sharer/sharer.php?u=' | append: share_url | url_encode
   assign x_url   = 'https://x.com/intent/tweet?text=' | append: blend_title | url_encode | append: '&url=' | append: share_url | url_encode
+
+  assign active_cask_count = 0
+  if recipe != blank
+    for item in recipe
+      assign item_amount = item.amount | plus: 0
+      if item_amount > 0
+        assign active_cask_count = active_cask_count | plus: 1
+      endif
+    endfor
+  endif
+  if active_cask_count == 1
+    assign cask_word = 'cask'
+  else
+    assign cask_word = 'casks'
+  endif
+
+  assign opts_collection = section.settings.collection
 -%}
 
 {{ 'wb-products.css' | asset_url | stylesheet_tag }}
+{{ 'wb-custom.css' | asset_url | stylesheet_tag }}
 
 <div class="wb-container wb-blend-page">
   <div class="wb-padding">
@@ -25,7 +42,16 @@
 
       <h1 class="wb-large-heading wb-blend-title">{{ blend_title | escape }}</h1>
       <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
-      <p class="wb-blend-code">{{ blend_code | escape }}</p>
+
+      <div class="wb-custom-blend-actions wb-blend-code-actions">
+        <div class="wb-blendcode-box">
+          <span class="wb-blendcode-digits">{{ blend_code | escape }}</span>
+        </div>
+        <button class="wb-button wb-primary-button" id="wb-blend-copy-btn" data-url="{{ share_url | escape }}" data-copy-text="Copy link" data-copied-text="Copied!">
+          <span class="svg-wrapper">{{- 'icon-copy.svg' | inline_asset_content -}}</span>&nbsp;Copy link
+        </button>
+        <a href="{{ lab_url }}" class="wb-button">Tweak in the Lab &rarr;</a>
+      </div>
 
       {%- if recipe and recipe.size > 0 -%}
         {%- assign max_amount = 0 -%}
@@ -49,18 +75,64 @@
         </ul>
       {%- endif -%}
 
-      <div class="wb-blend-divider"></div>
-
-      <div class="wb-blend-actions">
-        <a href="{{ lab_url }}" class="wb-button wb-secondary-button">Tweak in the Lab</a>
-        <a href="{{ bottle_url }}" class="wb-button wb-primary-button">Bottle It</a>
+      <div class="wb-blend-complete-banners">
+        <div class="wb-blend-complete-banner">
+          <span>Your whisky draws from <strong>{{ active_cask_count }} single malt {{ cask_word }}</strong></span>
+        </div>
+        <div class="wb-blend-complete-banner">
+          <span>One of over <strong id="wb-blend-combos">…</strong> possible combinations</span>
+        </div>
+        <div class="wb-blend-complete-banner">
+          <span>Stored forever in our blend database</span>
+        </div>
       </div>
+
+      {%- if opts_collection != blank and opts_collection.products.size > 0 -%}
+        <div class="wb-blend-bottle-strip">
+          <h2 class="wb-blend-bottle-heading">Bottle your blend</h2>
+          <ul class="wb-cards wb-main-cards" id="wb-blend-products">
+            {%- for product in opts_collection.products -%}
+              {%- assign sold_out = true -%}
+              {%- for variant in product.variants -%}
+                {%- if variant.available -%}
+                  {%- assign sold_out = false -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+              <li{% if sold_out %} class="wb-soldout"{% endif %}>
+                <a href="{{ product.url }}?blend={{ blend_code | url_encode }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
+                <div class="wb-card-image">
+                  {%- if product.featured_image -%}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 600 }}"
+                      alt="{{ product.featured_image.alt | escape }}"
+                      width="{{ product.featured_image.width }}"
+                      height="{{ product.featured_image.height }}"
+                      loading="lazy"
+                    />
+                  {%- endif -%}
+                  {%- if sold_out -%}
+                    <div class="wb-productbadge">
+                      <div class="wb-soldoutbadge">Sold out</div>
+                    </div>
+                  {%- endif -%}
+                </div>
+                <div class="wb-card-details">
+                  <h3 class="wb-small-heading">
+                    <a href="{{ product.url }}?blend={{ blend_code | url_encode }}">{{ product.title }}</a>
+                  </h3>
+                  <p class="wb-custom-card-price">
+                    {%- if sold_out -%}Sold out{%- else -%}From {{ product.price_min | money }}{%- endif -%}
+                  </p>
+                </div>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
 
       <p class="wb-blend-share-label">Share this blend</p>
       <div class="wb-blend-share-row">
-        <button class="wb-blend-share-icon" id="wb-blend-copy" data-url="{{ share_url | escape }}" title="Copy link" aria-label="Copy link">
-          <span class="svg-wrapper">{{- 'icon-copy.svg' | inline_asset_content -}}</span>
-        </button>
         <a href="{{ wa_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on WhatsApp" aria-label="Share on WhatsApp">
           <span class="svg-wrapper">{{- 'icon-whatsapp.svg' | inline_asset_content -}}</span>
         </a>
@@ -80,10 +152,70 @@
   .wb-blend-byline { font-size: 24px; color: #555; margin-top: 4px; margin-bottom: 8px; }
   .wb-blend-byline strong { color: #333; font-weight: 600; }
   .wb-blend-title { margin: 0 0 20px 0; }
-  .wb-blend-code { font-size: 12px; color: #bbb; letter-spacing: .1em; margin-bottom: 40px; }
-  .wb-blend-recipe { margin-bottom: 40px; }
-  .wb-blend-divider { height: 1px; background: #eee; margin-bottom: 40px; }
-  .wb-blend-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+  .wb-blend-code-actions { margin-bottom: 40px; }
+  .wb-blend-recipe { margin-top: 40px; margin-bottom: 0; }
+
+  /* Stats banners — adapted from wb-thelab.css */
+  .wb-blend-complete-banners {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  @media screen and (min-width: 600px) {
+    .wb-blend-complete-banners { flex-direction: row; }
+  }
+  .wb-blend-complete-banner {
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 16px;
+    border-radius: 0 0 28px 28px;
+    background: linear-gradient(0deg, #dce9f8, #ffffff);
+    color: #1e3a6e;
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .wb-blend-complete-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+    animation: wb-banner-sheen 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .wb-blend-complete-banner:nth-child(2)::before { animation-delay: 1.3s; }
+  .wb-blend-complete-banner:nth-child(3)::before { animation-delay: 2.6s; }
+  @keyframes wb-banner-sheen {
+    0%   { left: -75%; }
+    55%  { left: 125%; }
+    100% { left: 125%; }
+  }
+  @media screen and (min-width: 600px) {
+    .wb-blend-complete-banner { font-size: 15px; padding: 18px 16px; }
+  }
+
+  /* Product strip */
+  .wb-blend-bottle-strip { margin-bottom: 40px; }
+  .wb-blend-bottle-heading {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 20px;
+  }
+  #wb-blend-products { margin-top: 0; }
+  #wb-blend-products .wb-card-image { aspect-ratio: 3/4; overflow: hidden; }
+  #wb-blend-products .wb-card-image img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Social share */
   .wb-blend-share-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
   .wb-blend-share-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .wb-blend-share-icon {
@@ -101,31 +233,59 @@
     transition: border-color .2s, color .2s;
   }
   .wb-blend-share-icon:hover { border-color: #999; color: #333; }
-  .wb-blend-share-icon--copied { border-color: #169776 !important; color: #169776 !important; }
   .wb-blend-share-icon .svg-wrapper { display: flex; align-items: center; justify-content: center; }
   .wb-blend-share-icon .svg-wrapper svg { width: 18px; height: 18px; }
 </style>
 
 <script>
 (function () {
-  var btn = document.getElementById('wb-blend-copy');
-  if (!btn) return;
-  btn.addEventListener('click', function () {
-    var url = btn.getAttribute('data-url');
-    if (navigator.clipboard && url) {
-      navigator.clipboard.writeText(url).then(function () {
-        btn.classList.add('wb-blend-share-icon--copied');
-        setTimeout(function () {
-          btn.classList.remove('wb-blend-share-icon--copied');
-        }, 2000);
-      });
-    }
-  });
+  function combinations(n, k) {
+    if (k === 0) return 1;
+    if (k > n - k) k = n - k;
+    var r = 1;
+    for (var i = 0; i < k; i++) r = r * (n - i) / (i + 1);
+    return Math.round(r);
+  }
+  function floorToRound(n) {
+    if (n < 100) return n;
+    var mag = Math.pow(10, Math.floor(Math.log10(n)));
+    return Math.floor(n / mag) * mag;
+  }
+
+  var recipeSize = {{ active_cask_count }};
+  var combosEl   = document.getElementById('wb-blend-combos');
+  if (combosEl && recipeSize > 1) {
+    var c = combinations(20 + recipeSize - 1, recipeSize - 1);
+    combosEl.textContent = floorToRound(c).toLocaleString();
+  } else if (combosEl) {
+    combosEl.textContent = '1';
+  }
+
+  var copyBtn = document.getElementById('wb-blend-copy-btn');
+  if (copyBtn) {
+    var shareUrl = copyBtn.getAttribute('data-url');
+    var origHtml = copyBtn.innerHTML;
+    copyBtn.addEventListener('click', function () {
+      if (navigator.clipboard && shareUrl) {
+        navigator.clipboard.writeText(shareUrl).then(function () {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function () { copyBtn.innerHTML = origHtml; }, 2000);
+        }).catch(function () {});
+      }
+    });
+  }
 })();
 </script>
 
 {% schema %}
 {
-  "name": "Blend showcase"
+  "name": "Blend showcase",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Bottle options collection"
+    }
+  ]
 }
 {% endschema %}
