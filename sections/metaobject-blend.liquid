@@ -17,26 +17,36 @@
   assign x_url   = 'https://x.com/intent/tweet?text=' | append: blend_title | url_encode | append: '&url=' | append: share_url | url_encode
 -%}
 
+{{ 'wb-products.css' | asset_url | stylesheet_tag }}
+
 <div class="wb-container wb-blend-page">
   <div class="wb-padding">
     <div class="page-width page-width--narrow">
 
-      <p class="wb-blend-byline">A blend by <strong>{{ blend_author | escape }}</strong></p>
       <h1 class="wb-large-heading wb-blend-title">{{ blend_title | escape }}</h1>
+      <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
       <p class="wb-blend-code">{{ blend_code | escape }}</p>
 
       {%- if recipe and recipe.size > 0 -%}
-        <div class="wb-blend-recipe">
+        {%- assign max_amount = 0 -%}
+        {%- for item in recipe -%}
+          {%- assign item_amount = item.amount | plus: 0 -%}
+          {%- if item_amount > max_amount -%}
+            {%- assign max_amount = item_amount -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <ul class="wb-recipe wb-blend-recipe">
           {%- for item in recipe -%}
-            <div class="wb-blend-row">
-              <span class="wb-blend-name">{{ item.name | escape }}</span>
-              <div class="wb-blend-track">
-                <div class="wb-blend-bar" style="width: {{ item.amount }}%; background: {{ item.colour | default: '#b88d60' | escape }}"></div>
-              </div>
-              <span class="wb-blend-pct">{{ item.amount }}%</span>
-            </div>
+            {%- assign item_amount = item.amount | plus: 0 -%}
+            {%- if item_amount > 0 -%}
+              {%- assign bar_left = item_amount | times: 100.0 | divided_by: max_amount | round: 1 -%}
+              <li style="background-color: {{ item.colour | default: '#b88d60' | escape }}">
+                <span class="wb-label">{{ item_amount }}% {{ item.name | escape }}</span>
+                <span class="wb-recipebar" style="left: {{ bar_left }}%"></span>
+              </li>
+            {%- endif -%}
           {%- endfor -%}
-        </div>
+        </ul>
       {%- endif -%}
 
       <div class="wb-blend-divider"></div>
@@ -48,10 +58,18 @@
 
       <p class="wb-blend-share-label">Share this blend</p>
       <div class="wb-blend-share-row">
-        <button class="wb-blend-share-btn" id="wb-blend-copy" data-url="{{ share_url | escape }}">Copy link</button>
-        <a href="{{ wa_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-btn">WhatsApp</a>
-        <a href="{{ fb_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-btn">Facebook</a>
-        <a href="{{ x_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-btn">X&nbsp;/&nbsp;Twitter</a>
+        <button class="wb-blend-share-icon" id="wb-blend-copy" data-url="{{ share_url | escape }}" title="Copy link" aria-label="Copy link">
+          <span class="svg-wrapper">{{- 'icon-copy.svg' | inline_asset_content -}}</span>
+        </button>
+        <a href="{{ wa_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on WhatsApp" aria-label="Share on WhatsApp">
+          <span class="svg-wrapper">{{- 'icon-whatsapp.svg' | inline_asset_content -}}</span>
+        </a>
+        <a href="{{ fb_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on Facebook" aria-label="Share on Facebook">
+          <span class="svg-wrapper">{{- 'icon-facebook.svg' | inline_asset_content -}}</span>
+        </a>
+        <a href="{{ x_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on X / Twitter" aria-label="Share on X / Twitter">
+          <span class="svg-wrapper">{{- 'icon-twitter.svg' | inline_asset_content -}}</span>
+        </a>
       </div>
 
     </div>
@@ -59,40 +77,33 @@
 </div>
 
 <style>
-  .wb-blend-page { padding-top: 48px; padding-bottom: 80px; }
-  .wb-blend-byline { font-size: 13px; color: #888; margin-bottom: 10px; }
+  .wb-blend-byline { font-size: 24px; color: #555; margin-top: 4px; margin-bottom: 8px; }
   .wb-blend-byline strong { color: #333; font-weight: 600; }
-  .wb-blend-title { margin-bottom: 8px; }
-  .wb-blend-code { font-size: 12px; color: #bbb; letter-spacing: .1em; margin-bottom: 48px; }
-  .wb-blend-recipe { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
-  .wb-blend-row { display: grid; grid-template-columns: minmax(120px, 1fr) 2fr 42px; align-items: center; gap: 14px; }
-  .wb-blend-name { font-size: 14px; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .wb-blend-track { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
-  .wb-blend-bar { height: 100%; border-radius: 3px; min-width: 4px; }
-  .wb-blend-pct { font-size: 12px; color: #999; text-align: right; }
+  .wb-blend-title { margin-bottom: 4px; }
+  .wb-blend-code { font-size: 12px; color: #bbb; letter-spacing: .1em; margin-bottom: 40px; }
+  .wb-blend-recipe { margin-bottom: 40px; }
   .wb-blend-divider { height: 1px; background: #eee; margin-bottom: 40px; }
   .wb-blend-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
   .wb-blend-share-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
-  .wb-blend-share-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .wb-blend-share-btn {
-    background: transparent;
+  .wb-blend-share-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .wb-blend-share-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     border: 1px solid #ddd;
-    color: #888;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 3px;
+    background: transparent;
+    color: #555;
     cursor: pointer;
     text-decoration: none;
-    display: inline-block;
     transition: border-color .2s, color .2s;
   }
-  .wb-blend-share-btn:hover { border-color: #999; color: #333; }
-  .wb-blend-share-btn--copied { border-color: #169776; color: #169776; }
-  @media (max-width: 480px) {
-    .wb-blend-row { grid-template-columns: 1fr 1.2fr 36px; gap: 10px; }
-  }
+  .wb-blend-share-icon:hover { border-color: #999; color: #333; }
+  .wb-blend-share-icon--copied { border-color: #169776 !important; color: #169776 !important; }
+  .wb-blend-share-icon .svg-wrapper { display: flex; align-items: center; justify-content: center; }
+  .wb-blend-share-icon .svg-wrapper svg { width: 18px; height: 18px; }
 </style>
 
 <script>
@@ -103,11 +114,9 @@
     var url = btn.getAttribute('data-url');
     if (navigator.clipboard && url) {
       navigator.clipboard.writeText(url).then(function () {
-        btn.textContent = 'Copied!';
-        btn.classList.add('wb-blend-share-btn--copied');
+        btn.classList.add('wb-blend-share-icon--copied');
         setTimeout(function () {
-          btn.textContent = 'Copy link';
-          btn.classList.remove('wb-blend-share-btn--copied');
+          btn.classList.remove('wb-blend-share-icon--copied');
         }, 2000);
       });
     }
