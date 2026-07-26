@@ -90,32 +90,6 @@
         </div>
       </div>
 
-      {%- if opts_collection != blank and opts_collection.products.size > 0 -%}
-        <div class="wb-blend-bottle-strip" id="wb-blend-products">
-          <h2 class="wb-blend-bottle-heading">Bottle your blend</h2>
-          <ul
-            class="wb-productsgrid wb-tightergrid grid product-grid grid--4-col-desktop grid--2-col-tablet-down"
-            role="list"
-          >
-            {%- assign skip_card_styles = false -%}
-            {%- for product in opts_collection.products -%}
-              <li class="wb-productcell grid__item">
-                {% render 'card-product',
-                  card_product: product,
-                  media_aspect_ratio: 'square',
-                  image_shape: 'default',
-                  show_secondary_image: true,
-                  show_vendor: false,
-                  show_rating: false,
-                  skip_styles: skip_card_styles
-                %}
-              </li>
-              {%- assign skip_card_styles = true -%}
-            {%- endfor -%}
-          </ul>
-        </div>
-      {%- endif -%}
-
       <p class="wb-blend-share-label">Share this blend</p>
       <div class="wb-blend-share-row">
         <a href="{{ wa_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on WhatsApp" aria-label="Share on WhatsApp">
@@ -132,6 +106,37 @@
     </div>
   </div>
 </div>
+
+{%- if opts_collection != blank and opts_collection.products.size > 0 -%}
+  <section class="wb-banded wb-blend-bottle-banded">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <h2 class="wb-blend-bottle-heading">Bottle your blend</h2>
+        <ul
+          class="wb-productsgrid wb-tightergrid grid product-grid grid--4-col-desktop grid--2-col-tablet-down"
+          role="list"
+          id="wb-blend-products"
+        >
+          {%- assign skip_card_styles = false -%}
+          {%- for product in opts_collection.products -%}
+            <li class="wb-productcell grid__item">
+              {% render 'card-product',
+                card_product: product,
+                media_aspect_ratio: 'square',
+                image_shape: 'default',
+                show_secondary_image: true,
+                show_vendor: false,
+                show_rating: false,
+                skip_styles: skip_card_styles
+              %}
+            </li>
+            {%- assign skip_card_styles = true -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
 
 <style>
   .wb-blend-byline { font-size: 24px; color: #555; margin-top: 4px; margin-bottom: 8px; }
@@ -189,8 +194,7 @@
     .wb-blend-complete-banner { font-size: 15px; padding: 18px 16px; }
   }
 
-  /* Product strip */
-  .wb-blend-bottle-strip { margin-bottom: 40px; }
+  /* Bottle strip heading */
   .wb-blend-bottle-heading {
     font-size: 20px;
     font-weight: 700;
