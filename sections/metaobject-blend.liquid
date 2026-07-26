@@ -35,6 +35,9 @@
 
 {{ 'wb-products.css' | asset_url | stylesheet_tag }}
 {{ 'wb-custom.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'section-related-products.css' | asset_url | stylesheet_tag }}
 
 <div class="wb-container wb-blend-page">
   <div class="wb-padding">
@@ -88,44 +91,26 @@
       </div>
 
       {%- if opts_collection != blank and opts_collection.products.size > 0 -%}
-        <div class="wb-blend-bottle-strip">
+        <div class="wb-blend-bottle-strip" id="wb-blend-products">
           <h2 class="wb-blend-bottle-heading">Bottle your blend</h2>
-          <ul class="wb-cards wb-main-cards" id="wb-blend-products">
+          <ul
+            class="wb-productsgrid wb-tightergrid grid product-grid grid--4-col-desktop grid--2-col-tablet-down"
+            role="list"
+          >
+            {%- assign skip_card_styles = false -%}
             {%- for product in opts_collection.products -%}
-              {%- assign sold_out = true -%}
-              {%- for variant in product.variants -%}
-                {%- if variant.available -%}
-                  {%- assign sold_out = false -%}
-                  {%- break -%}
-                {%- endif -%}
-              {%- endfor -%}
-              <li{% if sold_out %} class="wb-soldout"{% endif %}>
-                <a href="{{ product.url }}?blend={{ blend_code | url_encode }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
-                <div class="wb-card-image">
-                  {%- if product.featured_image -%}
-                    <img
-                      src="{{ product.featured_image | image_url: width: 600 }}"
-                      alt="{{ product.featured_image.alt | escape }}"
-                      width="{{ product.featured_image.width }}"
-                      height="{{ product.featured_image.height }}"
-                      loading="lazy"
-                    />
-                  {%- endif -%}
-                  {%- if sold_out -%}
-                    <div class="wb-productbadge">
-                      <div class="wb-soldoutbadge">Sold out</div>
-                    </div>
-                  {%- endif -%}
-                </div>
-                <div class="wb-card-details">
-                  <h3 class="wb-small-heading">
-                    <a href="{{ product.url }}?blend={{ blend_code | url_encode }}">{{ product.title }}</a>
-                  </h3>
-                  <p class="wb-custom-card-price">
-                    {%- if sold_out -%}Sold out{%- else -%}From {{ product.price_min | money }}{%- endif -%}
-                  </p>
-                </div>
+              <li class="wb-productcell grid__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'square',
+                  image_shape: 'default',
+                  show_secondary_image: true,
+                  show_vendor: false,
+                  show_rating: false,
+                  skip_styles: skip_card_styles
+                %}
               </li>
+              {%- assign skip_card_styles = true -%}
             {%- endfor -%}
           </ul>
         </div>
@@ -211,9 +196,6 @@
     font-weight: 700;
     margin: 0 0 20px;
   }
-  #wb-blend-products { margin-top: 0; }
-  #wb-blend-products .wb-card-image { aspect-ratio: 3/4; overflow: hidden; }
-  #wb-blend-products .wb-card-image img { width: 100%; height: 100%; object-fit: cover; }
 
   /* Social share */
   .wb-blend-share-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
@@ -259,6 +241,17 @@
     combosEl.textContent = floorToRound(c).toLocaleString();
   } else if (combosEl) {
     combosEl.textContent = '1';
+  }
+
+  var blendCode   = '{{ blend_code | escape }}';
+  var productStrip = document.getElementById('wb-blend-products');
+  if (productStrip && blendCode) {
+    productStrip.querySelectorAll('a[href*="/products/"]').forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (href && href.indexOf('blend=') === -1) {
+        a.href = href + (href.indexOf('?') !== -1 ? '&' : '?') + 'blend=' + encodeURIComponent(blendCode);
+      }
+    });
   }
 
   var copyBtn = document.getElementById('wb-blend-copy-btn');
