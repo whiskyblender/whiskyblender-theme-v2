@@ -74,9 +74,23 @@
           <span class="wb-blend-stat-label">single malt {{ cask_word }} used</span>
         </div>
         <div class="wb-blend-stat">
-          <span class="wb-blend-stat-value">{{ section.settings.combinations_count | default: "10,000+" }}</span>
-          <span class="wb-blend-stat-label">possible combinations</span>
+          <span class="wb-blend-stat-value">1</span>
+          <span class="wb-blend-stat-label">of over {{ section.settings.combinations_count | default: "10,000" }} possible blends</span>
         </div>
+        {%- assign blend_date = metaobject.blend_date.value -%}
+        {%- if blend_date != blank -%}
+          <div class="wb-blend-stat">
+            <span class="wb-blend-stat-value wb-blend-stat-value--date">{{ blend_date | date: "%b %Y" }}</span>
+            <span class="wb-blend-stat-label">blend created</span>
+          </div>
+        {%- endif -%}
+        {%- assign order_count = metaobject.order_count.value -%}
+        {%- if order_count != blank and order_count > 0 -%}
+          <div class="wb-blend-stat">
+            <span class="wb-blend-stat-value">{{ order_count }}</span>
+            <span class="wb-blend-stat-label">{% if order_count == 1 %}time bottled{% else %}times bottled{% endif %}</span>
+          </div>
+        {%- endif -%}
       </div>
 
       <div class="wb-custom-blend-actions wb-blend-code-actions">
@@ -156,7 +170,7 @@
     .wb-blend-stats { flex-direction: row; flex-wrap: wrap; }
     .wb-blend-stat { flex: 1 1 calc(50% - 5px); }
   }
-  @media screen and (min-width: 900px) {
+  @media screen and (min-width: 1000px) {
     .wb-blend-stats { flex-wrap: nowrap; }
     .wb-blend-stat { flex: 1; }
   }
