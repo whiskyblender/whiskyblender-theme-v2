@@ -46,16 +46,6 @@
       <h1 class="wb-large-heading wb-blend-title">{{ blend_title | escape }}</h1>
       <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
 
-      <div class="wb-custom-blend-actions wb-blend-code-actions">
-        <div class="wb-blendcode-box">
-          <span class="wb-blendcode-digits">{{ blend_code | escape }}</span>
-        </div>
-        <button class="wb-button wb-primary-button" id="wb-blend-copy-btn" data-url="{{ share_url | escape }}" data-copy-text="Copy link" data-copied-text="Copied!">
-          <span class="svg-wrapper">{{- 'icon-copy.svg' | inline_asset_content -}}</span>&nbsp;Copy link
-        </button>
-        <a href="{{ lab_url }}" class="wb-button">Tweak in the Lab &rarr;</a>
-      </div>
-
       {%- if recipe and recipe.size > 0 -%}
         {%- assign max_amount = 0 -%}
         {%- for item in recipe -%}
@@ -78,6 +68,27 @@
         </ul>
       {%- endif -%}
 
+      <div class="wb-blend-stats">
+        <div class="wb-blend-stat">
+          <span class="wb-blend-stat-value">{{ active_cask_count }}</span>
+          <span class="wb-blend-stat-label">single malt {{ cask_word }} used</span>
+        </div>
+        <div class="wb-blend-stat">
+          <span class="wb-blend-stat-value">{{ section.settings.combinations_count | default: "10,000+" }}</span>
+          <span class="wb-blend-stat-label">possible combinations</span>
+        </div>
+      </div>
+
+      <div class="wb-custom-blend-actions wb-blend-code-actions">
+        <div class="wb-blendcode-box">
+          <span class="wb-blendcode-digits">{{ blend_code | escape }}</span>
+        </div>
+        <button class="wb-button wb-primary-button" id="wb-blend-copy-btn" data-url="{{ share_url | escape }}">
+          <span class="svg-wrapper">{{- 'icon-copy.svg' | inline_asset_content -}}</span>&nbsp;Copy link
+        </button>
+        <a href="{{ lab_url }}" class="wb-button">Tweak in the Lab &rarr;</a>
+      </div>
+
       <p class="wb-blend-share-label">Share this blend</p>
       <div class="wb-blend-share-row">
         <a href="{{ wa_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on WhatsApp" aria-label="Share on WhatsApp">
@@ -89,25 +100,6 @@
         <a href="{{ x_url }}" target="_blank" rel="noopener noreferrer" class="wb-blend-share-icon" title="Share on X / Twitter" aria-label="Share on X / Twitter">
           <span class="svg-wrapper">{{- 'icon-twitter.svg' | inline_asset_content -}}</span>
         </a>
-      </div>
-
-      <div class="wb-blend-stats">
-        <div class="wb-blend-stat">
-          <span class="wb-blend-stat-value">{{ active_cask_count }}</span>
-          <span class="wb-blend-stat-label">single malt {{ cask_word }} used</span>
-        </div>
-        {%- if section.settings.combinations_count != blank -%}
-          <div class="wb-blend-stat">
-            <span class="wb-blend-stat-value">{{ section.settings.combinations_count }}</span>
-            <span class="wb-blend-stat-label">possible combinations</span>
-          </div>
-        {%- endif -%}
-        {%- if metaobject.system.created_at != blank -%}
-          <div class="wb-blend-stat">
-            <span class="wb-blend-stat-value wb-blend-stat-value--date">{{ metaobject.system.created_at | date: "%b %Y" }}</span>
-            <span class="wb-blend-stat-label">blend created</span>
-          </div>
-        {%- endif -%}
       </div>
 
     </div>
@@ -234,7 +226,7 @@
   }
 
   /* Social share */
-  .wb-blend-share-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #bbb; margin-top: 40px; margin-bottom: 12px; }
+  .wb-blend-share-label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #bbb; margin-top: 20px; margin-bottom: 12px; }
   .wb-blend-share-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .wb-blend-share-icon {
     display: inline-flex;
