@@ -94,6 +94,35 @@
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
+    <script>
+    /* Keep the Forms popup from appearing on top of the age gate.
+       Intercepts window.ShopifyForms (set by the Forms app-block) and holds
+       it back until AYE is clicked. Verified visitors: zero overhead.
+       Fallback: releases after 30 s so a broken gate can't kill email capture. */
+    (function () {
+      if (document.cookie.indexOf('wb_age_verified=1') !== -1) return;
+      var _stored = undefined;
+      var _released = false;
+      function release() {
+        if (_released) return;
+        _released = true;
+        Object.defineProperty(window, 'ShopifyForms', {
+          value: _stored, writable: true, configurable: true, enumerable: true
+        });
+      }
+      Object.defineProperty(window, 'ShopifyForms', {
+        get: function () { return undefined; },
+        set: function (v) { _stored = v; },
+        configurable: true, enumerable: true
+      });
+      document.addEventListener('DOMContentLoaded', function () {
+        var btn = document.getElementById('wb-age-yes');
+        if (btn) btn.addEventListener('click', release, { once: true });
+      });
+      setTimeout(release, 30000);
+    })();
+    </script>
+
     {{ content_for_header }}
 
     <script>

@@ -42,7 +42,7 @@
       section.querySelectorAll('.wb-button, .wb-create-options li').forEach(function (btn) {
         btn.addEventListener('click', function () {
           if (!navigator.webdriver && typeof gtag === 'function') {
-            gtag('event', 'cta_404_click', { variant: variant, requested_path: raw });
+            gtag('event', 'cta_404_click', { variant: variant, requested_path: raw, transport_type: 'beacon' });
           }
         });
       });

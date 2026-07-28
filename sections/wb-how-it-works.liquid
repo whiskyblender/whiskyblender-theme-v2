@@ -1,11 +1,11 @@
-{%- if section.settings.page_title != blank or section.settings.page_intro != blank -%}
+{%- if section.settings.page_title != blank or page.content != blank -%}
   <div class="wb-container">
     <div class="wb-padding wb-hiw-title-wrap">
       {%- if section.settings.page_title != blank -%}
         <h1 class="wb-large-heading wb-hiw-title">{{ section.settings.page_title | escape }}</h1>
       {%- endif -%}
-      {%- if section.settings.page_intro != blank -%}
-        <div class="wb-hiw-intro wb-collection-copy">{{ section.settings.page_intro }}</div>
+      {%- if page.content != blank -%}
+        <div class="wb-hiw-intro wb-collection-copy">{{ page.content }}</div>
       {%- endif -%}
     </div>
   </div>
@@ -79,7 +79,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .wb-hiw-image {
@@ -150,12 +150,6 @@
       "id": "page_title",
       "label": "Page title (H1)",
       "default": "How it works"
-    },
-    {
-      "type": "richtext",
-      "id": "page_intro",
-      "label": "Intro text",
-      "default": "<p>You don't need to know a thing about whisky to do this. Pick the whiskies that sound good to you and we'll turn what you've made into a real bottle of Scotch with your name on the label. That's the whole thing.</p>"
     }
   ],
   "blocks": [
