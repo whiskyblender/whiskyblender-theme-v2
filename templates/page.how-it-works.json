@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "how_it_works": {
+      "type": "wb-how-it-works",
+      "blocks": {
+        "step_one": {
+          "type": "step",
+          "settings": {
+            "step_number": "One",
+            "heading": "Select your whiskies",
+            "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add a wee bit of each until your bottle’s full. No expertise needed — trust your instincts.</p>",
+            "image": "shopify://shop_images/hiw_one.gif",
+            "button_label": "",
+            "button_url": ""
+          }
+        },
+        "step_two": {
+          "type": "step",
+          "settings": {
+            "step_number": "Two",
+            "heading": "Name and bottle it",
+            "body": "<p>Give your whisky a name (or use our handy generator to suggest something), declare yourself as the creator, and then choose which bottle you want filled with it.</p>",
+            "image": "shopify://shop_images/hiw_two.gif",
+            "button_label": "",
+            "button_url": ""
+          }
+        },
+        "step_three": {
+          "type": "step",
+          "settings": {
+            "step_number": "Three",
+            "heading": "Design your label",
+            "body": "<p>The label updates as you type, so you see exactly what’s going on the bottle before our blenders make your recipe by hand. It arrives in a jute gift bag and recipe card.</p>",
+            "image": "shopify://shop_images/hiw_three.gif",
+            "button_label": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "step_one",
+        "step_two",
+        "step_three"
+      ],
+      "name": "How it works",
+      "settings": {}
+    },
+    "wb_cta_something_unique": {
+      "type": "wb-cta",
+      "name": "CTA - Something unique",
+      "settings": {
+        "heading": "Ready for the lab?",
+        "description": "Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you'll be proud to pour, share, and savour.",
+        "image": "shopify://shop_images/wb-foryersel.png",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "Start blending",
+        "primary_button_url": "shopify://pages/the-lab",
+        "secondary_button_text": "Pre-made blends",
+        "secondary_button_url": "shopify://pages/perfect-drams"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "how_it_works",
+    "wb_cta_something_unique"
+  ]
+}
