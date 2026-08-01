@@ -775,13 +775,13 @@
 }
 
 .wb-btn-nudge--visible {
-  max-height: 64px;
+  max-height: 82px;
 }
 
 .wb-btn-nudge__emoji {
   display: inline-block;
-  font-size: 28px;
-  margin-top: 10px;
+  font-size: 52px;
+  margin-top: 30px;
   animation: wb-hint-bob 2.4s ease-in-out infinite;
 }
 
