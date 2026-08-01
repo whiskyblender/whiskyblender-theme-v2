@@ -67,8 +67,8 @@
 
 .wb-field-emoji-hint {
   position: absolute;
-  right: 12px;
-  font-size: 24px;
+  right: 16px;
+  font-size: 32px;
   pointer-events: none;
   animation: wb-hint-bob-x 2.4s ease-in-out infinite;
   opacity: 1;
