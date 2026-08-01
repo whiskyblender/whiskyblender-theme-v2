@@ -372,10 +372,6 @@
         }
       }
 
-      /* Button nudge emoji */
-      var nudge = document.getElementById('wb-btn-nudge');
-      if (nudge) nudge.classList.toggle('wb-btn-nudge--visible', total === MAX_TOTAL);
-
       /* Screen reader pie summary */
       var srEl = document.getElementById('wb-pie-sr');
       if (srEl) {
@@ -394,6 +390,9 @@
         var ready  = (total === MAX_TOTAL && title.length > 0 && author.length > 0);
 
         saveBtn.classList.toggle('wb-button-disabled', !ready);
+
+        var nudge = document.getElementById('wb-btn-nudge');
+        if (nudge) nudge.classList.toggle('wb-btn-nudge--visible', ready);
 
         if (total === 0) {
           saveBtn.textContent = 'Draw from casks';
@@ -697,9 +696,10 @@
 
       function makeTooltip(text, wrapper) {
         var el = document.createElement('div');
-        el.className = 'wb-field-tooltip wb-hint-hidden';
+        el.className = 'wb-field-emoji-hint wb-hint-hidden';
         el.setAttribute('aria-hidden', 'true');
-        el.textContent = text;
+        el.setAttribute('title', text);
+        el.textContent = '👈';
         wrapper.appendChild(el);
         return el;
       }
