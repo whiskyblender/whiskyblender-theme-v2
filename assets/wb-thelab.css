@@ -765,85 +765,24 @@
   animation: wb-fillbar-remove 0.3s ease-out both;
 }
 
-/* ── Save panel ──────────────────────────────────────────────────── */
+/* ── Button nudge ──────────────────────────────────────────────────── */
 
-/* ── Blend complete banner ─────────────────────────────────────── */
-
-.wb-blend-complete-banners {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-@media screen and (min-width: 600px) {
-  .wb-blend-complete-banners {
-    flex-direction: row;
-  }
-}
-
-.wb-blend-complete-banner {
-  position: relative;
+.wb-btn-nudge {
   overflow: hidden;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 16px;
-  border-radius: 0 0 28px 28px;
-  background: linear-gradient(0deg, #dce9f8, #ffffff);
-  color: #1e3a6e;
+  max-height: 0;
+  transition: max-height 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
   text-align: center;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.4;
 }
 
-.wb-blend-complete-banner::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
-  animation: wb-banner-sheen 4s ease-in-out infinite;
-  pointer-events: none;
+.wb-btn-nudge--visible {
+  max-height: 64px;
 }
 
-.wb-blend-complete-banner:nth-child(2)::before { animation-delay: 1.3s; }
-.wb-blend-complete-banner:nth-child(3)::before { animation-delay: 2.6s; }
-
-@keyframes wb-banner-sheen {
-  0%   { left: -75%; }
-  55%  { left: 125%; }
-  100% { left: 125%; }
-}
-
-@media screen and (min-width: 600px) {
-  .wb-blend-complete-banner {
-    font-size: 15px;
-    padding: 18px 16px;
-  }
-}
-
-.wb-blend-complete-banners.is-entering .wb-blend-complete-banner:nth-child(1) {
-  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-.wb-blend-complete-banners.is-entering .wb-blend-complete-banner:nth-child(2) {
-  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.1s both;
-}
-.wb-blend-complete-banners.is-entering .wb-blend-complete-banner:nth-child(3) {
-  animation: wb-banner-in 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) 0.2s both;
-}
-
-@keyframes wb-banner-in {
-  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0)   scale(1);    }
-}
-
-.wb-blend-complete-banner strong {
-  color: #1e3a6e;
+.wb-btn-nudge__emoji {
+  display: inline-block;
+  font-size: 28px;
+  margin-top: 10px;
+  animation: wb-hint-bob 2.4s ease-in-out infinite;
 }
 
 /* ── Save panel ──────────────────────────────────────────────────── */

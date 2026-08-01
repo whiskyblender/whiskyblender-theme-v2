@@ -12,7 +12,7 @@
     "wb_collections": {
       "type": "wb-collections-page",
       "settings": {
-        "main_collections": "Personalised, andrews-of-bothwell,wee-bits,collaborations,football",
+        "main_collections": "Personalised, andrews-of-bothwell,wee-bits,collaborations,football, iconic-scotland, famous-scots",
         "regulars_collections": "royal-anglian-regiment",
         "occasions_collections": "anniversaries,birthdays,celebrations,christmas,thankyous,weddings"
       }

@@ -124,7 +124,7 @@
         "products_to_show": 4,
         "columns_desktop": 4,
         "columns_mobile": "2",
-        "excluded_collection_handles": "featured,anniversaries,birthdays,celebrations,christmas,thankyous,weddings,football,royal-anglian-regiment,custom",
+        "excluded_collection_handles": "featured,anniversaries,birthdays,celebrations,christmas,thankyous,weddings,custom",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
