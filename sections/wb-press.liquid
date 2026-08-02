@@ -11,6 +11,15 @@
     margin: 24px 0 8px;
   }
 
+  /* Banding: the intro reads as a plain header, so the grey/white alternation
+     starts one band later — "The short version" becomes the first grey band. */
+  #wb-press > .wb-banded:nth-of-type(odd) {
+    background-color: transparent;
+  }
+  #wb-press > .wb-banded:nth-of-type(even) {
+    background-color: #efefef;
+  }
+
   /* ── Stats ─────────────────────────────────────────────── */
   #wb-press .wb-press-stats {
     display: grid;
@@ -42,6 +51,7 @@
   #wb-press .wb-press-stat p {
     margin: 0;
     font-weight: 700;
+    line-height: normal;
   }
   #wb-press .wb-press-stat small {
     display: block;
@@ -70,29 +80,19 @@
   /* ── Boilerplate ───────────────────────────────────────── */
   #wb-press .wb-press-boiler {
     background: #ffffff;
-    border: 2px solid #169776;
+    border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 20px;
-    padding: 20px;
+    padding: 24px;
     max-width: 768px;
   }
   #wb-press .wb-press-boiler p:first-child { margin-top: 0; }
   #wb-press .wb-press-boiler p:last-child { margin-bottom: 0; }
-  #wb-press .wb-press-copy {
-    -webkit-appearance: none;
-    appearance: none;
-    border: 2px solid #169776;
-    background: transparent;
-    color: #169776;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    border-radius: 6px;
-    padding: 8px 14px;
+  /* Copy button uses the site button component (.wb-button); content-width. */
+  #wb-press .wb-press-copy-btn {
+    display: inline-flex;
+    width: auto;
     margin-top: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
   }
-  #wb-press .wb-press-copy:hover { border-color: #333333; color: #333333; }
 
   /* ── Names ─────────────────────────────────────────────── */
   #wb-press ul.wb-press-names {
@@ -110,10 +110,23 @@
   #wb-press ul.wb-press-names li {
     background: #ffffff;
     border-radius: 12px;
-    padding: 14px 18px;
+    border-left: 4px solid #169776;
+    padding: 16px 20px;
   }
-  #wb-press ul.wb-press-names b { display: block; font-size: 18px; }
-  #wb-press ul.wb-press-names span { font-size: 14px; opacity: 0.75; }
+  #wb-press ul.wb-press-names b {
+    display: block;
+    font-size: 20px;
+    line-height: 1.25;
+  }
+  #wb-press ul.wb-press-names span {
+    display: block;
+    margin-top: 6px;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+  #wb-press ul.wb-press-names span::before {
+    content: "\2014\00a0";
+  }
 
   /* ── Angles ────────────────────────────────────────────── */
   #wb-press .wb-press-angles {
@@ -215,7 +228,7 @@
 <section id="wb-press" class="wb-overflow-hidden-x">
   {%- comment -%} ---------- Intro ---------- {%- endcomment -%}
   <div class="wb-banded">
-    <div class="wb-container">
+    <div class="wb-container wb-first-item">
       <div class="wb-padding">
         <h1 class="wb-medium-heading">{{ section.settings.heading | default: 'Press' }}</h1>
         <div class="wb-press-intro">
@@ -243,7 +256,7 @@
             | default: '<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch.</p>'
           }}
         </div>
-        <button class="wb-press-copy" type="button" data-wb-copy="#wb-press-boiler">Copy to clipboard</button>
+        <button class="wb-button wb-press-copy-btn" type="button" data-wb-copy="#wb-press-boiler">Copy to clipboard</button>
       </div>
     </div>
   </div>

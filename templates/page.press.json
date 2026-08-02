@@ -15,9 +15,9 @@
         "stat_designed": {
           "type": "stat",
           "settings": {
-            "figure": "45,000+",
+            "figure": "50,000+",
             "label": "whiskies designed since 2011",
-            "note": "More than 7,700 of them blended, bottled and posted."
+            "note": "Around 12,000 of them blended, bottled and posted."
           }
         },
         "stat_person": {
@@ -31,7 +31,7 @@
         "stat_dads": {
           "type": "stat",
           "settings": {
-            "figure": "32:1",
+            "figure": "32 to 1",
             "label": "bottles named for a dad versus a mum",
             "note": "162 dads. Five mums. Whisky remains, stubbornly, a father's gift."
           }
@@ -41,77 +41,77 @@
           "settings": {
             "figure": "21.6%",
             "label": "of a year's bottles are bought in December",
-            "note": "October to December accounts for over a third of the year. January is the second biggest month — that'll be Burns Night."
+            "note": "October to December accounts for over a third of the year. January is the next busiest month — that'll be Burns Night."
           }
         },
         "name_360": {
           "type": "name",
           "settings": {
             "name": "360 Months",
-            "signed": "A 30th birthday, counted the long way round"
+            "signed": "Damian"
           }
         },
         "name_fcancer": {
           "type": "name",
           "settings": {
             "name": "F Cancer",
-            "signed": "Signed \"Daniel\""
+            "signed": "Daniel"
           }
         },
         "name_altruistic": {
           "type": "name",
           "settings": {
             "name": "Altruistic Hero",
-            "signed": "Signed \"The Ones Who Love You\""
+            "signed": "The Ones Who Love You"
           }
         },
         "name_shaun": {
           "type": "name",
           "settings": {
             "name": "Shaun's Highland Quest",
-            "signed": "Signed \"Kirsty ~ your loving daughter\""
+            "signed": "Kirsty ~ your loving daughter"
           }
         },
         "name_simon": {
           "type": "name",
           "settings": {
             "name": "Simon's Wedding Whiskey",
-            "signed": "Signed \"Kate (future wife)\""
+            "signed": "Kate (future wife)"
           }
         },
         "name_heid": {
           "type": "name",
           "settings": {
             "name": "Wettin' the baby's heid",
-            "signed": "From the archive — a new arrival, 2013"
+            "signed": "A new arrival, 2013"
           }
         },
         "name_sheila": {
           "type": "name",
           "settings": {
             "name": "Sheila's Sanity Sauce",
-            "signed": "Signed \"Weir Wobbly Water inc.\""
+            "signed": "Weir Wobbly Water inc."
           }
         },
         "name_midlife": {
           "type": "name",
           "settings": {
             "name": "Tom Wardles midlife crisis",
-            "signed": "Signed \"Oliver Connolly\". No further comment given."
+            "signed": "Oliver Connolly"
           }
         },
         "name_doghouse": {
           "type": "name",
           "settings": {
             "name": "Doghouse",
-            "signed": "Signed \"Fido\""
+            "signed": "Fido"
           }
         },
         "name_juice": {
           "type": "name",
           "settings": {
             "name": "Dads Adult Juice",
-            "signed": "Signed \"Matthew\""
+            "signed": "Matthew"
           }
         },
         "angle_christmas": {
@@ -126,7 +126,7 @@
           "type": "angle",
           "settings": {
             "title": "Burns Night, without the tartan tat",
-            "body": "<p>January is our second-busiest month of the year and it isn't Christmas spillover. We can talk about what Scots actually drink on the 25th, and why blending your own is closer to the tradition than most people assume.</p>",
+            "body": "<p>January is a second peak in our year — smaller than Christmas, but real, and not just spillover. We can talk about what Scots actually drink on the 25th, and why blending your own is closer to the tradition than most people assume.</p>",
             "timing": "Most relevant: December–January"
           }
         },
@@ -142,7 +142,7 @@
           "type": "fact",
           "settings": {
             "label": "Founded",
-            "value": "2011, in Bothwell, Scotland — fifteen years in 2026"
+            "value": "2011, in Bothwell, Scotland — fifteen years in September 2026"
           }
         },
         "fact_founders": {
@@ -163,14 +163,14 @@
           "type": "fact",
           "settings": {
             "label": "Blends created",
-            "value": "More than 45,000 designed since 2011; over 7,700 bottled and posted"
+            "value": "More than 50,000 designed since 2011; around 12,000 bottled and posted"
           }
         },
         "fact_prices": {
           "type": "fact",
           "settings": {
             "label": "Prices",
-            "value": "500ml £60 · 200ml £30 · custom miniatures £115 · gift vouchers from £30"
+            "value": "500ml £60 · 200ml £30 · custom miniatures £115 · gift vouchers available"
           }
         },
         "fact_bottled": {
@@ -198,7 +198,7 @@
           "type": "coverage",
           "settings": {
             "title": "Wired",
-            "url": "https://www.wired.com/2012/03/whisky-blender/"
+            "url": ""
           }
         },
         "coverage_uncrate": {
@@ -344,10 +344,10 @@
       ],
       "settings": {
         "heading": "Press",
-        "intro": "<p>Everything you need to write about us, in one place—numbers, names and a few story angles, all free to use editorially with a credit. Need hi-res images, samples or an interview? Just ask: we're two blokes and an inbox, so you'll get a real reply.</p>",
+        "intro": "<p>Everything you need to write about us, in one place—numbers, names and a few story angles, all free to use editorially with a credit. Need hi-res images, samples or an interview? Just ask: we're two fannies and an inbox, so you'll get a real reply.</p>",
         "press_email": "",
         "boiler_heading": "The short version",
-        "boilerplate": "<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch. Founded in Bothwell, Scotland in 2011 by two friends, Andy and Drew, it hand-selects well-aged casks and hands the blending over to the customer—who then names the result and puts it on the label. Every bottle is filled and bottled in Scotland. In fifteen years more than 45,000 people have designed their own whisky and over 7,700 have had it bottled: for weddings, for birthdays, for wakes, and for folk who just fancied one with their own name on it.</p>",
+        "boilerplate": "<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch. Founded in Bothwell, Scotland in 2011 by two friends, Andy and Drew, who have hand-selected well-aged casks and handed the blending over to their customer—who then name their creations and design the label. Every bottle is filled and bottled in Scotland. In fifteen years more than 50,000 people have designed their own whisky and around 12,000 have had it bottled: for weddings, for birthdays, for wakes, and for folk who just fancied one with their own name on it.</p>",
         "stats_heading": "By the numbers",
         "stats_intro": "<p>We've kept records since 2011, which means we can tell you a few things nobody else can about what people do when you hand them a bottle of Scotch and let them name it.</p>",
         "names_heading": "A few of the names",
