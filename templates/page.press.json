@@ -46,43 +46,73 @@
         },
         "name_360": {
           "type": "name",
-          "settings": { "name": "360 Months", "signed": "A 30th birthday, counted the long way round" }
+          "settings": {
+            "name": "360 Months",
+            "signed": "A 30th birthday, counted the long way round"
+          }
         },
         "name_fcancer": {
           "type": "name",
-          "settings": { "name": "F Cancer", "signed": "Signed \"Daniel\"" }
+          "settings": {
+            "name": "F Cancer",
+            "signed": "Signed \"Daniel\""
+          }
         },
         "name_altruistic": {
           "type": "name",
-          "settings": { "name": "Altruistic Hero", "signed": "Signed \"The Ones Who Love You\"" }
+          "settings": {
+            "name": "Altruistic Hero",
+            "signed": "Signed \"The Ones Who Love You\""
+          }
         },
         "name_shaun": {
           "type": "name",
-          "settings": { "name": "Shaun's Highland Quest", "signed": "Signed \"Kirsty ~ your loving daughter\"" }
+          "settings": {
+            "name": "Shaun's Highland Quest",
+            "signed": "Signed \"Kirsty ~ your loving daughter\""
+          }
         },
         "name_simon": {
           "type": "name",
-          "settings": { "name": "Simon's Wedding Whiskey", "signed": "Signed \"Kate (future wife)\"" }
+          "settings": {
+            "name": "Simon's Wedding Whiskey",
+            "signed": "Signed \"Kate (future wife)\""
+          }
         },
         "name_heid": {
           "type": "name",
-          "settings": { "name": "Wettin' the baby's heid", "signed": "From the archive — a new arrival, 2013" }
+          "settings": {
+            "name": "Wettin' the baby's heid",
+            "signed": "From the archive — a new arrival, 2013"
+          }
         },
         "name_sheila": {
           "type": "name",
-          "settings": { "name": "Sheila's Sanity Sauce", "signed": "Signed \"Weir Wobbly Water inc.\"" }
+          "settings": {
+            "name": "Sheila's Sanity Sauce",
+            "signed": "Signed \"Weir Wobbly Water inc.\""
+          }
         },
         "name_midlife": {
           "type": "name",
-          "settings": { "name": "Tom Wardles midlife crisis", "signed": "Signed \"Oliver Connolly\". No further comment given." }
+          "settings": {
+            "name": "Tom Wardles midlife crisis",
+            "signed": "Signed \"Oliver Connolly\". No further comment given."
+          }
         },
         "name_doghouse": {
           "type": "name",
-          "settings": { "name": "Doghouse", "signed": "Signed \"Fido\"" }
+          "settings": {
+            "name": "Doghouse",
+            "signed": "Signed \"Fido\""
+          }
         },
         "name_juice": {
           "type": "name",
-          "settings": { "name": "Dads Adult Juice", "signed": "Signed \"Matthew\"" }
+          "settings": {
+            "name": "Dads Adult Juice",
+            "signed": "Signed \"Matthew\""
+          }
         },
         "angle_christmas": {
           "type": "angle",
@@ -110,11 +140,17 @@
         },
         "fact_founded": {
           "type": "fact",
-          "settings": { "label": "Founded", "value": "2011, in Bothwell, Scotland — fifteen years in 2026" }
+          "settings": {
+            "label": "Founded",
+            "value": "2011, in Bothwell, Scotland — fifteen years in 2026"
+          }
         },
         "fact_founders": {
           "type": "fact",
-          "settings": { "label": "Founders", "value": "Andy and Drew — two pals, no distillery" }
+          "settings": {
+            "label": "Founders",
+            "value": "Andy and Drew — two pals, no distillery"
+          }
         },
         "fact_what": {
           "type": "fact",
@@ -139,27 +175,16 @@
         },
         "fact_bottled": {
           "type": "fact",
-          "settings": { "label": "Bottled", "value": "Filled, labelled and bottled in Scotland" }
+          "settings": {
+            "label": "Bottled",
+            "value": "Filled, labelled and bottled in Scotland"
+          }
         },
         "fact_shipping": {
           "type": "fact",
           "settings": {
             "label": "Shipping",
             "value": "Free UK delivery, no minimum spend. Worldwide shipping, with US duties and taxes calculated at checkout."
-          }
-        },
-        "fact_leadtime": {
-          "type": "fact",
-          "settings": {
-            "label": "Lead time",
-            "value": "TO CONFIRM — add current turnaround and the Christmas order-by date"
-          }
-        },
-        "fact_affiliate": {
-          "type": "fact",
-          "settings": {
-            "label": "Affiliate",
-            "value": "TO CONFIRM — add network once live (this is what gets you into affiliate-monetised gift guides)"
           }
         },
         "fact_company": {
@@ -169,62 +194,111 @@
             "value": "Andrews of Bothwell Ltd, company no. SC407498. Trade and collaborations: andrewsofbothwell.com"
           }
         },
-        "asset_logos": {
-          "type": "asset",
-          "settings": { "title": "Logos and wordmark", "url": "", "note": "TO ADD — SVG and PNG, light and dark" }
-        },
-        "asset_product": {
-          "type": "asset",
-          "settings": { "title": "Product shots — 500ml, 200ml, miniatures", "url": "", "note": "TO ADD — JPG, 3000px, white background" }
-        },
-        "asset_lifestyle": {
-          "type": "asset",
-          "settings": { "title": "Lifestyle photography", "url": "", "note": "TO ADD — bottle in hand, poured dram, gift box" }
-        },
-        "asset_label": {
-          "type": "asset",
-          "settings": { "title": "Label close-ups", "url": "", "note": "TO ADD — the personalisation is the story, so make it legible" }
-        },
-        "asset_founders": {
-          "type": "asset",
-          "settings": { "title": "Founder photography", "url": "", "note": "TO ADD — Andy and Drew, landscape and portrait crops" }
-        },
-        "founder_andy": {
-          "type": "founder",
-          "settings": {
-            "photo": "",
-            "name": "Andy",
-            "role": "Co-founder",
-            "bio": "<p>TO WRITE — a couple of lines. Where the whisky obsession came from and what he handles day to day.</p>"
-          }
-        },
-        "founder_drew": {
-          "type": "founder",
-          "settings": {
-            "photo": "",
-            "name": "Drew",
-            "role": "Co-founder",
-            "bio": "<p>TO WRITE — a couple of lines. Same again.</p>"
-          }
-        },
         "coverage_wired": {
           "type": "coverage",
-          "settings": { "title": "Wired", "url": "https://www.wired.com/2012/03/whisky-blender/" }
+          "settings": {
+            "title": "Wired",
+            "url": "https://www.wired.com/2012/03/whisky-blender/"
+          }
         },
-        "coverage_uncrate": { "type": "coverage", "settings": { "title": "Uncrate", "url": "" } },
-        "coverage_martha": { "type": "coverage", "settings": { "title": "Martha Stewart", "url": "" } },
-        "coverage_playboy": { "type": "coverage", "settings": { "title": "Playboy", "url": "" } },
-        "coverage_brides": { "type": "coverage", "settings": { "title": "Brides Magazine", "url": "" } },
-        "coverage_record": { "type": "coverage", "settings": { "title": "Daily Record", "url": "" } },
-        "coverage_scotsman": { "type": "coverage", "settings": { "title": "The Scotsman", "url": "" } },
-        "coverage_classicboat": { "type": "coverage", "settings": { "title": "Classic Boat", "url": "" } },
-        "coverage_urbandaddy": { "type": "coverage", "settings": { "title": "Urban Daddy", "url": "" } },
-        "coverage_springwise": { "type": "coverage", "settings": { "title": "Springwise", "url": "" } },
-        "coverage_foodbeast": { "type": "coverage", "settings": { "title": "Foodbeast", "url": "" } },
-        "coverage_lsn": { "type": "coverage", "settings": { "title": "LS:N Global", "url": "" } },
-        "coverage_greatdrams": { "type": "coverage", "settings": { "title": "Great Drams", "url": "" } },
-        "coverage_ralfy": { "type": "coverage", "settings": { "title": "ralfy.com", "url": "" } },
-        "coverage_channel7": { "type": "coverage", "settings": { "title": "Channel 7", "url": "" } }
+        "coverage_uncrate": {
+          "type": "coverage",
+          "settings": {
+            "title": "Uncrate",
+            "url": ""
+          }
+        },
+        "coverage_martha": {
+          "type": "coverage",
+          "settings": {
+            "title": "Martha Stewart",
+            "url": ""
+          }
+        },
+        "coverage_playboy": {
+          "type": "coverage",
+          "settings": {
+            "title": "Playboy",
+            "url": ""
+          }
+        },
+        "coverage_brides": {
+          "type": "coverage",
+          "settings": {
+            "title": "Brides Magazine",
+            "url": ""
+          }
+        },
+        "coverage_record": {
+          "type": "coverage",
+          "settings": {
+            "title": "Daily Record",
+            "url": ""
+          }
+        },
+        "coverage_scotsman": {
+          "type": "coverage",
+          "settings": {
+            "title": "The Scotsman",
+            "url": ""
+          }
+        },
+        "coverage_classicboat": {
+          "type": "coverage",
+          "settings": {
+            "title": "Classic Boat",
+            "url": ""
+          }
+        },
+        "coverage_urbandaddy": {
+          "type": "coverage",
+          "settings": {
+            "title": "Urban Daddy",
+            "url": ""
+          }
+        },
+        "coverage_springwise": {
+          "type": "coverage",
+          "settings": {
+            "title": "Springwise",
+            "url": ""
+          }
+        },
+        "coverage_foodbeast": {
+          "type": "coverage",
+          "settings": {
+            "title": "Foodbeast",
+            "url": ""
+          }
+        },
+        "coverage_lsn": {
+          "type": "coverage",
+          "settings": {
+            "title": "LS:N Global",
+            "url": ""
+          }
+        },
+        "coverage_greatdrams": {
+          "type": "coverage",
+          "settings": {
+            "title": "Great Drams",
+            "url": ""
+          }
+        },
+        "coverage_ralfy": {
+          "type": "coverage",
+          "settings": {
+            "title": "ralfy.com",
+            "url": ""
+          }
+        },
+        "coverage_channel7": {
+          "type": "coverage",
+          "settings": {
+            "title": "Channel 7",
+            "url": ""
+          }
+        }
       },
       "block_order": [
         "stat_designed",
@@ -251,16 +325,7 @@
         "fact_prices",
         "fact_bottled",
         "fact_shipping",
-        "fact_leadtime",
-        "fact_affiliate",
         "fact_company",
-        "asset_logos",
-        "asset_product",
-        "asset_lifestyle",
-        "asset_label",
-        "asset_founders",
-        "founder_andy",
-        "founder_drew",
         "coverage_wired",
         "coverage_uncrate",
         "coverage_martha",
@@ -279,8 +344,8 @@
       ],
       "settings": {
         "heading": "Press",
-        "intro": "<p>Everything you need to write about us, in one place—numbers, names, images and a few story angles. All free to use editorially with a credit. If something isn't here, just ask: we're two blokes and an inbox, so you'll get a real reply.</p>",
-        "press_email": "hello@whiskyblender.com",
+        "intro": "<p>Everything you need to write about us, in one place—numbers, names and a few story angles, all free to use editorially with a credit. Need hi-res images, samples or an interview? Just ask: we're two blokes and an inbox, so you'll get a real reply.</p>",
+        "press_email": "",
         "boiler_heading": "The short version",
         "boilerplate": "<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch. Founded in Bothwell, Scotland in 2011 by two friends, Andy and Drew, it hand-selects well-aged casks and hands the blending over to the customer—who then names the result and puts it on the label. Every bottle is filled and bottled in Scotland. In fifteen years more than 45,000 people have designed their own whisky and over 7,700 have had it bottled: for weddings, for birthdays, for wakes, and for folk who just fancied one with their own name on it.</p>",
         "stats_heading": "By the numbers",
@@ -294,9 +359,11 @@
         "founders_heading": "Who to talk to",
         "coverage_heading": "Previously in",
         "contact_heading": "Get in touch",
-        "contact_text": "<p>Press enquiries, samples, interviews, or a daft question about casks—all welcome. We can usually turn things round the same day.</p><p>Happy to send a bottle to anyone writing about us. Tell us what you want it called and we'll put it on the label.</p>"
+        "contact_text": "<p>Press enquiries, images, samples, interviews, or a daft question about casks—all welcome. We can usually turn things round the same day.</p><p>Happy to send a bottle to anyone writing about us. Tell us what you want it called and we'll put it on the label.</p>"
       }
     }
   },
-  "order": ["wb_press"]
+  "order": [
+    "wb_press"
+  ]
 }
