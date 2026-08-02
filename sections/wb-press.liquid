@@ -1,0 +1,495 @@
+<style>
+  #wb-press .wb-press-intro {
+    max-width: 768px;
+  }
+  #wb-press h2 {
+    margin-top: 0;
+  }
+  #wb-press h3 {
+    font-size: 1em;
+    font-weight: 700;
+    margin: 24px 0 8px;
+  }
+  #wb-press dl.wb-press-facts {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 768px;
+  }
+  #wb-press dl.wb-press-facts > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  #wb-press dl.wb-press-facts dt {
+    font-weight: 700;
+    flex: 0 0 200px;
+  }
+  #wb-press dl.wb-press-facts dd {
+    margin: 0;
+    flex: 1 1 240px;
+  }
+  #wb-press .wb-press-boiler {
+    background: #ffffff;
+    border: 2px solid #169776;
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 768px;
+    position: relative;
+  }
+  #wb-press .wb-press-boiler p:first-child {
+    margin-top: 0;
+  }
+  #wb-press .wb-press-boiler p:last-child {
+    margin-bottom: 0;
+  }
+  #wb-press .wb-press-copy {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 2px solid #169776;
+    background: transparent;
+    color: #169776;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 8px 14px;
+    margin-top: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  #wb-press .wb-press-copy:hover {
+    border-color: #333333;
+    color: #333333;
+  }
+  #wb-press ul.wb-press-assets,
+  #wb-press ul.wb-press-coverage {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+    max-width: 768px;
+  }
+  #wb-press ul.wb-press-assets li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+  #wb-press ul.wb-press-assets li span {
+    display: block;
+    font-size: 14px;
+    opacity: 0.75;
+  }
+  #wb-press ul.wb-press-coverage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+  }
+  #wb-press ul.wb-press-coverage li {
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  #wb-press ul.wb-press-coverage li a {
+    text-decoration-style: solid;
+  }
+  #wb-press .wb-press-founders {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 768px;
+  }
+  @media screen and (min-width: 750px) {
+    #wb-press .wb-press-founders {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  #wb-press .wb-press-founder img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    display: block;
+    margin-bottom: 12px;
+  }
+</style>
+
+<section id="wb-press" class="wb-overflow-hidden-x">
+  {%- comment -%} ---------- Intro ---------- {%- endcomment -%}
+  <div class="wb-banded">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <h1 class="wb-medium-heading">{{ section.settings.heading | default: 'Press' }}</h1>
+        <div class="wb-press-intro">
+          {{
+            section.settings.intro
+            | default: '<p>Everything you need to write about us, in one place. Images are free to use with a credit. If you need something that isn&rsquo;t here, just ask&mdash;we&rsquo;re two blokes and an inbox, so you&rsquo;ll get a real reply.</p>'
+          }}
+          <div class="wb-buttons">
+            <a
+              class="wb-button wb-primary-button"
+              href="mailto:{{ section.settings.press_email | default: 'hello@whiskyblender.com' }}"
+            >
+              Email us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ---------- Boilerplate ---------- {%- endcomment -%}
+  <div class="wb-banded">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <h2 class="wb-small-heading">{{ section.settings.boiler_heading | default: 'The short version' }}</h2>
+        <p>Copy and paste, or butcher it however you like.</p>
+        <div class="wb-press-boiler" id="wb-press-boiler">
+          {{
+            section.settings.boilerplate
+            | default: '<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch. Founded in Bothwell, Scotland in 2011 by friends Andy and Drew, it hand-selects well-aged casks and hands the blending over to the customer&mdash;who then names the result and puts it on the label. Every bottle is filled and bottled in Scotland. Around 400 people have now created a whisky that exists nowhere else.</p>'
+          }}
+        </div>
+        <button class="wb-press-copy" type="button" data-wb-copy="#wb-press-boiler">Copy to clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} ---------- Fast facts ---------- {%- endcomment -%}
+  {%- if section.blocks.size > 0 -%}
+    {%- assign fact_blocks = section.blocks | where: 'type', 'fact' -%}
+    {%- if fact_blocks.size > 0 -%}
+      <div class="wb-banded">
+        <div class="wb-container">
+          <div class="wb-padding">
+            <h2 class="wb-small-heading">{{ section.settings.facts_heading | default: 'Fast facts' }}</h2>
+            <dl class="wb-press-facts">
+              {%- for block in fact_blocks -%}
+                <div {{ block.shopify_attributes }}>
+                  <dt>{{ block.settings.label }}</dt>
+                  <dd>{{ block.settings.value }}</dd>
+                </div>
+              {%- endfor -%}
+            </dl>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- comment -%} ---------- Images & assets ---------- {%- endcomment -%}
+  {%- assign asset_blocks = section.blocks | where: 'type', 'asset' -%}
+  {%- if asset_blocks.size > 0 -%}
+    <div class="wb-banded">
+      <div class="wb-container">
+        <div class="wb-padding">
+          <h2 class="wb-small-heading">{{ section.settings.assets_heading | default: 'Images' }}</h2>
+          <p>
+            {{
+              section.settings.assets_note
+              | default: 'Hi-res, unwatermarked, and free to use editorially with a credit to Whisky Blender.'
+            }}
+          </p>
+          <ul class="wb-press-assets">
+            {%- for block in asset_blocks -%}
+              <li {{ block.shopify_attributes }}>
+                {%- if block.settings.url != blank -%}
+                  <a href="{{ block.settings.url }}" target="_blank" rel="noopener">{{ block.settings.title }}</a>
+                {%- else -%}
+                  {{ block.settings.title }}
+                {%- endif -%}
+                {%- if block.settings.note != blank -%}
+                  <span>{{ block.settings.note }}</span>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- Founders ---------- {%- endcomment -%}
+  {%- assign founder_blocks = section.blocks | where: 'type', 'founder' -%}
+  {%- if founder_blocks.size > 0 -%}
+    <div class="wb-banded">
+      <div class="wb-container">
+        <div class="wb-padding">
+          <h2 class="wb-small-heading">{{ section.settings.founders_heading | default: 'Who to talk to' }}</h2>
+          <div class="wb-press-founders">
+            {%- for block in founder_blocks -%}
+              <div class="wb-press-founder" {{ block.shopify_attributes }}>
+                {%- if block.settings.photo != blank -%}
+                  <img
+                    src="{{ block.settings.photo | image_url: width: 800 }}"
+                    alt="{{ block.settings.name | escape }}"
+                    width="800"
+                    height="{{ 800 | divided_by: block.settings.photo.aspect_ratio | round }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+                <h3>{{ block.settings.name }}{% if block.settings.role != blank %} — {{ block.settings.role }}{% endif %}</h3>
+                {{ block.settings.bio }}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- Previous coverage ---------- {%- endcomment -%}
+  {%- assign coverage_blocks = section.blocks | where: 'type', 'coverage' -%}
+  {%- if coverage_blocks.size > 0 -%}
+    <div class="wb-banded">
+      <div class="wb-container">
+        <div class="wb-padding">
+          <h2 class="wb-small-heading">{{ section.settings.coverage_heading | default: 'Previously in' }}</h2>
+          <ul class="wb-press-coverage">
+            {%- for block in coverage_blocks -%}
+              <li {{ block.shopify_attributes }}>
+                {%- if block.settings.url != blank -%}
+                  <a href="{{ block.settings.url }}" target="_blank" rel="noopener">{{ block.settings.title }}</a>
+                {%- else -%}
+                  {{ block.settings.title }}
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} ---------- Contact ---------- {%- endcomment -%}
+  <div class="wb-banded">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <h2 class="wb-small-heading">{{ section.settings.contact_heading | default: 'Get in touch' }}</h2>
+        <div class="wb-press-intro">
+          {{
+            section.settings.contact_text
+            | default: '<p>Press enquiries, samples, interviews, or a daft question about casks&mdash;all welcome. We can usually turn things round the same day.</p><p>Happy to send a bottle to anyone writing about us. Tell us what you want it called and we&rsquo;ll put it on the label.</p>'
+          }}
+          <div class="wb-buttons">
+            <a
+              class="wb-button wb-primary-button"
+              href="mailto:{{ section.settings.press_email | default: 'hello@whiskyblender.com' }}"
+            >
+              {{ section.settings.press_email | default: 'hello@whiskyblender.com' }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('#wb-press [data-wb-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var src = document.querySelector(btn.getAttribute('data-wb-copy'));
+      if (!src || !navigator.clipboard) return;
+      navigator.clipboard.writeText(src.innerText.trim()).then(function () {
+        var original = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(function () {
+          btn.textContent = original;
+        }, 2000);
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "WB - Press Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Page heading",
+      "default": "Press"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Intro text"
+    },
+    {
+      "type": "text",
+      "id": "press_email",
+      "label": "Press email address",
+      "default": "hello@whiskyblender.com"
+    },
+    {
+      "type": "header",
+      "content": "Boilerplate"
+    },
+    {
+      "type": "text",
+      "id": "boiler_heading",
+      "label": "Heading",
+      "default": "The short version"
+    },
+    {
+      "type": "richtext",
+      "id": "boilerplate",
+      "label": "Boilerplate copy"
+    },
+    {
+      "type": "header",
+      "content": "Fast facts"
+    },
+    {
+      "type": "text",
+      "id": "facts_heading",
+      "label": "Heading",
+      "default": "Fast facts"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "text",
+      "id": "assets_heading",
+      "label": "Heading",
+      "default": "Images"
+    },
+    {
+      "type": "text",
+      "id": "assets_note",
+      "label": "Usage note"
+    },
+    {
+      "type": "header",
+      "content": "Founders"
+    },
+    {
+      "type": "text",
+      "id": "founders_heading",
+      "label": "Heading",
+      "default": "Who to talk to"
+    },
+    {
+      "type": "header",
+      "content": "Previous coverage"
+    },
+    {
+      "type": "text",
+      "id": "coverage_heading",
+      "label": "Heading",
+      "default": "Previously in"
+    },
+    {
+      "type": "header",
+      "content": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Heading",
+      "default": "Get in touch"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_text",
+      "label": "Contact text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fact",
+      "name": "Fast fact",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Founded"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value",
+          "default": "2011"
+        }
+      ]
+    },
+    {
+      "type": "asset",
+      "name": "Image / asset link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Product shots — 500ml bottle"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Download link"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Note",
+          "default": "JPG, 3000px, white background"
+        }
+      ]
+    },
+    {
+      "type": "founder",
+      "name": "Founder",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Role"
+        },
+        {
+          "type": "richtext",
+          "id": "bio",
+          "label": "Bio"
+        }
+      ]
+    },
+    {
+      "type": "coverage",
+      "name": "Coverage",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Publication",
+          "default": "Wired"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB - Press Page"
+    }
+  ]
+}
+{% endschema %}
