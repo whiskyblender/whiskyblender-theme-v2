@@ -12,19 +12,109 @@
     "wb_press": {
       "type": "wb-press",
       "blocks": {
+        "stat_designed": {
+          "type": "stat",
+          "settings": {
+            "figure": "45,000+",
+            "label": "whiskies designed since 2011",
+            "note": "More than 7,700 of them blended, bottled and posted."
+          }
+        },
+        "stat_person": {
+          "type": "stat",
+          "settings": {
+            "figure": "1 in 5",
+            "label": "are named after a specific person",
+            "note": "20% in 2012, 27% in 2026 — two entirely different websites, fifteen years apart, same instinct."
+          }
+        },
+        "stat_dads": {
+          "type": "stat",
+          "settings": {
+            "figure": "32:1",
+            "label": "bottles named for a dad versus a mum",
+            "note": "162 dads. Five mums. Whisky remains, stubbornly, a father's gift."
+          }
+        },
+        "stat_december": {
+          "type": "stat",
+          "settings": {
+            "figure": "21.6%",
+            "label": "of a year's bottles are bought in December",
+            "note": "October to December accounts for over a third of the year. January is the second biggest month — that'll be Burns Night."
+          }
+        },
+        "name_360": {
+          "type": "name",
+          "settings": { "name": "360 Months", "signed": "A 30th birthday, counted the long way round" }
+        },
+        "name_fcancer": {
+          "type": "name",
+          "settings": { "name": "F Cancer", "signed": "Signed \"Daniel\"" }
+        },
+        "name_altruistic": {
+          "type": "name",
+          "settings": { "name": "Altruistic Hero", "signed": "Signed \"The Ones Who Love You\"" }
+        },
+        "name_shaun": {
+          "type": "name",
+          "settings": { "name": "Shaun's Highland Quest", "signed": "Signed \"Kirsty ~ your loving daughter\"" }
+        },
+        "name_simon": {
+          "type": "name",
+          "settings": { "name": "Simon's Wedding Whiskey", "signed": "Signed \"Kate (future wife)\"" }
+        },
+        "name_heid": {
+          "type": "name",
+          "settings": { "name": "Wettin' the baby's heid", "signed": "From the archive — a new arrival, 2013" }
+        },
+        "name_sheila": {
+          "type": "name",
+          "settings": { "name": "Sheila's Sanity Sauce", "signed": "Signed \"Weir Wobbly Water inc.\"" }
+        },
+        "name_midlife": {
+          "type": "name",
+          "settings": { "name": "Tom Wardles midlife crisis", "signed": "Signed \"Oliver Connolly\". No further comment given." }
+        },
+        "name_doghouse": {
+          "type": "name",
+          "settings": { "name": "Doghouse", "signed": "Signed \"Fido\"" }
+        },
+        "name_juice": {
+          "type": "name",
+          "settings": { "name": "Dads Adult Juice", "signed": "Signed \"Matthew\"" }
+        },
+        "angle_christmas": {
+          "type": "angle",
+          "settings": {
+            "title": "The Christmas gift that can't be bought twice",
+            "body": "<p>A bottle blended, named and labelled by the person giving it. Every one is genuinely one of one. £60 for 500ml, free UK delivery, and gift vouchers from £30 for anyone who leaves it late.</p>",
+            "timing": "Most relevant: October–December"
+          }
+        },
+        "angle_burns": {
+          "type": "angle",
+          "settings": {
+            "title": "Burns Night, without the tartan tat",
+            "body": "<p>January is our second-busiest month of the year and it isn't Christmas spillover. We can talk about what Scots actually drink on the 25th, and why blending your own is closer to the tradition than most people assume.</p>",
+            "timing": "Most relevant: December–January"
+          }
+        },
+        "angle_fathers": {
+          "type": "angle",
+          "settings": {
+            "title": "Why whisky is a dad gift",
+            "body": "<p>We have fifteen years of evidence that people name whisky after their fathers and almost never after their mothers — a ratio of 32 to 1. We're happy to talk about why that is, and whether it's shifting.</p>",
+            "timing": "Most relevant: April–June"
+          }
+        },
         "fact_founded": {
           "type": "fact",
-          "settings": {
-            "label": "Founded",
-            "value": "2011, in Bothwell, Scotland"
-          }
+          "settings": { "label": "Founded", "value": "2011, in Bothwell, Scotland — fifteen years in 2026" }
         },
         "fact_founders": {
           "type": "fact",
-          "settings": {
-            "label": "Founders",
-            "value": "Andy and Drew — two pals, no distillery"
-          }
+          "settings": { "label": "Founders", "value": "Andy and Drew — two pals, no distillery" }
         },
         "fact_what": {
           "type": "fact",
@@ -37,7 +127,7 @@
           "type": "fact",
           "settings": {
             "label": "Blends created",
-            "value": "508 in the first eight weeks of the blending lab (June–August 2026) — around six a day"
+            "value": "More than 45,000 designed since 2011; over 7,700 bottled and posted"
           }
         },
         "fact_prices": {
@@ -49,10 +139,7 @@
         },
         "fact_bottled": {
           "type": "fact",
-          "settings": {
-            "label": "Bottled",
-            "value": "Filled, labelled and bottled in Scotland"
-          }
+          "settings": { "label": "Bottled", "value": "Filled, labelled and bottled in Scotland" }
         },
         "fact_shipping": {
           "type": "fact",
@@ -65,7 +152,7 @@
           "type": "fact",
           "settings": {
             "label": "Lead time",
-            "value": "TO CONFIRM — add the current turnaround and the Christmas order-by date"
+            "value": "TO CONFIRM — add current turnaround and the Christmas order-by date"
           }
         },
         "fact_affiliate": {
@@ -84,43 +171,23 @@
         },
         "asset_logos": {
           "type": "asset",
-          "settings": {
-            "title": "Logos and wordmark",
-            "url": "",
-            "note": "TO ADD — SVG and PNG, light and dark versions"
-          }
+          "settings": { "title": "Logos and wordmark", "url": "", "note": "TO ADD — SVG and PNG, light and dark" }
         },
         "asset_product": {
           "type": "asset",
-          "settings": {
-            "title": "Product shots — 500ml, 200ml, miniatures",
-            "url": "",
-            "note": "TO ADD — JPG, 3000px, white background, unwatermarked"
-          }
+          "settings": { "title": "Product shots — 500ml, 200ml, miniatures", "url": "", "note": "TO ADD — JPG, 3000px, white background" }
         },
         "asset_lifestyle": {
           "type": "asset",
-          "settings": {
-            "title": "Lifestyle photography",
-            "url": "",
-            "note": "TO ADD — bottle in hand, poured dram, gift box, table setting"
-          }
+          "settings": { "title": "Lifestyle photography", "url": "", "note": "TO ADD — bottle in hand, poured dram, gift box" }
         },
         "asset_label": {
           "type": "asset",
-          "settings": {
-            "title": "Label close-ups",
-            "url": "",
-            "note": "TO ADD — the personalisation is the story, so make it legible"
-          }
+          "settings": { "title": "Label close-ups", "url": "", "note": "TO ADD — the personalisation is the story, so make it legible" }
         },
         "asset_founders": {
           "type": "asset",
-          "settings": {
-            "title": "Founder photography",
-            "url": "",
-            "note": "TO ADD — Andy and Drew, landscape and portrait crops"
-          }
+          "settings": { "title": "Founder photography", "url": "", "note": "TO ADD — Andy and Drew, landscape and portrait crops" }
         },
         "founder_andy": {
           "type": "founder",
@@ -142,111 +209,41 @@
         },
         "coverage_wired": {
           "type": "coverage",
-          "settings": {
-            "title": "Wired",
-            "url": "https://www.wired.com/2012/03/whisky-blender/"
-          }
+          "settings": { "title": "Wired", "url": "https://www.wired.com/2012/03/whisky-blender/" }
         },
-        "coverage_uncrate": {
-          "type": "coverage",
-          "settings": {
-            "title": "Uncrate",
-            "url": ""
-          }
-        },
-        "coverage_martha": {
-          "type": "coverage",
-          "settings": {
-            "title": "Martha Stewart",
-            "url": ""
-          }
-        },
-        "coverage_playboy": {
-          "type": "coverage",
-          "settings": {
-            "title": "Playboy",
-            "url": ""
-          }
-        },
-        "coverage_brides": {
-          "type": "coverage",
-          "settings": {
-            "title": "Brides Magazine",
-            "url": ""
-          }
-        },
-        "coverage_record": {
-          "type": "coverage",
-          "settings": {
-            "title": "Daily Record",
-            "url": ""
-          }
-        },
-        "coverage_scotsman": {
-          "type": "coverage",
-          "settings": {
-            "title": "The Scotsman",
-            "url": ""
-          }
-        },
-        "coverage_classicboat": {
-          "type": "coverage",
-          "settings": {
-            "title": "Classic Boat",
-            "url": ""
-          }
-        },
-        "coverage_urbandaddy": {
-          "type": "coverage",
-          "settings": {
-            "title": "Urban Daddy",
-            "url": ""
-          }
-        },
-        "coverage_springwise": {
-          "type": "coverage",
-          "settings": {
-            "title": "Springwise",
-            "url": ""
-          }
-        },
-        "coverage_foodbeast": {
-          "type": "coverage",
-          "settings": {
-            "title": "Foodbeast",
-            "url": ""
-          }
-        },
-        "coverage_lsn": {
-          "type": "coverage",
-          "settings": {
-            "title": "LS:N Global",
-            "url": ""
-          }
-        },
-        "coverage_greatdrams": {
-          "type": "coverage",
-          "settings": {
-            "title": "Great Drams",
-            "url": ""
-          }
-        },
-        "coverage_ralfy": {
-          "type": "coverage",
-          "settings": {
-            "title": "ralfy.com",
-            "url": ""
-          }
-        },
-        "coverage_channel7": {
-          "type": "coverage",
-          "settings": {
-            "title": "Channel 7",
-            "url": ""
-          }
-        }
+        "coverage_uncrate": { "type": "coverage", "settings": { "title": "Uncrate", "url": "" } },
+        "coverage_martha": { "type": "coverage", "settings": { "title": "Martha Stewart", "url": "" } },
+        "coverage_playboy": { "type": "coverage", "settings": { "title": "Playboy", "url": "" } },
+        "coverage_brides": { "type": "coverage", "settings": { "title": "Brides Magazine", "url": "" } },
+        "coverage_record": { "type": "coverage", "settings": { "title": "Daily Record", "url": "" } },
+        "coverage_scotsman": { "type": "coverage", "settings": { "title": "The Scotsman", "url": "" } },
+        "coverage_classicboat": { "type": "coverage", "settings": { "title": "Classic Boat", "url": "" } },
+        "coverage_urbandaddy": { "type": "coverage", "settings": { "title": "Urban Daddy", "url": "" } },
+        "coverage_springwise": { "type": "coverage", "settings": { "title": "Springwise", "url": "" } },
+        "coverage_foodbeast": { "type": "coverage", "settings": { "title": "Foodbeast", "url": "" } },
+        "coverage_lsn": { "type": "coverage", "settings": { "title": "LS:N Global", "url": "" } },
+        "coverage_greatdrams": { "type": "coverage", "settings": { "title": "Great Drams", "url": "" } },
+        "coverage_ralfy": { "type": "coverage", "settings": { "title": "ralfy.com", "url": "" } },
+        "coverage_channel7": { "type": "coverage", "settings": { "title": "Channel 7", "url": "" } }
       },
       "block_order": [
+        "stat_designed",
+        "stat_person",
+        "stat_dads",
+        "stat_december",
+        "name_360",
+        "name_fcancer",
+        "name_altruistic",
+        "name_shaun",
+        "name_simon",
+        "name_heid",
+        "name_sheila",
+        "name_midlife",
+        "name_doghouse",
+        "name_juice",
+        "angle_christmas",
+        "angle_burns",
+        "angle_fathers",
         "fact_founded",
         "fact_founders",
         "fact_what",
@@ -282,10 +279,15 @@
       ],
       "settings": {
         "heading": "Press",
-        "intro": "<p>Everything you need to write about us, in one place. Images are free to use editorially with a credit. If you need something that isn't here, just ask—we're two blokes and an inbox, so you'll get a real reply.</p>",
+        "intro": "<p>Everything you need to write about us, in one place—numbers, names, images and a few story angles. All free to use editorially with a credit. If something isn't here, just ask: we're two blokes and an inbox, so you'll get a real reply.</p>",
         "press_email": "hello@whiskyblender.com",
         "boiler_heading": "The short version",
-        "boilerplate": "<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch. Founded in Bothwell, Scotland in 2011 by two friends, Andy and Drew, it hand-selects well-aged casks and hands the blending over to the customer—who then names the result and puts it on the label. Every bottle is filled and bottled in Scotland. Its online blending lab launched in June 2026 and has produced more than 500 one-of-a-kind whiskies in its first eight weeks: bottles for weddings, for birthdays, for folk who just fancied one with their own name on it.</p>",
+        "boilerplate": "<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch. Founded in Bothwell, Scotland in 2011 by two friends, Andy and Drew, it hand-selects well-aged casks and hands the blending over to the customer—who then names the result and puts it on the label. Every bottle is filled and bottled in Scotland. In fifteen years more than 45,000 people have designed their own whisky and over 7,700 have had it bottled: for weddings, for birthdays, for wakes, and for folk who just fancied one with their own name on it.</p>",
+        "stats_heading": "By the numbers",
+        "stats_intro": "<p>We've kept records since 2011, which means we can tell you a few things nobody else can about what people do when you hand them a bottle of Scotch and let them name it.</p>",
+        "names_heading": "A few of the names",
+        "names_intro": "<p>Every bottle is named by the person who made it. These are all real, and they are our favourites. Happy to dig out more on request.</p>",
+        "angles_heading": "Things we can help with",
         "facts_heading": "Fast facts",
         "assets_heading": "Images",
         "assets_note": "Hi-res, unwatermarked, and free to use editorially with a credit to Whisky Blender.",
@@ -296,7 +298,5 @@
       }
     }
   },
-  "order": [
-    "wb_press"
-  ]
+  "order": ["wb_press"]
 }
