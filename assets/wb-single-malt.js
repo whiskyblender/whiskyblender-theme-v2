@@ -166,6 +166,7 @@
     var previewContainer = null;
     var previewDebounce  = null;
     var previewDismissed = false;
+    var openBtn          = null;
 
     function renderPreviewLabel() {
       if (!previewContainer) return;
@@ -364,6 +365,7 @@
           previewWrap.removeEventListener('transitionend', handler);
           previewWrap.style.display = 'none';
           previewWrap.style.opacity = '';
+          if (openBtn) openBtn.style.display = '';
         });
       });
       previewWrap.appendChild(closeBtn);
@@ -382,6 +384,18 @@
         anchor.insertAdjacentElement('afterend', previewWrap);
       }
 
+      openBtn = document.createElement('button');
+      openBtn.className = 'wbp-open-btn';
+      openBtn.textContent = 'Label preview';
+      openBtn.setAttribute('aria-label', 'Show label preview');
+      openBtn.style.display = 'none';
+      openBtn.addEventListener('click', function () {
+        previewDismissed = false;
+        previewWrap.style.display = '';
+        openBtn.style.display = 'none';
+      });
+      previewWrap.parentNode.appendChild(openBtn);
+
       renderPreviewLabel();
       scalePreview();
       window.addEventListener('resize', scalePreview);
@@ -395,6 +409,7 @@
           if (previewDismissed) {
             previewDismissed = false;
             previewWrap.style.display = '';
+            if (openBtn) openBtn.style.display = 'none';
           } else if (!previewContainer) {
             initPreview();
           }
@@ -411,6 +426,7 @@
           if (previewDismissed) {
             previewDismissed = false;
             previewWrap.style.display = '';
+            if (openBtn) openBtn.style.display = 'none';
           } else if (!previewContainer) {
             initPreview();
           }
@@ -428,6 +444,7 @@
         if (previewDismissed) {
           previewDismissed = false;
           previewWrap.style.display = '';
+          if (openBtn) openBtn.style.display = 'none';
         } else if (!previewContainer) {
           initPreview();
         }

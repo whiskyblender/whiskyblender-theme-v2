@@ -29,12 +29,23 @@
         "primary_button_text": "",
         "primary_button_url": "",
         "secondary_button_text": "",
-        "secondary_button_url": ""
+        "secondary_button_url": "",
+        "badge_show": false,
+        "badge_url": "",
+        "badge_aria_label": "Read our birthday blog post"
       }
     },
     "about_content_WNcjFw": {
       "type": "about-content",
       "blocks": {
+        "featured_logo_f3m9QT": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/dailyrecord.png",
+            "text": "Daily Record",
+            "url": ""
+          }
+        },
         "featured_logo_gAGXnU": {
           "type": "featured_logo",
           "settings": {
@@ -197,6 +208,7 @@
         }
       },
       "block_order": [
+        "featured_logo_f3m9QT",
         "featured_logo_gAGXnU",
         "featured_logo_8pLMGe",
         "featured_logo_6fT7Pw",

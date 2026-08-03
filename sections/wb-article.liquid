@@ -1,5 +1,24 @@
 {{ 'wb-blog.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign share_url = shop.url | append: article.url
+
+  assign has_tags = false
+  if section.settings.show_tags and article.tags.size > 0
+    assign has_tags = true
+  endif
+
+  assign has_spotlight = false
+  if section.settings.show_spotlight and article.metafields.custom.spotlight_product != blank
+    assign has_spotlight = true
+  endif
+
+  assign show_aside = false
+  if section.settings.show_share or section.settings.show_related or has_tags or has_spotlight
+    assign show_aside = true
+  endif
+-%}
+
 <div id="wb-article">
   <section class="wb-overflow-hidden-x">
     <div class="wb-container">
@@ -13,16 +32,105 @@
 
   <section>
     <div class="wb-container">
-      <div class="wb-padding wb-article-body">
-        {{ article.content }}
-      </div>
-    </div>
-  </section>
+      <div class="wb-padding wb-article-layout{% unless show_aside %} wb-article-layout--full{% endunless %}">
 
-  <section>
-    <div class="wb-container">
-      <div class="wb-padding" style="padding-top: 0;">
-        <a href="{{ blog.url }}" class="wb-article-back-bottom">&#8592; Back to {{ blog.title | escape }}</a>
+        <div class="wb-article-main">
+          <div class="wb-article-body">
+            {{ article.content }}
+          </div>
+
+          <a href="{{ blog.url }}" class="wb-button wb-article-back-bottom wb-back-desktop">&#8592; Back to {{ blog.title | escape }}</a>
+        </div>
+
+        {%- if show_aside -%}
+        <aside class="wb-article-aside">
+
+          <div class="wb-aside-col wb-aside-col--main">
+
+          {%- if section.settings.show_share -%}
+          <div class="wb-aside-block">
+            <div class="wb-aside-title">Share</div>
+            <div class="wb-share-row">
+              <a class="wb-share-btn" href="https://twitter.com/intent/tweet?text={{ article.title | url_encode }}&url={{ share_url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on X">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.966 6.817H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+              </a>
+              <a class="wb-share-btn" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on Facebook">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
+              <a class="wb-share-btn" href="https://api.whatsapp.com/send?text={{ article.title | url_encode }}%20{{ share_url | url_encode }}" target="_blank" rel="noopener" aria-label="Share on WhatsApp">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.002-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              </a>
+              <a class="wb-share-btn" href="mailto:?subject={{ article.title | url_encode }}&body={{ share_url | url_encode }}" aria-label="Share by email">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7L22 6"/></svg>
+              </a>
+              <button type="button" class="wb-share-btn wb-share-copy" aria-label="Copy link" data-url="{{ share_url }}" onclick="navigator.clipboard.writeText(this.dataset.url);this.classList.add('is-copied');">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
+              </button>
+            </div>
+          </div>
+          {%- endif -%}
+
+          {%- if section.settings.show_related -%}
+          {%- assign rc = section.settings.related_count | default: 3 -%}
+          {%- assign shown = 0 -%}
+          {%- assign related_markup = '' -%}
+          {%- capture related_markup -%}
+            {%- for a in blog.articles -%}
+              {%- if a.id != article.id and shown < rc -%}
+                <li>
+                  <a href="{{ a.url }}">
+                    <span class="wb-related-title">{{ a.title | escape }}</span>
+                    <span class="wb-related-date">{{ a.published_at | date: "%-d %b %Y" }}</span>
+                  </a>
+                </li>
+                {%- assign shown = shown | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endcapture -%}
+          {%- if shown > 0 -%}
+          <div class="wb-aside-block">
+            <div class="wb-aside-title">Latest</div>
+            <ul class="wb-related-list">{{ related_markup }}</ul>
+            <a href="{{ blog.url }}" class="wb-related-all">See all articles &#8594;</a>
+          </div>
+          {%- endif -%}
+          {%- endif -%}
+
+          {%- if has_tags -%}
+          <div class="wb-aside-block">
+            <div class="wb-aside-title">Tags</div>
+            <div class="wb-tag-chips">
+              {%- for tag in article.tags -%}
+              <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="wb-tag-chip">{{ tag }}</a>
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- endif -%}
+
+          </div>
+
+          {%- if has_spotlight -%}
+          {%- assign sp = article.metafields.custom.spotlight_product.value -%}
+          <div class="wb-aside-col wb-aside-col--product">
+            <div class="wb-aside-block">
+              <div class="wb-aside-title">Spotlight</div>
+              <a href="{{ sp.url }}" class="wb-spotlight">
+                {%- if sp.featured_image -%}
+                <img class="wb-spotlight-img" src="{{ sp.featured_image | image_url: width: 320 }}" alt="{{ sp.title | escape }}" loading="lazy" width="320" height="320">
+                {%- endif -%}
+                <span class="wb-spotlight-title">{{ sp.title | escape }}</span>
+                {%- if sp.price > 0 -%}<span class="wb-spotlight-price">{{ sp.price | money }}</span>{%- endif -%}
+                <span class="wb-spotlight-cta">View bottle &#8594;</span>
+              </a>
+            </div>
+          </div>
+          {%- endif -%}
+
+        </aside>
+        {%- endif -%}
+
+        <a href="{{ blog.url }}" class="wb-button wb-article-back-bottom wb-back-mobile">&#8592; Back to {{ blog.title | escape }}</a>
+
       </div>
     </div>
   </section>
@@ -35,6 +143,49 @@
 {% schema %}
 {
   "name": "WB Article",
-  "settings": []
+  "settings": [
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "A sticky sidebar shown on the right on desktop; it wraps below the article on smaller screens."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share",
+      "label": "Show share buttons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related",
+      "label": "Show 'More from the blog'",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "related_count",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Number of related articles",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show tags (hidden when an article has none)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spotlight",
+      "label": "Show product spotlight",
+      "info": "Needs an article metafield 'custom.spotlight_product' (Product reference) set per article. Hidden when unset.",
+      "default": true
+    }
+  ]
 }
 {% endschema %}
