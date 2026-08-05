@@ -386,7 +386,7 @@
 
       openBtn = document.createElement('button');
       openBtn.className = 'wbp-open-btn';
-      openBtn.textContent = 'Label preview';
+      openBtn.textContent = 'Show label preview';
       openBtn.setAttribute('aria-label', 'Show label preview');
       openBtn.style.display = 'none';
       openBtn.addEventListener('click', function () {
