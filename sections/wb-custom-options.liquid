@@ -1,6 +1,29 @@
 {{ 'wb-products.css' | asset_url | stylesheet_tag }}
 {{ 'wb-custom.css' | asset_url | stylesheet_tag }}
 
+<style>
+  #wb-noblend-actions,
+  #wb-custom-bottom,
+  #wb-blend-panel,
+  #wb-noblend-cta { display: none; }
+
+  .wb-no-blend #wb-noblend-actions { display: block; }
+  .wb-no-blend #wb-custom-bottom   { display: block; }
+  .wb-no-blend #wb-noblend-cta     { display: block; }
+
+  .wb-has-blend #wb-custom-bottom  { display: block; }
+  .wb-has-blend #wb-blend-panel    { display: block; }
+</style>
+
+<script>
+(function () {
+  var b = (new URLSearchParams(location.search).get('blend') || '').trim();
+  document.documentElement.classList.add(
+    b.length >= 6 && /^[A-Za-z0-9_-]+$/.test(b) ? 'wb-has-blend' : 'wb-no-blend'
+  );
+})();
+</script>
+
 {%- assign opts_collection = section.settings.collection -%}
 
 <section class="wb-first-item">
@@ -10,7 +33,7 @@
       <h1 class="wb-large-heading" id="wb-custom-heading">Choose your bottle</h1>
       <p class="wb-collection-sub" id="wb-custom-sub">Now choose how you want to bottle your whisky&hellip;</p>
 
-      <div id="wb-noblend-actions" style="display:none">
+      <div id="wb-noblend-actions">
         <a
           href="{{ section.settings.create_url | default: '/pages/create' }}"
           class="wb-button wb-primary-button"
@@ -79,10 +102,10 @@
   </div>
 </section>
 
-<div class="wb-custom-bottom" id="wb-custom-bottom" style="display:none">
+<div class="wb-custom-bottom" id="wb-custom-bottom">
   <div class="wb-container">
 
-    <div id="wb-blend-panel" style="display:none">
+    <div id="wb-blend-panel">
       <div class="wb-padding">
         <h3 class="wb-small-heading">Safe an&rsquo; sound</h3>
         <p>Your whisky is saved. Use the options above to order now, or come back to it any time using your unique blend code below.</p>
@@ -90,7 +113,7 @@
       </div>
     </div>
 
-    <div id="wb-noblend-cta" style="display:none">
+    <div id="wb-noblend-cta">
       <section class="wb-banded">
         <div class="wb-container">
           <div class="wb-padding">
@@ -224,8 +247,8 @@
       el.href = el.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
     });
     if (grid) grid.style.visibility = '';
-    bottom.style.display = '';
-    document.getElementById('wb-blend-panel').style.display = '';
+    bottom.style.display = 'block';
+    document.getElementById('wb-blend-panel').style.display = 'block';
     buildBlendCodeUi();
   }
 
@@ -302,9 +325,9 @@
   function initNoblend() {
     heading.textContent = 'Bottle options';
     sub.textContent     = 'There are a few different bottles we can offer, but first you need to decide what to fill it with.';
-    document.getElementById('wb-noblend-actions').style.display = '';
+    document.getElementById('wb-noblend-actions').style.display = 'block';
     var cta = document.getElementById('wb-noblend-cta');
-    if (cta) { bottom.style.display = ''; cta.style.display = ''; }
+    if (cta) { bottom.style.display = 'block'; cta.style.display = 'block'; }
 
     var codeInput = document.getElementById('wb-code-input');
     var codeGo    = document.getElementById('wb-code-go');
