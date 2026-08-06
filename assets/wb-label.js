@@ -115,6 +115,24 @@
     }
   }
 
+  function resizeMiniName(el) {
+    var min = 8, max = 40, step = 0.5;
+    var frame = el.parentNode;
+    function isOverflown() {
+      return frame.scrollHeight > frame.clientHeight || frame.scrollWidth > frame.clientWidth;
+    }
+    var i = min, overflow = false;
+    while (!overflow && i < max) {
+      el.style.fontSize   = i + 'px';
+      el.style.lineHeight = (i * 0.9) + 'px';
+      overflow = isOverflown();
+      if (!overflow) i += step;
+    }
+    var final = i - step - 1;
+    el.style.fontSize   = final + 'px';
+    el.style.lineHeight = (final * 0.9) + 'px';
+  }
+
   function buildZigzagClip(w, h, step, depth) {
     var count = Math.ceil(w / step);
     var pts = [];
@@ -462,7 +480,7 @@
 
     document.fonts.ready.then(function () {
       requestAnimationFrame(function () {
-        document.querySelectorAll('.wb-mini-name').forEach(resizeMiniText);
+        document.querySelectorAll('.wb-mini-name').forEach(resizeMiniName);
       });
     });
   }
