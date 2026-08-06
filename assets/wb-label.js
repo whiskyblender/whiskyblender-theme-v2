@@ -116,15 +116,21 @@
   }
 
   function resizeMiniName(el) {
-    var max = 40, min = 8, step = 0.5;
-    el.style.fontSize   = max + 'px';
-    el.style.lineHeight = (max * 0.9) + 'px';
-    var i = max;
-    while (i > min && (el.scrollHeight > el.clientHeight || el.scrollWidth > el.clientWidth)) {
-      i -= step;
+    var min = 8, max = 40, step = 0.5;
+    var outer = el.parentNode;
+    function isOverflown() {
+      return outer.scrollWidth > outer.clientWidth || outer.scrollHeight > outer.clientHeight;
+    }
+    var i = min, overflow = false;
+    while (!overflow && i < max) {
       el.style.fontSize   = i + 'px';
       el.style.lineHeight = (i * 0.9) + 'px';
+      overflow = isOverflown();
+      if (!overflow) i += step;
     }
+    var final = Math.max(min, i - step - 1);
+    el.style.fontSize   = final + 'px';
+    el.style.lineHeight = (final * 0.9) + 'px';
   }
 
   function buildZigzagClip(w, h, step, depth) {
@@ -439,7 +445,7 @@
         '<div class="wb-mini-strip wb-mini-strip--left"><span>Bottled by whiskyblender.com</span></div>' +
         '<div class="wb-mini-centre">' +
           '<div class="wb-mini-frame">' +
-            '<div class="wb-mini-name">' + esc(name || 'Whisky Name') + '</div>' +
+            '<div class="wb-mini-name-outer"><div class="wb-mini-name">' + esc(name || 'Whisky Name') + '</div></div>' +
             '<div class="wb-mini-by">By</div>' +
             '<div class="wb-mini-author">' + esc(author || '—') + '</div>' +
             (ref ? '<div class="wb-mini-ref">' + esc(ref) + '</div>' : '') +
