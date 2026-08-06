@@ -388,7 +388,7 @@ body {
 }
 
 .wb-mini-strip--left  { }
-.wb-mini-strip--right { flex-direction: column; justify-content: center; gap: 6px; }
+.wb-mini-strip--right { flex-direction: column; justify-content: center; gap: 42px; }
 
 .wb-mini-strip span { writing-mode: sideways-lr; font-size: 10px; font-weight: 600; letter-spacing: normal; white-space: nowrap; color: #666; }
 .wb-mini-strip--left span { transform: rotate(180deg); }

@@ -451,8 +451,8 @@
           '</div>' +
         '</div>' +
         '<div class="wb-mini-strip wb-mini-strip--right">' +
-          '<span>' + esc(strength) + '% abv. · 50ml</span>' +
           (ref ? '<span class="wb-mini-ref">' + esc(ref) + '</span>' : '') +
+          '<span>' + esc(strength) + '% abv. · 50ml</span>' +
         '</div>' +
       '</div>' +
       '<div class="wb-mini-bar">Blended Malt<br>Scotch Whisky</div>' +
