@@ -388,17 +388,16 @@ body {
 }
 
 .wb-mini-strip--left  { padding-left: 8px; }
-.wb-mini-strip--right { flex-direction: column; justify-content: center; gap: 42px; padding-left: 8px; }
+.wb-mini-strip--right { flex-direction: column; justify-content: center; gap: 42px; padding-right: 8px; }
 
 .wb-mini-strip span { writing-mode: sideways-lr; font-size: 10px; font-weight: 600; letter-spacing: normal; white-space: nowrap; color: #666; }
 .wb-mini-strip--left span { transform: rotate(180deg); }
 .wb-mini-ref { font-size: 8px; font-weight: 600; color: #aaa; font-family: 'Roboto Mono', monospace; letter-spacing: 0.04em; }
 
-.wb-mini-centre { flex: 1; display: flex; align-items: center; justify-content: center; padding: 8px 6px; }
+.wb-mini-centre { flex: 1; display: flex; align-items: center; justify-content: center; padding: 8px 6px 0 6px; }
 
 .wb-mini-frame {
   width: 100%; height: 100%;
-  border: 1px solid #c8a050;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center; gap: 3px;
@@ -407,9 +406,9 @@ body {
 }
 
 .wb-mini-name-outer { width: 160px; height: 120px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.wb-mini-name  { font-family: 'trimPosterCompressed', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; color: #111; padding: 10px; }
+.wb-mini-name  { font-family: 'trimPosterCompressed', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; color: #111; padding: 12px; }
 .wb-mini-by    { font-size: 10px; font-weight: 600; letter-spacing: normal; color: #555; }
-.wb-mini-author { font-size: 14px; font-weight: 600; color: #111; line-height: 1.2; }
+.wb-mini-author { font-size: 14px; font-weight: 600; color: #111; line-height: 1.2; padding: 0 12px; }
 
 .wb-mini-bar   { height: 34px; flex-shrink: 0; background: #111; color: #c8a050; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-align: center; padding-bottom: 4px; }
 
