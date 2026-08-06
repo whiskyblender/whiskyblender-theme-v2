@@ -435,7 +435,7 @@
         '</div>' +
         '<div class="wb-mini-strip wb-mini-strip--right"><span>' + esc(strength) + '% abv. · 50ml</span></div>' +
       '</div>' +
-      '<div class="wb-mini-bar">Blended Malt Scotch Whisky</div>' +
+      '<div class="wb-mini-bar">Blended Malt<br>Scotch Whisky</div>' +
     '</div>';
   }
 
