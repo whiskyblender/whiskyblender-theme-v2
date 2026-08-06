@@ -448,10 +448,12 @@
             '<div class="wb-mini-name-outer"><div class="wb-mini-name">' + esc(name || 'Whisky Name') + '</div></div>' +
             '<div class="wb-mini-by">By</div>' +
             '<div class="wb-mini-author">' + esc(author || '—') + '</div>' +
-            (ref ? '<div class="wb-mini-ref">' + esc(ref) + '</div>' : '') +
           '</div>' +
         '</div>' +
-        '<div class="wb-mini-strip wb-mini-strip--right"><span>' + esc(strength) + '% abv. · 50ml</span></div>' +
+        '<div class="wb-mini-strip wb-mini-strip--right">' +
+          '<span>' + esc(strength) + '% abv. · 50ml</span>' +
+          (ref ? '<span class="wb-mini-ref">' + esc(ref) + '</span>' : '') +
+        '</div>' +
       '</div>' +
       '<div class="wb-mini-bar">Blended Malt<br>Scotch Whisky</div>' +
     '</div>';

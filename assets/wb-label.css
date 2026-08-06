@@ -388,10 +388,11 @@ body {
 }
 
 .wb-mini-strip--left  { }
-.wb-mini-strip--right { }
+.wb-mini-strip--right { flex-direction: column; justify-content: center; gap: 6px; }
 
 .wb-mini-strip span { writing-mode: sideways-lr; font-size: 10px; font-weight: 600; letter-spacing: normal; white-space: nowrap; color: #666; }
 .wb-mini-strip--left span { transform: rotate(180deg); }
+.wb-mini-ref { font-size: 8px; font-weight: 600; color: #aaa; font-family: 'Roboto Mono', monospace; letter-spacing: 0.04em; }
 
 .wb-mini-centre { flex: 1; display: flex; align-items: center; justify-content: center; padding: 8px 6px; }
 
@@ -409,7 +410,7 @@ body {
 .wb-mini-name  { font-family: 'trimPosterCompressed', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; color: #111; padding: 10px; }
 .wb-mini-by    { font-size: 10px; font-weight: 600; letter-spacing: normal; color: #555; }
 .wb-mini-author { font-size: 14px; font-weight: 600; color: #111; line-height: 1.2; }
-.wb-mini-ref   { position: absolute; bottom: 3px; right: 4px; font-size: 5px; color: #aaa; font-family: 'Roboto Mono', monospace; letter-spacing: 0.04em; }
+
 .wb-mini-bar   { height: 34px; flex-shrink: 0; background: #111; color: #c8a050; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-align: center; padding-bottom: 4px; }
 
 /* ── Preview mode (embedded iframe on product page) ────────────────────────── */
