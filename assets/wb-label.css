@@ -405,7 +405,7 @@ body {
   overflow: hidden;
 }
 
-.wb-mini-name  { font-family: 'trimPosterCompressed', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; color: #111; padding: 10px; }
+.wb-mini-name  { font-family: 'trimPosterCompressed', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; color: #111; padding: 10px; max-height: 140px; overflow: hidden; }
 .wb-mini-by    { font-size: 10px; font-weight: 600; letter-spacing: normal; color: #555; }
 .wb-mini-author { font-size: 14px; font-weight: 600; color: #111; line-height: 1.2; }
 .wb-mini-ref   { position: absolute; bottom: 3px; right: 4px; font-size: 5px; color: #aaa; font-family: 'Roboto Mono', monospace; letter-spacing: 0.04em; }

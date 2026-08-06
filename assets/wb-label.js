@@ -116,21 +116,15 @@
   }
 
   function resizeMiniName(el) {
-    var min = 8, max = 40, step = 0.5;
-    var frame = el.parentNode;
-    function isOverflown() {
-      return frame.scrollHeight > frame.clientHeight || frame.scrollWidth > frame.clientWidth;
-    }
-    var i = min, overflow = false;
-    while (!overflow && i < max) {
+    var max = 40, min = 8, step = 0.5;
+    el.style.fontSize   = max + 'px';
+    el.style.lineHeight = (max * 0.9) + 'px';
+    var i = max;
+    while (i > min && (el.scrollHeight > el.clientHeight || el.scrollWidth > el.clientWidth)) {
+      i -= step;
       el.style.fontSize   = i + 'px';
       el.style.lineHeight = (i * 0.9) + 'px';
-      overflow = isOverflown();
-      if (!overflow) i += step;
     }
-    var final = i - step - 1;
-    el.style.fontSize   = final + 'px';
-    el.style.lineHeight = (final * 0.9) + 'px';
   }
 
   function buildZigzagClip(w, h, step, depth) {
