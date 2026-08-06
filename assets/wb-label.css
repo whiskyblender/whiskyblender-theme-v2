@@ -374,9 +374,8 @@ body {
 .wb-mini-label {
   width: 250px; height: 250px;
   display: flex; flex-direction: column;
-  border: 0.5px solid #aaa;
   overflow: hidden;
-  background: #fff;
+  background: #fafafa;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -403,6 +402,7 @@ body {
   text-align: center; gap: 3px;
   position: relative;
   overflow: hidden;
+  background: url('miniature-border.svg') top center / cover no-repeat;
 }
 
 .wb-mini-name-outer { width: 160px; height: 120px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
