@@ -116,7 +116,7 @@
   }
 
   function resizeMiniName(el) {
-    var min = 8, max = 40, step = 0.5;
+    var min = 8, max = 80, step = 0.5;
     var outer = el.parentNode;
     function isOverflown() {
       return outer.scrollWidth > outer.clientWidth || outer.scrollHeight > outer.clientHeight;
@@ -124,13 +124,13 @@
     var i = min, overflow = false;
     while (!overflow && i < max) {
       el.style.fontSize   = i + 'px';
-      el.style.lineHeight = (i * 0.9) + 'px';
+      el.style.lineHeight = (i * 0.8) + 'px';
       overflow = isOverflown();
       if (!overflow) i += step;
     }
     var final = Math.max(min, i - step - 1);
     el.style.fontSize   = final + 'px';
-    el.style.lineHeight = (final * 0.9) + 'px';
+    el.style.lineHeight = (final * 0.8) + 'px';
   }
 
   function buildZigzagClip(w, h, step, depth) {
