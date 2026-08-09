@@ -56,6 +56,41 @@
           class="product-variant-id"
         >
 
+        {%- comment -%}Artwork property — hidden from customer emails; visible to staff on orders{%- endcomment -%}
+        {%- assign wb_has_artwork = false -%}
+        {%- for wb_v in product.variants -%}
+          {%- if wb_v.metafields.custom['label-link'].value != blank -%}
+            {%- assign wb_has_artwork = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if wb_has_artwork -%}
+          <script type="application/json" id="wb-artwork-map-{{ section_id }}">
+            { {%- for wb_v in product.variants -%}"{{ wb_v.id }}": {{ wb_v.metafields.custom['label-link'].value | default: '' | json }}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%} }
+          </script>
+          <input
+            type="hidden"
+            name="properties[_Artwork]"
+            class="wb-artwork-property"
+            value="{{ product.selected_or_first_available_variant.metafields.custom['label-link'].value | default: '' }}"
+          >
+          <script>
+            (function() {
+              var mapEl = document.getElementById('wb-artwork-map-{{ section_id }}');
+              if (!mapEl) return;
+              var map = JSON.parse(mapEl.textContent);
+              subscribe('variant-change', function(e) {
+                var variant = e && e.data && e.data.variant;
+                if (!variant) return;
+                var form = mapEl.closest('product-form');
+                if (!form) return;
+                var input = form.querySelector('.wb-artwork-property');
+                if (!input) return;
+                input.value = map[variant.id] || '';
+              });
+            })();
+          </script>
+        {%- endif -%}
+
         {%- if gift_card_recipient_feature_active -%}
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
