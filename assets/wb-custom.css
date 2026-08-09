@@ -208,3 +208,11 @@
     margin: 0 0 12px;
     letter-spacing: normal;
 }
+
+#wb-noblend-panel > .wb-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
