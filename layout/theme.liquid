@@ -136,19 +136,23 @@
         gtag('config', 'G-D0P2198RL2', { send_page_view: false });
         gtag('event', 'human_page', { page_path: location.pathname });
         (function() {
-          try {
-            if (sessionStorage.getItem("wb_gacid")) return;
-            var m = document.cookie.match(/(?:^|;\s*)_ga=([^;]+)/);
-            if (!m) return;
-            var parts = decodeURIComponent(m[1]).split(".");
-            if (parts.length < 4) return;
-            var cid = parts.slice(2).join(".");
-            fetch("/cart/update.js", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ attributes: { ga_client_id: cid } })
-            }).then(function() { sessionStorage.setItem("wb_gacid", "1"); });
-          } catch(e) {}
+          function captureGaCid() {
+            try {
+              if (sessionStorage.getItem("wb_gacid")) return;
+              var m = document.cookie.match(/(?:^|;\s*)_ga=([^;]+)/);
+              if (!m) return;
+              var parts = decodeURIComponent(m[1]).split(".");
+              if (parts.length < 4) return;
+              var cid = parts.slice(2).join(".");
+              fetch("/cart/update.js", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ attributes: { ga_client_id: cid } })
+              }).then(function() { sessionStorage.setItem("wb_gacid", "1"); });
+            } catch(e) {}
+          }
+          captureGaCid();
+          setTimeout(captureGaCid, 1500);
         })();
       }
     </script>
