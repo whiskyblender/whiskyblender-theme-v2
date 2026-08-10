@@ -18,17 +18,20 @@
   } else if (p === '/basket') {
     window.location.replace('/cart');
 
-  /* ── No redirect: render the correct 404 variant ────────────────────────── */
+  /* ── Product 404 → redirect to lab ──────────────────────────────────────── */
+  } else if (p.indexOf('/products/') === 0) {
+    /* Fire before navigating so the event has a chance to send */
+    if (!navigator.webdriver && typeof gtag === 'function') {
+      gtag('event', 'error_404', { variant: 'product', requested_path: raw, transport_type: 'beacon' });
+    }
+    window.location.replace('/pages/the-lab');
+
+  /* ── No redirect: render the generic 404 ────────────────────────────────── */
   } else {
-    var variant = p.indexOf('/products/') === 0 ? 'product' : 'generic';
+    var variant = 'generic';
 
     /* Show the right section (CSS hides both by default) */
-    document.documentElement.classList.add('wb-404-' + variant);
-
-    /* Override page title for the product variant */
-    if (variant === 'product') {
-      document.title = 'Blend unavailable – Whisky Blender';
-    }
+    document.documentElement.classList.add('wb-404-generic');
 
     /* Fire page-load event — skip headless crawlers */
     if (!navigator.webdriver && typeof gtag === 'function') {
