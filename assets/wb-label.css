@@ -361,7 +361,7 @@ body {
 
 /* ── Miniature contact sheet ────────────────────────────────────────────────── */
 
-#wb-contact-sheet { display: none; justify-content: center; padding: 24px; }
+#wb-contact-sheet { display: none; justify-content: center; padding: 52px; }
 #wb-contact-sheet.is-visible { display: flex; }
 
 .wb-contact-page { background: #fff; position: relative; flex-shrink: 0; }
