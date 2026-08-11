@@ -480,11 +480,57 @@
     for (var i = 0; i < CONTACT.cols * CONTACT.rows; i++) html += buildMiniLabel();
     grid.innerHTML = html;
 
+    renderMiniPageSummary(page);
+    renderMiniPageRecipe(page);
+
     document.fonts.ready.then(function () {
       requestAnimationFrame(function () {
         document.querySelectorAll('.wb-mini-name').forEach(resizeMiniName);
       });
     });
+  }
+
+  function renderMiniPageSummary(page) {
+    var el = page.querySelector('.wb-mini-page-top');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'wb-mini-page-top';
+      page.appendChild(el);
+    }
+    var items = [];
+    if (state.productname) items.push({ label: 'Product',  value: state.productname });
+    if (state.reference)   items.push({ label: 'Order',    value: state.reference });
+    if (state.blend)       items.push({ label: 'Blend',    value: state.blend });
+    if (state.text)        items.push({ label: 'Name',     value: state.text });
+    if (state.author)      items.push({ label: 'By',       value: state.author });
+    if (state.strength)    items.push({ label: 'Strength', value: state.strength + '% abv · 50ml' });
+    el.innerHTML = items.map(function (item) {
+      return '<span class="wb-mpt-item">'
+        + '<span class="wb-mpt-label">' + esc(item.label) + '</span>'
+        + '<span class="wb-mpt-value">' + esc(item.value) + '</span>'
+        + '</span>';
+    }).join('');
+  }
+
+  function renderMiniPageRecipe(page) {
+    var el = page.querySelector('.wb-mini-page-bottom');
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'wb-mini-page-bottom';
+      page.appendChild(el);
+    }
+    if (!state.recipe || !Array.isArray(state.recipe)) { el.innerHTML = ''; return; }
+    var items = state.recipe.filter(function (r) { return r.amount > 0; });
+    if (!items.length) { el.innerHTML = ''; return; }
+    var lis = items.map(function (item) {
+      var ml = Math.round(item.amount * 50 / 100);
+      return '<li class="wb-mpr-item">'
+        + '<span class="wb-mpr-swatch" style="background:' + esc(item.colour || '#ccc') + '"></span>'
+        + '<span class="wb-mpr-ml">' + esc(String(ml)) + 'ml</span>'
+        + '<span class="wb-mpr-name">' + esc(item.name) + '</span>'
+        + '</li>';
+    }).join('');
+    el.innerHTML = '<ul class="wb-mpr-list">' + lis + '</ul>';
   }
 
   /* ── Zone 3: Recipe panel ───────────────────────────────────────────────────── */
@@ -560,7 +606,8 @@
           return;
         }
         state.recipe = result.data.recipe;
-        renderRecipePanel();
+        var isMiniNow = (state.product === 'miniatures') || (state.product === 'customblend' && state.size === '50ml');
+        if (isMiniNow) { renderContactSheet(); } else { renderRecipePanel(); }
         if (onDone) onDone(result.data);
       })
       .catch(function () {
