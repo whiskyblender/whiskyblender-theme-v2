@@ -523,7 +523,7 @@
     var items = state.recipe.filter(function (r) { return r.amount > 0; });
     if (!items.length) { el.innerHTML = ''; return; }
     var lis = items.map(function (item) {
-      var ml = Math.round(item.amount * 50 / 100);
+      var ml = Math.round(item.amount * 600 / 100);
       return '<li class="wb-mpr-item">'
         + '<span class="wb-mpr-swatch" style="background:' + esc(item.colour || '#ccc') + '"></span>'
         + '<span class="wb-mpr-ml">' + esc(String(ml)) + 'ml</span>'
