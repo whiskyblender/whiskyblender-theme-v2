@@ -18,13 +18,12 @@
   } else if (p === '/basket') {
     window.location.replace('/cart');
 
-  /* ── Product 404 → redirect to lab ──────────────────────────────────────── */
+  /* ── Product 404 → show "Aw done!" page ─────────────────────────────────── */
   } else if (p.indexOf('/products/') === 0) {
-    /* Fire before navigating so the event has a chance to send */
+    document.documentElement.classList.add('wb-404-product');
     if (!navigator.webdriver && typeof gtag === 'function') {
-      gtag('event', 'error_404', { variant: 'product', requested_path: raw, transport_type: 'beacon' });
+      gtag('event', 'error_404', { variant: 'product', requested_path: raw });
     }
-    window.location.replace('/pages/the-lab');
 
   /* ── No redirect: render the generic 404 ────────────────────────────────── */
   } else {
