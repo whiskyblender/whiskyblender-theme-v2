@@ -3,6 +3,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Prevent accidental double-tap zoom on interactive elements without
+   disabling intentional pinch-zoom (which is an accessibility requirement) */
+a, button, input, select, textarea, label, [role="button"] {
+  touch-action: manipulation;
+}
+
 p {
   max-width: 768px;
 }
