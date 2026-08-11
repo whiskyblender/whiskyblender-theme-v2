@@ -62,7 +62,7 @@
 
 /* Step heading — uses trimPosterCompressed from wb-fonts.css */
 .wbcw-heading {
-    font-family: "trimPosterCompressed", "Barlow Condensed", sans-serif;
+    font-family: "trimPosterCompressed", "Roboto Condensed", sans-serif;
     font-weight: 100;
     font-size: 40px;
     line-height: 34px;
