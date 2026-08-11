@@ -95,12 +95,14 @@
     {%- endif -%}
 
     <script>
-    /* Keep the Forms popup from appearing on top of the age gate.
-       Intercepts window.ShopifyForms (set by the Forms app-block) and holds
-       it back until AYE is clicked. Verified visitors: zero overhead.
-       Fallback: releases after 30 s so a broken gate can't kill email capture. */
+    /* Intercepts window.ShopifyForms (set by the Forms app-block) to:
+       1. Hold the popup back until the age gate is confirmed for unverified visitors.
+       2. Suppress it entirely on /pages/the-lab so it doesn't interrupt blending.
+       Verified visitors on non-lab pages: zero overhead (early return). */
     (function () {
-      if (document.cookie.indexOf('wb_age_verified=1') !== -1) return;
+      var onLabPage = window.location.pathname === '/pages/the-lab';
+      var ageVerified = document.cookie.indexOf('wb_age_verified=1') !== -1;
+      if (ageVerified && !onLabPage) return;
       var _stored = undefined;
       var _released = false;
       function release() {
@@ -115,6 +117,7 @@
         set: function (v) { _stored = v; },
         configurable: true, enumerable: true
       });
+      if (onLabPage) return; /* never release on the lab page */
       document.addEventListener('DOMContentLoaded', function () {
         var btn = document.getElementById('wb-age-yes');
         if (btn) btn.addEventListener('click', release, { once: true });
