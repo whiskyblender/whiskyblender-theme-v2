@@ -109,7 +109,7 @@
 /* ── Blend name / label text ───────────────────────────────────────────────── */
 
 .wbp-outer {
-  font-family: 'trimPosterCompressed', Impact, 'Arial Narrow', sans-serif;
+  font-family: 'trimPosterCompressed', 'Barlow Condensed', sans-serif;
   font-weight: 400;
   position: absolute;
   width: 90px;

@@ -92,13 +92,13 @@
       var i = min, overflow = false;
       while (!overflow && i < max) {
         el.style.fontSize   = i + 'px';
-        el.style.lineHeight = (i * 0.74) + 'px';
+        el.style.lineHeight = (i * 0.80) + 'px';
         overflow = isOverflown(parent);
         if (!overflow) i += step;
       }
       var final = i - step - 1;
       el.style.fontSize   = final + 'px';
-      el.style.lineHeight = (final * 0.74) + 'px';
+      el.style.lineHeight = (final * 0.80) + 'px';
     });
   }
 
