@@ -440,7 +440,33 @@
     var ref = state.reference || '';
     var strength = state.strength || '46';
 
+    /* Top strip: ref + blend code (shown only when at least one is present) */
+    var topParts = [];
+    if (ref) topParts.push('<span class="wb-mini-top__ref">' + esc(ref) + '</span>');
+    if (state.blend) topParts.push('<span class="wb-mini-top__blend">' + esc(state.blend) + '</span>');
+    var topHtml = topParts.length
+      ? '<div class="wb-mini-top">' + topParts.join('<span class="wb-mini-top__sep"> &middot; </span>') + '</div>'
+      : '';
+
+    /* Bottom strip: recipe (shown only once the blend has loaded) */
+    var recipeHtml = '';
+    if (state.recipe && Array.isArray(state.recipe)) {
+      var rItems = state.recipe.filter(function (r) { return r.amount > 0; });
+      if (rItems.length) {
+        var lis = rItems.map(function (item) {
+          var ml = Math.round(item.amount * 50 / 100);
+          return '<li class="wb-mini-recipe-item">' +
+            '<span class="wb-mini-recipe-swatch" style="background:' + esc(item.colour || '#ccc') + '"></span>' +
+            '<span class="wb-mini-recipe-ml">' + esc(String(ml)) + 'ml</span>' +
+            '<span class="wb-mini-recipe-name">' + esc(item.name) + '</span>' +
+            '</li>';
+        }).join('');
+        recipeHtml = '<div class="wb-mini-bottom"><ul class="wb-mini-recipe-list">' + lis + '</ul></div>';
+      }
+    }
+
     return '<div class="wb-mini-label">' +
+      topHtml +
       '<div class="wb-mini-row">' +
         '<div class="wb-mini-strip wb-mini-strip--left"><span>Bottled by whiskyblender.com</span></div>' +
         '<div class="wb-mini-centre">' +
@@ -456,6 +482,7 @@
         '</div>' +
       '</div>' +
       '<div class="wb-mini-bar">Blended Malt<br>Scotch Whisky</div>' +
+      recipeHtml +
     '</div>';
   }
 
@@ -560,7 +587,8 @@
           return;
         }
         state.recipe = result.data.recipe;
-        renderRecipePanel();
+        var isMiniNow = (state.product === 'miniatures') || (state.product === 'customblend' && state.size === '50ml');
+        if (isMiniNow) { renderContactSheet(); } else { renderRecipePanel(); }
         if (onDone) onDone(result.data);
       })
       .catch(function () {
