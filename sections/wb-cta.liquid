@@ -5,7 +5,7 @@
         <div class="wb-right-image">
           {{ section.settings.image | image_url: width: 400 | image_tag:
             loading: 'lazy',
-            alt: '',
+            alt: section.settings.heading,
             class: section.settings.image_class
           }}
         </div>
