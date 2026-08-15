@@ -108,7 +108,7 @@
   transform-origin: bottom center;
 }
 
-.wb-option-cards li:hover {
+.wb-option-cards li:not(.wb-notoption):hover {
   border-radius: 6px;
   background: #ffffff;
   border: #999999 1px solid;
