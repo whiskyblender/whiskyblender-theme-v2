@@ -67,11 +67,6 @@
             imagesrcset="{{ images['wb-whisky-bow.jpg'] | image_url: width: 750 }} 750w, {{ images['wb-whisky-bow.jpg'] | image_url: width: 1920 }} 1920w"
             imagesizes="100vw">
     {%- endif -%}
-    {{ 'glide.js' | asset_url | script_tag }}
-    <link rel="preload" href="{{ 'glide.core.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>{{ 'glide.core.css' | asset_url | stylesheet_tag }}</noscript>
-    <link rel="preload" href="{{ 'glide.custom.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>{{ 'glide.custom.css' | asset_url | stylesheet_tag }}</noscript>
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-global.css' | asset_url | stylesheet_tag }}
