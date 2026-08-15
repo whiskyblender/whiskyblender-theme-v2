@@ -87,8 +87,10 @@
   background-color: transparent;
   background-image: linear-gradient(to bottom, #ffffff, transparent);
   border-color: transparent;
-  border-width: 0;
+  border-width: 1px;
+  border-style: solid;
   position: relative;
+  transition: all .4s;
 }
 
 .wb-option-cards li .wb-card-image::after {
@@ -107,8 +109,9 @@
 }
 
 .wb-option-cards li:hover {
-  border-width: 0;
-  border-color: transparent;
+  border-radius: 6px;
+  background: #ffffff;
+  border: #999999 1px solid;
 }
 
 .wb-option-cards li .wb-card-image {
