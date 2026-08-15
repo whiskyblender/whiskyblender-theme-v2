@@ -1,9 +1,14 @@
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 {{ 'wb-products.css' | asset_url | stylesheet_tag }}
-{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
-{{ 'glide.core.css' | asset_url | stylesheet_tag }}
-{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
-{{ 'glide.js' | asset_url | script_tag }}
+{%- assign wb_has_image_reel = false -%}
+{%- for wb_block in section.blocks -%}
+  {%- if wb_block.type == 'image_reel' -%}{%- assign wb_has_image_reel = true -%}{%- endif -%}
+{%- endfor -%}
+{%- if wb_has_image_reel -%}
+  {{ 'glide.core.css' | asset_url | stylesheet_tag }}
+  {{ 'glide.custom.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'glide.js' | asset_url }}" defer></script>
+{%- endif -%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {

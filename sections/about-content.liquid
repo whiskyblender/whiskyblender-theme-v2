@@ -90,29 +90,34 @@
 </section>
 {%- endif -%}
 
+{{ 'glide.core.css' | asset_url | stylesheet_tag }}
+{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
 {{ 'wb-about.css' | asset_url | stylesheet_tag }}
 
-{% javascript %}
-  new Glide('.wb-features', {
-    type: 'carousel',
-    gap: 100,
-    perView: 4,
-    autoplay: 1,
-    animationDuration: 2000,
-    animationTimingFunc: 'linear',
-    hoverpause: true,
-    breakpoints: {
-      768: {
-        perView: 2,
-        gap: 10,
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Glide('.wb-features', {
+      type: 'carousel',
+      gap: 100,
+      perView: 4,
+      autoplay: 1,
+      animationDuration: 2000,
+      animationTimingFunc: 'linear',
+      hoverpause: true,
+      breakpoints: {
+        768: {
+          perView: 2,
+          gap: 10,
+        },
+        1024: {
+          perView: 3,
+          gap: 10,
+        },
       },
-      1024: {
-        perView: 3,
-        gap: 10,
-      },
-    },
-  }).mount();
-{% endjavascript %}
+    }).mount();
+  });
+</script>
+<script src="{{ 'glide.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

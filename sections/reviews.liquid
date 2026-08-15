@@ -1,4 +1,5 @@
-
+{{ 'glide.core.css' | asset_url | stylesheet_tag }}
+{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
 
 <section class="wb-banded wb-overflow-hidden-x">
   <div class="wb-container">
@@ -21,27 +22,30 @@
     </div>
   </div>
 </section>
-{% javascript %}
-  new Glide('.wb-testimonials', {
-    type: 'carousel',
-    gap: 60,
-    perView: 3,
-    autoplay: 1,
-    animationDuration: 4000,
-    animationTimingFunc: 'linear',
-    hoverpause: true,
-    breakpoints: {
-      600: {
-        perView: 1,
-        gap: 20,
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Glide('.wb-testimonials', {
+      type: 'carousel',
+      gap: 60,
+      perView: 3,
+      autoplay: 1,
+      animationDuration: 4000,
+      animationTimingFunc: 'linear',
+      hoverpause: true,
+      breakpoints: {
+        600: {
+          perView: 1,
+          gap: 20,
+        },
+        768: {
+          perView: 2,
+          gap: 30,
+        },
       },
-      768: {
-        perView: 2,
-        gap: 30,
-      },
-    },
-  }).mount();
-{% endjavascript %}
+    }).mount();
+  });
+</script>
+<script src="{{ 'glide.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
