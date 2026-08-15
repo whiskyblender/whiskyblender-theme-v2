@@ -29,9 +29,12 @@
   </div>
 </div>
 
+<a class="wb-lab-skip-link" href="#wb-save-panel">Skip to blend controls</a>
+
 <ul
   class="wb-cards wb-option-cards"
   id="wb-lab-flavours"
+  aria-label="Whisky options"
   data-api-base="{{ api_base }}"
   style="visibility:hidden"
 >
@@ -47,7 +50,7 @@
   </li>
 </ul>
 
-<div class="wb-sticky-lab" id="wb-lab-meter" style="visibility:hidden">
+<div class="wb-sticky-lab" id="wb-lab-meter" aria-hidden="true" style="visibility:hidden">
   <div class="wb-lab-fillmeter">
     <span>0% filled</span>
     <div class="wb-lab-fillvisual" style="width: 0%"></div>
