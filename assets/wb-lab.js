@@ -53,7 +53,7 @@
     var caskStyle = option.caskImage ? 'background-image: url(\'' + option.caskImage + '\')' : '';
 
     return (
-      '<li tabindex="0" data-flavour-index="' + index + '"' +
+      '<li tabindex="-1" data-flavour-index="' + index + '"' +
           ' data-flavour-identifier="' + escapeHtml(option.identifier) + '"' +
           ' data-flavour-color="' + escapeHtml(color) + '">' +
         '<div class="wb-card-image wb-background-' + color + '-opacity"' +
@@ -225,6 +225,24 @@
     /* Inject flavour cards before the .wb-notoption pie cell */
     var notoption = container.querySelector('.wb-notoption');
     notoption.insertAdjacentHTML('beforebegin', options.map(buildCardHTML).join(''));
+
+    /* Roving tabindex: first card is the Tab entry point; arrows move between cards */
+    var firstCard = container.querySelector('li[data-flavour-index]');
+    if (firstCard) firstCard.setAttribute('tabindex', '0');
+
+    container.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      var cards = Array.prototype.slice.call(container.querySelectorAll('li[data-flavour-index]'));
+      var idx = cards.indexOf(document.activeElement);
+      if (idx === -1) return;
+      e.preventDefault();
+      var next = e.key === 'ArrowRight'
+        ? (idx + 1) % cards.length
+        : (idx - 1 + cards.length) % cards.length;
+      cards[idx].setAttribute('tabindex', '-1');
+      cards[next].setAttribute('tabindex', '0');
+      cards[next].focus();
+    });
 
     /* Inject pie slices */
     var pieContainer = document.getElementById('wb-lab-pie');
