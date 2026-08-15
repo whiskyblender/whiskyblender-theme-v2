@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="000000">
     <link rel="canonical" href="{{ canonical_url }}">
+    {%- if template.directory == 'metaobject' and template.name == 'wb_blend' -%}
+      <meta name="robots" content="noindex, follow">
+    {%- endif -%}
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
