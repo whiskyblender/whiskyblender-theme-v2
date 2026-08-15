@@ -53,7 +53,7 @@
     var caskStyle = option.caskImage ? 'background-image: url(\'' + option.caskImage + '\')' : '';
 
     return (
-      '<li data-flavour-index="' + index + '"' +
+      '<li tabindex="0" data-flavour-index="' + index + '"' +
           ' data-flavour-identifier="' + escapeHtml(option.identifier) + '"' +
           ' data-flavour-color="' + escapeHtml(color) + '">' +
         '<div class="wb-card-image wb-background-' + color + '-opacity"' +
@@ -346,12 +346,14 @@
         var addBtn = f.card.querySelector('[data-action="add"]');
         if (addBtn) {
           addBtn.classList.toggle('wb-disabled-option', total >= MAX_TOTAL);
+          addBtn.setAttribute('aria-disabled', total >= MAX_TOTAL ? 'true' : 'false');
         }
 
         /* − button */
         var removeBtn = f.card.querySelector('[data-action="remove"]');
         if (removeBtn) {
           removeBtn.classList.toggle('wb-disabled-option', f.amount <= 0);
+          removeBtn.setAttribute('aria-disabled', f.amount <= 0 ? 'true' : 'false');
         }
 
         /* Pie slice */
@@ -390,6 +392,7 @@
         var ready  = (total === MAX_TOTAL && title.length > 0 && author.length > 0);
 
         saveBtn.classList.toggle('wb-button-disabled', !ready);
+        saveBtn.setAttribute('aria-disabled', !ready ? 'true' : 'false');
 
         var nudge = document.getElementById('wb-btn-nudge');
         if (nudge) nudge.classList.toggle('wb-btn-nudge--visible', ready);

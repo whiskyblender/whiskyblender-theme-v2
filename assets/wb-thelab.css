@@ -114,6 +114,12 @@
   border: #999999 1px solid;
 }
 
+.wb-option-cards li:not(.wb-notoption):focus-visible {
+  outline: 2px solid #169776;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 .wb-option-cards li .wb-card-image {
   background-size: 100%;
   background-repeat: no-repeat;
@@ -197,6 +203,11 @@
 .wb-option-control:hover {
   transform: scale(1);
   background-color: rgba(255, 255, 255, 0.9);
+}
+
+.wb-option-control:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
 .wb-option-control.wb-yellow-option {
@@ -600,8 +611,12 @@
 }
 
 .wb-lab-input input:focus {
-  outline: none;
   border-color: rgba(0,0,0,0.4);
+}
+
+.wb-lab-input input:focus-visible {
+  outline: 2px solid #169776;
+  outline-offset: 2px;
 }
 
 .wb-lab-input input::placeholder {
@@ -846,9 +861,13 @@
 }
 
 .wb-lab-field:focus {
-  outline: none;
   border-color: #d39a00;
   background: #ffffff;
+}
+
+.wb-lab-field:focus-visible {
+  outline: 2px solid #d39a00;
+  outline-offset: 2px;
 }
 
 .wb-save-actions {
@@ -889,4 +908,30 @@
   .wb-save-heading {
     font-size: 1.8rem;
   }
+}
+
+.wb-lab-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.wb-lab-skip-link:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  display: inline-block;
+  padding: 8px 16px;
+  margin-bottom: 12px;
+  background: #000000;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+  z-index: 100;
 }
