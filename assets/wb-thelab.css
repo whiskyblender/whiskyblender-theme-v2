@@ -86,7 +86,7 @@
   border-radius: 48px 48px 6px 6px;
   background-color: transparent;
   background-image: linear-gradient(to bottom, #ffffff, transparent);
-  border-color: transparent;
+  border-color: #eeeeee;
   border-width: 1px;
   border-style: solid;
   position: relative;
