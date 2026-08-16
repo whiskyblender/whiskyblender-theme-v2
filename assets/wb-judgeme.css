@@ -21,6 +21,8 @@
   }
 }
 
+.jm-star-rating__font-icon { animation: wb-coppercolor 6s ease infinite; }
+
 .jm-review-item { border: none !important; }
 
 .jdgm-review-list .jm-review-item { padding-block-end: 0 !important; }
