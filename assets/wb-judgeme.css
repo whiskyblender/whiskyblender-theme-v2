@@ -23,6 +23,10 @@
 
 .jm-review-item { border: none !important; }
 
+.jdgm-review-list .jm-review-item { padding-block-end: 0 !important; }
+
+.jm-stack { margin-block-start: 0 !important; }
+
 .jm-button { font-weight: 800 !important; }
 
 .jm-reviewer-avatar,
