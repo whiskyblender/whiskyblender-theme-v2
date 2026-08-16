@@ -25,7 +25,7 @@
         "secondary_button_url": "shopify://pages/how-it-works",
         "badge_show": true,
         "badge_url": "shopify://pages/the-lab",
-        "badge_image": "shopify://shop_images/badge_26ee10f3-0eec-4f3a-bdd6-f86aa1846014.png",
+        "badge_image": "shopify://shop_images/button.jpg",
         "badge_aria_label": "Visit the lab"
       }
     },
