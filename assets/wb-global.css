@@ -1011,4 +1011,21 @@ html body .shopify-policy__body .rte a {
 small.unit-price { display: none; }
 product-info small.unit-price { display: revert; }
 
-html .card-wrapper .rating-star { --letter-spacing: 0; }
+@property --color-rating-star {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #b88d60;
+}
+
+html .card-wrapper .rating-star,
+html .product .rating-star {
+  --letter-spacing: 0;
+  --color-rating-star: #ccb095;
+  animation: wb-copperstar 6s ease infinite;
+}
+
+@keyframes wb-copperstar {
+  0%   { --color-rating-star: #ccb095; }
+  50%  { --color-rating-star: #b88d60; }
+  100% { --color-rating-star: #ccb095; }
+}
