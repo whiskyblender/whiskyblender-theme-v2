@@ -20,3 +20,8 @@
     padding: 60px 40px;
   }
 }
+
+.jm-review-item { border: none !important; }
+
+.jm-reviewer-avatar,
+.jm-transparency-badge-list { display: none; }
