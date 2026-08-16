@@ -27,7 +27,10 @@
         "primary_button_text": "",
         "primary_button_url": "",
         "secondary_button_text": "",
-        "secondary_button_url": ""
+        "secondary_button_url": "",
+        "badge_show": false,
+        "badge_url": "",
+        "badge_aria_label": "Read our birthday blog post"
       }
     },
     "custom_liquid_PGKtki": {
@@ -91,7 +94,7 @@
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
-        "show_rating": false,
+        "show_rating": true,
         "quick_add": "none",
         "columns_mobile": "1",
         "swipe_on_mobile": false,
