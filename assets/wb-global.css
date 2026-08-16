@@ -1011,4 +1011,4 @@ html body .shopify-policy__body .rte a {
 small.unit-price { display: none; }
 product-info small.unit-price { display: revert; }
 
-.card-wrapper .rating-star { --letter-spacing: 0; }
+html .card-wrapper .rating-star { --letter-spacing: 0; }
