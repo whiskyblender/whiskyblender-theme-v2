@@ -909,31 +909,6 @@ html body .shopify-policy__body .rte a {
 }
 
 /* Holographic foil — rotating rainbow conic gradient, blurred into flowing swirls */
-.wb-birthday-badge::before {
-  content: '';
-  position: absolute;
-  width: 300%;
-  height: 300%;
-  top: -100%;
-  left: -100%;
-  z-index: 1;
-  background: conic-gradient(
-    from 0deg at 50% 50%,
-    #ff0040 0deg,
-    #ff6600 45deg,
-    #ffee00 90deg,
-    #00ff80 135deg,
-    #00eeff 180deg,
-    #0044ff 225deg,
-    #9900ff 270deg,
-    #ff00cc 315deg,
-    #ff0040 360deg
-  );
-  filter: blur(14px) saturate(2);
-  animation: wb-holo-spin 12s linear infinite, wb-holo-hue 7s linear infinite;
-  opacity: 0.95;
-}
-
 /* Dome glass — convex curved surface effect */
 .wb-birthday-badge::after {
   content: '';

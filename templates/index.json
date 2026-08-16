@@ -23,10 +23,10 @@
         "primary_button_url": "shopify://pages/the-lab",
         "secondary_button_text": "How it works",
         "secondary_button_url": "shopify://pages/how-it-works",
-        "badge_show": false,
-        "badge_url": "shopify://blogs/on-the-scotch/15-years",
-        "badge_image": "shopify://shop_images/badge_26ee10f3-0eec-4f3a-bdd6-f86aa1846014.png",
-        "badge_aria_label": "Read our birthday blog post"
+        "badge_show": true,
+        "badge_url": "shopify://pages/the-lab",
+        "badge_image": "shopify://shop_images/button.jpg",
+        "badge_aria_label": "Visit the lab"
       }
     },
     "main_reviews": {
