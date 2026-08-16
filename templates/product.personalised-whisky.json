@@ -110,6 +110,26 @@
         "padding_bottom": 0
       }
     },
+    "1786874425278f557d": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_YLykk6": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_YLykk6"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "1784747827007815c8": {
       "type": "apps",
       "blocks": {
@@ -145,7 +165,7 @@
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
-        "show_rating": false,
+        "show_rating": true,
         "padding_top": 36,
         "padding_bottom": 28
       }
@@ -197,6 +217,7 @@
   },
   "order": [
     "main",
+    "1786874425278f557d",
     "1784747827007815c8",
     "related-products",
     "wb_single_malt_loader",

@@ -105,7 +105,7 @@
             "review_data": "real_data",
             "max_width": 1200,
             "show_shop_reviews": false,
-            "empty_state": "other_products_reviews"
+            "empty_state": "empty_widget"
           }
         }
       },
@@ -130,7 +130,7 @@
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
-        "show_rating": false,
+        "show_rating": true,
         "padding_top": 0,
         "padding_bottom": 0
       }
