@@ -102,7 +102,7 @@
     bubble.style.left = Math.round(rect.right - 36 + window.scrollX) + 'px';
     bubble.style.top  = Math.round(rect.top + rect.height / 2 - 36 + window.scrollY) + 'px';
     document.body.appendChild(bubble);
-    setTimeout(function () { if (bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 2500);
+    setTimeout(function () { if (bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 3000);
   }
 
   function fetchWithTimeout(url, ms, opts) {
