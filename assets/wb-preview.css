@@ -28,7 +28,7 @@
 .wbp-scale-wrap {
   display: block;
   flex-shrink: 0;
-  background: url(singlemaltlabelmock.png) no-repeat center center / cover;
+  background: url(singlemaltlabelmock.webp) no-repeat center center / cover;
   /* transform set inline by JS */
 }
 
@@ -62,7 +62,7 @@
 
 .wbp-page.size50.singlemalt,
 .wbp-page.size50.singlecask {
-  background-image: url(sample50cl-bars.png);
+  background-image: url(sample50cl-bars.webp);
   background-size: cover;
 }
 

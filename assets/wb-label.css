@@ -304,7 +304,7 @@ body {
 /* Gold bars background — single malt / cask (500ml only until 200ml file exists) */
 #page.size50.singlemalt,
 #page.size50.singlecask {
-  background-image: url(sample50cl-bars.png);
+  background-image: url(sample50cl-bars.webp);
   background-size: cover;
 }
 

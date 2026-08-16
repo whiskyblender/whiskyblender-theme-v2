@@ -41,49 +41,49 @@
         "reel_01": {
           "type": "image_reel",
           "settings": {
-            "reel_image": "01_joker.jpg"
+            "reel_image": "01_joker.webp"
           }
         },
         "reel_02": {
           "type": "image_reel",
           "settings": {
-            "reel_image": "02_nox.jpg"
+            "reel_image": "02_nox.webp"
           }
         },
         "reel_03": {
           "type": "image_reel",
           "settings": {
-            "reel_image": "03_lockstock.jpg"
+            "reel_image": "03_lockstock.webp"
           }
         },
         "reel_04": {
           "type": "image_reel",
           "settings": {
-            "reel_image": "04_burt.jpg"
+            "reel_image": "04_burt.webp"
           }
         },
         "reel_05": {
           "type": "image_reel",
           "settings": {
-            "reel_image": "05_bollocks.jpg"
+            "reel_image": "05_bollocks.webp"
           }
         },
         "reel_06": {
           "type": "image_reel",
           "settings": {
-            "reel_image": "06_orson.jpg"
+            "reel_image": "06_orson.webp"
           }
         },
         "reel_07": {
           "type": "image_reel",
           "settings": {
-            "reel_image": "07_rhino.jpg"
+            "reel_image": "07_rhino.webp"
           }
         },
         "reel_08": {
           "type": "image_reel",
           "settings": {
-            "reel_image": "08_dad.jpg"
+            "reel_image": "08_dad.webp"
           }
         }
       },
