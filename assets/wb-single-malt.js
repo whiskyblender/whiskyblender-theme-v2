@@ -333,7 +333,7 @@
 
       previewContainer = document.createElement('div');
       previewContainer.className = 'wbp-scale-wrap';
-      var mockImg = productSlug === 'customblend' ? (is200ml ? 'customblendlabelmock200.png' : 'customblendlabelmock.png') : 'singlemaltlabelmock.png';
+      var mockImg = productSlug === 'customblend' ? (is200ml ? 'customblendlabelmock200.webp' : 'customblendlabelmock.webp') : 'singlemaltlabelmock.webp';
       previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + '?v=' + av + ')';
       previewContainer.innerHTML =
         '<div class="wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + '">' +
