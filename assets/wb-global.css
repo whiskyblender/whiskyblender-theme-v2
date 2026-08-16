@@ -905,41 +905,10 @@ html body .shopify-policy__body .rte a {
   /* Dark base so the holographic foil colours pop */
   background: #0e0e18;
 
-  box-shadow: 0 4px 20px #0000008c;
+  box-shadow: 0 2px 10px #0000008c;
 }
 
-/* Holographic foil — rotating rainbow conic gradient, blurred into flowing swirls */
-/* Dome glass — convex curved surface effect */
-.wb-birthday-badge::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border-radius: 50%;
-  background:
-    /* Bright arc highlight at the top — wide crescent like light off a dome */
-    radial-gradient(
-      ellipse 80% 40% at 50% -2%,
-      rgba(255, 255, 255, 0.88) 0%,
-      rgba(255, 255, 255, 0.45) 40%,
-      transparent 70%
-    ),
-    /* Dark vignette around the rim — dome curves away at the edges */
-    radial-gradient(
-      circle at 50% 50%,
-      transparent 52%,
-      rgba(0, 0, 0, 0.4) 100%
-    ),
-    /* Faint crescent reflection at the bottom */
-    radial-gradient(
-      ellipse 55% 20% at 50% 102%,
-      rgba(255, 255, 255, 0.22) 0%,
-      transparent 100%
-    );
-  pointer-events: none;
-}
-
-/* Overlay image — sits between foil and glass shine */
+/* Overlay image */
 .wb-badge-image {
   position: absolute;
   inset: 0;
