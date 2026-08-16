@@ -2,7 +2,7 @@
 
 #shopify-pc__banner {
     position: fixed !important;
-    bottom: 24px !important;
+    bottom: 0 !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     right: auto !important;
@@ -40,8 +40,8 @@
 }
 
 .shopify-pc__banner__body p {
-    font-size: 14px !important;
-    line-height: 1.5 !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
     color: #ffffff !important;
     margin: 0 !important;
 }
@@ -97,6 +97,10 @@
     background-color: rgba(255, 255, 255, 0.12) !important;
     color: #ffffff !important;
     order: 3 !important;
+}
+
+.shopify-pc__banner__dialog button {
+    margin: 0 !important;
 }
 
 #shopify-pc__banner__btn-manage-prefs span {
