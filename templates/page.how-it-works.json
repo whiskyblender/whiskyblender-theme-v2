@@ -25,7 +25,7 @@
           "settings": {
             "step_number": "One",
             "heading": "Select your whiskies",
-            "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add a wee bit of each until your bottle’s full. No expertise needed — trust your instincts.</p>",
+            "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add from the ones you fancy until you reach 100%. No expertise needed — trust your instincts.</p>",
             "image": "shopify://shop_images/hiw_one.gif",
             "button_label": "",
             "button_url": ""
@@ -60,7 +60,9 @@
         "step_three"
       ],
       "name": "How it works",
-      "settings": {}
+      "settings": {
+        "page_title": "How it works"
+      }
     },
     "wb_cta_something_unique": {
       "type": "wb-cta",
