@@ -92,6 +92,19 @@
     return '<div class="wb-pie wb-' + color + '-pie wb-pie-0" data-pie-for="' + index + '"><div></div></div>';
   }
 
+  function spawnBubble(color) {
+    var fillEl = document.querySelector('.wb-lab-fillvisual');
+    if (!fillEl) return;
+    var rect = fillEl.getBoundingClientRect();
+    var bubble = document.createElement('div');
+    bubble.className = 'wb-fill-bubble wb-background-' + color;
+    bubble.textContent = '+5%';
+    bubble.style.left = Math.round(rect.right - 14) + 'px';
+    bubble.style.top  = Math.round(rect.top + rect.height / 2 - 14) + 'px';
+    document.body.appendChild(bubble);
+    setTimeout(function () { if (bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 2000);
+  }
+
   function fetchWithTimeout(url, ms, opts) {
     var ctrl = new AbortController();
     var id = setTimeout(function () { ctrl.abort(); }, ms);
@@ -670,6 +683,7 @@
           if (getTotal() >= MAX_TOTAL) return false;
           f.amount = clamp(f.amount + STEP);
           updateUI();
+          spawnBubble(f.color);
           triggerAnim(f, true);
           if (getTotal() === MAX_TOTAL) {
             var savePanel = document.getElementById('wb-save-panel');
