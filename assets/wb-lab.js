@@ -94,14 +94,16 @@
 
   function spawnBubble(color) {
     var fillEl = document.querySelector('.wb-lab-fillvisual');
-    if (!fillEl) return;
-    var rect = fillEl.getBoundingClientRect();
+    var stickyEl = document.querySelector('.wb-sticky-lab');
+    if (!fillEl || !stickyEl) return;
+    var fillRect = fillEl.getBoundingClientRect();
+    var stickyRect = stickyEl.getBoundingClientRect();
     var bubble = document.createElement('div');
     bubble.className = 'wb-fill-bubble wb-background-' + color;
     bubble.textContent = '+5%';
-    bubble.style.left = Math.round(rect.right - 36 + window.scrollX) + 'px';
-    bubble.style.top  = Math.round(rect.top + rect.height / 2 - 36 + window.scrollY) + 'px';
-    document.body.appendChild(bubble);
+    bubble.style.left = Math.round(fillRect.right - stickyRect.left - 36) + 'px';
+    bubble.style.top  = Math.round(fillRect.top + fillRect.height / 2 - stickyRect.top - 36) + 'px';
+    stickyEl.appendChild(bubble);
     setTimeout(function () { if (bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 3000);
   }
 
