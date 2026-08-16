@@ -1,5 +1,9 @@
 /* ── Judge.me Widget ───────────────────────────────────────────────────────── */
 
+.shopify-section:has(.jdgm-widget) {
+  background-color: #efefef;
+}
+
 .jdgm-widget {
   padding: 40px 20px;
   position: relative;
