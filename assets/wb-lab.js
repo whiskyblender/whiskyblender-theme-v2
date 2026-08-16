@@ -99,10 +99,10 @@
     var bubble = document.createElement('div');
     bubble.className = 'wb-fill-bubble wb-background-' + color;
     bubble.textContent = '+5%';
-    bubble.style.left = Math.round(rect.right - 26) + 'px';
-    bubble.style.top  = Math.round(rect.top + rect.height / 2 - 26) + 'px';
+    bubble.style.left = Math.round(rect.right - 36 + window.scrollX) + 'px';
+    bubble.style.top  = Math.round(rect.top + rect.height / 2 - 36 + window.scrollY) + 'px';
     document.body.appendChild(bubble);
-    setTimeout(function () { if (bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 2000);
+    setTimeout(function () { if (bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 2500);
   }
 
   function fetchWithTimeout(url, ms, opts) {
