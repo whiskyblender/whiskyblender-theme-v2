@@ -1,22 +1,26 @@
 /* ── Judge.me Widget ───────────────────────────────────────────────────────── */
 
-.shopify-section:has(.jdgm-widget) {
+.shopify-section:has(.jdgm-widget),
+.shopify-section:has(.jm-review-widget) {
   background-color: #efefef;
 }
 
-.jdgm-widget {
+.jdgm-widget,
+.jm-review-widget {
   padding: 40px 20px;
   position: relative;
 }
 
 @media screen and (min-width: 600px) {
-  .jdgm-widget {
+  .jdgm-widget,
+  .jm-review-widget {
     padding: 60px 30px;
   }
 }
 
 @media screen and (min-width: 768px) {
-  .jdgm-widget {
+  .jdgm-widget,
+  .jm-review-widget {
     padding: 60px 40px;
   }
 }
