@@ -23,5 +23,7 @@
 
 .jm-review-item { border: none !important; }
 
+.jm-button { font-weight: 800; }
+
 .jm-reviewer-avatar,
 .jm-transparency-badge-list { display: none; }
