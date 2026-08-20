@@ -17,7 +17,7 @@
           "settings": {
             "tag": "Fastest & free",
             "heading": "Overprint your artwork",
-            "body": "<p>Send us a logo or graphic and we’ll add it to our standard label layout, alongside the name and message you’ve already created in the generator.</p>",
+            "body": "<p>Bring us your artwork — a logo, crest, illustration, or anything else — and we’ll overprint it onto our canvas label. Or if you don’t have artwork yet, we can work with you to create something.</p>",
             "bullet_1": "Company logos, crests, small graphics",
             "bullet_2": "Added to our existing label design",
             "bullet_3": "Included with your order — no extra charge",
@@ -36,7 +36,7 @@
             "bullet_2": "Full design service, start to finish",
             "bullet_3": "Minimum order quantities may apply",
             "button_label": "Discuss a bespoke label",
-            "button_url": "/pages/collaborate",
+            "button_url": "#get-in-touch",
             "button_style": "primary"
           }
         },
