@@ -449,6 +449,9 @@
           initPreview();
         }
         renderPreviewLabel();
+        if (window.matchMedia('(max-width: 767px)').matches && previewWrap) {
+          previewWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     }
 
