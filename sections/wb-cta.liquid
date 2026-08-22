@@ -1,4 +1,4 @@
-<section class="wb-banded" {% if section.settings.background == 'white' %}style="background-color:#ffffff;"{% endif %}>
+<section class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
       {%- if section.settings.image != blank -%}
@@ -36,16 +36,6 @@
 {
   "name": "WB CTA Panel",
   "settings": [
-    {
-      "type": "select",
-      "id": "background",
-      "label": "Background",
-      "options": [
-        { "value": "grey", "label": "Grey (default)" },
-        { "value": "white", "label": "White" }
-      ],
-      "default": "grey"
-    },
     {
       "type": "text",
       "id": "heading",
