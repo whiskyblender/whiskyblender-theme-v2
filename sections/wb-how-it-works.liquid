@@ -1,5 +1,5 @@
 {%- if section.settings.page_title != blank or page.content != blank -%}
-  <div class="wb-container wb-first-item">
+  <header class="wb-container wb-first-item">
     <div class="wb-padding wb-hiw-title-wrap">
       {%- if section.settings.page_title != blank -%}
         <h1 class="wb-large-heading wb-hiw-title">{{ section.settings.page_title | escape }}</h1>
@@ -8,7 +8,7 @@
         <div class="wb-hiw-intro wb-collection-copy">{{ page.content }}</div>
       {%- endif -%}
     </div>
-  </div>
+  </header>
 {%- endif -%}
 
 {%- for block in section.blocks -%}
