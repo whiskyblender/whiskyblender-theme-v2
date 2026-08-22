@@ -1,6 +1,6 @@
 {%- if section.settings.page_title != blank or page.content != blank -%}
-  <header class="wb-container wb-first-item">
-    <div class="wb-padding wb-hiw-title-wrap">
+  <header class="wb-container">
+    <div class="wb-padding">
       {%- if section.settings.page_title != blank -%}
         <h1 class="wb-large-heading wb-hiw-title">{{ section.settings.page_title | escape }}</h1>
       {%- endif -%}
@@ -58,7 +58,6 @@
 
 <style>
   .wb-hiw-title { margin: 0; }
-  .wb-hiw-title-wrap { padding-bottom: 0; }
   .wb-hiw-intro { margin-top: 16px; max-width: 640px; }
 
   .wb-hiw-inner {
