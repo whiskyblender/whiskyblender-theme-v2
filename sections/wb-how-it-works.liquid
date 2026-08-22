@@ -13,7 +13,7 @@
 
 {%- for block in section.blocks -%}
   {%- assign is_even = forloop.index | modulo: 2 -%}
-  <section class="wb-hiw-step{% if is_even == 0 %} wb-hiw-step--grey{% endif %}" {{ block.shopify_attributes }}>
+  <section class="wb-hiw-step{% if is_even != 0 %} wb-hiw-step--grey{% endif %}" {{ block.shopify_attributes }}>
     <div class="wb-container">
       <div class="wb-hiw-inner wb-padding">
 
