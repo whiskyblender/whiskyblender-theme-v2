@@ -1,10 +1,13 @@
 <style>
-  /* ── Banding: hero reads transparent; grey/white alternation starts band 2 ── */
+  /* ── Banding ── */
   #wb-label-guide > .wb-banded:nth-of-type(odd) {
-    background-color: transparent;
+    background-color: #efefef;
   }
   #wb-label-guide > .wb-banded:nth-of-type(even) {
-    background-color: #efefef;
+    background-color: transparent;
+  }
+  #wb-label-guide > .wb-banded:first-child {
+    background-color: transparent;
   }
 
   /* ── Intro width (hero + CTA) ── */
