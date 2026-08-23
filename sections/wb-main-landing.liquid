@@ -23,6 +23,56 @@
   @media (min-width: 768px) { .wb-videobg, .wb-imagebg { background-image: url({{ hero_image | default: video_poster }}); } }
 </style>
 {%- endif -%}
+<style>
+  #wb-video-toggle {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.35);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  #wb-video-toggle:hover,
+  #wb-video-toggle:focus-visible {
+    opacity: 1;
+  }
+  #wb-video-toggle::before,
+  #wb-video-toggle::after {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 10px;
+    background: #fff;
+    border-radius: 1px;
+  }
+  #wb-video-toggle.wb-video-paused {
+    gap: 0;
+  }
+  #wb-video-toggle.wb-video-paused::before {
+    width: 0;
+    height: 0;
+    background: transparent;
+    border-style: solid;
+    border-width: 6px 0 6px 11px;
+    border-color: transparent transparent transparent #fff;
+    border-radius: 0;
+    margin-left: 2px;
+  }
+  #wb-video-toggle.wb-video-paused::after {
+    display: none;
+  }
+</style>
 
 <section class="wb-overflow-hidden-x">
   <div class="wb-container">
@@ -42,6 +92,7 @@
         <div class="wb-videograin"></div>
         <video muted loop playsinline fetchpriority="high" id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %} data-video-src="{{ video_src }}">
         </video>
+        <button id="wb-video-toggle" aria-label="Pause video" type="button"></button>
         {%- if section.settings.badge_show and section.settings.badge_url != blank -%}
           <a href="{{ section.settings.badge_url }}" class="wb-birthday-badge" aria-label="{{ section.settings.badge_aria_label | default: 'Read our birthday blog post' }}">
             {%- if section.settings.badge_image != blank -%}
@@ -63,20 +114,34 @@
       <script>
         (function () {
           var vid = document.getElementById('wb-video');
+          var btn = document.getElementById('wb-video-toggle');
           if (!vid || !vid.dataset.videoSrc) return;
-          var src = vid.dataset.videoSrc;
+
           function startVideo() {
             if (vid.src) return;
-            vid.src = src;
+            vid.src = vid.dataset.videoSrc;
             vid.play().catch(function () {});
-            ['pointermove', 'touchstart', 'scroll'].forEach(function (e) {
-              document.removeEventListener(e, startVideo);
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startVideo);
+          } else {
+            startVideo();
+          }
+
+          if (btn) {
+            btn.addEventListener('click', function () {
+              if (vid.paused) {
+                vid.play().catch(function () {});
+                btn.setAttribute('aria-label', 'Pause video');
+                btn.classList.remove('wb-video-paused');
+              } else {
+                vid.pause();
+                btn.setAttribute('aria-label', 'Play video');
+                btn.classList.add('wb-video-paused');
+              }
             });
           }
-          var opts = { once: true, passive: true };
-          document.addEventListener('pointermove', startVideo, opts);
-          document.addEventListener('touchstart', startVideo, opts);
-          document.addEventListener('scroll', startVideo, opts);
         })();
       </script>
     {%- endif -%}
