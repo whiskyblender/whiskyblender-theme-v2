@@ -23,6 +23,7 @@
       "settings": {
         "video_url": "https://cdn.shopify.com/videos/c/o/v/127d588af94e4212955bc22951a85177.mp4",
         "video_file": "",
+        "background_image": "shopify://shop_images/whisky-gift.jpg",
         "title": "Whisky gifts",
         "title_variants": "",
         "description": "That's certainly the kind of gift that we like to get from people.",
@@ -182,7 +183,8 @@
         "primary_button_text": "Create something",
         "primary_button_url": "shopify://pages/create",
         "secondary_button_text": "",
-        "secondary_button_url": ""
+        "secondary_button_url": "",
+        "background": "auto"
       }
     },
     "exclusive_bottles": {
