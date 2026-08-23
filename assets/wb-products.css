@@ -250,26 +250,118 @@
   margin-left: 10px;
 }
 
-.wb-bottle-form input,
+.wb-bottle-form input:not(.quantity__input),
 .wb-bottle-form textarea {
-  font-size: 18px;
-  display: block;
-  border: none;
-  padding: 8px 0;
-  border-bottom: 2px #666666 dotted;
   width: 100%;
+  display: block;
+  background: #ffffff;
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 18px;
   font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 160%;
+  color: #333;
+  box-sizing: border-box;
   margin-bottom: 8px;
-  background-color: transparent;
 }
 
-.wb-bottle-form input:focus,
-.wb-bottle-form input:focus-visible,
+.wb-bottle-form input:not(.quantity__input):focus,
+.wb-bottle-form input:not(.quantity__input):focus-visible,
 .wb-bottle-form textarea:focus,
 .wb-bottle-form textarea:focus-visible {
+  border-color: rgba(0,0,0,0.4);
   outline: none;
   box-shadow: none;
-  border-bottom: 2px #333333 solid;
+}
+
+.wb-bottle-form input:not(.quantity__input)::placeholder,
+.wb-bottle-form textarea::placeholder {
+  color: rgba(0,0,0,0.35);
+  font-weight: 700;
+}
+
+@media screen and (min-width: 600px) {
+  .wb-bottle-form input:not(.quantity__input),
+  .wb-bottle-form textarea {
+    padding: 16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .wb-bottle-form input:not(.quantity__input),
+  .wb-bottle-form textarea {
+    font-size: 20px;
+  }
+}
+
+.wb-bottle-form .quantity {
+  background: #ffffff;
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 6px;
+  width: auto;
+  min-height: 0;
+  transition: border-color 0.2s;
+}
+
+.wb-bottle-form .quantity:focus-within {
+  border-color: rgba(0,0,0,0.4);
+}
+
+.wb-bottle-form .quantity::before,
+.wb-bottle-form .quantity::after {
+  display: none;
+}
+
+.wb-bottle-form .quantity__input {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #333;
+  opacity: 1;
+  padding: 14px 4px;
+  width: 56px;
+  background: transparent;
+}
+
+.wb-bottle-form .quantity__button {
+  color: #555;
+  width: 44px;
+  font-size: 18px;
+  padding: 0;
+  background: transparent;
+  transition: color 0.2s;
+}
+
+.wb-bottle-form .quantity__button:hover {
+  color: #169776;
+  background: transparent;
+}
+
+.wb-bottle-form .quantity__button:focus-visible,
+.wb-bottle-form .quantity__input:focus-visible {
+  background: transparent;
+  outline: none;
+}
+
+.wb-bottle-form .quantity__button:not(:focus-visible):not(.focused),
+.wb-bottle-form .quantity__input:not(:focus-visible):not(.focused) {
+  box-shadow: none;
+  background: transparent;
+}
+
+@media screen and (min-width: 600px) {
+  .wb-bottle-form .quantity__input {
+    padding: 16px 4px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .wb-bottle-form .quantity__input {
+    font-size: 20px;
+  }
 }
 
 .wb-bottle-form input span {
