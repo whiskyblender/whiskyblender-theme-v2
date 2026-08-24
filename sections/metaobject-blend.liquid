@@ -66,31 +66,28 @@
         <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
       </div>
       {%- if recipe and recipe.size > 0 -%}
-        <div class="wb-blend-card wb-background-blue">
-          <p><strong>{{ blend_code | escape }}</strong> &mdash; This creation contains whisky from {{ active_cask_count }} single malt {{ cask_word }}. {{ tagline_str | escape }}</p>
-        </div>
-      {%- endif -%}
-
-      {%- if recipe and recipe.size > 0 -%}
         {%- assign max_amount = 0 -%}
         {%- for item in recipe -%}
           {%- assign item_amount = item.amount | plus: 0 -%}
-          {%- if item_amount > max_amount -%}
-            {%- assign max_amount = item_amount -%}
-          {%- endif -%}
+          {%- if item_amount > max_amount -%}{%- assign max_amount = item_amount -%}{%- endif -%}
         {%- endfor -%}
-        <ul class="wb-recipe wb-blend-recipe">
-          {%- for item in recipe -%}
-            {%- assign item_amount = item.amount | plus: 0 -%}
-            {%- if item_amount > 0 -%}
-              {%- assign bar_left = item_amount | times: 100.0 | divided_by: max_amount | round: 1 -%}
-              <li style="background-color: {{ item.colour | default: '#b88d60' | escape }}">
-                <span class="wb-label">{{ item_amount }}% {{ item.name | escape }}</span>
-                <span class="wb-recipebar" style="left: {{ bar_left }}%"></span>
-              </li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
+        <div class="wb-blend-card wb-background-blue">
+          <p><strong>{{ blend_code | escape }}</strong> &mdash; This creation contains whisky from {{ active_cask_count }} single malt {{ cask_word }}. {{ tagline_str | escape }}</p>
+          <div class="wb-blend-recipe-inset">
+            <ul class="wb-recipe wb-blend-recipe">
+              {%- for item in recipe -%}
+                {%- assign item_amount = item.amount | plus: 0 -%}
+                {%- if item_amount > 0 -%}
+                  {%- assign bar_left = item_amount | times: 100.0 | divided_by: max_amount | round: 1 -%}
+                  <li style="background-color: {{ item.colour | default: '#b88d60' | escape }}">
+                    <span class="wb-label">{{ item_amount }}% {{ item.name | escape }}</span>
+                    <span class="wb-recipebar" style="left: {{ bar_left }}%"></span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        </div>
       {%- endif -%}
 
       <div class="wb-blend-stats">
@@ -182,7 +179,8 @@
   .wb-blend-byline strong { color: #333; font-weight: 600; }
   .wb-blend-title { margin: 0; }
   .wb-blend-code-actions { margin-bottom: 40px; }
-  .wb-blend-recipe { margin-top: 40px; margin-bottom: 0; }
+  .wb-blend-recipe-inset { background: #ffffff; border-radius: 6px; padding: 16px 20px; margin-top: 20px; }
+  .wb-blend-recipe { margin: 0; }
 
   /* Stats panels */
   .wb-blend-stats {
