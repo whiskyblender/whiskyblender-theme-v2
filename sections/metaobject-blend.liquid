@@ -67,12 +67,6 @@
         <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
       </div>
       {%- if recipe and recipe.size > 0 -%}
-        <div class="wb-blend-card wb-background-blue">
-          <p>{%- if blend_date != blank -%}Created {{ blend_date | date: "%-d %b %Y" }} &mdash; {%- endif -%}This Scotch contains whisky from {{ active_cask_count }} single malt {{ cask_word }}. {{ tagline_str | escape }}</p>
-        </div>
-      {%- endif -%}
-
-      {%- if recipe and recipe.size > 0 -%}
         {%- assign max_amount = 0 -%}
         {%- for item in recipe -%}
           {%- assign item_amount = item.amount | plus: 0 -%}
@@ -92,6 +86,9 @@
             {%- endif -%}
           {%- endfor -%}
         </ul>
+        <div class="wb-blend-card wb-background-blue">
+          <p>{%- if blend_date != blank -%}Created {{ blend_date | date: "%-d %b %Y" }} &mdash; {%- endif -%}This Scotch contains whisky from {{ active_cask_count }} single malt {{ cask_word }}. {{ tagline_str | escape }}</p>
+        </div>
       {%- endif -%}
 
       <div class="wb-custom-blend-actions wb-blend-code-actions">
