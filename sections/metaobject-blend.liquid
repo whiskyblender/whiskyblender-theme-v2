@@ -31,6 +31,24 @@
   endif
 
   assign opts_collection = section.settings.collection
+
+  assign tagline_str = 'A blend of '
+  assign current_active_idx = 0
+  for item in recipe
+    assign item_amount = item.amount | plus: 0
+    if item_amount > 0
+      assign current_active_idx = current_active_idx | plus: 1
+      if current_active_idx > 1
+        if current_active_idx == active_cask_count
+          assign tagline_str = tagline_str | append: ' and '
+        else
+          assign tagline_str = tagline_str | append: ', '
+        endif
+      endif
+      assign tagline_str = tagline_str | append: item.name
+    endif
+  endfor
+  assign tagline_str = tagline_str | append: '.'
 -%}
 
 {{ 'wb-products.css' | asset_url | stylesheet_tag }}
@@ -43,8 +61,15 @@
   <div class="wb-padding">
     <div class="page-width page-width--narrow">
 
-      <h1 class="wb-large-heading wb-blend-title">{{ blend_title | escape }}</h1>
-      <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
+      <div class="wb-blend-card wb-background-brown">
+        <h1 class="wb-large-heading wb-blend-title">{{ blend_title | escape }}</h1>
+        <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
+      </div>
+      {%- if recipe and recipe.size > 0 -%}
+        <div class="wb-blend-card wb-background-blue">
+          <p><strong>{{ blend_code | escape }}</strong> &mdash; This creation contains whisky from {{ active_cask_count }} single malt {{ cask_word }}. {{ tagline_str | escape }}</p>
+        </div>
+      {%- endif -%}
 
       {%- if recipe and recipe.size > 0 -%}
         {%- assign max_amount = 0 -%}
@@ -152,9 +177,10 @@
 {%- endif -%}
 
 <style>
-  .wb-blend-byline { font-size: 24px; color: #555; margin-top: 4px; margin-bottom: 8px; }
+  .wb-blend-card { padding: 24px 40px; border-radius: 8px; margin-bottom: 10px; }
+  .wb-blend-byline { font-size: 24px; color: #555; margin-top: 4px; margin-bottom: 0; }
   .wb-blend-byline strong { color: #333; font-weight: 600; }
-  .wb-blend-title { margin: 0 0 20px 0; }
+  .wb-blend-title { margin: 0; }
   .wb-blend-code-actions { margin-bottom: 40px; }
   .wb-blend-recipe { margin-top: 40px; margin-bottom: 0; }
 
