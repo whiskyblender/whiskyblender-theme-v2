@@ -15,12 +15,12 @@
         "path_overprint": {
           "type": "path_card",
           "settings": {
-            "tag": "Fastest & free",
+            "tag": "Fastest",
             "heading": "Overprint your artwork",
             "body": "<p>Bring us your artwork — a logo, crest, illustration, or anything else — and we’ll overprint it onto our canvas label. Or if you don’t have artwork yet, we can work with you to create something.</p>",
             "bullet_1": "Company logos, crests, small graphics",
             "bullet_2": "Added to our existing label design",
-            "bullet_3": "Included with your order — no extra charge",
+            "bullet_3": "£20 artwork origination fee",
             "button_label": "See how it works",
             "button_url": "#how-it-works",
             "button_style": "outline"
@@ -103,7 +103,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Does overprinting cost extra?",
-            "answer": "<p>No — overprinting your own artwork onto our standard label is included. Fully custom label design is quoted separately, since it’s a bigger design job.</p>"
+            "answer": "<p>There’s a one-off £20 artwork origination fee to set up and place your artwork. Fully custom label design is quoted separately, since it’s a bigger design job.</p>"
           }
         },
         "faq_proof": {
