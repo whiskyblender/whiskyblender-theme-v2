@@ -84,6 +84,59 @@
       html:has(#wb-age-gate.wb-age-gate--visible:not(.wb-age-gate--hidden)) #shopify-pc__banner { z-index: 99997 !important; }
     </style>
 
+    <script>
+      /* Self-hosted client-error capture. A JS exception in a customer's browser
+         leaves no trace in the server logs, so a silent failure of the blend
+         builder — especially in iOS Safari or the Meta in-app browsers, where
+         most paid traffic lands — would otherwise be invisible.
+         Reports go to our own lab app, not a third party, and set no cookie:
+           journalctl -u whiskyblender-lab | grep '\[client-error\]'
+         Loaded before the other scripts so it catches their errors too. */
+      (function () {
+        if (navigator.webdriver) return; /* bots inflate everything — ignore them */
+        var ENDPOINT = 'https://lab.whiskyblender.com/api/client-error';
+        var MAX = 5, sent = 0, seen = {};
+
+        function report(kind, message, source, position, stack) {
+          try {
+            if (sent >= MAX) return; /* one broken page must not flood the log */
+            var key = kind + '|' + message + '|' + position;
+            if (seen[key]) return;
+            seen[key] = 1;
+            sent++;
+            fetch(ENDPOINT, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              keepalive: true,
+              body: JSON.stringify({
+                kind: kind,
+                message: String(message || ''),
+                page: location.pathname + location.search,
+                source: String(source || ''),
+                position: position || '',
+                stack: String(stack || '')
+              })
+            }).catch(function () {});
+          } catch (e) {}
+        }
+
+        window.addEventListener('error', function (e) {
+          if (!e) return;
+          /* Failed img/script/css loads also fire 'error' in the capture phase —
+             they have a target element rather than window. Not what we're after. */
+          if (e.target && e.target !== window && e.target.tagName) return;
+          report('error', e.message, e.filename,
+                 (e.lineno || 0) + ':' + (e.colno || 0),
+                 e.error && e.error.stack);
+        }, true);
+
+        window.addEventListener('unhandledrejection', function (e) {
+          var r = e && e.reason;
+          report('unhandledrejection', (r && r.message) || String(r), '', '', r && r.stack);
+        });
+      })();
+    </script>
+
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>

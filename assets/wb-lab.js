@@ -351,6 +351,17 @@
 
     var blendSaved = false;
     var fieldHintsShown = false;
+    var blendStartedTracked = false;
+
+    /* GA4 funnel events. gtag is defined in theme.liquid as a dataLayer stub even
+       before consent, so this never throws — if analytics consent was declined
+       the calls simply queue and are never sent. Bot-gated to match human_page. */
+    function wbTrack(name, params) {
+      try {
+        if (navigator.webdriver) return;
+        if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
+      } catch (e) {}
+    }
 
     /* ── Helpers ── */
     function getTotal() {
@@ -521,6 +532,7 @@
             }
             blendSaved = true;
             var slug = result.data.slug;
+            wbTrack('blend_created', { blend_code: slug });
 
             /* Redirect straight to the bottle options page */
             if (savePanelData.productUrl) {
@@ -530,7 +542,11 @@
           .catch(function (err) {
             saveBtn.disabled = false;
             saveBtn.textContent = 'Bottle your whisky';
-            showError(err.message || 'Something went wrong. Please try again.');
+            var msg = err.message || 'Something went wrong. Please try again.';
+            /* Makes a failed save visible in GA4 next to the successes, so a
+               silent drop in blend_created has a matching signal to explain it. */
+            wbTrack('blend_error', { message: String(msg).slice(0, 100) });
+            showError(msg);
           });
       });
     }
@@ -683,6 +699,10 @@
           dismissHint();
           if (blendSaved) return false;
           if (getTotal() >= MAX_TOTAL) return false;
+          if (!blendStartedTracked) {
+            blendStartedTracked = true;
+            wbTrack('blend_started');
+          }
           f.amount = clamp(f.amount + STEP);
           updateUI();
           spawnBubble(f.color);
