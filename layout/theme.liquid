@@ -131,14 +131,18 @@
 
     <script>
       if (!navigator.webdriver) {
-        var s = document.createElement('script');
-        s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D0P2198RL2';
-        document.head.appendChild(s);
+        /* GA4 is gated on Shopify's Customer Privacy API (UK GDPR / PECR).
+           gtag.js is not injected and no _ga cookie is set until analytics
+           consent is granted. Shopify's own region rules apply — outside
+           consent-required regions analyticsProcessingAllowed() returns true
+           immediately, so nothing changes for that traffic.
+           This also gates the SERVER-SIDE purchase event: ga_client_id is only
+           captured after consent, and webhooks.orders.paid.tsx skips any order
+           that has no ga_client_id. Do not capture ga_client_id anywhere else. */
         window.dataLayer = window.dataLayer || [];
-        window.gtag = function(){ dataLayer.push(arguments); };
-        gtag('js', new Date());
-        gtag('config', 'G-D0P2198RL2', { send_page_view: false });
-        gtag('event', 'human_page', { page_path: location.pathname });
+        /* Stub so gtag() calls elsewhere (error_404, cta_404_click) never throw.
+           Commands queue in dataLayer and stay inert if consent never arrives. */
+        window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
         (function() {
           function captureGaCid() {
             try {
@@ -163,8 +167,41 @@
               }).then(function() { sessionStorage.setItem("wb_gacid", "1"); });
             } catch(e) {}
           }
-          captureGaCid();
-          setTimeout(captureGaCid, 1500);
+          var started = false;
+          function startGA() {
+            if (started) return;
+            started = true;
+            var s = document.createElement('script');
+            s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-D0P2198RL2';
+            document.head.appendChild(s);
+            gtag('js', new Date());
+            gtag('config', 'G-D0P2198RL2', { send_page_view: false });
+            gtag('event', 'human_page', { page_path: location.pathname });
+            captureGaCid();
+            setTimeout(captureGaCid, 1500);
+          }
+
+          function analyticsAllowed() {
+            try {
+              return !!(window.Shopify && window.Shopify.customerPrivacy &&
+                        window.Shopify.customerPrivacy.analyticsProcessingAllowed());
+            } catch (e) { return false; }
+          }
+
+          /* Visitor accepts, declines, or changes their preferences */
+          document.addEventListener('visitorConsentCollected', function (e) {
+            if ((e.detail && e.detail.analyticsAllowed) || analyticsAllowed()) startGA();
+          });
+
+          /* Consent already on record from an earlier visit */
+          if (window.Shopify && window.Shopify.loadFeatures) {
+            window.Shopify.loadFeatures(
+              [{ name: 'consent-tracking-api', version: '0.1' }],
+              function (err) { if (!err && analyticsAllowed()) startGA(); }
+            );
+          } else if (analyticsAllowed()) {
+            startGA();
+          }
         })();
       }
     </script>
