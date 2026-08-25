@@ -148,10 +148,18 @@
               var parts = decodeURIComponent(m[1]).split(".");
               if (parts.length < 4) return;
               var cid = parts.slice(2).join(".");
+              var attrs = { ga_client_id: cid };
+              // Capture session_id from _ga_G-D0P2198RL2 so server-side purchase
+              // events can be tied to the same session (fixes (not set) attribution)
+              var sm = document.cookie.match(/(?:^|;\s*)_ga_G-D0P2198RL2=([^;]+)/);
+              if (sm) {
+                var sp = decodeURIComponent(sm[1]).split(".");
+                if (sp.length >= 3 && sp[2]) attrs.ga_session_id = sp[2];
+              }
               fetch("/cart/update.js", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ attributes: { ga_client_id: cid } })
+                body: JSON.stringify({ attributes: attrs })
               }).then(function() { sessionStorage.setItem("wb_gacid", "1"); });
             } catch(e) {}
           }
