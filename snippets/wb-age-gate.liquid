@@ -2,7 +2,7 @@
 #wb-age-gate {
   position: fixed;
   inset: 0;
-  z-index: 99998;
+  z-index: 2147483647;
   background-color: #0e0b07;
   display: none;
   flex-direction: column;
@@ -231,6 +231,21 @@
 @media (max-width: 440px) {
   .wb-age-gate__btn-main { font-size: 56px; }
   .wb-age-gate__question { margin-bottom: 36px; }
+}
+
+/* Hide chat widgets while age gate is active */
+html.wb-age-gate-open #tidio-chat,
+html.wb-age-gate-open [id^="tidio-chat"],
+html.wb-age-gate-open #gorgias-chat-container,
+html.wb-age-gate-open #gorgias-chat-messenger,
+html.wb-age-gate-open .intercom-lightweight-app,
+html.wb-age-gate-open #intercom-container,
+html.wb-age-gate-open #crisp-chatbox,
+html.wb-age-gate-open iframe[src*="tidio"],
+html.wb-age-gate-open iframe[src*="gorgias"],
+html.wb-age-gate-open iframe[src*="intercom"],
+html.wb-age-gate-open iframe[src*="chat."] {
+  display: none !important;
 }
 
 </style>
