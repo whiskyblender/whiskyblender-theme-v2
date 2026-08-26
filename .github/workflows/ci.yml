@@ -1,5 +1,11 @@
 name: CI
-on: [push]
+# Shopify's GitHub integration auto-commits every theme-editor change to main —
+# often a dozen or more a day. Running CI on every push meant a dozen CI runs a day
+# for changes made in the Shopify editor, which nobody read. Scoped to PRs and
+# manual runs instead, 2026-08-26.
+on:
+  pull_request:
+  workflow_dispatch:
 jobs:
   lhci:
     name: Lighthouse

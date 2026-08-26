@@ -1,43 +1,27 @@
-### PR Summary: 
+## What changed
 
-<!-- Please include a short description (using non-technical terms, 1-2 sentences) about the changes you are introducing, what problem is being fixed and/or describe the benefit to merchants. This content will be used in our release notes for Dawn on [themes.shopify.com](https://themes.shopify.com/themes/dawn/styles/default#ReleaseNotes). -->
+<!-- One or two sentences. What, and why. -->
 
+## Why
 
-### Why are these changes introduced?
+<!-- The problem this solves. Link an issue if there is one. -->
 
-Fixes #0.
+## How it was tested
 
-### What approach did you take?
+<!-- Be specific. "Previewed on unpublished theme 1234, checked product page on iOS Safari
+     and desktop Chrome" beats "tested". -->
 
-### Other considerations
+- [ ] Previewed on an unpublished theme (not live)
+- [ ] Checked on mobile
+- [ ] `shopify theme check` passes
 
-### Decision log
+## Risk
 
-| # | Decision | Alternatives | Rationale | Downsides |
-|---|---|---|---|---|
-| 1 |   |   |   |   |
+<!-- What breaks if this is wrong? How would you undo it? -->
 
+## Checklist
 
-### Visual impact on existing themes
-<!-- How will this visually affect merchants who upgrade to a new theme version with this change? -->
-
-
-### Testing steps/scenarios
-<!-- List all the testing tasks that applies to your fix to help peers review your work. -->
-- [ ] Step 1
-
-### Demo links
-<!-- Please include a link to a demo store that includes preconfigured sections and settings to allow reviewers to easily test the features you are working on. -->
-
-- [Store](url)
-- [Editor](url)
-
-### Checklist
-- [ ] Added PR summary for [release notes](https://themes.shopify.com/themes/dawn/styles/default#ReleaseNotes)
-- [ ] Requested review from UX (Only for changes that are affecting the experience or perceivable visual details)
-- [ ] Created a ticket for the [help.shopify.com](https://help.shopify.com) documentation team about updates to theme settings. (Internal-only task)
-- [ ] Followed [theme code principles](https://github.com/Shopify/dawn/blob/main/.github/CONTRIBUTING.md#theme-code-principles)
-- [ ] Linted with [Theme Check](https://github.com/Shopify/theme-check)
-- [ ] Tested on [mobile](https://shopify.dev/themes/store/requirements#mobile-browser-requirements)
-- [ ] Tested on [multiple browsers](https://shopify.dev/themes/store/requirements#desktop-browser-requirements)
-- [ ] Tested for [accessibility](https://shopify.dev/themes/best-practices/accessibility)
+- [ ] One idea per commit
+- [ ] No secrets in the diff
+- [ ] Docs updated if behaviour changed
+- [ ] Lab files (`page.lab-page.json`, `wb-lab*`) untouched, or change explicitly approved
