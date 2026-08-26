@@ -1,7 +1,13 @@
 {{ 'wb-blog.css' | asset_url | stylesheet_tag }}
 {{ 'wb-perfectdrams.css' | asset_url | stylesheet_tag }}
 
-{%- paginate blog.articles by 9 -%}
+{%- comment -%}
+  50 is Shopify's maximum for `paginate`. With 12 articles this puts the whole blog
+  on one page: no pagination controls (the paginate.pages > 1 guard below hides
+  them), and every post is linked from the index rather than 3 being stranded on
+  page 2. Pagination returns by itself if the blog ever passes 50 posts.
+{%- endcomment -%}
+{%- paginate blog.articles by 50 -%}
 <section class="wb-first-item">
   <div class="wb-container">
     <div class="wb-padding wb-collection-copy">
