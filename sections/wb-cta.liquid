@@ -1,4 +1,4 @@
-<section class="wb-banded">
+<section class="wb-banded"{% if section.settings.background == 'white' %} style="background-color:#ffffff;"{% endif %}>
   <div class="wb-container">
     <div class="wb-padding">
       {%- if section.settings.image != blank -%}
@@ -77,6 +77,16 @@
       "type": "url",
       "id": "secondary_button_url",
       "label": "Secondary button URL"
+    },
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Background",
+      "options": [
+        { "value": "auto", "label": "Auto (banding)" },
+        { "value": "white", "label": "White" }
+      ],
+      "default": "auto"
     }
   ],
   "presets": [

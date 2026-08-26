@@ -124,6 +124,9 @@
                 {{ card_product.title | escape }}
               </a>
             </h3>
+            {%- if card_product.type != blank -%}
+              <p class="wb-product-type">{{ card_product.type | escape }}</p>
+            {%- endif -%}
           </div>
           <div class="wb-productdetails card__badge {{ settings.badge_position }}">
             <div class="wb-productcosts">
@@ -163,6 +166,9 @@
               {{ card_product.title | escape }}
             </a>
           </h3>
+          {%- if card_product.type != blank -%}
+            <p class="wb-product-type">{{ card_product.type | escape }}</p>
+          {%- endif -%}
           <div class="wb-productdetails card-information">
             {%- if show_vendor -%}
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>

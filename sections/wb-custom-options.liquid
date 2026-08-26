@@ -7,6 +7,11 @@
   #wb-blend-panel,
   #wb-noblend-cta { display: none; }
 
+  #wb-custom-grid li {
+    flex: calc(50% - 10px);
+    max-width: calc(50% - 10px);
+  }
+
   .wb-no-blend #wb-noblend-actions { display: block; }
   .wb-no-blend #wb-custom-bottom   { display: block; }
   .wb-no-blend #wb-noblend-cta     { display: block; }
@@ -57,43 +62,22 @@
       </div>
 
       {%- if opts_collection != blank and opts_collection.products.size > 0 -%}
-        <ul class="wb-cards wb-main-cards" id="wb-custom-grid">
+        {%- assign skip_card_styles = false -%}
+        <ul class="wb-productsgrid" role="list" id="wb-custom-grid">
           {%- for product in opts_collection.products -%}
-            {%- assign sold_out = true -%}
-            {%- for variant in product.variants -%}
-              {%- if variant.available -%}
-                {%- assign sold_out = false -%}
-                {%- break -%}
-              {%- endif -%}
-            {%- endfor -%}
-
-            <li{% if sold_out %} class="wb-soldout"{% endif %}>
-              <a href="{{ product.url }}" data-product-url="{{ product.url }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
-              <div class="wb-card-image">
-                {%- if product.featured_image -%}
-                  <img
-                    src="{{ product.featured_image | image_url: width: 600 }}"
-                    alt="{{ product.featured_image.alt | escape }}"
-                    width="{{ product.featured_image.width }}"
-                    height="{{ product.featured_image.height }}"
-                    loading="lazy"
-                  />
-                {%- endif -%}
-                {%- if sold_out -%}
-                  <div class="wb-productbadge">
-                    <div class="wb-soldoutbadge">Sold out</div>
-                  </div>
-                {%- endif -%}
-              </div>
-              <div class="wb-card-details">
-                <h3 class="wb-small-heading">
-                  <a href="{{ product.url }}" data-product-url="{{ product.url }}">{{ product.title }}</a>
-                </h3>
-                <p class="wb-custom-card-price">
-                  {%- if sold_out -%}Sold out{%- else -%}From {{ product.price_min | money }}{%- endif -%}
-                </p>
-              </div>
+            <li class="wb-productcell grid__item product-item">
+              {%- render 'card-product',
+                card_product: product,
+                media_aspect_ratio: 'square',
+                show_secondary_image: false,
+                show_vendor: false,
+                show_rating: true,
+                quick_add: false,
+                section_id: section.id,
+                skip_styles: skip_card_styles
+              -%}
             </li>
+            {%- assign skip_card_styles = true -%}
           {%- endfor -%}
         </ul>
       {%- endif -%}
@@ -243,8 +227,9 @@
   function revealNormal() {
     heading.textContent = PHRASES[Math.floor(Math.random() * PHRASES.length)];
     sub.textContent     = 'Now choose how you want to bottle your whisky…';
-    document.querySelectorAll('[data-product-url]').forEach(function (el) {
-      el.href = el.getAttribute('data-product-url') + '?blend=' + encodeURIComponent(blend);
+    document.querySelectorAll('#wb-custom-grid a[href]').forEach(function (el) {
+      var base = el.getAttribute('href').split('?')[0];
+      el.href = base + '?blend=' + encodeURIComponent(blend);
     });
     if (grid) grid.style.visibility = '';
     bottom.style.display = 'block';
@@ -345,6 +330,11 @@
     codeGo.addEventListener('click', submitCode);
     codeInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') submitCode(); });
   }
+
+  /* ── Strip "From" prefix on card prices ─────────────────────── */
+  document.querySelectorAll('#wb-custom-grid .price-item').forEach(function (el) {
+    el.innerHTML = el.innerHTML.replace(/^From\s+/i, '');
+  });
 
   /* ── Invalid code in URL ─────────────────────────────────────── */
   if (blend && !looksValid) {

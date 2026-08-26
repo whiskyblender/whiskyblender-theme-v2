@@ -14,7 +14,7 @@
       "name": "Landing Hero",
       "settings": {
         "video_url": "https://cdn.shopify.com/videos/c/o/v/e166b134623544388eb72664b921aa3a.mp4",
-        "video_file": "wb-index.mp4",
+        "video_file": "wb-index_5e7e122b-b215-47fe-aa9b-16b049275e7c",
         "background_image": "shopify://shop_images/wb-index.jpg",
         "title": "Your own whisky",
         "title_variants": "Great Scotch!, Your own whisky, Liquid gold, Bottle of magic, Golden nectar, Something special, Label your own, Best whisky gift, One of a kind, Made by you, Pick your dram, It's your round, Bespoke booze, The gift of whisky, Sláinte!, Yer ain label, Nothin' like it!, Whisky. Your way!, Bottles by you",
@@ -206,7 +206,8 @@
         "primary_button_text": "Create something",
         "primary_button_url": "shopify://pages/create",
         "secondary_button_text": "",
-        "secondary_button_url": ""
+        "secondary_button_url": "",
+        "background": "auto"
       }
     },
     "wb_cta_letscollab": {
@@ -220,7 +221,8 @@
         "primary_button_text": "Get in touch",
         "primary_button_url": "shopify://pages/contact",
         "secondary_button_text": "See collaborations",
-        "secondary_button_url": "shopify://collections/collaborations"
+        "secondary_button_url": "shopify://collections/collaborations",
+        "background": "auto"
       }
     },
     "178129257397a9c961": {

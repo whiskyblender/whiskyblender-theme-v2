@@ -77,6 +77,121 @@
             {{ block.settings.richtext }}
           </div>
 
+        {%- when 'info_strip' -%}
+          {%- comment -%}
+            Renders inside the page_header block's open .wb-padding.wb-collection-copy
+            (that block deliberately leaves its wrappers open — wb_grid closes them).
+            .wb-padding is already position:relative, so the strip anchors to it.
+          {%- endcomment -%}
+          {% style %}
+            .wb-info-strip {
+              margin: 28px 0 0;
+              padding: 20px;
+              border-radius: 8px;
+            }
+            .wb-info-strip__heading {
+              font-size: 16px;
+              font-weight: 700;
+              line-height: 1.3;
+              margin: 0;
+            }
+            .wb-info-strip__body {
+              font-size: 14px;
+              line-height: 1.5;
+              margin: 6px 0 0;
+              color: #5a5045;
+            }
+            .wb-info-strip__prices {
+              display: flex;
+              gap: 28px;
+              margin: 10px 0;
+            }
+            .wb-info-strip__price {
+              margin: 0;
+            }
+            .wb-info-strip__price dt {
+              font-size: 11px;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              color: #6d6154;
+            }
+            .wb-info-strip__price dd {
+              margin: 2px 0 0;
+              font-size: 24px;
+              font-weight: 700;
+              line-height: 1;
+            }
+
+            @media screen and (min-width: 600px) {
+              .wb-info-strip {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              }
+
+              .wb-info-strip__prices {
+                margin: 2px 10px 0 0;
+              }
+
+              .wb-info-strip__heading {
+                margin-left: 10px;
+              }
+
+              .wb-info-strip__price {
+                display: flex;
+                gap: 10px;
+              }
+            }
+
+            @media screen and (min-width: 1200px) {
+              .wb-info-strip {
+                position: absolute;
+                top: 60px;
+                right: 40px;
+                width: 290px;
+                margin-top: 0;
+                padding: 40px;
+                align-items: flex-start;
+                flex-direction: column;
+              }
+
+              .wb-info-strip__heading {
+                font-size: 22px;
+                line-height: 1.3;
+                margin: 0 0 10px 0;
+              }
+
+              .wb-info-strip__price {
+                gap: 0;
+                flex-direction: column;
+              }
+            }
+          {% endstyle %}
+          <div class="wb-info-strip wb-background-brown" {{ block.shopify_attributes }}>
+            {%- if block.settings.heading != blank -%}
+              <p class="wb-info-strip__heading">{{ block.settings.heading | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.body != blank -%}
+              <p class="wb-info-strip__body">{{ block.settings.body | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.size_1_price != blank or block.settings.size_2_price != blank -%}
+              <dl class="wb-info-strip__prices">
+                {%- if block.settings.size_1_price != blank -%}
+                  <div class="wb-info-strip__price">
+                    <dt>{{ block.settings.size_1_label | escape }}</dt>
+                    <dd>{{ block.settings.size_1_price | escape }}</dd>
+                  </div>
+                {%- endif -%}
+                {%- if block.settings.size_2_price != blank -%}
+                  <div class="wb-info-strip__price">
+                    <dt>{{ block.settings.size_2_label | escape }}</dt>
+                    <dd>{{ block.settings.size_2_price | escape }}</dd>
+                  </div>
+                {%- endif -%}
+              </dl>
+            {%- endif -%}
+          </div>
+
         {%- when 'contact_form' -%}
           {% render 'wb-contact-form-markup', heading: block.settings.heading, heading_size: 'h1' %}
       {%- endcase -%}
@@ -169,6 +284,57 @@
           "id": "richtext",
           "label": "Text",
           "default": "<p>Add your text here.</p>"
+        }
+      ]
+    },
+    {
+      "type": "info_strip",
+      "name": "WB - Info Strip",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Sits below the page intro. Above 1200px it moves to a narrow column on the right. Add this block directly after the Page header block."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Over 10,000 possible blends"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "Body",
+          "default": "Chances are, yours will be the only one."
+        },
+        {
+          "type": "header",
+          "content": "Prices"
+        },
+        {
+          "type": "text",
+          "id": "size_1_label",
+          "label": "First size label",
+          "default": "200ml"
+        },
+        {
+          "type": "text",
+          "id": "size_1_price",
+          "label": "First size price",
+          "default": "£30"
+        },
+        {
+          "type": "text",
+          "id": "size_2_label",
+          "label": "Second size label",
+          "default": "500ml"
+        },
+        {
+          "type": "text",
+          "id": "size_2_price",
+          "label": "Second size price",
+          "default": "£60"
         }
       ]
     }

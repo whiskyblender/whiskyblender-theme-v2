@@ -1,6 +1,6 @@
 {%- if section.settings.page_title != blank or page.content != blank -%}
-  <div class="wb-container">
-    <div class="wb-padding wb-hiw-title-wrap">
+  <header class="wb-container">
+    <div class="wb-padding">
       {%- if section.settings.page_title != blank -%}
         <h1 class="wb-large-heading wb-hiw-title">{{ section.settings.page_title | escape }}</h1>
       {%- endif -%}
@@ -8,14 +8,13 @@
         <div class="wb-hiw-intro wb-collection-copy">{{ page.content }}</div>
       {%- endif -%}
     </div>
-  </div>
+  </header>
 {%- endif -%}
 
 {%- for block in section.blocks -%}
-  {%- assign is_even = forloop.index | modulo: 2 -%}
-  <section class="wb-hiw-step{% if is_even == 0 %} wb-hiw-step--grey{% endif %}" {{ block.shopify_attributes }}>
+  <div class="wb-banded" {{ block.shopify_attributes }}>
     <div class="wb-container">
-      <div class="wb-hiw-inner wb-padding">
+      <div class="wb-padding wb-hiw-inner">
 
         <div class="wb-hiw-text">
           {%- if block.settings.step_number != blank -%}
@@ -54,20 +53,12 @@
 
       </div>
     </div>
-  </section>
+  </div>
 {%- endfor -%}
 
 <style>
   .wb-hiw-title { margin: 0; }
-  .wb-hiw-title-wrap { padding-bottom: 0; }
   .wb-hiw-intro { margin-top: 16px; max-width: 640px; }
-
-  .wb-hiw-step {
-    background-color: #ffffff;
-  }
-  .wb-hiw-step--grey {
-    background-color: #efefef;
-  }
 
   .wb-hiw-inner {
     display: flex;
@@ -117,6 +108,10 @@
 
   .wb-hiw-cta { margin-top: 24px; }
 
+  #shopify-section-how_it_works + .shopify-section .wb-banded {
+    background-color: #ffffff;
+  }
+
   @media screen and (min-width: 768px) {
     .wb-hiw-inner {
       flex-direction: row;
@@ -150,7 +145,7 @@
       "id": "page_title",
       "label": "Page title (H1)",
       "default": "How it works"
-    },
+    }
   ],
   "blocks": [
     {

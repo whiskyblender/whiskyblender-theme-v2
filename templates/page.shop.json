@@ -21,8 +21,8 @@
       "type": "shop-all-products",
       "settings": {
         "collections_link_url": "/collections",
-        "all_source_collections": "andrews-of-bothwell,featured,wee-bits,personalised,collaborations,football,royal-anglian-regiment,anniversaries,birthdays,celebrations,christmas,thankyous,weddings, iconic-scotland, famous-scots",
-        "filter_collections": "featured,single-malts, personalised,andrews-of-bothwell,wee-bits,custom,collaborations",
+        "all_source_collections": "our-products, featured,single-malts, personalised,andrews-of-bothwell,wee-bits,custom,collaborations, personalised-whisky, iconic-scotland, famous-scots",
+        "filter_collections": "featured,single-malts, personalised,andrews-of-bothwell,wee-bits,custom,collaborations, personalised-whisky",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,

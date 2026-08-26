@@ -1,13 +1,45 @@
+{%- comment -%}
+  Product subtitle line: "Type · 500ml · 46% abv. · £89.98/l"
+
+  Volume and unit price BOTH come from the selected variant's
+  unit_price_measurement, so they stay consistent with each other and with
+  Shopify's own unit pricing (and the Merchant Center feed). Never re-derive
+  £/L in JS — rounding would drift from what Shopify shows elsewhere.
+
+  This is re-rendered on variant change: main-product.liquid wraps the block in
+  #Tagline-{{ section.id }} and product-info.js swaps it via
+  updateSourceFromDestination('Tagline'). Keep that id in step with this snippet.
+
+  custom.bottle_size is a PRODUCT-level metafield and is often a hand-written
+  summary of several sizes ("500ml / 200ml"), so it can never be right for a
+  multi-variant product. It stays only as a fallback for products that have no
+  unit pricing configured.
+{%- endcomment -%}
+
+{%- assign _uv = product.selected_or_first_available_variant -%}
+{%- assign _upm = _uv.unit_price_measurement -%}
+
 <ul class="wb-meta-deetz">
   <li>{{ product.type }}</li>
-  {%- if product.metafields.custom.bottle_size.value -%}
+
+  {%- if _upm != nil and _upm.quantity_value != nil -%}
+    {%- comment -%} Trim a trailing .0 (800.0 -> 800) without mangling real decimals (0.7 stays 0.7). {%- endcomment -%}
+    {%- assign _qv = _upm.quantity_value -%}
+    {%- assign _qv_int = _qv | round: 0 -%}
+    {%- if _qv == _qv_int -%}
+      <li>{{ _qv_int }}{{ _upm.quantity_unit }}</li>
+    {%- else -%}
+      <li>{{ _qv }}{{ _upm.quantity_unit }}</li>
+    {%- endif -%}
+  {%- elsif product.metafields.custom.bottle_size.value -%}
     <li>{{ product.metafields.custom.bottle_size.value }}</li>
   {%- endif -%}
+
   {%- if product.metafields.custom.abv.value -%}
     <li>{{ product.metafields.custom.abv.value }} abv.</li>
   {%- endif -%}
-  {%- assign _uv = product.selected_or_first_available_variant -%}
-  {%- if _uv.unit_price_measurement != nil -%}
-    <li>{{ _uv.unit_price | money }}/{% if _uv.unit_price_measurement.reference_value != 1 %}{{ _uv.unit_price_measurement.reference_value }}{% endif %}{{ _uv.unit_price_measurement.reference_unit }}</li>
+
+  {%- if _upm != nil -%}
+    <li>{{ _uv.unit_price | money }}/{% if _upm.reference_value != 1 %}{{ _upm.reference_value }}{% endif %}{{ _upm.reference_unit }}</li>
   {%- endif -%}
 </ul>

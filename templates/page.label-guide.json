@@ -1,0 +1,144 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "wb_label_guide": {
+      "type": "wb-label-guide",
+      "blocks": {
+        "path_overprint": {
+          "type": "path_card",
+          "settings": {
+            "tag": "Fastest",
+            "heading": "Overprint your artwork",
+            "body": "<p>Bring us your artwork — a logo, crest, illustration, or anything else — and we’ll overprint it onto our canvas label. Or if you don’t have artwork yet, we can work with you to create something.</p>",
+            "bullet_1": "Company logos, crests, small graphics",
+            "bullet_2": "Added to our existing label design",
+            "bullet_3": "£20 artwork origination fee",
+            "button_label": "See how it works",
+            "button_url": "#how-it-works",
+            "button_style": "outline"
+          }
+        },
+        "path_custom": {
+          "type": "path_card",
+          "settings": {
+            "tag": "Fully bespoke",
+            "heading": "A completely custom label",
+            "body": "<p>Want the whole label designed from scratch — new layout, your own artwork throughout, a totally different look? That’s a job for a chat, not a checkout.</p>",
+            "bullet_1": "Weddings, corporate gifting, brand launches",
+            "bullet_2": "Full design service, start to finish",
+            "bullet_3": "Minimum order quantities may apply",
+            "button_label": "Discuss a bespoke label",
+            "button_url": "#get-in-touch",
+            "button_style": "primary"
+          }
+        },
+        "spec_500": {
+          "type": "spec_row",
+          "settings": {
+            "bottle_size": "500ml",
+            "printable_area": "150mm × 76mm",
+            "file_formats": "PDF, AI, EPS, high-res PNG"
+          }
+        },
+        "spec_200": {
+          "type": "spec_row",
+          "settings": {
+            "bottle_size": "200ml",
+            "printable_area": "116mm × 51mm",
+            "file_formats": "PDF, AI, EPS, high-res PNG"
+          }
+        },
+        "dl_500_pdf": {
+          "type": "download_item",
+          "settings": {
+            "format": "PDF",
+            "title": "500ml label template",
+            "note": "Print-ready outline, bleed & safe area marked",
+            "url": "wb-label-template-500ml.pdf"
+          }
+        },
+        "dl_500_ai": {
+          "type": "download_item",
+          "settings": {
+            "format": "AI",
+            "title": "500ml label template",
+            "note": "Editable vector, layered",
+            "url": "wb-label-template-500ml.ai"
+          }
+        },
+        "dl_200_pdf": {
+          "type": "download_item",
+          "settings": {
+            "format": "PDF",
+            "title": "200ml label template",
+            "note": "Print-ready outline, bleed & safe area marked",
+            "url": "wb-label-template-200ml.pdf"
+          }
+        },
+        "dl_200_ai": {
+          "type": "download_item",
+          "settings": {
+            "format": "AI",
+            "title": "200ml label template",
+            "note": "Editable vector, layered",
+            "url": "wb-label-template-200ml.ai"
+          }
+        },
+        "faq_jpeg": {
+          "type": "faq_item",
+          "settings": {
+            "question": "My logo’s only a JPEG — is that OK?",
+            "answer": "<p>Usually, yes — as long as it’s a decent size (send it at the largest resolution you have). A vector file (AI, EPS or PDF) will always look crisper, especially if we need to resize it.</p>"
+          }
+        },
+        "faq_cost": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Does overprinting cost extra?",
+            "answer": "<p>There’s a one-off £20 artwork origination fee to set up and place your artwork. Fully custom label design is quoted separately, since it’s a bigger design job.</p>"
+          }
+        },
+        "faq_proof": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I see a proof before it’s bottled?",
+            "answer": "<p>Always. We’ll send you a visual to approve before anything goes to print — nothing gets bottled without your OK.</p>"
+          }
+        },
+        "faq_fit": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if my artwork won’t fit?",
+            "answer": "<p>We’ll get in touch with options — usually a resize, a crop, or a small layout tweak — before we do anything to your order.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "path_overprint",
+        "path_custom",
+        "spec_500",
+        "spec_200",
+        "dl_500_pdf",
+        "dl_500_ai",
+        "dl_200_pdf",
+        "dl_200_ai",
+        "faq_jpeg",
+        "faq_cost",
+        "faq_proof",
+        "faq_fit"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "wb_label_guide"
+  ]
+}

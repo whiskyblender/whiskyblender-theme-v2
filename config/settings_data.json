@@ -172,6 +172,13 @@
           "agent_activator_font_size": 24,
           "agent_border_radius": 24
         }
+      },
+      "9859414570452352049": {
+        "type": "shopify://apps/bixgrow-affiliate/blocks/bixgrow_tracker/b4f8e2e0-5ee6-49dd-b333-2e5542feb60a",
+        "disabled": false,
+        "settings": {
+          "referral_identifiers": ""
+        }
       }
     },
     "color_schemes": {

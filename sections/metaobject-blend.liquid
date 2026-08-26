@@ -30,7 +30,26 @@
     assign cask_word = 'casks'
   endif
 
+  assign blend_date = metaobject.blend_date.value
   assign opts_collection = section.settings.collection
+
+  assign tagline_str = 'A blend of '
+  assign current_active_idx = 0
+  for item in recipe
+    assign item_amount = item.amount | plus: 0
+    if item_amount > 0
+      assign current_active_idx = current_active_idx | plus: 1
+      if current_active_idx > 1
+        if current_active_idx == active_cask_count
+          assign tagline_str = tagline_str | append: ' and '
+        else
+          assign tagline_str = tagline_str | append: ', '
+        endif
+      endif
+      assign tagline_str = tagline_str | append: item.name
+    endif
+  endfor
+  assign tagline_str = tagline_str | append: '.'
 -%}
 
 {{ 'wb-products.css' | asset_url | stylesheet_tag }}
@@ -39,13 +58,14 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'section-related-products.css' | asset_url | stylesheet_tag }}
 
-<div class="wb-container wb-blend-page">
+<div class="wb-container wb-blend-page wb-first-item">
   <div class="wb-padding">
     <div class="page-width page-width--narrow">
 
-      <h1 class="wb-large-heading wb-blend-title">{{ blend_title | escape }}</h1>
-      <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
-
+      <div class="wb-blend-card wb-background-brown">
+        <h1 class="wb-large-heading wb-blend-title">{{ blend_title | escape }}</h1>
+        <p class="wb-blend-byline">Created by <strong>{{ blend_author | escape }}</strong></p>
+      </div>
       {%- if recipe and recipe.size > 0 -%}
         {%- assign max_amount = 0 -%}
         {%- for item in recipe -%}
@@ -66,32 +86,10 @@
             {%- endif -%}
           {%- endfor -%}
         </ul>
+        <div class="wb-blend-card wb-background-blue">
+          <p>{%- if blend_date != blank -%}Created {{ blend_date | date: "%-d %b %Y" }} &mdash; {%- endif -%}This Scotch contains whisky from {{ active_cask_count }} single malt {{ cask_word }}. {{ tagline_str | escape }}</p>
+        </div>
       {%- endif -%}
-
-      <div class="wb-blend-stats">
-        <div class="wb-blend-stat">
-          <span class="wb-blend-stat-value">{{ active_cask_count }}</span>
-          <span class="wb-blend-stat-label">single malt {{ cask_word }} used</span>
-        </div>
-        <div class="wb-blend-stat">
-          <span class="wb-blend-stat-value">1</span>
-          <span class="wb-blend-stat-label">of over {{ section.settings.combinations_count | default: "10,000" }} possible blends</span>
-        </div>
-        {%- assign blend_date = metaobject.blend_date.value -%}
-        {%- if blend_date != blank -%}
-          <div class="wb-blend-stat">
-            <span class="wb-blend-stat-value wb-blend-stat-value--date">{{ blend_date | date: "%b %Y" }}</span>
-            <span class="wb-blend-stat-label">blend created</span>
-          </div>
-        {%- endif -%}
-        {%- assign order_count = metaobject.order_count.value -%}
-        {%- if order_count != blank and order_count > 0 -%}
-          <div class="wb-blend-stat">
-            <span class="wb-blend-stat-value">{{ order_count }}</span>
-            <span class="wb-blend-stat-label">{% if order_count == 1 %}time bottled{% else %}times bottled{% endif %}</span>
-          </div>
-        {%- endif -%}
-      </div>
 
       <div class="wb-custom-blend-actions wb-blend-code-actions">
         <div class="wb-blendcode-box">
@@ -152,11 +150,11 @@
 {%- endif -%}
 
 <style>
-  .wb-blend-byline { font-size: 24px; color: #555; margin-top: 4px; margin-bottom: 8px; }
+  .wb-blend-card { padding: 10px 30px; border-radius: 8px; margin-bottom: 10px; }
+  .wb-blend-title { padding-top: 20px; }
+  .wb-blend-byline { color: #555; }
   .wb-blend-byline strong { color: #333; font-weight: 600; }
-  .wb-blend-title { margin: 0 0 20px 0; }
   .wb-blend-code-actions { margin-bottom: 40px; }
-  .wb-blend-recipe { margin-top: 40px; margin-bottom: 0; }
 
   /* Stats panels */
   .wb-blend-stats {

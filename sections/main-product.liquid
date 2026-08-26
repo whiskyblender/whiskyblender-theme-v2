@@ -514,7 +514,12 @@
                   {% render 'part-of-collection', excluded_collections: block.settings.excluded_collections %}
                 </div>
               {%- when 'product_tagline' -%}
-                <div {{ block.shopify_attributes }}>
+                {%- comment -%}
+                  id is required: product-info.js re-renders this on variant change via
+                  updateSourceFromDestination('Tagline') so the volume and £/L match the
+                  selected variant. Removing it silently re-breaks unit pricing.
+                {%- endcomment -%}
+                <div id="Tagline-{{ section.id }}" {{ block.shopify_attributes }}>
                   {% render 'product-tagline' %}
                 </div>
               {%- when 'variant_picker' -%}

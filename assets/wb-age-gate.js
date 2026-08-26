@@ -7,6 +7,7 @@
   }
 
   gate.classList.add('wb-age-gate--visible');
+  document.documentElement.classList.add('wb-age-gate-open');
 
   /* Lock scroll while gate is visible */
   document.body.style.overflow = 'hidden';
@@ -41,6 +42,7 @@
   function dismiss() {
     setCookie('wb_age_verified', '1', 365);
     document.body.style.overflow = '';
+    document.documentElement.classList.remove('wb-age-gate-open');
     gate.classList.add('wb-age-gate--hidden');
     if (stopRain) stopRain();
     if (parallaxRaf) cancelAnimationFrame(parallaxRaf);

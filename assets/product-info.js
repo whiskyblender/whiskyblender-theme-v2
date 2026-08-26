@@ -187,6 +187,11 @@ if (!customElements.get('product-info')) {
           };
 
           updateSourceFromDestination('price');
+          // Subtitle line ("Type · 800ml · 46% abv. · £100.00/l"). Both the volume and
+          // the £/L come from the variant's unit_price_measurement, so this must
+          // re-render on variant change or the customer sees another variant's unit
+          // price — worse than showing none under the UK Price Marking Order.
+          updateSourceFromDestination('Tagline');
           updateSourceFromDestination('Sku', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');
           updateSourceFromDestination('Volume');
