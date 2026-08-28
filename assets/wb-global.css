@@ -249,7 +249,7 @@ input.wb-primary-button:hover,
 
 .wb-overvideo {
   width: 90%;
-  bottom: -300px;
+  bottom: -400px;
   position: absolute;
   z-index: 3;
   background: #ffffff;
@@ -570,7 +570,7 @@ img.wb-yourownbrand {
   }
 
   .wb-overvideo {
-    bottom: -240px;
+    bottom: -340px;
   }
 }
 
@@ -587,7 +587,7 @@ img.wb-yourownbrand {
   }
 
   .wb-overvideo {
-    bottom: -240px;
+    bottom: -340px;
   }
 }
 
