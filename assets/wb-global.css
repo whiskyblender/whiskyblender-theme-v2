@@ -249,7 +249,7 @@ input.wb-primary-button:hover,
 
 .wb-overvideo {
   width: 90%;
-  bottom: -400px;
+  bottom: -380px;
   position: absolute;
   z-index: 3;
   background: #ffffff;
