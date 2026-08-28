@@ -198,7 +198,7 @@ input.wb-primary-button:hover,
   color: #ffffff;
   position: relative;
   overflow: hidden;
-  margin-bottom: 300px;
+  margin-bottom: 440px;
   display: block;
   background-size: cover;
   background-position: center;
@@ -775,7 +775,7 @@ img.wb-yourownbrand {
 
   .wb-overvideo {
     width: 800px;
-    bottom: -240px;
+    bottom: -300px;
   }
 
   .wb-option-heading {
