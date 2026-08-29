@@ -16,6 +16,22 @@
     assign video_poster = images['wb-whisky-bow.jpg'] | image_url: width: 750
   endif
   assign hero_title = section.settings.title | default: collection.title | default: page.title
+
+  comment
+    Hero description: the page's own Shopify content wins over the theme setting,
+    so a page's copy is edited in one place (Content → Pages) rather than being
+    duplicated into a theme field. The setting stays as the fallback, which is
+    what the homepage and every collection use — page.content is nil there.
+    page.content is rich text (it carries its own <p> tags), so it must go in a
+    div; putting it inside <p> would make the browser close the paragraph early
+    and drop the styling.
+  endcomment
+  assign hero_description = section.settings.description
+  assign hero_description_rte = false
+  if page.content != blank
+    assign hero_description = page.content
+    assign hero_description_rte = true
+  endif
 -%}
 {%- if video_poster or hero_image -%}
 <style>
@@ -24,6 +40,16 @@
 </style>
 {%- endif -%}
 <style>
+  /* Hero description sourced from page.content — rich text, so it arrives wrapped
+     in its own <p>. Those paragraphs must inherit the hero's type rather than
+     falling back to the body defaults, which would shrink them. */
+  .wb-hero-rte > p {
+    font: inherit;
+    color: inherit;
+    margin: 0 0 12px;
+  }
+  .wb-hero-rte > p:last-child { margin-bottom: 0; }
+
   #wb-video-toggle {
     position: absolute;
     bottom: 12px;
@@ -84,7 +110,11 @@
       <div class="wb-imagebg">
         <div class="wb-padding">
           <h1 class="wb-medium-heading">{{ hero_title }}</h1>
-          <p class="wb-collection-sub">{{ section.settings.description }}</p>
+          {%- if hero_description_rte -%}
+            <div class="wb-collection-sub wb-hero-rte">{{ hero_description }}</div>
+          {%- else -%}
+            <p class="wb-collection-sub">{{ hero_description }}</p>
+          {%- endif -%}
         </div>
       </div>
     {%- else -%}
@@ -104,7 +134,11 @@
       <div class="wb-overvideo">
         <div class="wb-padding">
           <h1 class="wb-large-heading" id="wb-landing-heading">{{ hero_title }}</h1>
-          <p>{{ section.settings.description }}</p>
+          {%- if hero_description_rte -%}
+            <div class="wb-hero-rte">{{ hero_description }}</div>
+          {%- else -%}
+            <p>{{ hero_description }}</p>
+          {%- endif -%}
           <div class="wb-buttons">
             <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">{{ section.settings.primary_button_text }}</a>
             <a href="{{ section.settings.secondary_button_url }}" class="wb-button">{{ section.settings.secondary_button_text }}</a>
@@ -200,6 +234,7 @@
       "type": "inline_richtext",
       "id": "description",
       "label": "Description text",
+      "info": "On a page, the page's own Content (Content → Pages) is used instead and this is ignored. Used here only on the homepage, collections, and pages with empty Content.",
       "default": "When you're looking for that bottle of whisky nobody else has."
     },
     {
