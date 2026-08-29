@@ -945,6 +945,10 @@
   margin: 0 0 20px;
   font-size: 14px;
   line-height: 1.4;
+  background: #dfdfdf;
+  padding: 20px;
+  border-radius: 26px;
+  margin-top: -40px;
 }
 
 .wb-preset-label {
