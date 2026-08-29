@@ -931,3 +931,51 @@
   0%   { opacity: 1;    transform: scale(1)   translateY(0); }
   100% { opacity: 0;    transform: scale(0.3) translateY(-1300px); }
 }
+
+/* ── House presets strip ──────────────────────────────────────────
+   Sits above the whisky cards for people who don't want to blend from
+   scratch. Deliberately understated: the builder is the main event, this
+   is the way past it. Hidden via the `hidden` attribute until wb-lab.js
+   has fetched a preset AND validated it against the live whisky list. */
+.wb-lab-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.wb-preset-label {
+  color: #6d6154;
+}
+
+.wb-preset-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wb-preset-btn {
+  font: inherit;
+  padding: 5px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 100px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.wb-preset-btn:hover,
+.wb-preset-btn:focus-visible {
+  border-color: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+@media screen and (min-width: 750px) {
+  .wb-lab-presets {
+    margin-bottom: 28px;
+  }
+}

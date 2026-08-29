@@ -29,6 +29,25 @@
   </div>
 </div>
 
+{%- comment -%}
+  House presets — a way past the builder for people who don't want to blend.
+  Rendered hidden and revealed by wb-lab.js only once a preset has loaded AND
+  validated against the live whisky list, so a preset naming a retired whisky
+  never appears. Codes are set in the theme editor.
+{%- endcomment -%}
+{%- capture preset_codes -%}
+  {{- section.settings.preset_1 | strip -}},{{- section.settings.preset_2 | strip -}},{{- section.settings.preset_3 | strip -}}
+{%- endcapture -%}
+<div
+  class="wb-lab-presets"
+  id="wb-lab-presets"
+  data-preset-codes="{{ preset_codes | strip | escape }}"
+  hidden
+>
+  <span class="wb-preset-label">{{ section.settings.preset_label | default: "Not sure where to start? Try one of ours:" }}</span>
+  <span class="wb-preset-list"></span>
+</div>
+
 <ul
   class="wb-cards wb-option-cards"
   id="wb-lab-flavours"
@@ -194,6 +213,38 @@
       "id": "bottle_options_url",
       "label": "Bottle options page URL",
       "info": "URL of the bottle selection page customers go to after saving their blend."
+    },
+    {
+      "type": "header",
+      "content": "House presets"
+    },
+    {
+      "type": "paragraph",
+      "content": "A subtle strip above the whisky cards for people who don't want to blend from scratch. Clicking one fills the recipe in and scrolls to the naming step. To change a preset: build the blend in the Lab, then paste its blend code (e.g. WB00817) here. A preset using a whisky that has since been deactivated is hidden automatically. Leave a field blank to show fewer."
+    },
+    {
+      "type": "text",
+      "id": "preset_label",
+      "label": "Intro text",
+      "default": "Not sure where to start? Try one of ours:"
+    },
+    {
+      "type": "text",
+      "id": "preset_1",
+      "label": "Preset 1 — blend code",
+      "default": "WB00820"
+    },
+    {
+      "type": "text",
+      "id": "preset_2",
+      "label": "Preset 2 — blend code",
+      "default": "WB00819"
+    },
+    {
+      "type": "text",
+      "id": "preset_3",
+      "label": "Preset 3 — blend code",
+      "default": "WB00821"
     },
     {
       "type": "header",

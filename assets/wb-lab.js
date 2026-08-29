@@ -146,7 +146,10 @@
         el.style.bottom    = '0';
         el.style.left      = '0';
         el.style.backgroundColor = '#ffffff';
-        el.style.zIndex    = '100';
+        /* Must beat .wb-sticky-lab (z-index 300), or the fill meter shows through
+           the loader: showUI() un-hides the meter early so images can load behind
+           the overlay, and a sticky element at 300 sits on top of an overlay at 100. */
+        el.style.zIndex    = '400';
         el.style.overflowY = 'auto';
         mainEl.insertBefore(el, mainEl.firstChild);
       }
@@ -803,6 +806,68 @@
 
       syncHint1();
     }
+
+    /* ── House presets ────────────────────────────────────────────────
+       For people who don't want to blend from scratch. Each preset is just a
+       blend code entered in the theme editor, so the recipes are changed by
+       creating a blend in the Lab and pasting its code — no code change.
+
+       Fetched after the UI is up, never blocking it. A preset referencing a
+       whisky that has since been deactivated is silently dropped rather than
+       shown: that is exactly how the previous premades rotted — all six in the
+       database referenced whiskies that no longer exist. */
+    function initPresets() {
+      var strip = document.getElementById('wb-lab-presets');
+      if (!strip) return;
+      var list = strip.querySelector('.wb-preset-list');
+      if (!list) return;
+
+      var codes = (strip.getAttribute('data-preset-codes') || '')
+        .split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+      if (!codes.length) return;
+
+      /* Identifiers actually available right now, to validate against */
+      var live = {};
+      flavours.forEach(function (f) { if (f) live[f.identifier] = true; });
+
+      codes.forEach(function (code) {
+        fetchWithTimeout(apiBase + '/api/blend?slug=' + encodeURIComponent(code), 8000)
+          .then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (data) {
+            if (!data) return;
+            var recipe = data.recipe || [];
+            var slots = {};
+            var usable = recipe.length > 0;
+            recipe.forEach(function (item) {
+              if (!item || !live[item.identifier]) { usable = false; return; }
+              slots[item.identifier] = item.amount;
+            });
+            if (!usable) return; /* references a retired whisky — don't offer it */
+
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'wb-preset-btn';
+            btn.textContent = data.title || code;
+            btn.addEventListener('click', function () {
+              if (blendSaved) return;
+              flavours.forEach(function (f) {
+                if (f) f.amount = slots[f.identifier] || 0;
+              });
+              updateUI();
+              wbTrack('blend_preset_used', { blend_code: code });
+              /* Same landing as finishing a blend by hand, so there is one path
+                 to the naming step rather than two that can drift apart. */
+              var panel = document.getElementById('wb-save-panel');
+              if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              initFieldHints();
+            });
+            list.appendChild(btn);
+            strip.hidden = false; /* only appears once something valid is in it */
+          })
+          .catch(function () {});
+      });
+    }
+    initPresets();
 
     /* Initial render */
     updateUI();
