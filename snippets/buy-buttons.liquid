@@ -77,16 +77,51 @@
             (function() {
               var mapEl = document.getElementById('wb-artwork-map-{{ section_id }}');
               if (!mapEl) return;
-              var map = JSON.parse(mapEl.textContent);
-              subscribe('variant-change', function(e) {
-                var variant = e && e.data && e.data.variant;
-                if (!variant) return;
-                var form = mapEl.closest('product-form');
-                if (!form) return;
-                var input = form.querySelector('.wb-artwork-property');
-                if (!input) return;
-                input.value = map[variant.id] || '';
-              });
+              var map;
+              try { map = JSON.parse(mapEl.textContent); } catch (e) { return; }
+
+              var host = mapEl.closest('product-form');
+              if (!host) return;
+
+              function apply(variantId) {
+                var input = host.querySelector('.wb-artwork-property');
+                if (input && variantId) input.value = map[variantId] || '';
+              }
+
+              /* pubsub.js is loaded with `defer`, so `subscribe` does NOT exist while
+                 this inline script is being parsed. Calling it here threw
+                 "ReferenceError: subscribe is not defined" and the subscription was
+                 silently never registered — the hidden input kept the FIRST variant's
+                 artwork no matter what the customer selected. On a product like
+                 Glasgow 850 (six variants, six different artwork links) that meant
+                 five of six choices sent the wrong link to the order, and staff would
+                 print the wrong label. Deferred scripts run before DOMContentLoaded,
+                 so binding there is safe. */
+              function bind() {
+                if (typeof subscribe === 'function') {
+                  subscribe('variant-change', function(e) {
+                    var variant = e && e.data && e.data.variant;
+                    if (variant) apply(variant.id);
+                  });
+                }
+
+                /* Safety net, independent of pubsub: re-read the variant actually
+                   being submitted. Wrong artwork means a wrongly printed bottle, so
+                   correctness here must not depend on script load order. */
+                var formEl = host.querySelector('form');
+                if (formEl) {
+                  formEl.addEventListener('formdata', function() {
+                    var idEl = formEl.querySelector('input[name="id"]');
+                    if (idEl) apply(idEl.value);
+                  });
+                }
+              }
+
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', bind);
+              } else {
+                bind();
+              }
             })();
           </script>
         {%- endif -%}
