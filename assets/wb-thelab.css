@@ -981,5 +981,7 @@
 @media screen and (min-width: 750px) {
   .wb-lab-presets {
     margin-bottom: 28px;
+    padding: 20px 30px;
+}
   }
 }
