@@ -75,7 +75,19 @@
      stops matching the product cards. */
   .wb-occ-compact { margin-top: 24px; }
 
-  .wb-occ-compact li { position: relative; }
+  /* Card chrome, copied from .wb-main-cards.wb-cards li — this grid isn't
+     .wb-cards (it uses the product grid for columns), so the white card
+     background that backs the title has to be restated here. */
+  .wb-occ-compact li {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: all 0.4s;
+  }
+
+  .wb-occ-compact li:hover { border-color: #999999; }
 
   .wb-occ-compact a {
     display: block;
@@ -83,24 +95,25 @@
     color: inherit;
   }
 
+  /* Fixed height, not a square — same approach as the Gifts cards, scaled for
+     a 2-up mobile / 4-up desktop grid. */
   .wb-occ-compact .wb-card-image {
+    height: 34vw;
     overflow: hidden;
-    border-radius: 6px;
-    aspect-ratio: 1 / 1;
-    background-color: #e4e4e4;
+    position: relative;
   }
 
   .wb-occ-compact .wb-card-image img {
-    display: block;
     width: 100%;
-    height: 100%;
+    height: 100% !important;
     object-fit: cover;
   }
 
-  /* Lite version of the Gifts card: same component, smaller type and a smaller
-     emoji. Three classes so these beat the global .wb-card-details .wb-emoji. */
+  /* Title sits on the white card body below the image. The emoji is absolutely
+     positioned against .wb-card-details with a negative top, so it lifts up
+     over the image — clipped by the card's overflow:hidden, as on Gifts. */
   .wb-occ-compact .wb-card-details {
-    padding: 10px 14px 0;
+    padding: 10px 14px;
   }
 
   .wb-occ-compact .wb-small-heading {
@@ -110,29 +123,29 @@
   }
 
   .wb-occ-compact .wb-card-details .wb-emoji {
-    top: -20px;
+    top: -46px;
     right: 12px;
-    font-size: 44px;
+    font-size: 48px;
     transform: rotate(20deg);
   }
 
   @media screen and (min-width: 768px) {
     .wb-occ-compact { margin-top: 28px; }
-
+    .wb-occ-compact .wb-card-image { height: 16vw; }
     .wb-occ-compact .wb-small-heading { font-size: 18px; }
 
     .wb-occ-compact .wb-card-details .wb-emoji {
-      top: -30px;
+      top: -56px;
       right: 14px;
       font-size: 62px;
       transform: rotate(0deg);
       transition: all 0.4s;
     }
 
-    /* The global hover rule is scoped to .wb-cards, which this grid is not —
-       so the lift has to be restated here at the smaller scale. */
+    /* The global hover lift is scoped to .wb-cards, which this grid is not,
+       so it's restated at the smaller scale. */
     .wb-occ-compact li:hover .wb-emoji {
-      top: -46px;
+      top: -68px;
       right: 20px;
       transform: rotate(10deg);
     }
