@@ -10,15 +10,22 @@
         single set. Seconds per item, not a fixed total, so adding a review
         makes the strip longer rather than faster.
 
-        The multiplier IS the speed knob — smaller is faster. Glide's old pace
-        worked out at 4s per item, and every attempt to stay near it read as
-        laboured: continuous motion needs to be far quicker than a stepped
-        carousel to look deliberate. Three rounds of speeding up landed here,
-        a fifth of the original. The other three strips carry the same knob
-        (about-content, wb-collaborate, wb-image-reel-markup); the logo row is
-        fastest of all, as small marks with nothing to read tolerate it.
+        The multiplier is the speed knob — smaller is faster — but set it from
+        pixels per second, not by feel. Duration is one pass of one set, so the
+        speed is (item count x (item width + gap)) / duration, and the strip
+        also REPEATS every `duration` seconds. Push the speed too high and a
+        short strip cycles in a few seconds and reads as jumping back rather
+        than scrolling; that is what 0.25 here did to the 21-logo row (1360px/s,
+        a full repeat every 5.25s).
+
+        All four strips are tuned to roughly 450px/s at a 1400px viewport, which
+        is about four times Glide's old pace and still repeats slowly enough to
+        look continuous. Recalculate rather than nudge: the other three knobs
+        live in about-content, wb-collaborate and wb-image-reel-markup, and the
+        same number means a different speed in each because the item widths and
+        counts differ.
       {%- endcomment -%}
-      {%- assign marquee_duration = section.blocks.size | times: 0.8 -%}
+      {%- assign marquee_duration = section.blocks.size | times: 1.0 -%}
       <div
         class="wb-marquee wb-testimonials"
         style="--wb-marquee-duration: {{ marquee_duration }}s"

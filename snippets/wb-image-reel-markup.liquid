@@ -5,7 +5,7 @@
   Duration scales with the number of images so the strip travels at a constant
   speed regardless of how many are configured.
 {%- endcomment -%}
-{%- assign marquee_duration = reel_images.size | times: 0.6 -%}
+{%- assign marquee_duration = reel_images.size | times: 0.74 -%}
 <div class="wb-marquee wb-gifts" style="--wb-marquee-duration: {{ marquee_duration }}s">
   <ul class="wb-marquee__track wb-giftphotos" role="list">
     {%- for i in (1..2) -%}
