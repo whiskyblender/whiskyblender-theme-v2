@@ -63,13 +63,18 @@ instructed for that specific file. Even when instructed, confirm the exact chang
 
 ## Traps that have bitten before
 
-**`assets/wb-preview.css` does not exist in the Shopify-hosted theme.** It lives only in
-git. Any `shopify theme pull` — even `--only assets/wb-preview.css` — deletes the local
-file, because Shopify reports no matching asset. This is how it was lost once already.
-After any pull:
+**`assets/wb-preview.css` used to exist only in git**, so any `shopify theme pull` — even
+`--only assets/wb-preview.css` — deleted the local file, because Shopify reported no matching
+asset. That is how it was lost once already.
+
+**As of 2026-08-30 it is on Shopify** (verified two ways: a full `theme pull` into a scratch
+directory listed it, and it returns 200 from the CDN). The repeated full pushes during that
+day's work uploaded it. So the trap should be closed — but it has only been observed once,
+and the cost of the habit is nothing, so after any pull still run:
 
 ```bash
-git checkout HEAD -- assets/wb-preview.css
+git checkout HEAD -- assets/wb-preview.css   # no-op now; harmless insurance
+git status                                    # if it shows as deleted, the trap is back
 ```
 
 **The stale-pull trap.** If you commit local changes and then pull, Shopify may hand back
