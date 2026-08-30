@@ -25,10 +25,10 @@
         same number means a different speed in each because the item widths and
         counts differ.
       {%- endcomment -%}
-      {%- assign marquee_duration = section.blocks.size | times: 1.0 -%}
+            {%- assign marquee_count = section.blocks.size -%}
       <div
         class="wb-marquee wb-testimonials"
-        style="--wb-marquee-duration: {{ marquee_duration }}s"
+        style="--wb-marquee-count: {{ marquee_count }}"
       >
         <ul class="wb-marquee__track wb-reviews" role="list">
           {%- for i in (1..2) -%}

@@ -5,12 +5,14 @@
   Duration scales with the number of images so the strip travels at a constant
   speed regardless of how many are configured.
 {%- endcomment -%}
-{%- assign marquee_duration = reel_images.size | times: 0.74 -%}
-<div class="wb-marquee wb-gifts" style="--wb-marquee-duration: {{ marquee_duration }}s">
+{%- assign marquee_count = reel_images.size -%}
+<div class="wb-marquee wb-gifts" style="--wb-marquee-count: {{ marquee_count }}">
   <ul class="wb-marquee__track wb-giftphotos" role="list">
     {%- for i in (1..2) -%}
       {%- for image in reel_images -%}
-        <li class="wb-marquee__item wb-giftphoto"{% if forloop.parentloop.index == 2 %} aria-hidden="true"{% endif %}>
+        {%- assign par = forloop.index | modulo: 2 -%}
+        {%- assign rot = forloop.index | modulo: 3 -%}
+        <li class="wb-marquee__item wb-giftphoto wb-reel-p{{ par }} wb-reel-r{{ rot }}"{% if forloop.parentloop.index == 2 %} aria-hidden="true"{% endif %}>
           <img
             src="{{ image | asset_url }}"
             alt="{% if forloop.parentloop.index == 1 %}Whiskyblender product photo{% endif %}"

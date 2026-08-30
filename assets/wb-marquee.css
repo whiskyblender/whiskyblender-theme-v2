@@ -19,7 +19,7 @@
    to clip it — see the note on .wb-marquee below before adding a new call site.
 
    USAGE
-     <div class="wb-marquee" style="--wb-marquee-duration: 40s">
+     <div class="wb-marquee" style="--wb-marquee-count: 12">   <- item count
        <div class="wb-marquee__track">
          … items …            <- rendered TWICE, second set aria-hidden
        </div>
@@ -56,7 +56,16 @@
   display: flex;
   width: max-content;
   align-items: center;
-  animation: wb-marquee-scroll var(--wb-marquee-duration, 60s) linear infinite;
+  /* Duration = how many items x how long each should take AT THIS BREAKPOINT.
+     The section supplies the count; --wb-marquee-secs is set per strip per
+     breakpoint below. This is the part Glide got right for free: perView meant
+     its speed was proportional to screen width, so a phone and a desktop both
+     took about the same time to show a screenful. A single fixed duration does
+     not do that — it made the strips 2-3x too fast on mobile, fast enough that
+     the loop came round in about a second and read as resetting. */
+  animation: wb-marquee-scroll
+    calc(var(--wb-marquee-count, 10) * var(--wb-marquee-secs, 1s))
+    linear infinite;
   will-change: transform;
 }
 
@@ -100,52 +109,60 @@
   }
 }
 
-/* ── Per-strip sizing ────────────────────────────────────────────────────────
+/* ── Per-strip sizing and pace ────────────────────────────────────────────────
    Item widths are viewport-relative because the track is `width: max-content`,
    so a percentage would resolve against the track, not the container.
-
    These reproduce each old Glide config's perView/gap. Glide breakpoints are
-   MAX-width, so the equivalent min-width queries start one pixel higher (601 /
-   769 / 1025) — hence the odd-looking numbers. */
+   MAX-width, so the equivalent min-width queries start one pixel higher.
+
+   --wb-marquee-secs is seconds per item, and it changes with the breakpoint
+   for the same reason the widths do. Every strip is tuned so that roughly one
+   screenful of content passes every 3.2 seconds at every size. To work out a
+   new value: items_per_screen = viewport / (item width + gap), then
+   secs = 3.2 / items_per_screen. Do not set it by feel — that is what produced
+   a logo row running at 1360px/s on desktop and a review strip that crossed a
+   phone screen in 1.1s. */
 
 /* Reviews — perView 1 / 2 / 3, gap 20 / 30 / 60 */
-.wb-testimonials { --wb-marquee-item: 82vw; --wb-marquee-gap: 20px; }
+.wb-testimonials { --wb-marquee-item: 82vw; --wb-marquee-gap: 20px; --wb-marquee-secs: 2.9s; }
 @media screen and (min-width: 601px) {
-  .wb-testimonials { --wb-marquee-item: 42vw; --wb-marquee-gap: 30px; }
+  .wb-testimonials { --wb-marquee-item: 42vw; --wb-marquee-gap: 30px; --wb-marquee-secs: 1.45s; }
 }
 @media screen and (min-width: 769px) {
-  .wb-testimonials { --wb-marquee-item: 28vw; --wb-marquee-gap: 60px; }
+  .wb-testimonials { --wb-marquee-item: 28vw; --wb-marquee-gap: 60px; --wb-marquee-secs: 1.05s; }
 }
 
 /* Collabs — perView 2 / 3 / 4, gap 20 / 30 / 40 */
-.wb-collabs { --wb-marquee-item: 42vw; --wb-marquee-gap: 20px; }
+.wb-collabs { --wb-marquee-item: 42vw; --wb-marquee-gap: 20px; --wb-marquee-secs: 1.5s; }
 @media screen and (min-width: 601px) {
-  .wb-collabs { --wb-marquee-item: 28vw; --wb-marquee-gap: 30px; }
+  .wb-collabs { --wb-marquee-item: 28vw; --wb-marquee-gap: 30px; --wb-marquee-secs: 1.05s; }
 }
 @media screen and (min-width: 769px) {
-  .wb-collabs { --wb-marquee-item: 21vw; --wb-marquee-gap: 40px; }
+  .wb-collabs { --wb-marquee-item: 21vw; --wb-marquee-gap: 40px; --wb-marquee-secs: 0.76s; }
 }
 
-/* Features (about page) — gap 10 / 10 / 100.
+/* Features (about page) — gap 10 / 10 / 40.
    No item width here: `.wb-logos li` in wb-about.css already sets the logo box
    (150 / 200 / 300px) and beats `.wb-marquee__item` on specificity. Glide used
    to override it with an inline per-slide width; nothing does now, so
-   wb-about.css is the single source of truth for logo size. */
-.wb-features { --wb-marquee-gap: 10px; }
+   wb-about.css is the single source of truth for logo size. Those widths are
+   fixed px rather than vw, which is exactly why this strip needed the biggest
+   per-breakpoint correction. */
+.wb-features { --wb-marquee-gap: 10px; --wb-marquee-secs: 1.35s; }
+@media screen and (min-width: 601px) {
+  .wb-features { --wb-marquee-secs: 0.75s; }
+}
 @media screen and (min-width: 1025px) {
-  /* Glide used 100px here. Against 300px logos that spent a quarter of the
-     strip on empty space and showed barely three at a time; 40px fits noticeably
-     more without them running together. Gap is the lever, not a count — the
-     track is width: max-content, so items per screen falls out of
-     logo width + gap against the viewport. */
-  .wb-features { --wb-marquee-gap: 40px; }
+  /* Glide used 100px. Against 300px logos that spent a quarter of the strip on
+     empty space and showed barely three at a time. */
+  .wb-features { --wb-marquee-gap: 40px; --wb-marquee-secs: 0.78s; }
 }
 
 /* Gift reel — perView 3 / 4 / 4, gap 20 / 30 / 40 */
-.wb-gifts { --wb-marquee-item: 30vw; --wb-marquee-gap: 20px; }
+.wb-gifts { --wb-marquee-item: 30vw; --wb-marquee-gap: 20px; --wb-marquee-secs: 1.15s; }
 @media screen and (min-width: 601px) {
-  .wb-gifts { --wb-marquee-item: 21vw; --wb-marquee-gap: 30px; }
+  .wb-gifts { --wb-marquee-item: 21vw; --wb-marquee-gap: 30px; --wb-marquee-secs: 0.8s; }
 }
 @media screen and (min-width: 769px) {
-  .wb-gifts { --wb-marquee-item: 21vw; --wb-marquee-gap: 40px; }
+  .wb-gifts { --wb-marquee-item: 21vw; --wb-marquee-gap: 40px; --wb-marquee-secs: 0.76s; }
 }
