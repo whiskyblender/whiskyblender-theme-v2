@@ -9,7 +9,11 @@
       {%- endif -%}
       <ul class="wb-cards wb-main-cards wb-occasions-cards">
         {%- for block in section.blocks -%}
-          <li {{ block.shopify_attributes }}>
+          <li
+            class="{% if settings.animations_reveal_on_scroll %}scroll-trigger animate--slide-in{% endif %}"
+            data-cascade
+            {{ block.shopify_attributes }}
+          >
             <a href="{{ block.settings.link }}">
               {%- if block.settings.image != blank -%}
                 <div class="wb-card-image">
@@ -38,7 +42,7 @@
      font-weight: 100 and Raleway is only loaded at 300-700. */
   .wb-occasions-cards .wb-small-heading {
     font-family: 'Raleway', sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     font-size: clamp(20px, 2.6vw, 30px);
     line-height: 1.2;
   }

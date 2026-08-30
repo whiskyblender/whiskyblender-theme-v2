@@ -29,7 +29,8 @@
         <ol class="wb-hiw-steps" role="list">
           {%- for block in section.blocks -%}
             <li
-              class="wb-hiw-step wb-hiw-step--{{ block.settings.background | default: 'green' }} wb-background-{{ block.settings.background | default: 'green' }}-opacity"
+              class="wb-hiw-step wb-hiw-step--{{ block.settings.background | default: 'green' }} wb-background-{{ block.settings.background | default: 'green' }}-opacity{%- if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{%- endif -%}"
+              data-cascade
               {{ block.shopify_attributes }}
             >
               <div class="wb-hiw-text">
