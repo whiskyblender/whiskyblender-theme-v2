@@ -19,9 +19,9 @@
         "title": "Your own whisky",
         "title_variants": "Great Scotch!, Your own whisky, Liquid gold, Bottle of magic, Golden nectar, Something special, Label your own, Best whisky gift, One of a kind, Made by you, Pick your dram, It's your round, Bespoke booze, The gift of whisky, Sláinte!, Yer ain label, Nothin' like it!, Whisky. Your way!, Bottles by you",
         "description": "Create your own whisky, or gift a personalised bottle of malt like no other. Being a legend never tasted so guid!",
-        "primary_button_text": "Enter the lab",
+        "primary_button_text": "Create your own whisky",
         "primary_button_url": "shopify://pages/the-lab",
-        "secondary_button_text": "How it works",
+        "secondary_button_text": "Gift vouchers",
         "secondary_button_url": "shopify://pages/how-it-works",
         "badge_show": false,
         "badge_url": "shopify://pages/the-lab",
@@ -123,42 +123,6 @@
         "padding_bottom": 0
       }
     },
-    "wb_cta_foryersel": {
-      "type": "wb-cta",
-      "name": "CTA - For yersel'",
-      "settings": {
-        "heading": "For yersel'",
-        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
-        "image": "shopify://shop_images/wb-foryersel.png",
-        "image_class": "wb-foryersel",
-        "primary_button_text": "Create something",
-        "primary_button_url": "shopify://pages/create",
-        "secondary_button_text": "",
-        "secondary_button_url": "",
-        "background": "auto"
-      }
-    },
-    "wb_cta_letscollab": {
-      "type": "wb-cta",
-      "name": "CTA - Let's collaborate",
-      "settings": {
-        "heading": "Let's collaborate",
-        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
-        "image": "shopify://shop_images/wb-yerownbrand.png",
-        "image_class": "wb-yourownbrand",
-        "primary_button_text": "Get in touch",
-        "primary_button_url": "shopify://pages/contact",
-        "secondary_button_text": "See collaborations",
-        "secondary_button_url": "shopify://collections/collaborations",
-        "background": "auto"
-      }
-    },
-    "178129257397a9c961": {
-      "type": "apps",
-      "settings": {
-        "include_margins": true
-      }
-    },
     "wb_occasions_compact": {
       "type": "wb-occasions-compact",
       "blocks": {
@@ -208,6 +172,42 @@
       "settings": {
         "heading": "For special occasions",
         "description": "A bottle of Scotch that's genuinely theirs — for the moments worth marking."
+      }
+    },
+    "wb_cta_foryersel": {
+      "type": "wb-cta",
+      "name": "CTA - For yersel'",
+      "settings": {
+        "heading": "For yersel'",
+        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
+        "image": "shopify://shop_images/wb-foryersel.png",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "Create something",
+        "primary_button_url": "shopify://pages/create",
+        "secondary_button_text": "",
+        "secondary_button_url": "",
+        "background": "auto"
+      }
+    },
+    "wb_cta_letscollab": {
+      "type": "wb-cta",
+      "name": "CTA - Let's collaborate",
+      "settings": {
+        "heading": "Let's collaborate",
+        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
+        "image": "shopify://shop_images/wb-yerownbrand.png",
+        "image_class": "wb-yourownbrand",
+        "primary_button_text": "Get in touch",
+        "primary_button_url": "shopify://pages/contact",
+        "secondary_button_text": "See collaborations",
+        "secondary_button_url": "shopify://collections/collaborations",
+        "background": "auto"
+      }
+    },
+    "178129257397a9c961": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
       }
     }
   },
