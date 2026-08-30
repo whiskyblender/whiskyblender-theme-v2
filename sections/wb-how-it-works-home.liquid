@@ -201,17 +201,25 @@
     .wb-hiwh-step__text { flex: 0 0 50%; }
     .wb-hiwh-step__media { flex: auto; min-width: 0; }
 
-    /* Copy left, button right — the action sits where the eye lands last. */
+    /* Same geometry as a step panel — 50% text, 80px gap, 40px padding — so
+       the button column lines up exactly with the images above it. */
     .wb-hiwh-cta {
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
-      column-gap: 40px;
+      column-gap: 80px;
       row-gap: 0;
-      padding: 36px 40px;
+      padding: 40px;
     }
 
-    .wb-hiwh-cta__action { flex-shrink: 0; }
+    .wb-hiwh-cta__text { flex: 0 0 50%; }
+    .wb-hiwh-cta__action { flex: auto; min-width: 0; }
+
+    /* .wb-button is display:flex with a right margin by default — both have to
+       go for it to fill the column. */
+    .wb-hiwh-cta__action .wb-button {
+      width: 100%;
+      margin: 0;
+    }
 
   }
 
