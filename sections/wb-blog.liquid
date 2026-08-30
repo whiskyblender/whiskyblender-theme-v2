@@ -49,6 +49,20 @@
 </section>
 {%- endpaginate -%}
 
+<style>
+  /* Raleway rather than the TrimPoster display face, matching the occasions
+     cards on the Gifts page. Scoped to .wb-blog-cards: .wb-main-cards is shared
+     with the collection list, perfect drams and the WB grid, which keep Trim.
+     The weight has to be restated because .wb-small-heading sets
+     font-weight: 100 and Raleway is only loaded at 300-700. */
+  .wb-blog-cards .wb-small-heading {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: clamp(20px, 2.6vw, 30px);
+    line-height: 1.2;
+  }
+</style>
+
 {% schema %}
 {
   "name": "WB Blog",
