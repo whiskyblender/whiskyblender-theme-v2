@@ -274,10 +274,10 @@
    text baseline rather than sitting high. */
 .wbp-open-btn__icon {
   display: inline-block;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   margin-right: 12px;
-  vertical-align: -2px;
+  vertical-align: -3px;
 }
 
 .wbp-open-btn__icon svg {
