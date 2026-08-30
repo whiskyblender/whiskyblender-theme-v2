@@ -184,6 +184,18 @@
   .wb-hiwh-cta__body { margin: 0; max-width: 46ch; }
   .wb-hiwh-cta__action { margin: 0; }
 
+  /* Mobile only. These panels are far tighter than the full-width steps on the
+     How It Works page, so the display sizes come down: the number inherits
+     .wb-medium-heading at 52px, which swamps a small panel. Desktop is left on
+     the page's values. Body text is deliberately untouched — it inherits the
+     site's 16px mobile size, and overriding type on it here would fight the
+     global body styles. */
+  @media screen and (max-width: 767px) {
+    .wb-hiwh-step__num { font-size: 34px; }
+    .wb-hiwh-step__title { font-size: 21px; margin-bottom: 12px; }
+    .wb-hiwh-cta__title { font-size: 21px; }
+  }
+
   @media screen and (min-width: 768px) {
     .wb-hiwh-steps { margin-top: 32px; }
 
