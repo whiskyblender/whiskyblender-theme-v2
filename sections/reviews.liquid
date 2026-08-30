@@ -7,9 +7,16 @@
       {%- comment -%}
         Items are rendered twice — the duplicate set is what makes the loop
         seamless (see assets/wb-marquee.css). Duration is one full pass of a
-        single set, so it matches the old 4s-per-slide pace.
+        single set. Seconds per item, not a fixed total, so adding a review
+        makes the strip longer rather than faster.
+
+        The multiplier IS the speed knob — smaller is faster. Glide's old pace
+        worked out at 4s per item; that read as sluggish once the motion was
+        genuinely continuous, so this is now about a third of it. The other
+        three strips carry the same knob (about-content, wb-collaborate,
+        wb-image-reel-markup) and want changing together.
       {%- endcomment -%}
-      {%- assign marquee_duration = section.blocks.size | times: 2.5 -%}
+      {%- assign marquee_duration = section.blocks.size | times: 1.2 -%}
       <div
         class="wb-marquee wb-testimonials"
         style="--wb-marquee-duration: {{ marquee_duration }}s"
