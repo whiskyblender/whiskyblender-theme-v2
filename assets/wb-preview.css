@@ -263,6 +263,13 @@
   animation-play-state: paused;
 }
 
+/* Anchors the open button to the first media item so its `bottom: 20px`
+   matches the close button rather than resolving against the full gallery
+   height (which grows with each extra product image). */
+.wbp-open-anchor {
+  position: relative;
+}
+
 .wbp-open-btn {
   position: absolute;
   bottom: 20px;

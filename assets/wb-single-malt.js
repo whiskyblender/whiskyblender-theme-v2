@@ -394,7 +394,20 @@
         previewWrap.style.display = '';
         openBtn.style.display = 'none';
       });
-      previewWrap.parentNode.appendChild(openBtn);
+      /* The open button has the same CSS as the close button (bottom: 20px),
+         so it must share the same positioning box to land in the same spot.
+         The close button sits inside #wb-label-preview-wrap, which is
+         `top: 0; height: auto` over the FIRST image. Appending the open button
+         to media-gallery made `bottom: 20px` resolve against the whole
+         gallery, so on products with several images it sat far too low.
+         Anchor it to the first media item instead. */
+      var firstMedia = mediaGallery && mediaGallery.querySelector('.product__media-item');
+      if (firstMedia) {
+        firstMedia.classList.add('wbp-open-anchor');
+        firstMedia.appendChild(openBtn);
+      } else {
+        previewWrap.parentNode.appendChild(openBtn);
+      }
 
       renderPreviewLabel();
       scalePreview();
