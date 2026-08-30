@@ -36,7 +36,7 @@
   never appears. Codes are set in the theme editor.
 {%- endcomment -%}
 {%- capture preset_codes -%}
-  {{- section.settings.preset_1 | strip -}},{{- section.settings.preset_2 | strip -}},{{- section.settings.preset_3 | strip -}}
+  {{- section.settings.preset_1 | strip -}},{{- section.settings.preset_2 | strip -}},{{- section.settings.preset_3 | strip -}},{{- section.settings.preset_4 | strip -}}
 {%- endcapture -%}
 <div
   class="wb-lab-presets"
@@ -245,6 +245,12 @@
       "id": "preset_3",
       "label": "Preset 3 — blend code",
       "default": "WB00821"
+    },
+    {
+      "type": "text",
+      "id": "preset_4",
+      "label": "Preset 4 — blend code",
+      "default": "WB00836"
     },
     {
       "type": "header",
