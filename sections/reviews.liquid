@@ -1,53 +1,51 @@
-{{ 'wb-marquee.css' | asset_url | stylesheet_tag }}
-{{ 'wb-reels.css' | asset_url | stylesheet_tag }}
+{{ 'glide.core.css' | asset_url | stylesheet_tag }}
+{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
 
 <section class="wb-banded wb-overflow-hidden-x">
   <div class="wb-container">
     <div class="wb-padding">
-      {%- comment -%}
-        Items are rendered twice — the duplicate set is what makes the loop
-        seamless (see assets/wb-marquee.css). Duration is one full pass of a
-        single set. Seconds per item, not a fixed total, so adding a review
-        makes the strip longer rather than faster.
-
-        The multiplier is the speed knob — smaller is faster — but set it from
-        pixels per second, not by feel. Duration is one pass of one set, so the
-        speed is (item count x (item width + gap)) / duration, and the strip
-        also REPEATS every `duration` seconds. Push the speed too high and a
-        short strip cycles in a few seconds and reads as jumping back rather
-        than scrolling; that is what 0.25 here did to the 21-logo row (1360px/s,
-        a full repeat every 5.25s).
-
-        All four strips are tuned to roughly 450px/s at a 1400px viewport, which
-        is about four times Glide's old pace and still repeats slowly enough to
-        look continuous. Recalculate rather than nudge: the other three knobs
-        live in about-content, wb-collaborate and wb-image-reel-markup, and the
-        same number means a different speed in each because the item widths and
-        counts differ.
-      {%- endcomment -%}
-            {%- assign marquee_count = section.blocks.size -%}
-      <div
-        class="wb-marquee wb-testimonials"
-        style="--wb-marquee-count: {{ marquee_count }}"
-      >
-        <ul class="wb-marquee__track wb-reviews" role="list">
-          {%- for i in (1..2) -%}
+      <div class="glide wb-testimonials">
+        <div class="glide__track" data-glide-el="track">
+          <ul class="glide__slides wb-reviews">
             {%- for block in section.blocks -%}
               <li
-                class="wb-marquee__item wb-review"
+                class="glide__slide wb-review"
                 style="background-image: url({{ block.settings.stars_image | asset_url }})"
-                {% if forloop.parentloop.index == 2 %}aria-hidden="true"{% endif %}
-                {% if forloop.parentloop.index == 1 %}{{ block.shopify_attributes }}{% endif %}
+                {{ block.shopify_attributes }}
               >
                 {{ block.settings.review_text }}
               </li>
             {%- endfor -%}
-          {%- endfor -%}
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </section>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Glide('.wb-testimonials', {
+      type: 'carousel',
+      gap: 60,
+      perView: 3,
+      autoplay: 1,
+      animationDuration: 4000,
+      animationTimingFunc: 'linear',
+      hoverpause: true,
+      breakpoints: {
+        600: {
+          perView: 1,
+          gap: 20,
+        },
+        768: {
+          perView: 2,
+          gap: 30,
+        },
+      },
+    }).mount();
+  });
+</script>
+<script src="{{ 'glide.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

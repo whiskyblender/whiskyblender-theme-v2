@@ -1,5 +1,5 @@
-{{ 'wb-marquee.css' | asset_url | stylesheet_tag }}
-{{ 'wb-reels.css' | asset_url | stylesheet_tag }}
+{{ 'glide.core.css' | asset_url | stylesheet_tag }}
+{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
 {{ 'wb-collaborate.css' | asset_url | stylesheet_tag }}
 
 <section class="wb-overflow-hidden-x">
@@ -10,69 +10,20 @@
       <p>From cask selection and blending to design, bottling, and packaging, we'll guide you through each step of the journey. The result? A whisky that's uniquely yours — authentic, memorable, and made to share.</p>
     </div>
 
-    {%- comment -%}
-      The nine photos are rendered twice: the marquee scrolls by exactly -50%,
-      so the second set lands seamlessly where the first began. The duplicates
-      are aria-hidden with empty alt so they aren't announced twice.
-      See assets/wb-marquee.css.
-    {%- endcomment -%}
-    <div class="wb-marquee wb-collabs" style="--wb-marquee-count: 9">
-      <ul class="wb-marquee__track wb-collabphotos" role="list">
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r1">
-            <img src="{{ '01_hoonjuice.webp' | asset_url }}" alt="Hoon Juice collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p0 wb-reel-r2">
-            <img src="{{ '02_glasgow850.jpg' | asset_url }}" alt="Glasgow 850 collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r0">
-            <img src="{{ '03_goldendrop.jpg' | asset_url }}" alt="Golden Drop collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p0 wb-reel-r1">
-            <img src="{{ '04_joeydunlop.jpg' | asset_url }}" alt="Joey Dunlop collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r2">
-            <img src="{{ '05_caskslug.webp' | asset_url }}" alt="Cask Slug collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p0 wb-reel-r0">
-            <img src="{{ '06_alba.jpg' | asset_url }}" alt="Alba collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r1">
-            <img src="{{ '07_oldsport.jpg' | asset_url }}" alt="Old Sport collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p0 wb-reel-r2">
-            <img src="{{ '08_joker.jpg' | asset_url }}" alt="Joker collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r0">
-            <img src="{{ '09_dramsylvania.jpg' | asset_url }}" alt="Dramsylvania collaboration" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r1" aria-hidden="true">
-            <img src="{{ '01_hoonjuice.webp' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p0 wb-reel-r2" aria-hidden="true">
-            <img src="{{ '02_glasgow850.jpg' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r0" aria-hidden="true">
-            <img src="{{ '03_goldendrop.jpg' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p0 wb-reel-r1" aria-hidden="true">
-            <img src="{{ '04_joeydunlop.jpg' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r2" aria-hidden="true">
-            <img src="{{ '05_caskslug.webp' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p0 wb-reel-r0" aria-hidden="true">
-            <img src="{{ '06_alba.jpg' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r1" aria-hidden="true">
-            <img src="{{ '07_oldsport.jpg' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p0 wb-reel-r2" aria-hidden="true">
-            <img src="{{ '08_joker.jpg' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-          <li class="wb-marquee__item wb-collabphoto wb-reel-p1 wb-reel-r0" aria-hidden="true">
-            <img src="{{ '09_dramsylvania.jpg' | asset_url }}" alt="" loading="lazy" width="600" height="600">
-          </li>
-      </ul>
+    <div class="glide wb-collabs">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides wb-collabphotos">
+          <li class="glide__slide wb-collabphoto"><img src="{{ '01_hoonjuice.webp' | asset_url }}" alt="Hoon Juice collaboration" loading="lazy"></li>
+          <li class="glide__slide wb-collabphoto"><img src="{{ '02_glasgow850.jpg' | asset_url }}" alt="Glasgow 850 collaboration" loading="lazy"></li>
+          <li class="glide__slide wb-collabphoto"><img src="{{ '03_goldendrop.jpg' | asset_url }}" alt="Golden Drop collaboration" loading="lazy"></li>
+          <li class="glide__slide wb-collabphoto"><img src="{{ '04_joeydunlop.jpg' | asset_url }}" alt="Joey Dunlop collaboration" loading="lazy"></li>
+          <li class="glide__slide wb-collabphoto"><img src="{{ '05_caskslug.webp' | asset_url }}" alt="Cask Slug collaboration" loading="lazy"></li>
+          <li class="glide__slide wb-collabphoto"><img src="{{ '06_alba.jpg' | asset_url }}" alt="Alba collaboration" loading="lazy"></li>
+          <li class="glide__slide wb-collabphoto"><img src="{{ '07_oldsport.jpg' | asset_url }}" alt="Old Sport collaboration" loading="lazy"></li>
+          <li class="glide__slide wb-collabphoto"><img src="{{ '08_joker.jpg' | asset_url }}" alt="Joker collaboration" loading="lazy"></li>
+          <li class="glide__slide wb-collabphoto"><img src="{{ '09_dramsylvania.jpg' | asset_url }}" alt="Dramsylvania collaboration" loading="lazy"></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -84,6 +35,26 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Glide('.wb-collabs', {
+      type: 'carousel',
+      gap: 40,
+      perView: 4,
+      autoplay: 1,
+      animationDuration: 5000,
+      animationTimingFunc: 'linear',
+      hoverpause: true,
+      breakpoints: {
+        600: { perView: 2, animationDuration: 3000, gap: 20 },
+        768: { perView: 3, animationDuration: 4000, gap: 30 }
+      }
+    }).mount();
+  });
+</script>
+
+<script src="{{ 'glide.js' | asset_url }}" defer></script>
 
 {% schema %}
 {

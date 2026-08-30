@@ -60,19 +60,14 @@
             | default: "Some of the places we've been featured over the years."
           }}
         </p>
-        {%- comment -%}
-          Rendered twice: the marquee scrolls by exactly -50%, so the second set
-          lands seamlessly where the first began. See wb-marquee.css.
-        {%- endcomment -%}
-                {%- assign marquee_count = section.blocks.size -%}
-        <div class="wb-marquee wb-features" style="--wb-marquee-count: {{ marquee_count }}">
-          <ul class="wb-marquee__track wb-logos" role="list">
-            {%- for i in (1..2) -%}
+        <div class="glide wb-features glide--ltr glide--carousel glide--swipeable">
+          <div class="glide__track" data-glide-el="track">
+            <ul class="glide__slides wb-logos">
               {%- for block in section.blocks -%}
                 <li
-                  class="wb-marquee__item"
+                  class="glide__slide"
                   style="background-image: url('{{ block.settings.logo | image_url }}');"
-                  {% if forloop.parentloop.index == 1 %}{{ block.shopify_attributes }}{% else %}aria-hidden="true"{% endif %}
+                  {{ block.shopify_attributes }}
                 >
                   {%- if block.settings.url != blank -%}
                     <a
@@ -86,8 +81,8 @@
                   {%- endif -%}
                 </li>
               {%- endfor -%}
-            {%- endfor -%}
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -95,10 +90,34 @@
 {%- endif -%}
 </section>
 
-{{ 'wb-marquee.css' | asset_url | stylesheet_tag }}
-{{ 'wb-reels.css' | asset_url | stylesheet_tag }}
+{{ 'glide.core.css' | asset_url | stylesheet_tag }}
+{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
 {{ 'wb-about.css' | asset_url | stylesheet_tag }}
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Glide('.wb-features', {
+      type: 'carousel',
+      gap: 100,
+      perView: 4,
+      autoplay: 1,
+      animationDuration: 2000,
+      animationTimingFunc: 'linear',
+      hoverpause: true,
+      breakpoints: {
+        768: {
+          perView: 2,
+          gap: 10,
+        },
+        1024: {
+          perView: 3,
+          gap: 10,
+        },
+      },
+    }).mount();
+  });
+</script>
+<script src="{{ 'glide.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
