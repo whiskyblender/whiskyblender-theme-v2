@@ -855,10 +855,18 @@
               });
               updateUI();
               wbTrack('blend_preset_used', { blend_code: code });
-              /* Same landing as finishing a blend by hand, so there is one path
-                 to the naming step rather than two that can drift apart. */
-              var panel = document.getElementById('wb-save-panel');
-              if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              /* Scroll to the pie chart, not the naming step — the point of a
+                 preset is to show what it built. Falls back to the save panel
+                 if the pie isn't present. The naming hints are still primed so
+                 they're waiting when the customer scrolls down. */
+              var target = document.getElementById('wb-lab-pie') ||
+                           document.getElementById('wb-save-panel');
+              if (target) {
+                target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: target.id === 'wb-lab-pie' ? 'center' : 'start'
+                });
+              }
               initFieldHints();
             });
             list.appendChild(btn);
