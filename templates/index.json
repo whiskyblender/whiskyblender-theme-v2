@@ -123,8 +123,44 @@
         "padding_bottom": 0
       }
     },
-    "wb_occasions_UEFTTm": {
-      "type": "wb-occasions",
+    "wb_cta_foryersel": {
+      "type": "wb-cta",
+      "name": "CTA - For yersel'",
+      "settings": {
+        "heading": "For yersel'",
+        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
+        "image": "shopify://shop_images/wb-foryersel.png",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "Create something",
+        "primary_button_url": "shopify://pages/create",
+        "secondary_button_text": "",
+        "secondary_button_url": "",
+        "background": "auto"
+      }
+    },
+    "wb_cta_letscollab": {
+      "type": "wb-cta",
+      "name": "CTA - Let's collaborate",
+      "settings": {
+        "heading": "Let's collaborate",
+        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
+        "image": "shopify://shop_images/wb-yerownbrand.png",
+        "image_class": "wb-yourownbrand",
+        "primary_button_text": "Get in touch",
+        "primary_button_url": "shopify://pages/contact",
+        "secondary_button_text": "See collaborations",
+        "secondary_button_url": "shopify://collections/collaborations",
+        "background": "auto"
+      }
+    },
+    "178129257397a9c961": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "wb_occasions_compact": {
+      "type": "wb-occasions-compact",
       "blocks": {
         "occasion_weddings": {
           "type": "occasion",
@@ -161,74 +197,17 @@
             "link": "shopify://collections/christmas",
             "emoji": "🎅🏽"
           }
-        },
-        "occasion_thankyous": {
-          "type": "occasion",
-          "settings": {
-            "heading": "Thank yous",
-            "image": "shopify://shop_images/thankyous.png",
-            "link": "shopify://collections/thankyous",
-            "emoji": "🙏"
-          }
-        },
-        "occasion_celebrations": {
-          "type": "occasion",
-          "settings": {
-            "heading": "Celebrations",
-            "image": "shopify://shop_images/celebrations.png",
-            "link": "shopify://collections/celebrations",
-            "emoji": "🎉"
-          }
         }
       },
       "block_order": [
         "occasion_weddings",
         "occasion_birthdays",
         "occasion_anniversaries",
-        "occasion_christmas",
-        "occasion_thankyous",
-        "occasion_celebrations"
+        "occasion_christmas"
       ],
-      "name": "WB Occasions",
       "settings": {
         "heading": "For special occasions",
-        "description": "Our Scotch whisky is the perfect way to commemorate, appreciate, or celebrate in a truly unique and personal way."
-      }
-    },
-    "wb_cta_foryersel": {
-      "type": "wb-cta",
-      "name": "CTA - For yersel'",
-      "settings": {
-        "heading": "For yersel'",
-        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
-        "image": "shopify://shop_images/wb-foryersel.png",
-        "image_class": "wb-foryersel",
-        "primary_button_text": "Create something",
-        "primary_button_url": "shopify://pages/create",
-        "secondary_button_text": "",
-        "secondary_button_url": "",
-        "background": "auto"
-      }
-    },
-    "wb_cta_letscollab": {
-      "type": "wb-cta",
-      "name": "CTA - Let's collaborate",
-      "settings": {
-        "heading": "Let's collaborate",
-        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
-        "image": "shopify://shop_images/wb-yerownbrand.png",
-        "image_class": "wb-yourownbrand",
-        "primary_button_text": "Get in touch",
-        "primary_button_url": "shopify://pages/contact",
-        "secondary_button_text": "See collaborations",
-        "secondary_button_url": "shopify://collections/collaborations",
-        "background": "auto"
-      }
-    },
-    "178129257397a9c961": {
-      "type": "apps",
-      "settings": {
-        "include_margins": true
+        "description": "A bottle of Scotch that's genuinely theirs — for the moments worth marking."
       }
     }
   },
@@ -236,7 +215,7 @@
     "main_landing",
     "main_reviews",
     "featured_collection_93jqNG",
-    "wb_occasions_UEFTTm",
+    "wb_occasions_compact",
     "wb_cta_foryersel",
     "wb_cta_letscollab",
     "178129257397a9c961"
