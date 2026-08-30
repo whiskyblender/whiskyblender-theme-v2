@@ -66,11 +66,28 @@
         </ol>
       {%- endif -%}
 
-      {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
-        <div class="wb-buttons wb-hiwh-cta">
-          <a href="{{ section.settings.button_url }}" class="wb-button wb-primary-button">
-            {{ section.settings.button_label | escape }}
-          </a>
+      {%- comment -%}
+        CTA panel — the payoff after the steps. Uses a SOLID wb-background-*
+        class rather than the -opacity variant the steps use, so it carries
+        weight against them and reads as the thing to act on.
+      {%- endcomment -%}
+      {%- if section.settings.cta_heading != blank or section.settings.button_label != blank -%}
+        <div class="wb-hiwh-cta wb-background-{{ section.settings.cta_background | default: 'brown' }}">
+          <div class="wb-hiwh-cta__text">
+            {%- if section.settings.cta_heading != blank -%}
+              <h3 class="wb-hiwh-cta__title">{{ section.settings.cta_heading | escape }}</h3>
+            {%- endif -%}
+            {%- if section.settings.cta_body != blank -%}
+              <p class="wb-hiwh-cta__body">{{ section.settings.cta_body }}</p>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+            <div class="wb-buttons wb-hiwh-cta__action">
+              <a href="{{ section.settings.button_url }}" class="wb-button wb-primary-button">
+                {{ section.settings.button_label | escape }}
+              </a>
+            </div>
+          {%- endif -%}
         </div>
       {%- endif -%}
     </div>
@@ -135,7 +152,25 @@
      global body typography. */
   .wb-hiwh-step__body > p:last-child { margin-bottom: 0; }
 
-  .wb-hiwh-cta { margin-top: 28px; }
+  .wb-hiwh-cta {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    border-radius: 8px;
+    padding: 28px 24px;
+    margin-top: 20px;
+  }
+
+  .wb-hiwh-cta__title {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 8px;
+    color: #111;
+  }
+
+  .wb-hiwh-cta__body { margin: 0; max-width: 46ch; }
+  .wb-hiwh-cta__action { margin: 0; }
 
   @media screen and (min-width: 768px) {
     .wb-hiwh-steps { margin-top: 32px; }
@@ -153,6 +188,18 @@
 
     .wb-hiwh-step__text { flex: 0 0 50%; }
     .wb-hiwh-step__media { flex: auto; min-width: 0; }
+
+    /* Copy left, button right — the action sits where the eye lands last. */
+    .wb-hiwh-cta {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      column-gap: 40px;
+      row-gap: 0;
+      padding: 36px 40px;
+    }
+
+    .wb-hiwh-cta__action { flex-shrink: 0; }
 
   }
 
@@ -181,6 +228,37 @@
       "id": "description",
       "label": "Description",
       "default": "Three steps from a blank slate to a bottle of Scotch that exists nowhere else."
+    },
+    {
+      "type": "header",
+      "content": "Call to action panel"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Your whisky's waiting"
+    },
+    {
+      "type": "text",
+      "id": "cta_body",
+      "label": "CTA text",
+      "default": "No expertise needed \u2014 pick what you fancy, give it a name, and it's yours. About two minutes from here to a bottle that exists nowhere else."
+    },
+    {
+      "type": "select",
+      "id": "cta_background",
+      "label": "Panel colour",
+      "default": "brown",
+      "info": "Solid colour, so the panel stands out against the lighter step panels.",
+      "options": [
+        { "value": "brown", "label": "Brown" },
+        { "value": "blue", "label": "Blue" },
+        { "value": "green", "label": "Green" },
+        { "value": "purple", "label": "Purple" },
+        { "value": "red", "label": "Red" },
+        { "value": "yellow", "label": "Yellow" }
+      ]
     },
     {
       "type": "text",
