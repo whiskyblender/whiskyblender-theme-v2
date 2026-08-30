@@ -10,22 +10,20 @@
   the panel's own pastel would be invisible on a 0.3-opacity tint of itself.
 {%- endcomment -%}
 
-{%- if section.settings.page_title != blank or page.content != blank -%}
-  <header class="wb-container">
+<div class="wb-banded">
+  <div class="wb-container">
     <div class="wb-padding">
+
+      {%- comment -%}
+        Title, intro and all four panels share one wrapper — the page reads as a
+        single block rather than a header followed by a separate band.
+      {%- endcomment -%}
       {%- if section.settings.page_title != blank -%}
         <h1 class="wb-large-heading wb-hiw-title">{{ section.settings.page_title | escape }}</h1>
       {%- endif -%}
       {%- if page.content != blank -%}
         <div class="wb-hiw-intro wb-collection-copy">{{ page.content }}</div>
       {%- endif -%}
-    </div>
-  </header>
-{%- endif -%}
-
-<div class="wb-banded">
-  <div class="wb-container">
-    <div class="wb-padding">
 
       {%- if section.blocks.size > 0 -%}
         <ol class="wb-hiw-steps" role="list">
@@ -118,7 +116,7 @@
     gap: 20px;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 28px 0 0;
   }
 
   .wb-hiw-step {
