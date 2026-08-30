@@ -1,0 +1,121 @@
+/* ── Continuous marquee ───────────────────────────────────────────────────────
+   Replaces Glide on the site's decorative scrolling strips (reviews, collabs,
+   features, gift reel). Those had no arrows, bullets or dragging — they only
+   needed to move continuously — so a full carousel engine was doing nothing a
+   CSS animation can't, at real cost:
+
+   - Glide's `autoplay: 1` was a polling loop: ~1,000 clearInterval/setInterval
+     cycles a second per carousel, nearly all no-ops, waiting for the current
+     transition to finish. When the main thread was busy the polling competed
+     and the motion visibly stuttered.
+   - `type: 'carousel'` fakes infinity with cloned slides and, at the wrap,
+     disables the transition to snap the transform back — an inherent jump once
+     per cycle that no setting fixes.
+
+   This runs on the compositor, so main-thread load can't stutter it, and the
+   track is duplicated rather than cloned-and-reset, so there is no wrap at all.
+
+   USAGE
+     <div class="wb-marquee" style="--wb-marquee-duration: 40s">
+       <div class="wb-marquee__track">
+         … items …            <- rendered TWICE, second set aria-hidden
+       </div>
+     </div>
+
+   The second copy is what makes it seamless: translating by exactly -50% lands
+   the duplicate where the original started.
+
+   Item spacing uses margin-right, NOT flex `gap`. With `gap`, 2N items have
+   2N-1 gaps, so half the track is not exactly one set and the loop drifts.
+   A uniform margin makes every item the same outer width, so -50% is exact.
+─────────────────────────────────────────────────────────────────────────────── */
+
+.wb-marquee {
+  overflow: hidden;
+}
+
+.wb-marquee__track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: wb-marquee-scroll var(--wb-marquee-duration, 60s) linear infinite;
+  will-change: transform;
+}
+
+/* Matches the hoverpause the Glide config used. */
+.wb-marquee:hover .wb-marquee__track,
+.wb-marquee:focus-within .wb-marquee__track {
+  animation-play-state: paused;
+}
+
+.wb-marquee__item {
+  flex: 0 0 auto;
+  width: var(--wb-marquee-item, 300px);
+  margin-right: var(--wb-marquee-gap, 20px);
+}
+
+@keyframes wb-marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Respect the OS setting — a permanently moving strip is a genuine problem for
+   some people, and there are no controls to stop it. */
+@media (prefers-reduced-motion: reduce) {
+  .wb-marquee__track {
+    animation: none;
+    /* Without the animation the duplicate set is dead weight, so hide it and
+       let the first set simply wrap. */
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+  .wb-marquee__item[aria-hidden='true'] {
+    display: none;
+  }
+}
+
+/* ── Per-strip sizing ────────────────────────────────────────────────────────
+   Item widths are viewport-relative because the track is `width: max-content`,
+   so a percentage would resolve against the track, not the container.
+
+   These reproduce each old Glide config's perView/gap. Glide breakpoints are
+   MAX-width, so the equivalent min-width queries start one pixel higher (601 /
+   769 / 1025) — hence the odd-looking numbers. */
+
+/* Reviews — perView 1 / 2 / 3, gap 20 / 30 / 60 */
+.wb-testimonials { --wb-marquee-item: 82vw; --wb-marquee-gap: 20px; }
+@media screen and (min-width: 601px) {
+  .wb-testimonials { --wb-marquee-item: 42vw; --wb-marquee-gap: 30px; }
+}
+@media screen and (min-width: 769px) {
+  .wb-testimonials { --wb-marquee-item: 28vw; --wb-marquee-gap: 60px; }
+}
+
+/* Collabs — perView 2 / 3 / 4, gap 20 / 30 / 40 */
+.wb-collabs { --wb-marquee-item: 42vw; --wb-marquee-gap: 20px; }
+@media screen and (min-width: 601px) {
+  .wb-collabs { --wb-marquee-item: 28vw; --wb-marquee-gap: 30px; }
+}
+@media screen and (min-width: 769px) {
+  .wb-collabs { --wb-marquee-item: 21vw; --wb-marquee-gap: 40px; }
+}
+
+/* Features (about page) — gap 10 / 10 / 100.
+   No item width here: `.wb-logos li` in wb-about.css already sets the logo box
+   (150 / 200 / 300px) and beats `.wb-marquee__item` on specificity. Glide used
+   to override it with an inline per-slide width; nothing does now, so
+   wb-about.css is the single source of truth for logo size. */
+.wb-features { --wb-marquee-gap: 10px; }
+@media screen and (min-width: 1025px) {
+  .wb-features { --wb-marquee-gap: 100px; }
+}
+
+/* Gift reel — perView 3 / 4 / 4, gap 20 / 30 / 40 */
+.wb-gifts { --wb-marquee-item: 30vw; --wb-marquee-gap: 20px; }
+@media screen and (min-width: 601px) {
+  .wb-gifts { --wb-marquee-item: 21vw; --wb-marquee-gap: 30px; }
+}
+@media screen and (min-width: 769px) {
+  .wb-gifts { --wb-marquee-item: 21vw; --wb-marquee-gap: 40px; }
+}

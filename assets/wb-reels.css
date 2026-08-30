@@ -1,10 +1,9 @@
-.glide__track {
-    overflow: visible;
-}
+/* Styling for the scrolling image/review strips (reviews, gift reel, collabs).
 
-.glide__slides {
-    align-items: center;
-}
+   Was glide.custom.css. Renamed 2026-08-30 when those strips moved off Glide to
+   the CSS marquee in wb-marquee.css — nothing here is Glide-specific any more.
+   The two rules that were (.glide__track overflow, .glide__slides alignment)
+   are gone; wb-marquee.css handles both. */
 
 .wb-review {
     text-align: center;
