@@ -32,7 +32,7 @@
         <ol class="wb-hiwh-steps" role="list">
           {%- for block in section.blocks -%}
             <li
-              class="wb-hiwh-step wb-background-{{ block.settings.background | default: 'blue' }}-opacity"
+              class="wb-hiwh-step wb-hiwh-step--{{ block.settings.background | default: 'blue' }} wb-background-{{ block.settings.background | default: 'blue' }}-opacity"
               {{ block.shopify_attributes }}
             >
               <div class="wb-hiwh-step__text">
@@ -137,6 +137,18 @@
     margin-bottom: 8px;
     line-height: 1;
   }
+
+  /* Step number tinted to its own panel. These are the `.wb-darker` values
+     from wb-base.css — the same hues as the panels, but saturated enough to
+     read. The panel's own pastel would be invisible on a 0.3-opacity tint of
+     itself. Kept as literal hex because the wb-darker utilities set
+     background-color, not color. */
+  .wb-hiwh-step--blue   .wb-hiwh-step__num { color: #3b5ea1; }
+  .wb-hiwh-step--brown  .wb-hiwh-step__num { color: #a56437; }
+  .wb-hiwh-step--green  .wb-hiwh-step__num { color: #129776; }
+  .wb-hiwh-step--purple .wb-hiwh-step__num { color: #8f5ea7; }
+  .wb-hiwh-step--red    .wb-hiwh-step__num { color: #da5252; }
+  .wb-hiwh-step--yellow .wb-hiwh-step__num { color: #e6b82b; }
 
   .wb-hiwh-step__title {
     font-size: 26px;
