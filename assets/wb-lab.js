@@ -858,14 +858,27 @@
               /* Scroll to the pie chart, not the naming step — the point of a
                  preset is to show what it built. Falls back to the save panel
                  if the pie isn't present. The naming hints are still primed so
-                 they're waiting when the customer scrolls down. */
-              var target = document.getElementById('wb-lab-pie') ||
-                           document.getElementById('wb-save-panel');
-              if (target) {
-                target.scrollIntoView({
-                  behavior: 'smooth',
-                  block: target.id === 'wb-lab-pie' ? 'center' : 'start'
-                });
+                 they're waiting when the customer scrolls down.
+
+                 Centring the pie is done by hand rather than with
+                 scrollIntoView({block:'center'}) so it can carry on past centre
+                 by EXTRA px. Centred exactly, the sticky fill meter floats over
+                 the bottom of the chart (measured: 97px covered on a 390x844
+                 phone, 56px on a 1440x780 laptop), which reads as the scroll
+                 stopping short. Going a little further lifts the chart clear of
+                 the meter. Nothing on the page moves — this only changes where
+                 the scroll lands. */
+              var EXTRA = 150;
+              var pie = document.getElementById('wb-lab-pie');
+              if (pie) {
+                var box = pie.getBoundingClientRect();
+                var centred = window.pageYOffset + box.top + (box.height / 2) - (window.innerHeight / 2);
+                /* Browsers clamp to the document end on their own, so a short
+                   page simply scrolls as far as it can. */
+                window.scrollTo({ top: centred + EXTRA, behavior: 'smooth' });
+              } else {
+                var panel = document.getElementById('wb-save-panel');
+                if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }
               initFieldHints();
             });
