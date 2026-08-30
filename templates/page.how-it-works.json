@@ -25,7 +25,7 @@
           "settings": {
             "step_number": "One",
             "heading": "Select your whiskies",
-            "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add from the ones you fancy until you reach 100%. No expertise needed — trust your instincts.</p>",
+            "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add from the ones you like the sound of until you reach 100%.</p>",
             "image": "shopify://shop_images/hiw_one.gif",
             "button_label": "",
             "button_url": ""
@@ -47,7 +47,7 @@
           "settings": {
             "step_number": "Three",
             "heading": "Design your label",
-            "body": "<p>The label updates as you type, so you see exactly what’s going on the bottle before our blenders make your recipe by hand. It arrives in a jute gift bag and recipe card.</p>",
+            "body": "<p>The label updates as you type, so you see exactly what’s going on the bottle before our blenders make your recipe by hand.</p>",
             "image": "shopify://shop_images/hiw_three.gif",
             "button_label": "",
             "button_url": ""

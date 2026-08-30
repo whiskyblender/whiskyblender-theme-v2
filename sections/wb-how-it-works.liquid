@@ -56,6 +56,37 @@
   </div>
 {%- endfor -%}
 
+{%- comment -%}
+  Closing CTA. The page previously ended on the last step with nothing to act
+  on — a reader who gets this far is about as high-intent as the site sees.
+  Same panel treatment as the homepage how-it-works section so the two match.
+{%- endcomment -%}
+{%- if section.settings.cta_heading != blank or section.settings.button_label != blank -%}
+  <div class="wb-banded">
+    <div class="wb-container">
+      <div class="wb-padding">
+        <div class="wb-hiw-endcta wb-background-{{ section.settings.cta_background | default: 'yellow' }}-opacity">
+          <div class="wb-hiw-endcta__text">
+            {%- if section.settings.cta_heading != blank -%}
+              <h2 class="wb-hiw-endcta__title">{{ section.settings.cta_heading | escape }}</h2>
+            {%- endif -%}
+            {%- if section.settings.cta_body != blank -%}
+              <p class="wb-hiw-endcta__body">{{ section.settings.cta_body }}</p>
+            {%- endif -%}
+          </div>
+          {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+            <div class="wb-buttons wb-hiw-endcta__action">
+              <a href="{{ section.settings.button_url }}" class="wb-button wb-primary-button">
+                {{ section.settings.button_label | escape }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
 <style>
   .wb-hiw-title { margin: 0; }
   .wb-hiw-intro { margin-top: 16px; max-width: 640px; }
@@ -108,6 +139,25 @@
 
   .wb-hiw-cta { margin-top: 24px; }
 
+  .wb-hiw-endcta {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    border-radius: 8px;
+    padding: 28px 24px;
+  }
+
+  .wb-hiw-endcta__title {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 8px;
+    color: #111;
+  }
+
+  .wb-hiw-endcta__body { margin: 0; max-width: 46ch; }
+  .wb-hiw-endcta__action { margin: 0; }
+
   #shopify-section-how_it_works + .shopify-section .wb-banded {
     background-color: #ffffff;
   }
@@ -127,6 +177,26 @@
     .wb-hiw-image {
       flex: auto;
     }
+
+    /* Same geometry as a step above, so the button column lines up with the
+       images. Matches the homepage section. */
+    .wb-hiw-endcta {
+      flex-direction: row;
+      align-items: center;
+      column-gap: 80px;
+      row-gap: 0;
+      padding: 40px;
+    }
+
+    .wb-hiw-endcta__text { flex: 0 0 50%; }
+    .wb-hiw-endcta__action { flex: auto; min-width: 0; }
+
+    .wb-hiw-endcta__action .wb-button {
+      width: 100%;
+      margin: 0;
+    }
+
+    .wb-hiw-endcta__title { font-size: 26px; }
   }
 
   @media screen and (min-width: 1024px) {
@@ -145,6 +215,47 @@
       "id": "page_title",
       "label": "Page title (H1)",
       "default": "How it works"
+    },
+    {
+      "type": "header",
+      "content": "Closing call to action"
+    },
+    {
+      "type": "text",
+      "id": "cta_heading",
+      "label": "CTA heading",
+      "default": "Ready to create your whisky?"
+    },
+    {
+      "type": "text",
+      "id": "cta_body",
+      "label": "CTA text",
+      "default": "No expertise needed \u2014 trust your instincts, have fun, and get blending!"
+    },
+    {
+      "type": "select",
+      "id": "cta_background",
+      "label": "Panel colour",
+      "default": "yellow",
+      "options": [
+        { "value": "yellow", "label": "Yellow" },
+        { "value": "blue", "label": "Blue" },
+        { "value": "brown", "label": "Brown" },
+        { "value": "green", "label": "Green" },
+        { "value": "purple", "label": "Purple" },
+        { "value": "red", "label": "Red" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Enter the lab"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
     }
   ],
   "blocks": [
