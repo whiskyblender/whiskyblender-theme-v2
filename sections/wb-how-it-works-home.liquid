@@ -72,7 +72,7 @@
         while still marking the end of the sequence.
       {%- endcomment -%}
       {%- if section.settings.cta_heading != blank or section.settings.button_label != blank -%}
-        <div class="wb-hiwh-cta wb-background-{{ section.settings.cta_background | default: 'green' }}-opacity">
+        <div class="wb-hiwh-cta wb-background-{{ section.settings.cta_background | default: 'yellow' }}-opacity">
           <div class="wb-hiwh-cta__text">
             {%- if section.settings.cta_heading != blank -%}
               <h3 class="wb-hiwh-cta__title">{{ section.settings.cta_heading | escape }}</h3>
@@ -193,7 +193,7 @@
     .wb-hiwh-step {
       flex-direction: row;
       align-items: center;
-      column-gap: 40px;
+      column-gap: 60px;
       row-gap: 0;
       padding: 40px;
     }
@@ -261,7 +261,7 @@
       "type": "select",
       "id": "cta_background",
       "label": "Panel colour",
-      "default": "green",
+      "default": "yellow",
       "options": [
         { "value": "brown", "label": "Brown" },
         { "value": "blue", "label": "Blue" },
