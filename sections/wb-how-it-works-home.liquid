@@ -67,12 +67,12 @@
       {%- endif -%}
 
       {%- comment -%}
-        CTA panel — the payoff after the steps. Uses a SOLID wb-background-*
-        class rather than the -opacity variant the steps use, so it carries
-        weight against them and reads as the thing to act on.
+        CTA panel — the payoff after the steps. Same -opacity background
+        family as the steps, in its own colour, so it reads as part of the set
+        while still marking the end of the sequence.
       {%- endcomment -%}
       {%- if section.settings.cta_heading != blank or section.settings.button_label != blank -%}
-        <div class="wb-hiwh-cta wb-background-{{ section.settings.cta_background | default: 'brown' }}">
+        <div class="wb-hiwh-cta wb-background-{{ section.settings.cta_background | default: 'green' }}-opacity">
           <div class="wb-hiwh-cta__text">
             {%- if section.settings.cta_heading != blank -%}
               <h3 class="wb-hiwh-cta__title">{{ section.settings.cta_heading | escape }}</h3>
@@ -261,8 +261,7 @@
       "type": "select",
       "id": "cta_background",
       "label": "Panel colour",
-      "default": "brown",
-      "info": "Solid colour, so the panel stands out against the lighter step panels.",
+      "default": "green",
       "options": [
         { "value": "brown", "label": "Brown" },
         { "value": "blue", "label": "Blue" },
