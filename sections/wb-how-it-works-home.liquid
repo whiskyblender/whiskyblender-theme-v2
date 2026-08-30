@@ -35,29 +35,31 @@
               class="wb-hiwh-step wb-background-{{ block.settings.background | default: 'blue' }}"
               {{ block.shopify_attributes }}
             >
+              <div class="wb-hiwh-step__text">
+                {%- if block.settings.step_number != blank -%}
+                  <p class="wb-hiwh-step__num">{{ block.settings.step_number | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="wb-hiwh-step__title">{{ block.settings.heading | escape }}</h3>
+                {%- endif -%}
+                {%- if block.settings.body != blank -%}
+                  <div class="wb-hiwh-step__body">{{ block.settings.body }}</div>
+                {%- endif -%}
+              </div>
+
               {%- if block.settings.image != blank -%}
                 <div class="wb-hiwh-step__media">
                   {{
                     block.settings.image
-                    | image_url: width: 700
+                    | image_url: width: 1200
                     | image_tag:
                       loading: 'lazy',
-                      widths: '300, 500, 700',
-                      sizes: '(max-width: 767px) 90vw, 30vw',
+                      widths: '500, 800, 1200',
+                      sizes: '(max-width: 767px) 90vw, 45vw',
                       alt: block.settings.heading,
                       class: 'wb-hiwh-step__img'
                   }}
                 </div>
-              {%- endif -%}
-
-              {%- if block.settings.step_number != blank -%}
-                <p class="wb-hiwh-step__num">{{ block.settings.step_number | escape }}</p>
-              {%- endif -%}
-              {%- if block.settings.heading != blank -%}
-                <h3 class="wb-hiwh-step__title">{{ block.settings.heading | escape }}</h3>
-              {%- endif -%}
-              {%- if block.settings.body != blank -%}
-                <div class="wb-hiwh-step__body">{{ block.settings.body }}</div>
               {%- endif -%}
             </li>
           {%- endfor -%}
@@ -88,7 +90,13 @@
     margin: 28px 0 0;
   }
 
+  /* Full-width panels, stacked. Each one is itself a flex container so the
+     text and image can sit 50/50 from tablet up — the same shape as a step on
+     the How It Works page, just with a coloured panel around it. */
   .wb-hiwh-step {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
     border-radius: 8px;
     padding: 28px 24px;
   }
@@ -96,7 +104,6 @@
   .wb-hiwh-step__media {
     border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 20px;
     background-color: rgba(255, 255, 255, 0.5);
   }
 
@@ -134,20 +141,23 @@
   .wb-hiwh-cta { margin-top: 28px; }
 
   @media screen and (min-width: 768px) {
-    /* Panels sit side by side and stretch to a shared height, so the coloured
-       blocks line up even when the copy lengths differ. */
-    .wb-hiwh-steps {
-      flex-direction: row;
-      align-items: stretch;
-      margin-top: 32px;
-    }
+    .wb-hiwh-steps { margin-top: 32px; }
 
+    /* 50/50 inside each full-width panel, matching the How It Works page.
+       flex-basis 50% on the text and `auto` on the media mirrors
+       .wb-hiw-text / .wb-hiw-image there. */
     .wb-hiwh-step {
-      flex: 1;
-      padding: 32px 28px;
+      flex-direction: row;
+      align-items: center;
+      column-gap: 40px;
+      row-gap: 0;
+      padding: 40px;
     }
 
-    .wb-hiwh-step__title { font-size: 24px; }
+    .wb-hiwh-step__text { flex: 0 0 50%; }
+    .wb-hiwh-step__media { flex: auto; min-width: 0; }
+
+    .wb-hiwh-step__title { font-size: 26px; }
   }
 </style>
 
