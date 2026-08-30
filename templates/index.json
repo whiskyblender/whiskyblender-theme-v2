@@ -209,11 +209,55 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "wb_how_it_works_home": {
+      "type": "wb-how-it-works-home",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "step_number": "One",
+            "heading": "Select your whiskies",
+            "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add from the ones you fancy until you reach 100%. No expertise needed — trust your instincts.</p>",
+            "background": "blue"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "step_number": "Two",
+            "heading": "Name and bottle it",
+            "body": "<p>Give your whisky a name (or use our handy generator to suggest something), declare yourself as the creator, and then choose which bottle you want filled with it.</p>",
+            "background": "yellow"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "step_number": "Three",
+            "heading": "Design your label",
+            "body": "<p>The label updates as you type, so you see exactly what’s going on the bottle before our blenders make your recipe by hand. It arrives in a jute gift bag and recipe card.</p>",
+            "background": "green"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "heading": "How it works",
+        "description": "Three steps from a blank slate to a bottle of Scotch that exists nowhere else.",
+        "button_label": "Start blending",
+        "button_url": "shopify://pages/the-lab"
+      }
     }
   },
   "order": [
     "main_landing",
     "main_reviews",
+    "wb_how_it_works_home",
     "wb_occasions_compact",
     "wb_cta_foryersel",
     "featured_collection_93jqNG",
