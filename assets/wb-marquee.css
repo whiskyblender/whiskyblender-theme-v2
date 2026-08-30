@@ -60,8 +60,11 @@
   will-change: transform;
 }
 
-/* Matches the hoverpause the Glide config used. */
-.wb-marquee:hover .wb-marquee__track,
+/* Pauses on keyboard focus only, not hover. Glide's hoverpause made the strips
+   stall whenever the pointer crossed them, which on a wide strip is most of the
+   time. Focus is kept because tabbing into a link on a moving strip and having
+   it slide away is a real problem, and it only triggers on deliberate keyboard
+   navigation. */
 .wb-marquee:focus-within .wb-marquee__track {
   animation-play-state: paused;
 }
@@ -130,7 +133,12 @@
    wb-about.css is the single source of truth for logo size. */
 .wb-features { --wb-marquee-gap: 10px; }
 @media screen and (min-width: 1025px) {
-  .wb-features { --wb-marquee-gap: 100px; }
+  /* Glide used 100px here. Against 300px logos that spent a quarter of the
+     strip on empty space and showed barely three at a time; 40px fits noticeably
+     more without them running together. Gap is the lever, not a count — the
+     track is width: max-content, so items per screen falls out of
+     logo width + gap against the viewport. */
+  .wb-features { --wb-marquee-gap: 40px; }
 }
 
 /* Gift reel — perView 3 / 4 / 4, gap 20 / 30 / 40 */
