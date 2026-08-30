@@ -74,9 +74,15 @@
               <p class="wb-hiw-endcta__body">{{ section.settings.cta_body }}</p>
             {%- endif -%}
           </div>
-          {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+          {%- comment -%}
+            Only the label is required. A `url` setting's schema `default` is not
+            applied by Shopify (shopify:// routes resolve only when picked in the
+            editor), so the fallback lives here instead — otherwise the button
+            silently never renders.
+          {%- endcomment -%}
+          {%- if section.settings.button_label != blank -%}
             <div class="wb-buttons wb-hiw-endcta__action">
-              <a href="{{ section.settings.button_url }}" class="wb-button wb-primary-button">
+              <a href="{{ section.settings.button_url | default: '/pages/the-lab' }}" class="wb-button wb-primary-button">
                 {{ section.settings.button_label | escape }}
               </a>
             </div>
@@ -255,7 +261,8 @@
     {
       "type": "url",
       "id": "button_url",
-      "label": "Button link"
+      "label": "Button link",
+      "info": "Optional \u2014 defaults to the Lab."
     }
   ],
   "blocks": [
