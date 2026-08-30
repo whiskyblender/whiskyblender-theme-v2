@@ -27,9 +27,9 @@
             "heading": "Select your whiskies",
             "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add from the ones you like the sound of until you reach 100%.</p>",
             "image": "shopify://shop_images/hiw_one.gif",
+            "background": "green",
             "button_label": "",
-            "button_url": "",
-            "background": "green"
+            "button_url": ""
           }
         },
         "step_two": {
@@ -39,9 +39,9 @@
             "heading": "Name and bottle it",
             "body": "<p>Give your whisky a name (or use our handy generator to suggest something), declare yourself as the creator, and then choose which bottle you want filled with it.</p>",
             "image": "shopify://shop_images/hiw_two.gif",
+            "background": "brown",
             "button_label": "",
-            "button_url": "",
-            "background": "brown"
+            "button_url": ""
           }
         },
         "step_three": {
@@ -51,9 +51,9 @@
             "heading": "Design your label",
             "body": "<p>The label updates as you type, so you see exactly what’s going on the bottle before our blenders make your recipe by hand.</p>",
             "image": "shopify://shop_images/hiw_three.gif",
+            "background": "blue",
             "button_label": "",
-            "button_url": "",
-            "background": "blue"
+            "button_url": ""
           }
         }
       },
@@ -64,22 +64,27 @@
       ],
       "name": "How it works",
       "settings": {
-        "page_title": "How it works"
+        "page_title": "How it works",
+        "cta_heading": "Ready to create your whisky?",
+        "cta_body": "No expertise needed — trust your instincts, have fun, and get blending!",
+        "cta_background": "yellow",
+        "button_label": "Enter the lab",
+        "button_url": ""
       }
     },
     "wb_cta_something_unique": {
       "type": "wb-cta",
       "name": "CTA - Something unique",
       "settings": {
-        "background": "auto",
-        "heading": "Ready for the lab?",
-        "description": "Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you'll be proud to pour, share, and savour.",
+        "heading": "Match made in whisky",
+        "description": "Whisky comes in all sorts of characters, from bold and smoky to smooth and refined. Match the blend to the person, add a personal label, and you’ve got a gift that feels made just for them.",
         "image": "shopify://shop_images/wb-foryersel.png",
         "image_class": "wb-foryersel",
-        "primary_button_text": "Start blending",
-        "primary_button_url": "shopify://pages/the-lab",
-        "secondary_button_text": "Pre-made blends",
-        "secondary_button_url": "shopify://pages/perfect-drams"
+        "primary_button_text": "Find a perfect dram",
+        "primary_button_url": "shopify://pages/perfect-drams",
+        "secondary_button_text": "",
+        "secondary_button_url": "shopify://pages/perfect-drams",
+        "background": "auto"
       }
     }
   },
