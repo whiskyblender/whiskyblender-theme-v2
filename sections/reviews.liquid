@@ -9,7 +9,7 @@
         seamless (see assets/wb-marquee.css). Duration is one full pass of a
         single set, so it matches the old 4s-per-slide pace.
       {%- endcomment -%}
-      {%- assign marquee_duration = section.blocks.size | times: 4 -%}
+      {%- assign marquee_duration = section.blocks.size | times: 2.5 -%}
       <div
         class="wb-marquee wb-testimonials"
         style="--wb-marquee-duration: {{ marquee_duration }}s"

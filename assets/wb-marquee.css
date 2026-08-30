@@ -35,6 +35,11 @@
 }
 
 .wb-marquee__track {
+  /* The track is a <ul>. glide.core.css used to zero these on .glide__slides;
+     without it the browser's default disc bullets and padding come back. */
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   width: max-content;
   align-items: center;

@@ -64,7 +64,7 @@
           Rendered twice: the marquee scrolls by exactly -50%, so the second set
           lands seamlessly where the first began. See wb-marquee.css.
         {%- endcomment -%}
-        {%- assign marquee_duration = section.blocks.size | times: 2 -%}
+        {%- assign marquee_duration = section.blocks.size | times: 1.2 -%}
         <div class="wb-marquee wb-features" style="--wb-marquee-duration: {{ marquee_duration }}s">
           <ul class="wb-marquee__track wb-logos" role="list">
             {%- for i in (1..2) -%}
