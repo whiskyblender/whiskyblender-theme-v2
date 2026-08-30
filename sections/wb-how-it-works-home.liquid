@@ -1,0 +1,242 @@
+{%- comment -%}
+  Homepage "how it works" — a condensed version of the How It Works page.
+
+  On that page each step is its own banded section. Here all the steps live in a
+  single section as coloured panels, so the homepage gives the gist without
+  handing over three full bands.
+
+  NO `tag` or `class` in the schema — Shopify's default `<div class="shopify-section">`
+  wrapper is what the banding system counts
+  (`.shopify-section:nth-of-type(even) section.wb-banded` in wb-base.css).
+  `nth-of-type` counts within an element type, so emitting a `<section>` wrapper
+  drops this out of the div sequence and flips the banding of everything below.
+
+  The heading and intro deliberately reuse the same markup as the occasions
+  strip (`.wb-medium-heading` + a plain paragraph) so the two read as a pair.
+
+  Panel colours come from the existing `wb-background-*` utilities in wb-base.css
+  — all six are light pastels, so the dark text works on any of them.
+{%- endcomment -%}
+
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="wb-medium-heading wb-hiwh-heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="wb-hiwh-intro">{{ section.settings.description }}</p>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ol class="wb-hiwh-steps" role="list">
+          {%- for block in section.blocks -%}
+            <li
+              class="wb-hiwh-step wb-background-{{ block.settings.background | default: 'blue' }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.image != blank -%}
+                <div class="wb-hiwh-step__media">
+                  {{
+                    block.settings.image
+                    | image_url: width: 700
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '300, 500, 700',
+                      sizes: '(max-width: 767px) 90vw, 30vw',
+                      alt: block.settings.heading,
+                      class: 'wb-hiwh-step__img'
+                  }}
+                </div>
+              {%- endif -%}
+
+              {%- if block.settings.step_number != blank -%}
+                <p class="wb-hiwh-step__num">{{ block.settings.step_number | escape }}</p>
+              {%- endif -%}
+              {%- if block.settings.heading != blank -%}
+                <h3 class="wb-hiwh-step__title">{{ block.settings.heading | escape }}</h3>
+              {%- endif -%}
+              {%- if block.settings.body != blank -%}
+                <div class="wb-hiwh-step__body">{{ block.settings.body }}</div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank and section.settings.button_url != blank -%}
+        <div class="wb-buttons wb-hiwh-cta">
+          <a href="{{ section.settings.button_url }}" class="wb-button wb-primary-button">
+            {{ section.settings.button_label | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .wb-hiwh-heading { margin-bottom: 8px; }
+  .wb-hiwh-intro { margin-top: 0; max-width: 620px; }
+
+  .wb-hiwh-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+  }
+
+  .wb-hiwh-step {
+    border-radius: 8px;
+    padding: 28px 24px;
+  }
+
+  .wb-hiwh-step__media {
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+
+  .wb-hiwh-step__img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .wb-hiwh-step__num {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.45);
+    margin: 0 0 6px;
+  }
+
+  .wb-hiwh-step__title {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 10px;
+    color: #111;
+  }
+
+  .wb-hiwh-step__body {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .wb-hiwh-step__body > p { margin: 0 0 10px; }
+  .wb-hiwh-step__body > p:last-child { margin-bottom: 0; }
+
+  .wb-hiwh-cta { margin-top: 28px; }
+
+  @media screen and (min-width: 768px) {
+    /* Panels sit side by side and stretch to a shared height, so the coloured
+       blocks line up even when the copy lengths differ. */
+    .wb-hiwh-steps {
+      flex-direction: row;
+      align-items: stretch;
+      margin-top: 32px;
+    }
+
+    .wb-hiwh-step {
+      flex: 1;
+      padding: 32px 28px;
+    }
+
+    .wb-hiwh-step__title { font-size: 24px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "WB How it works (home)",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "A condensed version of the How It Works page for the homepage — all steps in one section as coloured panels. Panels sit side by side from tablet up."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How it works"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Three steps from a blank slate to a bottle of Scotch that exists nowhere else."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Start blending"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_number",
+          "label": "Step label",
+          "default": "One"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Step heading"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Body text"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Optional. Leave empty for a text-only panel — lighter for homepage load speed."
+        },
+        {
+          "type": "select",
+          "id": "background",
+          "label": "Panel colour",
+          "default": "blue",
+          "options": [
+            { "value": "blue", "label": "Blue" },
+            { "value": "brown", "label": "Brown" },
+            { "value": "green", "label": "Green" },
+            { "value": "purple", "label": "Purple" },
+            { "value": "red", "label": "Red" },
+            { "value": "yellow", "label": "Yellow" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB How it works (home)",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}
