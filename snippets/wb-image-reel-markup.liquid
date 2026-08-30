@@ -1,36 +1,25 @@
+{%- comment -%}
+  Images are rendered twice: the marquee scrolls by exactly -50%, so the second
+  set lands seamlessly where the first began. See wb-marquee.css.
 
-  <div class="glide wb-gifts">
-  <div class="glide__track" data-glide-el="track">
-    <ul class="glide__slides wb-giftphotos">
+  Duration scales with the number of images so the strip travels at a constant
+  speed regardless of how many are configured.
+{%- endcomment -%}
+{%- assign marquee_duration = reel_images.size | times: 5 -%}
+<div class="wb-marquee wb-gifts" style="--wb-marquee-duration: {{ marquee_duration }}s">
+  <ul class="wb-marquee__track wb-giftphotos" role="list">
+    {%- for i in (1..2) -%}
       {%- for image in reel_images -%}
-        <li class="glide__slide wb-giftphoto">
+        <li class="wb-marquee__item wb-giftphoto"{% if forloop.parentloop.index == 2 %} aria-hidden="true"{% endif %}>
           <img
             src="{{ image | asset_url }}"
-            alt="Whiskyblender product photo"
+            alt="{% if forloop.parentloop.index == 1 %}Whiskyblender product photo{% endif %}"
             width="2500"
             height="5200"
+            loading="lazy"
           >
         </li>
       {%- endfor -%}
-    </ul>
-  </div>
+    {%- endfor -%}
+  </ul>
 </div>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    if (document.querySelector('.wb-gifts')) {
-      new Glide('.wb-gifts', {
-        type: 'carousel',
-        gap: 40,
-        perView: 4,
-        autoplay: 1,
-        animationDuration: 5000,
-        animationTimingFunc: 'linear',
-        hoverpause: true,
-        breakpoints: {
-          600: { perView: 3, gap: 20 },
-          768: { perView: 4, gap: 30 },
-        },
-      }).mount();
-    }
-  });
-</script>

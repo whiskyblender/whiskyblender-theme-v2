@@ -5,9 +5,8 @@
   {%- if wb_block.type == 'image_reel' -%}{%- assign wb_has_image_reel = true -%}{%- endif -%}
 {%- endfor -%}
 {%- if wb_has_image_reel -%}
-  {{ 'glide.core.css' | asset_url | stylesheet_tag }}
-  {{ 'glide.custom.css' | asset_url | stylesheet_tag }}
-  <script src="{{ 'glide.js' | asset_url }}" defer></script>
+  {{ 'wb-marquee.css' | asset_url | stylesheet_tag }}
+  {{ 'wb-reels.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
 
 {%- style -%}

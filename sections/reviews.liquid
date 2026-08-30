@@ -1,51 +1,37 @@
-{{ 'glide.core.css' | asset_url | stylesheet_tag }}
-{{ 'glide.custom.css' | asset_url | stylesheet_tag }}
+{{ 'wb-marquee.css' | asset_url | stylesheet_tag }}
+{{ 'wb-reels.css' | asset_url | stylesheet_tag }}
 
 <section class="wb-banded wb-overflow-hidden-x">
   <div class="wb-container">
     <div class="wb-padding">
-      <div class="glide wb-testimonials">
-        <div class="glide__track" data-glide-el="track">
-          <ul class="glide__slides wb-reviews">
+      {%- comment -%}
+        Items are rendered twice — the duplicate set is what makes the loop
+        seamless (see assets/wb-marquee.css). Duration is one full pass of a
+        single set, so it matches the old 4s-per-slide pace.
+      {%- endcomment -%}
+      {%- assign marquee_duration = section.blocks.size | times: 4 -%}
+      <div
+        class="wb-marquee wb-testimonials"
+        style="--wb-marquee-duration: {{ marquee_duration }}s"
+      >
+        <ul class="wb-marquee__track wb-reviews" role="list">
+          {%- for i in (1..2) -%}
             {%- for block in section.blocks -%}
               <li
-                class="glide__slide wb-review"
+                class="wb-marquee__item wb-review"
                 style="background-image: url({{ block.settings.stars_image | asset_url }})"
-                {{ block.shopify_attributes }}
+                {% if forloop.parentloop.index == 2 %}aria-hidden="true"{% endif %}
+                {% if forloop.parentloop.index == 1 %}{{ block.shopify_attributes }}{% endif %}
               >
                 {{ block.settings.review_text }}
               </li>
             {%- endfor -%}
-          </ul>
-        </div>
+          {%- endfor -%}
+        </ul>
       </div>
     </div>
   </div>
 </section>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    new Glide('.wb-testimonials', {
-      type: 'carousel',
-      gap: 60,
-      perView: 3,
-      autoplay: 1,
-      animationDuration: 4000,
-      animationTimingFunc: 'linear',
-      hoverpause: true,
-      breakpoints: {
-        600: {
-          perView: 1,
-          gap: 20,
-        },
-        768: {
-          perView: 2,
-          gap: 30,
-        },
-      },
-    }).mount();
-  });
-</script>
-<script src="{{ 'glide.js' | asset_url }}" defer></script>
 
 {% schema %}
 {
