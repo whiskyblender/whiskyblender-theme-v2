@@ -862,12 +862,17 @@
 
                  Centring the pie is done by hand rather than with
                  scrollIntoView({block:'center'}) so it can carry on past centre
-                 by EXTRA px. Centred exactly, the sticky fill meter floats over
-                 the bottom of the chart (measured: 97px covered on a 390x844
-                 phone, 56px on a 1440x780 laptop), which reads as the scroll
-                 stopping short. Going a little further lifts the chart clear of
-                 the meter. Nothing on the page moves — this only changes where
-                 the scroll lands. */
+                 by EXTRA px, which is where Andrew wants it to land. Nothing on
+                 the page moves — this only changes where the scroll stops.
+
+                 Do not expect this to uncover the chart. The sticky fill meter
+                 overlaps the bottom of the pie by roughly 95px on a phone and
+                 65px on a laptop, and it is in normal flow at this scroll
+                 position, so it travels with the content: scrolling further
+                 moves the meter up by exactly as much as the pie (measured
+                 before and after — the overlap did not change by a pixel).
+                 Uncovering the chart would mean moving the meter or reserving
+                 space for it, not scrolling harder. */
               var EXTRA = 150;
               var pie = document.getElementById('wb-lab-pie');
               if (pie) {
