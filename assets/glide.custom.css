@@ -1,9 +1,10 @@
-/* Styling for the scrolling image/review strips (reviews, gift reel, collabs).
+.glide__track {
+    overflow: visible;
+}
 
-   Was glide.custom.css. Renamed 2026-08-30 when those strips moved off Glide to
-   the CSS marquee in wb-marquee.css — nothing here is Glide-specific any more.
-   The two rules that were (.glide__track overflow, .glide__slides alignment)
-   are gone; wb-marquee.css handles both. */
+.glide__slides {
+    align-items: center;
+}
 
 .wb-review {
     text-align: center;
@@ -44,45 +45,35 @@
     transform: scale(0.8) rotate(10deg);
 }
 
-/* Decorative offsets and rotations, keyed off the item's index WITHIN its set
-   (emitted as wb-reel-p*/wb-reel-r* by the Liquid) rather than :nth-of-type
-   over the whole track.
-
-   This matters: the track holds the items TWICE, and nth-of-type counts across
-   both copies. With 8 gift photos the :nth-of-type(3n) rotations landed on
-   different photos in the second set; with 9 collab photos the odd/even
-   margin-top did. Either way the duplicate looked unlike the original and the
-   loop point became visible — the one thing a seamless marquee must not do.
-   Index-within-set keeps item k and item k+N identical.
-
-   p0 = even (was :nth-of-type(even)); r0 = 3n, r2 = 3n-1, r1 = 3n-2. */
-
-.wb-giftphoto.wb-reel-p0 img,
-.wb-collabphoto.wb-reel-p0 img {
+.wb-giftphoto:nth-of-type(even) img {
     margin-top: 50px;
 }
 
-.wb-giftphoto.wb-reel-r0 img {
+.wb-giftphoto:nth-of-type(3n) img {
     transform: scale(0.8) rotate(20deg);
 }
 
-.wb-giftphoto.wb-reel-r2 img {
+.wb-giftphoto:nth-of-type(3n -1) img {
     transform: scale(0.8) rotate(10deg);
 }
 
-.wb-giftphoto.wb-reel-r1 img {
+.wb-giftphoto:nth-of-type(3n -2) img {
     transform: scale(0.8) rotate(-15deg);
 }
 
-.wb-collabphoto.wb-reel-r0 img {
+.wb-collabphoto:nth-of-type(even) img {
+    margin-top: 50px;
+}
+
+.wb-collabphoto:nth-of-type(3n) img {
     transform: scale(0.8) rotate(10deg);
 }
 
-.wb-collabphoto.wb-reel-r2 img {
+.wb-collabphoto:nth-of-type(3n -1) img {
     transform: scale(0.8) rotate(5deg);
 }
 
-.wb-collabphoto.wb-reel-r1 img {
+.wb-collabphoto:nth-of-type(3n -2) img {
     transform: scale(0.8) rotate(-8deg);
 }
 
