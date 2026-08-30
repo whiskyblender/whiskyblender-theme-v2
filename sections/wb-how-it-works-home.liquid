@@ -32,7 +32,7 @@
         <ol class="wb-hiwh-steps" role="list">
           {%- for block in section.blocks -%}
             <li
-              class="wb-hiwh-step wb-background-{{ block.settings.background | default: 'blue' }}"
+              class="wb-hiwh-step wb-background-{{ block.settings.background | default: 'blue' }}-opacity"
               {{ block.shopify_attributes }}
             >
               <div class="wb-hiwh-step__text">
