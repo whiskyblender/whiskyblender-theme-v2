@@ -19,24 +19,28 @@ p {
 }
 
 .wb-card-image,
-.wb-productimage {
+.wb-productimage,
+.wb-fade-media {
   background: linear-gradient(90deg, #ccd3db 30%, #dae0e5 50%, #ccd3db 70%);
   background-size: 600px 100%;
   animation: wb-shimmer 1.4s ease-in-out infinite;
 }
 .wb-card-image.wb-img-loaded,
-.wb-productimage.wb-img-loaded {
+.wb-productimage.wb-img-loaded,
+.wb-fade-media.wb-img-loaded {
   animation: none;
   background: none;
 }
 
 .wb-card-image img,
-.wb-productimage img {
+.wb-productimage img,
+.wb-fade-media img {
   opacity: 0;
   transition: opacity 0.35s ease;
 }
 .wb-card-image img.wb-img-loaded,
-.wb-productimage img.wb-img-loaded {
+.wb-productimage img.wb-img-loaded,
+.wb-fade-media img.wb-img-loaded {
   opacity: 1;
 }
 

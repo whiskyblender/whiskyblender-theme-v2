@@ -7,7 +7,7 @@
       {%- if section.settings.description != blank -%}
         <p>{{ section.settings.description }}</p>
       {%- endif -%}
-      <ul class="wb-cards wb-main-cards">
+      <ul class="wb-cards wb-main-cards wb-occasions-cards">
         {%- for block in section.blocks -%}
           <li {{ block.shopify_attributes }}>
             <a href="{{ block.settings.link }}">
@@ -29,6 +29,20 @@
     </div>
   </div>
 </section>
+
+<style>
+  /* Raleway rather than the TrimPoster display face, matching the homepage
+     occasions strip. Scoped to this section: .wb-main-cards is shared with the
+     blog, collection list, perfect drams and the WB grid, which should keep
+     Trim. The weight has to be restated because .wb-small-heading sets
+     font-weight: 100 and Raleway is only loaded at 300-700. */
+  .wb-occasions-cards .wb-small-heading {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: clamp(20px, 2.6vw, 30px);
+    line-height: 1.2;
+  }
+</style>
 
 {% schema %}
 {

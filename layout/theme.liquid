@@ -650,10 +650,10 @@
       (function () {
         function markLoaded(img) {
           img.classList.add('wb-img-loaded');
-          var wrap = img.closest('.wb-card-image, .wb-productimage');
+          var wrap = img.closest('.wb-card-image, .wb-productimage, .wb-fade-media');
           if (wrap) wrap.classList.add('wb-img-loaded');
         }
-        document.querySelectorAll('.wb-card-image img, .wb-productimage img').forEach(function (img) {
+        document.querySelectorAll('.wb-card-image img, .wb-productimage img, .wb-fade-media img').forEach(function (img) {
           if (img.complete && img.naturalWidth > 0) { markLoaded(img); }
           else img.addEventListener('load', function () { markLoaded(img); }, { once: true });
         });

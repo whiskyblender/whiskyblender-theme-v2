@@ -116,8 +116,14 @@
     padding: 16px 16px;
   }
 
+  /* Raleway rather than the TrimPoster display face .wb-small-heading normally
+     carries. That utility also sets font-weight: 100, which Raleway isn't
+     loaded at (the site loads 300-700) — so the weight has to be restated or
+     the browser synthesises a hairline. */
   .wb-occ-compact .wb-small-heading {
-    font-size: 6.4vw;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: clamp(16px, 5.4vw, 24px);
     line-height: 1.25;
     margin: 0;
   }
@@ -132,7 +138,7 @@
   @media screen and (min-width: 768px) {
     .wb-occ-compact { margin-top: 28px; }
     .wb-occ-compact .wb-card-image { height: 16vw; }
-    .wb-occ-compact .wb-small-heading { font-size: 3.4vw; }
+    .wb-occ-compact .wb-small-heading { font-size: clamp(17px, 1.9vw, 26px); }
 
     .wb-occ-compact .wb-card-details .wb-emoji {
       top: -56px;
