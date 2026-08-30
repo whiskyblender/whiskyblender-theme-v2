@@ -84,6 +84,33 @@
       html:has(#wb-age-gate.wb-age-gate--visible:not(.wb-age-gate--hidden)) #shopify-pc__banner { z-index: 99997 !important; }
     </style>
 
+    {%- comment -%}
+      Hide the chat bubble on the Lab. It sits bottom-right, which is exactly
+      where the sticky fill meter (.wb-sticky-lab) lives, and blending is a
+      focused multi-step task — the same reasoning that already suppresses the
+      email popup on this page. Done in Liquid rather than JS so the bubble
+      never flashes before being hidden. Selector list mirrors the age-gate
+      rule in snippets/wb-age-gate.liquid; shopify-chat (Shopify Inbox) is the
+      one actually installed, the rest are belt and braces.
+    {%- endcomment -%}
+    {%- if request.page_type == 'page' and page.handle == 'the-lab' -%}
+      <style>
+        shopify-chat,
+        #tidio-chat,
+        [id^="tidio-chat"],
+        #gorgias-chat-container,
+        #gorgias-chat-messenger,
+        .intercom-lightweight-app,
+        #intercom-container,
+        #crisp-chatbox,
+        iframe[src*="tidio"],
+        iframe[src*="gorgias"],
+        iframe[src*="intercom"] {
+          display: none !important;
+        }
+      </style>
+    {%- endif -%}
+
     <script>
       /* Self-hosted client-error capture. A JS exception in a customer's browser
          leaves no trace in the server logs, so a silent failure of the blend
