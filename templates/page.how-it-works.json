@@ -28,7 +28,8 @@
             "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add from the ones you like the sound of until you reach 100%.</p>",
             "image": "shopify://shop_images/hiw_one.gif",
             "button_label": "",
-            "button_url": ""
+            "button_url": "",
+            "background": "green"
           }
         },
         "step_two": {
@@ -39,7 +40,8 @@
             "body": "<p>Give your whisky a name (or use our handy generator to suggest something), declare yourself as the creator, and then choose which bottle you want filled with it.</p>",
             "image": "shopify://shop_images/hiw_two.gif",
             "button_label": "",
-            "button_url": ""
+            "button_url": "",
+            "background": "brown"
           }
         },
         "step_three": {
@@ -50,7 +52,8 @@
             "body": "<p>The label updates as you type, so you see exactly what’s going on the bottle before our blenders make your recipe by hand.</p>",
             "image": "shopify://shop_images/hiw_three.gif",
             "button_label": "",
-            "button_url": ""
+            "button_url": "",
+            "background": "blue"
           }
         }
       },
@@ -68,6 +71,7 @@
       "type": "wb-cta",
       "name": "CTA - Something unique",
       "settings": {
+        "background": "white",
         "heading": "Ready for the lab?",
         "description": "Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you'll be proud to pour, share, and savour.",
         "image": "shopify://shop_images/wb-foryersel.png",
@@ -75,8 +79,7 @@
         "primary_button_text": "Start blending",
         "primary_button_url": "shopify://pages/the-lab",
         "secondary_button_text": "Pre-made blends",
-        "secondary_button_url": "shopify://pages/perfect-drams",
-        "background": "white"
+        "secondary_button_url": "shopify://pages/perfect-drams"
       }
     }
   },
