@@ -1,3 +1,15 @@
+{%- comment -%}
+  How It Works page.
+
+  Steps are coloured `-opacity` panels, matching the homepage how-it-works
+  section (wb-how-it-works-home.liquid). They were previously one alternating
+  `wb-banded` block per step. Keep the two in step if either changes.
+
+  Panel colours come from the `wb-background-*` utilities in wb-base.css. The
+  step number is tinted to its own panel using the matching `.wb-darker` value:
+  the panel's own pastel would be invisible on a 0.3-opacity tint of itself.
+{%- endcomment -%}
+
 {%- if section.settings.page_title != blank or page.content != blank -%}
   <header class="wb-container">
     <div class="wb-padding">
@@ -11,60 +23,62 @@
   </header>
 {%- endif -%}
 
-{%- for block in section.blocks -%}
-  <div class="wb-banded" {{ block.shopify_attributes }}>
-    <div class="wb-container">
-      <div class="wb-padding wb-hiw-inner">
+<div class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
 
-        <div class="wb-hiw-text">
-          {%- if block.settings.step_number != blank -%}
-            <p class="wb-medium-heading wb-hiw-number">{{ block.settings.step_number | escape }}</p>
-          {%- endif -%}
-          {%- if block.settings.heading != blank -%}
-            <h2 class="wb-hiw-heading">{{ block.settings.heading | escape }}</h2>
-          {%- endif -%}
-          {%- if block.settings.body != blank -%}
-            <div class="rte">{{ block.settings.body }}</div>
-          {%- endif -%}
-          {%- if block.settings.button_label != blank and block.settings.button_url != blank -%}
-            <div class="wb-buttons wb-hiw-cta">
-              <a href="{{ block.settings.button_url }}" class="wb-button wb-primary-button">
-                {{ block.settings.button_label | escape }}
-              </a>
-            </div>
-          {%- endif -%}
-        </div>
+      {%- if section.blocks.size > 0 -%}
+        <ol class="wb-hiw-steps" role="list">
+          {%- for block in section.blocks -%}
+            <li
+              class="wb-hiw-step wb-hiw-step--{{ block.settings.background | default: 'green' }} wb-background-{{ block.settings.background | default: 'green' }}-opacity"
+              {{ block.shopify_attributes }}
+            >
+              <div class="wb-hiw-text">
+                {%- if block.settings.step_number != blank -%}
+                  <p class="wb-medium-heading wb-hiw-number">{{ block.settings.step_number | escape }}</p>
+                {%- endif -%}
+                {%- if block.settings.heading != blank -%}
+                  <h2 class="wb-hiw-heading">{{ block.settings.heading | escape }}</h2>
+                {%- endif -%}
+                {%- if block.settings.body != blank -%}
+                  <div class="rte">{{ block.settings.body }}</div>
+                {%- endif -%}
+                {%- if block.settings.button_label != blank -%}
+                  <div class="wb-buttons wb-hiw-cta">
+                    <a href="{{ block.settings.button_url | default: '/pages/the-lab' }}" class="wb-button wb-primary-button">
+                      {{ block.settings.button_label | escape }}
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
 
-        <div class="wb-hiw-image">
-          {%- if block.settings.image != blank -%}
-            {{
-              block.settings.image
-              | image_url: width: 1400
-              | image_tag:
-                loading: 'lazy',
-                widths: '600, 900, 1200, 1400',
-                sizes: '(max-width: 767px) 100vw, 60vw',
-                class: 'wb-hiw-img'
-            }}
-          {%- else -%}
-            <div class="wb-hiw-image-placeholder"></div>
-          {%- endif -%}
-        </div>
+              <div class="wb-hiw-image">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 1400
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '600, 900, 1200, 1400',
+                      sizes: '(max-width: 767px) 100vw, 45vw',
+                      alt: block.settings.heading,
+                      class: 'wb-hiw-img'
+                  }}
+                {%- else -%}
+                  <div class="wb-hiw-image-placeholder"></div>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
 
-      </div>
-    </div>
-  </div>
-{%- endfor -%}
-
-{%- comment -%}
-  Closing CTA. The page previously ended on the last step with nothing to act
-  on — a reader who gets this far is about as high-intent as the site sees.
-  Same panel treatment as the homepage how-it-works section so the two match.
-{%- endcomment -%}
-{%- if section.settings.cta_heading != blank or section.settings.button_label != blank -%}
-  <div class="wb-banded">
-    <div class="wb-container">
-      <div class="wb-padding">
+      {%- comment -%}
+        Closing CTA — a reader who gets this far is about as high-intent as the
+        site sees, and the page previously ended with nothing to act on.
+      {%- endcomment -%}
+      {%- if section.settings.cta_heading != blank or section.settings.button_label != blank -%}
         <div class="wb-hiw-endcta wb-background-{{ section.settings.cta_background | default: 'yellow' }}-opacity">
           <div class="wb-hiw-endcta__text">
             {%- if section.settings.cta_heading != blank -%}
@@ -77,8 +91,8 @@
           {%- comment -%}
             Only the label is required. A `url` setting's schema `default` is not
             applied by Shopify (shopify:// routes resolve only when picked in the
-            editor), so the fallback lives here instead — otherwise the button
-            silently never renders.
+            editor), so the fallback lives here — otherwise the button silently
+            never renders.
           {%- endcomment -%}
           {%- if section.settings.button_label != blank -%}
             <div class="wb-buttons wb-hiw-endcta__action">
@@ -88,19 +102,31 @@
             </div>
           {%- endif -%}
         </div>
-      </div>
+      {%- endif -%}
+
     </div>
   </div>
-{%- endif -%}
+</div>
 
 <style>
   .wb-hiw-title { margin: 0; }
   .wb-hiw-intro { margin-top: 16px; max-width: 640px; }
 
-  .wb-hiw-inner {
+  .wb-hiw-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .wb-hiw-step {
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+    border-radius: 8px;
+    padding: 28px 24px;
   }
 
   .wb-hiw-text {
@@ -113,19 +139,19 @@
   .wb-hiw-image {
     width: 100%;
     overflow: hidden;
-    flex-shrink: 0;
+    border-radius: 6px;
   }
 
   .wb-hiw-img,
   .wb-hiw-image-placeholder {
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: auto;
   }
 
   .wb-hiw-image-placeholder {
-    background-color: #ddd;
+    background-color: rgba(0, 0, 0, 0.06);
+    aspect-ratio: 3 / 2;
   }
 
   .wb-hiw-number {
@@ -134,6 +160,15 @@
     margin-bottom: 8px;
     line-height: 1;
   }
+
+  /* Step number tinted to its own panel — the `.wb-darker` values from
+     wb-base.css. Same approach as the homepage section. */
+  .wb-hiw-step--blue   .wb-hiw-number { color: #3b5ea1; }
+  .wb-hiw-step--brown  .wb-hiw-number { color: #a56437; }
+  .wb-hiw-step--green  .wb-hiw-number { color: #129776; }
+  .wb-hiw-step--purple .wb-hiw-number { color: #8f5ea7; }
+  .wb-hiw-step--red    .wb-hiw-number { color: #da5252; }
+  .wb-hiw-step--yellow .wb-hiw-number { color: #e6b82b; }
 
   .wb-hiw-heading {
     font-size: 26px;
@@ -151,6 +186,7 @@
     row-gap: 20px;
     border-radius: 8px;
     padding: 28px 24px;
+    margin-top: 20px;
   }
 
   .wb-hiw-endcta__title {
@@ -168,24 +204,26 @@
     background-color: #ffffff;
   }
 
+  /* Mobile only — headings come down a little in the tighter panels. The step
+     number keeps its full .wb-medium-heading size, and body text is untouched
+     so it inherits the site's 16px mobile size. */
+  @media screen and (max-width: 767px) {
+    .wb-hiw-heading { font-size: 21px; margin-bottom: 12px; }
+    .wb-hiw-endcta__title { font-size: 21px; }
+  }
+
   @media screen and (min-width: 768px) {
-    .wb-hiw-inner {
+    .wb-hiw-step {
       flex-direction: row;
-      align-items: stretch;
-      column-gap: 60px;
+      align-items: center;
+      column-gap: 80px;
+      row-gap: 0;
+      padding: 40px;
     }
 
-    .wb-hiw-text {
-      flex: 0 0 50%;
-      padding: 0;
-    }
+    .wb-hiw-text { flex: 0 0 50%; }
+    .wb-hiw-image { flex: auto; min-width: 0; }
 
-    .wb-hiw-image {
-      flex: auto;
-    }
-
-    /* Same geometry as a step above, so the button column lines up with the
-       images. Matches the homepage section. */
     .wb-hiw-endcta {
       flex-direction: row;
       align-items: center;
@@ -206,9 +244,7 @@
   }
 
   @media screen and (min-width: 1024px) {
-    .wb-hiw-heading {
-      font-size: 30px;
-    }
+    .wb-hiw-heading { font-size: 30px; }
   }
 </style>
 
@@ -236,7 +272,7 @@
       "type": "text",
       "id": "cta_body",
       "label": "CTA text",
-      "default": "No expertise needed \u2014 trust your instincts, have fun, and get blending!"
+      "default": "No expertise needed — trust your instincts, have fun, and get blending!"
     },
     {
       "type": "select",
@@ -262,7 +298,7 @@
       "type": "url",
       "id": "button_url",
       "label": "Button link",
-      "info": "Optional \u2014 defaults to the Lab."
+      "info": "Optional — defaults to the Lab."
     }
   ],
   "blocks": [
@@ -292,6 +328,20 @@
           "label": "Image"
         },
         {
+          "type": "select",
+          "id": "background",
+          "label": "Panel colour",
+          "default": "green",
+          "options": [
+            { "value": "green", "label": "Green" },
+            { "value": "brown", "label": "Brown" },
+            { "value": "blue", "label": "Blue" },
+            { "value": "yellow", "label": "Yellow" },
+            { "value": "purple", "label": "Purple" },
+            { "value": "red", "label": "Red" }
+          ]
+        },
+        {
           "type": "text",
           "id": "button_label",
           "label": "Button label"
@@ -299,7 +349,8 @@
         {
           "type": "url",
           "id": "button_url",
-          "label": "Button link"
+          "label": "Button link",
+          "info": "Optional — defaults to the Lab."
         }
       ]
     }

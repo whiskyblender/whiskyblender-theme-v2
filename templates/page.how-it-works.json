@@ -68,7 +68,6 @@
       "type": "wb-cta",
       "name": "CTA - Something unique",
       "settings": {
-        "background": "white",
         "heading": "Ready for the lab?",
         "description": "Explore the subtle choices that let you shape something uniquely yours, from the character of the blend to the finishing touches on the bottle. Create a Scotch you'll be proud to pour, share, and savour.",
         "image": "shopify://shop_images/wb-foryersel.png",
@@ -76,7 +75,8 @@
         "primary_button_text": "Start blending",
         "primary_button_url": "shopify://pages/the-lab",
         "secondary_button_text": "Pre-made blends",
-        "secondary_button_url": "shopify://pages/perfect-drams"
+        "secondary_button_url": "shopify://pages/perfect-drams",
+        "background": "white"
       }
     }
   },
