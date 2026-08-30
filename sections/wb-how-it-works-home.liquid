@@ -37,13 +37,13 @@
             >
               <div class="wb-hiwh-step__text">
                 {%- if block.settings.step_number != blank -%}
-                  <p class="wb-hiwh-step__num">{{ block.settings.step_number | escape }}</p>
+                  <p class="wb-medium-heading wb-hiwh-step__num">{{ block.settings.step_number | escape }}</p>
                 {%- endif -%}
                 {%- if block.settings.heading != blank -%}
                   <h3 class="wb-hiwh-step__title">{{ block.settings.heading | escape }}</h3>
                 {%- endif -%}
                 {%- if block.settings.body != blank -%}
-                  <div class="wb-hiwh-step__body">{{ block.settings.body }}</div>
+                  <div class="rte wb-hiwh-step__body">{{ block.settings.body }}</div>
                 {%- endif -%}
               </div>
 
@@ -104,7 +104,6 @@
   .wb-hiwh-step__media {
     border-radius: 6px;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.5);
   }
 
   .wb-hiwh-step__img {
@@ -113,29 +112,27 @@
     height: auto;
   }
 
+  /* Text styles copied from the How It Works page (.wb-hiw-number /
+     .wb-hiw-heading) so the homepage steps read identically. */
   .wb-hiwh-step__num {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.45);
-    margin: 0 0 6px;
+    color: #b88d60;
+    margin-top: 0;
+    margin-bottom: 8px;
+    line-height: 1;
   }
 
   .wb-hiwh-step__title {
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 700;
     line-height: 1.2;
-    margin: 0 0 10px;
+    margin: 0 0 16px;
     color: #111;
   }
 
-  .wb-hiwh-step__body {
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  .wb-hiwh-step__body > p { margin: 0 0 10px; }
+  /* Body deliberately has no type rules — it uses `.rte` exactly as the How It
+     Works page does, inheriting the site body styles. Setting font-size or
+     line-height on it here would diverge from the page and override the
+     global body typography. */
   .wb-hiwh-step__body > p:last-child { margin-bottom: 0; }
 
   .wb-hiwh-cta { margin-top: 28px; }
@@ -157,7 +154,10 @@
     .wb-hiwh-step__text { flex: 0 0 50%; }
     .wb-hiwh-step__media { flex: auto; min-width: 0; }
 
-    .wb-hiwh-step__title { font-size: 26px; }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .wb-hiwh-step__title { font-size: 30px; }
   }
 </style>
 
