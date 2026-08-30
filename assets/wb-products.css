@@ -44,7 +44,7 @@
 
 .wb-tightergrid li {
   flex: 50%;
-  max-width: calc(50% - 14px);
+  max-width: calc(50% - 10px);
 }
 
 .wb-productitem {
