@@ -105,7 +105,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
 
 .wb-background.wb-opacity,
 .wb-background-yellow-opacity {
-  background-color: rgba(244, 228, 149, 0.4);
+  background-color: rgba(244, 228, 149, 0.2);
 }
 
 .wb-background.wb-darker,
@@ -120,7 +120,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
 
 .wb-background.wb-opacity:nth-of-type(2),
 .wb-background-green-opacity {
-  background-color: rgba(155, 213, 197, 0.4);
+  background-color: rgba(155, 213, 197, 0.2);
 }
 
 .wb-background.wb-darker:nth-of-type(2),
@@ -135,7 +135,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
 
 .wb-background.wb-opacity:nth-of-type(3),
 .wb-background-red-opacity {
-  background-color: rgba(243, 211, 211, 0.4);
+  background-color: rgba(243, 211, 211, 0.2);
 }
 
 .wb-background.wb-darker:nth-of-type(3),
@@ -150,7 +150,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
 
 .wb-background.wb-opacity:nth-of-type(4),
 .wb-background-blue-opacity {
-  background-color: rgba(201, 225, 240, 0.4);
+  background-color: rgba(201, 225, 240, 0.2);
 }
 
 .wb-background.wb-darker:nth-of-type(4),
@@ -165,7 +165,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
 
 .wb-background.wb-opacity:nth-of-type(5),
 .wb-background-brown-opacity {
-  background-color: rgba(220, 208, 188, 0.4);
+  background-color: rgba(220, 208, 188, 0.2);
 }
 
 .wb-background.wb-darker:nth-of-type(5),
@@ -180,7 +180,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
 
 .wb-background.wb-opacity:nth-of-type(6),
 .wb-background-purple-opacity {
-  background-color: rgba(223, 203, 227, 0.4);
+  background-color: rgba(223, 203, 227, 0.2);
 }
 
 .wb-background.wb-darker:nth-of-type(6),
