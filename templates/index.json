@@ -219,8 +219,8 @@
             "step_number": "One",
             "heading": "Select your whiskies",
             "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add from the ones you fancy until you reach 100%. No expertise needed — trust your instincts.</p>",
-            "image": "shopify://shop_images/hiw_one.gif",
-            "background": "blue"
+            "background": "blue",
+            "image": "shopify://shop_images/hiw_one.gif"
           }
         },
         "step_2": {
@@ -229,8 +229,8 @@
             "step_number": "Two",
             "heading": "Name and bottle it",
             "body": "<p>Give your whisky a name (or use our handy generator to suggest something), declare yourself as the creator, and then choose which bottle you want filled with it.</p>",
-            "image": "shopify://shop_images/hiw_two.gif",
-            "background": "yellow"
+            "background": "yellow",
+            "image": "shopify://shop_images/hiw_two.gif"
           }
         },
         "step_3": {
@@ -239,8 +239,8 @@
             "step_number": "Three",
             "heading": "Design your label",
             "body": "<p>The label updates as you type, so you see exactly what’s going on the bottle before our blenders make your recipe by hand. It arrives in a jute gift bag and recipe card.</p>",
-            "image": "shopify://shop_images/hiw_three.gif",
-            "background": "green"
+            "background": "green",
+            "image": "shopify://shop_images/hiw_three.gif"
           }
         }
       },
@@ -252,8 +252,11 @@
       "settings": {
         "heading": "How it works",
         "description": "Three steps from a blank slate to a bottle of Scotch that exists nowhere else.",
-        "button_label": "Start blending",
-        "button_url": "shopify://pages/the-lab"
+        "button_label": "Enter the lab",
+        "button_url": "shopify://pages/the-lab",
+        "cta_heading": "Ready to create your whisky?",
+        "cta_body": "No expertise needed — trust your instincts, have fun, and get blending!",
+        "cta_background": "brown"
       }
     }
   },
