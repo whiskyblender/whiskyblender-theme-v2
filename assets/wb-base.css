@@ -105,7 +105,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
 
 .wb-background.wb-opacity,
 .wb-background-yellow-opacity {
-  background-color: rgba(244, 228, 149, 0.8);
+  background-color: rgba(244, 228, 149, 0.4);
 }
 
 .wb-background.wb-darker,
