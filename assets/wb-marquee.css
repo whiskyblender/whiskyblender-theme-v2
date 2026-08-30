@@ -15,6 +15,9 @@
    This runs on the compositor, so main-thread load can't stutter it, and the
    track is duplicated rather than cloned-and-reset, so there is no wrap at all.
 
+   The strip is full-bleed and relies on an ancestor with .wb-overflow-hidden-x
+   to clip it — see the note on .wb-marquee below before adding a new call site.
+
    USAGE
      <div class="wb-marquee" style="--wb-marquee-duration: 40s">
        <div class="wb-marquee__track">
@@ -31,7 +34,17 @@
 ─────────────────────────────────────────────────────────────────────────────── */
 
 .wb-marquee {
-  overflow: hidden;
+  /* Deliberately NOT overflow: hidden. The strip is full-bleed: it starts at the
+     padded container's left edge and spills past it to the viewport edges, and
+     the clipping is done further up by .wb-overflow-hidden-x (overflow-x: clip)
+     on the section. Every call site has that class — reviews, wb-collaborate,
+     about-content, image_reel and the image_reel block in wb-main-content.
+
+     This reproduces glide.custom.css's `.glide__track { overflow: visible }`,
+     which overrode Glide's own clipping. It looked like a Glide implementation
+     detail and was dropped in the marquee conversion; it wasn't, and the strips
+     came back cropped inside the container. Clip here and you lose the bleed. */
+  overflow: visible;
 }
 
 .wb-marquee__track {
@@ -77,6 +90,10 @@
   }
   .wb-marquee__item[aria-hidden='true'] {
     display: none;
+  }
+  /* No scrolling means no bleed: the wrapped grid should respect the container. */
+  .wb-marquee {
+    overflow: hidden;
   }
 }
 
