@@ -10,10 +10,6 @@
   flex: 1;
 }
 
-.accordion .summary__title + .icon-caret {
-  height: calc(var(--font-heading-scale) * 0.6rem);
-}
-
 .accordion + .accordion {
   margin-top: 0;
   border-top: none;
@@ -59,11 +55,10 @@
 
 /* --- Whisky Blender: product-drawer polish (clearer chevron + open/close animation) --- */
 
-/* A larger, clearly-visible chevron on the product-page drawers, with a smooth
-   rotate when the drawer opens. Height only (width auto) preserves the 10:6
-   aspect ratio. Other carets across the site keep their default small size. */
+/* Chevron on the product-page drawers: foreground colour + a smooth rotate when
+   the drawer opens. Size and position come from `summary .icon-caret` in
+   base.css (14x14, right/top-pinned). */
 .product__accordion summary .summary__title + .icon-caret {
-  height: calc(var(--font-heading-scale) * 1.2rem);
   align-self: center;
   color: rgb(var(--color-foreground));
   transition: transform 0.3s ease;
