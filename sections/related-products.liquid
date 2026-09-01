@@ -93,6 +93,17 @@
                 {%- endunless -%}
               {%- endfor -%}
             </ul>
+            {%- if related_collection.url != blank -%}
+              <div class="center collection__view-all">
+                <a
+                  href="{{ related_collection.url }}"
+                  class="link underlined-link"
+                  aria-label="View all products in {{ related_collection.title | escape }}"
+                >
+                  View all
+                </a>
+              </div>
+            {%- endif -%}
           </div>
         </div>
       </div>
