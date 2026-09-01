@@ -103,12 +103,12 @@
         "quantity_selector",
         "buy_buttons",
         "description",
-        "part_of_collection_BpWfEH",
         "wb-size-guide",
         "wb-care",
         "wb-delivery-returns",
         "wb-product-safety",
-        "share"
+        "share",
+        "part_of_collection_BpWfEH"
       ],
       "settings": {
         "enable_sticky_info": true,
