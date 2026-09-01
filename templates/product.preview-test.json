@@ -84,6 +84,24 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "wb-how-to-enjoy": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to enjoy it",
+            "icon": "none",
+            "content": "<p><strong>Neat, first.</strong> Pour a measure and give it a minute — a good Scotch says most of what it has to say before you add anything.</p><p><strong>Then a drop of water.</strong> Still, room-temperature water opens up the nose and softens the spirit. Add it slowly; you can't take it back out.</p><p><strong>A good glass helps.</strong> Something tulip-shaped draws the aromas towards you — a tumbler looks the part but lets them drift off.</p><p><strong>Storing it.</strong> Upright, out of direct sun, cap tight. It won't age in the bottle the way wine does, but it's not frozen in time either — a fresh blend can take a little while to marry, and a half-finished bottle will drift a touch over the months. Nothing to fuss over.</p>",
+            "page": ""
+          }
+        },
+        "wb-delivery-returns": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Delivery & returns",
+            "icon": "none",
+            "content": "<p><strong>Free UK delivery</strong> on every bottle, no minimum spend. Orders outside the UK show shipping at checkout — duty and taxes to the USA are included in that cost.</p><p><strong>Dispatched within 48 hours.</strong> Each bottle is blended and labelled to order, so occasionally it takes a little longer — we'll always get it moving as fast as we can. Someone of legal drinking age must be able to receive it.</p><p><strong>Returns:</strong> unopened ready-made bottles can be returned within 30 days. Personalised and custom-blended bottles are made to your order, so they can't be returned unless there's a fault. If anything arrives damaged or wrong, email <a href=\"mailto:info@whiskyblender.com\">info@whiskyblender.com</a> straight away and we'll put it right.</p>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -99,6 +117,8 @@
         "description",
         "part_of_collection_BpWfEH",
         "collapsible-row-2",
+        "wb-how-to-enjoy",
+        "wb-delivery-returns",
         "share"
       ],
       "settings": {
