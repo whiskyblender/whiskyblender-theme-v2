@@ -84,6 +84,15 @@
             "content": "<p><strong>Free UK delivery</strong>, no minimum spend; international shows at checkout.</p><p><strong>Sent from us in Scotland</strong>, usually within a couple of working days.</p><p><strong>30-day returns.</strong> Send it back unused, in its original condition, within 30 days. Damaged or faulty on arrival — email <a href=\"mailto:info@whiskyblender.com\">info@whiskyblender.com</a> and we'll put it right.</p>",
             "page": ""
           }
+        },
+        "wb-product-safety": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product safety",
+            "icon": "none",
+            "content": "",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -98,6 +107,7 @@
         "wb-size-guide",
         "wb-care",
         "wb-delivery-returns",
+        "wb-product-safety",
         "share"
       ],
       "settings": {
