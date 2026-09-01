@@ -255,6 +255,7 @@
                   {%- assign wb_drawer_show = true -%}
                   {%- if block.settings.heading == 'Size guide' and product.metafields.custom.size_guide == blank -%}{%- assign wb_drawer_show = false -%}{%- endif -%}
                   {%- if block.settings.heading == 'Care' and product.metafields.custom.care == blank -%}{%- assign wb_drawer_show = false -%}{%- endif -%}
+                  {%- if block.settings.heading == 'Product safety' and product.metafields.shopify.disclosure.value == blank -%}{%- assign wb_drawer_show = false -%}{%- endif -%}
                   {%- if wb_drawer_show -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
@@ -273,6 +274,11 @@
                           <p><strong>Made to order by our print partner.</strong> Unlike our whisky, these are produced and shipped by a specialist print-on-demand partner — not packed and sent from us in Scotland. So they travel separately (your bottle and your beanie won't arrive together), in their own packaging.</p>
                           <p><strong>Allow a few extra days.</strong> Each item is printed or stitched only once you order it, so give it a few working days to be made before it ships. Free UK delivery; international shows at checkout.</p>
                           <p><strong>Returns.</strong> Being made to order, they can't come back for a change of mind — but anything faulty, damaged, or wrong, email <a href="mailto:info@whiskyblender.com">info@whiskyblender.com</a> within 30 days and we'll replace or refund it.</p>
+                        {%- elsif block.settings.heading == 'Product safety' -%}
+                          {%- comment -%} Renders Shopify's native product disclosures (GPSR etc.); the drawer itself is hidden above when there are none. {%- endcomment -%}
+                          {%- for wb_disclosure in product.metafields.shopify.disclosure.value -%}
+                            {{ wb_disclosure.content | metafield_tag }}
+                          {%- endfor -%}
                         {%- else -%}
                           {{ block.settings.content }}
                           {{ block.settings.page.content }}
