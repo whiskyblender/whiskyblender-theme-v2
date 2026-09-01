@@ -11,6 +11,14 @@
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
+  .related-products__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    row-gap: 0.5rem;
+  }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -20,31 +28,26 @@
 {%- endstyle -%}
 
 {%- comment -%}
-  Find the first collection this product belongs to that isn't in the
-  excluded list. Occasion/cross-cutting collections (e.g. "christmas",
-  "weddings") are excluded so related products come from the product's
-  primary home collection instead.
+  Use the SAME collection as the "Part of the X collection" line
+  (snippets/part-of-collection.liquid): the product's first collection that
+  isn't an occasion / hidden / unlisted collection or the catch-all "all"
+  ("Our products"). Fall back to "Our products" (all) — every product is in it —
+  when the product has no more specific home collection.
+  (The "excluded_collection_handles" setting is now superseded by this
+  template_suffix filter and is no longer read.)
 {%- endcomment -%}
 
-{%- assign excluded_raw = section.settings.excluded_collection_handles | downcase -%}
-{%- assign excluded_list = excluded_raw | split: ',' -%}
 {%- assign related_collection = nil -%}
-
 {%- for col in product.collections -%}
-  {%- assign col_handle = col.handle | downcase | strip -%}
-  {%- assign is_excluded = false -%}
-  {%- for exc in excluded_list -%}
-    {%- assign exc_handle = exc | strip -%}
-    {%- if col_handle == exc_handle -%}
-      {%- assign is_excluded = true -%}
-      {%- break -%}
-    {%- endif -%}
-  {%- endfor -%}
-  {%- unless is_excluded -%}
+  {%- unless col.template_suffix == 'unlisted-collection' or col.template_suffix == 'occasion' or col.template_suffix == 'hidden' or col.handle == 'all' -%}
     {%- assign related_collection = col -%}
     {%- break -%}
   {%- endunless -%}
 {%- endfor -%}
+
+{%- if related_collection == nil -%}
+  {%- assign related_collection = collections['all'] -%}
+{%- endif -%}
 
 {%- if related_collection != nil -%}
 
@@ -62,9 +65,22 @@
       <div class="wb-container">
         <div class="wb-padding">
           <div class="related-products page-width section-{{ section.id }}-padding isolate">
-            <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
-              {{ section.settings.heading }}
-            </h2>
+            <div class="related-products__title-wrapper">
+              <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+                {{ section.settings.heading }}
+              </h2>
+              {%- if related_collection.url != blank -%}
+                <div class="center collection__view-all">
+                  <a
+                    href="{{ related_collection.url }}"
+                    class="link underlined-link"
+                    aria-label="View all products in {{ related_collection.title | escape }}"
+                  >
+                    View all
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
             <ul
               class="wb-productsgrid wb-tightergrid grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
               role="list"
@@ -93,17 +109,6 @@
                 {%- endunless -%}
               {%- endfor -%}
             </ul>
-            {%- if related_collection.url != blank -%}
-              <div class="center collection__view-all">
-                <a
-                  href="{{ related_collection.url }}"
-                  class="link underlined-link"
-                  aria-label="View all products in {{ related_collection.title | escape }}"
-                >
-                  View all
-                </a>
-              </div>
-            {%- endif -%}
           </div>
         </div>
       </div>
