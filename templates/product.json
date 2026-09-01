@@ -94,11 +94,11 @@
         "quantity_selector",
         "buy_buttons",
         "description",
-        "part_of_collection_BpWfEH",
         "collapsible-row-2",
         "wb-how-to-enjoy",
         "wb-delivery-returns",
-        "share"
+        "share",
+        "part_of_collection_BpWfEH"
       ],
       "settings": {
         "enable_sticky_info": true,
