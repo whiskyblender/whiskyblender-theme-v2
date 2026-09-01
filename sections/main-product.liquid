@@ -128,11 +128,25 @@
                     {%- elsif cart.duties_included -%}
                       {{ 'products.product.duties_included' | t }}
                     {%- endif -%}
-                    {%- if shop.shipping_policy.body != blank -%}
+                    {%- if localization.country.iso_code == "GB" -%}
+                      <span class="wb-free-shipping">Free UK delivery — no minimum spend</span>
+                    {%- elsif shop.shipping_policy.body != blank -%}
                       {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
                     {%- endif -%}
                   </div>
                 {%- endif -%}
+                {%- assign md = "now" | date: "%m%d" | plus: 0 -%}
+                {%- assign gift = "🎁 Looking for a gift? Every bottle arrives gift-ready." -%}
+                {%- if md >= 1115 and md <= 1224 -%}
+                  {%- assign gift = "🎁 The perfect Christmas gift — arrives gift-ready." -%}
+                {%- elsif md >= 1226 or md <= 101 -%}
+                  {%- assign gift = "🥂 Bring in the bells — a perfect Hogmanay gift." -%}
+                {%- elsif md >= 118 and md <= 125 -%}
+                  {%- assign gift = "🏴 For Burns Night — a gift for the whisky lover." -%}
+                {%- elsif md >= 601 and md <= 621 -%}
+                  {%- assign gift = "🥃 A dram worth gifting this Father's Day." -%}
+                {%- endif -%}
+                <p class="wb-gift-hook caption">{{ gift }}</p>
                 <div {{ block.shopify_attributes }}>
                   {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
                   {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
@@ -1038,6 +1052,30 @@
           return !!(hit && hit.closest && hit.closest('shopify-chat'));
         }
 
+        /* Shopify injects the consent banner asynchronously — measured on
+           /products/gift-voucher at 540ms, 593ms and 1084ms after navigation start, always
+           AFTER the bar had already appeared. The result was a 53-124ms blink on every
+           first visit: bar in, banner lands, bar out. So hold the bar until the consent
+           decision is known.
+
+           Gating on the cookie alone would be wrong: where no consent banner is required
+           Shopify sets no _tracking_consent cookie, and the bar would then never appear at
+           all — a worse bug than the blink. So the hold is bounded. It lifts the moment the
+           cookie exists (the visitor has chosen), and otherwise expires after
+           CONSENT_SETTLE_MS, comfortably past the slowest injection measured. Worst case on
+           a first visit the bar arrives a beat later than it used to. */
+        var CONSENT_SETTLE_MS = 1500;
+        var consentHold = document.cookie.indexOf('_tracking_consent') === -1;
+
+        function consentPending() {
+          if (!consentHold) return false;
+          if (document.cookie.indexOf('_tracking_consent') !== -1) {
+            consentHold = false;
+            return false;
+          }
+          return true;
+        }
+
         function cookieBannerShowing() {
           /* Shopify injects the consent banner fixed to the bottom of the viewport at
              z-index 99999. Two stacked bottom bars on a phone is unusable, and consent
@@ -1057,7 +1095,8 @@
 
         function update() {
           if (!ready) return;
-          var show = buyBoxOffScreen() && realButtonUsable() && !cookieBannerShowing();
+          var show =
+            buyBoxOffScreen() && realButtonUsable() && !cookieBannerShowing() && !consentPending();
           bar.classList.toggle('wb-sticky-atc--visible', show);
           if (show) bar.classList.toggle('wb-sticky-atc--chat', chatLauncherOverlapsBar());
         }
@@ -1120,6 +1159,12 @@
 
         function start() {
           ready = true;
+          if (consentHold) {
+            setTimeout(function () {
+              consentHold = false;
+              update();
+            }, CONSENT_SETTLE_MS);
+          }
           syncButtonState();
           syncPrice();
           update();
