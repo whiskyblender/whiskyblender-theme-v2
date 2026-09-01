@@ -1,0 +1,164 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "product_tagline_W3AUrB": {
+          "type": "product_tagline",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "part_of_collection_BpWfEH": {
+          "type": "part_of_collection",
+          "settings": {
+            "excluded_collections": "Anniversaries, Birthdays, Celebrations, Christmas, Thankyous, Weddings"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "wb-size-guide": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Size guide",
+            "icon": "none",
+            "content": "<p>{{ product.metafields.custom.size_guide | metafield_tag }}</p>",
+            "page": ""
+          }
+        },
+        "wb-care": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Care",
+            "icon": "none",
+            "content": "<p>{{ product.metafields.custom.care | metafield_tag }}</p>",
+            "page": ""
+          }
+        },
+        "wb-delivery-returns": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Delivery & returns",
+            "icon": "none",
+            "content": "<p><strong>Free UK delivery</strong> on every order, no minimum spend. Orders outside the UK show shipping at checkout.</p><p><strong>Made or printed to order.</strong> Many of our wee bits are made just for you, so allow a few working days for dispatch — we'll always get them moving as fast as we can.</p><p><strong>30-day returns.</strong> Not right? You have 30 days to send it back unused and in its original condition. Anything faulty or damaged on arrival — email <a href=\"mailto:info@whiskyblender.com\">info@whiskyblender.com</a> and we'll put it right.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "product_tagline_W3AUrB",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "part_of_collection_BpWfEH",
+        "wb-size-guide",
+        "wb-care",
+        "wb-delivery-returns",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "cover",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "17847477896f4f1cc4": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_JY6BqG": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "hide_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_JY6BqG"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "excluded_collection_handles": "featured,anniversaries,birthdays,celebrations,christmas,thankyous,weddings,custom",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "17847477896f4f1cc4",
+    "related-products"
+  ]
+}
