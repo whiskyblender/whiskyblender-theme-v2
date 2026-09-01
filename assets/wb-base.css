@@ -93,6 +93,15 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
   background-color: #efefef;
 }
 
+/* Product page: when a product has no reviews, Judge.me hides the review widget
+   (empty_state=hide_widget) but the section stays in the DOM at zero height,
+   keeping its nth-of-type slot and knocking related-products off the banding
+   parity. Band related-products directly — but ONLY when no reviews are showing,
+   so review-present pages (reviews section already grey) keep related white. */
+#MainContent:not(:has(.jm-review-widget)) .wb-banded:has(.related-products) {
+  background-color: #efefef;
+}
+
 .wb-padding {
   padding: 40px 20px;
   position: relative;
