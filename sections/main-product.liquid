@@ -890,6 +890,16 @@
           margin: 0 auto;
         }
 
+        /* The Shopify Inbox launcher is a 61px circle inset 20px from the bottom-right
+           corner at z-index 2147483000 — measured on /products/aultmore-2011 at 390px it
+           covered the right-hand 40% of the Add to cart label. Reserving 89px (81px of
+           launcher + an 8px gap) keeps the button clear of it. Applied only when the
+           launcher is measured to actually overlap the bar, so raising the launcher in
+           the Inbox app settings gives the width straight back. */
+        .wb-sticky-atc--chat .wb-sticky-atc__inner {
+          padding-right: 89px;
+        }
+
         .wb-sticky-atc__text {
           flex: 1 1 auto;
           min-width: 0;
@@ -988,6 +998,28 @@
           if (stickyPrice && priceSource) stickyPrice.innerHTML = priceSource.innerHTML;
         }
 
+        function chatLauncherOverlapsBar() {
+          /* Hit-test rather than hard-code the launcher's position: the chat button can be
+             moved in the Shopify Inbox app settings, and its internals are in a shadow
+             root we should not reach into. elementFromPoint returns the <shopify-chat>
+             host for anything inside it, so sampling the strip of the bar the launcher
+             would sit over answers the question without touching third-party DOM.
+             The bar must already be laid out for this, so it runs while showing. */
+          if (!document.querySelector('shopify-chat')) return false;
+          var rect = bar.getBoundingClientRect();
+          if (rect.height === 0) return false;
+          /* Sample where the bar comes to REST, not where it is now: this runs in the same
+             frame the visible class is added, while the bar is still translated off-screen,
+             so its own rect.top would point at the wrong row of pixels. The launcher sits
+             above everything at z-index 2147483000, so it answers the hit test whether or
+             not the bar has finished sliding in. */
+          var hit = document.elementFromPoint(
+            Math.max(0, window.innerWidth - 50),
+            window.innerHeight - rect.height / 2
+          );
+          return !!(hit && hit.closest && hit.closest('shopify-chat'));
+        }
+
         function cookieBannerShowing() {
           /* Shopify injects the consent banner fixed to the bottom of the viewport at
              z-index 99999. Two stacked bottom bars on a phone is unusable, and consent
@@ -999,6 +1031,7 @@
         function update() {
           var show = !buyBoxVisible && realButtonUsable() && !cookieBannerShowing();
           bar.classList.toggle('wb-sticky-atc--visible', show);
+          if (show) bar.classList.toggle('wb-sticky-atc--chat', chatLauncherOverlapsBar());
         }
 
         stickyButton.addEventListener('click', function () {
