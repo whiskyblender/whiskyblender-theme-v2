@@ -57,6 +57,33 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "wb-size-guide": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Size guide",
+            "icon": "none",
+            "content": "<p>{{ product.metafields.custom.size_guide | metafield_tag }}</p>",
+            "page": ""
+          }
+        },
+        "wb-care": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Care",
+            "icon": "none",
+            "content": "<p>{{ product.metafields.custom.care | metafield_tag }}</p>",
+            "page": ""
+          }
+        },
+        "wb-delivery-returns": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Delivery & returns",
+            "icon": "none",
+            "content": "<p><strong>Free UK delivery</strong> on every order, no minimum spend. Orders outside the UK show shipping at checkout.</p><p><strong>Made or printed to order.</strong> Many of our wee bits are made just for you, so allow a few working days for dispatch — we'll always get them moving as fast as we can.</p><p><strong>30-day returns.</strong> Not right? You have 30 days to send it back unused and in its original condition. Anything faulty or damaged on arrival — email <a href=\"mailto:info@whiskyblender.com\">info@whiskyblender.com</a> and we'll put it right.</p>",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -68,6 +95,9 @@
         "buy_buttons",
         "description",
         "part_of_collection_BpWfEH",
+        "wb-size-guide",
+        "wb-care",
+        "wb-delivery-returns",
         "share"
       ],
       "settings": {

@@ -251,6 +251,11 @@
                     </div>
                   {%- endif -%}
                 {%- else -%}
+                  {%- comment -%} Size guide / Care are metafield-bound: hide the drawer when the product has no such metafield {%- endcomment -%}
+                  {%- assign wb_drawer_show = true -%}
+                  {%- if block.settings.heading == 'Size guide' and product.metafields.custom.size_guide == blank -%}{%- assign wb_drawer_show = false -%}{%- endif -%}
+                  {%- if block.settings.heading == 'Care' and product.metafields.custom.care == blank -%}{%- assign wb_drawer_show = false -%}{%- endif -%}
+                  {%- if wb_drawer_show -%}
                   <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                     <details id="Details-{{ block.id }}-{{ section.id }}">
                       <summary>
@@ -268,6 +273,7 @@
                       </div>
                     </details>
                   </div>
+                  {%- endif -%}
                 {%- endif -%}
               {%- when 'quantity_selector' -%}
                 <div
