@@ -970,7 +970,13 @@
         var realButton = document.getElementById('ProductSubmitButton-{{ section.id }}');
         if (!buyBox || !realButton) return;
 
-        var buyBoxVisible = true;
+        /* Starts false-and-blocked: `ready` keeps update() inert until DOMContentLoaded.
+           This script is inline and runs during parse, but wb-blend-product.js is
+           deferred, so at parse time the real button is still visible and enabled even
+           on a page whose blend guard is about to hide it. Evaluating then made the bar
+           flash in and straight back out on the custom templates. Deferred scripts all
+           run before DOMContentLoaded, so by `start()` the guard has had its say. */
+        var ready = false;
 
         function realButtonUsable() {
           /* getClientRects() is empty when an ancestor or the button itself is
@@ -1028,8 +1034,19 @@
           return !!(banner && banner.getClientRects().length > 0);
         }
 
+        function buyBoxScrolledPast() {
+          /* "Scrolled past" is not the same as "not reached yet". On mobile the buy box
+             starts below the fold, and treating both alike showed the bar the moment the
+             page loaded, before the customer had ever seen the real button. bottom <= 0
+             means it has gone off the TOP of the viewport, which is the only case that
+             should raise the bar — and because the bar sits at the bottom it can then
+             never cover the button, so there is no oscillation to guard against. */
+          return buyBox.getBoundingClientRect().bottom <= 0;
+        }
+
         function update() {
-          var show = !buyBoxVisible && realButtonUsable() && !cookieBannerShowing();
+          if (!ready) return;
+          var show = buyBoxScrolledPast() && realButtonUsable() && !cookieBannerShowing();
           bar.classList.toggle('wb-sticky-atc--visible', show);
           if (show) bar.classList.toggle('wb-sticky-atc--chat', chatLauncherOverlapsBar());
         }
@@ -1042,16 +1059,29 @@
           realButton.click();
         });
 
-        /* -80px keeps the bottom strip of the viewport from counting as "visible": the
-           bar itself sits there, so without it the button peeking out from behind the
-           bar would hide the bar, which would reveal the button, and so on. */
-        new IntersectionObserver(
-          function (entries) {
-            buyBoxVisible = entries[0].isIntersecting;
-            update();
+        /* The observer is a trigger, not the source of truth — update() re-reads the buy
+           box position itself. An IntersectionObserver alone was not enough: a jump scroll
+           (scrollbar drag, an anchor, a fast fling that skips the sampled frames) takes the
+           buy box from below the fold to above the viewport without isIntersecting ever
+           changing, so no callback fires and the bar never appears. Verified: scrollTo the
+           page bottom in one step left the bar down. The scroll listener below covers that;
+           the observer still earns its place by firing when the buy box moves for reasons
+           other than scrolling, such as the label preview opening above it. */
+        new IntersectionObserver(update, { threshold: 0 }).observe(buyBox);
+
+        var scrollQueued = false;
+        window.addEventListener(
+          'scroll',
+          function () {
+            if (scrollQueued) return;
+            scrollQueued = true;
+            requestAnimationFrame(function () {
+              scrollQueued = false;
+              update();
+            });
           },
-          { rootMargin: '0px 0px -80px 0px', threshold: 0 }
-        ).observe(buyBox);
+          { passive: true }
+        );
 
         /* Covers every way the real button changes without a variant change: the blend
            guard hiding it, product-form.js toggling aria-disabled/disabled, and
@@ -1077,9 +1107,18 @@
         /* The consent banner is injected asynchronously, after this script runs. */
         new MutationObserver(update).observe(document.body, { childList: true });
 
-        syncButtonState();
-        syncPrice();
-        update();
+        function start() {
+          ready = true;
+          syncButtonState();
+          syncPrice();
+          update();
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', start);
+        } else {
+          start();
+        }
       })();
     </script>
   {%- endif -%}
