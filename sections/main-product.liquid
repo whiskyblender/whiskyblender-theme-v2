@@ -783,6 +783,273 @@
       {% render 'wb-product-structured-data', product: product %}
     </script>
   </div>
+
+  {%- comment -%}
+    Sticky mobile add-to-cart bar (< 750px only).
+
+    Shows a fixed bottom bar once the real buy box has scrolled out of view, so the
+    add-to-cart is never more than a thumb away on a long mobile product page.
+
+    Deliberate choices:
+
+    - It does NOT contain a form. A second `form action="/cart/add"` on the page would
+      break the cart-property wiring: `wb-blend-product.js` finds the buy form with
+      `form[action="/cart/add"]:not([id*="installment"])` and takes the first match, and
+      the `formdata` listeners in `buy-buttons.liquid` and the label-preview code are
+      bound to the real form only. The bar's button clicks the real
+      `#ProductSubmitButton-{{ section.id }}` instead, so the submission is byte-for-byte
+      the one the buy box would have made — same properties, same variant id, same
+      product-form.js AJAX path, same cart drawer.
+
+    - Visibility is gated on the real submit button actually being usable, not just on
+      the scroll position. `wb-blend-product.js` hides `[name="add"]` while a blend is
+      loading and permanently when a blend contains a deactivated whisky. Without this
+      check the bar would appear precisely because the buy box is not on screen, and
+      would sell a blend the guard exists to block.
+  {%- endcomment -%}
+
+  {%- assign wb_sticky_buy_blocks = section.blocks | where: 'type', 'buy_buttons' -%}
+  {%- assign wb_sticky_price_blocks = section.blocks | where: 'type', 'price' -%}
+  {%- if wb_sticky_buy_blocks.size > 0 and product != blank -%}
+    <div
+      id="StickyAtc-{{ section.id }}"
+      class="wb-sticky-atc"
+      data-section-id="{{ section.id }}"
+      {% if wb_sticky_price_blocks.size > 0 %}data-price-source="price-{{ section.id }}"{% endif %}
+    >
+      <div class="wb-sticky-atc__inner">
+        <div class="wb-sticky-atc__text">
+          <p class="wb-sticky-atc__title">{{ product.title | escape }}</p>
+          {%- if wb_sticky_price_blocks.size > 0 -%}
+            {%- comment -%}
+              Rendered server-side so the bar is complete in the first paint (no empty
+              slot, no reflow when JS lands). Kept in step with the buy box afterwards by
+              copying `#price-{{ section.id }}`, which product-info.js rewrites on every
+              variant change. `show_badges: true` matches the source markup exactly so the
+              copy is a like-for-like swap; the badges themselves are hidden by CSS below.
+            {%- endcomment -%}
+            <div class="wb-sticky-atc__price">
+              {%- render 'price', product: product, use_variant: true, show_badges: true -%}
+            </div>
+          {%- endif -%}
+        </div>
+        <button
+          type="button"
+          class="wb-button wb-primary-button wb-sticky-atc__button"
+          data-sticky-atc-button
+        >
+          <span>{{ 'products.product.add_to_cart' | t }}</span>
+        </button>
+      </div>
+    </div>
+
+    {%- style -%}
+      .wb-sticky-atc {
+        display: none;
+      }
+
+      @media screen and (max-width: 749px) {
+        .wb-sticky-atc {
+          display: block;
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          /* Below the cart drawer (1000) so adding to cart does not fight the drawer,
+             above ordinary page content. */
+          z-index: 900;
+          background-color: #ffffff;
+          border-top: 1px solid #e5e5e5;
+          box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.08);
+          padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+          /* Starts off-screen. Fixed positioning means it never occupies layout space,
+             so showing it cannot shift the page. */
+          transform: translateY(110%);
+          visibility: hidden;
+          pointer-events: none;
+          transition: transform 0.25s ease, visibility 0s linear 0.25s;
+        }
+
+        .wb-sticky-atc.wb-sticky-atc--visible {
+          transform: translateY(0);
+          visibility: visible;
+          pointer-events: auto;
+          transition: transform 0.25s ease, visibility 0s linear 0s;
+        }
+
+        /* The age gate owns the whole viewport until it is dismissed. */
+        .wb-age-gate-open .wb-sticky-atc {
+          display: none;
+        }
+
+        .wb-sticky-atc__inner {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .wb-sticky-atc__text {
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+
+        .wb-sticky-atc__title {
+          margin: 0;
+          font-family: "Raleway", sans-serif;
+          font-size: 15px;
+          line-height: 1.3;
+          font-weight: 600;
+          color: #333333;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .wb-sticky-atc__price {
+          margin-top: 2px;
+        }
+
+        .wb-sticky-atc__price .price {
+          font-size: 15px;
+          line-height: 1.3;
+        }
+
+        .wb-sticky-atc__price .price__badge-sale,
+        .wb-sticky-atc__price .price__badge-sold-out,
+        .wb-sticky-atc__price .price__availability,
+        .wb-sticky-atc__price .price__unit {
+          display: none;
+        }
+
+        .wb-sticky-atc__button {
+          flex: 0 0 auto;
+          width: auto;
+          margin: 0;
+          padding: 12px 22px;
+          font-size: 16px;
+          white-space: nowrap;
+        }
+
+        .wb-sticky-atc__button[disabled] {
+          opacity: 0.55;
+        }
+      }
+    {%- endstyle -%}
+
+    <script>
+      (function () {
+        var bar = document.getElementById('StickyAtc-{{ section.id }}');
+        if (!bar) return;
+
+        var host = document.getElementById('MainProduct-{{ section.id }}');
+        if (!host) return;
+
+        var stickyButton = bar.querySelector('[data-sticky-atc-button]');
+        var stickyLabel = stickyButton.querySelector('span');
+        var stickyPrice = bar.querySelector('.wb-sticky-atc__price');
+        var priceSourceId = bar.getAttribute('data-price-source');
+        var priceSource = priceSourceId ? document.getElementById(priceSourceId) : null;
+
+        /* The buy_buttons block renders exactly one <product-form> inside this section,
+           so it is the buy box. Observing it rather than a wrapper div avoids adding an
+           element to the product info column, where the banding and sibling-selector
+           rules count children. */
+        var buyBox = host.querySelector('product-form');
+        var realButton = document.getElementById('ProductSubmitButton-{{ section.id }}');
+        if (!buyBox || !realButton) return;
+
+        var buyBoxVisible = true;
+
+        function realButtonUsable() {
+          /* getClientRects() is empty when an ancestor or the button itself is
+             display:none — which is how wb-blend-product.js blocks purchase of a blend
+             containing a deactivated whisky, and how it hides the form while a blend is
+             still loading. */
+          if (realButton.getClientRects().length === 0) return false;
+          if (realButton.hasAttribute('disabled')) return false;
+          return true;
+        }
+
+        function syncButtonState() {
+          /* product-form.js sets aria-disabled (not disabled) for the duration of the
+             add-to-cart request. Mirroring it stops a second tap queueing a second add. */
+          var busy = realButton.getAttribute('aria-disabled') === 'true';
+          stickyButton.disabled = busy;
+
+          var realLabel = realButton.querySelector('span');
+          if (realLabel && realLabel.textContent.trim()) {
+            stickyLabel.textContent = realLabel.textContent.trim();
+          }
+        }
+
+        function syncPrice() {
+          if (stickyPrice && priceSource) stickyPrice.innerHTML = priceSource.innerHTML;
+        }
+
+        function cookieBannerShowing() {
+          /* Shopify injects the consent banner fixed to the bottom of the viewport at
+             z-index 99999. Two stacked bottom bars on a phone is unusable, and consent
+             comes first. */
+          var banner = document.getElementById('shopify-pc__banner');
+          return !!(banner && banner.getClientRects().length > 0);
+        }
+
+        function update() {
+          var show = !buyBoxVisible && realButtonUsable() && !cookieBannerShowing();
+          bar.classList.toggle('wb-sticky-atc--visible', show);
+        }
+
+        stickyButton.addEventListener('click', function () {
+          if (!realButtonUsable()) return;
+          /* Click the real submit button so the browser submits the real form. That
+             fires the same submit event product-form.js already intercepts, and the
+             formdata listeners on that form still run. */
+          realButton.click();
+        });
+
+        /* -80px keeps the bottom strip of the viewport from counting as "visible": the
+           bar itself sits there, so without it the button peeking out from behind the
+           bar would hide the bar, which would reveal the button, and so on. */
+        new IntersectionObserver(
+          function (entries) {
+            buyBoxVisible = entries[0].isIntersecting;
+            update();
+          },
+          { rootMargin: '0px 0px -80px 0px', threshold: 0 }
+        ).observe(buyBox);
+
+        /* Covers every way the real button changes without a variant change: the blend
+           guard hiding it, product-form.js toggling aria-disabled/disabled, and
+           product-info.js rewriting its label to "Sold out". */
+        new MutationObserver(function () {
+          syncButtonState();
+          update();
+        }).observe(realButton, {
+          attributes: true,
+          attributeFilter: ['disabled', 'aria-disabled', 'style', 'class'],
+          childList: true,
+          subtree: true,
+        });
+
+        if (priceSource) {
+          /* product-info.js replaces the innerHTML of #price-{{ section.id }} on every
+             variant change. Watching the node it actually writes to is independent of
+             script load order — pubsub.js is deferred, so subscribe() does not exist
+             while this inline script is parsed. */
+          new MutationObserver(syncPrice).observe(priceSource, { childList: true, subtree: true });
+        }
+
+        /* The consent banner is injected asynchronously, after this script runs. */
+        new MutationObserver(update).observe(document.body, { childList: true });
+
+        syncButtonState();
+        syncPrice();
+        update();
+      })();
+    </script>
+  {%- endif -%}
 </product-info>
 
 {% schema %}

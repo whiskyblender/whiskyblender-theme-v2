@@ -381,6 +381,15 @@
     function updateUI() {
       var total = getTotal();
 
+      /* The "Click to add" sticker has done its job the moment there is any
+         whisky in the blend, however it got there. It used to be dismissed only
+         by the card's own + button, so choosing a premade left it sitting on a
+         finished 100% blend telling the customer to start. Doing it here covers
+         every path that can change the amounts — presets now, and anything
+         added later — rather than needing a call site per route.
+         dismissHint is idempotent and a no-op before initHint has run. */
+      if (total > 0) dismissHint();
+
       flavours.forEach(function (f, i) {
         /* Amount badge */
         var badge = f.card.querySelector('.wb-option-amount');
