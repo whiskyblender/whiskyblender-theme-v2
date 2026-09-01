@@ -268,8 +268,15 @@
                         {{- 'icon-caret.svg' | inline_asset_content -}}
                       </summary>
                       <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
-                        {{ block.settings.content }}
-                        {{ block.settings.page.content }}
+                        {%- comment -%} Printful (print-on-demand) products get a third-party delivery/returns explainer; everything else uses the drawer's own stored content. Keyed on product.vendor. {%- endcomment -%}
+                        {%- if block.settings.heading == 'Delivery & returns' and product.vendor == 'Printful' -%}
+                          <p><strong>Made to order by our print partner.</strong> Unlike our whisky, these are produced and shipped by a specialist print-on-demand partner — not packed and sent from us in Scotland. So they travel separately (your bottle and your beanie won't arrive together), in their own packaging.</p>
+                          <p><strong>Allow a few extra days.</strong> Each item is printed or stitched only once you order it, so give it a few working days to be made before it ships. Free UK delivery; international shows at checkout.</p>
+                          <p><strong>Returns.</strong> Being made to order, they can't come back for a change of mind — but anything faulty, damaged, or wrong, email <a href="mailto:info@whiskyblender.com">info@whiskyblender.com</a> within 30 days and we'll replace or refund it.</p>
+                        {%- else -%}
+                          {{ block.settings.content }}
+                          {{ block.settings.page.content }}
+                        {%- endif -%}
                       </div>
                     </details>
                   </div>
