@@ -970,12 +970,24 @@
         var realButton = document.getElementById('ProductSubmitButton-{{ section.id }}');
         if (!buyBox || !realButton) return;
 
-        /* Starts false-and-blocked: `ready` keeps update() inert until DOMContentLoaded.
-           This script is inline and runs during parse, but wb-blend-product.js is
-           deferred, so at parse time the real button is still visible and enabled even
-           on a page whose blend guard is about to hide it. Evaluating then made the bar
-           flash in and straight back out on the custom templates. Deferred scripts all
-           run before DOMContentLoaded, so by `start()` the guard has had its say. */
+        /* `ready` keeps update() inert until every buy-button guard has had its say.
+           Getting this wrong is what made the bar flash in and straight back out on the
+           custom templates: this script is inline and runs during parse, so at first
+           evaluation the real button is still visible and enabled even on a page whose
+           guard is about to disable or hide it.
+
+           DOMContentLoaded alone is NOT enough. Both wb-single-malt.js and
+           wb-blend-product.js call their init() from a DOMContentLoaded listener, and
+           because this inline script is parsed first its listener is registered first and
+           would run first. Scheduling from inside the listener via requestAnimationFrame
+           puts start() after the whole event has been dispatched, so every one of those
+           handlers has run.
+
+           The blend page's async path needs no extra gate: the button is hidden by
+           hideBuyForm() for the whole fetch, and when the fetch lands showBuyForm() and
+           initInputGuard() run back to back in one synchronous block, so the
+           MutationObserver below — delivered at the following microtask checkpoint —
+           only ever sees the settled state. */
         var ready = false;
 
         function realButtonUsable() {
@@ -1034,19 +1046,18 @@
           return !!(banner && banner.getClientRects().length > 0);
         }
 
-        function buyBoxScrolledPast() {
-          /* "Scrolled past" is not the same as "not reached yet". On mobile the buy box
-             starts below the fold, and treating both alike showed the bar the moment the
-             page loaded, before the customer had ever seen the real button. bottom <= 0
-             means it has gone off the TOP of the viewport, which is the only case that
-             should raise the bar — and because the bar sits at the bottom it can then
-             never cover the button, so there is no oscillation to guard against. */
-          return buyBox.getBoundingClientRect().bottom <= 0;
+        function buyBoxOffScreen() {
+          var rect = buyBox.getBoundingClientRect();
+          /* Off screen in EITHER direction — above the viewport or still below the fold.
+             The bottom 80px is discounted because the bar itself sits there: a button
+             sliding under the bar must not count as visible, or the bar would drop away
+             at the exact moment it covered the button. */
+          return rect.bottom <= 0 || rect.top >= window.innerHeight - 80;
         }
 
         function update() {
           if (!ready) return;
-          var show = buyBoxScrolledPast() && realButtonUsable() && !cookieBannerShowing();
+          var show = buyBoxOffScreen() && realButtonUsable() && !cookieBannerShowing();
           bar.classList.toggle('wb-sticky-atc--visible', show);
           if (show) bar.classList.toggle('wb-sticky-atc--chat', chatLauncherOverlapsBar());
         }
@@ -1115,9 +1126,11 @@
         }
 
         if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', start);
+          document.addEventListener('DOMContentLoaded', function () {
+            requestAnimationFrame(start);
+          });
         } else {
-          start();
+          requestAnimationFrame(start);
         }
       })();
     </script>
