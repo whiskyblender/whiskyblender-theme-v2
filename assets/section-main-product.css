@@ -1492,3 +1492,28 @@ a.product__text {
     border: none;
   }
 }
+
+/* --- Whisky Blender: full-bleed product media on mobile ---
+   Pull the image slider out to the screen edges by exactly offsetting
+   .wb-padding's horizontal padding at each breakpoint — 20px below 600px,
+   30px from 600px up. Overrides Dawn's default -1.5rem (line ~396), which
+   assumed a 15px gutter and left a visible margin. */
+@media screen and (max-width: 749px) {
+  .slider.slider--mobile {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 749px) {
+  .product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
+    margin-left: -30px;
+    margin-right: -30px;
+  }
+}
