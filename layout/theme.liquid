@@ -640,11 +640,23 @@
           {
             "@type": "WebSite",
             "name": {{ shop.name | json }},
-            "url": {{ request.origin | json }}
+            "url": {{ request.origin | json }},
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "{{ request.origin }}/search?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
           }
         ]
       }
     </script>
+
+    {%- if request.page_type == 'collection' and collection != blank -%}
+      {% render 'wb-collection-structured-data', collection: collection %}
+    {%- endif -%}
 
     <script>
       (function () {
