@@ -1512,3 +1512,11 @@ a.product__text {
     margin-right: -30px;
   }
 }
+
+/* Zero the slider's own bottom margin on mobile so the 20px on
+   .product__media-wrapper is the only gap below the images. */
+@media screen and (max-width: 749px) {
+  .slider.slider--mobile {
+    margin-bottom: 0;
+  }
+}
