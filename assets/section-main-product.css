@@ -1514,9 +1514,10 @@ a.product__text {
 }
 
 /* Zero the slider's own bottom margin on mobile so the 20px on
-   .product__media-wrapper is the only gap below the images. */
+   .product__media-wrapper is the only gap below the images.
+   !important is needed to beat Dawn's margin shorthand on this element. */
 @media screen and (max-width: 749px) {
   .slider.slider--mobile {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 }
