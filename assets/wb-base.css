@@ -93,6 +93,19 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
   background-color: #efefef;
 }
 
+/* Pages with a WB Page Effect (wb-effects) prepend a .shopify-section <div>
+   (the effect canvas), shifting every following section's nth-of-type parity by
+   one — which knocks banded sections (e.g. the collection product grid on the
+   occasion template) off their grey band. Re-flip the banding wherever
+   wb-effects is present so it lines back up. Used on collection.occasion and
+   article templates (section key "wb_effects" in both). */
+#MainContent:has(> .shopify-section[id*="wb_effects"]) .shopify-section:nth-of-type(odd) section.wb-banded {
+  background-color: #efefef;
+}
+#MainContent:has(> .shopify-section[id*="wb_effects"]) .shopify-section:nth-of-type(even) section.wb-banded {
+  background-color: transparent;
+}
+
 /* Product page: when a product has no reviews, Judge.me hides the review widget
    (empty_state=hide_widget) but the section stays in the DOM at zero height,
    keeping its nth-of-type slot and knocking related-products off the banding
