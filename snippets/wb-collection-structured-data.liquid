@@ -1,0 +1,55 @@
+{%- comment -%}
+  Structured data for collection pages: a BreadcrumbList (Home -> Collection) and
+  a CollectionPage whose mainEntity is an ItemList of the collection's products.
+  Invisible to shoppers — read by search engines and AI shopping agents so they
+  understand the page as a curated product list. Products capped at 30 to keep
+  the payload small; numberOfItems still reports the true total.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": {{ request.origin | json }}
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": {{ collection.title | json }},
+          "item": {{ collection.url | prepend: request.origin | json }}
+        }
+      ]
+    },
+    {
+      "@type": "CollectionPage",
+      "name": {{ collection.title | json }},
+      "url": {{ collection.url | prepend: request.origin | json }},
+      {%- if collection.description != blank %}
+      "description": {{ collection.description | strip_html | truncate: 300 | json }},
+      {%- endif %}
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": {{ collection.products_count }},
+        "itemListElement": [
+          {%- assign wb_pos = 0 -%}
+          {%- for product in collection.products limit: 30 -%}
+            {%- assign wb_pos = wb_pos | plus: 1 -%}
+            {
+              "@type": "ListItem",
+              "position": {{ wb_pos }},
+              "name": {{ product.title | json }},
+              "url": {{ product.url | prepend: request.origin | json }}
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ]
+      }
+    }
+  ]
+}
+</script>
