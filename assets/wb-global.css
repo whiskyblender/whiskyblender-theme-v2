@@ -984,3 +984,12 @@ html .product .rating-star {
   50%  { --color-rating-star: #b88d60; }
   100% { --color-rating-star: #ccb095; }
 }
+
+/* Keep the Shopify Forms popup (10% off, etc.) below the sticky add-to-cart bar.
+   Forms renders inside a shadow DOM at the max z-index (2147483647). Giving its
+   light-DOM host its own stacking context below the bar (z-index 900) traps the
+   whole popup — minimised or open — underneath it. */
+shopify-forms-embed {
+  position: relative !important;
+  z-index: 899 !important;
+}
