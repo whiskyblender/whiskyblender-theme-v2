@@ -1498,12 +1498,6 @@ a.product__text {
    .wb-padding's horizontal padding at each breakpoint — 20px below 600px,
    30px from 600px up. Overrides Dawn's default -1.5rem (line ~396), which
    assumed a 15px gutter and left a visible margin. */
-@media screen and (max-width: 749px) {
-  .slider.slider--mobile {
-    margin-bottom: 0;
-  }
-}
-
 @media screen and (max-width: 599px) {
   .product__media-wrapper slider-component:not(.thumbnail-slider--no-slide) {
     margin-left: -20px;
