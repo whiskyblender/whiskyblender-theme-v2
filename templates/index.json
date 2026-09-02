@@ -22,7 +22,7 @@
         "primary_button_text": "Create a new whisky",
         "primary_button_url": "shopify://pages/the-lab",
         "secondary_button_text": "Gift vouchers",
-        "secondary_button_url": "shopify://pages/how-it-works",
+        "secondary_button_url": "shopify://products/gift-voucher",
         "badge_show": false,
         "badge_url": "shopify://pages/the-lab",
         "badge_image": "shopify://shop_images/button.jpg",
@@ -172,6 +172,21 @@
         "padding_bottom": 0
       }
     },
+    "wb_cta_letscollab": {
+      "type": "wb-cta",
+      "name": "CTA - Let's collaborate",
+      "settings": {
+        "heading": "Let's collaborate",
+        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
+        "image": "shopify://shop_images/wb-yerownbrand.png",
+        "image_class": "wb-yourownbrand",
+        "primary_button_text": "Get in touch",
+        "primary_button_url": "shopify://pages/contact",
+        "secondary_button_text": "See collaborations",
+        "secondary_button_url": "shopify://collections/collaborations",
+        "background": "auto"
+      }
+    },
     "wb_occasions_compact": {
       "type": "wb-occasions-compact",
       "blocks": {
@@ -235,21 +250,6 @@
         "primary_button_url": "shopify://pages/create",
         "secondary_button_text": "",
         "secondary_button_url": "",
-        "background": "auto"
-      }
-    },
-    "wb_cta_letscollab": {
-      "type": "wb-cta",
-      "name": "CTA - Let's collaborate",
-      "settings": {
-        "heading": "Let's collaborate",
-        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
-        "image": "shopify://shop_images/wb-yerownbrand.png",
-        "image_class": "wb-yourownbrand",
-        "primary_button_text": "Get in touch",
-        "primary_button_url": "shopify://pages/contact",
-        "secondary_button_text": "See collaborations",
-        "secondary_button_url": "shopify://collections/collaborations",
         "background": "auto"
       }
     },
