@@ -96,3 +96,17 @@
     block-size: auto;
   }
 }
+
+/* Tasting Notes pulls its content from a rich-text metafield, whose block
+   content wraps it in <p>…</p>. Because the rich text is block-level, the
+   browser leaves an empty leading <p>, and the real first paragraph sits inside
+   a .metafield-rich_text_field wrapper — so it misses the "first child, no top
+   margin" reset the other drawers get. Both add a gap under the header; remove
+   them so Tasting Notes lines up with How to enjoy / Delivery. */
+.product__accordion .accordion__content > p:empty {
+  display: none;
+}
+
+.product__accordion .accordion__content .metafield-rich_text_field > :first-child {
+  margin-top: 0;
+}
