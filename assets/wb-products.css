@@ -24,6 +24,7 @@
   position: sticky;
   z-index: 2;
   top: 40px;
+  margin-bottom: 20px;
 }
 
 .wb-collection-ref {
