@@ -59,7 +59,10 @@
 
   var state = {
     product:    'customblend',  /* customblend | singlemalt | singlecask */
-    template:   'new',          /* new | classic — 500ml label template version (Phase 1: no-op seam) */
+    template:   'classic',      /* new | classic — 500ml label template version.
+                                   Default held at 'classic' during the build so live
+                                   printing is unchanged; flips to 'new' at go-live
+                                   (real artwork + confirmed stock). Phase 4. */
     blend:      '',
     text:       '',
     author:     '',
@@ -184,7 +187,10 @@
     }
     var cdn = root.getAttribute('data-cdn') || '';
     var av  = root.getAttribute('data-av') || '1';
-    return cdn + 'wb-' + product + '-' + slugify(variant) + '-' + size + '.jpg?v=' + av;
+    /* New 500ml artwork uses the _tall filenames (single malt / cask roundel comes
+       through this fallback, not the map). Classic and all other sizes are unchanged. */
+    var suffix = (state.template === 'new' && size === '500ml') ? '_tall' : '';
+    return cdn + 'wb-' + product + '-' + slugify(variant) + '-' + size + suffix + '.jpg?v=' + av;
   }
 
   function luminance(hex) {
@@ -365,8 +371,9 @@
   }
 
   function renderLabel() {
-    /* Template version → body class. Classic CSS overrides key off wb-tpl-classic
-       (added in Phase 2); until then this toggles nothing visible. */
+    /* Template version → body class. New overrides key off wb-tpl-new, Classic off
+       wb-tpl-classic; the two are mutually exclusive so their CSS never competes. */
+    document.body.classList.toggle('wb-tpl-new', state.template === 'new');
     document.body.classList.toggle('wb-tpl-classic', state.template === 'classic');
 
     var isMini = (state.product === 'miniatures') || (state.product === 'customblend' && state.size === '50ml');

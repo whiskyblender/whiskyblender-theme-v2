@@ -488,6 +488,25 @@ body.wb-tpl-classic #page.size50.singlemalt,
 body.wb-tpl-classic #page.size50.singlecask { background-image: url(sample50cl-bars.webp); background-size: cover; }
 body.wb-tpl-classic .size50 #wb-recipe-panel { padding: 0 18% 10%; }
 
+/* ── New template (500ml) ───────────────────────────────────────────────────
+   Phase 3. Keys off body.wb-tpl-new (the default at go-live). Additive over the
+   base rules — only the taller printed frame changes here: the top crop is raised
+   and the single-malt/cask bars move up, while the bottom crop is unchanged (same
+   794×560 canvas). Custom-blend artwork swaps by filename via the artwork map
+   (the _tall files), not here. Overprint element positions are calibrated against
+   the real artwork in a later step; the order summary relocates to the side spine
+   in Phase 3b. */
+
+/* Taller crop die — top crop raised, bottom unchanged. */
+body.wb-tpl-new .size50 .crops { background-image: url(crops50-taller.png); }
+
+/* Single malt / cask — taller bars background. */
+body.wb-tpl-new #page.size50.singlemalt,
+body.wb-tpl-new #page.size50.singlecask {
+  background-image: url(sample50cl-tallerbars.png);
+  background-size: cover;
+}
+
 /* ── Print ─────────────────────────────────────────────────────────────────── */
 
 @media print {
