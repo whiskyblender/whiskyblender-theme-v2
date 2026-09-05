@@ -42,6 +42,15 @@
     },
   };
 
+  /* New 500ml template dimensions. Phase 2: a clone of the classic 500ml entry, so
+     "New" renders identically to today. Phase 3 replaces this with the real New
+     values (calibrated against the taller-bars artwork). Classic keeps using the
+     DIMS entry above, so DIMS stays a frozen, lossless snapshot. Only 500ml has a
+     New entry; every other size falls back to DIMS. */
+  var DIMS_NEW = {
+    '500ml': Object.assign({}, DIMS['500ml']),
+  };
+
   /* ── Contact sheet ─────────────────────────────────────────────────────────── */
 
   var CONTACT = { cols: 3, rows: 4, w: 250, h: 250, gap: 4, pageW: 794, pageH: 1123 };
@@ -150,10 +159,12 @@
     return String(str || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   }
 
-  /* Dimensions for the current size, aware of the label template version. This is
-     a seam for the new 500ml template: New currently equals today's DIMS, so it is
-     a passthrough until Phase 3 introduces the diverging New values. */
+  /* Dimensions for the current size, aware of the label template version.
+     New (default) → DIMS_NEW when it has an entry (500ml only); Classic → the
+     frozen DIMS entry. Phase 2: DIMS_NEW['500ml'] clones DIMS['500ml'], so both
+     paths are identical until Phase 3 diverges New. */
   function getDims() {
+    if (state.template === 'new' && DIMS_NEW[state.size]) return DIMS_NEW[state.size];
     return DIMS[state.size] || DIMS['200ml'];
   }
 

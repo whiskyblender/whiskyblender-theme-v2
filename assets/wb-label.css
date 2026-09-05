@@ -464,6 +464,30 @@ body.wb-preview-mode #wb-page-wrapper {
   padding: 4% 13% 0;
 }
 
+/* ── Classic template snapshot (500ml) ──────────────────────────────────────
+   Frozen copy of the 500ml layout as it stood before the New template. These
+   overrides key off body.wb-tpl-classic (set by wb-label.js when the Label
+   template toggle is on "Classic"). The base .size50 rules ABOVE are what Phase 3
+   edits to the New values; the rules HERE preserve today's exact positions so
+   Classic is a lossless revert. Values here mirror the base rules until Phase 3
+   diverges them, so at Phase 2 this changes nothing. 200ml / miniatures are not
+   affected by the New template and are deliberately not snapshotted. */
+
+body.wb-tpl-classic #page.size50 { width: 794px; height: 432px; margin-top: calc(50vh - 280px); }
+body.wb-tpl-classic .size50 #wb-summary { padding: 10% 18% 0; }
+body.wb-tpl-classic .size50 .wb-label-area { padding-top: 128px; height: 432px; }
+body.wb-tpl-classic .size50 .crops { width: 794px; height: 560px; background: url(crops50.png) center center no-repeat; }
+body.wb-tpl-classic .size50 #label { width: 552px; height: 303px; }
+body.wb-tpl-classic .size50 #outer { top: 56px; left: 195px; scale: 2.2; }
+body.wb-tpl-classic .size50 .side { top: 204px; left: 210px; scale: 2.2; }
+body.wb-tpl-classic .size50 .reference { right: -24px; top: 45px; height: 11px; width: 80px; font-size: 8px; line-height: 10px; }
+body.wb-tpl-classic .size50 .image { top: -8px; left: 102px; width: 458px; height: 244px; }
+body.wb-tpl-classic .size50.singlemalt .image,
+body.wb-tpl-classic .size50.singlecask .image { top: 4px; left: -9px; width: 570px; height: 232px; }
+body.wb-tpl-classic #page.size50.singlemalt,
+body.wb-tpl-classic #page.size50.singlecask { background-image: url(sample50cl-bars.webp); background-size: cover; }
+body.wb-tpl-classic .size50 #wb-recipe-panel { padding: 0 18% 10%; }
+
 /* ── Print ─────────────────────────────────────────────────────────────────── */
 
 @media print {
