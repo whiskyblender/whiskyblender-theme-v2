@@ -50,6 +50,7 @@
 
   var state = {
     product:    'customblend',  /* customblend | singlemalt | singlecask */
+    template:   'new',          /* new | classic — 500ml label template version (Phase 1: no-op seam) */
     blend:      '',
     text:       '',
     author:     '',
@@ -149,11 +150,21 @@
     return String(str || '').toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
   }
 
+  /* Dimensions for the current size, aware of the label template version. This is
+     a seam for the new 500ml template: New currently equals today's DIMS, so it is
+     a passthrough until Phase 3 introduces the diverging New values. */
+  function getDims() {
+    return DIMS[state.size] || DIMS['200ml'];
+  }
+
   function getArtworkUrl(product, variant, size) {
     if (!product || !variant) return null;
     var root = document.getElementById('wb-label-root');
     var key = product + '-' + slugify(variant) + '-' + size;
-    var mapAttr = root.getAttribute('data-artwork-map');
+    /* Classic reads its own map when present (added in Phase 2); falls back to the
+       New/default map, so this is a no-op until the classic map exists. */
+    var mapName = state.template === 'classic' ? 'data-artwork-map-classic' : 'data-artwork-map';
+    var mapAttr = root.getAttribute(mapName) || root.getAttribute('data-artwork-map');
     if (mapAttr) {
       try {
         var map = JSON.parse(mapAttr);
@@ -343,6 +354,10 @@
   }
 
   function renderLabel() {
+    /* Template version → body class. Classic CSS overrides key off wb-tpl-classic
+       (added in Phase 2); until then this toggles nothing visible. */
+    document.body.classList.toggle('wb-tpl-classic', state.template === 'classic');
+
     var isMini = (state.product === 'miniatures') || (state.product === 'customblend' && state.size === '50ml');
     var pageEl = document.getElementById('page');
     var contactSheet = document.getElementById('wb-contact-sheet');
@@ -358,7 +373,7 @@
     if (pageEl) pageEl.style.display = '';
     if (contactSheet) contactSheet.classList.remove('is-visible');
 
-    var d = DIMS[state.size] || DIMS['200ml'];
+    var d = getDims();
     var page = document.getElementById('page');
     var label = document.getElementById('label');
     if (!page || !label) return;
@@ -567,7 +582,7 @@
 
     if (loading) loading.style.display = 'none';
 
-    var d = DIMS[state.size] || DIMS['200ml'];
+    var d = getDims();
     var volume = d.volume;
     var items = Array.isArray(state.recipe) ? state.recipe.filter(function (r) { return r.amount > 0; }) : [];
 
@@ -653,6 +668,9 @@
     if (ref)      ref.value      = state.reference;
     if (pname)    pname.value    = state.productname;
 
+    var tpl = document.getElementById('wb-f-template');
+    if (tpl) tpl.value = state.template;
+
     updateTypeVisibility();
   }
 
@@ -680,6 +698,10 @@
     /* Bottle size: all except miniature */
     document.querySelectorAll('.wb-nonmini-only').forEach(function (el) {
       el.style.display = isMini ? 'none' : '';
+    });
+    /* Label template toggle: 500ml only (only 500ml has a New template) */
+    document.querySelectorAll('.wb-500-only').forEach(function (el) {
+      el.style.display = (state.size === '500ml' && !isMini) ? '' : 'none';
     });
   }
 
@@ -716,6 +738,15 @@
     if (size) {
       size.addEventListener('change', function () {
         state.size = size.value;
+        updateTypeVisibility();
+        render();
+      });
+    }
+
+    var tplSel = document.getElementById('wb-f-template');
+    if (tplSel) {
+      tplSel.addEventListener('change', function () {
+        state.template = tplSel.value;
         render();
       });
     }
