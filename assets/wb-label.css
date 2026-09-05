@@ -507,6 +507,10 @@ body.wb-tpl-new #page.size50.singlecask {
   background-size: cover;
 }
 
+/* Order summary nudged up into the top trim margin the taller artwork leaves
+   (raised bar eats the old 10% band). Staff-reference row, above the crop marks. */
+body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
+
 /* ── Print ─────────────────────────────────────────────────────────────────── */
 
 @media print {
