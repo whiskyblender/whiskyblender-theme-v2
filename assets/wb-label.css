@@ -507,10 +507,10 @@ body.wb-tpl-new #page.size50 {
   background-size: cover;
 }
 
-/* All New 500ml artwork grows up into the taller window; bottom pinned
-   (-38 + 274 == -8 + 244). Custom-blend panel and single malt / cask roundel share
-   the same top/height; each keeps its own left/width from its base .image rule. */
-body.wb-tpl-new .size50 .image { top: -38px; height: 274px; }
+/* All New 500ml artwork fills the taller window; bottom pinned at 236
+   (-33 + 269). Custom-blend panel and single malt / cask roundel share the same
+   top/height; each keeps its own left/width from its base .image rule. */
+body.wb-tpl-new .size50 .image { top: -33px; height: 269px; }
 
 /* Blend / whisky name: up 30px (top 56->26) and 15px taller (height 80->95) to sit
    on the taller artwork. Base #outer height is 80; this overrides it for New. */
