@@ -500,12 +500,17 @@ body.wb-tpl-classic .size50 #wb-recipe-panel { padding: 0 18% 10%; }
 /* Taller crop die — top crop raised, bottom unchanged. */
 body.wb-tpl-new .size50 .crops { background-image: url(crops50-taller.png); }
 
-/* Single malt / cask — taller bars background. */
-body.wb-tpl-new #page.size50.singlemalt,
-body.wb-tpl-new #page.size50.singlecask {
+/* Taller bars background — all New 500ml, custom blend included (framed like the
+   single malt / cask). Classic custom blend stays white via the base #page rule. */
+body.wb-tpl-new #page.size50 {
   background-image: url(sample50cl-tallerbars.png);
   background-size: cover;
 }
+
+/* Custom-blend artwork grows up into the taller window; bottom pinned
+   (-38 + 274 == -8 + 244). :not(...) leaves the single malt / cask roundel, which
+   has its own .image rule, untouched. */
+body.wb-tpl-new #page.size50:not(.singlemalt):not(.singlecask) .image { top: -38px; height: 274px; }
 
 /* Order summary nudged up into the top trim margin the taller artwork leaves
    (raised bar eats the old 10% band). Staff-reference row, above the crop marks. */
