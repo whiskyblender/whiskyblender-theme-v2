@@ -299,13 +299,25 @@ recipient-form .recipient-fields__field .field::after {
   display: none;
   content: none;
 }
-recipient-form .recipient-fields__field .field__input {
+/* Boxed input matching the Lab inputs, in EVERY state — Dawn's .customer .field
+   input rules change padding/margin/border-radius on focus AND when filled
+   (:not(:placeholder-shown)) and add a focus-ring box-shadow, so all states are
+   listed and the .customer prefix out-specifies them. */
+.customer recipient-form .recipient-fields__field .field__input,
+.customer recipient-form .recipient-fields__field .field__input:focus,
+.customer recipient-form .recipient-fields__field .field__input:focus-visible,
+.customer recipient-form .recipient-fields__field .field__input:not(:placeholder-shown),
+.customer recipient-form .recipient-fields__field .field__input:-webkit-autofill {
+  box-sizing: border-box;
   width: 100%;
   min-height: 0;
+  margin: 0;
+  padding: 14px 16px;
   background: #ffffff;
   border: 2px solid rgba(0,0,0,0.15);
   border-radius: 6px;
-  padding: 14px 16px;
+  box-shadow: none;
+  outline: none;
   font-size: 18px;
   font-family: 'Raleway', sans-serif;
   font-weight: 700;
@@ -313,12 +325,16 @@ recipient-form .recipient-fields__field .field__input {
   line-height: 160%;
   color: #333;
 }
-/* .customer prefix out-specifies Dawn's .customer .field input:focus-visible ring. */
+/* Focus: just the darker border (radius kept, no ring), like the Lab inputs. */
 .customer recipient-form .recipient-fields__field .field__input:focus,
 .customer recipient-form .recipient-fields__field .field__input:focus-visible {
   border-color: rgba(0,0,0,0.4);
-  outline: none;
-  box-shadow: none;
+}
+/* Bigger message box for the gift note. */
+.customer recipient-form .recipient-fields__field textarea.field__input {
+  min-height: 96px;
+  line-height: 150%;
+  resize: vertical;
 }
 recipient-form .recipient-fields__field .field__input::placeholder {
   color: rgba(0,0,0,0.35);
@@ -336,8 +352,9 @@ recipient-form .recipient-fields__field .field__label {
   transform: none;
   inset: auto;
   display: block;
+  font-family: 'Raleway', sans-serif;
   font-size: 10px;
-  font-weight: bold;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 20px 0 6px;
