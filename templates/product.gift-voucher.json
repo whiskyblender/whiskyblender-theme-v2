@@ -1,0 +1,140 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+/*
+ * Gift-voucher product template. Same layout as the default product template, but
+ * the whisky drawers (Tasting Notes / How to enjoy / bottle Delivery & returns) are
+ * replaced with voucher-appropriate ones (How it works / Terms & expiry), since the
+ * gift voucher is an emailed gift code, not a bottle. Drawer copy is a starting
+ * point — edit it in the theme editor.
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "product_tagline_W3AUrB": {
+          "type": "product_tagline",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "wb-voucher-how": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How it works",
+            "icon": "none",
+            "content": "<p><strong>Delivered by email.</strong> As soon as the order is placed, a gift code is emailed — to you, or straight to the recipient if you add their details above (you can even choose the date it's sent).</p><p><strong>Redeeming it.</strong> At checkout the code is entered and its value comes off the order. Spend it on anything at Whisky Blender — a ready-made bottle, a personalised bottle, or a custom blend created in the Lab.</p><p><strong>Balances carry over.</strong> Not spent all at once? The remaining balance stays on the code for next time.</p>",
+            "page": ""
+          }
+        },
+        "wb-voucher-terms": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Terms & expiry",
+            "icon": "none",
+            "content": "<p>Gift codes can be spent across multiple orders until the balance runs out.</p><p>They're non-refundable once issued and can't be exchanged for cash, so keep the code safe. Any questions, email <a href=\"mailto:info@whiskyblender.com\">info@whiskyblender.com</a>.</p>",
+            "page": ""
+          }
+        },
+        "part_of_collection_BpWfEH": {
+          "type": "part_of_collection",
+          "settings": {
+            "excluded_collections": "Anniversaries, Birthdays, Celebrations, Christmas, Thankyous, Weddings"
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "product_tagline_W3AUrB",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "wb-voucher-how",
+        "wb-voucher-terms",
+        "part_of_collection_BpWfEH",
+        "share"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "cover",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "excluded_collection_handles": "featured,anniversaries,birthdays,celebrations,christmas,thankyous,weddings,custom",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related-products"
+  ]
+}
