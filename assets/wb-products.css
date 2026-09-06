@@ -289,8 +289,15 @@
 recipient-form .recipient-fields__field .field {
   display: flex;
   flex-direction: column-reverse; /* label is after the input in the DOM; put it on top */
-  position: static;
   margin: 0;
+}
+/* Dawn draws the field border/focus-ring via .field::after/::before (absolute,
+   inset:1px). Our inputs carry their own border, and the flex layout above would
+   let those overlays expand to the whole form — so remove them. */
+recipient-form .recipient-fields__field .field::before,
+recipient-form .recipient-fields__field .field::after {
+  display: none;
+  content: none;
 }
 recipient-form .recipient-fields__field .field__input {
   width: 100%;
