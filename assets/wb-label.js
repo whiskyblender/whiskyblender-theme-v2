@@ -348,11 +348,14 @@
       'z-index:2',
     ].join(';');
 
-    var tallStyle = 'font-family:Antonio,sans-serif;font-weight:300;font-size:' + d.tallFont + 'px;text-transform:uppercase;letter-spacing:-0.5px';
-    info.innerHTML =
-      '<span style="' + tallStyle + '">' + esc(state.strength || '46') + '% abv</span>' +
-      '<span style="font-size:' + d.domainFont + 'px;font-weight:700;text-align:center;letter-spacing:0.4px;font-family:Raleway,sans-serif">whiskyblender.com</span>' +
-      '<span style="' + tallStyle + ';text-align:right">' + esc(sizeText) + '</span>';
+    /* d.blank → an empty white strip (New custom blend), same shape, no content. */
+    if (!d.blank) {
+      var tallStyle = 'font-family:Antonio,sans-serif;font-weight:300;font-size:' + d.tallFont + 'px;text-transform:uppercase;letter-spacing:-0.5px';
+      info.innerHTML =
+        '<span style="' + tallStyle + '">' + esc(state.strength || '46') + '% abv</span>' +
+        '<span style="font-size:' + d.domainFont + 'px;font-weight:700;text-align:center;letter-spacing:0.4px;font-family:Raleway,sans-serif">whiskyblender.com</span>' +
+        '<span style="' + tallStyle + ';text-align:right">' + esc(sizeText) + '</span>';
+    }
     label.appendChild(info);
 
     /* Single cask strip */
@@ -476,6 +479,10 @@
     if (state.product !== 'customblend') {
       /* panelTop shifts to roundelTop (4) so strip sits alongside the artwork */
       renderSidePanel(Object.assign({}, d, { panelTop: d.roundelTop }));
+    } else if (state.template === 'new' && state.size === '500ml') {
+      /* New custom blend: a blank white side strip, same shape as the single
+         malt / cask one but with no content. */
+      renderSidePanel(Object.assign({}, d, { panelTop: d.roundelTop, blank: true }));
     } else {
       removeSidePanels();
     }
