@@ -534,6 +534,10 @@ body.wb-tpl-new .size50 .side { top: 194px; }
 /* Reference tag: lifted 30px (45->15) on the taller artwork. */
 body.wb-tpl-new .size50 .reference { top: 15px; }
 
+/* Reference tag: white (dark shadow) on the dark single malt / cask artwork. */
+body.wb-tpl-new .size50.singlemalt .reference,
+body.wb-tpl-new .size50.singlecask .reference { color: #fff; text-shadow: 1px 1px 0 #000; }
+
 /* Order summary nudged up into the top trim margin the taller artwork leaves
    (raised bar eats the old 10% band). Staff-reference row, above the crop marks. */
 body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
