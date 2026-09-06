@@ -42,13 +42,16 @@
     },
   };
 
-  /* New 500ml template dimensions. Phase 2: a clone of the classic 500ml entry, so
-     "New" renders identically to today. Phase 3 replaces this with the real New
-     values (calibrated against the taller-bars artwork). Classic keeps using the
-     DIMS entry above, so DIMS stays a frozen, lossless snapshot. Only 500ml has a
-     New entry; every other size falls back to DIMS. */
+  /* New 500ml template dimensions: a clone of the Classic 500ml entry with the
+     side-strip geometry overridden. renderLabel feeds roundelTop -> the strip's
+     panelTop, and panelLength is the strip's length, so these move the ABV /
+     single-cask side strips up 27px and lengthen them 27px (top -23, length 259) to
+     align with the taller New artwork — the strip's bottom stays pinned at 236
+     (-23 + 259 == the Classic 4 + 232). The roundel image position is CSS
+     (body.wb-tpl-new .size50 .image), independent of roundelTop here. Classic keeps
+     using the DIMS entry above (frozen snapshot). Only 500ml has a New entry. */
   var DIMS_NEW = {
-    '500ml': Object.assign({}, DIMS['500ml']),
+    '500ml': Object.assign({}, DIMS['500ml'], { roundelTop: -23, panelLength: 259 }),
   };
 
   /* ── Contact sheet ─────────────────────────────────────────────────────────── */
