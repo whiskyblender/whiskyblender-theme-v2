@@ -317,20 +317,37 @@ recipient-form .recipient-fields__field .field__input::placeholder {
   font-weight: 700;
   opacity: 1;
 }
+/* Placeholder clears on focus (Dawn keeps it; the top label is enough). */
+recipient-form .recipient-fields__field .field__input:focus::placeholder {
+  color: transparent;
+}
+/* Label — match the Lab .wb-bottle-form label (10px bold uppercase, 2px tracking,
+   20/12 margins) and undo Dawn's nowrap/ellipsis truncation of the field labels. */
 recipient-form .recipient-fields__field .field__label {
   position: static;
   transform: none;
   inset: auto;
+  display: block;
   font-size: 10px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin: 20px 0 6px;
+  margin: 20px 0 12px;
   padding: 0;
   color: inherit;
   line-height: 1.2;
   background: none;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  max-width: none;
 }
+/* Drop Dawn's divider rule; the boxed fields don't need it. Defensive border reset
+   on the wrappers in case a Dawn/state border ever appears. */
+recipient-form .recipient-fields hr { display: none; }
+recipient-form,
+recipient-form .recipient-fields,
+recipient-form .recipient-fields__field { border: none; }
 
 @media screen and (min-width: 600px) {
   .wb-bottle-form input:not(.quantity__input):not([type="radio"]):not([type="checkbox"]),
