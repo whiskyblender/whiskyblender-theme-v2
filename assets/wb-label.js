@@ -62,10 +62,10 @@
 
   var state = {
     product:    'customblend',  /* customblend | singlemalt | singlecask */
-    template:   'classic',      /* new | classic — 500ml label template version.
-                                   Default held at 'classic' during the build so live
-                                   printing is unchanged; flips to 'new' at go-live
-                                   (real artwork + confirmed stock). Phase 4. */
+    template:   'new',          /* new | classic — 500ml label template version.
+                                   New is the live default (go-live 2026-09-06). The
+                                   "Legacy template" checkbox toggles back to
+                                   'classic' when the old template is needed. */
     blend:      '',
     text:       '',
     author:     '',
@@ -695,8 +695,8 @@
     if (ref)      ref.value      = state.reference;
     if (pname)    pname.value    = state.productname;
 
-    var tpl = document.getElementById('wb-f-template');
-    if (tpl) tpl.value = state.template;
+    var legacy = document.getElementById('wb-f-legacy');
+    if (legacy) legacy.checked = (state.template === 'classic');
 
     updateTypeVisibility();
   }
@@ -770,10 +770,10 @@
       });
     }
 
-    var tplSel = document.getElementById('wb-f-template');
-    if (tplSel) {
-      tplSel.addEventListener('change', function () {
-        state.template = tplSel.value;
+    var legacyToggle = document.getElementById('wb-f-legacy');
+    if (legacyToggle) {
+      legacyToggle.addEventListener('change', function () {
+        state.template = legacyToggle.checked ? 'classic' : 'new';
         render();
       });
     }

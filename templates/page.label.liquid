@@ -21,7 +21,7 @@
 <div id="wb-label-root"
   data-api-base="https://lab.whiskyblender.com"
   data-cdn="{{ 'wb-label.css' | asset_url | split: 'wb-label.css' | first }}"
-  data-av="10"
+  data-av="11"
   data-artwork-map='{"customblend-standard-200ml":"{{ 'wb-customblend-standard-200ml.jpg' | asset_url }}","customblend-standard-500ml":"{{ 'wb-customblend-standard-500ml_tall.jpg' | asset_url }}","customblend-birthday-200ml":"{{ 'wb-customblend-birthday-200ml.jpg' | asset_url }}","customblend-birthday-500ml":"{{ 'wb-customblend-birthday-500ml_tall.jpg' | asset_url }}","customblend-dad-200ml":"{{ 'wb-customblend-dad-200ml.webp' | asset_url }}","customblend-dad-500ml":"{{ 'wb-customblend-dad-500ml_tall.jpg' | asset_url }}","customblend-wedding-200ml":"{{ 'wb-customblend-wedding-200ml.webp' | asset_url }}","customblend-wedding-500ml":"{{ 'wb-customblend-wedding-500ml_tall.jpg' | asset_url }}"}'
   data-artwork-map-classic='{"customblend-standard-200ml":"{{ 'wb-customblend-standard-200ml.jpg' | asset_url }}","customblend-standard-500ml":"{{ 'wb-customblend-standard-500ml.jpg' | asset_url }}","customblend-birthday-200ml":"{{ 'wb-customblend-birthday-200ml.jpg' | asset_url }}","customblend-birthday-500ml":"{{ 'wb-customblend-birthday-500ml.webp' | asset_url }}","customblend-dad-200ml":"{{ 'wb-customblend-dad-200ml.webp' | asset_url }}","customblend-dad-500ml":"{{ 'wb-customblend-dad-500ml.jpg' | asset_url }}","customblend-wedding-200ml":"{{ 'wb-customblend-wedding-200ml.webp' | asset_url }}","customblend-wedding-500ml":"{{ 'wb-customblend-wedding-500ml.webp' | asset_url }}"}'
 >
@@ -90,12 +90,9 @@
         </select>
       </div>
 
-      <div class="wb-field wb-500-only">
-        <label for="wb-f-template">Label template</label>
-        <select id="wb-f-template">
-          <option value="new">New (default)</option>
-          <option value="classic">Classic</option>
-        </select>
+      <div class="wb-field wb-field--toggle wb-500-only">
+        <label for="wb-f-legacy">Legacy template</label>
+        <input type="checkbox" id="wb-f-legacy">
       </div>
 
       <div class="wb-field">
