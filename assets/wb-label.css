@@ -516,6 +516,9 @@ body.wb-tpl-new .size50 .image { top: -33px; height: 269px; }
    on the taller artwork. Base #outer height is 80; this overrides it for New. */
 body.wb-tpl-new .size50 #outer { top: 26px; height: 95px; }
 
+/* "Created by" / distillery line: up 15px (204->189) on the taller artwork. */
+body.wb-tpl-new .size50 .side { top: 189px; }
+
 /* Order summary nudged up into the top trim margin the taller artwork leaves
    (raised bar eats the old 10% band). Staff-reference row, above the crop marks. */
 body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
