@@ -49,10 +49,11 @@
      align with the taller New artwork — the strip's bottom stays pinned at 236
      (-33 + 269 == the Classic 4 + 232). The roundel image position is CSS
      (body.wb-tpl-new .size50 .image), independent of roundelTop here. svgW/svgH size
-     the single-cask "SINGLE CASK" SVG (232x52 for New, up from 202x34). Classic keeps
+     the single-cask "SINGLE CASK" SVG (232x52 for New, up from 202x34). sideLabelTop
+     positions the "Distilled at" label (170 for New, up from 184). Classic keeps
      using the DIMS entry above (frozen snapshot). Only 500ml has a New entry. */
   var DIMS_NEW = {
-    '500ml': Object.assign({}, DIMS['500ml'], { roundelTop: -33, panelLength: 269, svgW: 232, svgH: 52 }),
+    '500ml': Object.assign({}, DIMS['500ml'], { roundelTop: -33, panelLength: 269, svgW: 232, svgH: 52, sideLabelTop: 170 }),
   };
 
   /* ── Contact sheet ─────────────────────────────────────────────────────────── */
