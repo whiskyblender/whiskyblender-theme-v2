@@ -324,8 +324,7 @@
     var s = d.panelLength / 232;
     var pad = Math.round(10 * s) + 'px ' + Math.round(16 * s) + 'px ' + Math.round(17 * s) + 'px';
     var sizeText = d.volume + 'ml ℮';
-    /* Blank strip (New custom blend) matches the single-cask strip height (70). */
-    var infoH = d.blank ? 70 : 56;
+    var infoH = 56;
 
     /* Info strip */
     var info = document.createElement('div');
@@ -360,8 +359,10 @@
     }
     label.appendChild(info);
 
-    /* Single cask strip */
-    if (state.product === 'singlecask') {
+    /* Single cask strip — also drawn (blank, no SVG) for the New custom-blend blank
+       panel, so its white area matches single cask exactly (this strip's zigzag,
+       at left:scCaskLeft, is the outer edge; it overlaps and hides the info strip's). */
+    if (state.product === 'singlecask' || d.blank) {
       var sc = document.createElement('div');
       sc.className = 'wb-side-panel';
       sc.style.cssText = [
@@ -382,7 +383,7 @@
         'justify-content:center',
         'z-index:2',
       ].join(';');
-      var svgTemplate = document.getElementById('wb-singlecask-svg');
+      var svgTemplate = d.blank ? null : document.getElementById('wb-singlecask-svg');
       if (svgTemplate) {
         var svgClone = svgTemplate.cloneNode(true);
         svgClone.removeAttribute('id');
