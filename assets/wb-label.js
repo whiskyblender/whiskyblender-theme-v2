@@ -324,6 +324,8 @@
     var s = d.panelLength / 232;
     var pad = Math.round(10 * s) + 'px ' + Math.round(16 * s) + 'px ' + Math.round(17 * s) + 'px';
     var sizeText = d.volume + 'ml ℮';
+    /* Blank strip (New custom blend) matches the single-cask strip height (70). */
+    var infoH = d.blank ? 70 : 56;
 
     /* Info strip */
     var info = document.createElement('div');
@@ -334,10 +336,10 @@
       'top:' + d.panelTop + 'px',
       'left:47px',
       'width:' + d.panelLength + 'px',
-      'height:56px',
+      'height:' + infoH + 'px',
       'transform:rotate(90deg)',
       'transform-origin:left top',
-      'clip-path:' + buildZigzagClip(d.panelLength, 56, 8, 5),
+      'clip-path:' + buildZigzagClip(d.panelLength, infoH, 8, 5),
       'background-color:' + state.bg,
       'color:' + state.fg,
       'text-shadow:none',
