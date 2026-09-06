@@ -177,9 +177,20 @@
   function getArtworkUrl(product, variant, size) {
     if (!product || !variant) return null;
     var root = document.getElementById('wb-label-root');
+    var cdn = root.getAttribute('data-cdn') || '';
+    var av  = root.getAttribute('data-av') || '1';
+
+    /* New 500ml backgrounds use the tone naming: wb-<variant>-<light|dark>.jpg —
+       light for custom blend, dark for single malt / cask. Bypasses the artwork map
+       and the old per-product/_tall filenames. */
+    if (state.template === 'new' && size === '500ml') {
+      var tone = (product === 'customblend') ? 'light' : 'dark';
+      return cdn + 'wb-' + slugify(variant) + '-' + tone + '.jpg?v=' + av;
+    }
+
+    /* Classic (and 200ml): map first, then the per-product filename fallback.
+       Classic reads its own map; falls back to the default map. */
     var key = product + '-' + slugify(variant) + '-' + size;
-    /* Classic reads its own map when present (added in Phase 2); falls back to the
-       New/default map, so this is a no-op until the classic map exists. */
     var mapName = state.template === 'classic' ? 'data-artwork-map-classic' : 'data-artwork-map';
     var mapAttr = root.getAttribute(mapName) || root.getAttribute('data-artwork-map');
     if (mapAttr) {
@@ -188,12 +199,7 @@
         if (map[key]) return map[key];
       } catch (e) {}
     }
-    var cdn = root.getAttribute('data-cdn') || '';
-    var av  = root.getAttribute('data-av') || '1';
-    /* New 500ml artwork uses the _tall filenames (single malt / cask roundel comes
-       through this fallback, not the map). Classic and all other sizes are unchanged. */
-    var suffix = (state.template === 'new' && size === '500ml') ? '_tall' : '';
-    return cdn + 'wb-' + product + '-' + slugify(variant) + '-' + size + suffix + '.jpg?v=' + av;
+    return cdn + 'wb-' + product + '-' + slugify(variant) + '-' + size + '.jpg?v=' + av;
   }
 
   function luminance(hex) {
