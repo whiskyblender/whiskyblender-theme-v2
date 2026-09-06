@@ -531,6 +531,9 @@ body.wb-tpl-new .size50 #outer { top: 26px; height: 95px; }
 /* "Created by" / distillery line: up 10px (204->194) on the taller artwork. */
 body.wb-tpl-new .size50 .side { top: 194px; }
 
+/* Reference tag: lifted 30px (45->15) on the taller artwork. */
+body.wb-tpl-new .size50 .reference { top: 15px; }
+
 /* Order summary nudged up into the top trim margin the taller artwork leaves
    (raised bar eats the old 10% band). Staff-reference row, above the crop marks. */
 body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
