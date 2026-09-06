@@ -283,6 +283,55 @@
   font-weight: 700;
 }
 
+/* Gift-voucher recipient fields (Shopify native recipient form, gift-card products
+   only) — restyle Dawn's floating-label fields to the boxed, top-label look of the
+   .wb-bottle-form inputs (blend name / created by) on the custom pages. */
+recipient-form .recipient-fields__field .field {
+  display: flex;
+  flex-direction: column-reverse; /* label is after the input in the DOM; put it on top */
+  position: static;
+  margin: 0;
+}
+recipient-form .recipient-fields__field .field__input {
+  width: 100%;
+  min-height: 0;
+  background: #ffffff;
+  border: 2px solid rgba(0,0,0,0.15);
+  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 18px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 160%;
+  color: #333;
+}
+recipient-form .recipient-fields__field .field__input:focus,
+recipient-form .recipient-fields__field .field__input:focus-visible {
+  border-color: rgba(0,0,0,0.4);
+  outline: none;
+  box-shadow: none;
+}
+recipient-form .recipient-fields__field .field__input::placeholder {
+  color: rgba(0,0,0,0.35);
+  font-weight: 700;
+  opacity: 1;
+}
+recipient-form .recipient-fields__field .field__label {
+  position: static;
+  transform: none;
+  inset: auto;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 20px 0 6px;
+  padding: 0;
+  color: inherit;
+  line-height: 1.2;
+  background: none;
+}
+
 @media screen and (min-width: 600px) {
   .wb-bottle-form input:not(.quantity__input):not([type="radio"]):not([type="checkbox"]),
   .wb-bottle-form textarea {
