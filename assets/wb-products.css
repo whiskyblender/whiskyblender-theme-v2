@@ -313,8 +313,9 @@ recipient-form .recipient-fields__field .field__input {
   line-height: 160%;
   color: #333;
 }
-recipient-form .recipient-fields__field .field__input:focus,
-recipient-form .recipient-fields__field .field__input:focus-visible {
+/* .customer prefix out-specifies Dawn's .customer .field input:focus-visible ring. */
+.customer recipient-form .recipient-fields__field .field__input:focus,
+.customer recipient-form .recipient-fields__field .field__input:focus-visible {
   border-color: rgba(0,0,0,0.4);
   outline: none;
   box-shadow: none;
@@ -339,9 +340,9 @@ recipient-form .recipient-fields__field .field__label {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin: 20px 0 12px;
+  margin: 20px 0 6px;
   padding: 0;
-  color: inherit;
+  color: rgba(0, 0, 0, 0.75);
   line-height: 1.2;
   background: none;
   white-space: normal;
