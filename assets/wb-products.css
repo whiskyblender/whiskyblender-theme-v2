@@ -310,6 +310,7 @@ recipient-form .recipient-fields__field .field::after {
 .customer recipient-form .recipient-fields__field .field__input:-webkit-autofill {
   box-sizing: border-box;
   width: 100%;
+  height: auto; /* Dawn sets a fixed height on .field__input; let padding + line-height size it, like the Lab inputs */
   min-height: 0;
   margin: 0;
   padding: 14px 16px;
