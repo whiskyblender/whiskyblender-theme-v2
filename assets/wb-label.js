@@ -180,11 +180,21 @@
     var cdn = root.getAttribute('data-cdn') || '';
     var av  = root.getAttribute('data-av') || '1';
 
-    /* New 500ml backgrounds use the tone naming: wb-<variant>-<light|dark>.jpg —
-       light for custom blend, dark for single malt / cask. Bypasses the artwork map
-       and the old per-product/_tall filenames. */
+    /* New 500ml backgrounds: wb-<variant>-<light|dark>.jpg — light for custom blend,
+       dark for single malt / cask. Resolved via data-tone-map, whose URLs come from
+       Liquid asset_url so they carry Shopify's content-hash ?v= and auto-bust the
+       CDN cache when the file is replaced (no data-av bump needed). Falls back to a
+       constructed ?v=<data-av> URL only if the map is missing. */
     if (state.template === 'new' && size === '500ml') {
       var tone = (product === 'customblend') ? 'light' : 'dark';
+      var toneKey = slugify(variant) + '-' + tone;
+      var toneMap = root.getAttribute('data-tone-map');
+      if (toneMap) {
+        try {
+          var tm = JSON.parse(toneMap);
+          if (tm[toneKey]) return tm[toneKey];
+        } catch (e) {}
+      }
       return cdn + 'wb-' + slugify(variant) + '-' + tone + '.jpg?v=' + av;
     }
 
