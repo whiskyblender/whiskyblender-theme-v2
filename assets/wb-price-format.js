@@ -80,21 +80,36 @@
     for (var i = 0; i < els.length; i++) processScope(els[i], currency);
   }
 
-  /* Re-run after Shopify re-renders prices (variant switch, cart update, filtered
-     collection). We observe childList only: our own edits are characterData, so
-     they never re-trigger the observer — no loop, no disconnect needed. Debounced
-     so a burst of inserted nodes coalesces into one sweep. */
-  var pending = null;
-  function schedule() {
-    if (pending) return;
-    pending = setTimeout(function () { pending = null; sweep(); }, 50);
+  /* Re-tidy prices Shopify re-renders (variant switch, cart update, filtered
+     collection). CRITICAL: this runs SYNCHRONOUSLY in the observer callback — a
+     microtask that fires before the browser paints — so a server-rendered ".00 GBP"
+     is tidied in the same frame and never flashes. (An earlier setTimeout deferred
+     the tidy to a later task, i.e. AFTER paint, which caused a visible flash on
+     variant change.) We only walk the nodes Shopify actually replaced, and only
+     childList: our own edits are characterData, so they never re-trigger us — no
+     loop, no disconnect. Most prominent prices are now tidied server-side by
+     snippets/wb-money.liquid; this covers the rest (unit prices, volume pricing). */
+  function onMutations(mutations) {
+    var currency = activeCurrency();
+    for (var i = 0; i < mutations.length; i++) {
+      var added = mutations[i].addedNodes;
+      for (var j = 0; j < added.length; j++) {
+        var node = added[j];
+        if (node.nodeType !== 1) continue; // elements only
+        if (node.matches && node.matches(SCOPES)) processScope(node, currency);
+        if (node.querySelectorAll) {
+          var els = node.querySelectorAll(SCOPES);
+          for (var k = 0; k < els.length; k++) processScope(els[k], currency);
+        }
+      }
+    }
   }
 
   function init() {
     sweep();
     if (!window.MutationObserver || !document.body) return;
     try {
-      new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
+      new MutationObserver(onMutations).observe(document.body, { childList: true, subtree: true });
     } catch (e) {}
   }
 
