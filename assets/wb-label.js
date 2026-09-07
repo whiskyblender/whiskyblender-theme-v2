@@ -65,9 +65,11 @@
   var state = {
     product:    'customblend',  /* customblend | singlemalt | singlecask */
     template:   'new',          /* new | classic — 500ml label template version.
-                                   New is the live default (go-live 2026-09-06). The
-                                   "Legacy template" checkbox toggles back to
-                                   'classic' when the old template is needed. */
+                                   Per-product DEFAULT is set in readParams (2026-09-07):
+                                   custom blend → 'new', single malt/cask → 'classic'
+                                   (not on taller stock yet). The "Legacy template"
+                                   checkbox still overrides per print. This literal is
+                                   just the pre-readParams seed. */
     blend:      '',
     text:       '',
     author:     '',
@@ -261,6 +263,12 @@
       state.size = '500ml';
     }
 
+    /* Template default by product (2026-09-07): custom blend prints the New taller
+       label; single malt / cask are NOT on taller stock yet, so default them to
+       Classic to avoid misregistering New onto old stock. Staff can still override
+       per print with the Legacy checkbox. template isn't a URL param, so this is the
+       effective default. Add malt/cask to the New side when they move to taller stock. */
+    state.template = (state.product === 'singlemalt' || state.product === 'singlecask') ? 'classic' : 'new';
   }
 
   /* ── Build shareable URL from state ────────────────────────────────────────── */
@@ -770,6 +778,12 @@
         state.product = t.value;
         state.recipe = null;
         if (state.product === 'customblend') state.fg = '#111111';
+        /* Re-apply the per-product template default (malt/cask → classic, blend →
+           new) and sync the Legacy checkbox, matching readParams. Keeps the in-form
+           product switcher from leaving a malt/cask on New. */
+        state.template = (state.product === 'singlemalt' || state.product === 'singlecask') ? 'classic' : 'new';
+        var legacyCb = document.getElementById('wb-f-legacy');
+        if (legacyCb) legacyCb.checked = (state.template === 'classic');
         updateTypeVisibility();
         render();
       });
