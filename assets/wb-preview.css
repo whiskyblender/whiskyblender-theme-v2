@@ -331,6 +331,7 @@
   opacity: 0;               /* invisible to customers */
   cursor: default;
   z-index: 30;
+  touch-action: manipulation;   /* clean single-tap on mobile, no dbl-tap zoom */
 }
 
 /* Faint dev-only marker so WE can see when NEW is active. Only appears in NEW
@@ -349,7 +350,29 @@
   pointer-events: none;
 }
 
-/* ── NEW taller-template preview overrides (in progress) ──────────────────────
-   Additive over the classic `.wbp-page.size50` rules above. Currently empty:
-   NEW is an exact clone of classic until we begin tuning geometry here, e.g.
-   `.wbp-page.size50.wbp-tpl-new .wbp-image { … }`. */
+/* ── NEW taller-template preview overrides ────────────────────────────────────
+   Additive over the classic `.wbp-page.size50` rules above; mirrors the
+   generator's `body.wb-tpl-new .size50 …` deltas so the preview matches the
+   printed label. Artwork geometry + backgrounds are set inline by JS (taller
+   full-bleed art, sample50cl-tallerbars); these rules cover the box/positions.
+   The `.wbp-tpl-new` class is only added on size50, so 200ml is unaffected. */
+
+/* Taller pre-printed background must cover the page (JS sets the image inline;
+   custom blend has no size50 background rule of its own otherwise). */
+.wbp-page.size50.wbp-tpl-new {
+  background-size: cover;
+  background-position: center center;
+}
+
+/* Blend-name box grows for the taller artwork — matches generator `#outer`
+   (top 56→26, height 80→95); left/scale inherit from the base size50 rule. */
+.wbp-page.size50.wbp-tpl-new .wbp-outer {
+  top: 26px;
+  height: 95px;
+}
+
+/* Side name (author / distillery) lifts to sit on the taller artwork —
+   matches generator `.side { top: 194px }` (was 204). */
+.wbp-page.size50.wbp-tpl-new .wbp-side {
+  top: 194px;
+}

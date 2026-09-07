@@ -29,6 +29,7 @@
     var cdn          = loader.getAttribute('data-cdn') || '';
     var av           = loader.getAttribute('data-av') || '1';
     var barsUrl      = loader.getAttribute('data-bars-url') || '';
+    var tallerBars   = loader.getAttribute('data-tallerbars-url') || '';
     var cropsUrl     = loader.getAttribute('data-crops-url') || '';
     var variantsEl   = document.getElementById('wb-sm-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
@@ -109,8 +110,17 @@
     var isNewTpl = false;
     try { isNewTpl = localStorage.getItem(PREVIEW_TPL_KEY) === '1'; } catch (e) {}
 
-    // NEW-template dims — starts identical to classic; diverge here as we refine.
-    var PREVIEW_D_NEW = Object.assign({}, PREVIEW_D);
+    /* NEW-template dims. 500ml only — mirrors DIMS_NEW['500ml'] in the generator:
+       the side strip sits alongside the taller artwork (panelTop -33, was 4), is
+       longer (panelLength 269, was 232), the "Distilled at" label lifts (170, was
+       184), and the SINGLE CASK svg grows (232x52, was 202x34). On a 200ml product
+       (no New template) this stays a plain clone so toggling is a no-op. */
+    var PREVIEW_D_NEW = is200ml ? Object.assign({}, PREVIEW_D) : Object.assign({}, PREVIEW_D, {
+      sideLabelTop: 170,
+      panelLength: 269,
+      panelTop: -33,
+      svgW: 232, svgH: 52,
+    });
     function prevDims() { return isNewTpl ? PREVIEW_D_NEW : PREVIEW_D; }
 
     var SINGLECASK_SVG_PATHS = '<path d="M.12,15.12l1.73-3.07.15.06c-.88,6.92,1.52,9.69,4.31,9.81,2.76.12,4.83-2.79,4.04-5.77C9.2,11.75.36,10.57.36,5.16.36,2.13,3.19,0,6.16,0,9.32,0,11.66,1.76,12.21,5.13l-1.52,3.07-.15-.06c.21-4.43-1.46-7.23-4.22-7.44-1.91-.15-4.52,1.21-3.98,4.46.7,4.16,10.05,5.65,10.05,11.3,0,4.19-3.49,6.16-6.13,6.16-3.43,0-6.95-2.61-6.13-7.5Z"/><path d="M13.03,22.01c.82-.39,1.43-1.24,1.43-2.58V3.19c0-1.09-.49-2.16-1.43-2.58v-.15h4.77v.15c-.97.43-1.43,1.49-1.43,2.58v16.25c0,1.34.67,2.19,1.43,2.58v.15h-4.77v-.15Z"/><path d="M19.28,22.01c.85-.46,1.37-1.37,1.37-2.58V3.19c0-1.25-.52-2.16-1.37-2.58v-.15h4.65v.15c-.85.43-1.37,1.34-1.37,2.58v2.64C23.69,1.97,25.69,0,28.36,0c3.8,0,5.77,3.13,6.13,7.29.27,3.28-.61,7.83-2.43,12.15-.46,1.06-.15,1.97.97,2.58v.15h-4.52v-.15c.39-.12,1-1.03,1.7-2.58,1.76-3.89,2.52-8.2,2.34-11.42-.21-3.8-1.03-7.29-4.19-7.32-4.28-.03-5.8,8.87-5.8,12.09v6.65c0,1.21.52,2.12,1.37,2.58v.15h-4.65v-.15Z"/><path d="M35.53,11.42C35.53,4.62,38.23,0,42.6,0c2,0,3.7.88,4.74,2.13l-.82,3.07-.15.06c-.42-3.13-2.12-4.56-3.76-4.56-3.07,0-4.46,4.98-4.92,8.53h12.66v.15c-.76.4-1.43,1.18-1.43,2.52v6.16c-1,2.73-2.79,4.55-5.98,4.55-4.65,0-7.41-4.49-7.41-11.2ZM46.98,16.85v-3.61c0-3.13-.7-3.25-6.13-3.25h-3.25c-.03.55-.06,1.06-.06,1.49,0,6.13,2.22,10.45,5.41,10.45,1.91,0,4.04-1.85,4.04-5.07Z"/><path d="M62.31,17.61l-1.73,4.55h-10.11v-.15c.82-.39,1.43-1.24,1.43-2.58V3.19c0-1.09-.49-2.16-1.43-2.58v-.15h4.77v.15c-.97.43-1.43,1.49-1.43,2.58v16.25c0,.39.06.76.15,1.06.3.64,1,.97,1.82.97,2.64,0,4.8-1,6.32-3.92l.21.06Z"/><path d="M62.22,11.39C62.22,4.56,65.13,0,69.51,0c3.25,0,5.13,1.76,6.07,5.13l-1.52,3.07-.15-.06c.21-4.43-1.64-7.44-4.46-7.44-2.67,0-4.65,3.34-5.1,8.5h3.49c1.09,0,2.22-.49,2.64-1.43h.15v3.64h-.15c-.43-.97-1.55-1.4-2.64-1.4h-3.55c-.03.46-.06.91-.06,1.37-.06,6.32,2.07,10.54,5.28,10.54,2.82,0,4.68-3.01,4.46-7.44l.15-.06,1.52,3.07c-.94,3.37-2.82,5.13-6.07,5.13-4.43,0-7.35-4.49-7.35-11.23Z"/><path d="M81.78,11.39C81.78,4.56,84.69,0,89.06,0c3.25,0,5.13,1.76,6.07,5.13l-1.52,3.07-.15-.06c.21-4.43-1.64-7.44-4.46-7.44-3.04,0-5.16,4.28-5.22,10.69-.06,6.32,2.06,10.54,5.28,10.54,2.82,0,4.68-3.01,4.46-7.44l.15-.06,1.52,3.07c-.94,3.37-2.82,5.13-6.07,5.13-4.43,0-7.35-4.49-7.35-11.23Z"/><path d="M94.56,22.01c.39-.12,1.4-1.21,1.91-3.34l3.64-15.15c.24-1.73-.58-2.55-1.34-2.92v-.15h4.65l4.37,18.19c.52,2.13,1.52,3.25,1.91,3.37v.15h-5.16v-.15c.82-.39,1.73-1.34,1.25-3.34l-.91-3.83v.06h-6.47l-.88,3.77c-.49,2,.42,2.95,1.25,3.34v.15h-4.22v-.15ZM104.7,14.06l-3.04-12.75-3.04,12.75h6.07Z"/><path d="M109.13,15.12l1.73-3.07.15.06c-.88,6.92,1.52,9.69,4.31,9.81,2.76.12,4.83-2.79,4.04-5.77-1.15-4.4-9.99-5.59-9.99-10.99C109.38,2.13,112.2,0,115.18,0c3.16,0,5.5,1.76,6.04,5.13l-1.52,3.07-.15-.06c.21-4.43-1.46-7.23-4.22-7.44-1.91-.15-4.52,1.21-3.98,4.46.7,4.16,10.05,5.65,10.05,11.3,0,4.19-3.49,6.16-6.13,6.16-3.43,0-6.95-2.61-6.13-7.5Z"/><path d="M122.04,22.01c.82-.39,1.43-1.24,1.43-2.58V3.19c0-1.09-.49-2.16-1.43-2.58v-.15h4.77v.15c-.97.43-1.43,1.49-1.43,2.58v8.56l6.16-8.56c1.12-1.55-.18-2.55-.27-2.58v-.15h4.25v.15c-.21.09-1.31.61-2.46,2.16l-3.89,5.25,5.1,10.66c1,2.1,1.79,3.01,2.16,3.34v.15h-4.71v-.15c.76-.39,1.55-1.06.61-3.04l-4.4-9.26-2.55,3.46v6.26c0,1.34.61,2.19,1.37,2.58v.15h-4.71v-.15Z"/>';
@@ -145,23 +155,27 @@
       return 'polygon(' + pts.join(', ') + ')';
     }
 
+    /* Byte-for-byte mirror of the generator's resizeText (wb-label.js) so the
+       preview blend name renders at exactly the same font-size/line-height as the
+       printed label: min 18 / max 52 / step 0.5, lineHeight = size * 0.80, and the
+       overflow test reads the PARENT (#outer / .wbp-outer) — not the child — just
+       like the generator. Keep these two functions in lockstep. */
     function prevResizeText(el) {
       var min = 18, max = 52, step = 0.5;
+      function isOverflown(node) {
+        return node.scrollWidth > node.clientWidth || node.scrollHeight > node.clientHeight;
+      }
       var parent = el.parentNode;
-      var maxH = parent.clientHeight || 80;
-      var maxW = parent.clientWidth  || 90;
       var i = min, overflow = false;
       while (!overflow && i < max) {
         el.style.fontSize   = i + 'px';
-        el.style.lineHeight = (i * 0.74) + 'px';
-        /* Check child's natural dimensions — more reliable than parent.scrollHeight
-           with display:grid + overflow:hidden (grid clips but scrollHeight stays == clientHeight) */
-        overflow = el.scrollHeight > maxH || el.scrollWidth > maxW;
+        el.style.lineHeight = (i * 0.80) + 'px';
+        overflow = isOverflown(parent);
         if (!overflow) i += step;
       }
-      var final = Math.max(min, i - step - 1);
+      var final = i - step - 1;
       el.style.fontSize   = final + 'px';
-      el.style.lineHeight = (final * 0.74) + 'px';
+      el.style.lineHeight = (final * 0.80) + 'px';
     }
 
     function getCurrentVariantTitle() {
@@ -190,22 +204,41 @@
       var d = prevDims();
       var isBlend = productSlug === 'customblend';
 
+      /* New 500ml is the taller template — both blend and malt/cask share the
+         same taller pre-printed background (sample50cl-tallerbars). Classic keeps
+         its bars for malt/cask and a plain white page for custom blend. */
+      var isNew500 = isNewTpl && !is200ml;
+
       var pageEl = previewContainer.querySelector('.wbp-page');
       if (pageEl) {
         pageEl.className = 'wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + (isNewTpl ? ' wbp-tpl-new' : '');
-        if (barsUrl && !isBlend) pageEl.style.backgroundImage = 'url(' + barsUrl + ')';
+        var pageBg = '';
+        if (isNew500 && tallerBars)      pageBg = tallerBars;      // New: taller bars for blend + malt
+        else if (!isBlend && barsUrl)    pageBg = barsUrl;         // Classic malt/cask: bars
+        pageEl.style.backgroundImage = pageBg ? 'url(' + pageBg + ')' : '';
       }
 
       var artworkEl = previewContainer.querySelector('.wbp-image');
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
-        var artworkProduct = productSlug === 'singlecask' ? 'singlemalt' : productSlug;
-        var artworkSize = isBlend ? bottleSize || '500ml' : '500ml';
-        var artworkUrl = cdn + 'wb-' + artworkProduct + '-' + variantSlug + '-' + artworkSize + '.jpg?v=' + av;
-        var artTop  = isBlend ? (is200ml ? '-7px'  : '-8px')  : '4px';
-        var artLeft = isBlend ? (is200ml ? '93px'  : '102px') : '-9px';
-        var artW    = isBlend ? (is200ml ? '342px' : '458px') : '570px';
-        var artH    = isBlend ? (is200ml ? '188px' : '244px') : '232px';
+        var artworkUrl, artTop, artLeft, artW, artH;
+        if (isNew500) {
+          /* New 500ml artwork: full-bleed for BOTH blend and malt/cask, using the
+             generator's tone naming — light for custom blend, dark for malt/cask
+             (wb-<variant>-<tone>.jpg). Geometry mirrors the generator's New
+             `.size50 .image` (top -33, height 269, full 570 width). */
+          var tone = isBlend ? 'light' : 'dark';
+          artworkUrl = cdn + 'wb-' + variantSlug + '-' + tone + '.jpg?v=' + av;
+          artTop = '-33px'; artLeft = '-9px'; artW = '570px'; artH = '269px';
+        } else {
+          var artworkProduct = productSlug === 'singlecask' ? 'singlemalt' : productSlug;
+          var artworkSize = isBlend ? bottleSize || '500ml' : '500ml';
+          artworkUrl = cdn + 'wb-' + artworkProduct + '-' + variantSlug + '-' + artworkSize + '.jpg?v=' + av;
+          artTop  = isBlend ? (is200ml ? '-7px'  : '-8px')  : '4px';
+          artLeft = isBlend ? (is200ml ? '93px'  : '102px') : '-9px';
+          artW    = isBlend ? (is200ml ? '342px' : '458px') : '570px';
+          artH    = isBlend ? (is200ml ? '188px' : '244px') : '232px';
+        }
         artworkEl.style.cssText = [
           'display:block',
           'position:absolute',
@@ -255,7 +288,12 @@
         el.parentNode.removeChild(el);
       });
       var labelEl = previewContainer.querySelector('.wbp-label');
-      if (labelEl && !isBlend) {
+      /* Side strips. Malt/cask: the ABV info strip (+ SINGLE CASK svg strip on
+         cask). New custom blend (500ml): the SAME strips but BLANK — an empty
+         white area matching single cask, with no content — mirroring the
+         generator's renderSidePanel blank:true. Classic blend: no strips. */
+      var isNew500Blend = isBlend && isNew500;
+      if (labelEl && (!isBlend || isNew500Blend)) {
         var s = d.panelLength / 232;
         var pad = Math.round(10 * s) + 'px ' + Math.round(16 * s) + 'px ' + Math.round(17 * s) + 'px';
         var info = document.createElement('div');
@@ -279,15 +317,18 @@
           'padding:' + pad,
           'z-index:2',
         ].join(';');
-        var tall = 'font-family:Antonio,sans-serif;font-weight:300;font-size:' + d.tallFont + 'px;text-transform:uppercase;letter-spacing:-0.5px';
-        info.innerHTML =
-          '<span style="' + tall + '">46% abv</span>' +
-          '<span style="font-size:' + d.domainFont + 'px;font-weight:700;text-align:center;letter-spacing:0.4px;font-family:Raleway,sans-serif">whiskyblender.com</span>' +
-          '<span style="' + tall + ';text-align:right">500ml &#8467;</span>';
+        if (!isNew500Blend) {
+          var tall = 'font-family:Antonio,sans-serif;font-weight:300;font-size:' + d.tallFont + 'px;text-transform:uppercase;letter-spacing:-0.5px';
+          info.innerHTML =
+            '<span style="' + tall + '">46% abv</span>' +
+            '<span style="font-size:' + d.domainFont + 'px;font-weight:700;text-align:center;letter-spacing:0.4px;font-family:Raleway,sans-serif">whiskyblender.com</span>' +
+            '<span style="' + tall + ';text-align:right">500ml &#8467;</span>';
+        }
         labelEl.appendChild(info);
 
-        /* Single cask strip */
-        if (productSlug === 'singlecask') {
+        /* Single cask strip — also drawn (blank, no SVG) for the New custom-blend
+           panel so its white area matches single cask exactly. */
+        if (productSlug === 'singlecask' || isNew500Blend) {
           var sc = document.createElement('div');
           sc.className = 'wbp-side-panel';
           sc.style.cssText = [
@@ -308,7 +349,9 @@
             'justify-content:center',
             'z-index:2',
           ].join(';');
-          sc.innerHTML = '<svg viewBox="0 0 136.43 22.62" xmlns="http://www.w3.org/2000/svg" width="' + d.svgW + '" height="' + d.svgH + '" fill="#111111">' + SINGLECASK_SVG_PATHS + '</svg>';
+          if (!isNew500Blend) {
+            sc.innerHTML = '<svg viewBox="0 0 136.43 22.62" xmlns="http://www.w3.org/2000/svg" width="' + d.svgW + '" height="' + d.svgH + '" fill="#111111">' + SINGLECASK_SVG_PATHS + '</svg>';
+          }
           labelEl.appendChild(sc);
         }
       }
@@ -388,16 +431,16 @@
       previewWrap.appendChild(closeBtn);
 
       /* Invisible internal template toggle — top-left corner of the preview.
-         Option/Alt-click flips classic <-> new for THIS browser only. Kept
-         tiny, modifier-gated, tabindex -1 and aria-hidden so a customer can't
-         trip it or tab to it. Remove when NEW ships as default. */
+         A plain click/tap flips classic <-> new for THIS browser only (works on
+         mobile — no modifier key). Kept tiny, tabindex -1 and aria-hidden so a
+         customer is unlikely to trip it or tab to it. If accidental flips ever
+         show up, swap this for a double-tap detector. Remove when NEW ships. */
       var tplHotspot = document.createElement('button');
       tplHotspot.type = 'button';
       tplHotspot.className = 'wbp-tpl-hotspot';
       tplHotspot.tabIndex = -1;
       tplHotspot.setAttribute('aria-hidden', 'true');
-      tplHotspot.addEventListener('click', function (e) {
-        if (!e.altKey) return;                       // require Option/Alt
+      tplHotspot.addEventListener('click', function () {
         isNewTpl = !isNewTpl;
         try { localStorage.setItem(PREVIEW_TPL_KEY, isNewTpl ? '1' : '0'); } catch (er) {}
         previewWrap.setAttribute('data-wbp-tpl', isNewTpl ? 'new' : 'classic');
