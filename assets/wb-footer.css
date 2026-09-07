@@ -143,3 +143,38 @@
     min-width: auto;
   }
 }
+
+/* ── Country / currency selector (footer blurb column) ─────────────────────────
+   Dawn's localization disclosure sits on the black footer, so the toggle needs a
+   light label; the open dropdown is a light popover with dark text for legibility. */
+.wb-footer-localization {
+  margin-top: 18px;
+}
+
+.wb-footer-localization .localization-form__select {
+  color: #cccccc;
+  font-size: 14px;
+  padding: 6px 0;
+}
+
+.wb-footer-localization .localization-form__select:hover {
+  color: #ffffff;
+}
+
+.wb-footer-localization .localization-form__select .icon-caret {
+  fill: currentColor;
+}
+
+/* Open dropdown panel — readable light popover regardless of the dark footer. */
+.wb-footer-localization .disclosure__list-wrapper {
+  background-color: #ffffff;
+  border-radius: 6px;
+}
+
+.wb-footer-localization .disclosure__link {
+  color: #111111;
+}
+
+.wb-footer-localization .disclosure__link:hover {
+  background-color: #f2f2f2;
+}
