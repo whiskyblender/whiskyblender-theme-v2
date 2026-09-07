@@ -48,22 +48,8 @@
         loading="lazy"
       >
       <p><strong>Please enjoy responsibly&mdash;or no at aw!</strong></p>
-      {%- comment -%} Country / currency selector — lets customers override their
-        geo-detected market. Only shows when more than one market exists. Uses
-        Dawn's localization form (component-localization-form.css + localization-form.js
-        load site-wide when multiple markets exist). {%- endcomment -%}
-      {%- if localization.available_countries and localization.available_countries.size > 1 -%}
-        <div class="wb-footer-localization">
-          <localization-form>
-            {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
-              <h2 class="visually-hidden" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
-              {%- render 'country-localization', localPosition: 'FooterCountry' -%}
-            {%- endform -%}
-          </localization-form>
-        </div>
-      {%- endif -%}
     </div>
-    <div class="wb-footercolumn wb-footerblurb">
+    <div class="wb-footercolumn">
       <div class="wb-footer-signup__inner">
         {%- form 'customer', id: 'FooterNewsletter' -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
@@ -84,6 +70,22 @@
         {%- endform -%}
       </div>
     </div>
+    {%- comment -%} Country / currency selector — its own column, beneath the subscribe
+      form. Lets customers override their geo-detected market; only shows when more than
+      one market exists. Dawn's localization assets load site-wide when multiple markets
+      exist. {%- endcomment -%}
+    {%- if localization.available_countries and localization.available_countries.size > 1 -%}
+      <div class="wb-footercolumn">
+        <div class="wb-footer-localization">
+          <localization-form>
+            {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
+              <h2 class="visually-hidden" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
+              {%- render 'country-localization', localPosition: 'FooterCountry' -%}
+            {%- endform -%}
+          </localization-form>
+        </div>
+      </div>
+    {%- endif -%}
     <div class="wb-footercolumn">
       <ul class="wb-socials">
         <li>
