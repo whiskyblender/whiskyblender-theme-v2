@@ -379,7 +379,10 @@ recipient-form .recipient-fields__field .field__label {
   font-size: 10px;
   font-weight: 700;
   color: rgba(0, 0, 0, 0.75);
-  letter-spacing: 2px;
+  /* !important beats counter-dawn.css `label { letter-spacing: normal !important }`.
+     Only the email label has a span (why it worked before); Name/Message/Send-on put
+     the text directly in the label, so the reset hit them until now. */
+  letter-spacing: 2px !important;
   line-height: 15px;
   text-transform: uppercase;
 }
