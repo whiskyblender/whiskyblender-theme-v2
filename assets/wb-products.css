@@ -657,7 +657,10 @@ textarea.wb-textarea {
 .wb-recipe li span.wb-label {
   z-index: 2;
   position: absolute;
-  top: 8px;
+  /* top:4px vertically centres the text: line-height is 32px in a 40px row, so the
+     text centre lands at 4 + 16 = 20px = row centre. Was 8px on mobile (4px low);
+     desktop already used 4px. Single value now — no breakpoint override needed. */
+  top: 4px;
   left: 12px;
 }
 
@@ -741,9 +744,6 @@ ul.wb-product-drawers li {
 }
 
 @media screen and (min-width: 768px) {
-  .wb-recipe li span.wb-label {
-    top: 4px;
-  }
   .wb-meta-deetz {
     font-size: 14px;
   }
