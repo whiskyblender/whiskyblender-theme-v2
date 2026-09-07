@@ -155,8 +155,10 @@
   margin: 0;
 }
 
-/* Strip Dawn's own spacing so the toggle sits flush like the subscribe field. */
-.wb-footer-localization .localization-form {
+/* Strip Dawn's own spacing so the toggle sits flush like the subscribe field.
+   Dawn sets `.localization-form:only-child { padding: 1rem 0 }` (same specificity,
+   loaded later), so we match its :only-child to out-specify it. */
+.wb-footer-localization .localization-form:only-child {
   padding: 0;
 }
 
