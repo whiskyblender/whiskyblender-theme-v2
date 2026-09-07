@@ -369,6 +369,20 @@ recipient-form .recipient-fields__field .field__label {
   text-overflow: clip;
   max-width: none;
 }
+/* Match the Quantity / Options .form__label reference exactly — 2px tracking, 15px
+   line-height. Dawn's .customer .field label (0.1rem) and the .recipient-email-label
+   span (normal) win over the rule above, so target the label AND its visible span
+   with .customer-level specificity. */
+.customer recipient-form .recipient-fields__field .field__label,
+.customer recipient-form .recipient-fields__field .field__label span {
+  font-family: 'Raleway', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.75);
+  letter-spacing: 2px;
+  line-height: 15px;
+  text-transform: uppercase;
+}
 /* Drop Dawn's divider rule; the boxed fields don't need it. Defensive border reset
    on the wrappers in case a Dawn/state border ever appears. */
 recipient-form .recipient-fields hr { display: none; }
