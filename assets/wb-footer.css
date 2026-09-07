@@ -145,23 +145,29 @@
 }
 
 /* ── Country / currency selector (footer blurb column) ─────────────────────────
-   Dawn's localization disclosure sits on the black footer, so the toggle needs a
-   light label; the open dropdown is a light popover with dark text for legibility. */
+   Dawn's component-localization-form.css loads AFTER this file, so its default
+   (a white pill) wins on source order. The selectors below carry extra
+   specificity (.wb-footercolumn …) to override it, styling the toggle to match the
+   footer's dark translucent fields (cf. the newsletter input). */
 .wb-footer-localization {
   margin-top: 18px;
 }
 
-.wb-footer-localization .localization-form__select {
+.wb-footercolumn .wb-footer-localization .localization-form__select {
+  background-color: rgba(255, 255, 255, 0.04);
   color: #cccccc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 12px 40px 12px 16px;
   font-size: 14px;
-  padding: 6px 0;
 }
 
-.wb-footer-localization .localization-form__select:hover {
+.wb-footercolumn .wb-footer-localization .localization-form__select:hover {
   color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-.wb-footer-localization .localization-form__select .icon-caret {
+.wb-footercolumn .wb-footer-localization .localization-form__select .icon-caret {
   fill: currentColor;
 }
 
