@@ -167,22 +167,42 @@
   margin: 0;
 }
 
-.wb-footercolumn .wb-footer-localization .localization-form__select {
-  height: 46px; /* match the subscribe field */
-  padding: 0 40px 0 16px;
-  background-color: rgba(255, 255, 255, 0.04);
-  color: #cccccc;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  font-size: 14px;
+/* Full-width chain so the toggle fills its column and matches the subscribe field. */
+.wb-footer-localization localization-form,
+.wb-footer-localization .localization-form,
+.wb-footer-localization .disclosure {
+  display: block;
+  width: 100%;
 }
 
-.wb-footercolumn .wb-footer-localization .localization-form__select:hover {
-  color: #ffffff;
+/* Toggle styled to match the subscribe field exactly (border, focus, fill, radius). */
+.wb-footercolumn .wb-footer-localization .localization-form__select {
+  box-sizing: border-box;
+  width: 100%;
+  height: 46px; /* match the subscribe field */
+  padding: 0 40px 0 14px;
+  background-color: rgba(255, 255, 255, 0.04);
+  color: #cccccc;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
+  transition: border-color 0.2s;
+}
+
+/* Match the subscribe field's focus: border lightens, text stays #ccc (not white). */
+.wb-footercolumn .wb-footer-localization .localization-form__select:hover,
+.wb-footercolumn .wb-footer-localization .localization-form__select:focus {
+  color: #cccccc;
   border-color: rgba(255, 255, 255, 0.4);
 }
 
+/* Explicit caret size in this early-loading file: the svg has a viewBox but no
+   width/height, so before Dawn's deferred CSS sizes it, it renders at the SVG
+   default (~300×150) and flashes huge. Pin it so it never balloons. */
 .wb-footercolumn .wb-footer-localization .localization-form__select .icon-caret {
+  width: 10px;
+  height: 6px;
   fill: currentColor;
 }
 
