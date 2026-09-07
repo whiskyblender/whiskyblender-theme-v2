@@ -311,3 +311,45 @@
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
   animation-play-state: paused;
 }
+
+/* ── Internal template toggle (dev scaffolding) ───────────────────────────────
+   Invisible Option/Alt-click target in the preview's top-left corner, used to
+   flip the CLASSIC preview to the in-progress NEW taller template while we build
+   it. Modifier-gated in wb-single-malt.js so customers can't trigger it. Remove
+   this block, the `.wbp-tpl-new` overrides below, and the JS hotspot when NEW
+   ships as the default. */
+.wbp-tpl-hotspot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  opacity: 0;               /* invisible to customers */
+  cursor: default;
+  z-index: 30;
+}
+
+/* Faint dev-only marker so WE can see when NEW is active. Only appears in NEW
+   mode, which customers cannot enter. */
+#wb-label-preview-wrap[data-wbp-tpl="new"]::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b88d60;
+  box-shadow: 0 0 0 2px #fff;
+  z-index: 31;
+  pointer-events: none;
+}
+
+/* ── NEW taller-template preview overrides (in progress) ──────────────────────
+   Additive over the classic `.wbp-page.size50` rules above. Currently empty:
+   NEW is an exact clone of classic until we begin tuning geometry here, e.g.
+   `.wbp-page.size50.wbp-tpl-new .wbp-image { … }`. */
