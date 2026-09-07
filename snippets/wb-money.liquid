@@ -1,0 +1,36 @@
+{%- comment -%}
+  Tidy money for display (never changes a value):
+    • drops the decimals on a whole amount (£120.00 → £120; keeps £19.99)
+    • hides the ISO code for unambiguous symbols (£ GBP, € EUR), keeps it for
+      shared ones ($ = USD / AUD / …):  $108.00 USD → $108 USD
+
+  Rendered SERVER-SIDE, so the price is correct on first paint and on every section
+  re-render (variant change, cart update) — there is no client-side catch-up, so it
+  cannot flash. Mirrors assets/wb-price-format.js, which does the same to any price
+  not routed through here (unit price, cart line items, etc.).
+
+  Accepts:
+    amount — price in cents (integer). Presentment currency is applied by the `money`
+             filter automatically under Shopify Markets.
+    code   — pass `code: false` to never append the ISO code (used for the per-unit
+             price, where the main price already carries the currency).
+
+  Assumes a prefix currency symbol (every WB market is £/$). A suffix-symbol currency
+  would simply keep its .00 — untidied, never wrong.
+{%- endcomment -%}
+{%- liquid
+  assign wb_m = amount | money
+  assign wb_last3 = wb_m | slice: -3, 3
+  if wb_last3 == '.00' or wb_last3 == ',00'
+    assign wb_cut = wb_m | size | minus: 3
+    assign wb_m = wb_m | slice: 0, wb_cut
+  endif
+  unless code == false
+    assign wb_iso = cart.currency.iso_code | default: shop.currency
+    assign wb_hide_codes = 'GBP,EUR' | split: ','
+    unless wb_hide_codes contains wb_iso
+      assign wb_m = wb_m | append: ' ' | append: wb_iso
+    endunless
+  endunless
+  echo wb_m
+-%}

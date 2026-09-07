@@ -40,6 +40,6 @@
   {%- endif -%}
 
   {%- if _upm != nil -%}
-    <li>{{ _uv.unit_price | money }}/{% if _upm.reference_value != 1 %}{{ _upm.reference_value }}{% endif %}{{ _upm.reference_unit }}</li>
+    <li>{% render 'wb-money', amount: _uv.unit_price, code: false %}/{% if _upm.reference_value != 1 %}{{ _upm.reference_value }}{% endif %}{{ _upm.reference_unit }}</li>
   {%- endif -%}
 </ul>
