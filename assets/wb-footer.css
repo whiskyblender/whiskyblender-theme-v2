@@ -144,21 +144,34 @@
   }
 }
 
-/* ── Country / currency selector (footer blurb column) ─────────────────────────
-   Dawn's component-localization-form.css loads AFTER this file, so its default
-   (a white pill) wins on source order. The selectors below carry extra
-   specificity (.wb-footercolumn …) to override it, styling the toggle to match the
-   footer's dark translucent fields (cf. the newsletter input). */
+/* ── Country / currency selector (its own footer column) ───────────────────────
+   Dawn's component-localization-form.css loads AFTER this file, so its defaults
+   (white pill, its own margins/padding) win on source order. The selectors below
+   carry extra specificity to override them: the toggle matches the footer's dark
+   fields at the same 46px height as the subscribe input, and the open pane is a
+   clean white popover — killing the footer's link text-shadow and white-on-hover
+   (`.wb-footercolumn a`) that would otherwise bleed onto it. */
 .wb-footer-localization {
-  margin-top: 18px;
+  margin: 0;
+}
+
+/* Strip Dawn's own spacing so the toggle sits flush like the subscribe field. */
+.wb-footer-localization .localization-form {
+  padding: 0;
+}
+
+.wb-footer-localization .localization-form:only-child .button,
+.wb-footer-localization .localization-form:only-child .localization-form__select {
+  margin: 0;
 }
 
 .wb-footercolumn .wb-footer-localization .localization-form__select {
+  height: 46px; /* match the subscribe field */
+  padding: 0 40px 0 16px;
   background-color: rgba(255, 255, 255, 0.04);
   color: #cccccc;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
-  padding: 12px 40px 12px 16px;
   font-size: 14px;
 }
 
@@ -171,7 +184,7 @@
   fill: currentColor;
 }
 
-/* Open dropdown panel — readable light popover regardless of the dark footer. */
+/* Open dropdown panel — clean white popover, dark normal-weight rows. */
 .wb-footer-localization .disclosure__list-wrapper {
   background-color: #ffffff;
   border-radius: 6px;
@@ -179,8 +192,14 @@
 
 .wb-footer-localization .disclosure__link {
   color: #111111;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-shadow: none; /* footer's `.wb-footercolumn a` adds a black shadow — kill it */
 }
 
-.wb-footer-localization .disclosure__link:hover {
+.wb-footer-localization .disclosure__link:hover,
+.wb-footer-localization .disclosure__link:focus {
+  color: #111111; /* footer's a:hover turns links white → invisible on white; stay dark */
   background-color: #f2f2f2;
+  text-shadow: none;
 }
