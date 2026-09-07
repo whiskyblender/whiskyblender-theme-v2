@@ -20,17 +20,21 @@
 {%- endcomment -%}
 {%- liquid
   assign wb_m = amount | money
-  assign wb_last3 = wb_m | slice: -3, 3
-  if wb_last3 == '.00' or wb_last3 == ',00'
-    assign wb_cut = wb_m | size | minus: 3
-    assign wb_m = wb_m | slice: 0, wb_cut
-  endif
-  unless code == false
-    assign wb_iso = cart.currency.iso_code | default: shop.currency
-    assign wb_hide_codes = 'GBP,EUR' | split: ','
-    unless wb_hide_codes contains wb_iso
-      assign wb_m = wb_m | append: ' ' | append: wb_iso
+  # Guard against a nil/blank amount (e.g. an absent compare-at price) so we never
+  # emit a lone currency code.
+  if wb_m != blank
+    assign wb_last3 = wb_m | slice: -3, 3
+    if wb_last3 == '.00' or wb_last3 == ',00'
+      assign wb_cut = wb_m | size | minus: 3
+      assign wb_m = wb_m | slice: 0, wb_cut
+    endif
+    unless code == false
+      assign wb_iso = cart.currency.iso_code | default: shop.currency
+      assign wb_hide_codes = 'GBP,EUR' | split: ','
+      unless wb_hide_codes contains wb_iso
+        assign wb_m = wb_m | append: ' ' | append: wb_iso
+      endunless
     endunless
-  endunless
+  endif
   echo wb_m
 -%}
