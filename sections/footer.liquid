@@ -49,12 +49,11 @@
       >
       <p><strong>Please enjoy responsibly&mdash;or no at aw!</strong></p>
     </div>
-    {%- comment -%} Currency selector + newsletter share ONE column so they stack
-      (currency first) and always match width — separate footer columns land in
-      different rows of the 2-up grid and can't be kept equal. Selector only shows
-      when more than one market exists; assets load site-wide in that case. {%- endcomment -%}
-    <div class="wb-footercolumn">
-      {%- if localization.available_countries and localization.available_countries.size > 1 -%}
+    {%- comment -%} Country / currency selector — its own column, before the subscribe
+      form. Only shows when more than one market exists; Dawn's localization assets load
+      site-wide in that case. {%- endcomment -%}
+    {%- if localization.available_countries and localization.available_countries.size > 1 -%}
+      <div class="wb-footercolumn">
         <div class="wb-footer-localization">
           <localization-form>
             {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
@@ -63,7 +62,9 @@
             {%- endform -%}
           </localization-form>
         </div>
-      {%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="wb-footercolumn">
       <div class="wb-footer-signup__inner">
         {%- form 'customer', id: 'FooterNewsletter' -%}
           <input type="hidden" name="contact[tags]" value="newsletter">

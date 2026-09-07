@@ -155,12 +155,6 @@
   margin: 0;
 }
 
-/* Gap between the (stacked) currency selector and the newsletter beneath it —
-   put on the newsletter so .wb-footer-localization itself stays margin-free. */
-.wb-footer-localization + .wb-footer-signup__inner {
-  margin-top: 12px;
-}
-
 /* Strip Dawn's own spacing so the toggle sits flush like the subscribe field.
    Dawn sets `.localization-form:only-child { padding: 1rem 0 }` (same specificity,
    loaded later), so we match its :only-child to out-specify it. */
