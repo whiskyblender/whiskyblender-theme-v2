@@ -1,20 +1,26 @@
 {%- doc -%}
-  Renders the unit price, including its measurement.
+  Renders the unit price, including its measurement — e.g. "£120/l".
 
-  @param {object} price - The unit price (money or string).
+  Reconstructed from wb-money + the measurement (rather than the
+  `unit_price_with_measurement` filter) so the amount is tidied server-side (drop
+  .00) exactly like the main price, with no currency code (the main price carries
+  it) and no client-side flash on variant/cart re-render. Matches the unit price in
+  snippets/product-tagline.liquid — keep the two in step. Note: this uses the raw
+  reference_unit ("l"), so it reads "/l" not the filter's "/L".
+
+  @param {number} price - The unit price in cents.
   @param {object} measurement - The unit_price_measurement object.
   @param {boolean} [hide_accessibility_label] - Whether to hide the accessibility label (default: false).
 
   @example
   {% render 'unit-price', price: variant.unit_price, measurement: variant.unit_price_measurement %}
-  @example
-  {% render 'unit-price', price: line_item.unit_price | money_with_currency, measurement: line_item.unit_price_measurement }
 {%- enddoc -%}
 <small class="unit-price caption">
   {%- unless hide_accessibility_label -%}
     <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
   {%- endunless -%}
   <span class="wb-product-price price-item price-item--last">
-    {{ price | unit_price_with_measurement: measurement }}
+    {%- render 'wb-money', amount: price, code: false -%}
+    {%- if measurement -%}/{%- if measurement.reference_value != 1 -%}{{ measurement.reference_value }}{%- endif -%}{{ measurement.reference_unit }}{%- endif -%}
   </span>
 </small>
