@@ -152,17 +152,21 @@
   .wb-hiwh-step--yellow .wb-hiwh-step__num { color: #e6b82b; }
 
   .wb-hiwh-step__title {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 1.2;
     margin: 0 0 16px;
     color: #111;
   }
 
-  /* Body deliberately has no type rules — it uses `.rte` exactly as the How It
-     Works page does, inheriting the site body styles. Setting font-size or
-     line-height on it here would diverge from the page and override the
-     global body typography. */
+  /* Body text is a touch smaller than the site body here. It otherwise inherits
+     the fluid 16→20px body size, which read large in these panels — especially in
+     the narrow 3-across columns above 1200px. 16px is the site's base size, so
+     this only trims the desktop up-scaling; mobile is unchanged. */
+  .wb-hiwh-step__body {
+    font-size: 16px;
+    line-height: 1.6;
+  }
   .wb-hiwh-step__body > p:last-child { margin-bottom: 0; }
 
   .wb-hiwh-cta {
@@ -191,7 +195,7 @@
      Body text is untouched too: it inherits the site's 16px mobile size, and
      overriding type on it here would fight the global body styles. */
   @media screen and (max-width: 767px) {
-    .wb-hiwh-step__title { font-size: 21px; margin-bottom: 12px; }
+    .wb-hiwh-step__title { font-size: 18px; margin-bottom: 12px; }
     .wb-hiwh-cta__title { font-size: 21px; }
   }
 
@@ -235,7 +239,7 @@
   }
 
   @media screen and (min-width: 1024px) {
-    .wb-hiwh-step__title { font-size: 30px; }
+    .wb-hiwh-step__title { font-size: 24px; }
   }
 
   /* Above 1200px: the three step panels sit side by side (list = row) and each
