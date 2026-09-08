@@ -6,7 +6,9 @@
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
-  .related-products__title-wrapper {
+
+  /* Same title row as "You may also like": heading left, "View all" right. */
+  .wb-other-collections__title-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -14,6 +16,26 @@
     column-gap: 2rem;
     row-gap: 0.5rem;
   }
+
+  .wb-other-collections__heading {
+    margin: 0 0 3rem;
+  }
+
+  /* Card text matches the PRODUCT card title (small Raleway), not the big display
+     heading card-collection uses by default. Collections have no type/price line —
+     just the title, styled like the product-card title. */
+  .wb-other-collections .card__heading,
+  .wb-other-collections .card__heading a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #121212;
+    margin: 0;
+  }
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -24,10 +46,15 @@
 
 {%- comment -%}
   "Other collections" — the SAME layout as the "You may also like" (related-products)
-  section (title + "View all" link, then a wb-productsgrid of cards), but with COLLECTION
-  cards. Sourced from the picked collection_list, SKIPPING the collection currently being
-  viewed (so it reads as *other* collections), capped at collections_to_show. "View all"
-  goes to the all-collections page. Renders nothing if none remain.
+  section: heading + "View all" link on one line, then a wb-productsgrid of cards.
+  Uses card-collection (with the title restyled to match the product-card title) and
+  sources from the picked collection_list, SKIPPING the collection currently being
+  viewed, capped at collections_to_show. Renders nothing if none remain.
+
+  Deliberately NOT using the `.related-products` container class (it triggers a
+  product-page-only banding rule that force-greys the section); and NOT `.wb-banded`,
+  so this sits on the plain page background — separating it from the grey product grid
+  above on the collection template.
 {%- endcomment -%}
 
 {%- liquid
@@ -48,12 +75,12 @@
 -%}
 
 {%- if eligible > 0 -%}
-  <section class="wb-banded">
+  <section>
     <div class="wb-container">
       <div class="wb-padding">
-        <div class="related-products page-width section-{{ section.id }}-padding isolate">
-          <div class="related-products__title-wrapper">
-            <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+        <div class="wb-other-collections page-width section-{{ section.id }}-padding isolate">
+          <div class="wb-other-collections__title-wrapper">
+            <h2 class="wb-other-collections__heading inline-richtext {{ section.settings.heading_size }}">
               {{ section.settings.heading }}
             </h2>
             <div class="center collection__view-all">
