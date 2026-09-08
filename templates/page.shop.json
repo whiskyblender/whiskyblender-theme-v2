@@ -30,10 +30,42 @@
         "show_rating": true,
         "quick_add": "none"
       }
+    },
+    "wb_cta_letscollab": {
+      "type": "wb-cta",
+      "name": "CTA - Let's collaborate",
+      "settings": {
+        "heading": "Let's collaborate",
+        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
+        "image": "shopify://shop_images/wb-yerownbrand.png",
+        "image_class": "wb-yourownbrand",
+        "primary_button_text": "Get in touch",
+        "primary_button_url": "shopify://pages/contact",
+        "secondary_button_text": "See collaborations",
+        "secondary_button_url": "shopify://collections/collaborations",
+        "background": "auto"
+      }
+    },
+    "wb_cta_foryersel": {
+      "type": "wb-cta",
+      "name": "CTA - For yersel'",
+      "settings": {
+        "heading": "For yersel'",
+        "description": "You don't need an excuse to treat yourself. So take a look at the different ways you can create something you can enjoy, share and show off.",
+        "image": "shopify://shop_images/wb-foryersel.png",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "Create something",
+        "primary_button_url": "shopify://pages/create",
+        "secondary_button_text": "",
+        "secondary_button_url": "",
+        "background": "auto"
+      }
     }
   },
   "order": [
     "main_page_wb_C4V8rp",
-    "shop_all_products_qWxYzR"
+    "shop_all_products_qWxYzR",
+    "wb_cta_letscollab",
+    "wb_cta_foryersel"
   ]
 }
