@@ -21,9 +21,9 @@
     margin: 0 0 3rem;
   }
 
-  /* Card text matches the PRODUCT card title (small Raleway), not the big display
-     heading card-collection uses by default. Collections have no type/price line —
-     just the title, styled like the product-card title. */
+  /* Card text matches the PRODUCT card: the title as .wb-producttitle .wb-tiny-heading
+     (card-collection defaults to a big display heading), and any collection
+     description styled like the grey product-type line beneath it. */
   .wb-other-collections .card__heading,
   .wb-other-collections .card__heading a {
     font-family: 'Raleway', sans-serif;
@@ -34,6 +34,21 @@
     letter-spacing: normal;
     color: #121212;
     margin: 0;
+  }
+  .wb-other-collections .card__heading .wb-emoji {
+    display: none;
+  }
+  .wb-other-collections .card__content .card__information {
+    padding: 13px 10px;
+  }
+  .wb-other-collections .card__content p,
+  .wb-other-collections .card__caption {
+    font-family: 'Raleway', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+    color: #999999;
+    margin: 2px 0 0;
   }
 
   @media screen and (min-width: 750px) {

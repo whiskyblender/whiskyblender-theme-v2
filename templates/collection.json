@@ -100,7 +100,7 @@
       "type": "wb-other-collections",
       "settings": {
         "heading": "Other collections",
-        "heading_size": "h1",
+        "heading_size": "h2",
         "collection_list": [
           "single-malts",
           "personalised-whisky",
