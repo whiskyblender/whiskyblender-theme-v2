@@ -727,7 +727,15 @@ ul.wb-product-drawers li {
 }
 
 .wb-product-price {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+/* Nudge every price a touch bolder site-wide (cart, search, related, etc.).
+   Raleway loads 500; this is the next step up from the default 400. Size is
+   bumped on the prominent product/card prices above, not here. */
+.price-item {
+  font-weight: 500;
 }
 
 @media screen and (max-width: 400px) {
