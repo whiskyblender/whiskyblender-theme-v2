@@ -100,7 +100,7 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "step_number": "One",
+            "step_number": "Step 1",
             "heading": "Select your whiskies",
             "body": "<p>Five single malt casks, hand-picked from Speyside, Highland and Islay distilleries. Tap to add from the ones you like the sound of until you reach 100%.</p>",
             "image": "shopify://shop_images/hiw_one.gif",
@@ -110,7 +110,7 @@
         "step_2": {
           "type": "step",
           "settings": {
-            "step_number": "Two",
+            "step_number": "Step 2",
             "heading": "Name and bottle it",
             "body": "<p>Give your whisky a name (or use our handy generator to suggest something), declare yourself as the creator, and then choose which bottle you want filled with it.</p>",
             "image": "shopify://shop_images/hiw_two.gif",
@@ -120,7 +120,7 @@
         "step_3": {
           "type": "step",
           "settings": {
-            "step_number": "Three",
+            "step_number": "Step 3",
             "heading": "Design your label",
             "body": "<p>The label updates as you type, so you see exactly what’s going on the bottle before our blenders make your recipe by hand.</p>",
             "image": "shopify://shop_images/hiw_three.gif",
