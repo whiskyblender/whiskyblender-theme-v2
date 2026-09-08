@@ -99,8 +99,7 @@
     "other_collections": {
       "type": "wb-other-collections",
       "settings": {
-        "title": "Other collections",
-        "description": "",
+        "heading": "Other collections",
         "heading_size": "h1",
         "collection_list": [
           "single-malts",
@@ -110,9 +109,10 @@
           "collaborations",
           "custom"
         ],
-        "image_ratio": "square",
-        "columns_desktop": 3,
+        "collections_to_show": 4,
+        "columns_desktop": 4,
         "columns_mobile": "2",
+        "image_ratio": "square",
         "padding_top": 36,
         "padding_bottom": 36
       }

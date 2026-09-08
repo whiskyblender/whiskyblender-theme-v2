@@ -1,20 +1,19 @@
-{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
-
-{%- comment -%}
-  "Other collections" — a grid of collection cards, styled exactly like the
-  collection-list section (same wb-banded / wb-cards / card-collection markup). It
-  reads the picked `collection_list` but SKIPS the collection currently being viewed,
-  so it reads as *other* collections (mirrors how "You may also like" excludes the
-  current product). Renders nothing if no collections remain after that exclusion.
-{%- endcomment -%}
+{{ 'section-related-products.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
-
+  .related-products__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+    row-gap: 0.5rem;
+  }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -23,11 +22,22 @@
   }
 {%- endstyle -%}
 
+{%- comment -%}
+  "Other collections" — the SAME layout as the "You may also like" (related-products)
+  section (title + "View all" link, then a wb-productsgrid of cards), but with COLLECTION
+  cards. Sourced from the picked collection_list, SKIPPING the collection currently being
+  viewed (so it reads as *other* collections), capped at collections_to_show. "View all"
+  goes to the all-collections page. Renders nothing if none remain.
+{%- endcomment -%}
+
 {%- liquid
-  assign remaining = 0
+  assign eligible = 0
   for col in section.settings.collection_list
     unless collection != blank and col.id == collection.id
-      assign remaining = remaining | plus: 1
+      assign eligible = eligible | plus: 1
+      if eligible >= section.settings.collections_to_show
+        break
+      endif
     endunless
   endfor
 
@@ -37,53 +47,52 @@
   endif
 -%}
 
-{%- if remaining > 0 -%}
+{%- if eligible > 0 -%}
   <section class="wb-banded">
     <div class="wb-container">
-      <div class="wb-padding collection-list-wrapper isolate section-{{ section.id }}-padding{% if section.settings.title == blank %} no-mobile-link{% endif %}">
-        {%- unless section.settings.title == blank -%}
-          <div class="wb-medium-heading">
-            <h2
-              id="SectionHeading-{{ section.id }}"
-              class="wb-medium-heading collection-list-title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-            >
-              {{ section.settings.title }}
+      <div class="wb-padding">
+        <div class="related-products page-width section-{{ section.id }}-padding isolate">
+          <div class="related-products__title-wrapper">
+            <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+              {{ section.settings.heading }}
             </h2>
+            <div class="center collection__view-all">
+              <a
+                href="{{ routes.collections_url }}"
+                class="link underlined-link"
+                aria-label="View all collections"
+              >
+                View all
+              </a>
+            </div>
           </div>
-        {%- endunless -%}
-
-        {%- if section.settings.description != blank -%}
-          <p>{{ section.settings.description }}</p>
-        {%- endif -%}
-
-        <ul
-          class="wb-cards wb-main-cards collection-list contains-card contains-card--collection{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
-          role="list"
-        >
-          {%- assign card_index = 0 -%}
-          {%- for col in section.settings.collection_list -%}
-            {%- if collection != blank and col.id == collection.id -%}
-              {%- continue -%}
-            {%- endif -%}
-            {%- assign placeholder_image_index = card_index | modulo: 4 | plus: 1 -%}
-            {%- assign placeholder_image = 'collection-apparel-' | append: placeholder_image_index -%}
-            <li
-              class="collection-list__item grid__item{% if col.featured_image == nil %} collection-list__item--no-media{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-              {% if settings.animations_reveal_on_scroll %}
-                data-cascade
-                style="--animation-order: {{ forloop.index }};"
-              {% endif %}
-            >
-              {% render 'card-collection',
-                card_collection: col,
-                media_aspect_ratio: section.settings.image_ratio,
-                columns: columns,
-                placeholder_image: placeholder_image
-              %}
-            </li>
-            {%- assign card_index = card_index | plus: 1 -%}
-          {%- endfor -%}
-        </ul>
+          <ul
+            class="wb-productsgrid wb-tightergrid grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+            role="list"
+          >
+            {%- assign shown = 0 -%}
+            {%- for col in section.settings.collection_list -%}
+              {%- if collection != blank and col.id == collection.id -%}
+                {%- continue -%}
+              {%- endif -%}
+              {%- if shown < section.settings.collections_to_show -%}
+                {%- assign placeholder_image_index = shown | modulo: 4 | plus: 1 -%}
+                {%- assign placeholder_image = 'collection-apparel-' | append: placeholder_image_index -%}
+                <li class="wb-productcell grid__item">
+                  {% render 'card-collection',
+                    card_collection: col,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    columns: columns,
+                    placeholder_image: placeholder_image
+                  %}
+                </li>
+                {%- assign shown = shown | plus: 1 -%}
+              {%- else -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -92,21 +101,14 @@
 {% schema %}
 {
   "name": "Other collections",
-  "class": "section section-collection-list",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
+  "tag": "section",
+  "class": "section",
   "settings": [
     {
       "type": "inline_richtext",
-      "id": "title",
+      "id": "heading",
       "default": "Other collections",
       "label": "Heading"
-    },
-    {
-      "type": "text",
-      "id": "description",
-      "label": "Description"
     },
     {
       "type": "select",
@@ -127,8 +129,32 @@
       "info": "The collection currently being viewed is skipped automatically."
     },
     {
-      "type": "header",
-      "content": "Layout"
+      "type": "range",
+      "id": "collections_to_show",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4,
+      "label": "Collections to show"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Columns on desktop"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "2",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ]
     },
     {
       "type": "select",
@@ -140,25 +166,6 @@
       ],
       "default": "square",
       "label": "Image ratio"
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "min": 1,
-      "max": 6,
-      "step": 1,
-      "default": 3,
-      "label": "Columns on desktop"
-    },
-    {
-      "type": "select",
-      "id": "columns_mobile",
-      "options": [
-        { "value": "1", "label": "1 column" },
-        { "value": "2", "label": "2 columns" }
-      ],
-      "default": "2",
-      "label": "Columns on mobile"
     },
     {
       "type": "header",
