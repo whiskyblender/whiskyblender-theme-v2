@@ -76,15 +76,15 @@
   padding: 0;
   font-size: 12px;
   color: #666666;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 8px;
+  column-gap: 18px;
 }
 
 .wb-meta-deetz li {
-  display: inline-block;
-  margin-right: 12px;
-}
-
-.wb-meta-deetz li:last-child {
-  margin: 0;
+  margin-right: 0;
+  line-height: normal;
 }
 
 .wb-productitem:hover {
