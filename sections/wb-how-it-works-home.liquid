@@ -237,6 +237,28 @@
   @media screen and (min-width: 1024px) {
     .wb-hiwh-step__title { font-size: 30px; }
   }
+
+  /* Above 1200px: the three step panels sit side by side (list = row) and each
+     panel stacks its own text over its image (step = column) — the reverse of the
+     768px layout. The list keeps its original 20px gap (now the column-gap between
+     panels — deliberately NOT zeroed). The CTA is a sibling of .wb-hiwh-steps, so it
+     stays full-width below. */
+  @media screen and (min-width: 1200px) {
+    .wb-hiwh-steps {
+      flex-direction: row;
+    }
+
+    .wb-hiwh-step {
+      flex: 1;                 /* equal-width columns across the row */
+      flex-direction: column;
+      column-gap: 0;           /* undo the 80px column-gap from the 768px rule */
+      row-gap: 20px;           /* text ↔ image spacing within the panel */
+    }
+
+    /* Undo the 50/50 row basis so text and image stack at their natural heights. */
+    .wb-hiwh-step__text { flex: 0 0 auto; }
+    .wb-hiwh-step__media { flex: 0 0 auto; }
+  }
 </style>
 
 {% schema %}
