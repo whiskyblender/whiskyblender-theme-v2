@@ -215,6 +215,21 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "wb_cta_something_unique": {
+      "type": "wb-cta",
+      "name": "CTA - Something unique",
+      "settings": {
+        "heading": "Match made in whisky",
+        "description": "Whisky comes in all sorts of characters, from bold and smoky to smooth and refined. Match the blend to the person, add a personal label, and you’ve got a gift that feels made just for them.",
+        "image": "shopify://shop_images/well_balanced.jpg",
+        "image_class": "wb-foryersel",
+        "primary_button_text": "",
+        "primary_button_url": "",
+        "secondary_button_text": "Find a perfect dram",
+        "secondary_button_url": "shopify://pages/perfect-drams",
+        "background": "auto"
+      }
     }
   },
   "order": [
@@ -223,6 +238,7 @@
     "image_reel",
     "occasions",
     "wb_cta",
-    "exclusive_bottles"
+    "exclusive_bottles",
+    "wb_cta_something_unique"
   ]
 }
