@@ -1,0 +1,194 @@
+{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+{%- comment -%}
+  "Other collections" — a grid of collection cards, styled exactly like the
+  collection-list section (same wb-banded / wb-cards / card-collection markup). It
+  reads the picked `collection_list` but SKIPS the collection currently being viewed,
+  so it reads as *other* collections (mirrors how "You may also like" excludes the
+  current product). Renders nothing if no collections remain after that exclusion.
+{%- endcomment -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign remaining = 0
+  for col in section.settings.collection_list
+    unless collection != blank and col.id == collection.id
+      assign remaining = remaining | plus: 1
+    endunless
+  endfor
+
+  assign columns = section.settings.columns_desktop
+  if columns > 3
+    assign columns = 3
+  endif
+-%}
+
+{%- if remaining > 0 -%}
+  <section class="wb-banded">
+    <div class="wb-container">
+      <div class="wb-padding collection-list-wrapper isolate section-{{ section.id }}-padding{% if section.settings.title == blank %} no-mobile-link{% endif %}">
+        {%- unless section.settings.title == blank -%}
+          <div class="wb-medium-heading">
+            <h2
+              id="SectionHeading-{{ section.id }}"
+              class="wb-medium-heading collection-list-title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            >
+              {{ section.settings.title }}
+            </h2>
+          </div>
+        {%- endunless -%}
+
+        {%- if section.settings.description != blank -%}
+          <p>{{ section.settings.description }}</p>
+        {%- endif -%}
+
+        <ul
+          class="wb-cards wb-main-cards collection-list contains-card contains-card--collection{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+          role="list"
+        >
+          {%- assign card_index = 0 -%}
+          {%- for col in section.settings.collection_list -%}
+            {%- if collection != blank and col.id == collection.id -%}
+              {%- continue -%}
+            {%- endif -%}
+            {%- assign placeholder_image_index = card_index | modulo: 4 | plus: 1 -%}
+            {%- assign placeholder_image = 'collection-apparel-' | append: placeholder_image_index -%}
+            <li
+              class="collection-list__item grid__item{% if col.featured_image == nil %} collection-list__item--no-media{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+              {% if settings.animations_reveal_on_scroll %}
+                data-cascade
+                style="--animation-order: {{ forloop.index }};"
+              {% endif %}
+            >
+              {% render 'card-collection',
+                card_collection: col,
+                media_aspect_ratio: section.settings.image_ratio,
+                columns: columns,
+                placeholder_image: placeholder_image
+              %}
+            </li>
+            {%- assign card_index = card_index | plus: 1 -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Other collections",
+  "class": "section section-collection-list",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Other collections",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Medium" },
+        { "value": "h1", "label": "Large" },
+        { "value": "h0", "label": "Extra large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "collection_list",
+      "id": "collection_list",
+      "limit": 12,
+      "label": "Collections",
+      "info": "The collection currently being viewed is skipped automatically."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "square", "label": "Square" }
+      ],
+      "default": "square",
+      "label": "Image ratio"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "Columns on desktop"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        { "value": "1", "label": "1 column" },
+        { "value": "2", "label": "2 columns" }
+      ],
+      "default": "2",
+      "label": "Columns on mobile"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Other collections"
+    }
+  ]
+}
+{% endschema %}
