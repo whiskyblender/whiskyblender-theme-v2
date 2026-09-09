@@ -279,7 +279,7 @@
         "image": "shopify://shop_images/wb-yerownbrand.png",
         "image_class": "wb-yourownbrand",
         "primary_button_text": "Get in touch",
-        "primary_button_url": "shopify://pages/contact",
+        "primary_button_url": "shopify://pages/collaborate",
         "secondary_button_text": "See collaborations",
         "secondary_button_url": "shopify://collections/collaborations",
         "background": "auto"
