@@ -29,7 +29,7 @@
     font-family: 'Raleway', sans-serif;
     font-size: 16px;
     line-height: 20px;
-    font-weight: 500;
+    font-weight: 700;
     text-transform: none;
     letter-spacing: normal;
     color: #121212;
@@ -37,6 +37,14 @@
   }
   .wb-other-collections .card__heading .wb-emoji {
     display: none;
+  }
+
+  /* The whole card is clickable (card-collection wraps it in an onclick),
+     so the image and inner should show the link cursor like the product card. */
+  .wb-other-collections .card__inner,
+  .wb-other-collections .card__media,
+  .wb-other-collections .card__media img {
+    cursor: pointer;
   }
   .wb-other-collections .card__content .card__information {
     padding: 13px 10px;
