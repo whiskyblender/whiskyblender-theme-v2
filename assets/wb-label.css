@@ -524,9 +524,9 @@ body.wb-tpl-new #page.size50 {
    a centred inset panel. Bottom pinned at 236 (-33 + 269). */
 body.wb-tpl-new .size50 .image { top: -33px; height: 269px; left: -9px; width: 570px; }
 
-/* Blend / whisky name: up 30px (top 56->26) and 15px taller (height 80->95) to sit
-   on the taller artwork. Base #outer height is 80; this overrides it for New. */
-body.wb-tpl-new .size50 #outer { top: 26px; height: 95px; }
+/* Blend / whisky name: up 30px (top 56->26) and resized for the taller artwork —
+   82px tall, 92px wide. Base #outer is 90x80; this overrides both for New. */
+body.wb-tpl-new .size50 #outer { top: 26px; height: 82px; width: 92px; }
 
 /* "Created by" / distillery line: up 10px (204->194) on the taller artwork. */
 body.wb-tpl-new .size50 .side { top: 194px; }
