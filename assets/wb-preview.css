@@ -365,10 +365,11 @@
 }
 
 /* Blend-name box grows for the taller artwork — matches generator `#outer`
-   (top 56→26, height 80→95); left/scale inherit from the base size50 rule. */
+   (top 56→26, 92×82 for New); left/scale inherit from the base size50 rule. */
 .wbp-page.size50.wbp-tpl-new .wbp-outer {
   top: 26px;
-  height: 95px;
+  height: 82px;
+  width: 92px;
 }
 
 /* Side name (author / distillery) lifts to sit on the taller artwork —
