@@ -97,18 +97,15 @@
       scCaskLeft: 102,   svgW: 202,   svgH: 34,
     };
 
-    /* ── Internal preview-template toggle (dev scaffolding) ───────────────────
-       Customers always see the CLASSIC preview. We build the NEW taller-template
-       preview behind an invisible hotspot in the preview's top-left corner:
-       Option/Alt-click it to flip THIS browser between classic and new
-       (persisted in localStorage so it survives reloads and variant re-renders
-       while we work). NEW begins as an exact clone of CLASSIC — toggling shows
-       no change until we tune the `.wbp-tpl-new` rules in wb-preview.css and add
-       `isNewTpl` branches below. When NEW ships as default, delete this block,
-       the hotspot in initPreview(), and every `isNewTpl` branch. */
-    var PREVIEW_TPL_KEY = 'wbPreviewTplNew';
-    var isNewTpl = false;
-    try { isNewTpl = localStorage.getItem(PREVIEW_TPL_KEY) === '1'; } catch (e) {}
+    /* ── New taller-template preview ──────────────────────────────────────────
+       NEW is now the DEFAULT for eligible products (custom blend 500ml) — the
+       printed generator already defaults custom blend to the taller template,
+       so the preview matches what gets made. The old internal dev toggle (an
+       invisible Option/Alt-click hotspot, persisted in localStorage) has been
+       removed. `isNewTpl` stays as the on/off flag, now hardwired on; the
+       `newActive()` gate below still scopes it to eligible products so malt/
+       cask and 200ml keep the Classic preview. */
+    var isNewTpl = true;
 
     /* NEW-template dims. 500ml only — mirrors DIMS_NEW['500ml'] in the generator:
        the side strip sits alongside the taller artwork (panelTop -33, was 4), is
@@ -452,28 +449,12 @@
       });
       previewWrap.appendChild(closeBtn);
 
-      /* Invisible internal template toggle — top-left corner of the preview.
-         A plain click/tap flips classic <-> new for THIS browser only (works on
-         mobile — no modifier key). Kept tiny, tabindex -1 and aria-hidden so a
-         customer is unlikely to trip it or tab to it. If accidental flips ever
-         show up, swap this for a double-tap detector. Remove when NEW ships.
-         Only added on New-eligible products (custom blend today) — malt/cask
-         previews stay Classic with no toggle until they move to taller labels. */
+      /* NEW is the default now — the dev toggle hotspot has been removed. The
+         data-wbp-tpl attribute stays because the taller-frame CSS (crop + mock)
+         is scoped to custom-blend 500ml via [data-wbp-tpl="new"]; it is set only
+         on New-eligible products, so malt/cask and 200ml keep the Classic frame. */
       if (newTplEligible) {
-        var tplHotspot = document.createElement('button');
-        tplHotspot.type = 'button';
-        tplHotspot.className = 'wbp-tpl-hotspot';
-        tplHotspot.tabIndex = -1;
-        tplHotspot.setAttribute('aria-hidden', 'true');
-        tplHotspot.addEventListener('click', function () {
-          isNewTpl = !isNewTpl;
-          try { localStorage.setItem(PREVIEW_TPL_KEY, isNewTpl ? '1' : '0'); } catch (er) {}
-          previewWrap.setAttribute('data-wbp-tpl', isNewTpl ? 'new' : 'classic');
-          if (window.console) console.log('[wb-preview] template →', isNewTpl ? 'NEW (taller)' : 'classic');
-          renderPreviewLabel();
-        });
-        previewWrap.setAttribute('data-wbp-tpl', isNewTpl ? 'new' : 'classic');
-        previewWrap.appendChild(tplHotspot);
+        previewWrap.setAttribute('data-wbp-tpl', 'new');
       }
 
       var loaderEl = document.getElementById('wb-single-malt-loader');
