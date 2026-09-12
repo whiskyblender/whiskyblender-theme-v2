@@ -231,6 +231,15 @@
         pageEl.style.backgroundImage = pageBg ? 'url(' + pageBg + ')' : '';
       }
 
+      /* Surrounding bottle mock: the New taller custom-blend template uses a
+         different mock (customblendlabelmock500.webp) than Classic. Set it here
+         too — initPreview sets the initial one, but the internal toggle only
+         calls renderPreviewLabel, so the swap must happen here to update live. */
+      if (isBlend && !is200ml) {
+        var mockUrl = cdn + (isNew500 ? 'customblendlabelmock500.webp' : 'customblendlabelmock.webp') + '?v=' + av;
+        previewContainer.style.backgroundImage = 'url(' + mockUrl + ')';
+      }
+
       var artworkEl = previewContainer.querySelector('.wbp-image');
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
@@ -406,7 +415,7 @@
 
       previewContainer = document.createElement('div');
       previewContainer.className = 'wbp-scale-wrap';
-      var mockImg = productSlug === 'customblend' ? (is200ml ? 'customblendlabelmock200.webp' : 'customblendlabelmock.webp') : 'singlemaltlabelmock.webp';
+      var mockImg = productSlug === 'customblend' ? (is200ml ? 'customblendlabelmock200.webp' : (newActive() ? 'customblendlabelmock500.webp' : 'customblendlabelmock.webp')) : 'singlemaltlabelmock.webp';
       previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + '?v=' + av + ')';
       previewContainer.innerHTML =
         '<div class="wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + (newActive() ? ' wbp-tpl-new' : '') + '">' +
