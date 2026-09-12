@@ -332,14 +332,12 @@
   margin: -61px 0 0;
 }
 
-/* Preview window + bottle mock for the taller frame. Scoped on the wrap's
-   data-wbp-tpl="new" attribute, which JS sets only on New-eligible products
-   (custom blend 500ml) — so malt/cask and 200ml keep the Classic frame while
-   custom blend gets the taller one. The crop grows taller (794/488→794/554) to
-   reveal the label top, and the mock nudges down to stay seated. */
-#wb-label-preview-wrap[data-wbp-tpl="new"] .wbp-preview-crop {
-  aspect-ratio: 794 / 554;
-}
+/* Bottle mock nudges down for the taller frame so the label stays seated.
+   Scoped on the wrap's data-wbp-tpl="new" attribute, which JS sets only on
+   New-eligible products (custom blend 500ml) — so malt/cask and 200ml keep the
+   Classic frame. (The crop's taller aspect-ratio — 794/488 → 794/554 — is set
+   inline by JS in wb-single-malt.js, because the base aspect-ratio is inline
+   too and an inline style beats any stylesheet selector.) */
 .wbp-customblend[data-wbp-tpl="new"] .wbp-scale-wrap {
   margin-top: 8.4%;
 }
