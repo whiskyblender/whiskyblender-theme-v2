@@ -312,44 +312,6 @@
   animation-play-state: paused;
 }
 
-/* ── Internal template toggle (dev scaffolding) ───────────────────────────────
-   Invisible Option/Alt-click target in the preview's top-left corner, used to
-   flip the CLASSIC preview to the in-progress NEW taller template while we build
-   it. Modifier-gated in wb-single-malt.js so customers can't trigger it. Remove
-   this block, the `.wbp-tpl-new` overrides below, and the JS hotspot when NEW
-   ships as the default. */
-.wbp-tpl-hotspot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 34px;
-  height: 34px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  opacity: 0;               /* invisible to customers */
-  cursor: default;
-  z-index: 30;
-  touch-action: manipulation;   /* clean single-tap on mobile, no dbl-tap zoom */
-}
-
-/* Faint dev-only marker so WE can see when NEW is active. Only appears in NEW
-   mode, which customers cannot enter. */
-#wb-label-preview-wrap[data-wbp-tpl="new"]::after {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #b88d60;
-  box-shadow: 0 0 0 2px #fff;
-  z-index: 31;
-  pointer-events: none;
-}
-
 /* ── NEW taller-template preview overrides ────────────────────────────────────
    Additive over the classic `.wbp-page.size50` rules above; mirrors the
    generator's `body.wb-tpl-new .size50 …` deltas so the preview matches the
@@ -371,11 +333,10 @@
 }
 
 /* Preview window + bottle mock for the taller frame. Scoped on the wrap's
-   data-wbp-tpl attribute (set only for eligible custom-blend 500ml, and
-   toggled live) so the customer-facing Classic preview is untouched. The crop
-   grows taller (794/488→794/554) to reveal the label top, and the mock nudges
-   down to stay seated. Fold into the base `.wbp-preview-crop` /
-   `.wbp-customblend .wbp-scale-wrap` rules at go-live. */
+   data-wbp-tpl="new" attribute, which JS sets only on New-eligible products
+   (custom blend 500ml) — so malt/cask and 200ml keep the Classic frame while
+   custom blend gets the taller one. The crop grows taller (794/488→794/554) to
+   reveal the label top, and the mock nudges down to stay seated. */
 #wb-label-preview-wrap[data-wbp-tpl="new"] .wbp-preview-crop {
   aspect-ratio: 794 / 554;
 }
