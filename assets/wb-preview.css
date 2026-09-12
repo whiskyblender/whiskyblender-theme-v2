@@ -362,6 +362,25 @@
 .wbp-page.size50.wbp-tpl-new {
   background-size: cover;
   background-position: center center;
+  /* Taller frame: the New label is physically taller, so the rendered page
+     grows (432→498) and its negative top margin shrinks (−127→−61) so the top
+     of the label drops into the visible window instead of being clipped.
+     Calibrated against customblendlabelmock500.webp. */
+  height: 498px;
+  margin: -61px 0 0;
+}
+
+/* Preview window + bottle mock for the taller frame. Scoped on the wrap's
+   data-wbp-tpl attribute (set only for eligible custom-blend 500ml, and
+   toggled live) so the customer-facing Classic preview is untouched. The crop
+   grows taller (794/488→794/554) to reveal the label top, and the mock nudges
+   down to stay seated. Fold into the base `.wbp-preview-crop` /
+   `.wbp-customblend .wbp-scale-wrap` rules at go-live. */
+#wb-label-preview-wrap[data-wbp-tpl="new"] .wbp-preview-crop {
+  aspect-ratio: 794 / 554;
+}
+.wbp-customblend[data-wbp-tpl="new"] .wbp-scale-wrap {
+  margin-top: 8.4%;
 }
 
 /* Blend-name box grows for the taller artwork — matches generator `#outer`
