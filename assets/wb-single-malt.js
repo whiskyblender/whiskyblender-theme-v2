@@ -408,7 +408,7 @@
 
       previewCrop = document.createElement('div');
       previewCrop.className = 'wbp-preview-crop';
-      previewCrop.style.aspectRatio = is200ml ? '123 / 87' : (newActive() ? '794 / 554' : '794 / 488');
+      previewCrop.style.aspectRatio = is200ml ? '123 / 87' : (newActive() ? '794 / 548' : '794 / 488');
 
       previewContainer = document.createElement('div');
       previewContainer.className = 'wbp-scale-wrap';
