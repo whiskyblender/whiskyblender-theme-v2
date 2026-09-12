@@ -214,17 +214,18 @@
       var isBlend = productSlug === 'customblend';
 
       /* New 500ml is the taller template. Only products in NEW_TPL_PRODUCTS use it
-         (custom blend today); malt/cask stay Classic. Both eligible variants share
-         the same taller pre-printed background (sample50cl-tallerbars); Classic
-         keeps its bars for malt/cask and a plain white page for custom blend. */
+         (custom blend today); malt/cask stay Classic. Custom blend New has a plain
+         white page — its updated mock (customblendlabelmock500.webp) already shows
+         the pre-printed frame, so no bars background is layered on top. The taller
+         bars (sample50cl-tallerbars) are kept only for a future malt/cask New. */
       var isNew500 = newActive();
 
       var pageEl = previewContainer.querySelector('.wbp-page');
       if (pageEl) {
         pageEl.className = 'wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + (isNew500 ? ' wbp-tpl-new' : '');
         var pageBg = '';
-        if (isNew500 && tallerBars)      pageBg = tallerBars;      // New: taller bars for blend + malt
-        else if (!isBlend && barsUrl)    pageBg = barsUrl;         // Classic malt/cask: bars
+        if (isNew500 && !isBlend && tallerBars) pageBg = tallerBars;   // New malt/cask: taller bars
+        else if (!isBlend && barsUrl)           pageBg = barsUrl;      // Classic malt/cask: bars
         pageEl.style.backgroundImage = pageBg ? 'url(' + pageBg + ')' : '';
       }
 
