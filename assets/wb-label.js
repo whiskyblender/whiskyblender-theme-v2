@@ -371,19 +371,23 @@
        panel, so its white area matches single cask exactly (this strip's zigzag,
        at left:scCaskLeft, is the outer edge; it overlaps and hides the info strip's). */
     if (state.product === 'singlecask' || d.blank) {
+      /* Custom blend (blank) uses a bigger white strip — wider (height 80 vs 70)
+         and shifted left (112 vs scCaskLeft). Single cask keeps its original size. */
+      var scH = d.blank ? 80 : 70;
+      var scLeft = d.blank ? 112 : d.scCaskLeft;
       var sc = document.createElement('div');
       sc.className = 'wb-side-panel';
       sc.style.cssText = [
         'box-sizing:border-box',
         'position:absolute',
         'top:' + d.panelTop + 'px',
-        'left:' + d.scCaskLeft + 'px',
+        'left:' + scLeft + 'px',
         'width:' + d.panelLength + 'px',
-        'height:70px',
+        'height:' + scH + 'px',
         'padding-top:6px',
         'transform:rotate(90deg)',
         'transform-origin:left top',
-        'clip-path:' + buildZigzagClip(d.panelLength, 70, 8, 5),
+        'clip-path:' + buildZigzagClip(d.panelLength, scH, 8, 5),
         'background-color:' + state.bg,
         'color:' + state.fg,
         'display:flex',

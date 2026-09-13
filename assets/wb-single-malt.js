@@ -349,19 +349,24 @@
         /* Single cask strip — also drawn (blank, no SVG) for the New custom-blend
            panel so its white area matches single cask exactly. */
         if (productSlug === 'singlecask' || isNew500Blend) {
+          /* Mirrors the generator: custom blend (blank) gets the bigger white
+             strip — wider (height 80 vs 70) and shifted left (112 vs scCaskLeft).
+             Single cask keeps its original size. */
+          var scH = isNew500Blend ? 80 : 70;
+          var scLeft = isNew500Blend ? 112 : d.scCaskLeft;
           var sc = document.createElement('div');
           sc.className = 'wbp-side-panel';
           sc.style.cssText = [
             'box-sizing:border-box',
             'position:absolute',
             'top:' + d.panelTop + 'px',
-            'left:' + d.scCaskLeft + 'px',
+            'left:' + scLeft + 'px',
             'width:' + d.panelLength + 'px',
-            'height:70px',
+            'height:' + scH + 'px',
             'padding-top:6px',
             'transform:rotate(90deg)',
             'transform-origin:left top',
-            'clip-path:' + prevZigzag(d.panelLength, 70, 8, 5),
+            'clip-path:' + prevZigzag(d.panelLength, scH, 8, 5),
             'background-color:#ffffff',
             'color:#111111',
             'display:flex',
