@@ -37,6 +37,23 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     input.parentNode.appendChild(counter);
   }
 
+  /* When a blend IS present, the recipe reads better below the buy button (just
+     above the description) than up in the buy box. Relocate it there once it's
+     populated — the no-blend panel (blend-code entry) stays where it is. Falls
+     back to placing it after the buy form if the description block is absent. */
+  function moveRecipeBelowBuy(recipeEl) {
+    var desc = document.querySelector('.product__description');
+    if (desc && desc.parentNode) {
+      desc.parentNode.insertBefore(recipeEl, desc);
+      return;
+    }
+    var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
+    var buyBox = form ? (form.closest('product-form') || form) : null;
+    if (buyBox && buyBox.parentNode) {
+      buyBox.parentNode.insertBefore(recipeEl, buyBox.nextSibling);
+    }
+  }
+
   function renderRecipe(blend, labUrl, inactiveIds) {
     var recipeEl = document.getElementById('wb-blend-recipe');
     if (!recipeEl) return;
@@ -69,6 +86,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
       '<ul class="wb-recipe">' + rows + '</ul>';
 
     show(recipeEl);
+    moveRecipeBelowBuy(recipeEl);
   }
 
   function populateInputs(blend) {
