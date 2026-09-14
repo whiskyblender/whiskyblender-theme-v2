@@ -112,7 +112,7 @@
           "settings": {
             "step_number": "Step 2",
             "heading": "Name and bottle it",
-            "body": "<p>Give your whisky a name (or use our handy generator to suggest something), declare yourself as the creator, and then choose which bottle you want filled with it.</p>",
+            "body": "<p>Give your whisky a name (or use our generator to suggest something), declare yourself as the creator, and then choose which bottle you want filled with it.</p>",
             "image": "shopify://shop_images/hiw_two.gif",
             "background": "brown"
           }
