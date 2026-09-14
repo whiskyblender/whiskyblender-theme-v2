@@ -1,0 +1,91 @@
+{%- comment -%}
+  wb-trust-strip.liquid — reassurance strip shown directly BELOW the Add-to-cart
+  button on product pages (rendered from main-product.liquid's buy_buttons block).
+
+  Three lines, all product-type aware:
+    1. Provenance   — per product type (blend / malt-cask / ready-made / merch / voucher)
+    2. Delivery     — country-dynamic (moved here from the price block; unchanged logic)
+    3. Gift / finish — per product type; omitted for the digital gift voucher
+
+  The seasonal gift hook that used to sit under the price is intentionally hidden
+  for now (see the commented block in main-product.liquid) — to be revisited.
+
+  Gift line is deliberately generic ("no receipt in package") so we never promise
+  packaging we can't guarantee (jute bag / recipe card / certificate can vary).
+{%- endcomment -%}
+
+{%- liquid
+  assign slug = product.metafields.custom.label_product_slug
+  assign suffix = product.template_suffix | default: ''
+
+  assign is_voucher = false
+  if product.gift_card? or suffix contains 'gift-voucher'
+    assign is_voucher = true
+  endif
+  assign is_merch = false
+  if suffix contains 'merch'
+    assign is_merch = true
+  endif
+
+  # ── Line 1: provenance (icon matches the claim) ──
+  assign provenance = 'Product of Scotland — independently bottled'
+  assign prov_icon = '🏴󠁧󠁢󠁳󠁣󠁴󠁿'
+  if slug == 'customblend'
+    assign provenance = 'Product of Scotland — your recipe, independently bottled'
+  elsif is_voucher
+    assign provenance = 'Delivered by email — spend it on any bottle'
+    assign prov_icon = '📧'
+  elsif is_merch and product.vendor == 'Printful'
+    assign provenance = 'Made to order'
+    assign prov_icon = '🖨️'
+  elsif is_merch
+    assign provenance = 'Handmade in Scotland'
+  endif
+
+  # ── Line 3: gift / finish ──
+  # Only on products WE pack, so "no receipt in package" is a promise we control.
+  # Omitted for the digital voucher (no package) and for Printful merch (they
+  # fulfil it — we can't guarantee what's in the box).
+  assign finish = 'Arrives gift-ready — no receipt in package'
+  if is_voucher or product.vendor == 'Printful'
+    assign finish = ''
+  endif
+-%}
+
+{%- comment -%} Each line bolds the claim (before the em dash) and leaves the qualifier plain. {%- endcomment -%}
+<ul class="wb-trust-strip" role="list">
+  <li class="wb-trust-strip__item">
+    <span class="wb-trust-strip__icon" aria-hidden="true">{{ prov_icon }}</span>
+    <span>
+      {%- assign pv = provenance | split: ' — ' -%}
+      <strong>{{ pv[0] }}</strong>{%- if pv.size > 1 %} — {{ pv[1] }}{%- endif -%}
+    </span>
+  </li>
+
+  {%- unless is_voucher -%}
+    <li class="wb-trust-strip__item">
+      <span class="wb-trust-strip__icon" aria-hidden="true">🚚</span>
+      <span>
+        {%- if localization.country.iso_code == 'GB' -%}
+          <strong>Free UK delivery</strong> — no minimum spend
+        {%- elsif cart.duties_included -%}
+          <strong>Duties &amp; taxes included</strong> — no surprises at the door
+        {%- elsif shop.shipping_policy.body != blank -%}
+          <strong>{{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}</strong>
+        {%- else -%}
+          <strong>Shipping calculated at checkout</strong>
+        {%- endif -%}
+      </span>
+    </li>
+  {%- endunless -%}
+
+  {%- if finish != blank -%}
+    <li class="wb-trust-strip__item">
+      <span class="wb-trust-strip__icon" aria-hidden="true">📦</span>
+      <span>
+        {%- assign fn = finish | split: ' — ' -%}
+        <strong>{{ fn[0] }}</strong>{%- if fn.size > 1 %} — {{ fn[1] }}{%- endif -%}
+      </span>
+    </li>
+  {%- endif -%}
+</ul>

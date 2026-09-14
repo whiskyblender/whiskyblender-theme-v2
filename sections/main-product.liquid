@@ -119,7 +119,12 @@
                     <span>{{ 'products.product.volume_pricing.note' | t }}</span>
                   </div>
                 {%- endif -%}
-                {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
+                {%- comment -%}
+                  Tax/duties-included qualifier stays with the price. The delivery line moved
+                  to the below-button reassurance strip (snippets/wb-trust-strip.liquid), where
+                  it keeps the same country-dynamic logic (GB free / duties / policy).
+                {%- endcomment -%}
+                {%- if cart.taxes_included or cart.duties_included -%}
                   <div class="product__tax caption rte">
                     {%- if cart.duties_included and cart.taxes_included -%}
                       {{ 'products.product.duties_and_taxes_included' | t }}
@@ -128,25 +133,20 @@
                     {%- elsif cart.duties_included -%}
                       {{ 'products.product.duties_included' | t }}
                     {%- endif -%}
-                    {%- if localization.country.iso_code == "GB" -%}
-                      <span class="wb-free-shipping">Free UK delivery — no minimum spend</span>
-                    {%- elsif shop.shipping_policy.body != blank -%}
-                      {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
-                    {%- endif -%}
                   </div>
                 {%- endif -%}
-                {%- assign md = "now" | date: "%m%d" | plus: 0 -%}
-                {%- assign gift = "🎁 Looking for a gift? Every bottle arrives gift-ready." -%}
-                {%- if md >= 1115 and md <= 1224 -%}
-                  {%- assign gift = "🎁 The perfect Christmas gift — arrives gift-ready." -%}
-                {%- elsif md >= 1226 or md <= 101 -%}
-                  {%- assign gift = "🥂 Bring in the bells — a perfect Hogmanay gift." -%}
-                {%- elsif md >= 118 and md <= 125 -%}
-                  {%- assign gift = "🏴 For Burns Night — a gift for the whisky lover." -%}
-                {%- elsif md >= 601 and md <= 621 -%}
-                  {%- assign gift = "🥃 A dram worth gifting this Father's Day." -%}
-                {%- endif -%}
-                <p class="wb-gift-hook caption">{{ gift }}</p>
+                {%- comment -%}
+                  Seasonal gift hook hidden for now (revisit later — expand the occasion list).
+                  Kept here so it's easy to re-enable:
+
+                  {%- assign md = "now" | date: "%m%d" | plus: 0 -%}
+                  {%- assign gift = "🎁 Looking for a gift? Every bottle arrives gift-ready." -%}
+                  {%- if md >= 1115 and md <= 1224 -%}{%- assign gift = "🎁 The perfect Christmas gift — arrives gift-ready." -%}
+                  {%- elsif md >= 1226 or md <= 101 -%}{%- assign gift = "🥂 Bring in the bells — a perfect Hogmanay gift." -%}
+                  {%- elsif md >= 118 and md <= 125 -%}{%- assign gift = "🏴 For Burns Night — a gift for the whisky lover." -%}
+                  {%- elsif md >= 601 and md <= 621 -%}{%- assign gift = "🥃 A dram worth gifting this Father's Day." -%}{%- endif -%}
+                  <p class="wb-gift-hook caption">{{ gift }}</p>
+                {%- endcomment -%}
                 {%- comment -%}
                   Shop Pay Installments banner (payment_terms) intentionally not rendered on
                   the product page — installments remain available at checkout. 2026-09-01.
@@ -562,6 +562,8 @@
                   section_id: section.id,
                   show_pickup_availability: false
                 -%}
+                {%- comment -%} Reassurance strip directly below the Add-to-cart (provenance / delivery / gift), per product type. {%- endcomment -%}
+                {%- render 'wb-trust-strip', product: product -%}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
