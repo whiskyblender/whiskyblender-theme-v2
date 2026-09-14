@@ -52,10 +52,14 @@
   endif
 -%}
 
+{%- comment -%} Each line bolds the claim (before the em dash) and leaves the qualifier plain. {%- endcomment -%}
 <ul class="wb-trust-strip" role="list">
   <li class="wb-trust-strip__item">
     <span class="wb-trust-strip__icon" aria-hidden="true">{{ prov_icon }}</span>
-    <span>{{ provenance }}</span>
+    <span>
+      {%- assign pv = provenance | split: ' — ' -%}
+      <strong>{{ pv[0] }}</strong>{%- if pv.size > 1 %} — {{ pv[1] }}{%- endif -%}
+    </span>
   </li>
 
   {%- unless is_voucher -%}
@@ -63,13 +67,13 @@
       <span class="wb-trust-strip__icon" aria-hidden="true">🚚</span>
       <span>
         {%- if localization.country.iso_code == 'GB' -%}
-          Free UK delivery — no minimum spend
+          <strong>Free UK delivery</strong> — no minimum spend
         {%- elsif cart.duties_included -%}
-          Duties &amp; taxes included — no surprises at the door
+          <strong>Duties &amp; taxes included</strong> — no surprises at the door
         {%- elsif shop.shipping_policy.body != blank -%}
-          {{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+          <strong>{{ 'products.product.shipping_policy_html' | t: link: shop.shipping_policy.url }}</strong>
         {%- else -%}
-          Shipping calculated at checkout
+          <strong>Shipping calculated at checkout</strong>
         {%- endif -%}
       </span>
     </li>
@@ -78,7 +82,10 @@
   {%- if finish != blank -%}
     <li class="wb-trust-strip__item">
       <span class="wb-trust-strip__icon" aria-hidden="true">📦</span>
-      <span>{{ finish }}</span>
+      <span>
+        {%- assign fn = finish | split: ' — ' -%}
+        <strong>{{ fn[0] }}</strong>{%- if fn.size > 1 %} — {{ fn[1] }}{%- endif -%}
+      </span>
     </li>
   {%- endif -%}
 </ul>
