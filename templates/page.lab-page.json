@@ -19,7 +19,7 @@
         "info_strip_lab": {
           "type": "info_strip",
           "settings": {
-            "heading": "Your bottle",
+            "heading": "",
             "body": "",
             "size_1_label": "200ml",
             "size_1_price": "£30",
