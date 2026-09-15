@@ -971,6 +971,7 @@
   cursor: pointer;
   transition: border-color 0.15s ease, background-color 0.15s ease;
   font-weight: 600;
+  font-size: 17px;
 }
 
 .wb-preset-btn:hover,
