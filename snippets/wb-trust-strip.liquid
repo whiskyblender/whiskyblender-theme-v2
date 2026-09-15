@@ -14,8 +14,15 @@
   packaging we can't guarantee (jute bag / recipe card / certificate can vary).
 {%- endcomment -%}
 
+{%- comment -%}
+  Off product pages (e.g. the Lab's wb-lab-outro section) there is no `product`,
+  so pass `slug_override: 'customblend'` to get the custom-blend wording.
+{%- endcomment -%}
 {%- liquid
   assign slug = product.metafields.custom.label_product_slug
+  if slug_override != blank
+    assign slug = slug_override
+  endif
   assign suffix = product.template_suffix | default: ''
 
   assign is_voucher = false
