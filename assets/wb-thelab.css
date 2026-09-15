@@ -988,6 +988,7 @@
     padding: 20px 30px;
     font-size: 17px;
     margin-top: -80px;
+    border-radius: 8px;
   }
 
   .wb-preset-btn {
