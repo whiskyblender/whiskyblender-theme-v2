@@ -127,7 +127,18 @@
 
     {%- comment -%} Reassurance under the main button — the same snippet as the product pages (custom-blend wording). Styles in wb-products.css. {%- endcomment -%}
     {%- render 'wb-trust-strip', slug_override: 'customblend' -%}
-    <style>#wb-save-panel .wb-trust-strip { max-width: none; }</style>
+    <style>
+      #wb-save-panel .wb-trust-strip { max-width: none; }
+      /* Desktop: the three lines sit in one row across the full-width button */
+      @media screen and (min-width: 1200px) {
+        #wb-save-panel .wb-trust-strip {
+          flex-direction: row;
+          justify-content: space-around;
+          flex-wrap: wrap;
+          column-gap: 24px;
+        }
+      }
+    </style>
 
   </div>
   </div>
