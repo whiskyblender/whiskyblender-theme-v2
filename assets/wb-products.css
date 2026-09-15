@@ -519,18 +519,24 @@ recipient-form .recipient-fields__field { border: none; }
   gap: 10px;
 }
 
+/* margin is !important: on some templates (e.g. gift voucher) another rule gives
+   the quantity wrapper a 28px top margin, which made the row 28px taller than the
+   stepper and stretched the button to 88px. Scoped to the row only. */
 .wb-buy-row .product-form__quantity {
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin: 0 !important;
   padding: 0;
   max-width: none;
 }
 
+/* Dawn centres the stepper in this container (align-items: center), which left
+   it at its natural height beside a taller button — stretch it to fill instead. */
 .wb-buy-row .price-per-item__container {
   display: flex;
   flex: 1 1 auto;
+  align-items: stretch;
 }
 
 .wb-buy-row .quantity__label {
