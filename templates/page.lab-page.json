@@ -61,7 +61,7 @@
           "type": "step",
           "settings": {
             "heading": "You blend & name it",
-            "body": "Pick your casks, name it, design the label."
+            "body": "Create your blend, pick a bottle."
           }
         },
         "step_2": {
@@ -92,7 +92,7 @@
         "returning_sub": "Enter your blend code to pick up where you left off.",
         "bottle_options_url": "shopify://pages/custom-options",
         "how_it_works_heading": "Still not sure?",
-        "how_it_works_body": "Three steps from a blank slate to a bottle of Scotch that exists nowhere else.",
+        "how_it_works_body": "A little more detail, but it's really simple.",
         "how_it_works_text": "See how it works",
         "how_it_works_url": "shopify://pages/how-it-works",
         "padding_top": 48,
