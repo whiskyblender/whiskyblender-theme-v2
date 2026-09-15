@@ -958,7 +958,7 @@
 .wb-preset-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 10px;
 }
 
 .wb-preset-btn {
