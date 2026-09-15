@@ -9,11 +9,10 @@
   Everything here is RECYCLED from existing site patterns — no new type styles:
     - heading + intro      → .wb-small-heading + plain paragraph
     - step panels          → wb-how-it-works-home step panels, toned down (2026-09-15) so
-                             they don't compete with the builder: small uppercase "Step N"
-                             label (.wb-noblend-divider treatment), 18px title, 16px body,
-                             wb-background-*-opacity, 8px radius
-    - two lower panels     → neutral trust-strip surface (#fafafa, 1px border), 18px
-                             title, 16px body, full-width .wb-button
+                             they don't compete with the builder: no step numbers, 18px
+                             title, 16px body, wb-background-*-opacity, 8px radius
+    - two lower panels     → neutral #fafafa, no border, 18px title, 16px body,
+                             full-width .wb-button
     - blend-code entry     → .wb-noblend-form from wb-custom.css (as the old teardown)
 
   Layout: everything stacks on mobile. Lower panels go 2-up from 768px, steps go
@@ -57,7 +56,6 @@
             {%- assign colour_index = forloop.index0 | modulo: 3 -%}
             {%- assign colour = step_colours[colour_index] -%}
             <li class="wb-lab-outro__step wb-lab-outro__step--{{ colour }} wb-background-{{ colour }}-opacity" {{ block.shopify_attributes }}>
-              <p class="wb-lab-outro__step-num">Step {{ forloop.index }}</p>
               {%- if block.settings.heading != blank -%}
                 <h3 class="wb-lab-outro__step-title">{{ block.settings.heading | escape }}</h3>
               {%- endif -%}
@@ -150,20 +148,6 @@
     padding: 24px;
     margin: 0;
   }
-  /* Small uppercase label (same treatment as .wb-noblend-divider) instead of
-     the big poster-font number, so the steps don't compete with the builder. */
-  .wb-lab-outro__step-num {
-    color: #b88d60;
-    font-size: 14px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    line-height: 1.2;
-    margin: 0 0 8px;
-  }
-  .wb-lab-outro__step--green .wb-lab-outro__step-num { color: #129776; }
-  .wb-lab-outro__step--brown .wb-lab-outro__step-num { color: #a56437; }
-  .wb-lab-outro__step--blue  .wb-lab-outro__step-num { color: #3b5ea1; }
   .wb-lab-outro__step-title {
     font-size: 18px;
     font-weight: 700;
@@ -191,13 +175,12 @@
     gap: 20px;
     margin-top: 20px;
   }
-  /* Neutral panels — same surface as the trust strip (wb-products.css) */
+  /* Neutral panels — trust-strip grey, no border */
   .wb-lab-outro__panel {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     row-gap: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.09);
     border-radius: 8px;
     background: #fafafa;
     padding: 24px;
