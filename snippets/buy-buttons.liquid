@@ -140,6 +140,9 @@
               assign quantity_rule_soldout = true
             endif
           -%}
+          {%- comment -%} Quantity (captured in main-product.liquid) + Add to cart, side by side. Styles: .wb-buy-row in wb-products.css {%- endcomment -%}
+          <div class="wb-buy-row">
+          {{- quantity_html -}}
           <button
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
@@ -163,6 +166,7 @@
             </span>
             {%- render 'loading-spinner' -%}
           </button>
+          </div>
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
