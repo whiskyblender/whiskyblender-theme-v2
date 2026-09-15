@@ -211,7 +211,12 @@
     margin: 0 0 8px;
     color: #111;
   }
-  .wb-lab-outro__panel-body { margin: 0; }
+  /* Same size as the step bodies above, so the section reads as one set */
+  .wb-lab-outro__panel-body {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+  }
   .wb-lab-outro__action { margin: 0; }
   .wb-lab-outro__action .wb-button { margin: 0; }
   .wb-lab-outro__action.wb-buttons .wb-button { width: 100%; }
@@ -237,6 +242,7 @@
 
   @media screen and (min-width: 1200px) {
     .wb-lab-outro__trust .wb-trust-strip {
+      max-width: none;
       flex-direction: row;
       justify-content: space-around;
       flex-wrap: wrap;
