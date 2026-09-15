@@ -558,6 +558,20 @@ recipient-form .recipient-fields__field { border: none; }
   margin: 0;
 }
 
+/* 750–949px: Dawn's two-column product layout starts at 750px and the info column
+   is too narrow for both — the button shrank to ~135px and "Add to cart" wrapped
+   (measured; fits again from ~950px). Stack instead: stepper on its own line at
+   its natural size, full-width button below. */
+@media screen and (min-width: 750px) and (max-width: 949px) {
+  .wb-buy-row {
+    flex-direction: column;
+  }
+  .wb-buy-row .product-form__submit {
+    flex: none;
+    width: 100%;
+  }
+}
+
 /* Narrow phones: slimmer stepper and button padding so "Add to cart" never wraps */
 @media screen and (max-width: 399px) {
   .wb-buy-row .quantity__button { width: 36px; }
