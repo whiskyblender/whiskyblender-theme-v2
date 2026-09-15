@@ -85,10 +85,11 @@
           {%- endcomment -%}
           {% style %}
             .wb-info-strip {
-              display: none;
-              margin: 28px 0 0;
-              padding: 20px;
+              margin: 0 0 20px 0;
               border-radius: 8px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
             }
             .wb-info-strip__heading {
               font-size: 16px;
@@ -108,6 +109,9 @@
               margin: 10px 0;
             }
             .wb-info-strip__price {
+              display: flex;
+              flex-direction: row-reverse;
+              gap: 10px;
               margin: 0;
             }
             .wb-info-strip__price dt {
@@ -124,10 +128,9 @@
             }
 
             @media screen and (min-width: 600px) {
+
               .wb-info-strip {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+                margin: 0;
               }
 
               .wb-info-strip__prices {
@@ -137,23 +140,19 @@
               .wb-info-strip__heading {
                 margin-left: 10px;
               }
-
-              .wb-info-strip__price {
-                display: flex;
-                gap: 10px;
-              }
             }
 
-            @media screen and (min-width: 1200px) {
+            @media screen and (min-width: 1024px) {
               .wb-info-strip {
                 position: absolute;
                 top: 60px;
                 right: 40px;
-                width: 290px;
+                width: 200px;
                 margin-top: 0;
                 padding: 40px;
                 align-items: flex-start;
                 flex-direction: column;
+                background-color: #fafafa;
               }
 
               .wb-info-strip__heading {
@@ -168,7 +167,7 @@
               }
             }
           {% endstyle %}
-          <div class="wb-info-strip wb-background-brown" {{ block.shopify_attributes }}>
+          <div class="wb-info-strip" {{ block.shopify_attributes }}>
             {%- if block.settings.heading != blank -%}
               <p class="wb-info-strip__heading">{{ block.settings.heading | escape }}</p>
             {%- endif -%}

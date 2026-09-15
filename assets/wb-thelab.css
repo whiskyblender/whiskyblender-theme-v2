@@ -941,14 +941,17 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 10px;
+  gap: 14px;
   margin: 0 0 20px;
-  font-size: 14px;
   line-height: 1.4;
   background: #dfdfdf;
   padding: 20px;
-  border-radius: 8px;
   margin-top: -60px;
+  margin-left: -20px;
+  margin-right: -20px;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .wb-preset-label {
@@ -958,18 +961,20 @@
 .wb-preset-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
 }
 
 .wb-preset-btn {
   font: inherit;
-  padding: 5px 12px;
+  padding: 10px 14px;
   border: 1px solid rgba(0, 0, 0, 0.18);
-  border-radius: 100px;
+  border-radius: 6px;
   background: #efefef;
   color: inherit;
   cursor: pointer;
   transition: border-color 0.15s ease, background-color 0.15s ease;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .wb-preset-btn:hover,
@@ -978,10 +983,26 @@
   background: #ffffff;
 }
 
+@media screen and (min-width: 600px) {
+
+  .wb-lab-presets {
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 8px;
+  }
+
+}
+
 @media screen and (min-width: 750px) {
+
   .wb-lab-presets {
     margin-bottom: 28px;
     padding: 20px 30px;
-}
+    margin-top: -80px;
   }
+
+  .wb-preset-btn {
+    font-size: 16px;
+  }
+
 }
