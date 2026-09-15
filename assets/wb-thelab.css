@@ -947,8 +947,9 @@
   line-height: 1.4;
   background: #dfdfdf;
   padding: 20px;
-  border-radius: 8px;
   margin-top: -60px;
+  margin-left: -20px;
+  margin-right: -20px;
   justify-content: space-between;
 }
 
