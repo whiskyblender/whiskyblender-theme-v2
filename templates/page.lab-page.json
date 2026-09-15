@@ -75,7 +75,7 @@
           "type": "step",
           "settings": {
             "heading": "Dispatched in ~48 hours",
-            "body": "Arrives gift-ready — no receipt in the box."
+            "body": "Packed and sent straight to your door."
           }
         }
       },
@@ -87,13 +87,13 @@
       "settings": {
         "heading": "What happens next",
         "intro": "From your recipe to a bottle in your hand.",
-        "trust_line_1": "Product of Scotland — your recipe, independently bottled",
-        "trust_line_2": "Free UK delivery — no minimum spend",
-        "trust_line_3": "Arrives gift-ready — no receipt in package",
+        "show_trust_strip": true,
         "returning_heading": "Already made one?",
         "returning_sub": "Enter your blend code to pick up where you left off.",
         "bottle_options_url": "shopify://pages/custom-options",
-        "how_it_works_text": "Still not sure? See how it works",
+        "how_it_works_heading": "Still not sure?",
+        "how_it_works_body": "Three steps from a blank slate to a bottle of Scotch that exists nowhere else.",
+        "how_it_works_text": "See how it works",
         "how_it_works_url": "shopify://pages/how-it-works",
         "padding_top": 48,
         "padding_bottom": 48
