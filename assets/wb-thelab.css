@@ -941,7 +941,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   margin: 0 0 20px;
   line-height: 1.4;
   background: #dfdfdf;
@@ -961,7 +961,7 @@
 .wb-preset-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
 .wb-preset-btn {
