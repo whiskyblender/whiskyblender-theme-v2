@@ -85,6 +85,23 @@
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
+          {%- comment -%}
+            Quantity + Add to cart side by side: when a quantity_selector block comes
+            before the buy_buttons block, the quantity markup is captured (not output)
+            and rendered inside buy-buttons.liquid's .wb-buy-row, server-side.
+          {%- endcomment -%}
+          {%- liquid
+            assign wb_qty_inline = false
+            assign wb_seen_qty = false
+            for b in section.blocks
+              if b.type == 'quantity_selector'
+                assign wb_seen_qty = true
+              elsif b.type == 'buy_buttons' and wb_seen_qty
+                assign wb_qty_inline = true
+              endif
+            endfor
+            assign wb_quantity_html = ''
+          -%}
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when '@app' -%}
@@ -289,6 +306,7 @@
                   {%- endif -%}
                 {%- endif -%}
               {%- when 'quantity_selector' -%}
+                {%- capture wb_quantity_html -%}
                 <div
                   id="Quantity-Form-{{ section.id }}"
                   class="wb-bottle-form product-form__input product-form__quantity{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} product-form__quantity-top{% endif %}"
@@ -519,6 +537,11 @@
                     </volume-pricing>
                   {%- endif -%}
                 </div>
+                {%- endcapture -%}
+                {%- unless wb_qty_inline -%}
+                  {{ wb_quantity_html }}
+                  {%- assign wb_quantity_html = '' -%}
+                {%- endunless -%}
               {%- when 'popup' -%}
                 <modal-opener
                   class="product-popup-modal__opener quick-add-hidden"
@@ -560,7 +583,8 @@
                   product: product,
                   product_form_id: product_form_id,
                   section_id: section.id,
-                  show_pickup_availability: false
+                  show_pickup_availability: false,
+                  quantity_html: wb_quantity_html
                 -%}
                 {%- comment -%} Reassurance strip directly below the Add-to-cart (provenance / delivery / gift), per product type. {%- endcomment -%}
                 {%- render 'wb-trust-strip', product: product -%}
