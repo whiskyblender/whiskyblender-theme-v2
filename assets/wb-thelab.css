@@ -970,8 +970,8 @@
   color: inherit;
   cursor: pointer;
   transition: border-color 0.15s ease, background-color 0.15s ease;
-  font-weight: 600;
-  font-size: 17px;
+  font-weight: 700;
+  font-size: 14px;
 }
 
 .wb-preset-btn:hover,
