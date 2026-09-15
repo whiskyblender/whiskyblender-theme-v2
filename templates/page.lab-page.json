@@ -19,7 +19,7 @@
         "info_strip_lab": {
           "type": "info_strip",
           "settings": {
-            "heading": "Over 10,000 unique possibilities",
+            "heading": "",
             "body": "",
             "size_1_label": "200ml",
             "size_1_price": "£30",
@@ -45,17 +45,66 @@
         "product_id": "",
         "variant_id": "",
         "bottle_options_url": "shopify://pages/custom-options",
-        "preset_label": "Not sure where to start? Here's some of ours you can name:",
+        "preset_label": "Get started with one of ours, then make it your own.",
         "preset_1": "WB00820",
         "preset_2": "WB00819",
         "preset_3": "WB00821",
+        "preset_4": "WB00836",
         "teardown_heading": "",
-        "teardown_content": "<p>You can also personalise your own bottle of <a href=\"/collections/single-malts\" title=\"Single malts\">single malt</a>, or grab a <a href=\"/products/gift-credit\" title=\"Gift voucher\">gift voucher</a> for someone else to give it a try.</p>"
+        "teardown_content": "",
+        "bottle_options_url": ""
+      }
+    },
+    "wb_lab_outro": {
+      "type": "wb-lab-outro",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "heading": "You blend & name it",
+            "body": "Pick your casks, name it, design the label."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "heading": "We hand-make it in Scotland",
+            "body": "Our blenders make your recipe by hand."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "heading": "Dispatched in ~48 hours",
+            "body": "Arrives gift-ready — no receipt in the box."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "heading": "What happens next",
+        "intro": "From your recipe to a bottle in your hand.",
+        "image": "",
+        "trust_line_1": "Product of Scotland — your recipe, independently bottled",
+        "trust_line_2": "Free UK delivery — no minimum spend",
+        "trust_line_3": "Arrives gift-ready — no receipt in package",
+        "returning_heading": "Already made one?",
+        "returning_sub": "Enter your blend code to pick up where you left off.",
+        "bottle_options_url": "shopify://pages/custom-options",
+        "how_it_works_text": "Still not sure? See how it works",
+        "how_it_works_url": "shopify://pages/how-it-works",
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     }
   },
   "order": [
     "wb_main_content_9XxkR6",
-    "wb_lab_section"
+    "wb_lab_section",
+    "wb_lab_outro"
   ]
 }

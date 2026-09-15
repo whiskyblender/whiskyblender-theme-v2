@@ -1,0 +1,389 @@
+{%- comment -%}
+  wb-lab-outro.liquid — redesigned "bottom of the Lab" section.
+
+  Replaces the old teardown panel (a settings-driven block baked into
+  wb-lab.liquid: a text blurb + a blend-code entry, gated on
+  section.settings.teardown_heading / teardown_content / bottle_options_url
+  being non-blank). That panel is NOT touched by this file — to swap over,
+  blank those three settings on wb_lab_section in page.lab-page.json so it
+  stops rendering, and add this section to the template's order instead.
+  Both can coexist harmlessly if the old settings are ever left filled in.
+
+  Built from the approved mockup (2026-09-15): what-happens-next steps,
+  an optional product/gift image, a trust-strip variation (static text,
+  not product-scoped — this isn't a product page), the returning-customer
+  blend-code entry (mirrors the teardown panel's input+Go+redirect
+  behaviour, own element ids so it can't collide with it), and a link to
+  How It Works for anyone still undecided.
+
+  Not `.wb-banded` — this is a standalone panel with its own background
+  (like wb-cta), not part of the alternating-grey band sequence.
+{%- endcomment -%}
+
+{{ 'wb-custom.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .wb-lab-outro { background: #f3f3f3; }
+
+  .wb-lab-outro__heading { margin: 0 0 6px; }
+  .wb-lab-outro__intro { margin: 0 0 22px; color: #5a5a5a; font-size: 14px; }
+
+  .wb-lab-outro__steps {
+    list-style: none;
+    margin: 0 0 28px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 480px;
+  }
+  .wb-lab-outro__step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .wb-lab-outro__step-num {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #121212;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wb-lab-outro__step-heading {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+  .wb-lab-outro__step-body {
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: #6f6f6f;
+  }
+
+  .wb-lab-outro__image {
+    margin: 0 0 28px;
+    border-radius: 14px;
+    overflow: hidden;
+    max-width: 480px;
+  }
+  .wb-lab-outro__image img { display: block; width: 100%; height: auto; }
+
+  .wb-lab-outro__trust {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    max-width: 480px;
+    margin: 0 0 28px;
+  }
+  .wb-lab-outro__trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: #333333;
+  }
+  .wb-lab-outro__trust-icon { flex: 0 0 auto; width: 1.4em; text-align: center; }
+
+  .wb-lab-outro__returning {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px 16px;
+    max-width: 480px;
+    margin: 0 0 24px;
+  }
+  .wb-lab-outro__returning-heading { font-size: 15px; font-weight: 700; color: #1a1a1a; margin: 0 0 3px; }
+  .wb-lab-outro__returning-sub { font-size: 13px; color: #777777; margin: 0 0 12px; }
+
+  .wb-lab-outro__hiw { text-align: left; }
+  .wb-lab-outro__hiw a { font-size: 14px; font-weight: 700; }
+{%- endstyle -%}
+
+<section class="wb-lab-outro">
+  <div class="wb-container">
+    <div class="wb-padding section-{{ section.id }}-padding">
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="wb-medium-heading wb-lab-outro__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p class="wb-lab-outro__intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ol class="wb-lab-outro__steps" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'step' -%}
+              <li class="wb-lab-outro__step" {{ block.shopify_attributes }}>
+                <span class="wb-lab-outro__step-num" aria-hidden="true">{{ forloop.index }}</span>
+                <div>
+                  {%- if block.settings.heading != blank -%}
+                    <p class="wb-lab-outro__step-heading">{{ block.settings.heading | escape }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.body != blank -%}
+                    <p class="wb-lab-outro__step-body">{{ block.settings.body | escape }}</p>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+
+      {%- if section.settings.image != blank -%}
+        <div class="wb-lab-outro__image">
+          {{ section.settings.image | image_url: width: 960 | image_tag: loading: 'lazy', alt: section.settings.heading }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.trust_line_1 != blank or section.settings.trust_line_2 != blank or section.settings.trust_line_3 != blank -%}
+        <div class="wb-lab-outro__trust">
+          {%- if section.settings.trust_line_1 != blank -%}
+            <p class="wb-lab-outro__trust-item"><span class="wb-lab-outro__trust-icon" aria-hidden="true">🏴</span><span>{{ section.settings.trust_line_1 }}</span></p>
+          {%- endif -%}
+          {%- if section.settings.trust_line_2 != blank -%}
+            <p class="wb-lab-outro__trust-item"><span class="wb-lab-outro__trust-icon" aria-hidden="true">🚚</span><span>{{ section.settings.trust_line_2 }}</span></p>
+          {%- endif -%}
+          {%- if section.settings.trust_line_3 != blank -%}
+            <p class="wb-lab-outro__trust-item"><span class="wb-lab-outro__trust-icon" aria-hidden="true">📦</span><span>{{ section.settings.trust_line_3 }}</span></p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.bottle_options_url != blank -%}
+        <div class="wb-lab-outro__returning">
+          {%- if section.settings.returning_heading != blank -%}
+            <p class="wb-lab-outro__returning-heading">{{ section.settings.returning_heading | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.returning_sub != blank -%}
+            <p class="wb-lab-outro__returning-sub">{{ section.settings.returning_sub | escape }}</p>
+          {%- endif -%}
+          <div class="wb-noblend-form">
+            <input
+              type="text"
+              id="wb-lab-outro-code-input"
+              placeholder="WB123456"
+              maxlength="10"
+              autocomplete="off"
+              autocapitalize="characters"
+            />
+            <button class="wb-button wb-primary-button" id="wb-lab-outro-code-go" disabled>Go</button>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.how_it_works_text != blank and section.settings.how_it_works_url != blank -%}
+        <p class="wb-lab-outro__hiw">
+          <a href="{{ section.settings.how_it_works_url }}">{{ section.settings.how_it_works_text | escape }} &rarr;</a>
+        </p>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{%- if section.settings.bottle_options_url != blank -%}
+<script>
+(function () {
+  var input = document.getElementById('wb-lab-outro-code-input');
+  var btn   = document.getElementById('wb-lab-outro-code-go');
+  if (!input || !btn) return;
+  input.addEventListener('input', function () {
+    btn.disabled = input.value.trim().length < 6;
+  });
+  function go() {
+    var code = input.value.trim();
+    if (code.length < 6) return;
+    window.location.href = {{ section.settings.bottle_options_url | url | json }} + '?blend=' + encodeURIComponent(code);
+  }
+  btn.addEventListener('click', go);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') go();
+  });
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "WB Lab Outro",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What happens next"
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro line",
+      "default": "From your recipe to a bottle in your hand."
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Trust strip"
+    },
+    {
+      "type": "text",
+      "id": "trust_line_1",
+      "label": "Line 1",
+      "default": "Product of Scotland — your recipe, independently bottled"
+    },
+    {
+      "type": "text",
+      "id": "trust_line_2",
+      "label": "Line 2",
+      "default": "Free UK delivery — no minimum spend"
+    },
+    {
+      "type": "text",
+      "id": "trust_line_3",
+      "label": "Line 3",
+      "default": "Arrives gift-ready — no receipt in package"
+    },
+    {
+      "type": "header",
+      "content": "Returning customer"
+    },
+    {
+      "type": "text",
+      "id": "returning_heading",
+      "label": "Heading",
+      "default": "Already made one?"
+    },
+    {
+      "type": "text",
+      "id": "returning_sub",
+      "label": "Subtext",
+      "default": "Enter your blend code to pick up where you left off."
+    },
+    {
+      "type": "url",
+      "id": "bottle_options_url",
+      "label": "Blend-code redirect page",
+      "info": "Where a code takes them (?blend=CODE appended). Leave blank to hide this block entirely.",
+      "default": "shopify://pages/custom-options"
+    },
+    {
+      "type": "header",
+      "content": "How it works link"
+    },
+    {
+      "type": "text",
+      "id": "how_it_works_text",
+      "label": "Link text",
+      "default": "Still not sure? See how it works"
+    },
+    {
+      "type": "url",
+      "id": "how_it_works_url",
+      "label": "Link URL",
+      "default": "shopify://pages/how-it-works"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "body",
+          "label": "Body"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB Lab Outro",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "heading": "You blend & name it",
+            "body": "Pick your casks, name it, design the label."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "heading": "We hand-make it in Scotland",
+            "body": "Our blenders make your recipe by hand."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "heading": "Dispatched in ~48 hours",
+            "body": "Arrives gift-ready — no receipt in the box."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
