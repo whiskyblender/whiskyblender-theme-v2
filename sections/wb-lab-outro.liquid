@@ -12,14 +12,12 @@
                              they don't compete with the builder: small uppercase "Step N"
                              label (.wb-noblend-divider treatment), 18px title, 16px body,
                              wb-background-*-opacity, 8px radius
-    - trust strip          → snippets/wb-trust-strip.liquid, the SAME snippet the product
-                             pages render (slug_override gives the custom-blend wording)
     - two lower panels     → neutral trust-strip surface (#fafafa, 1px border), 18px
                              title, 16px body, full-width .wb-button
     - blend-code entry     → .wb-noblend-form from wb-custom.css (as the old teardown)
 
   Layout: everything stacks on mobile. Lower panels go 2-up from 768px, steps go
-  3-up from 1024px, trust-strip lines go into a single row from 1200px.
+  3-up from 1024px. (The trust strip lives under the Draw-from-casks button in wb-lab.liquid.)
 
   No `tag` in the schema — Shopify's default <div class="shopify-section"> wrapper
   keeps the banding nth-of-type count intact (see wb-how-it-works-home).
@@ -74,12 +72,6 @@
       {%- if section.settings.image != blank -%}
         <div class="wb-lab-outro__image">
           {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '500, 800, 1200', sizes: '(max-width: 1200px) 90vw, 1120px', alt: section.settings.heading }}
-        </div>
-      {%- endif -%}
-
-      {%- if section.settings.show_trust_strip -%}
-        <div class="wb-lab-outro__trust">
-          {%- render 'wb-trust-strip', slug_override: 'customblend' -%}
         </div>
       {%- endif -%}
 
@@ -192,10 +184,6 @@
   }
   .wb-lab-outro__image img { display: block; width: 100%; height: auto; }
 
-  /* Trust strip: the product-page snippet, untouched — only its outer spacing
-     (and, on wide screens, its line direction) changes here. */
-  .wb-lab-outro__trust .wb-trust-strip { margin: 20px 0 0; }
-
   /* Lower panels: wb-how-it-works-home CTA panel */
   .wb-lab-outro__panels {
     display: grid;
@@ -241,16 +229,6 @@
   @media screen and (min-width: 1024px) {
     .wb-lab-outro__steps { flex-direction: row; }
     .wb-lab-outro__step { flex: 1; }
-  }
-
-  @media screen and (min-width: 1200px) {
-    .wb-lab-outro__trust .wb-trust-strip {
-      max-width: none;
-      flex-direction: row;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      column-gap: 24px;
-    }
   }
 </style>
 
@@ -300,17 +278,6 @@
       "type": "image_picker",
       "id": "image",
       "label": "Image"
-    },
-    {
-      "type": "header",
-      "content": "Trust strip"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_trust_strip",
-      "label": "Show trust strip",
-      "info": "Same strip as the product pages, with the custom-blend wording.",
-      "default": true
     },
     {
       "type": "header",

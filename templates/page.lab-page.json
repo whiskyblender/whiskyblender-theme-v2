@@ -87,7 +87,6 @@
       "settings": {
         "heading": "What happens next",
         "intro": "From your recipe to a bottle in your hand.",
-        "show_trust_strip": true,
         "returning_heading": "Already made one?",
         "returning_sub": "Enter your blend code to pick up where you left off.",
         "bottle_options_url": "shopify://pages/custom-options",
