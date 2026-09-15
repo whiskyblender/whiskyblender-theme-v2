@@ -38,7 +38,14 @@
   }
 {%- endstyle -%}
 
-<section class="wb-lab-outro">
+{%- comment -%}
+  Banded: a <div class="wb-banded"> is greyed by wb-base.css's
+  `div.wb-banded:nth-of-type(odd)` (it's the only div in this section's wrapper).
+  A <section class="wb-banded"> would NOT be — here the wrapper is the page's
+  third .shopify-section div (odd), so the `.shopify-section:nth-of-type(even)
+  section.wb-banded` rule doesn't match.
+{%- endcomment -%}
+<div class="wb-lab-outro wb-banded">
   <div class="wb-container">
     <div class="wb-padding section-{{ section.id }}-padding">
 
@@ -125,11 +132,9 @@
 
     </div>
   </div>
-</section>
+</div>
 
 <style>
-  .wb-lab-outro { background: #ffffff; border-top: 1px solid #eeeeee; }
-
   /* Heading + intro: same as wb-how-it-works-home */
   .wb-lab-outro__heading { margin-bottom: 8px; }
   .wb-lab-outro__intro { margin-top: 0; max-width: 620px; }
