@@ -943,7 +943,6 @@
   align-items: center;
   gap: 8px 10px;
   margin: 0 0 20px;
-  font-size: 16px;
   line-height: 1.4;
   background: #dfdfdf;
   padding: 20px;
@@ -951,6 +950,8 @@
   margin-left: -20px;
   margin-right: -20px;
   justify-content: space-between;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .wb-preset-label {
