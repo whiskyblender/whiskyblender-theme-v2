@@ -788,7 +788,9 @@
 
 .wb-save-panel {
   border-top: 1px solid #eeeeee;
-  background-color: #ffffff;
+  background-color: #ffffff; /* fallback if gradients aren't supported */
+  background-image: linear-gradient(0deg, #ffffff, #eeeeee);
+  margin-top: -30px;
 }
 
 .wb-save-panel .wb-buttons .wb-button {
