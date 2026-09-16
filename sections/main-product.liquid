@@ -1181,10 +1181,30 @@
           return rect.bottom <= 0 || rect.top >= window.innerHeight - 80;
         }
 
+        /* The footer is where browsing has ended, and the bar was covering its bottom
+           strip — measured at 75px of an 820px footer on a 375x812 phone, which is the
+           policy links / payment icons / country selector row — on every product page.
+           So stand down once any part of the footer is in view; scrolling back up brings
+           the bar straight back. No new triggers needed: the scroll listener and the
+           IntersectionObserver below already call update(). If the footer can't be
+           found, this is inert and the bar behaves exactly as it did before. */
+        var footerEl = document.getElementById('shopify-section-footer') || document.querySelector('footer');
+
+        function footerInView() {
+          if (!footerEl) return false;
+          var rect = footerEl.getBoundingClientRect();
+          if (rect.height === 0) return false;
+          return rect.top < window.innerHeight;
+        }
+
         function update() {
           if (!ready) return;
           var show =
-            buyBoxOffScreen() && realButtonUsable() && !cookieBannerShowing() && !consentPending();
+            buyBoxOffScreen() &&
+            realButtonUsable() &&
+            !footerInView() &&
+            !cookieBannerShowing() &&
+            !consentPending();
           bar.classList.toggle('wb-sticky-atc--visible', show);
           if (show) bar.classList.toggle('wb-sticky-atc--chat', chatLauncherOverlapsBar());
         }
