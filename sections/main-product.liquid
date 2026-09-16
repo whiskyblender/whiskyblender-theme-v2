@@ -1187,12 +1187,25 @@
            So stand down once any part of the footer is in view; scrolling back up brings
            the bar straight back. No new triggers needed: the scroll listener and the
            IntersectionObserver below already call update(). If the footer can't be
-           found, this is inert and the bar behaves exactly as it did before. */
-        var footerEl = document.getElementById('shopify-section-footer') || document.querySelector('footer');
+           found, this is inert and the bar behaves exactly as it did before.
+
+           Look the footer up LAZILY, not here: this script is inline in the product
+           section, so at parse time the footer is not in the DOM yet and a lookup now
+           returns null forever — which is exactly how the first version of this shipped
+           inert (bar still covering the footer live). Resolve on first use and cache. */
+        var footerEl = null;
+
+        function getFooter() {
+          if (!footerEl) {
+            footerEl = document.getElementById('shopify-section-footer') || document.querySelector('footer');
+          }
+          return footerEl;
+        }
 
         function footerInView() {
-          if (!footerEl) return false;
-          var rect = footerEl.getBoundingClientRect();
+          var el = getFooter();
+          if (!el) return false;
+          var rect = el.getBoundingClientRect();
           if (rect.height === 0) return false;
           return rect.top < window.innerHeight;
         }
