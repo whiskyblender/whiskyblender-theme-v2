@@ -15,7 +15,7 @@
         "stat_designed": {
           "type": "stat",
           "settings": {
-            "figure": "50,000+",
+            "figure": "60,000+",
             "label": "whiskies designed since 2011",
             "note": "Around 12,000 of them blended, bottled and posted."
           }
@@ -163,7 +163,7 @@
           "type": "fact",
           "settings": {
             "label": "Blends created",
-            "value": "More than 50,000 designed since 2011; around 12,000 bottled and posted"
+            "value": "More than 60,000 designed since 2011; around 12,000 bottled and posted"
           }
         },
         "fact_prices": {
@@ -347,7 +347,7 @@
         "intro": "<p>Everything you need to write about us, in one place—numbers, names and a few story angles, all free to use editorially with a credit. Need hi-res images, samples or an interview? Just ask: we're two fannies and an inbox, so you'll get a real reply.</p>",
         "press_email": "",
         "boiler_heading": "The short version",
-        "boilerplate": "<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch. Founded in Bothwell, Scotland in 2011 by two friends, Andy and Drew, who have hand-selected well-aged casks and handed the blending over to their customer—who then name their creations and design the label. Every bottle is filled and bottled in Scotland. In fifteen years more than 50,000 people have designed their own whisky and around 12,000 have had it bottled: for weddings, for birthdays, for wakes, and for folk who just fancied one with their own name on it.</p>",
+        "boilerplate": "<p>Whisky Blender lets anyone blend, name and label their own bottle of Scotch. Founded in Bothwell, Scotland in 2011 by two friends, Andy and Drew, who have hand-selected well-aged casks and handed the blending over to their customer—who then name their creations and design the label. Every bottle is filled and bottled in Scotland. In fifteen years more than 60,000 whiskies have been designed and around 12,000 have been bottled: for weddings, for birthdays, for wakes, and for folk who just fancied one with their own name on it.</p>",
         "stats_heading": "By the numbers",
         "stats_intro": "<p>We've kept records since 2011, which means we can tell you a few things nobody else can about what people do when you hand them a bottle of Scotch and let them name it.</p>",
         "names_heading": "A few of the names",
