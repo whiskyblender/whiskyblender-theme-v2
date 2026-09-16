@@ -25,7 +25,7 @@
         "announcement_QWA6C9": {
           "type": "announcement",
           "settings": {
-            "text": "🥃 Create a new whisky in the lab →",
+            "text": "🥃 Create a new whisky in the lab",
             "link": "shopify://pages/the-lab"
           }
         },
@@ -46,14 +46,14 @@
         "announcement_HtPheX": {
           "type": "announcement",
           "settings": {
-            "text": "🎉 This is our 15th birthday! Read more →",
+            "text": "🎉 This is our 15th birthday! Read more",
             "link": "shopify://blogs/on-the-scotch/15-years"
           }
         },
         "announcement_UJ4bzH": {
           "type": "announcement",
           "settings": {
-            "text": "🤝 Are you a business? Let's collaborate →",
+            "text": "🤝 Are you a business? Let's collaborate",
             "link": "https://andrewsofbothwell.com"
           }
         }
