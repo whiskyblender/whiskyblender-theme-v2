@@ -1,0 +1,33 @@
+{%- comment -%}
+  Cross-sell banner nudging fixed-product-page visitors toward the Lab (custom
+  bottle builder). Added to the non-custom product templates only
+  (product.json, product.merch.json, product.gift-voucher.json,
+  product.personalised-whisky.json) — the custom-bottle templates
+  (product.custom-*.json) already are the Lab flow.
+
+  Why: Meta traffic set to sell the Lab has been landing on fixed product
+  pages instead (esp. "Yer Aunt Fanny's") via catalog-ad misconfiguration.
+  Same ad converts ~6.8% on the Lab landing vs ~1.0% on a fixed product page
+  — see analytics/conversion-log.md, "Landing Page Mismatch" (Sep 2026). This
+  banner is a backstop for any visitor who ends up on a fixed product page
+  without meaning to, from any channel, not just the misrouted ads.
+
+  Usage: {% render 'wb-lab-upsell', block: block %}
+{%- endcomment -%}
+
+<div class="wb-lab-upsell" {{ block.shopify_attributes }}>
+  <div class="wb-lab-upsell__body">
+    {%- if block.settings.heading != blank -%}
+      <p class="wb-lab-upsell__heading">{{ block.settings.heading }}</p>
+    {%- endif -%}
+    {%- if block.settings.text != blank -%}
+      <p class="wb-lab-upsell__text">{{ block.settings.text }}</p>
+    {%- endif -%}
+  </div>
+  <a
+    href="{{ block.settings.button_url | default: '/pages/the-lab' }}"
+    class="wb-button wb-primary-button wb-lab-upsell__cta"
+  >
+    {{- block.settings.button_label | default: 'Design your own bottle' -}}
+  </a>
+</div>
