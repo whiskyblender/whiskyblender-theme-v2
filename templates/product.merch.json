@@ -42,10 +42,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "wb-lab-upsell": {
-          "type": "lab_upsell",
-          "settings": {}
-        },
         "description": {
           "type": "description",
           "settings": {}
@@ -106,7 +102,6 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "wb-lab-upsell",
         "description",
         "wb-size-guide",
         "wb-care",
