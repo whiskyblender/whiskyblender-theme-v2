@@ -12,6 +12,8 @@
   var STEP = 5;
   var MAX_TOTAL = 100;
   var INCREMENTS = MAX_TOTAL / STEP; /* 20 */
+  /* Where a saved blend goes if the section's bottle_options_url is ever blank */
+  var DEFAULT_BOTTLE_URL = '/pages/custom-options';
 
   var dismissHint = function () {};
 
@@ -353,6 +355,7 @@
     } : null;
 
     var blendSaved = false;
+    var savedDest = '';
     var fieldHintsShown = false;
     var blendStartedTracked = false;
 
@@ -471,6 +474,13 @@
       saveBtn.removeAttribute('disabled');
 
       saveBtn.addEventListener('click', function () {
+        /* Already saved but the page didn't move on — take them to the next step
+           instead of saving a duplicate blend */
+        if (blendSaved && savedDest) {
+          window.location.href = savedDest;
+          return;
+        }
+
         /* Not ready — scroll to whichever step is outstanding */
         if (saveBtn.classList.contains('wb-button-disabled')) {
           if (getTotal() < MAX_TOTAL) {
@@ -534,22 +544,42 @@
           body: JSON.stringify(payload),
         })
           .then(function (res) {
-            return res.json().then(function (data) {
-              return { ok: res.ok, data: data };
-            });
+            /* A non-JSON reply (e.g. a proxy error page) must still surface as an error */
+            return res.json().then(
+              function (data) { return { ok: res.ok, data: data || {} }; },
+              function () {
+                return { ok: false, data: { error: 'Save failed (' + res.status + '). Please try again.' } };
+              }
+            );
           })
           .then(function (result) {
             if (!result.ok) {
               throw new Error(result.data.error || 'Save failed');
             }
-            blendSaved = true;
             var slug = result.data.slug;
+            if (!slug) {
+              throw new Error('Something went wrong saving your blend. Please try again.');
+            }
+            blendSaved = true;
             wbTrack('blend_created', { blend_code: slug });
 
-            /* Redirect straight to the bottle options page */
-            if (savePanelData.productUrl) {
-              window.location.href = savePanelData.productUrl + '?blend=' + encodeURIComponent(slug);
+            /* Redirect straight to the bottle options page. Falls back to the default
+               page if the section setting is ever blank — on 15–17 Sep 2026 a theme
+               sync cleared it and customers were left stuck on "Saving…". */
+            var base = savePanelData.productUrl;
+            if (!base) {
+              base = DEFAULT_BOTTLE_URL;
+              wbTrack('blend_error', { message: 'bottle_options_url missing - used fallback' });
             }
+            savedDest = base + (base.indexOf('?') === -1 ? '?' : '&') + 'blend=' + encodeURIComponent(slug);
+            window.location.href = savedDest;
+
+            /* Safety net: never leave a saved blend stuck on "Saving…" */
+            setTimeout(function () {
+              saveBtn.disabled = false;
+              saveBtn.textContent = 'Choose your bottle';
+              showError('Your whisky is saved (code ' + slug + '). Tap "Choose your bottle" to carry on.');
+            }, 8000);
           })
           .catch(function (err) {
             saveBtn.disabled = false;
