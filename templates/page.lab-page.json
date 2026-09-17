@@ -44,7 +44,7 @@
         "api_base_url": "https://lab.whiskyblender.com",
         "product_id": "",
         "variant_id": "",
-        "bottle_options_url": "",
+        "bottle_options_url": "shopify://pages/custom-options",
         "preset_label": "You can start with one of ours, then make it your own.",
         "preset_1": "WB00820",
         "preset_2": "WB00819",
