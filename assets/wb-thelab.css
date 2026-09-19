@@ -803,10 +803,6 @@
   pointer-events: auto;
 }
 
-.wb-lab-teardown {
-  border-top: 1px solid #eeeeee;
-  display: none;
-}
 
 .wb-field-hint {
   font-size: 13px;
