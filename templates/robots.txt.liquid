@@ -1,0 +1,48 @@
+{% comment %}
+  Custom robots.txt — added 2026-09-19.
+
+  Renders Shopify's default groups unchanged, then blocks the SEO-intelligence
+  crawlers. Those exist to sell competitor analysis of this store; they bring no
+  traffic and no customers, and they are a share of the bot load that made the
+  client-error log 81% noise.
+
+  DELIBERATELY NOT BLOCKED:
+    - Googlebot / Bingbot / Applebot — search.
+    - facebookexternalhit, meta-externalads, Twitterbot, etc. — link previews and
+      ad review. Blocking these breaks how shared links and ads render.
+    - GPTBot / ClaudeBot / PerplexityBot / CCBot — AI assistants. GA4 already
+      shows a small "AI Assistant" referral channel and it is likely to grow;
+      blocking them trades future visibility for nothing measurable today.
+
+  Only well-behaved crawlers obey robots.txt. This is tidying, not defence — the
+  storefront is on Shopify, so there is no firewall layer available to us.
+
+  NOTE: creating this template replaces Shopify's generated file. If Shopify's
+  agent-commerce preamble (UCP/MCP endpoints, shop.app skill, "checkouts are for
+  humans") is missing from the live /robots.txt after deploying this, delete this
+  file and push again to fall back to the default — the preamble is worth more
+  than these four blocks.
+{% endcomment %}
+{% for group in robots.default_groups %}
+  {{- group.user_agent }}
+
+  {% for rule in group.rules -%}
+    {{ rule }}
+  {% endfor -%}
+
+  {%- if group.sitemap != blank -%}
+    {{ group.sitemap }}
+  {% endif -%}
+{% endfor %}
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
