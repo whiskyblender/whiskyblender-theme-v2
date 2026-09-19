@@ -1,10 +1,11 @@
 {%- comment -%}
   wb-lab-outro.liquid — the bottom of the Lab page (below the builder).
 
-  Replaces the old teardown panel baked into wb-lab.liquid (still there, gated
-  on teardown_heading / teardown_content / bottle_options_url being non-blank —
-  blanked on wb_lab_section in page.lab-page.json). To revert: refill those
-  settings and drop wb_lab_outro from the template order.
+  Replaces the old teardown panel that used to sit at the foot of wb-lab.liquid.
+  That markup was DELETED on 2026-09-19: its gate included bottle_options_url,
+  which has to stay set for the save panel's post-blend redirect, so blanking the
+  teardown text settings never stopped it rendering above this section. To bring
+  it back, recover it from git (see REFERENCE → Lab bottom section).
 
   Everything here is RECYCLED from existing site patterns — no new type styles:
     - heading + intro      → .wb-small-heading + plain paragraph
