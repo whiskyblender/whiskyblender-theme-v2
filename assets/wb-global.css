@@ -1080,7 +1080,11 @@ shopify-forms-embed {
   justify-content: space-between;
   flex: 1 1 auto;
   gap: 8px 16px;
-  flex-wrap: wrap;
+  /* nowrap, deliberately: allowed to wrap, the price drops onto its own line
+     left-aligned under the heading and reads as a detached item rather than the
+     price of this offer. Pinned right, with the heading wrapping beside it, it
+     reads correctly at every width — checked at 375 and 1024. */
+  flex-wrap: nowrap;
   cursor: pointer;
   /* override the uppercase micro-label styling .wb-bottle-form gives labels */
   margin: 0 !important;
@@ -1092,6 +1096,8 @@ shopify-forms-embed {
 
 .wb-artwork-addon__heading {
   font-weight: 700;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .wb-artwork-addon__price {
@@ -1100,7 +1106,11 @@ shopify-forms-embed {
 }
 
 .wb-artwork-addon__blurb {
+  /* 14px: the secondary-text size used by the trust strip that sits a few
+     centimetres below this on the same page, and by __note underneath. */
   margin: 8px 0 0 34px;
+  font-size: 14px;
+  line-height: 1.5;
   opacity: 0.8;
 }
 
@@ -1110,44 +1120,6 @@ shopify-forms-embed {
 
 .wb-artwork-addon__panel[hidden] {
   display: none;
-}
-
-.wb-artwork-addon__routes {
-  border: 0;
-  padding: 0;
-  margin: 0 0 4px;
-}
-
-.wb-artwork-addon .wb-artwork-addon__route {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 0 0 10px !important;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: normal !important;
-}
-
-.wb-artwork-addon .wb-artwork-addon__route input {
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
-  margin: 1px 0 0;
-  accent-color: #169776;
-  cursor: pointer;
-}
-
-.wb-artwork-addon__route strong {
-  display: block;
-}
-
-.wb-artwork-addon__route em {
-  display: block;
-  font-style: normal;
-  font-size: 14px;
-  opacity: 0.75;
 }
 
 .wb-artwork-addon__note {
