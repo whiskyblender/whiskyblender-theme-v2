@@ -82,6 +82,14 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "lab_upsell": {
+          "type": "lab_upsell",
+          "settings": {
+            "text": "Rather build your own?",
+            "button_label": "Design your own bottle",
+            "button_url": "shopify://pages/the-lab"
+          }
         }
       },
       "block_order": [
@@ -95,7 +103,8 @@
         "wb-voucher-how",
         "wb-voucher-terms",
         "part_of_collection_BpWfEH",
-        "share"
+        "share",
+        "lab_upsell"
       ],
       "settings": {
         "enable_sticky_info": true,

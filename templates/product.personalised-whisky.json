@@ -105,6 +105,14 @@
             "note": "Send your artwork to info@whiskyblender.com after ordering. We'll email you to get started, send a proof, and won't print until you're happy with it.",
             "guide_url": "shopify://pages/label-guide"
           }
+        },
+        "lab_upsell": {
+          "type": "lab_upsell",
+          "settings": {
+            "text": "Rather build your own?",
+            "button_label": "Design your own bottle",
+            "button_url": "shopify://pages/the-lab"
+          }
         }
       },
       "block_order": [
@@ -122,7 +130,8 @@
         "wb-how-to-enjoy",
         "wb-delivery-returns",
         "part_of_collection_pnVNAw",
-        "share"
+        "share",
+        "lab_upsell"
       ],
       "settings": {
         "enable_sticky_info": true,
