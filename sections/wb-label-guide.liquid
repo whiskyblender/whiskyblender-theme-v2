@@ -1,7 +1,8 @@
 {%- comment -%}
   The artwork origination fee is quoted in a path-card bullet AND charged by the
   add-on block on the product pages. Rather than state £20 in two places and let
-  them drift, both read the same product: type `[fee]` in any bullet and it is
+  them drift, both read the same product: type `[fee]` in any path-card bullet or
+  body, or in any FAQ answer, and it is
   replaced with that product's live price, formatted by wb-money like every other
   price on the site.
 
@@ -326,7 +327,7 @@
                   <span class="wb-label-path-tag">{{ block.settings.tag }}</span>
                 {%- endif -%}
                 <h3>{{ block.settings.heading }}</h3>
-                {{ block.settings.body }}
+                {{ block.settings.body | replace: '[fee]', wb_fee_display }}
                 {%- if block.settings.bullet_1 != blank or block.settings.bullet_2 != blank or block.settings.bullet_3 != blank -%}
                   <ul>
                     {%- if block.settings.bullet_1 != blank -%}<li>{{ block.settings.bullet_1 | replace: '[fee]', wb_fee_display }}</li>{%- endif -%}
@@ -472,7 +473,7 @@
             {%- for block in faq_blocks -%}
               <li {{ block.shopify_attributes }}>
                 <button class="wb-collapsible" type="button">{{ block.settings.question | escape }}</button>
-                <div class="wb-faq-content">{{ block.settings.answer }}</div>
+                <div class="wb-faq-content">{{ block.settings.answer | replace: '[fee]', wb_fee_display }}</div>
               </li>
             {%- endfor -%}
           </ul>
@@ -530,7 +531,7 @@
       {%- if block.settings.question != blank and block.settings.answer != blank -%}
         {%- unless faq_first -%},{%- endunless -%}
         {%- assign faq_first = false -%}
-        {"@type":"Question","name":{{ block.settings.question | json }},"acceptedAnswer":{"@type":"Answer","text":{{ block.settings.answer | strip_html | json }}}}
+        {"@type":"Question","name":{{ block.settings.question | json }},"acceptedAnswer":{"@type":"Answer","text":{{ block.settings.answer | replace: '[fee]', wb_fee_display | strip_html | json }}}}
       {%- endif -%}
     {%- endfor -%}
   ]
