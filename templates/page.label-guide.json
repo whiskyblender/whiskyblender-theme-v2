@@ -20,7 +20,7 @@
             "body": "<p>Bring us your artwork — a logo, crest, illustration, or anything else — and we’ll overprint it onto our canvas label. Or if you don’t have artwork yet, we can work with you to create something.</p>",
             "bullet_1": "Company logos, crests, small graphics",
             "bullet_2": "Added to our existing label design",
-            "bullet_3": "£20 artwork origination fee",
+            "bullet_3": "[fee] artwork origination fee",
             "button_label": "See how it works",
             "button_url": "#how-it-works",
             "button_style": "outline"
@@ -135,7 +135,10 @@
         "faq_proof",
         "faq_fit"
       ],
-      "settings": {}
+      "settings": {
+        "fee_product": "artwork-origination-fee",
+        "fee_fallback": "£20"
+      }
     }
   },
   "order": [
