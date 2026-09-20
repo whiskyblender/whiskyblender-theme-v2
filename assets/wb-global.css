@@ -1118,8 +1118,13 @@ shopify-forms-embed {
    the label fields that print onto a bottle; what someone types here is a note to
    us, so it reads as ordinary text. ::placeholder needs saying separately — it does
    not inherit the element's weight. */
-.wb-artwork-addon textarea,
-.wb-artwork-addon textarea::placeholder {
+/* Both classes are on the same element, deliberately: the rule being overridden is
+   `.wb-bottle-form textarea` in wb-products.css, which has identical specificity to
+   a plain `.wb-artwork-addon textarea` — and wb-products.css loads AFTER this file,
+   so an equal-specificity override silently loses on source order. Doubling up the
+   class makes it win wherever the files sit in the cascade. */
+.wb-artwork-addon.wb-bottle-form textarea,
+.wb-artwork-addon.wb-bottle-form textarea::placeholder {
   font-weight: 400;
   line-height: normal;
 }
