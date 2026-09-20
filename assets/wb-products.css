@@ -618,6 +618,12 @@ span.wb-radio label {
   text-transform: none;
   font-size: 14px;
   letter-spacing: normal;
+  /* Stated explicitly only because `.wb-bottle-form legend, label` now sets
+     line-height: normal for the micro-labels above form fields. These filter
+     chips are a different component that happens to sit inside a
+     .wb-bottle-form, and they had always inherited the body's 160% (32px).
+     Without this they collapse from 74px tall to 43px. */
+  line-height: inherit;
   background-color: #eeeeee;
   transition: background 0.3s;
 }
