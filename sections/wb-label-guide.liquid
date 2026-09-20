@@ -1,3 +1,25 @@
+{%- comment -%}
+  The artwork origination fee is quoted in a path-card bullet AND charged by the
+  add-on block on the product pages. Rather than state £20 in two places and let
+  them drift, both read the same product: type `[fee]` in any bullet and it is
+  replaced with that product's live price, formatted by wb-money like every other
+  price on the site.
+
+  If the product is missing, archived or unpublished, `fee_fallback` is substituted
+  instead — without it an unresolved token would print the literal "[fee]" on a live
+  page.
+{%- endcomment -%}
+{%- liquid
+  assign wb_fee_product = section.settings.fee_product
+  assign wb_fee_display = section.settings.fee_fallback | default: '£20'
+  if wb_fee_product != blank and wb_fee_product.variants.first != blank
+    capture wb_fee_price
+      render 'wb-money', amount: wb_fee_product.variants.first.price
+    endcapture
+    assign wb_fee_display = wb_fee_price | strip
+  endif
+-%}
+
 <style>
   /* ── Banding: hero reads transparent; grey/white alternation starts band 2 ── */
   #wb-label-guide > .wb-banded:nth-of-type(odd) {
@@ -307,9 +329,9 @@
                 {{ block.settings.body }}
                 {%- if block.settings.bullet_1 != blank or block.settings.bullet_2 != blank or block.settings.bullet_3 != blank -%}
                   <ul>
-                    {%- if block.settings.bullet_1 != blank -%}<li>{{ block.settings.bullet_1 }}</li>{%- endif -%}
-                    {%- if block.settings.bullet_2 != blank -%}<li>{{ block.settings.bullet_2 }}</li>{%- endif -%}
-                    {%- if block.settings.bullet_3 != blank -%}<li>{{ block.settings.bullet_3 }}</li>{%- endif -%}
+                    {%- if block.settings.bullet_1 != blank -%}<li>{{ block.settings.bullet_1 | replace: '[fee]', wb_fee_display }}</li>{%- endif -%}
+                    {%- if block.settings.bullet_2 != blank -%}<li>{{ block.settings.bullet_2 | replace: '[fee]', wb_fee_display }}</li>{%- endif -%}
+                    {%- if block.settings.bullet_3 != blank -%}<li>{{ block.settings.bullet_3 | replace: '[fee]', wb_fee_display }}</li>{%- endif -%}
                   </ul>
                 {%- endif -%}
                 {%- if block.settings.button_label != blank and block.settings.button_url != blank -%}
@@ -522,6 +544,10 @@
   "settings": [
     { "type": "text",     "id": "heading",  "label": "Page heading",  "default": "Make it yours" },
     { "type": "richtext", "id": "intro",    "label": "Intro text" },
+
+    { "type": "header", "content": "Artwork fee" },
+    { "type": "product", "id": "fee_product", "label": "Fee product", "info": "Type [fee] in any path-card bullet and it is replaced with this product's price. Use the same product as the Artwork add-on block on the product pages, so the quoted price and the charged price can never differ." },
+    { "type": "text", "id": "fee_fallback", "label": "Fallback price", "default": "£20", "info": "Shown if the fee product is missing or unpublished, so the page never prints a raw [fee]." },
 
     { "type": "header", "content": "How overprinting works" },
     { "type": "text", "id": "steps_heading",  "label": "Section heading", "default": "How overprinting works" },
