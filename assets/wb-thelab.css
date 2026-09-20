@@ -942,6 +942,7 @@
   gap: 14px;
   margin: 0 0 20px;
   line-height: 1.4;
+  background: #dfdfdf;
   padding: 20px;
   margin-top: -60px;
   margin-left: -20px;
@@ -976,7 +977,7 @@
 
 .wb-preset-btn:hover,
 .wb-preset-btn:focus-visible {
-  border-color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 0, 0, 0.45);
   background: #ffffff;
 }
 
