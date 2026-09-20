@@ -88,8 +88,8 @@
         "lab_upsell": {
           "type": "lab_upsell",
           "settings": {
-            "text": "Rather build your own?",
-            "button_label": "Design your own bottle",
+            "text": "Psst —",
+            "button_label": "create your own whisky",
             "button_url": "shopify://pages/the-lab"
           }
         }
@@ -101,13 +101,13 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "lab_upsell",
         "description",
         "collapsible-row-2",
         "wb-how-to-enjoy",
         "wb-delivery-returns",
         "part_of_collection_BpWfEH",
-        "share",
-        "lab_upsell"
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,
