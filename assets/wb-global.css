@@ -1113,6 +1113,17 @@ shopify-forms-embed {
   display: none;
 }
 
+/* The boxed-input rule in wb-products.css leaves weight and line-height to be
+   inherited, which gives this textarea bold 20px text on a 32px line. Bold is for
+   the label fields that print onto a bottle; what someone types here is a note to
+   us, so it reads as ordinary text. ::placeholder needs saying separately — it does
+   not inherit the element's weight. */
+.wb-artwork-addon textarea,
+.wb-artwork-addon textarea::placeholder {
+  font-weight: 400;
+  line-height: normal;
+}
+
 .wb-artwork-addon__note {
   margin: 10px 0 0;
   font-size: 14px;
