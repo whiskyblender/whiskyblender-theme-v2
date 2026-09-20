@@ -1105,15 +1105,6 @@ shopify-forms-embed {
   white-space: nowrap;
 }
 
-.wb-artwork-addon__blurb {
-  /* 14px: the secondary-text size used by the trust strip that sits a few
-     centimetres below this on the same page, and by __note underneath. */
-  margin: 8px 0 0 34px;
-  font-size: 14px;
-  line-height: 1.5;
-  opacity: 0.8;
-}
-
 .wb-artwork-addon__panel {
   margin: 16px 0 0 34px;
 }
@@ -1134,7 +1125,6 @@ shopify-forms-embed {
     padding: 14px 16px;
   }
 
-  .wb-artwork-addon__blurb,
   .wb-artwork-addon__panel {
     margin-left: 0;
   }

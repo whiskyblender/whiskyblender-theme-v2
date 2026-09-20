@@ -58,10 +58,6 @@
       </label>
     </div>
 
-    {%- if block.settings.blurb != blank -%}
-      <p class="wb-artwork-addon__blurb">{{ block.settings.blurb }}</p>
-    {%- endif -%}
-
     <div class="wb-artwork-addon__panel" data-wb-artwork-panel hidden>
       <label for="wb-artwork-brief-{{ block.id }}">Tell us what you have in mind</label>
       <textarea
@@ -70,7 +66,11 @@
         rows="3"
         disabled
         data-wb-artwork-brief
-        placeholder="What you'd like on the label, and whether you have artwork ready to send."
+        {%- comment -%}
+          Kept short on purpose: .wb-bottle-form sets textareas to 18px, and at 375px
+          a longer placeholder is clipped mid-word inside three rows.
+        {%- endcomment -%}
+        placeholder="Your idea, and whether you have artwork ready."
         form="{{ product_form_id }}"
       ></textarea>
 

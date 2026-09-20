@@ -102,7 +102,6 @@
           "settings": {
             "fee_product": "artwork-origination-fee",
             "heading": "Add your own artwork to the label",
-            "blurb": "A logo, crest or graphic added to our canvas label.",
             "note": "Send your artwork to info@whiskyblender.com after ordering. We'll email you to get started, send a proof, and won't print until you're happy with it.",
             "guide_url": "shopify://pages/label-guide"
           }
