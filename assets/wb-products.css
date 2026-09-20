@@ -227,14 +227,17 @@
   margin-top: 40px;
 }
 
-/* Reassurance strip below the Add-to-cart (snippets/wb-trust-strip.liquid) */
+/* Reassurance strip below the Add-to-cart (snippets/wb-trust-strip.liquid)
+
+   Flat #eeeeee with no border, deliberately unlike the input panels around it
+   (the artwork add-on and the label fields, which are bordered #fafafa boxes).
+   A border here read as "something to fill in"; this is something to read. */
 .wb-trust-strip {
   list-style: none;
   margin: 16px 0 0;
   padding: 14px 16px;
-  border: 1px solid rgba(0, 0, 0, 0.09);
   border-radius: 8px;
-  background: #fafafa;
+  background: #eeeeee;
   display: flex;
   flex-direction: column;
   gap: 9px;
