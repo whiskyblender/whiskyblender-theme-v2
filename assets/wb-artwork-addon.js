@@ -184,7 +184,7 @@
         // a failed add-to-cart. (A .catch() that swallows success-path errors has
         // bitten this theme before.)
         setTimeout(function () {
-          renderCart(response);
+          renderCart(response, bottle.id);
         }, 0);
       })
       .catch(function () {
@@ -193,7 +193,7 @@
       });
   }
 
-  function renderCart(response) {
+  function renderCart(response, variantId) {
     var drawer = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
 
     if (!drawer || !response || !response.sections) {
@@ -201,11 +201,20 @@
       return;
     }
 
+    // Dawn strips `is-empty` off the cart drawer HOST in ProductForm's .finally()
+    // (product-form.js:104), NOT in renderContents, which only clears it from
+    // .drawer__inner. Miss this and a cart that was empty before the add renders a
+    // blank drawer: totals and Checkout visible, every line hidden by CSS. It only
+    // shows up when the cart starts empty, which is exactly the state a first
+    // add-to-cart is in.
+    if (drawer.classList.contains('is-empty')) drawer.classList.remove('is-empty');
+
     drawer.renderContents(response);
 
     if (typeof window.publish === 'function' && window.PUB_SUB_EVENTS) {
       window.publish(window.PUB_SUB_EVENTS.cartUpdate, {
-        source: 'wb-artwork-addon',
+        source: 'product-form',
+        productVariantId: variantId,
         cartData: response
       });
     }
