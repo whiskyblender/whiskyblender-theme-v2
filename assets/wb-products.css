@@ -840,7 +840,7 @@ ul.wb-product-drawers li {
 
 .wb-product-price {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Every price on the site, one weight. Raleway loads 300-700 (theme.liquid), so
@@ -855,7 +855,10 @@ ul.wb-product-drawers li {
 .price-item,
 .cart-item__price-wrapper .price,
 .totals__total-value,
-.totals__subtotal-value {
+.totals__subtotal-value,
+/* Dawn sets .cart-item__final-price to 400 in component-cart-items.css; the extra
+   class keeps this ahead of it without depending on stylesheet order. */
+.cart-item .cart-item__final-price {
   font-weight: 600;
 }
 
