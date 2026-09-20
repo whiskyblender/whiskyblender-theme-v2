@@ -11,6 +11,25 @@
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
+{%- comment -%}
+  Artwork origination fee — cart guard.
+
+  This snippet renders on every page (theme.liquid), which is exactly why the guard
+  lives here: it has to run wherever a cart can be edited, not just on product pages.
+
+  The handle is the ONE hardcoded reference to the fee product in the theme. The
+  add-on block takes a product picker instead; this lookup exists only so the cart
+  can recognise the fee line without a block setting to read. If the product is ever
+  renamed, change it here.
+{%- endcomment -%}
+{%- assign wb_artwork_fee = all_products['artwork-origination-fee'] -%}
+{%- if wb_artwork_fee != blank and wb_artwork_fee.variants.first != blank -%}
+  <script>
+    window.wbArtworkFee = { variantId: {{ wb_artwork_fee.variants.first.id }} };
+  </script>
+  <script src="{{ 'wb-artwork-addon.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
 <style>
   /* Critical: take the cart drawer out of flow on the very first paint.
      component-cart-drawer.css (which supplies position:fixed) loads async via
