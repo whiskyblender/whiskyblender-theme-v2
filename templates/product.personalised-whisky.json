@@ -96,6 +96,16 @@
             "content": "<p><strong>Free UK delivery</strong> on every bottle, no minimum spend. Orders outside the UK show shipping at checkout — duty and taxes to the USA are included in that cost.</p><p><strong>Dispatched within 48 hours.</strong> Each bottle is blended and labelled to order, so occasionally it takes a little longer — we'll always get it moving as fast as we can. Someone of legal drinking age must be able to receive it.</p><p><strong>Returns:</strong> unopened ready-made bottles can be returned within 30 days. Personalised and custom-blended bottles are made to your order, so they can't be returned unless there's a fault. If anything arrives damaged or wrong, email <a href=\"mailto:info@whiskyblender.com\">info@whiskyblender.com</a> straight away and we'll put it right.</p>",
             "page": ""
           }
+        },
+        "artwork_addon": {
+          "type": "artwork_addon",
+          "settings": {
+            "fee_product": "artwork-origination-fee",
+            "heading": "Add your own artwork to the label",
+            "blurb": "A logo, crest or graphic added to our canvas label.",
+            "note": "Send your artwork to info@whiskyblender.com after ordering. We'll email you to get started, send a proof, and won't print until you're happy with it.",
+            "guide_url": "shopify://pages/label-guide"
+          }
         }
       },
       "block_order": [
@@ -106,6 +116,7 @@
         "custom_liquid_hyNJqP",
         "quantity_selector",
         "custom_liquid_jQT3Qm",
+        "artwork_addon",
         "buy_buttons",
         "description",
         "collapsible-row-2",
@@ -244,4 +255,3 @@
     "wb_faq_schema"
   ]
 }
-
