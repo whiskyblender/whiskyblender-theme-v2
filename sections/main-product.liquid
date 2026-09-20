@@ -568,6 +568,13 @@
                 </div>
               {%- when 'lab_upsell' -%}
                 {% render 'wb-lab-upsell', block: block %}
+              {%- when 'artwork_addon' -%}
+                {%- comment -%}
+                  Opt-in GBP20 artwork origination fee. Sits outside the <form>, so the
+                  snippet's inputs carry form="{{ product_form_id }}" like the variant
+                  picker and quantity do. See snippets/wb-artwork-addon.liquid.
+                {%- endcomment -%}
+                {% render 'wb-artwork-addon', block: block, product_form_id: product_form_id %}
               {%- when 'product_tagline' -%}
                 {%- comment -%}
                   id is required: product-info.js re-renders this on variant change via
@@ -1531,6 +1538,43 @@
       "type": "product_tagline",
       "name": "Product tagline",
       "limit": 1
+    },
+    {
+      "type": "artwork_addon",
+      "name": "Artwork add-on",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "product",
+          "id": "fee_product",
+          "label": "Fee product",
+          "info": "The artwork origination product. The price shown here and the price charged both come from it, so they cannot disagree. The label guide reads the same product."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Checkbox label",
+          "default": "Add your own artwork to the label"
+        },
+        {
+          "type": "textarea",
+          "id": "blurb",
+          "label": "Description",
+          "default": "A logo, crest or graphic added to our canvas label."
+        },
+        {
+          "type": "textarea",
+          "id": "note",
+          "label": "Small print",
+          "info": "Shown once the box is ticked. Describe what happens, not when: no turnaround or revision commitments.",
+          "default": "Send your artwork to info@whiskyblender.com after ordering. We'll email you to get started, send a proof, and won't print until you're happy with it."
+        },
+        {
+          "type": "url",
+          "id": "guide_url",
+          "label": "Label guide link"
+        }
+      ]
     },
     {
       "type": "lab_upsell",
