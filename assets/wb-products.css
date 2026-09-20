@@ -268,6 +268,10 @@
 .wb-bottle-form label {
   font-size: 10px;
   font-weight: bold;
+  /* Without this the label inherits the body's 160%, which on 10px text computes to
+     a 32px line box — a third of a centimetre of air above every field, and worse
+     when a label wraps onto two lines. */
+  line-height: normal;
   margin-top: 12px;
   margin-bottom: 6px !important;
   display: block;
