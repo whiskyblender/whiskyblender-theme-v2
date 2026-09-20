@@ -10,15 +10,11 @@
   advertise one price and charge another. The label guide reads the same product.
 
   How the inputs behave, and why:
-    • The checkbox itself carries `properties[Artwork] = Yes`, so that WITHOUT
-      JavaScript a tick still reaches the order as a flag you can act on — no fee is
-      added, but you see the request rather than losing it silently.
-    • With JavaScript, wb-artwork-addon.js removes the checkbox's `name` and enables
-      the radios, which then carry the same property at higher fidelity ("Submit your
-      own" / "Collaborate with us"). Two inputs must never share the property name at
-      submit time, hence the swap.
-    • Radios and textarea ship `disabled` so nothing strays into the cart when the box
-      is unticked.
+    • The checkbox carries `properties[Artwork] = Yes`, so even WITHOUT JavaScript a
+      tick reaches the order as a flag you can act on — no fee is added, but you see
+      the request rather than losing it silently.
+    • The textarea ships `disabled` and is enabled by JS only when the box is ticked,
+      so nothing strays into the cart from a panel nobody opened.
 
   Inputs sit OUTSIDE the <form> (Dawn keeps the form in buy-buttons), so every one
   needs form="{{ product_form_id }}" — the same association the variant picker and
@@ -57,7 +53,7 @@
           {{- block.settings.heading | default: 'Add your own artwork to the label' -}}
         </span>
         <span class="wb-artwork-addon__price">
-          {%- render 'wb-money', amount: fee_variant.price -%}
+          +{% render 'wb-money', amount: fee_variant.price %}
         </span>
       </label>
     </div>
@@ -67,57 +63,21 @@
     {%- endif -%}
 
     <div class="wb-artwork-addon__panel" data-wb-artwork-panel hidden>
-      <fieldset class="wb-artwork-addon__routes">
-        <legend>How would you like to work?</legend>
-
-        <label class="wb-artwork-addon__route">
-          <input
-            type="radio"
-            name="properties[Artwork]"
-            value="Submit your own"
-            checked
-            disabled
-            data-wb-artwork-route
-            form="{{ product_form_id }}"
-          >
-          <span>
-            <strong>Submit your own</strong>
-            <em>You have a logo, crest or graphic to send us.</em>
-          </span>
-        </label>
-
-        <label class="wb-artwork-addon__route">
-          <input
-            type="radio"
-            name="properties[Artwork]"
-            value="Collaborate with us"
-            disabled
-            data-wb-artwork-route
-            form="{{ product_form_id }}"
-          >
-          <span>
-            <strong>Collaborate with us</strong>
-            <em>No artwork yet — we'll create something with you.</em>
-          </span>
-        </label>
-      </fieldset>
-
-      <label for="wb-artwork-brief-{{ block.id }}" data-wb-artwork-brief-label>
-        Anything we should know?
-      </label>
+      <label for="wb-artwork-brief-{{ block.id }}">Tell us what you have in mind</label>
       <textarea
         id="wb-artwork-brief-{{ block.id }}"
-        name="properties[Artwork brief]"
+        name="properties[Artwork details]"
         rows="3"
         disabled
         data-wb-artwork-brief
+        placeholder="What you'd like on the label, and whether you have artwork ready to send."
         form="{{ product_form_id }}"
       ></textarea>
 
       <p class="wb-artwork-addon__note">
         {{ block.settings.note | default: "Send your artwork to info@whiskyblender.com after ordering. We'll email you to get started, send a proof, and won't print until you're happy with it." }}
         {%- if block.settings.guide_url != blank %}
-          <a href="{{ block.settings.guide_url }}">See the label guide</a>.
+          <a href="{{ block.settings.guide_url }}" target="_blank" rel="noopener">See the label guide</a>.
         {%- endif -%}
       </p>
     </div>

@@ -58,36 +58,17 @@
     var panel = root.querySelector('[data-wb-artwork-panel]');
     if (!checkbox || !panel) return;
 
-    // The checkbox carries properties[Artwork] so a no-JS tick still reaches the
-    // order. Now that JS is running, the radios carry it instead, at higher
-    // fidelity - and two inputs must never submit the same property name.
-    checkbox.removeAttribute('name');
-
-    var routes = panel.querySelectorAll('[data-wb-artwork-route]');
+    // The checkbox keeps its name deliberately: it carries properties[Artwork]=Yes
+    // whether or not this script runs, so a tick is never lost silently.
     var brief = panel.querySelector('[data-wb-artwork-brief]');
-    var briefLabel = panel.querySelector('[data-wb-artwork-brief-label]');
-
-    function labelForRoute() {
-      if (!briefLabel) return;
-      var collaborating = false;
-      for (var i = 0; i < routes.length; i++) {
-        if (routes[i].checked && routes[i].value.indexOf('Collaborate') === 0) collaborating = true;
-      }
-      briefLabel.textContent = collaborating ? 'What do you have in mind?' : 'Anything we should know?';
-    }
 
     function sync() {
       var on = !!checkbox.checked;
       panel.hidden = !on;
-      for (var i = 0; i < routes.length; i++) routes[i].disabled = !on;
       if (brief) brief.disabled = !on;
-      labelForRoute();
     }
 
     checkbox.addEventListener('change', sync);
-    for (var i = 0; i < routes.length; i++) {
-      routes[i].addEventListener('change', labelForRoute);
-    }
     sync();
   }
 
