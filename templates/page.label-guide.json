@@ -103,7 +103,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Does overprinting cost extra?",
-            "answer": "<p>There’s a one-off £20 artwork origination fee to set up and place your artwork. Fully custom label design is quoted separately, since it’s a bigger design job.</p>"
+            "answer": "<p>There’s a one-off [fee] artwork origination fee to set up and place your artwork. Fully custom label design is quoted separately, since it’s a bigger design job.</p>"
           }
         },
         "faq_proof": {
@@ -137,7 +137,7 @@
       ],
       "settings": {
         "fee_product": "artwork-origination-fee",
-        "fee_fallback": "£20"
+        "fee_fallback": "£25"
       }
     }
   },

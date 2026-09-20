@@ -969,3 +969,20 @@ ul.wb-product-drawers li {
   gap: 6px;
   font-size: 13px;
 }
+
+/* ------------------------------------------------------------------ *
+ * One-off fee lines in the cart (currently the artwork origination
+ * fee). Keyed on product type "Design service", not on a handle, so
+ * any future one-off fee behaves the same without another code change.
+ *
+ * The stepper is hidden rather than the whole cell: the remove button
+ * lives in the same td and must stay, so a customer who changes their
+ * mind can take the fee off themselves. wb-artwork-addon.js still
+ * resets the quantity server-side if one ever gets through — this just
+ * stops the cart offering "2 × artwork fee" as a sensible-looking thing
+ * to click.
+ * ------------------------------------------------------------------ */
+.cart-item__quantity--fixed quantity-input,
+.cart-item__quantity--fixed .quantity-popover__info-button {
+  display: none;
+}

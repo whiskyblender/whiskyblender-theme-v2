@@ -305,7 +305,7 @@
                           endif
                         -%}
                         <td
-                          class="cart-item__quantity {% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}"
+                          class="cart-item__quantity {% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}{% if item.product.type == 'Design service' %} cart-item__quantity--fixed{% endif %}"
                           role="cell"
                           headers="CartDrawer-ColumnQuantity"
                         >
