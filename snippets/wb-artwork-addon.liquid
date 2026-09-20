@@ -70,7 +70,11 @@
         rows="3"
         disabled
         data-wb-artwork-brief
-        placeholder="What you'd like on the label, and whether you have artwork ready to send."
+        {%- comment -%}
+          Kept short on purpose: .wb-bottle-form sets textareas to 18px, and at 375px
+          a longer placeholder is clipped mid-word inside three rows.
+        {%- endcomment -%}
+        placeholder="Your idea, and whether you have artwork ready."
         form="{{ product_form_id }}"
       ></textarea>
 
