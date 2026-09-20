@@ -1095,7 +1095,8 @@ shopify-forms-embed {
 }
 
 .wb-artwork-addon__heading {
-  font-weight: 700;
+  /* 600, while the price beside it stays 700 — the price is the thing to notice. */
+  font-weight: 600;
   flex: 1 1 auto;
   min-width: 0;
 }
