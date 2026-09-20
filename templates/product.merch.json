@@ -93,6 +93,14 @@
             "content": "",
             "page": ""
           }
+        },
+        "lab_upsell": {
+          "type": "lab_upsell",
+          "settings": {
+            "text": "Rather build your own?",
+            "button_label": "Design your own bottle",
+            "button_url": "shopify://pages/the-lab"
+          }
         }
       },
       "block_order": [
@@ -108,7 +116,8 @@
         "wb-delivery-returns",
         "wb-product-safety",
         "part_of_collection_BpWfEH",
-        "share"
+        "share",
+        "lab_upsell"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -172,4 +181,3 @@
     "related-products"
   ]
 }
-
