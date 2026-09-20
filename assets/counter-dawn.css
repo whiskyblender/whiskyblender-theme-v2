@@ -101,10 +101,14 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
     font-size: 0;
 }
 
+/* Card prices. This beats the site-wide `.price-item` weight in wb-products.css
+   on specificity, so the two have to be kept in step — raising only the generic
+   rule leaves every product card behind, which is most of the prices a visitor
+   actually sees. */
 .wb-productcontent span.price-item.price-item--regular, .wb-productcontent span.wb-product-price.price-item.price-item--sale.price-item--last, .wb-productcontent .price--on-sale .price-item--regular {
     font-size: 16px;
     line-height: 18px;
-    font-weight: 500;
+    font-weight: 600;
     opacity: 0.6;
 }
 
