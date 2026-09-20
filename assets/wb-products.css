@@ -843,11 +843,20 @@ ul.wb-product-drawers li {
   font-weight: 500;
 }
 
-/* Nudge every price a touch bolder site-wide (cart, search, related, etc.).
-   Raleway loads 500; this is the next step up from the default 400. Size is
-   bumped on the prominent product/card prices above, not here. */
-.price-item {
-  font-weight: 500;
+/* Every price on the site, one weight. Raleway loads 300-700 (theme.liquid), so
+   600 is a real face rather than a synthesised one. Size is bumped on the
+   prominent product/card prices above, not here.
+
+   The cart needs naming separately. An earlier version of this rule claimed to
+   cover "cart, search, related" via .price-item alone — it never did: cart lines
+   render as .cart-item__price-wrapper .price and the totals as
+   .totals__total-value, neither of which carries .price-item, so both sat at 400
+   while everything else was 500. Checked on the live cart, both page and drawer. */
+.price-item,
+.cart-item__price-wrapper .price,
+.totals__total-value,
+.totals__subtotal-value {
+  font-weight: 600;
 }
 
 @media screen and (max-width: 400px) {
