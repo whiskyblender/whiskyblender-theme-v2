@@ -996,50 +996,29 @@ shopify-forms-embed {
 
 /* Lab upsell banner — main-product.liquid 'lab_upsell' block, non-custom
    product templates only. See snippets/wb-lab-upsell.liquid for why. */
+/* Lab cross-sell nudge (snippets/wb-lab-upsell.liquid)
+
+   One line, not a panel. The previous version was a tinted, 2px-bordered box with
+   a full-width primary button, which out-shouted the Add to cart directly above it
+   — a nudge that competes with the primary action is not a nudge. Sized at 14px to
+   sit with the trust strip and the other secondary copy on the page. */
 .wb-lab-upsell {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px 20px;
-  margin: 20px 0;
-  padding: 16px 20px;
-  border: 2px solid #169776;
-  border-radius: 8px;
-  background-color: #f4f9f7;
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666666;
 }
 
-.wb-lab-upsell__body {
-  min-width: 0;
-}
-
-.wb-lab-upsell__heading {
-  margin: 0;
-  font-family: "Raleway", sans-serif;
+.wb-lab-upsell__link {
+  color: #169776;
   font-weight: 700;
-}
-
-.wb-lab-upsell__text {
-  margin: 4px 0 0;
-  font-size: 0.9em;
-  opacity: 0.75;
-}
-
-.wb-lab-upsell__cta {
-  flex-shrink: 0;
-  margin: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   white-space: nowrap;
 }
 
-@media screen and (max-width: 749px) {
-  .wb-lab-upsell {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .wb-lab-upsell__cta {
-    width: 100%;
-  }
+.wb-lab-upsell__link:hover {
+  color: #333333;
 }
 
 /* ------------------------------------------------------------------ *

@@ -1,33 +1,33 @@
 {%- comment -%}
-  Cross-sell banner nudging fixed-product-page visitors toward the Lab (custom
-  bottle builder). Added to the non-custom product templates only
-  (product.json, product.merch.json, product.gift-voucher.json,
-  product.personalised-whisky.json) — the custom-bottle templates
-  (product.custom-*.json) already are the Lab flow.
+  A one-line nudge toward the Lab, for visitors who landed on a fixed product page
+  when they were looking for (or were advertised) the bottle builder.
 
-  Why: Meta traffic set to sell the Lab has been landing on fixed product
-  pages instead (esp. "Yer Aunt Fanny's") via catalog-ad misconfiguration.
-  Same ad converts ~6.8% on the Lab landing vs ~1.0% on a fixed product page
-  — see analytics/conversion-log.md, "Landing Page Mismatch" (Sep 2026). This
-  banner is a backstop for any visitor who ends up on a fixed product page
-  without meaning to, from any channel, not just the misrouted ads.
+  Why it exists: Meta traffic set to sell the Lab lands on fixed product pages via
+  catalog-ad misconfiguration — on 20 Sep 2026, 17 of 42 paid-social sessions landed
+  on "Yer Aunt Fanny's" against 15 on the Lab itself. The same ad converts ~6.8% on a
+  Lab landing and ~1.0% on a fixed product page (analytics/conversion-log.md, "Landing
+  Page Mismatch"). This is the backstop for anyone who ends up in the wrong place,
+  from any channel, not just misrouted ads.
+
+  Why it is ONE LINE and not a panel: the first version was a bordered, tinted box
+  with a full-width primary button — visually louder than the Add to cart above it,
+  on a page whose job is still to sell the bottle being looked at. A nudge that
+  competes with the primary action is not a nudge. This is a sentence with a link:
+  unmissable if you are looking for a way out, invisible if you are not.
 
   Usage: {% render 'wb-lab-upsell', block: block %}
 {%- endcomment -%}
 
-<div class="wb-lab-upsell" {{ block.shopify_attributes }}>
-  <div class="wb-lab-upsell__body">
-    {%- if block.settings.heading != blank -%}
-      <p class="wb-lab-upsell__heading">{{ block.settings.heading }}</p>
-    {%- endif -%}
-    {%- if block.settings.text != blank -%}
-      <p class="wb-lab-upsell__text">{{ block.settings.text }}</p>
-    {%- endif -%}
-  </div>
-  <a
-    href="{{ block.settings.button_url | default: '/pages/the-lab' }}"
-    class="wb-button wb-primary-button wb-lab-upsell__cta"
-  >
-    {{- block.settings.button_label | default: 'Design your own bottle' -}}
+{%- liquid
+  assign upsell_text = block.settings.text | default: 'Rather build your own?'
+  assign upsell_label = block.settings.button_label | default: 'Design your own bottle'
+  assign upsell_url = block.settings.button_url | default: '/pages/the-lab'
+-%}
+
+<p class="wb-lab-upsell" {{ block.shopify_attributes }}>
+  {{- upsell_text }}
+  <a class="wb-lab-upsell__link" href="{{ upsell_url }}">
+    {{- upsell_label -}}
+    <span aria-hidden="true">&nbsp;&rarr;</span>
   </a>
-</div>
+</p>
