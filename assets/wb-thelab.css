@@ -942,7 +942,11 @@
   gap: 14px;
   margin: 0 0 20px;
   line-height: 1.4;
+  /* Order matters: the `background` shorthand resets background-image, so the
+     flat colour must come FIRST or it wipes the gradient below it. It is the
+     fallback for anything that cannot render the gradient. */
   background: #dfdfdf;
+  background-image: linear-gradient(0deg, #dfdfdf, #eeeeee);
   padding: 20px;
   margin-top: -60px;
   margin-left: -20px;
