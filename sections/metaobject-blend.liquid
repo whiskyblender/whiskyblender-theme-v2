@@ -10,10 +10,24 @@
   assign share_url = canonical_url
   assign lab_url   = 'https://whiskyblender.com/pages/the-lab?blend=' | append: blend_code
 
+  # Encode the VALUES first, then build the URL. Liquid filters chain left to
+  # right, so `'https://...?u=' | append: share_url | url_encode` encodes the
+  # whole string — scheme and all — and the result is a RELATIVE href:
+  # /pages/blends/https%3A%2F%2Fwww.facebook.com%2F...
+  #
+  # That is exactly what happened here. Every Facebook and X share button on
+  # every blend page 404'd, and Google indexed 43 of the resulting URLs. The X
+  # one was double-encoded (%2525) because url_encode ran twice over it.
+  #
+  # WhatsApp below is correct and is the pattern to copy: encode the text, then
+  # prepend the destination.
+  assign share_url_enc = share_url | url_encode
+  assign blend_title_enc = blend_title | url_encode
+
   assign wa_text = blend_title | append: ' — ' | append: share_url | url_encode
   assign wa_url  = 'https://wa.me/?text=' | append: wa_text
-  assign fb_url  = 'https://www.facebook.com/sharer/sharer.php?u=' | append: share_url | url_encode
-  assign x_url   = 'https://x.com/intent/tweet?text=' | append: blend_title | url_encode | append: '&url=' | append: share_url | url_encode
+  assign fb_url  = 'https://www.facebook.com/sharer/sharer.php?u=' | append: share_url_enc
+  assign x_url   = 'https://x.com/intent/tweet?text=' | append: blend_title_enc | append: '&url=' | append: share_url_enc
 
   assign active_cask_count = 0
   if recipe != blank
