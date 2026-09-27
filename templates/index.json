@@ -255,6 +255,7 @@
     },
     "wb_cta_foryersel": {
       "type": "wb-cta",
+      "disabled": true,
       "name": "CTA - For yersel'",
       "settings": {
         "heading": "For yersel'",
@@ -278,11 +279,11 @@
   "order": [
     "main_landing",
     "main_reviews",
-    "wb_how_it_works_home",
     "featured_collection_93jqNG",
+    "wb_how_it_works_home",
     "wb_cta_something_unique",
-    "wb_cta_letscollab",
     "wb_occasions_compact",
+    "wb_cta_letscollab",
     "wb_cta_foryersel",
     "178129257397a9c961"
   ]
