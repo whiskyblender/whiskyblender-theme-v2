@@ -100,7 +100,7 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "step_number": "Step 1",
+            "step_number": "1",
             "heading": "Select your whiskies",
             "body": "<p>Mix your favourites from five hand-picked single malts until you hit 100%.</p>",
             "image": "shopify://shop_images/hiw_one.gif",
@@ -110,7 +110,7 @@
         "step_2": {
           "type": "step",
           "settings": {
-            "step_number": "Step 2",
+            "step_number": "2",
             "heading": "Name and bottle it",
             "body": "<p>Name it, sign it as the creator, and pick your bottle.</p>",
             "image": "shopify://shop_images/hiw_two.gif",
@@ -120,7 +120,7 @@
         "step_3": {
           "type": "step",
           "settings": {
-            "step_number": "Step 3",
+            "step_number": "3",
             "heading": "Design your label",
             "body": "<p>Watch it update as you type. Then we blend and bottle it by hand.</p>",
             "image": "shopify://shop_images/hiw_three.gif",

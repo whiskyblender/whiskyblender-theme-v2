@@ -37,11 +37,20 @@
               {{ block.shopify_attributes }}
             >
               <div class="wb-hiwh-step__text">
-                {%- if block.settings.step_number != blank -%}
-                  <p class="wb-medium-heading wb-hiwh-step__num">{{ block.settings.step_number | escape }}</p>
-                {%- endif -%}
-                {%- if block.settings.heading != blank -%}
-                  <h3 class="wb-hiwh-step__title">{{ block.settings.heading | escape }}</h3>
+                {%- comment -%}
+                  The step number sits on the same line as the heading, as a big
+                  coloured numeral, instead of on a line of its own above it.
+                  Saves a line per step on mobile.
+                {%- endcomment -%}
+                {%- if block.settings.heading != blank or block.settings.step_number != blank -%}
+                  <h3 class="wb-hiwh-step__title">
+                    {%- if block.settings.step_number != blank -%}
+                      <span class="wb-medium-heading wb-hiwh-step__num">{{ block.settings.step_number | escape }}</span>
+                    {%- endif -%}
+                    {%- if block.settings.heading != blank -%}
+                      <span class="wb-hiwh-step__heading">{{ block.settings.heading | escape }}</span>
+                    {%- endif -%}
+                  </h3>
                 {%- endif -%}
                 {%- if block.settings.body != blank -%}
                   <div class="rte wb-hiwh-step__body">{{ block.settings.body }}</div>
@@ -130,13 +139,17 @@
     height: auto;
   }
 
-  /* Text styles copied from the How It Works page (.wb-hiw-number /
-     .wb-hiw-heading) so the homepage steps read identically. */
+  /* Colours and heading type follow the How It Works page (.wb-hiw-number /
+     .wb-hiw-heading), but here the number sits inline with the heading rather
+     than on its own line above it. */
   .wb-hiwh-step__num {
     color: #b88d60;
-    margin-top: 0;
-    margin-bottom: 8px;
-    line-height: 1;
+    flex: none;
+    margin: 0;
+    /* Fixed at the mobile .wb-medium-heading size at every breakpoint — the
+       62/82px desktop sizes would dwarf the heading beside it. */
+    font-size: 52px;
+    line-height: 40px;
   }
 
   /* Step number tinted to its own panel. These are the `.wb-darker` values
@@ -151,7 +164,12 @@
   .wb-hiwh-step--red    .wb-hiwh-step__num { color: #da5252; }
   .wb-hiwh-step--yellow .wb-hiwh-step__num { color: #e6b82b; }
 
+  /* Numeral and heading share a baseline, so the heading's text lines up with
+     the foot of the numeral. */
   .wb-hiwh-step__title {
+    display: flex;
+    align-items: baseline;
+    column-gap: 12px;
     font-size: 22px;
     font-weight: 700;
     line-height: 1.2;
@@ -191,7 +209,7 @@
 
   /* Mobile only. These panels are far tighter than the full-width steps on the
      How It Works page, so the headings come down a little. The step number is
-     deliberately NOT reduced — it keeps its full .wb-medium-heading size.
+     NOT reduced — it keeps the 52px mobile .wb-medium-heading size.
      Body text is untouched too: it inherits the site's 16px mobile size, and
      overriding type on it here would fight the global body styles. */
   @media screen and (max-width: 767px) {
@@ -336,8 +354,9 @@
         {
           "type": "text",
           "id": "step_number",
-          "label": "Step label",
-          "default": "One"
+          "label": "Step number",
+          "info": "Shown as a big numeral beside the heading, so keep it short, e.g. 1",
+          "default": "1"
         },
         {
           "type": "text",
