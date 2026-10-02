@@ -53,6 +53,15 @@
           "type": "quantity_selector",
           "settings": {}
         },
+        "artwork_addon_C3wPBc": {
+          "type": "artwork_addon",
+          "settings": {
+            "fee_product": "artwork-origination-fee",
+            "heading": "Add your own artwork to the label",
+            "note": "Send your artwork to info@whiskyblender.com after ordering. We'll email you to get started, send a proof, and won't print until you're happy with it.",
+            "guide_url": "shopify://pages/label-guide"
+          }
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -113,6 +122,7 @@
         "custom_liquid_bTJABx",
         "custom_liquid_eEdV4R",
         "quantity_selector",
+        "artwork_addon_C3wPBc",
         "buy_buttons",
         "description",
         "collapsible-row-2",
