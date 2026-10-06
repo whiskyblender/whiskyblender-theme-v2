@@ -115,13 +115,6 @@
         "button_url": "shopify://pages/the-lab"
       }
     },
-    "made_by_you": {
-      "type": "wb-text-block",
-      "settings": {
-        "heading": "Personalised whisky, made by you",
-        "body": "<p>This isn’t a name printed on a stock bottle. You blend the whisky itself in our Lab, choosing from five single malt casks hand-picked from Speyside, Highland and Islay distilleries. Then you name it, design the label, and our blenders bottle it by hand in Scotland.</p><p><strong>Choose your bottle.</strong> The 500ml personalised bottles, flat or black-glass round, are £60. The 200ml flat bottle is £30, and a set of twelve 5cl miniatures is £115: wedding favours and thank-yous sorted.</p><p><strong>Your label, your way.</strong> The label updates as you type, so you see exactly what’s going on the bottle. Want a logo or your own artwork on it? Add the artwork option on the bottle page and we’ll send you a proof before anything is printed.</p><p><strong>A gift that’s genuinely theirs.</strong> Birthdays, anniversaries, weddings, Christmas, or just a treat for yersel’. UK delivery is free with no minimum spend, and we aim to blend and bottle within three working days.</p>"
-      }
-    },
     "main_reviews": {
       "type": "reviews",
       "blocks": {
@@ -295,26 +288,6 @@
       "settings": {
         "heading": "Questions"
       }
-    },
-    "other_collections": {
-      "type": "wb-other-collections",
-      "settings": {
-        "heading": "Other collections",
-        "heading_size": "h2",
-        "collection_list": [
-          "single-malts",
-          "andrews-of-bothwell",
-          "wee-bits",
-          "collaborations",
-          "iconic-scotland"
-        ],
-        "collections_to_show": 4,
-        "columns_desktop": 4,
-        "columns_mobile": "2",
-        "image_ratio": "square",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
@@ -322,10 +295,8 @@
     "intro",
     "product_grid",
     "wb_how_it_works",
-    "made_by_you",
     "main_reviews",
     "wb_occasions",
-    "faq",
-    "other_collections"
+    "faq"
   ]
 }
