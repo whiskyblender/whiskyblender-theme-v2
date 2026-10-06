@@ -1,0 +1,322 @@
+{
+  "sections": {
+    "main_landing": {
+      "type": "wb-main-landing",
+      "name": "Landing Hero",
+      "settings": {
+        "video_url": "",
+        "video_file": "",
+        "title": "{{ collection.title }}",
+        "title_variants": "",
+        "description": "Collection",
+        "primary_button_text": "",
+        "primary_button_url": "",
+        "secondary_button_text": "",
+        "secondary_button_url": "",
+        "badge_show": false,
+        "badge_url": "",
+        "badge_aria_label": "Read our birthday blog post"
+      }
+    },
+    "intro": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div class=\"wb-container wb-padding wb-collection-copy\">\n<div><p>{{collection.description}}          </p>\n                        </div></div>",
+        "color_scheme": "scheme-1",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "product_grid": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "{{ collection }}",
+        "products_to_show": 25,
+        "title": "",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 3,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "wb_how_it_works": {
+      "type": "wb-how-it-works-home",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "step_number": "1",
+            "heading": "Select your whiskies",
+            "body": "<p>Mix your favourites from five hand-picked single malts until you hit 100%.</p>",
+            "image": "shopify://shop_images/hiw_one.gif",
+            "background": "green"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "step_number": "2",
+            "heading": "Name and bottle it",
+            "body": "<p>Name it, sign it as the creator, and pick your bottle.</p>",
+            "image": "shopify://shop_images/hiw_two.gif",
+            "background": "brown"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "step_number": "3",
+            "heading": "Design your label",
+            "body": "<p>Watch it update as you type. Then we blend and bottle it by hand.</p>",
+            "image": "shopify://shop_images/hiw_three.gif",
+            "background": "blue"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "heading": "How it works",
+        "description": "Three steps to a Scotch that exists nowhere else.",
+        "cta_heading": "Ready to create your whisky?",
+        "cta_body": "No expertise needed. Trust your instincts.",
+        "cta_background": "yellow",
+        "button_label": "Enter the lab",
+        "button_url": "shopify://pages/the-lab"
+      }
+    },
+    "made_by_you": {
+      "type": "wb-text-block",
+      "settings": {
+        "heading": "Personalised whisky, made by you",
+        "body": "<p>This isn’t a name printed on a stock bottle. You blend the whisky itself in our Lab, choosing from five single malt casks hand-picked from Speyside, Highland and Islay distilleries. Then you name it, design the label, and our blenders bottle it by hand in Scotland.</p><p><strong>Choose your bottle.</strong> 500ml personalised bottles, flat or round in black glass, are £60. The 200ml flat bottle is £30, and a set of twelve 5cl miniatures is £115: wedding favours and thank-yous sorted.</p><p><strong>Your label, your way.</strong> The label updates as you type, so you see exactly what’s going on the bottle. Want a logo or your own artwork on it? Add the artwork option on the bottle page and we’ll send you a proof before anything is printed.</p><p><strong>A gift that’s genuinely theirs.</strong> Birthdays, anniversaries, weddings, Christmas, or just a treat for yersel’. UK delivery is free with no minimum spend, and we aim to blend and bottle within three working days.</p>"
+      }
+    },
+    "main_reviews": {
+      "type": "reviews",
+      "blocks": {
+        "review_TmNqCt": {
+          "type": "review",
+          "settings": {
+            "review_text": "Great service, speedy delivery...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_XX6RQB": {
+          "type": "review",
+          "settings": {
+            "review_text": "Everything about this company is just perfection...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_LyKJkW": {
+          "type": "review",
+          "settings": {
+            "review_text": "The taste and quality is absolutely excellent...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_yp9cRT": {
+          "type": "review",
+          "settings": {
+            "review_text": "My Dad absolutely loved his bottle...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_WLb79y": {
+          "type": "review",
+          "settings": {
+            "review_text": "I will definitely be ordering again and after tasting my own bottle...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_Pnpgzc": {
+          "type": "review",
+          "settings": {
+            "review_text": "They are worth more than 5stars...",
+            "stars_image": "wb-stars.gif"
+          }
+        },
+        "review_UcPmCh": {
+          "type": "review",
+          "settings": {
+            "review_text": "Brilliant idea getting to blend your own...",
+            "stars_image": "wb-stars.gif"
+          }
+        }
+      },
+      "block_order": [
+        "review_TmNqCt",
+        "review_XX6RQB",
+        "review_LyKJkW",
+        "review_yp9cRT",
+        "review_WLb79y",
+        "review_Pnpgzc",
+        "review_UcPmCh"
+      ],
+      "name": "Reviews",
+      "settings": {}
+    },
+    "wb_occasions": {
+      "type": "wb-occasions-compact",
+      "blocks": {
+        "occasion_weddings": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Weddings",
+            "image": "shopify://shop_images/weddings.png",
+            "link": "shopify://collections/weddings",
+            "emoji": "🎩"
+          }
+        },
+        "occasion_birthdays": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Birthdays",
+            "image": "shopify://shop_images/birthdays.png",
+            "link": "shopify://collections/birthdays",
+            "emoji": "🎁"
+          }
+        },
+        "occasion_anniversaries": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Anniversaries",
+            "image": "shopify://shop_images/anniversaries.png",
+            "link": "shopify://collections/anniversaries",
+            "emoji": "💝"
+          }
+        },
+        "occasion_christmas": {
+          "type": "occasion",
+          "settings": {
+            "heading": "Christmas",
+            "image": "shopify://shop_images/christmas.png",
+            "link": "shopify://collections/christmas",
+            "emoji": "🎅🏽"
+          }
+        }
+      },
+      "block_order": [
+        "occasion_weddings",
+        "occasion_birthdays",
+        "occasion_anniversaries",
+        "occasion_christmas"
+      ],
+      "settings": {
+        "heading": "For special occasions",
+        "description": "A bottle of Scotch that's genuinely theirs — for the moments worth marking."
+      }
+    },
+    "faq": {
+      "type": "wb-faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How much does a personalised whisky cost?",
+            "answer": "<p>Our 500ml personalised bottles, flat or round, are £60. The 200ml bottle is £30, and the set of twelve miniatures is £115. UK delivery is free, with no minimum spend.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How quickly will I get my bottle?",
+            "answer": "<p>We aim to blend and bottle within three working days. UK standard tracked delivery then takes 3–5 days (free), or 1–2 days by express for £5. If it’s urgent, let us know and we’ll do our best.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I name my whisky anything I like?",
+            "answer": "<p>Pretty much! There’s a character limit, and the label resizes the text as you type so you can play around until it’s right. We won’t print anything misleading though, so no “Johnnie Walker Blue 95 Year Old”, sorry.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Which whiskies go into my blend?",
+            "answer": "<p>Single malt Scotch whisky, hand-selected from Speyside, Highland and Islay distilleries. We keep the exact distilleries and ages to ourselves so you blend on flavour, not on labels. Trust the tasting notes.</p>"
+          }
+        },
+        "faq_5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I put my own logo or artwork on the label?",
+            "answer": "<p>Yes. Tick the custom artwork option on the bottle page, then email your artwork to info@whiskyblender.com after ordering. We’ll send you a proof and won’t print until you’re happy with it.</p>"
+          }
+        },
+        "faq_6": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I choose the date on the label?",
+            "answer": "<p>We label truthfully, so the bottling date is the day we bottle it. If you need a particular date, email us after ordering and we’ll hold your order and bottle it on the day.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6"
+      ],
+      "settings": {
+        "heading": "Questions"
+      }
+    },
+    "other_collections": {
+      "type": "wb-other-collections",
+      "settings": {
+        "heading": "Other collections",
+        "heading_size": "h2",
+        "collection_list": [
+          "single-malts",
+          "andrews-of-bothwell",
+          "wee-bits",
+          "collaborations",
+          "iconic-scotland"
+        ],
+        "collections_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "image_ratio": "square",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main_landing",
+    "intro",
+    "product_grid",
+    "wb_how_it_works",
+    "made_by_you",
+    "main_reviews",
+    "wb_occasions",
+    "faq",
+    "other_collections"
+  ]
+}

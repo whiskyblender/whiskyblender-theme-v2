@@ -1,0 +1,142 @@
+{%- comment -%}
+  Visible FAQ accordion + matching FAQPage JSON-LD, from one set of blocks.
+
+  The help page (wb-help.liquid) has the same look but is welded to that page (fixed
+  "Need a haun?" heading, help-blog cards), and wb-faq-schema.liquid outputs only the
+  JSON-LD with nothing visible. This is the reusable one: Google expects FAQ markup
+  to match questions actually shown on the page, so both come from the same blocks.
+
+  Styles and the toggle script are scoped to this section's id. wb-help's script
+  binds every `.wb-collapsible` on the page, which would double-toggle if two FAQ
+  sections ever shared one — so this one uses its own class names.
+{%- endcomment -%}
+
+<section class="wb-banded" id="wb-faq-{{ section.id }}">
+  <div class="wb-container">
+    <div class="wb-padding">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="wb-medium-heading wb-faqs__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.blocks.size > 0 -%}
+        <ul class="wb-faqs" role="list">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.question != blank -%}
+              <li {{ block.shopify_attributes }}>
+                <button class="wb-faqs__q" type="button" aria-expanded="false" aria-controls="wb-faq-a-{{ block.id }}">
+                  {{- block.settings.question | escape -}}
+                </button>
+                <div class="rte wb-faqs__a" id="wb-faq-a-{{ block.id }}" hidden>{{ block.settings.answer }}</div>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #wb-faq-{{ section.id }} .wb-faqs__heading { margin-bottom: 20px; }
+  #wb-faq-{{ section.id }} .wb-faqs { list-style: none; padding: 0; margin: 0; max-width: 860px; }
+  #wb-faq-{{ section.id }} .wb-faqs li { padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
+  #wb-faq-{{ section.id }} .wb-faqs li:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+  #wb-faq-{{ section.id }} .wb-faqs__q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+    font-family: Raleway, sans-serif;
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 600;
+    color: inherit;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+  #wb-faq-{{ section.id }} .wb-faqs__q::after {
+    content: '+';
+    flex-shrink: 0;
+    margin-left: 16px;
+    font-size: 22px;
+    font-weight: 400;
+  }
+  #wb-faq-{{ section.id }} .wb-faqs__q[aria-expanded="true"]::after { content: '\2212'; }
+  #wb-faq-{{ section.id }} .wb-faqs__a { padding: 4px 0 16px; }
+  #wb-faq-{{ section.id }} .wb-faqs__a > p:last-child { margin-bottom: 0; }
+  @media screen and (max-width: 767px) {
+    #wb-faq-{{ section.id }} .wb-faqs__q { font-size: 17px; }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.getElementById('wb-faq-{{ section.id }}');
+    if (!root) return;
+    root.addEventListener('click', function (e) {
+      var btn = e.target.closest('.wb-faqs__q');
+      if (!btn || !root.contains(btn)) return;
+      var answer = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!answer) return;
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      answer.hidden = open;
+    });
+  })();
+</script>
+
+{%- if section.blocks.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- assign faq_first = true -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.question != blank and block.settings.answer != blank -%}
+        {%- unless faq_first -%},{%- endunless -%}
+        {%- assign faq_first = false -%}
+        {"@type":"Question","name":{{ block.settings.question | json }},"acceptedAnswer":{"@type":"Answer","text":{{ block.settings.answer | strip_html | json }}}}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "WB FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "WB FAQ" }
+  ]
+}
+{% endschema %}

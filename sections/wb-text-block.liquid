@@ -1,0 +1,54 @@
+{%- comment -%}
+  A plain banded text section: heading + rich text, editable in the theme editor.
+
+  Built for the personalised-whisky landing collection (collection.personalised-whisky.json),
+  where the page needed real copy for search — the default collection page was one
+  sentence and a product grid. Reusable on any template.
+
+  NO `tag` or `class` in the schema: Shopify's default `<div class="shopify-section">`
+  wrapper is what the banding system counts (`.shopify-section:nth-of-type(even)
+  section.wb-banded` in wb-base.css) — see wb-how-it-works-home.liquid.
+
+  Body type is left to the global body styles on purpose (Raleway 16px→20px, 160%);
+  don't restyle p/li here.
+{%- endcomment -%}
+
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding wb-text-block">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="wb-medium-heading wb-text-block__heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="rte wb-text-block__body">{{ section.settings.body }}</div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .wb-text-block__heading { margin-bottom: 8px; }
+  .wb-text-block__body { max-width: 760px; }
+  .wb-text-block__body > p:last-child { margin-bottom: 0; }
+</style>
+
+{% schema %}
+{
+  "name": "WB Text block",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Text"
+    }
+  ],
+  "presets": [
+    { "name": "WB Text block" }
+  ]
+}
+{% endschema %}
