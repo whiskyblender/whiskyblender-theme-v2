@@ -26,7 +26,7 @@
 
 <p class="wb-lab-upsell" {{ block.shopify_attributes }}>
   {{- upsell_text }}
-  <a class="wb-lab-upsell__link" href="{{ upsell_url }}">
+  <a class="wb-lab-upsell__link" href="{{ upsell_url }}" data-wb-track="lab_nudge">
     {{- upsell_label -}}
     <span aria-hidden="true">&nbsp;&rarr;</span>
   </a>

@@ -172,6 +172,10 @@
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%} First-party page-view + link-click log (our lab app, no cookie) and a GA4 wb_link_click event. Not in the theme editor, so editing doesn't count as traffic. See assets/wb-track.js {%- endcomment -%}
+    {%- unless request.design_mode -%}
+      <script src="{{ 'wb-track.js' | asset_url }}" defer="defer"></script>
+    {%- endunless -%}
 
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
