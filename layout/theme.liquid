@@ -19,7 +19,16 @@
     {%- endunless -%}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@900&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {%- comment -%}
+      Non-render-blocking (2026-10-06). This Google Fonts sheet was the largest single
+      render-blocking resource: 0.8-1.25s on mobile Lighthouse, mostly on the Yer Aunt
+      Fanny's ad landing page. Raleway 400/700 (+italics) already arrive from Shopify's
+      font_face below, so text renders immediately; only the extra weights (Raleway
+      300/500/600, Roboto Condensed 900 for the label preview) swap in when this loads.
+      Same media="print" pattern as the cart CSS further down.
+    {%- endcomment -%}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@900&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@900&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
     {%- comment -%}
       Homepage title/description are hardcoded here (and in snippets/meta-tags.liquid,
