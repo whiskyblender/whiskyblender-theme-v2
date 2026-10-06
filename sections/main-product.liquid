@@ -142,7 +142,8 @@
                   it keeps the same country-dynamic logic (GB free / duties / policy).
                 {%- endcomment -%}
                 {%- if cart.taxes_included or cart.duties_included -%}
-                  <div class="product__tax caption rte">
+                  {%- comment -%} data-nosnippet: Google was quoting "Taxes included." as the sitelink description for Yer Aunt Fanny's. {%- endcomment -%}
+                  <div class="product__tax caption rte" data-nosnippet>
                     {%- if cart.duties_included and cart.taxes_included -%}
                       {{ 'products.product.duties_and_taxes_included' | t }}
                     {%- elsif cart.taxes_included -%}
