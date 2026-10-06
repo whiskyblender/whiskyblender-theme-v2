@@ -11,9 +11,9 @@
  * to GA4 as `wb_link_click` for anyone who has consented.
  *
  * Anonymous by construction: no cookie, no storage, no visitor ID — so events can't
- * be joined into one person's journey. That's why a view carries `entry` (this page
- * started the visit) and the campaign tags, and why a click carries the page it
- * happened on: "landed on X and clicked Y there" is answerable without an ID.
+ * be joined into one person's journey. That's why every event carries `entry` (the
+ * visit started on this page) and the page it happened on, and a landing view carries
+ * the campaign tags: "landed on X and clicked Y there" is answerable without an ID.
  *
  * Naming a link: add data-wb-track="name" to the link or any ancestor. Untagged
  * links fall back to their Shopify section's name (header, announcement-bar, ...).
@@ -124,7 +124,9 @@
       var href = a.tagName === 'A' ? hrefFor(a) : '';
       var label = (a.getAttribute('aria-label') || a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 100);
 
-      send({ type: 'click', area: area, href: href, label: label });
+      /* entry: whether the visit started on this page — so "landed on X and clicked Y"
+         is an exact count, no visitor ID needed. */
+      send({ type: 'click', entry: view.entry, area: area, href: href, label: label });
 
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'wb_link_click', { link_area: area, link_url: href, link_text: label });
