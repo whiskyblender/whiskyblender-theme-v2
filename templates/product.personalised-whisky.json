@@ -109,8 +109,8 @@
         "lab_upsell": {
           "type": "lab_upsell",
           "settings": {
-            "text": "Psst —",
-            "button_label": "create your own whisky",
+            "text": "Like the sound of this?",
+            "button_label": "Blend your own",
             "button_url": "shopify://pages/the-lab"
           }
         }
