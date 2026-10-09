@@ -1028,6 +1028,30 @@ shopify-forms-embed {
   color: #333333;
 }
 
+/* Icon variant: mirrors .wb-trust-strip__item / __icon in wb-products.css so the
+   nudge reads as a fourth line of the strip above — emoji, bold claim, plain rest.
+   The link drops to regular weight here, otherwise the whole line is bold. */
+.wb-lab-upsell--icon {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.35;
+  color: #333333;
+}
+
+.wb-lab-upsell__icon {
+  flex: 0 0 auto;
+  width: 1.4em;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.wb-lab-upsell--icon .wb-lab-upsell__link {
+  font-weight: 400;
+  white-space: normal;
+}
+
 /* ------------------------------------------------------------------ *
  * Artwork origination add-on (snippets/wb-artwork-addon.liquid)
  *
