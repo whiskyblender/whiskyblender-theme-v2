@@ -79,7 +79,36 @@
     } catch (e) {}
   }
 
-  send(view);
+  /* Count a view only when a person actually sees the page (9 Oct 2026).
+     Entry views ran ~1.75x Shopify's landing sessions on full days, 94% mobile:
+     pages loaded but never shown (Meta's in-app browser preloading the ad's
+     landing page, prerendering) and reloads of the same visit were each counted
+     as a fresh landing. So:
+       - reload / back-forward navigations aren't new views — skip them;
+       - a prerendered page counts only if it's activated;
+       - a page loaded in the background counts only once it becomes visible.
+     No storage involved — all of this is the browser's own state. */
+  function sendViewWhenSeen() {
+    try {
+      var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (nav && (nav.type === 'reload' || nav.type === 'back_forward')) return;
+    } catch (e) {}
+    if (document.prerendering) {
+      document.addEventListener('prerenderingchange', sendViewWhenSeen, { once: true });
+      return;
+    }
+    if (document.visibilityState !== 'visible') {
+      document.addEventListener('visibilitychange', function onShown() {
+        if (document.visibilityState !== 'visible') return;
+        document.removeEventListener('visibilitychange', onShown);
+        send(view);
+      });
+      return;
+    }
+    send(view);
+  }
+
+  sendViewWhenSeen();
 
   /* ── Link clicks ── */
   function areaFor(el) {
