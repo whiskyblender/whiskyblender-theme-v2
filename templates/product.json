@@ -88,9 +88,10 @@
         "lab_upsell": {
           "type": "lab_upsell",
           "settings": {
-            "text": "You can",
-            "button_label": "name your own whisky",
-            "button_url": "/pages/the-lab?preset=WB01767"
+            "text": "Did you know?",
+            "button_label": "You can name your own whisky",
+            "button_url": "/pages/the-lab?preset=WB01767",
+            "icon": "🥃"
           }
         }
       },
