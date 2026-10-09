@@ -934,6 +934,63 @@
     }
     initPresets();
 
+    /* ── Deep link: ?preset=WBxxxxx ───────────────────────────────────
+       For links into the Lab from elsewhere on the site — first the "You can
+       name your own whisky" nudge on product pages (6 Oct 2026). Loads a house
+       blend's recipe the way a preset button does, but NOT its name or creator:
+       ?blend= reopens a saved bottle and fills both, which is wrong for "name
+       your own". Then scrolls to the naming panel once the loader has gone.
+
+       Does nothing if ?blend= is also present, if a blend is already under way,
+       or if the recipe uses a retired whisky (same rule as initPresets). */
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var code = params.get('preset');
+      if (!code || params.get('blend') || !/^WB\d{3,}$/i.test(code)) return;
+
+      fetchWithTimeout(apiBase + '/api/blend?slug=' + encodeURIComponent(code), 8000)
+        .then(function (res) { return res.ok ? res.json() : null; })
+        .then(function (data) {
+          if (!data || blendSaved || getTotal() > 0) return;
+          var recipe = data.recipe || [];
+          if (!recipe.length) return;
+          var live = {};
+          flavours.forEach(function (f) { if (f) live[f.identifier] = true; });
+          var slots = {};
+          for (var i = 0; i < recipe.length; i++) {
+            var item = recipe[i];
+            if (!item || !live[item.identifier]) return;
+            slots[item.identifier] = item.amount;
+          }
+          flavours.forEach(function (f) {
+            if (f) f.amount = slots[f.identifier] || 0;
+          });
+          updateUI();
+          wbTrack('blend_preset_used', { blend_code: code, source: 'link' });
+
+          /* The loader covers the page until the card images and fonts are in,
+             and initHint() puts the "Tap to add" sticker up as it fades — on a
+             blend that is already full. So wait for the loader to go, take the
+             sticker down, then scroll. Gives up waiting after 10s. */
+          var waited = 0;
+          (function whenLoaderGone() {
+            var loader = document.getElementById('wb-loader');
+            if (loader && loader.style.display !== 'none' && waited < 10000) {
+              waited += 150;
+              setTimeout(whenLoaderGone, 150);
+              return;
+            }
+            setTimeout(function () {
+              dismissHint();
+              var panel = document.getElementById('wb-save-panel');
+              if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              initFieldHints();
+            }, 100);
+          })();
+        })
+        .catch(function () {});
+    })();
+
     /* Initial render */
     updateUI();
   }
