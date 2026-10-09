@@ -34,7 +34,18 @@
   <p class="wb-lab-upsell wb-lab-upsell--icon" {{ block.shopify_attributes }}>
     <span class="wb-lab-upsell__icon" aria-hidden="true">{{ upsell_icon }}</span>
     <span>
-      <strong>{{ upsell_text }}</strong>
+      {%- comment -%}
+        Bold runs up to and including the first "?" — the trust strip does the same
+        with its em dash — so "Did you know? You can" renders as **Did you know?**
+        You can. No "?" means the whole lead-in is bold.
+      {%- endcomment -%}
+      {%- if upsell_text contains '?' -%}
+        {%- assign lead_parts = upsell_text | split: '?' -%}
+        {%- assign lead_rest = upsell_text | remove_first: lead_parts[0] | remove_first: '?' | strip -%}
+        <strong>{{ lead_parts[0] }}?</strong>{% if lead_rest != blank %} {{ lead_rest }}{% endif %}
+      {%- else -%}
+        <strong>{{ upsell_text }}</strong>
+      {%- endif %}
       <a class="wb-lab-upsell__link" href="{{ upsell_url }}" data-wb-track="lab_nudge">
         {{- upsell_label -}}
         <span aria-hidden="true">&nbsp;&rarr;</span>
