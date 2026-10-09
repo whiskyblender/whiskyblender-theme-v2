@@ -997,6 +997,16 @@
 
   /* ── Lab hint sticker ─────────────────────────────────────────── */
   function initHint(container) {
+    /* Never offer "Tap to add" on a blend that already has whisky in it. A
+       ?blend= or ?preset= link can fill the recipe before the loader clears,
+       and at that point updateUI()'s dismissHint() is still the no-op stub, so
+       the sticker used to appear anyway on a finished 100% blend. If the recipe
+       arrives after this runs instead, updateUI() dismisses it as normal. */
+    var amounts = container.querySelectorAll('.wb-option-amount');
+    for (var i = 0; i < amounts.length; i++) {
+      if (parseInt(amounts[i].textContent, 10) > 0) return;
+    }
+
     var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     var hint = document.createElement('div');
     hint.id = 'wb-lab-hint';
