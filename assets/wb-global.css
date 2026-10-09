@@ -1030,7 +1030,7 @@ shopify-forms-embed {
 
 /* Icon variant: mirrors .wb-trust-strip__item / __icon in wb-products.css so the
    nudge reads as a fourth line of the strip above — emoji, bold claim, plain rest.
-   The link drops to regular weight here, otherwise the whole line is bold. */
+   The link keeps its normal style (bold, green, underlined, unbroken). */
 .wb-lab-upsell--icon {
   display: flex;
   align-items: flex-start;
@@ -1045,11 +1045,6 @@ shopify-forms-embed {
   text-align: center;
   font-size: 15px;
   line-height: 1.3;
-}
-
-.wb-lab-upsell--icon .wb-lab-upsell__link {
-  font-weight: 400;
-  white-space: normal;
 }
 
 /* ------------------------------------------------------------------ *
