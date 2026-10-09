@@ -22,12 +22,31 @@
   assign upsell_text = block.settings.text | default: 'Psst —'
   assign upsell_label = block.settings.button_label | default: 'create your own whisky'
   assign upsell_url = block.settings.button_url | default: '/pages/the-lab'
+  assign upsell_icon = block.settings.icon | strip
 -%}
 
-<p class="wb-lab-upsell" {{ block.shopify_attributes }}>
-  {{- upsell_text }}
-  <a class="wb-lab-upsell__link" href="{{ upsell_url }}" data-wb-track="lab_nudge">
-    {{- upsell_label -}}
-    <span aria-hidden="true">&nbsp;&rarr;</span>
-  </a>
-</p>
+{%- comment -%}
+  With an icon (9 Oct 2026) the nudge takes the trust strip's shape directly above
+  it — emoji, bold claim, plain rest — so the two panels read as a pair. Without
+  one (merch, gift voucher) it stays the original one-line "Psst — link" form.
+{%- endcomment -%}
+{%- if upsell_icon != blank -%}
+  <p class="wb-lab-upsell wb-lab-upsell--icon" {{ block.shopify_attributes }}>
+    <span class="wb-lab-upsell__icon" aria-hidden="true">{{ upsell_icon }}</span>
+    <span>
+      <strong>{{ upsell_text }}</strong>
+      <a class="wb-lab-upsell__link" href="{{ upsell_url }}" data-wb-track="lab_nudge">
+        {{- upsell_label -}}
+        <span aria-hidden="true">&nbsp;&rarr;</span>
+      </a>
+    </span>
+  </p>
+{%- else -%}
+  <p class="wb-lab-upsell" {{ block.shopify_attributes }}>
+    {{- upsell_text }}
+    <a class="wb-lab-upsell__link" href="{{ upsell_url }}" data-wb-track="lab_nudge">
+      {{- upsell_label -}}
+      <span aria-hidden="true">&nbsp;&rarr;</span>
+    </a>
+  </p>
+{%- endif -%}
