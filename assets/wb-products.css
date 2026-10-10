@@ -992,3 +992,27 @@ ul.wb-product-drawers li {
 .cart-item__quantity--fixed .quantity-popover__info-button {
   display: none;
 }
+
+/* Express checkout under Add to cart (snippets/buy-buttons.liquid). When no wallet is
+   available Shopify shows an unbranded "Buy it now" in the colour scheme's button
+   colour, i.e. a second solid-green button identical to Add to cart. Outline it so
+   Add to cart stays the primary action; branded wallet buttons keep their styling. */
+.product-form .shopify-payment-button {
+  margin-top: 10px;
+}
+.product-form .shopify-payment-button__button--unbranded {
+  background-color: transparent !important;
+  color: #107a5f !important;
+  box-shadow: inset 0 0 0 2px #107a5f !important;
+  border-radius: 6px !important;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  min-height: 56px;
+}
+.product-form .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  background-color: transparent !important;
+  color: #333333 !important;
+  box-shadow: inset 0 0 0 2px #333333 !important;
+  text-decoration: none;
+}
