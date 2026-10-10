@@ -342,6 +342,20 @@ body {
 #page.doctorsspecial .side,
 #page.doctorsspecial #sideLabel { display: none; }
 
+/* Reference (order no.) sits as a third line under the artwork's vertical
+   "BOTTLED IN / SCOTLAND" (which reads top-to-bottom, centred), not top-right.
+   Same 80x11 box as the standard tag, rotated +90deg about its centre: visual
+   column centre x 60 (one line-pitch left of SCOTLAND at ~72), centred on the
+   text block's middle (y ~177). Doctors' Special only. */
+#page.size50.doctorsspecial .reference {
+  right: auto;
+  left: 20px;
+  top: 171.5px;
+  transform: rotate(90deg);
+  justify-content: center;
+  text-align: center;
+}
+
 /* Gold bars background — single malt / cask (500ml only until 200ml file exists) */
 #page.size50.singlemalt,
 #page.size50.singlecask {
