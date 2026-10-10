@@ -116,8 +116,8 @@
         "wb-delivery-returns",
         "wb-product-safety",
         "part_of_collection_BpWfEH",
-        "share",
-        "lab_upsell"
+        "lab_upsell",
+        "share"
       ],
       "settings": {
         "enable_sticky_info": true,
