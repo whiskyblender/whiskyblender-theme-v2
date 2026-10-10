@@ -196,22 +196,19 @@
       el.style.lineHeight = (final * 0.80) + 'px';
     }
 
-    /* Mirrors the labels app's useAutoFontSize as used by DoctorsSpecialOutput
-       (min 10 / max 32 / step 0.5, lineHeight 1.2, overflow tested on the parent). */
+    /* Mirrors DoctorsSpecialOutput in the labels app: width-only fit (the name is
+       one line; Homemade Apple's swashes overflow any line box vertically, so a
+       height test would cap it at ~18px). Grow to 24px, shrink only if too wide. */
+    var DS_MAX_SIZE = 24, DS_MIN_SIZE = 10;
     function dsResizeText(el) {
-      var min = 10, max = 32, step = 0.5;
-      var parent = el.parentNode;
-      function isOverflown(n) { return n.scrollWidth > n.clientWidth || n.scrollHeight > n.clientHeight; }
-      var i = min, overflow = false;
-      while (!overflow && i < max) {
-        el.style.fontSize = i + 'px';
-        el.style.lineHeight = (i * 1.2) + 'px';
-        overflow = isOverflown(parent);
-        if (!overflow) i += step;
+      var box = el.parentNode;
+      var size = DS_MAX_SIZE;
+      el.style.lineHeight = '1';
+      el.style.fontSize = size + 'px';
+      while (size > DS_MIN_SIZE && el.scrollWidth > box.clientWidth) {
+        size -= 0.5;
+        el.style.fontSize = size + 'px';
       }
-      var final = Math.max(min, i - step - 1);
-      el.style.fontSize = final + 'px';
-      el.style.lineHeight = (final * 1.2) + 'px';
     }
 
     function getCurrentVariantTitle() {
