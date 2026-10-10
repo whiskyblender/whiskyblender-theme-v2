@@ -171,11 +171,10 @@
             Express checkout (Apple Pay / Google Pay / Shop Pay / "Buy it now"), enabled
             per template with the buy_buttons block's dynamic checkout setting (10 Oct 2026:
             product.json only). It skips the basket, so Add to cart stays the primary
-            button above it. Never shown when the product has artwork links: the
-            _Artwork property is what puts the label file on the order, and Shopify
-            doesn't document that express checkout carries line item properties.
+            button above it. Shown on products with artwork links too (Andrew's call):
+            express orders on those may arrive without the _Artwork property.
           {%- endcomment -%}
-          {%- if show_dynamic_checkout and wb_has_artwork == false -%}
+          {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
         </div>
