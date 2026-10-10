@@ -90,7 +90,7 @@ input.wb-button,
 .wb-buttons input.wb-button {
   -webkit-appearance: none;
   appearance: none;
-  border: 2px solid #169776;
+  border: 2px solid #107a5f;
   background-color: transparent;
   padding: 14px 24px;
   font-family: "Raleway", sans-serif;
@@ -102,7 +102,7 @@ input.wb-button,
   gap: 12px;
   margin: 10px 10px 0 0;
   border-radius: 6px;
-  color: #169776;
+  color: #107a5f;
   transition: all 0.3s;
   font-size: 18px;
   line-height: 160%;
@@ -121,8 +121,8 @@ input.wb-button:hover,
 .wb-primary-button,
 input.wb-primary-button,
 .wb-buttons input.wb-primary-button {
-  border: 2px solid #169776;
-  background-color: #169776;
+  border: 2px solid #107a5f;
+  background-color: #107a5f;
   color: #ffffff;
 }
 
@@ -1017,7 +1017,7 @@ shopify-forms-embed {
 }
 
 .wb-lab-upsell__link {
-  color: #169776;
+  color: #107a5f;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -1075,7 +1075,7 @@ shopify-forms-embed {
   height: 22px;
   min-width: 22px;
   margin: 1px 0 0;
-  accent-color: #169776;
+  accent-color: #107a5f;
   cursor: pointer;
 }
 
