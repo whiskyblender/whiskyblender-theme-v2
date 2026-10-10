@@ -57,6 +57,9 @@
     '500ml': Object.assign({}, DIMS['500ml'], { roundelTop: -33, panelLength: 269, svgW: 232, svgH: 52, sideLabelTop: 170 }),
   };
 
+  /* Doctors' Special name limit — matches the product page input (maxlength 24) */
+  var DS_MAX_CHARS = 24;
+
   /* ── Contact sheet ─────────────────────────────────────────────────────────── */
 
   var CONTACT = { cols: 3, rows: 4, w: 250, h: 250, gap: 4, pageW: 794, pageH: 1123 };
@@ -416,19 +419,6 @@
     }
   }
 
-  /* Doctors' Special name: one line, width-only fit from 24px down to 10px.
-     Homemade Apple's swashes overflow any line box vertically, so the height test
-     in resizeText would cap it at ~18px. Mirrors dsResizeText in wb-single-malt.js. */
-  function fitDoctorsName(el) {
-    var box = el.parentNode;
-    var size = 24;
-    el.style.fontSize = size + 'px';
-    while (size > 10 && el.scrollWidth > box.clientWidth) {
-      size -= 0.5;
-      el.style.fontSize = size + 'px';
-    }
-  }
-
   function renderLabel() {
     /* Template version → body class. New overrides key off wb-tpl-new, Classic off
        wb-tpl-classic; the two are mutually exclusive so their CSS never competes. */
@@ -516,8 +506,7 @@
       removeSidePanels();
       var dsName = document.getElementById('dsName');
       if (dsName) {
-        dsName.textContent = state.text || '';
-        document.fonts.ready.then(function () { fitDoctorsName(dsName); });
+        dsName.textContent = (state.text || '').slice(0, DS_MAX_CHARS);   /* fixed 18px — wb-label.css */
       }
       return;
     }
@@ -776,6 +765,8 @@
     /* Doctors' Special: the text is the "Prescribed for" name; style and size are fixed */
     var textLabel = document.querySelector('label[for="wb-f-text"]');
     if (textLabel) textLabel.textContent = isDoctors ? 'Prescribed for' : 'Label text';
+    var textInput = document.getElementById('wb-f-text');
+    if (textInput) textInput.maxLength = isDoctors ? DS_MAX_CHARS : 32;
     document.querySelectorAll('.wb-has-style').forEach(function (el) {
       el.style.display = isDoctors ? 'none' : '';
     });
