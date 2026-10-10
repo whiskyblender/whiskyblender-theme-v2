@@ -464,7 +464,7 @@
        artwork's dashed line, so the text runs along the line. */
     function nipLine(cls, pos) {
       return '<div class="' + cls + '" style="position:absolute;top:' + pos.top + 'px;left:' + pos.left + 'px;width:' + NIP_LINE_W + 'px;height:' + NIP_LINE_H + 'px;' +
-          'box-sizing:border-box;padding-left:3px;display:flex;align-items:flex-end;justify-content:flex-start;white-space:nowrap;' +
+          'box-sizing:border-box;display:flex;align-items:flex-end;justify-content:center;white-space:nowrap;' +
           'transform-origin:0 100%;transform:rotate(' + NIP_ANGLE + 'deg);z-index:2">' +
         '<span style="font-family:' + NIP_FONT.replace(/"/g, '&quot;') + ';font-size:' + NIP_FONT_SIZE + 'px;line-height:1;color:' + NIP_INK + ';text-shadow:none;white-space:nowrap"></span>' +
       '</div>';

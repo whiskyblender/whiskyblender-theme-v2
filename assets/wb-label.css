@@ -363,7 +363,7 @@ body {
    which slope down 3.44deg (measured from the file). Each box's bottom-left
    corner is the start of its dashed line in label coordinates (artwork scale
    188/720, cover-cropped 2.65px each side), rotated about that corner, so the
-   text sits along the line. Fixed 16px, unclipped; 20 characters each (a real
+   text sits along the line, centred on it. Fixed 16px, unclipped; 20 characters each (a real
    20-character name is ~122-130px against a 131px line). Keep in step with the
    product-page preview (wb-single-malt.js NIP_*) and the labels app. */
 .wb-nip-line { display: none; }
@@ -372,8 +372,7 @@ body {
   position: absolute;
   width: 131px; height: 24px;
   align-items: flex-end;
-  justify-content: flex-start;
-  padding-left: 3px;
+  justify-content: center;   /* centred on the dashed line (Andrew, 10 Oct) */
   box-sizing: border-box;
   white-space: nowrap;
   transform-origin: 0 100%;
