@@ -7,7 +7,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Print Label — Whisky Blender</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300&family=Roboto+Condensed:wght@900&family=Raleway:wght@400;600;700&family=Roboto+Mono:wght@400&family=Homemade+Apple&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300&family=Roboto+Condensed:wght@900&family=Raleway:wght@400;600;700&family=Roboto+Mono:wght@400&family=Homemade+Apple&family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: 'trimPosterCompressed';
@@ -23,6 +23,7 @@
   data-cdn="{{ 'wb-label.css' | asset_url | split: 'wb-label.css' | first }}"
   data-av="11"
   data-doctors-art="{{ 'wb-doctorsspecial-print.jpg' | asset_url }}"
+  data-nip-art="{{ 'wb-nipbeforechristmas-200ml.webp' | asset_url }}"
   data-artwork-map='{"customblend-standard-200ml":"{{ 'wb-customblend-standard-200ml.jpg' | asset_url }}","customblend-standard-500ml":"{{ 'wb-customblend-standard-500ml_tall.jpg' | asset_url }}","customblend-birthday-200ml":"{{ 'wb-customblend-birthday-200ml.jpg' | asset_url }}","customblend-birthday-500ml":"{{ 'wb-customblend-birthday-500ml_tall.jpg' | asset_url }}","customblend-dad-200ml":"{{ 'wb-customblend-dad-200ml.webp' | asset_url }}","customblend-dad-500ml":"{{ 'wb-customblend-dad-500ml_tall.jpg' | asset_url }}","customblend-wedding-200ml":"{{ 'wb-customblend-wedding-200ml.webp' | asset_url }}","customblend-wedding-500ml":"{{ 'wb-customblend-wedding-500ml_tall.jpg' | asset_url }}"}'
   data-artwork-map-classic='{"customblend-standard-200ml":"{{ 'wb-customblend-standard-200ml.jpg' | asset_url }}","customblend-standard-500ml":"{{ 'wb-customblend-standard-500ml.jpg' | asset_url }}","customblend-birthday-200ml":"{{ 'wb-customblend-birthday-200ml.jpg' | asset_url }}","customblend-birthday-500ml":"{{ 'wb-customblend-birthday-500ml.webp' | asset_url }}","customblend-dad-200ml":"{{ 'wb-customblend-dad-200ml.webp' | asset_url }}","customblend-dad-500ml":"{{ 'wb-customblend-dad-500ml.jpg' | asset_url }}","customblend-wedding-200ml":"{{ 'wb-customblend-wedding-200ml.webp' | asset_url }}","customblend-wedding-500ml":"{{ 'wb-customblend-wedding-500ml.webp' | asset_url }}"}'
   data-tone-map='{"standard-light":"{{ 'wb-standard-light.jpg' | asset_url }}","standard-dark":"{{ 'wb-standard-dark.jpg' | asset_url }}","birthday-light":"{{ 'wb-birthday-light.jpg' | asset_url }}","birthday-dark":"{{ 'wb-birthday-dark.jpg' | asset_url }}","dad-light":"{{ 'wb-dad-light.jpg' | asset_url }}","dad-dark":"{{ 'wb-dad-dark.jpg' | asset_url }}","wedding-light":"{{ 'wb-wedding-light.jpg' | asset_url }}","wedding-dark":"{{ 'wb-wedding-dark.jpg' | asset_url }}"}'
@@ -53,6 +54,7 @@
           <option value="singlecask">Single Cask</option>
           <option value="miniatures">Miniature</option>
           <option value="doctorsspecial">Doctors' Special</option>
+          <option value="nipbeforechristmas">The Nip Before Christmas</option>
         </select>
       </div>
 
@@ -169,6 +171,9 @@
           <div class="image" id="artwork"></div>
           <!-- Doctors' Special: name handwritten in the artwork's "Prescribed for" box -->
           <div class="wb-ds-box" id="dsBox"><span class="wb-ds-name" id="dsName"></span></div>
+          <!-- The Nip Before Christmas: "To" and "From" handwritten on the artwork's dashed lines -->
+          <div class="wb-nip-line wb-nip-to"><span id="nipTo"></span></div>
+          <div class="wb-nip-line wb-nip-from"><span id="nipFrom"></span></div>
           <!-- Side info panel and single cask strip rendered by JS -->
         </div>
 

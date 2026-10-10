@@ -1,7 +1,8 @@
 /**
  * wb-label.js — Whisky Blender label generator
  *
- * Products: customblend | singlemalt | singlecask | miniatures | doctorsspecial
+ * Products: customblend | singlemalt | singlecask | miniatures | doctorsspecial |
+ *           nipbeforechristmas (text = To, author = From)
  * URL params: type, blend, text, author, distillery, strength, singlecask,
  *             variant, size, product, fg, bg, reference
  */
@@ -59,6 +60,9 @@
 
   /* Doctors' Special name limit — matches the product page input (maxlength 24) */
   var DS_MAX_CHARS = 24;
+
+  /* The Nip Before Christmas To / From limit — matches the product page inputs (maxlength 20) */
+  var NIP_MAX_CHARS = 20;
 
   /* ── Contact sheet ─────────────────────────────────────────────────────────── */
 
@@ -186,6 +190,8 @@
     var root = document.getElementById('wb-label-root');
     /* Doctors' Special: one full-resolution artwork for every variant */
     if (product === 'doctorsspecial') return root.getAttribute('data-doctors-art') || null;
+    /* The Nip Before Christmas: one fixed 200ml artwork */
+    if (product === 'nipbeforechristmas') return root.getAttribute('data-nip-art') || null;
     if (!product || !variant) return null;
     var cdn = root.getAttribute('data-cdn') || '';
     var av  = root.getAttribute('data-av') || '1';
@@ -279,6 +285,8 @@
     /* Doctors' Special: one fixed 500ml artwork on the blended-malt stock. Never the
        New taller template (that's custom blend's frame and side strips). */
     if (state.product === 'doctorsspecial') { state.size = '500ml'; state.template = 'classic'; }
+    /* The Nip Before Christmas: 200ml only (200ml has no New template) */
+    if (state.product === 'nipbeforechristmas') { state.size = '200ml'; state.template = 'classic'; }
   }
 
   /* ── Build shareable URL from state ────────────────────────────────────────── */
@@ -308,15 +316,21 @@
     var items = [];
     if (state.productname) items.push({ label: 'Product', value: state.productname });
     if (state.reference) items.push({ label: 'Order', value: state.reference });
-    if (state.product === 'customblend') {
+    if (state.product === 'nipbeforechristmas') {
+      if (state.text) items.push({ label: 'To', value: state.text });
+      if (state.author) items.push({ label: 'From', value: state.author });
+      if (state.size) items.push({ label: 'Size', value: state.size });
+    } else if (state.product === 'customblend') {
       if (state.blend) items.push({ label: 'Blend', value: state.blend });
       if (state.author) items.push({ label: 'Created by', value: state.author });
     } else {
       if (state.distillery) items.push({ label: 'Product', value: state.distillery });
     }
-    if (state.text) items.push({ label: state.product === 'doctorsspecial' ? 'Prescribed for' : 'Label text', value: state.text });
-    if (state.variant && state.product !== 'doctorsspecial') items.push({ label: 'Style', value: state.variant });
-    if (state.size) items.push({ label: 'Size', value: state.size });
+    if (state.product !== 'nipbeforechristmas') {
+      if (state.text) items.push({ label: state.product === 'doctorsspecial' ? 'Prescribed for' : 'Label text', value: state.text });
+      if (state.variant && state.product !== 'doctorsspecial') items.push({ label: 'Style', value: state.variant });
+      if (state.size) items.push({ label: 'Size', value: state.size });
+    }
 
     el.innerHTML = items.map(function (item) {
       return '<span class="wb-summary-item">' +
@@ -447,7 +461,7 @@
 
     /* Size + product class */
     var sizeClass = state.size === '500ml' ? 'size50' : 'size20';
-    var productClass = (state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial') ? state.product : '';
+    var productClass = (state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial' || state.product === 'nipbeforechristmas') ? state.product : '';
     page.className = (sizeClass + ' ' + productClass).trim();
 
     /* Artwork — singlecask shares singlemalt image files */
@@ -508,6 +522,17 @@
       if (dsName) {
         dsName.textContent = (state.text || '').slice(0, DS_MAX_CHARS);   /* fixed 18px — wb-label.css */
       }
+      return;
+    }
+
+    /* The Nip Before Christmas: To / From on the artwork's dashed lines (fixed
+       16px, rotated to match — wb-label.css); nothing else is printed. */
+    if (state.product === 'nipbeforechristmas') {
+      removeSidePanels();
+      var nipTo = document.getElementById('nipTo');
+      var nipFrom = document.getElementById('nipFrom');
+      if (nipTo) nipTo.textContent = (state.text || '').slice(0, NIP_MAX_CHARS);
+      if (nipFrom) nipFrom.textContent = (state.author || '').slice(0, NIP_MAX_CHARS);
       return;
     }
 
@@ -761,14 +786,20 @@
     var isMalt  = state.product === 'singlemalt' || state.product === 'singlecask';
     var isMini  = state.product === 'miniatures';
     var isDoctors = state.product === 'doctorsspecial';
+    var isNip = state.product === 'nipbeforechristmas';
 
-    /* Doctors' Special: the text is the "Prescribed for" name; style and size are fixed */
+    /* Doctors' Special: the text is the "Prescribed for" name. The Nip Before
+       Christmas: text is "To", author is "From". Style and size are fixed on both. */
     var textLabel = document.querySelector('label[for="wb-f-text"]');
-    if (textLabel) textLabel.textContent = isDoctors ? 'Prescribed for' : 'Label text';
+    if (textLabel) textLabel.textContent = isDoctors ? 'Prescribed for' : isNip ? 'To' : 'Label text';
     var textInput = document.getElementById('wb-f-text');
-    if (textInput) textInput.maxLength = isDoctors ? DS_MAX_CHARS : 32;
+    if (textInput) textInput.maxLength = isDoctors ? DS_MAX_CHARS : isNip ? NIP_MAX_CHARS : 32;
+    var authorLabel = document.querySelector('label[for="wb-f-author"]');
+    if (authorLabel) authorLabel.textContent = isNip ? 'From' : 'Created by';
+    var authorInput = document.getElementById('wb-f-author');
+    if (authorInput) authorInput.maxLength = isNip ? NIP_MAX_CHARS : 32;
     document.querySelectorAll('.wb-has-style').forEach(function (el) {
-      el.style.display = isDoctors ? 'none' : '';
+      el.style.display = (isDoctors || isNip) ? 'none' : '';
     });
 
     /* Blend code: customblend only */
@@ -777,7 +808,7 @@
     });
     /* Author ("Created by"): customblend + miniature */
     document.querySelectorAll('.wb-has-author').forEach(function (el) {
-      el.style.display = (isBlend || isMini) ? '' : 'none';
+      el.style.display = (isBlend || isMini || isNip) ? '' : 'none';
     });
     /* Distillery + fg/bg pickers: singlemalt + singlecask only */
     document.querySelectorAll('.wb-singlemalt-only').forEach(function (el) {
@@ -787,13 +818,14 @@
     document.querySelectorAll('.wb-has-strength').forEach(function (el) {
       el.style.display = (isMalt || isMini) ? '' : 'none';
     });
-    /* Bottle size: all except miniature and Doctors' Special (500ml only) */
+    /* Bottle size: all except miniature, Doctors' Special (500ml only) and
+       The Nip Before Christmas (200ml only) */
     document.querySelectorAll('.wb-nonmini-only').forEach(function (el) {
-      el.style.display = (isMini || isDoctors) ? 'none' : '';
+      el.style.display = (isMini || isDoctors || isNip) ? 'none' : '';
     });
     /* Label template toggle: 500ml only (only 500ml has a New template) */
     document.querySelectorAll('.wb-500-only').forEach(function (el) {
-      el.style.display = (state.size === '500ml' && !isMini && !isDoctors) ? '' : 'none';
+      el.style.display = (state.size === '500ml' && !isMini && !isDoctors && !isNip) ? '' : 'none';
     });
   }
 
@@ -822,6 +854,12 @@
           state.template = 'classic';
           var sizeSel = document.getElementById('wb-f-size');
           if (sizeSel) sizeSel.value = '500ml';
+        }
+        if (state.product === 'nipbeforechristmas') {
+          state.size = '200ml';
+          state.template = 'classic';
+          var nipSizeSel = document.getElementById('wb-f-size');
+          if (nipSizeSel) nipSizeSel.value = '200ml';
         }
         var legacyCb = document.getElementById('wb-f-legacy');
         if (legacyCb) legacyCb.checked = (state.template === 'classic');
@@ -949,7 +987,7 @@
       var productInUrl = !!p.get('product') || !!p.get('type');
       var missingKey = productInUrl && (
         (state.product === 'customblend' && !state.blend) ||
-        ((state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial') && !state.text)
+        ((state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial' || state.product === 'nipbeforechristmas') && !state.text)
       );
       if (missingKey) {
         var root = document.getElementById('wb-label-root');

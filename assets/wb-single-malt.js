@@ -10,7 +10,7 @@
 
   var wbFontLink = document.createElement('link');
   wbFontLink.rel = 'stylesheet';
-  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Homemade+Apple&display=swap';
+  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Homemade+Apple&family=Covered+By+Your+Grace&display=swap';
   document.head.appendChild(wbFontLink);
 
   function init() {
@@ -30,6 +30,23 @@
     var DS_FONT_SIZE = 18;   /* fixed — no fit; length capped instead */
     var DS_MAX_CHARS = 24;
 
+    /* The Nip Before Christmas (10 Oct 2026): fixed 200ml artwork in the 200ml
+       custom-blend artwork slot, on the blended-malt stock. Two inputs — "To"
+       (#label-text) and "From" (#created-by) — handwritten on the artwork's dashed
+       lines, which slope 3.44deg. Printed by /pages/label product=nipbeforechristmas
+       (text = To, author = From); NIP_* mirror wb-label.css (#page.nipbeforechristmas
+       .wb-nip-line / .wb-nip-to / .wb-nip-from) — change both together. */
+    var isNip         = productSlug === 'nipbeforechristmas';
+    var NIP_FONT      = '"Covered By Your Grace", cursive';
+    var NIP_INK       = '#231f20';
+    var NIP_LINE_W    = 131;
+    var NIP_LINE_H    = 24;
+    var NIP_ANGLE     = 3.44;
+    var NIP_TO        = { top: 101.9, left: 125.6 };
+    var NIP_FROM      = { top: 141.3, left: 120.6 };
+    var NIP_FONT_SIZE = 16;   /* fixed — no fit; length capped instead */
+    var NIP_MAX_CHARS = 20;
+
     var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
     var bottleSize   = loader.getAttribute('data-bottle-size') || '';
     if (!bottleSize) {
@@ -37,6 +54,7 @@
       if (tpl.indexOf('custom-200') !== -1) bottleSize = '200ml';
       else if (tpl.indexOf('custom-50') !== -1) bottleSize = '50ml';
     }
+    if (isNip) bottleSize = '200ml';   /* 200ml only, whatever the metafield says */
     var labelPage    = loader.getAttribute('data-label-page') || '/pages/label';
     var cdn          = loader.getAttribute('data-cdn') || '';
     var av           = loader.getAttribute('data-av') || '1';
@@ -59,13 +77,16 @@
       var btnSpan     = addBtn.querySelector('span');
       var defaultText = btnSpan ? btnSpan.textContent.trim() : '';
       function syncBtn() {
-        var hasText = labelInput.value.trim().length > 0;
+        /* The Nip Before Christmas needs both To and From */
+        var hasText = labelInput.value.trim().length > 0 &&
+          (!isNip || !createdByInput || createdByInput.value.trim().length > 0);
         addBtn.disabled = !hasText;
         addBtn.classList.toggle('wb-button-disabled', !hasText);
         if (btnSpan) btnSpan.textContent = hasText ? defaultText : 'Fill in label';
       }
       syncBtn();
       labelInput.addEventListener('input', syncBtn);
+      if (isNip && createdByInput) createdByInput.addEventListener('input', syncBtn);
     }
 
     /* ── Character counter ──────────────────────────────────────────────── */
@@ -83,11 +104,12 @@
       input.parentNode.appendChild(counter);
     }
 
-    if (labelInput && productSlug !== 'customblend') addCounter(labelInput, isDoctors ? DS_MAX_CHARS : 32);
+    if (labelInput && productSlug !== 'customblend') addCounter(labelInput, isDoctors ? DS_MAX_CHARS : isNip ? NIP_MAX_CHARS : 32);
+    if (createdByInput && isNip) addCounter(createdByInput, NIP_MAX_CHARS);
 
     /* ── Preview utilities ──────────────────────────────────────────────── */
 
-    var is200ml = (productSlug === 'customblend' && bottleSize === '200ml');
+    var is200ml = (productSlug === 'customblend' && bottleSize === '200ml') || isNip;
 
     var PREVIEW_PAGE_W  = 794;
     var PREVIEW_PAGE_H  = is200ml ? 325  : 432;
@@ -237,7 +259,7 @@
         pageEl.className = 'wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + (isNew500 ? ' wbp-tpl-new' : '');
         var pageBg = '';
         if (isNew500 && !isBlend && tallerBars) pageBg = tallerBars;   // New malt/cask: taller bars
-        else if (!isBlend && !isDoctors && barsUrl) pageBg = barsUrl;  // Classic malt/cask: bars (none on Doctors')
+        else if (!isBlend && !isDoctors && !isNip && barsUrl) pageBg = barsUrl;  // Classic malt/cask: bars (none on Doctors' / Nip)
         pageEl.style.backgroundImage = pageBg ? 'url(' + pageBg + ')' : '';
       }
 
@@ -259,6 +281,10 @@
              print area (-10/-9, 570x246 — wb-label.css #page.size50.doctorsspecial .image). */
           artworkUrl = cdn + 'wb-doctorsspecial.jpg?v=' + av;
           artTop = '-10px'; artLeft = '-9px'; artW = '570px'; artH = '246px';
+        } else if (isNip) {
+          /* The Nip Before Christmas: the 200ml custom-blend artwork slot */
+          artworkUrl = cdn + 'wb-nipbeforechristmas-200ml.webp?v=' + av;
+          artTop = '-7px'; artLeft = '93px'; artW = '342px'; artH = '188px';
         } else if (isNew500) {
           /* New 500ml artwork: full-bleed for BOTH blend and malt/cask, using the
              generator's tone naming — light for custom blend, dark for malt/cask
@@ -295,6 +321,13 @@
       if (isDoctors && dsNameEl) {
         dsNameEl.textContent = text.slice(0, DS_MAX_CHARS);
         return;   // no blend name, side name, "Distilled at" or side strips on this label
+      }
+      if (isNip) {
+        var nipToEl = previewContainer.querySelector('.wbp-nip-to span');
+        var nipFromEl = previewContainer.querySelector('.wbp-nip-from span');
+        if (nipToEl) nipToEl.textContent = text.slice(0, NIP_MAX_CHARS);
+        if (nipFromEl) nipFromEl.textContent = (createdByInput ? createdByInput.value : '').slice(0, NIP_MAX_CHARS);
+        return;   // nothing else is printed on this label
       }
       var blendNameEl = previewContainer.querySelector('.wbp-blend-name');
       if (blendNameEl) {
@@ -427,6 +460,16 @@
       previewContainer.style.transformOrigin = 'center center';
     }
 
+    /* One rotated To / From box: its bottom-left corner is the start of the
+       artwork's dashed line, so the text runs along the line. */
+    function nipLine(cls, pos) {
+      return '<div class="' + cls + '" style="position:absolute;top:' + pos.top + 'px;left:' + pos.left + 'px;width:' + NIP_LINE_W + 'px;height:' + NIP_LINE_H + 'px;' +
+          'box-sizing:border-box;padding-left:3px;display:flex;align-items:flex-end;justify-content:flex-start;white-space:nowrap;' +
+          'transform-origin:0 100%;transform:rotate(' + NIP_ANGLE + 'deg);z-index:2">' +
+        '<span style="font-family:' + NIP_FONT.replace(/"/g, '&quot;') + ';font-size:' + NIP_FONT_SIZE + 'px;line-height:1;color:' + NIP_INK + ';text-shadow:none;white-space:nowrap"></span>' +
+      '</div>';
+    }
+
     function initPreview() {
       if (previewContainer) return;
 
@@ -442,6 +485,7 @@
       previewContainer.className = 'wbp-scale-wrap';
       var mockImg = productSlug === 'customblend' ? (is200ml ? 'customblendlabelmock200.webp' : (newActive() ? 'customblendlabelmock500.webp' : 'customblendlabelmock.webp'))
         : isDoctors ? 'blendlabelmock.webp'   /* blended-malt stock: no top bar, BLENDED MALT band */
+        : isNip ? 'blendlabelmock200.webp'    /* 200ml blended-malt stock */
         : 'singlemaltlabelmock.webp';
       previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + '?v=' + av + ')';
       previewContainer.innerHTML =
@@ -457,6 +501,7 @@
                     '<span class="wbp-ds-name" style="font-family:' + DS_FONT.replace(/"/g, '&quot;') + ';font-size:' + DS_FONT_SIZE + 'px;line-height:1;color:' + DS_INK + ';text-shadow:none;white-space:nowrap"></span>' +
                   '</div>'
                 : '') +
+              (isNip ? nipLine('wbp-nip-to', NIP_TO) + nipLine('wbp-nip-from', NIP_FROM) : '') +
             '</div>' +
           '</div>' +
         '</div>';
@@ -497,6 +542,7 @@
         loaderEl.dataset.template === 'product.preview-test' ||
         loaderEl.dataset.template === 'product.personalised-whisky' ||
         loaderEl.dataset.template === 'product.doctors-special' ||
+        loaderEl.dataset.template === 'product.nip-before-christmas' ||
         loaderEl.dataset.template.indexOf('product.custom-') === 0
       );
       var mediaGallery = isPreviewTest && document.querySelector('media-gallery');
@@ -604,7 +650,7 @@
 
     var urlLabel = new URLSearchParams(window.location.search).get('label');
     if (urlLabel && labelInput) {
-      labelInput.value = urlLabel.slice(0, isDoctors ? DS_MAX_CHARS : 32);
+      labelInput.value = urlLabel.slice(0, isDoctors ? DS_MAX_CHARS : isNip ? NIP_MAX_CHARS : 32);
       labelInput.dispatchEvent(new Event('input'));
     }
 
@@ -623,13 +669,15 @@
         }
       } catch (err) {}
 
-      var labelText = ((document.getElementById('label-text') || {}).value || '').slice(0, isDoctors ? DS_MAX_CHARS : 32);
+      var labelText = ((document.getElementById('label-text') || {}).value || '').slice(0, isDoctors ? DS_MAX_CHARS : isNip ? NIP_MAX_CHARS : 32);
+      var fromText  = isNip ? ((createdByInput || {}).value || '').slice(0, NIP_MAX_CHARS) : '';
 
       var labelUrl = window.location.origin + labelPage +
         '?product='    + encodeURIComponent(productSlug) +
         '&distillery=' + encodeURIComponent(distillery) +
         '&variant='    + encodeURIComponent(variantTitle) +
         '&text='       + encodeURIComponent(labelText) +
+        (isNip ? '&author=' + encodeURIComponent(fromText) : '') +
         (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
 
       if (productSlug !== 'customblend') {
