@@ -312,7 +312,7 @@
       if (state.distillery) items.push({ label: 'Product', value: state.distillery });
     }
     if (state.text) items.push({ label: state.product === 'doctorsspecial' ? 'Prescribed for' : 'Label text', value: state.text });
-    if (state.variant) items.push({ label: 'Style', value: state.variant });
+    if (state.variant && state.product !== 'doctorsspecial') items.push({ label: 'Style', value: state.variant });
     if (state.size) items.push({ label: 'Size', value: state.size });
 
     el.innerHTML = items.map(function (item) {
