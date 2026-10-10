@@ -356,6 +356,44 @@ body {
   text-align: right;
 }
 
+/* The Nip Before Christmas (2026-10-10): fixed 200ml artwork in the standard
+   200ml custom-blend artwork slot (.size20 .image — the 1330x720 file is the same
+   size as wb-customblend-standard-200ml.jpg), printed on the blended-malt stock.
+   The customer's "To" and "From" are handwritten ON the artwork's dashed lines,
+   which slope down 3.44deg (measured from the file). Each box's bottom-left
+   corner is the start of its dashed line in label coordinates (artwork scale
+   188/720, cover-cropped 2.65px each side), rotated about that corner, so the
+   text sits along the line. Fixed 16px, unclipped; 20 characters each (a real
+   20-character name is ~122-130px against a 131px line). Keep in step with the
+   product-page preview (wb-single-malt.js NIP_*) and the labels app. */
+.wb-nip-line { display: none; }
+#page.nipbeforechristmas .wb-nip-line {
+  display: flex;
+  position: absolute;
+  width: 131px; height: 24px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding-left: 3px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  transform-origin: 0 100%;
+  transform: rotate(3.44deg);
+  z-index: 2;
+}
+#page.nipbeforechristmas .wb-nip-to   { left: 125.6px; top: 101.9px; }
+#page.nipbeforechristmas .wb-nip-from { left: 120.6px; top: 141.3px; }
+#page.nipbeforechristmas .wb-nip-line span {
+  font-family: "Covered By Your Grace", cursive;
+  font-size: 16px;
+  line-height: 1;
+  color: #231f20;
+  text-shadow: none;
+  white-space: nowrap;
+}
+#page.nipbeforechristmas #outer,
+#page.nipbeforechristmas .side,
+#page.nipbeforechristmas #sideLabel { display: none; }
+
 /* Gold bars background — single malt / cask (500ml only until 200ml file exists) */
 #page.size50.singlemalt,
 #page.size50.singlecask {
