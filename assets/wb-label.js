@@ -958,7 +958,7 @@
       var productInUrl = !!p.get('product') || !!p.get('type');
       var missingKey = productInUrl && (
         (state.product === 'customblend' && !state.blend) ||
-        ((state.product === 'singlemalt' || state.product === 'singlecask') && !state.text)
+        ((state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial') && !state.text)
       );
       if (missingKey) {
         var root = document.getElementById('wb-label-root');
