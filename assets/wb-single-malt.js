@@ -21,12 +21,14 @@
     /* Doctors' Special (10 Oct 2026): fixed artwork on the BLENDED malt stock, no
        bars, no side strips; the customer's name is handwritten in the artwork's
        "Prescribed for" box. Printed by the theme's label generator (/pages/label,
-       product=doctorsspecial, via _label_url); DS_* below mirror wb-label.css /
-       fitDoctorsName in wb-label.js. */
+       product=doctorsspecial, via _label_url); DS_* below mirror wb-label.css
+       (#page.doctorsspecial .wb-ds-box / .wb-ds-name). */
     var isDoctors    = productSlug === 'doctorsspecial';
     var DS_FONT      = '"Homemade Apple", cursive';
     var DS_INK       = '#231f20';
-    var DS_NAME_BOX  = { top: 181, left: 140, width: 280, height: 40 };
+    var DS_NAME_BOX  = { top: 183, left: 140, width: 280, height: 40 };
+    var DS_FONT_SIZE = 18;   /* fixed — no fit; length capped instead */
+    var DS_MAX_CHARS = 24;
 
     var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
     var bottleSize   = loader.getAttribute('data-bottle-size') || '';
@@ -81,7 +83,7 @@
       input.parentNode.appendChild(counter);
     }
 
-    if (labelInput && productSlug !== 'customblend') addCounter(labelInput, 32);
+    if (labelInput && productSlug !== 'customblend') addCounter(labelInput, isDoctors ? DS_MAX_CHARS : 32);
 
     /* ── Preview utilities ──────────────────────────────────────────────── */
 
@@ -197,21 +199,6 @@
       el.style.lineHeight = (final * 0.80) + 'px';
     }
 
-    /* Mirrors fitDoctorsName in wb-label.js (the label generator): width-only fit (the name is
-       one line; Homemade Apple's swashes overflow any line box vertically, so a
-       height test would cap it at ~18px). Grow to 24px, shrink only if too wide. */
-    var DS_MAX_SIZE = 24, DS_MIN_SIZE = 10;
-    function dsResizeText(el) {
-      var box = el.parentNode;
-      var size = DS_MAX_SIZE;
-      el.style.lineHeight = '1';
-      el.style.fontSize = size + 'px';
-      while (size > DS_MIN_SIZE && el.scrollWidth > box.clientWidth) {
-        size -= 0.5;
-        el.style.fontSize = size + 'px';
-      }
-    }
-
     function getCurrentVariantTitle() {
       try {
         var variants = JSON.parse(variantsJson || '[]');
@@ -306,8 +293,7 @@
       var text = labelInput ? labelInput.value : '';
       var dsNameEl = previewContainer.querySelector('.wbp-ds-name');
       if (isDoctors && dsNameEl) {
-        dsNameEl.textContent = text;
-        document.fonts.ready.then(function () { dsResizeText(dsNameEl); });
+        dsNameEl.textContent = text.slice(0, DS_MAX_CHARS);
         return;   // no blend name, side name, "Distilled at" or side strips on this label
       }
       var blendNameEl = previewContainer.querySelector('.wbp-blend-name');
@@ -467,8 +453,8 @@
               '<div class="wbp-side-label"></div>' +
               '<div class="wbp-image"></div>' +
               (isDoctors
-                ? '<div class="wbp-ds-box" style="position:absolute;top:' + DS_NAME_BOX.top + 'px;left:' + DS_NAME_BOX.left + 'px;width:' + DS_NAME_BOX.width + 'px;height:' + DS_NAME_BOX.height + 'px;display:flex;align-items:center;justify-content:flex-start;overflow:hidden;white-space:nowrap;z-index:2">' +
-                    '<span class="wbp-ds-name" style="font-family:' + DS_FONT.replace(/"/g, '&quot;') + ';color:' + DS_INK + ';text-shadow:none;white-space:nowrap"></span>' +
+                ? '<div class="wbp-ds-box" style="position:absolute;top:' + DS_NAME_BOX.top + 'px;left:' + DS_NAME_BOX.left + 'px;width:' + DS_NAME_BOX.width + 'px;height:' + DS_NAME_BOX.height + 'px;display:flex;align-items:center;justify-content:flex-start;white-space:nowrap;z-index:2">' +
+                    '<span class="wbp-ds-name" style="font-family:' + DS_FONT.replace(/"/g, '&quot;') + ';font-size:' + DS_FONT_SIZE + 'px;line-height:1;color:' + DS_INK + ';text-shadow:none;white-space:nowrap"></span>' +
                   '</div>'
                 : '') +
             '</div>' +
@@ -618,7 +604,7 @@
 
     var urlLabel = new URLSearchParams(window.location.search).get('label');
     if (urlLabel && labelInput) {
-      labelInput.value = urlLabel.slice(0, 32);
+      labelInput.value = urlLabel.slice(0, isDoctors ? DS_MAX_CHARS : 32);
       labelInput.dispatchEvent(new Event('input'));
     }
 
@@ -637,7 +623,7 @@
         }
       } catch (err) {}
 
-      var labelText = ((document.getElementById('label-text') || {}).value || '').slice(0, 32);
+      var labelText = ((document.getElementById('label-text') || {}).value || '').slice(0, isDoctors ? DS_MAX_CHARS : 32);
 
       var labelUrl = window.location.origin + labelPage +
         '?product='    + encodeURIComponent(productSlug) +
