@@ -20,13 +20,14 @@
     var productSlug  = loader.getAttribute('data-product-slug') || 'singlemalt';
     /* Doctors' Special (10 Oct 2026): fixed artwork on the BLENDED malt stock, no
        bars, no side strips; the customer's name is handwritten in the artwork's
-       "Prescribed for" box. Printed by the labels app (drewnotweird.com/whiskyblender/
-       labels, template 'doctors-special'); DS_* below mirror its DS_* constants. */
+       "Prescribed for" box. Printed by the theme's label generator (/pages/label,
+       product=doctorsspecial, via _label_url); DS_* below mirror wb-label.css /
+       fitDoctorsName in wb-label.js. */
     var isDoctors    = productSlug === 'doctorsspecial';
     var DS_FONT      = '"Homemade Apple", cursive';
     var DS_INK       = '#231f20';
     var DS_NAME_BOX  = { top: 181, left: 140, width: 280, height: 40 };
-    var DS_LABEL_APP = 'https://drewnotweird.com/whiskyblender/labels/500ml-blended-malt/doctors-special/';
+
     var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
     var bottleSize   = loader.getAttribute('data-bottle-size') || '';
     if (!bottleSize) {
@@ -196,7 +197,7 @@
       el.style.lineHeight = (final * 0.80) + 'px';
     }
 
-    /* Mirrors DoctorsSpecialOutput in the labels app: width-only fit (the name is
+    /* Mirrors fitDoctorsName in wb-label.js (the label generator): width-only fit (the name is
        one line; Homemade Apple's swashes overflow any line box vertically, so a
        height test would cap it at ~18px). Grow to 24px, shrink only if too wide. */
     var DS_MAX_SIZE = 24, DS_MIN_SIZE = 10;
@@ -268,7 +269,7 @@
         var artworkUrl, artTop, artLeft, artW, artH;
         if (isDoctors) {
           /* Doctors' Special: one artwork for every variant, in the blended-malt
-             print area (labels app LABEL_DIMS noBars*: -10/-9, 570x246). */
+             print area (-10/-9, 570x246 — wb-label.css #page.size50.doctorsspecial .image). */
           artworkUrl = cdn + 'wb-doctorsspecial.jpg?v=' + av;
           artTop = '-10px'; artLeft = '-9px'; artW = '570px'; artH = '246px';
         } else if (isNew500) {
@@ -645,9 +646,6 @@
         '&text='       + encodeURIComponent(labelText) +
         (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
 
-      if (isDoctors) {
-        labelUrl = DS_LABEL_APP + '?customerName=' + encodeURIComponent(labelText);
-      }
       if (productSlug !== 'customblend') {
         e.formData.set('properties[_label_url]', labelUrl);
       }
