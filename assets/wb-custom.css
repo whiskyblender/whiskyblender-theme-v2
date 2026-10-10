@@ -113,7 +113,7 @@
     align-items: center;
     gap: 12px;
     margin: 12px;
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.6); /* was 0.3 (2.1:1 on the pale blue panel) */
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;

@@ -79,6 +79,10 @@
           <h2 class="wb-subtle-heading title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
             {{ section.settings.title }}
           </h2>
+        {%- else -%}
+          {%- comment -%} Untitled grids still need a heading between the page's h1 and the
+             cards' h3s, or screen-reader heading navigation skips a level. {%- endcomment -%}
+          <h2 class="visually-hidden">{{ section.settings.collection.title | default: 'Products' | escape }}</h2>
         {%- endif -%}{%- if section.settings.show_view_all and more_in_collection -%}
         <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           <a

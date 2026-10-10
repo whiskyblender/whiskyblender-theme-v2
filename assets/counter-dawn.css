@@ -89,7 +89,10 @@
     margin: 4px;
 }
 
-.wb-productcell:has(.price--sold-out) {
+/* Sold-out cards: fade the picture, not the text (10 Oct 2026). Fading the whole
+   card to 40% took its title, price and "Sold out" badge well below WCAG AA
+   contrast (down to 1.5:1). The image fade still reads as unavailable. */
+.wb-productcell:has(.price--sold-out) .wb-productimage {
     opacity: 0.4!important;
 }
 
@@ -110,6 +113,13 @@ h1, h2, h3, h4, h5, .h0, .h1, .h2, .h3, .h4, .h5, .price, label {
     line-height: 18px;
     font-weight: 600;
     opacity: 0.6;
+}
+
+/* Struck-through "was" price: Dawn greys it to 75% and the 0.6 above greys it
+   again, landing at ~3.4:1. Full-strength colour under the same 0.6 gives the
+   same #666 as every other card price (5.7:1). */
+.wb-productcontent .price--on-sale s.price-item--regular {
+    color: #000000;
 }
 
 .wb-product-grid .wb-productcosts {

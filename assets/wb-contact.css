@@ -14,7 +14,7 @@
 
 .wbcw-progress-fill {
     height: 100%;
-    background-color: #169776;
+    background-color: #107a5f;
     border-radius: 3px;
     transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
     width: 0%;
@@ -112,7 +112,7 @@
 
 .wbcw-field input:focus {
     outline: none;
-    border-bottom-color: #169776;
+    border-bottom-color: #107a5f;
     border-bottom-style: solid;
 }
 
@@ -282,7 +282,7 @@
 
 .wbcw-field-group textarea:focus {
     outline: none;
-    border-color: #169776;
+    border-color: #107a5f;
 }
 
 /* Message textarea — letter/paper card treatment */
@@ -343,7 +343,7 @@
 }
 
 .wbcw-upload:has(input:focus) {
-    border-color: #169776;
+    border-color: #107a5f;
 }
 
 .wbcw-upload-btn {
