@@ -10,7 +10,7 @@
 
   var wbFontLink = document.createElement('link');
   wbFontLink.rel = 'stylesheet';
-  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap';
+  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Homemade+Apple&display=swap';
   document.head.appendChild(wbFontLink);
 
   function init() {
@@ -18,6 +18,15 @@
     if (!loader) return;
 
     var productSlug  = loader.getAttribute('data-product-slug') || 'singlemalt';
+    /* Doctors' Special (10 Oct 2026): fixed artwork on the BLENDED malt stock, no
+       bars, no side strips; the customer's name is handwritten in the artwork's
+       "Prescribed for" box. Printed by the labels app (drewnotweird.com/whiskyblender/
+       labels, template 'doctors-special'); DS_* below mirror its DS_* constants. */
+    var isDoctors    = productSlug === 'doctorsspecial';
+    var DS_FONT      = '"Homemade Apple", cursive';
+    var DS_INK       = '#231f20';
+    var DS_NAME_BOX  = { top: 181, left: 140, width: 280, height: 40 };
+    var DS_LABEL_APP = 'https://drewnotweird.com/whiskyblender/labels/500ml-blended-malt/doctors-special/';
     var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
     var bottleSize   = loader.getAttribute('data-bottle-size') || '';
     if (!bottleSize) {
@@ -187,6 +196,24 @@
       el.style.lineHeight = (final * 0.80) + 'px';
     }
 
+    /* Mirrors the labels app's useAutoFontSize as used by DoctorsSpecialOutput
+       (min 10 / max 32 / step 0.5, lineHeight 1.2, overflow tested on the parent). */
+    function dsResizeText(el) {
+      var min = 10, max = 32, step = 0.5;
+      var parent = el.parentNode;
+      function isOverflown(n) { return n.scrollWidth > n.clientWidth || n.scrollHeight > n.clientHeight; }
+      var i = min, overflow = false;
+      while (!overflow && i < max) {
+        el.style.fontSize = i + 'px';
+        el.style.lineHeight = (i * 1.2) + 'px';
+        overflow = isOverflown(parent);
+        if (!overflow) i += step;
+      }
+      var final = Math.max(min, i - step - 1);
+      el.style.fontSize = final + 'px';
+      el.style.lineHeight = (final * 1.2) + 'px';
+    }
+
     function getCurrentVariantTitle() {
       try {
         var variants = JSON.parse(variantsJson || '[]');
@@ -225,7 +252,7 @@
         pageEl.className = 'wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + (isNew500 ? ' wbp-tpl-new' : '');
         var pageBg = '';
         if (isNew500 && !isBlend && tallerBars) pageBg = tallerBars;   // New malt/cask: taller bars
-        else if (!isBlend && barsUrl)           pageBg = barsUrl;      // Classic malt/cask: bars
+        else if (!isBlend && !isDoctors && barsUrl) pageBg = barsUrl;  // Classic malt/cask: bars (none on Doctors')
         pageEl.style.backgroundImage = pageBg ? 'url(' + pageBg + ')' : '';
       }
 
@@ -242,7 +269,12 @@
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
         var artworkUrl, artTop, artLeft, artW, artH;
-        if (isNew500) {
+        if (isDoctors) {
+          /* Doctors' Special: one artwork for every variant, in the blended-malt
+             print area (labels app LABEL_DIMS noBars*: -10/-9, 570x246). */
+          artworkUrl = cdn + 'wb-doctorsspecial.jpg?v=' + av;
+          artTop = '-10px'; artLeft = '-9px'; artW = '570px'; artH = '246px';
+        } else if (isNew500) {
           /* New 500ml artwork: full-bleed for BOTH blend and malt/cask, using the
              generator's tone naming — light for custom blend, dark for malt/cask
              (wb-<variant>-<tone>.jpg). Geometry mirrors the generator's New
@@ -274,6 +306,12 @@
       }
 
       var text = labelInput ? labelInput.value : '';
+      var dsNameEl = previewContainer.querySelector('.wbp-ds-name');
+      if (isDoctors && dsNameEl) {
+        dsNameEl.textContent = text;
+        document.fonts.ready.then(function () { dsResizeText(dsNameEl); });
+        return;   // no blend name, side name, "Distilled at" or side strips on this label
+      }
       var blendNameEl = previewContainer.querySelector('.wbp-blend-name');
       if (blendNameEl) {
         blendNameEl.innerHTML = prevEsc(prevWordWrap(text));
@@ -418,7 +456,9 @@
 
       previewContainer = document.createElement('div');
       previewContainer.className = 'wbp-scale-wrap';
-      var mockImg = productSlug === 'customblend' ? (is200ml ? 'customblendlabelmock200.webp' : (newActive() ? 'customblendlabelmock500.webp' : 'customblendlabelmock.webp')) : 'singlemaltlabelmock.webp';
+      var mockImg = productSlug === 'customblend' ? (is200ml ? 'customblendlabelmock200.webp' : (newActive() ? 'customblendlabelmock500.webp' : 'customblendlabelmock.webp'))
+        : isDoctors ? 'blendlabelmock.webp'   /* blended-malt stock: no top bar, BLENDED MALT band */
+        : 'singlemaltlabelmock.webp';
       previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + '?v=' + av + ')';
       previewContainer.innerHTML =
         '<div class="wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + (newActive() ? ' wbp-tpl-new' : '') + '">' +
@@ -428,6 +468,11 @@
               '<div class="wbp-side"><div class="wbp-side-name"></div></div>' +
               '<div class="wbp-side-label"></div>' +
               '<div class="wbp-image"></div>' +
+              (isDoctors
+                ? '<div class="wbp-ds-box" style="position:absolute;top:' + DS_NAME_BOX.top + 'px;left:' + DS_NAME_BOX.left + 'px;width:' + DS_NAME_BOX.width + 'px;height:' + DS_NAME_BOX.height + 'px;display:flex;align-items:center;justify-content:flex-start;overflow:hidden;white-space:nowrap;z-index:2">' +
+                    '<span class="wbp-ds-name" style="font-family:' + DS_FONT.replace(/"/g, '&quot;') + ';color:' + DS_INK + ';text-shadow:none;white-space:nowrap"></span>' +
+                  '</div>'
+                : '') +
             '</div>' +
           '</div>' +
         '</div>';
@@ -467,6 +512,7 @@
       var isPreviewTest = loaderEl && (
         loaderEl.dataset.template === 'product.preview-test' ||
         loaderEl.dataset.template === 'product.personalised-whisky' ||
+        loaderEl.dataset.template === 'product.doctors-special' ||
         loaderEl.dataset.template.indexOf('product.custom-') === 0
       );
       var mediaGallery = isPreviewTest && document.querySelector('media-gallery');
@@ -602,6 +648,9 @@
         '&text='       + encodeURIComponent(labelText) +
         (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
 
+      if (isDoctors) {
+        labelUrl = DS_LABEL_APP + '?customerName=' + encodeURIComponent(labelText);
+      }
       if (productSlug !== 'customblend') {
         e.formData.set('properties[_label_url]', labelUrl);
       }
