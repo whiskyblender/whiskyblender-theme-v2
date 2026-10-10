@@ -313,6 +313,34 @@ body {
 .size20.singlemalt .image,
 .size20.singlecask .image { top: 4px; left: -9px; width: 445px; height: 193px; }
 
+/* Doctors' Special (2026-10-10): fixed artwork printed on the BLENDED malt stock
+   (no bars), filling the blended-malt print area -10/-9, 570x246 (same 2.32:1 as
+   the artwork). #page in the selector so it beats body.wb-tpl-new .size50 .image.
+   The customer's name goes in the "Prescribed for" box. Keep DS values in step with
+   the product-page preview (wb-single-malt.js DS_*). */
+#page.size50.doctorsspecial .image { top: -10px; left: -9px; width: 570px; height: 246px; }
+.wb-ds-box { display: none; }
+#page.doctorsspecial .wb-ds-box {
+  display: flex;
+  position: absolute;
+  top: 181px; left: 140px; width: 280px; height: 40px;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 2;
+}
+#page.doctorsspecial .wb-ds-name {
+  font-family: "Homemade Apple", cursive;
+  color: #231f20;
+  text-shadow: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+#page.doctorsspecial #outer,
+#page.doctorsspecial .side,
+#page.doctorsspecial #sideLabel { display: none; }
+
 /* Gold bars background — single malt / cask (500ml only until 200ml file exists) */
 #page.size50.singlemalt,
 #page.size50.singlecask {

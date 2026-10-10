@@ -1,6 +1,7 @@
 /**
  * wb-label.js — Whisky Blender label generator
  *
+ * Products: customblend | singlemalt | singlecask | miniatures | doctorsspecial
  * URL params: type, blend, text, author, distillery, strength, singlecask,
  *             variant, size, product, fg, bg, reference
  */
@@ -179,8 +180,10 @@
   }
 
   function getArtworkUrl(product, variant, size) {
-    if (!product || !variant) return null;
     var root = document.getElementById('wb-label-root');
+    /* Doctors' Special: one full-resolution artwork for every variant */
+    if (product === 'doctorsspecial') return root.getAttribute('data-doctors-art') || null;
+    if (!product || !variant) return null;
     var cdn = root.getAttribute('data-cdn') || '';
     var av  = root.getAttribute('data-av') || '1';
 
@@ -269,6 +272,10 @@
        per print with the Legacy checkbox. template isn't a URL param, so this is the
        effective default. Add malt/cask to the New side when they move to taller stock. */
     state.template = (state.product === 'singlemalt' || state.product === 'singlecask') ? 'classic' : 'new';
+
+    /* Doctors' Special: one fixed 500ml artwork on the blended-malt stock. Never the
+       New taller template (that's custom blend's frame and side strips). */
+    if (state.product === 'doctorsspecial') { state.size = '500ml'; state.template = 'classic'; }
   }
 
   /* ── Build shareable URL from state ────────────────────────────────────────── */
@@ -304,7 +311,7 @@
     } else {
       if (state.distillery) items.push({ label: 'Product', value: state.distillery });
     }
-    if (state.text) items.push({ label: 'Label text', value: state.text });
+    if (state.text) items.push({ label: state.product === 'doctorsspecial' ? 'Prescribed for' : 'Label text', value: state.text });
     if (state.variant) items.push({ label: 'Style', value: state.variant });
     if (state.size) items.push({ label: 'Size', value: state.size });
 
@@ -409,6 +416,19 @@
     }
   }
 
+  /* Doctors' Special name: one line, width-only fit from 24px down to 10px.
+     Homemade Apple's swashes overflow any line box vertically, so the height test
+     in resizeText would cap it at ~18px. Mirrors dsResizeText in wb-single-malt.js. */
+  function fitDoctorsName(el) {
+    var box = el.parentNode;
+    var size = 24;
+    el.style.fontSize = size + 'px';
+    while (size > 10 && el.scrollWidth > box.clientWidth) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+  }
+
   function renderLabel() {
     /* Template version → body class. New overrides key off wb-tpl-new, Classic off
        wb-tpl-classic; the two are mutually exclusive so their CSS never competes. */
@@ -437,7 +457,7 @@
 
     /* Size + product class */
     var sizeClass = state.size === '500ml' ? 'size50' : 'size20';
-    var productClass = (state.product === 'singlemalt' || state.product === 'singlecask') ? state.product : '';
+    var productClass = (state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial') ? state.product : '';
     page.className = (sizeClass + ' ' + productClass).trim();
 
     /* Artwork — singlecask shares singlemalt image files */
@@ -488,6 +508,18 @@
     if (refEl) {
       var refParts = [state.blend, state.reference].filter(Boolean);
       refEl.textContent = refParts.join(' · ');
+    }
+
+    /* Doctors' Special: name in the "Prescribed for" box; no blend name, side
+       name, "Distilled at" (hidden by CSS) or side strips. */
+    if (state.product === 'doctorsspecial') {
+      removeSidePanels();
+      var dsName = document.getElementById('dsName');
+      if (dsName) {
+        dsName.textContent = state.text || '';
+        document.fonts.ready.then(function () { fitDoctorsName(dsName); });
+      }
+      return;
     }
 
     /* Side panel — single malt / single cask only (ABV / domain / ml strip) */
@@ -739,6 +771,14 @@
     var isBlend = state.product === 'customblend';
     var isMalt  = state.product === 'singlemalt' || state.product === 'singlecask';
     var isMini  = state.product === 'miniatures';
+    var isDoctors = state.product === 'doctorsspecial';
+
+    /* Doctors' Special: the text is the "Prescribed for" name; style and size are fixed */
+    var textLabel = document.querySelector('label[for="wb-f-text"]');
+    if (textLabel) textLabel.textContent = isDoctors ? 'Prescribed for' : 'Label text';
+    document.querySelectorAll('.wb-has-style').forEach(function (el) {
+      el.style.display = isDoctors ? 'none' : '';
+    });
 
     /* Blend code: customblend only */
     document.querySelectorAll('.wb-blendcode-only').forEach(function (el) {
@@ -756,13 +796,13 @@
     document.querySelectorAll('.wb-has-strength').forEach(function (el) {
       el.style.display = (isMalt || isMini) ? '' : 'none';
     });
-    /* Bottle size: all except miniature */
+    /* Bottle size: all except miniature and Doctors' Special (500ml only) */
     document.querySelectorAll('.wb-nonmini-only').forEach(function (el) {
-      el.style.display = isMini ? 'none' : '';
+      el.style.display = (isMini || isDoctors) ? 'none' : '';
     });
     /* Label template toggle: 500ml only (only 500ml has a New template) */
     document.querySelectorAll('.wb-500-only').forEach(function (el) {
-      el.style.display = (state.size === '500ml' && !isMini) ? '' : 'none';
+      el.style.display = (state.size === '500ml' && !isMini && !isDoctors) ? '' : 'none';
     });
   }
 
@@ -786,6 +826,12 @@
            new) and sync the Legacy checkbox, matching readParams. Keeps the in-form
            product switcher from leaving a malt/cask on New. */
         state.template = (state.product === 'singlemalt' || state.product === 'singlecask') ? 'classic' : 'new';
+        if (state.product === 'doctorsspecial') {
+          state.size = '500ml';
+          state.template = 'classic';
+          var sizeSel = document.getElementById('wb-f-size');
+          if (sizeSel) sizeSel.value = '500ml';
+        }
         var legacyCb = document.getElementById('wb-f-legacy');
         if (legacyCb) legacyCb.checked = (state.template === 'classic');
         updateTypeVisibility();
