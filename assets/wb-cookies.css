@@ -103,12 +103,24 @@
     margin: 0 !important;
 }
 
+/* Shopify's label is "Manage preferences"; the button shows a shorter "Manage".
+   The span used to be display:none, which left the button with no accessible
+   name (CSS ::after text isn't reliably announced). Now it's hidden visually
+   only, so screen readers still get the full label, and the ::after text is
+   marked as decoration with an empty alt (the "/ ''" form). */
 #shopify-pc__banner__btn-manage-prefs span {
-    display: none !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
 }
 
 #shopify-pc__banner__btn-manage-prefs::after {
     content: "Manage" !important;
+    content: "Manage" / "" !important;
     font-size: 13px !important;
     font-weight: 600 !important;
 }
