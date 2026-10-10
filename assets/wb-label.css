@@ -363,8 +363,9 @@ body {
    which slope down 3.44deg (measured from the file). Each box's bottom-left
    corner is the start of its dashed line in label coordinates (artwork scale
    188/720, cover-cropped 2.65px each side), rotated about that corner, so the
-   text sits along the line, centred on it. Fixed 16px, unclipped; 20 characters each (a real
-   20-character name is ~122-130px against a 131px line). Keep in step with the
+   text sits along the line, centred on it. Fixed 18px (Andrew, 10 Oct), unclipped; 20 characters each (a real
+   20-character name is ~137-146px against a 131px line, so the longest spill a
+   few px past each end of the dashes — still on the tag). Keep in step with the
    product-page preview (wb-single-malt.js NIP_*) and the labels app. */
 .wb-nip-line { display: none; }
 #page.nipbeforechristmas .wb-nip-line {
@@ -383,7 +384,7 @@ body {
 #page.nipbeforechristmas .wb-nip-from { left: 120.6px; top: 141.3px; }
 #page.nipbeforechristmas .wb-nip-line span {
   font-family: "Covered By Your Grace", cursive;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
   color: #231f20;
   text-shadow: none;

@@ -44,7 +44,7 @@
     var NIP_ANGLE     = 3.44;
     var NIP_TO        = { top: 101.9, left: 125.6 };
     var NIP_FROM      = { top: 141.3, left: 120.6 };
-    var NIP_FONT_SIZE = 16;   /* fixed — no fit; length capped instead */
+    var NIP_FONT_SIZE = 18;   /* fixed — no fit; length capped instead */
     var NIP_MAX_CHARS = 20;
 
     var distillery   = loader.getAttribute('data-distillery') || loader.getAttribute('data-product-title') || '';
