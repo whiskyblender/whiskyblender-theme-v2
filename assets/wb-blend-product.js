@@ -17,6 +17,15 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
      would be wrong). If it can't load, the page falls back to the old panel. */
   var DEFAULT_BLEND = 'WB01767';
 
+  /* External-label mode (data-label-mode="external" on the loader, 11 Oct 2026 —
+     The Nip Before Christmas). The product's label belongs to another script
+     (wb-single-malt.js: To/From, its own limits, guard, preview and _label_url),
+     so this script handles only the RECIPE: load it (default or ?blend=), show it
+     with Change, gate the buy form until it's loaded, and record _blend_slug. It
+     doesn't touch the label inputs, the add-button guard or the counters, and it
+     doesn't build _blend_url — instead it publishes the code on the loader as
+     data-blend-slug, which wb-single-malt.js adds to _label_url as &blend=. */
+
   /* Where the Lab should send the customer after they save a blend: back to this
      product (keeping the chosen variant), not the bottle options page.
      wb-lab.js reads ?return= and only accepts a /products/ path. */
@@ -122,6 +131,28 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     moveRecipeBelowBuy(recipeEl);
   }
 
+  /* External label (The Nip Before Christmas): only "From" comes from the blend —
+     its creator. "To" is the recipient, so the blend name never goes there; it's
+     left blank to fill in. Capped at the input's own limit (20), and the input
+     event lets wb-single-malt.js update its preview, counter and guard. */
+  function populateExternalFrom(blend) {
+    var fromInput = document.getElementById('created-by');
+    if (!fromInput || fromInput.value || !blend.author) return;
+    var max = fromInput.maxLength > 0 ? fromInput.maxLength : 32;
+    fromInput.value = [...String(blend.author)].slice(0, max).join('');
+    fromInput.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  /* External label + default recipe that couldn't be loaded (API down, code
+     missing, retired whisky). The Nip is pre-filled with the default, so it must
+     stay buyable: record the default code, show the buy form, skip the recipe. */
+  function useDefaultUnseen(container, variantsJson, labelPage, bottleSize, productTitle) {
+    var blend = { slug: DEFAULT_BLEND, title: '', author: '' };
+    injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle, true, true);
+    container.setAttribute('data-blend-slug', DEFAULT_BLEND);
+    showBuyForm(DEFAULT_BLEND, true);
+  }
+
   function populateInputs(blend) {
     var labelInput  = document.getElementById('label-text');
     var authorInput = document.getElementById('created-by');
@@ -133,9 +164,20 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
   }
 
 
-  function injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle, isDefault) {
+  function injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle, isDefault, externalLabel) {
     var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
+
+    if (externalLabel) {
+      /* Recipe only — the label link (_label_url, with &blend=) comes from
+         wb-single-malt.js. The order panel shows the label's own properties. */
+      form.addEventListener('formdata', function (e) {
+        e.formData.set('properties[_blend_slug]',   blend.slug);
+        e.formData.set('properties[_blend_title]',  blend.title || '');
+        e.formData.set('properties[_blend_author]', blend.author || '');
+      });
+      return;
+    }
 
     form.addEventListener('formdata', function (e) {
       var variantTitle = '';
@@ -323,6 +365,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     var slug         = new URLSearchParams(window.location.search).get('blend');
     var isDefault    = !slug;
     if (isDefault) slug = DEFAULT_BLEND;
+    var externalLabel = container.getAttribute('data-label-mode') === 'external';
 
     /* Remember the add button's own wording before anything changes it (see initInputGuard) */
     var mainForm = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
@@ -353,6 +396,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         var activeOptions = results[1];
 
         if (!blendResult.ok) {
+          if (isDefault && externalLabel) { useDefaultUnseen(container, variantsJson, labelPage, bottleSize, productTitle); return; }
           if (isDefault) { showNoBlendState(); return; }   /* default missing: old panel */
           showNoBlendState(slug);
           showError('We can\'t find that blend. Either your code is wrong or it\'s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
@@ -375,24 +419,29 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
 
         /* Default uses a retired whisky: don't show it — fall back to the old panel */
         if (isDefault && inactiveIds.length > 0) {
+          if (externalLabel) { useDefaultUnseen(container, variantsJson, labelPage, bottleSize, productTitle); return; }
           showNoBlendState();
           return;
         }
 
         renderRecipe(blend, labUrl, inactiveIds, isDefault);
-        if (!isDefault) populateInputs(blend);   /* default: the label is theirs to fill */
+        /* default: the label is theirs to fill; external label: not ours to fill */
+        if (!isDefault && !externalLabel) populateInputs(blend);
+        if (!isDefault && externalLabel) populateExternalFrom(blend);
 
         if (inactiveIds.length > 0) {
           showInactiveWarning(inactiveNames, slug, labUrl);
           return;
         }
 
-        injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle, isDefault);
+        injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle, isDefault, externalLabel);
+        if (externalLabel) container.setAttribute('data-blend-slug', blend.slug);
         showBuyForm(slug, isDefault);
-        initInputGuard();
+        if (!externalLabel) initInputGuard();
       })
       .catch(function (err) {
         hide(loadingEl);
+        if (isDefault && externalLabel) { useDefaultUnseen(container, variantsJson, labelPage, bottleSize, productTitle); return; }
         if (isDefault) { showNoBlendState(); return; }
         showNoBlendState(slug);
         if (err && err.name === 'AbortError') {

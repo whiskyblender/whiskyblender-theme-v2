@@ -2,7 +2,8 @@
  * wb-label.js — Whisky Blender label generator
  *
  * Products: customblend | singlemalt | singlecask | miniatures | doctorsspecial |
- *           nipbeforechristmas (text = To, author = From)
+ *           nipbeforechristmas (text = To, author = From, blend = recipe — the
+ *           recipe panel shows under the label as for a custom blend)
  * URL params: type, blend, text, author, distillery, strength, singlecask,
  *             variant, size, product, fg, bg, reference
  */
@@ -317,6 +318,7 @@
     if (state.productname) items.push({ label: 'Product', value: state.productname });
     if (state.reference) items.push({ label: 'Order', value: state.reference });
     if (state.product === 'nipbeforechristmas') {
+      if (state.blend) items.push({ label: 'Blend', value: state.blend });
       if (state.text) items.push({ label: 'To', value: state.text });
       if (state.author) items.push({ label: 'From', value: state.author });
       if (state.size) items.push({ label: 'Size', value: state.size });
@@ -673,7 +675,9 @@
     var list    = document.getElementById('wb-recipe-list');
     if (!panel) return;
 
-    if (state.product !== 'customblend') {
+    /* The Nip Before Christmas carries a recipe too (11 Oct 2026): the All rounder
+       by default, or the customer's own blend from the Lab. */
+    if (state.product !== 'customblend' && state.product !== 'nipbeforechristmas') {
       panel.style.display = 'none';
       return;
     }
@@ -802,9 +806,9 @@
       el.style.display = (isDoctors || isNip) ? 'none' : '';
     });
 
-    /* Blend code: customblend only */
+    /* Blend code: customblend + The Nip Before Christmas */
     document.querySelectorAll('.wb-blendcode-only').forEach(function (el) {
-      el.style.display = isBlend ? '' : 'none';
+      el.style.display = (isBlend || isNip) ? '' : 'none';
     });
     /* Author ("Created by"): customblend + miniature */
     document.querySelectorAll('.wb-has-author').forEach(function (el) {
@@ -1018,7 +1022,7 @@
 
     if (!isPreview) {
       initForm();
-      if (state.product === 'customblend' && state.blend) {
+      if ((state.product === 'customblend' || state.product === 'nipbeforechristmas') && state.blend) {
         loadBlend(state.blend);
       }
     }

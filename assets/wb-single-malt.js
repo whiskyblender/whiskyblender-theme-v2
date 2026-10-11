@@ -680,6 +680,15 @@
         (isNip ? '&author=' + encodeURIComponent(fromText) : '') +
         (bottleSize ? '&size=' + encodeURIComponent(bottleSize) : '');
 
+      /* Recipe from wb-blend-product.js in external-label mode (The Nip Before
+         Christmas): it publishes the loaded blend's code on its loader once the
+         recipe is in. The buy form stays hidden until then, so it's always set
+         by the time anyone can add to cart. The generator shows that recipe
+         under the label. */
+      var blendLoader = document.getElementById('wb-blend-product-loader');
+      var blendSlug = blendLoader && blendLoader.getAttribute('data-blend-slug');
+      if (blendSlug) labelUrl += '&blend=' + encodeURIComponent(blendSlug);
+
       if (productSlug !== 'customblend') {
         e.formData.set('properties[_label_url]', labelUrl);
       }
