@@ -4,6 +4,28 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
 (function () {
   'use strict';
 
+  /* Default recipe (11 Oct 2026). With no ?blend= in the URL the page used to
+     hide the buy form behind "Enter the lab / Already have a blend code?". Now it
+     loads this house blend instead — the Lab's "All rounder" preset button
+     (page.lab-page.json preset_2) — so the customer only has to fill in the
+     label, or hit Change to make their own. It goes through exactly the same
+     load → cart-properties path as a real code, so the order carries
+     _blend_slug / _blend_url as usual. Differences for the default: label
+     fields start empty, no confetti, product links aren't stamped with the code,
+     and _blend_title / _blend_author record what the customer typed (the panel
+     in the order shows those as the label text — "All rounder / whiskyblender.com"
+     would be wrong). If it can't load, the page falls back to the old panel. */
+  var DEFAULT_BLEND = 'WB01767';
+
+  /* Where the Lab should send the customer after they save a blend: back to this
+     product (keeping the chosen variant), not the bottle options page.
+     wb-lab.js reads ?return= and only accepts a /products/ path. */
+  function returnParam() {
+    var variant = new URLSearchParams(window.location.search).get('variant');
+    var path = window.location.pathname + (variant && /^\d+$/.test(variant) ? '?variant=' + variant : '');
+    return 'return=' + encodeURIComponent(path);
+  }
+
   function esc(str) {
     return String(str)
       .replace(/&/g, '&amp;')
@@ -54,7 +76,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     }
   }
 
-  function renderRecipe(blend, labUrl, inactiveIds) {
+  function renderRecipe(blend, labUrl, inactiveIds, isDefault) {
     var recipeEl = document.getElementById('wb-blend-recipe');
     if (!recipeEl) return;
 
@@ -78,11 +100,22 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
       })
       .join('');
 
-    var changeHref = labUrl ? labUrl + '?blend=' + encodeURIComponent(blend.slug) : '#';
+    /* Change → the Lab, then straight back here once the new blend is saved.
+       A real blend reopens in the Lab (?blend= fills its recipe, name and
+       creator); the default opens a fresh Lab — the house blend's name isn't
+       theirs to edit. */
+    var changeHref = labUrl
+      ? labUrl + '?' + (isDefault ? '' : 'blend=' + encodeURIComponent(blend.slug) + '&') + returnParam()
+      : '#';
+
+    var refHtml = isDefault
+      ? 'Filled with our ' + esc(blend.title || 'house') + ' blend' +
+        ' <a href="' + esc(changeHref) + '">(Change)</a>'
+      : 'Blend code: ' + esc(blend.slug) +
+        ' <a href="' + esc(changeHref) + '">(Change)</a>';
 
     recipeEl.innerHTML =
-      '<p class="wb-blend-ref">Blend code: ' + esc(blend.slug) +
-      ' <a href="' + esc(changeHref) + '">(Change)</a></p>' +
+      '<p class="wb-blend-ref">' + refHtml + '</p>' +
       '<ul class="wb-recipe">' + rows + '</ul>';
 
     show(recipeEl);
@@ -100,7 +133,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
   }
 
 
-  function injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle) {
+  function injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle, isDefault) {
     var form = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
     if (!form) return;
 
@@ -128,8 +161,10 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         (productTitle ? '&productname=' + encodeURIComponent(productTitle) : '');
 
       e.formData.set('properties[_blend_slug]',   blend.slug);
-      e.formData.set('properties[_blend_title]',  blend.title);
-      e.formData.set('properties[_blend_author]', blend.author);
+      /* Default recipe: the house blend's name and creator aren't the customer's —
+         record what they typed, which is what the order panel shows as the label. */
+      e.formData.set('properties[_blend_title]',  isDefault ? labelText  : blend.title);
+      e.formData.set('properties[_blend_author]', isDefault ? authorText : blend.author);
       e.formData.set('properties[_blend_url]',    labelUrl);
     });
   }
@@ -141,13 +176,13 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     for (var i = 0; i < bottleForms.length; i++) { hide(bottleForms[i]); }
   }
 
-  function showBuyForm(slug) {
+  function showBuyForm(slug, isDefault) {
     document.documentElement.classList.remove('wb-blend-loading');
     show(document.querySelector('[name="add"]'));
     show(document.querySelector('.product-form__quantity'));
     var bottleForms = document.querySelectorAll('.wb-bottle-form');
     for (var i = 0; i < bottleForms.length; i++) { show(bottleForms[i]); }
-    fireConfetti(slug);
+    if (!isDefault) fireConfetti(slug);   /* confetti celebrates THEIR blend */
   }
 
   function fireConfetti(slug) {
@@ -166,7 +201,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     hideBuyForm();
     var recipeEl = document.getElementById('wb-blend-recipe');
     if (!recipeEl) return;
-    var labHref  = (labUrl && slug) ? labUrl + '?blend=' + encodeURIComponent(slug) : '/pages/the-lab';
+    var labHref  = (labUrl && slug) ? labUrl + '?blend=' + encodeURIComponent(slug) + '&' + returnParam() : '/pages/the-lab?' + returnParam();
     var nameList = names.map(function (n) { return '‘' + esc(n) + '’'; }).join(', ');
     var verb     = names.length === 1 ? 'is' : 'are';
     var warn     = document.createElement('div');
@@ -208,9 +243,15 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
   }
 
   function showNoBlendState(failedSlug) {
+    document.documentElement.classList.remove('wb-blend-loading');
     hideBuyForm();
     var panel = document.getElementById('wb-noblend-panel');
-    if (panel) show(panel);
+    if (panel) {
+      show(panel);
+      /* "Enter the lab" comes back to this product after saving */
+      var labLink = panel.querySelector('a[href^="/pages/the-lab"]');
+      if (labLink) labLink.setAttribute('href', '/pages/the-lab?' + returnParam());
+    }
     if (failedSlug) {
       var codeInput = document.getElementById('wb-blend-code-input');
       var codeBtn   = document.getElementById('wb-blend-code-go');
@@ -275,13 +316,10 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     var variantsEl   = document.getElementById('wb-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
     var slug         = new URLSearchParams(window.location.search).get('blend');
+    var isDefault    = !slug;
+    if (isDefault) slug = DEFAULT_BLEND;
 
-    if (!slug) {
-      showNoBlendState();
-      return;
-    }
-
-    patchProductLinks(slug);
+    if (!isDefault) patchProductLinks(slug);
     hideBuyForm();
 
     var loadingEl = document.getElementById('wb-blend-loading');
@@ -302,6 +340,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         var activeOptions = results[1];
 
         if (!blendResult.ok) {
+          if (isDefault) { showNoBlendState(); return; }   /* default missing: old panel */
           showNoBlendState(slug);
           showError('We can\'t find that blend. Either your code is wrong or it\'s an old one, sorry. Check it and try again, or <a href="/pages/the-lab">create a new one</a>.');
           return;
@@ -321,20 +360,27 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
           inactiveNames = inactiveItems.map(function (i) { return i.name; });
         }
 
-        renderRecipe(blend, labUrl, inactiveIds);
-        populateInputs(blend);
+        /* Default uses a retired whisky: don't show it — fall back to the old panel */
+        if (isDefault && inactiveIds.length > 0) {
+          showNoBlendState();
+          return;
+        }
+
+        renderRecipe(blend, labUrl, inactiveIds, isDefault);
+        if (!isDefault) populateInputs(blend);   /* default: the label is theirs to fill */
 
         if (inactiveIds.length > 0) {
           showInactiveWarning(inactiveNames, slug, labUrl);
           return;
         }
 
-        injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle);
-        showBuyForm(slug);
+        injectCartProperties(blend, variantsJson, labelPage, bottleSize, productTitle, isDefault);
+        showBuyForm(slug, isDefault);
         initInputGuard();
       })
       .catch(function (err) {
         hide(loadingEl);
+        if (isDefault) { showNoBlendState(); return; }
         showNoBlendState(slug);
         if (err && err.name === 'AbortError') {
           showError('The connection timed out. Please check your connection and try again.');
