@@ -17,6 +17,47 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
      would be wrong). If it can't load, the page falls back to the old panel. */
   var DEFAULT_BLEND = 'WB01767';
 
+  /* ── Sold out (11 Oct 2026) ───────────────────────────────────────────
+     Dawn renders the add button disabled with "Sold out" when the selected
+     variant can't be bought, and re-renders that on every variant change. The
+     "fill in your label" guards here and in the other product script toggle the
+     same button, so they must never enable a sold-out variant: it showed as a
+     live green "Sold out" button on Personalised 500ml round. Shared state lives
+     on the button (data-wb-sold-out), so both scripts agree. */
+  function wbSoldOutText() {
+    return (window.variantStrings && window.variantStrings.soldOut) || 'Sold out';
+  }
+  function wbAddText(fallback) {
+    return (window.variantStrings && window.variantStrings.addToCart) || fallback || 'Add to cart';
+  }
+  /* Call before anything touches the button: records whether it loaded sold out */
+  function wbNoteSoldOut(btn) {
+    if (!btn || btn.hasAttribute('data-wb-sold-out')) return;
+    var span = btn.querySelector('span');
+    var text = (span ? span.textContent : btn.textContent).trim();
+    btn.setAttribute('data-wb-sold-out', (btn.disabled && text === wbSoldOutText()) ? '1' : '0');
+  }
+  function wbIsSoldOut(btn) { return !!btn && btn.getAttribute('data-wb-sold-out') === '1'; }
+  /* Shows the sold-out state exactly as Dawn does (disabled, its own pale style) */
+  function wbShowSoldOut(btn) {
+    btn.disabled = true;
+    btn.classList.remove('wb-button-disabled');
+    var span = btn.querySelector('span');
+    if (span) span.textContent = wbSoldOutText();
+  }
+  /* After Dawn finishes a variant change: record the new variant's sold-out
+     state from the HTML it rendered, then re-run our guard — Dawn has just
+     enabled the button ("Add to cart") without knowing about the label fields. */
+  function wbOnVariantChange(btn, resync) {
+    if (typeof subscribe !== 'function' || typeof PUB_SUB_EVENTS === 'undefined') return;
+    subscribe(PUB_SUB_EVENTS.variantChange, function (event) {
+      var html = event && event.data && event.data.html;
+      var rendered = html && html.querySelector('[id^="ProductSubmitButton-"]');
+      if (rendered && btn) btn.setAttribute('data-wb-sold-out', rendered.hasAttribute('disabled') ? '1' : '0');
+      setTimeout(resync, 0);
+    });
+  }
+
   /* External-label mode (data-label-mode="external" on the loader, 11 Oct 2026 —
      The Nip Before Christmas). The product's label belongs to another script
      (wb-single-malt.js: To/From, its own limits, guard, preview and _label_url),
@@ -267,9 +308,10 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
        wb-single-malt.js has already set it to "Fill in label" on an empty label,
        and with the default recipe nothing refills it — so the button would keep
        saying "Fill in label" once enabled. */
-    var defaultText = addBtn.getAttribute('data-wb-default-text') || (btnSpan ? btnSpan.textContent.trim() : '');
+    var defaultText = wbAddText(addBtn.getAttribute('data-wb-default-text') || (btnSpan ? btnSpan.textContent.trim() : ''));
 
     function syncBtn() {
+      if (wbIsSoldOut(addBtn)) { wbShowSoldOut(addBtn); return; }
       var hasLabel  = labelInput  ? labelInput.value.trim().length  > 0 : true;
       var hasAuthor = authorInput ? authorInput.value.trim().length > 0 : true;
       var ok = hasLabel && hasAuthor;
@@ -285,6 +327,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     syncBtn();
     if (labelInput)  labelInput.addEventListener('input', syncBtn);
     if (authorInput) authorInput.addEventListener('input', syncBtn);
+    wbOnVariantChange(addBtn, syncBtn);
     if (labelInput)  addCounter(labelInput, 32);
     if (authorInput) addCounter(authorInput, 32);
   }
@@ -374,6 +417,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     if (mainSpan && !mainAdd.hasAttribute('data-wb-default-text')) {
       mainAdd.setAttribute('data-wb-default-text', mainSpan.textContent.trim());
     }
+    wbNoteSoldOut(mainAdd);
 
     if (!isDefault) patchProductLinks(slug);
     hideBuyForm();

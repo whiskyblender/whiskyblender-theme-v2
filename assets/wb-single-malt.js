@@ -13,6 +13,48 @@
   wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Homemade+Apple&family=Covered+By+Your+Grace&display=swap';
   document.head.appendChild(wbFontLink);
 
+
+  /* ── Sold out (11 Oct 2026) ───────────────────────────────────────────
+     Dawn renders the add button disabled with "Sold out" when the selected
+     variant can't be bought, and re-renders that on every variant change. The
+     "fill in your label" guards here and in the other product script toggle the
+     same button, so they must never enable a sold-out variant: it showed as a
+     live green "Sold out" button on Personalised 500ml round. Shared state lives
+     on the button (data-wb-sold-out), so both scripts agree. */
+  function wbSoldOutText() {
+    return (window.variantStrings && window.variantStrings.soldOut) || 'Sold out';
+  }
+  function wbAddText(fallback) {
+    return (window.variantStrings && window.variantStrings.addToCart) || fallback || 'Add to cart';
+  }
+  /* Call before anything touches the button: records whether it loaded sold out */
+  function wbNoteSoldOut(btn) {
+    if (!btn || btn.hasAttribute('data-wb-sold-out')) return;
+    var span = btn.querySelector('span');
+    var text = (span ? span.textContent : btn.textContent).trim();
+    btn.setAttribute('data-wb-sold-out', (btn.disabled && text === wbSoldOutText()) ? '1' : '0');
+  }
+  function wbIsSoldOut(btn) { return !!btn && btn.getAttribute('data-wb-sold-out') === '1'; }
+  /* Shows the sold-out state exactly as Dawn does (disabled, its own pale style) */
+  function wbShowSoldOut(btn) {
+    btn.disabled = true;
+    btn.classList.remove('wb-button-disabled');
+    var span = btn.querySelector('span');
+    if (span) span.textContent = wbSoldOutText();
+  }
+  /* After Dawn finishes a variant change: record the new variant's sold-out
+     state from the HTML it rendered, then re-run our guard — Dawn has just
+     enabled the button ("Add to cart") without knowing about the label fields. */
+  function wbOnVariantChange(btn, resync) {
+    if (typeof subscribe !== 'function' || typeof PUB_SUB_EVENTS === 'undefined') return;
+    subscribe(PUB_SUB_EVENTS.variantChange, function (event) {
+      var html = event && event.data && event.data.html;
+      var rendered = html && html.querySelector('[id^="ProductSubmitButton-"]');
+      if (rendered && btn) btn.setAttribute('data-wb-sold-out', rendered.hasAttribute('disabled') ? '1' : '0');
+      setTimeout(resync, 0);
+    });
+  }
+
   function init() {
     var loader = document.getElementById('wb-single-malt-loader');
     if (!loader) return;
@@ -74,9 +116,11 @@
     /* ── Add to cart guard ──────────────────────────────────────────────── */
 
     if (labelInput && addBtn) {
+      wbNoteSoldOut(addBtn);   /* before syncBtn changes the button's text */
       var btnSpan     = addBtn.querySelector('span');
-      var defaultText = btnSpan ? btnSpan.textContent.trim() : '';
+      var defaultText = wbAddText(addBtn.getAttribute('data-wb-default-text') || (btnSpan ? btnSpan.textContent.trim() : ''));
       function syncBtn() {
+        if (wbIsSoldOut(addBtn)) { wbShowSoldOut(addBtn); return; }
         /* The Nip Before Christmas needs both To and From */
         var hasText = labelInput.value.trim().length > 0 &&
           (!isNip || !createdByInput || createdByInput.value.trim().length > 0);
@@ -87,6 +131,7 @@
       syncBtn();
       labelInput.addEventListener('input', syncBtn);
       if (isNip && createdByInput) createdByInput.addEventListener('input', syncBtn);
+      wbOnVariantChange(addBtn, syncBtn);
     }
 
     /* ── Character counter ──────────────────────────────────────────────── */
