@@ -571,6 +571,12 @@
               base = DEFAULT_BOTTLE_URL;
               wbTrack('blend_error', { message: 'bottle_options_url missing - used fallback' });
             }
+            /* ?return=/products/<handle>[?variant=<id>] — set by a custom blend product's
+               Change link (wb-blend-product.js): send the new blend back to that product
+               instead of the bottle options page. Only a /products/ path on this site is
+               accepted, so the parameter can't redirect anywhere else. */
+            var ret = new URLSearchParams(window.location.search).get('return');
+            if (ret && /^\/products\/[a-z0-9-]+(\?variant=\d+)?$/i.test(ret)) base = ret;
             savedDest = base + (base.indexOf('?') === -1 ? '?' : '&') + 'blend=' + encodeURIComponent(slug);
             window.location.href = savedDest;
 
