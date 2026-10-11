@@ -97,15 +97,6 @@
             "page": ""
           }
         },
-        "lab_upsell": {
-          "type": "lab_upsell",
-          "settings": {
-            "text": "Did you know? You can",
-            "button_label": "name your own whisky",
-            "button_url": "/pages/the-lab?preset=WB01767",
-            "icon": "🥃"
-          }
-        },
         "blend_loader": {
           "type": "custom_liquid",
           "settings": {
@@ -128,7 +119,6 @@
         "wb-how-to-enjoy",
         "wb-delivery-returns",
         "part_of_collection_pnVNAw",
-        "lab_upsell",
         "share"
       ],
       "settings": {
