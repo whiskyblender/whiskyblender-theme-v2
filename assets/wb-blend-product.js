@@ -220,7 +220,12 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     var addBtn      = form.querySelector('[name="add"]');
     if (!addBtn) return;
     var btnSpan     = addBtn.querySelector('span');
-    var defaultText = btnSpan ? btnSpan.textContent.trim() : '';
+    /* The button's own wording ("Add to cart"), captured in init() before any
+       script changed it. Reading it here is too late on the 200ml/500ml pages:
+       wb-single-malt.js has already set it to "Fill in label" on an empty label,
+       and with the default recipe nothing refills it — so the button would keep
+       saying "Fill in label" once enabled. */
+    var defaultText = addBtn.getAttribute('data-wb-default-text') || (btnSpan ? btnSpan.textContent.trim() : '');
 
     function syncBtn() {
       var hasLabel  = labelInput  ? labelInput.value.trim().length  > 0 : true;
@@ -318,6 +323,14 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     var slug         = new URLSearchParams(window.location.search).get('blend');
     var isDefault    = !slug;
     if (isDefault) slug = DEFAULT_BLEND;
+
+    /* Remember the add button's own wording before anything changes it (see initInputGuard) */
+    var mainForm = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
+    var mainAdd  = mainForm && mainForm.querySelector('[name="add"]');
+    var mainSpan = mainAdd && mainAdd.querySelector('span');
+    if (mainSpan && !mainAdd.hasAttribute('data-wb-default-text')) {
+      mainAdd.setAttribute('data-wb-default-text', mainSpan.textContent.trim());
+    }
 
     if (!isDefault) patchProductLinks(slug);
     hideBuyForm();
