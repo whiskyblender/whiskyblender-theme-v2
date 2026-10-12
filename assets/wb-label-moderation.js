@@ -39,6 +39,16 @@
     return el;
   }
 
+  /* Message + a way to appeal, as a clickable email link */
+  function setMsg(el, message) {
+    el.textContent = message + ' Think we\'ve got it wrong? ';
+    var a = document.createElement('a');
+    a.href = 'mailto:info@whiskyblender.com';
+    a.textContent = 'Email us';
+    a.style.color = 'inherit';
+    el.appendChild(a);
+  }
+
   function clearAll() {
     blocked = null;
     inputs.forEach(function (i) {
@@ -68,7 +78,7 @@
             ? document.activeElement : inputs[0];
           blocked = { input: target, message: data.message };
           target.setAttribute('aria-invalid', 'true');
-          msgEl(target).textContent = data.message;
+          setMsg(msgEl(target), data.message);
         }
       })
       .catch(function () { /* fail-open */ });
@@ -93,7 +103,7 @@
     if (!inputs.some(function (i) { return i.form === form; })) return;
     e.preventDefault();
     e.stopImmediatePropagation();
-    msgEl(blocked.input).textContent = blocked.message;
+    setMsg(msgEl(blocked.input), blocked.message);
     blocked.input.focus();
   }, true);
 })();

@@ -873,11 +873,12 @@
 }
 
 .wb-save-error {
-  display: none;
+  /* No display:none here: the inline style hides it on load, and showError()
+     clears that inline style. A CSS display:none kept every save error invisible. */
   color: #c0392b;
   margin-top: 12px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .wb-save-success {
