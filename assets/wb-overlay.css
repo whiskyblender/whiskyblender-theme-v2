@@ -1,0 +1,114 @@
+/*
+ * WBOverlay: the site's one overlay (modal) style. Every overlay uses this:
+ * moderation refusals today, anything new later. Opened from JS with
+ * WBOverlay.open({...}) (see wb-overlay.js), so nothing here is hand-styled per use.
+ *
+ * Look matches the Shopify Forms subscribe popup (app-rendered, so it can't share
+ * this file): white rounded card, centred text, dark full-width button, × to close.
+ */
+
+.wb-overlay {
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  width: calc(100% - 32px);
+  max-width: 520px;
+  max-height: calc(100% - 32px);
+  background: #fff;
+  color: #222;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.wb-overlay::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.wb-overlay__inner {
+  position: relative;
+  padding: 48px 32px 32px;
+}
+
+.wb-overlay__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: #555;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.wb-overlay__close:hover {
+  color: #222;
+}
+
+.wb-overlay .wb-overlay__title {
+  margin: 0 0 12px;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.wb-overlay .wb-overlay__body {
+  margin: 0 0 28px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.wb-overlay__button {
+  display: block;
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 6px;
+  background: #222;
+  color: #fff;
+  font: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.wb-overlay__button:hover {
+  background: #000;
+}
+
+.wb-overlay__button:focus-visible,
+.wb-overlay__close:focus-visible {
+  outline: 2px solid #107a5f;
+  outline-offset: 2px;
+}
+
+.wb-overlay .wb-overlay__footnote {
+  margin: 20px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.wb-overlay__footnote a {
+  color: inherit;
+}
+
+@media (max-width: 480px) {
+  .wb-overlay__inner {
+    padding: 44px 20px 24px;
+  }
+  .wb-overlay .wb-overlay__title {
+    font-size: 24px;
+  }
+  .wb-overlay .wb-overlay__body {
+    font-size: 16px;
+  }
+}

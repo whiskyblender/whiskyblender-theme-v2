@@ -79,6 +79,8 @@
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-base.css' | asset_url | stylesheet_tag }}
     {{ 'wb-global.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} The site's one overlay (modal) style + WBOverlay.open(). Use it for every overlay. {%- endcomment -%}
+    {{ 'wb-overlay.css' | asset_url | stylesheet_tag }}
     {{ 'wb-fonts.css' | asset_url | stylesheet_tag }}
     <link rel="preload" href="{{ 'wb-footer.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>{{ 'wb-footer.css' | asset_url | stylesheet_tag }}</noscript>
@@ -178,6 +180,7 @@
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     {%- comment -%} Display-only price tidy: drop .00 on whole prices, hide the currency code for £/€ (keep for $). See assets/wb-price-format.js {%- endcomment -%}
     <script src="{{ 'wb-price-format.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'wb-overlay.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>

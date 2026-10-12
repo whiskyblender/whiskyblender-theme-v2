@@ -2,7 +2,8 @@
  * Personalised label text check.
  *
  * Asks the Lab (/api/moderate) whether the customer's label wording is OK as
- * they type, and blocks Add to cart while it's refused (slurs, sexual terms,
+ * they type. A refusal shows in the site overlay (WBOverlay) when they leave the
+ * field or press Add to cart, and blocks Add to cart; OK clears that field (slurs, sexual terms,
  * other whisky brand names; ordinary swearing is allowed). The word list and
  * policy live in the Lab: whiskyblender-lab/app/lib/moderation.server.ts.
  *
@@ -26,42 +27,36 @@
   var blocked = null; /* { input, message } while refused, else null */
   var seq = 0;
   var timer = null;
+  var showWhenChecked = false; /* set on blur: show the overlay once the check answers */
 
-  function msgEl(input) {
-    var el = input.parentNode.querySelector('.wb-moderation-msg');
-    if (!el) {
-      el = document.createElement('p');
-      el.className = 'wb-moderation-msg';
-      el.setAttribute('role', 'alert');
-      el.style.cssText = 'color:#b3261e;font-size:0.9em;margin:0.4em 0 0;';
-      input.insertAdjacentElement('afterend', el);
-    }
-    return el;
-  }
-
-  /* Message + a way to appeal, as a clickable email link */
-  function setMsg(el, message) {
-    el.textContent = String(message).replace(/ Think we.*$/, '') + ' Think we\'ve got it wrong? ';
-    var a = document.createElement('a');
-    a.href = 'mailto:info@whiskyblender.com';
-    a.textContent = 'Email us';
-    a.style.color = 'inherit';
-    el.appendChild(a);
-  }
-
-  function clearAll() {
-    blocked = null;
-    inputs.forEach(function (i) {
-      i.removeAttribute('aria-invalid');
-      var el = i.parentNode.querySelector('.wb-moderation-msg');
-      if (el) el.remove();
+  /* Refusal message in the site overlay (WBOverlay, wb-overlay.js). OK clears the
+     refused field so the customer starts that line again. */
+  function showOverlay() {
+    if (!blocked) return;
+    var input = blocked.input;
+    var message = String(blocked.message).replace(/ Think we.*$/, '');
+    var reset = function () {
+      input.value = '';
+      /* label previews redraw on 'input' */
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      blocked = null;
+      input.removeAttribute('aria-invalid');
+      input.focus();
+    };
+    if (!window.WBOverlay) { window.alert(message); reset(); return; }
+    window.WBOverlay.open({
+      title: 'We can’t print that',
+      body: message,
+      button: 'OK',
+      footnote: { text: 'Think we’ve got it wrong?', linkText: 'Email us', href: 'mailto:info@whiskyblender.com' },
+      onClose: reset
     });
   }
 
   function check() {
     var texts = inputs.map(function (i) { return i.value || ''; });
-    if (!texts.join('').trim()) { clearAll(); return; }
     var mine = ++seq;
+    if (!texts.join('').trim()) { blocked = null; return; }
     fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -70,18 +65,20 @@
       .then(function (res) { return res.ok ? res.json() : { ok: true }; })
       .then(function (data) {
         if (mine !== seq) return; /* a newer check is in flight */
-        clearAll();
+        inputs.forEach(function (i) { i.removeAttribute('aria-invalid'); });
+        blocked = null;
         if (data && data.ok === false) {
-          /* Point at the first non-empty field that fails on its own is overkill
-             for 2 short fields; flag the one the customer is editing, else the first. */
-          var target = document.activeElement && inputs.indexOf(document.activeElement) !== -1
-            ? document.activeElement : inputs[0];
+          /* The Lab says which field failed; older replies don't, so fall back
+             to the field being edited, else the first */
+          var target = inputs[data.index] ||
+            (inputs.indexOf(document.activeElement) !== -1 ? document.activeElement : inputs[0]);
           blocked = { input: target, message: data.message };
           target.setAttribute('aria-invalid', 'true');
-          setMsg(msgEl(target), data.message);
+          if (showWhenChecked) showOverlay();
         }
+        showWhenChecked = false;
       })
-      .catch(function () { /* fail-open */ });
+      .catch(function () { showWhenChecked = false; /* fail-open */ });
   }
 
   function schedule() {
@@ -90,10 +87,15 @@
   }
 
   inputs.forEach(function (i) {
+    /* Check quietly while typing; only interrupt once they leave the field */
     i.addEventListener('input', schedule);
-    i.addEventListener('change', check);
+    i.addEventListener('change', function () {
+      clearTimeout(timer);
+      showWhenChecked = true;
+      check();
+    });
   });
-  /* Fields can be prefilled (Lab blend author → From), so check once on load too */
+  /* Fields can be prefilled (Lab blend title/author), so check once on load too */
   check();
 
   /* Capture phase on document runs before Dawn's product-form submit handler */
@@ -103,7 +105,6 @@
     if (!inputs.some(function (i) { return i.form === form; })) return;
     e.preventDefault();
     e.stopImmediatePropagation();
-    setMsg(msgEl(blocked.input), blocked.message);
-    blocked.input.focus();
+    showOverlay();
   }, true);
 })();
