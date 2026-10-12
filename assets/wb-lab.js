@@ -554,7 +554,13 @@
           })
           .then(function (result) {
             if (!result.ok) {
-              throw new Error(result.data.error || 'Save failed');
+              var saveErr = new Error(result.data.error || 'Save failed');
+              /* Name refused by moderation: shown in the site overlay, not the error line */
+              if (result.data.moderation) {
+                saveErr.moderation = true;
+                saveErr.field = result.data.field;
+              }
+              throw saveErr;
             }
             var slug = result.data.slug;
             if (!slug) {
@@ -591,11 +597,38 @@
             saveBtn.disabled = false;
             saveBtn.textContent = 'Bottle your whisky';
             var msg = err.message || 'Something went wrong. Please try again.';
+            if (err.moderation) {
+              /* Not a fault, so not a blend_error: tracked separately */
+              wbTrack('blend_refused', { field: err.field || 'title' });
+              showRefusal(msg, err.field);
+              return;
+            }
             /* Makes a failed save visible in GA4 next to the successes, so a
                silent drop in blend_created has a matching signal to explain it. */
             wbTrack('blend_error', { message: String(msg).slice(0, 100) });
             showError(msg);
           });
+      });
+    }
+
+    /* Moderation refusal (slur, other whisky brand…) in the site overlay
+       (WBOverlay, assets/wb-overlay.js). OK clears the refused field. */
+    function showRefusal(msg, field) {
+      var input = field === 'author' ? authorInput : titleInput;
+      var text = String(msg).replace(/ Think we.*$/, '');
+      var reset = function () {
+        if (!input) return;
+        input.value = '';
+        input.dispatchEvent(new Event('input', { bubbles: true })); /* character counter */
+        input.focus();
+      };
+      if (!window.WBOverlay) { showError(msg); return; }
+      window.WBOverlay.open({
+        title: 'We can\u2019t use that name',
+        body: text,
+        button: 'OK',
+        footnote: { text: 'Think we\u2019ve got it wrong?', linkText: 'Email us', href: 'mailto:info@whiskyblender.com' },
+        onClose: reset
       });
     }
 
