@@ -4,7 +4,7 @@
 `whiskyblenderlive.myshopify.com`, published 2026-06-06. Anything pushed here is visible to
 customers immediately.
 
-Full technical detail is in `../whiskyblender-docs/REFERENCE.md`. This file is the rules.
+Full technical detail is in `~/Documents/Claude projects/whiskyblender/docs/content/REFERENCE.md` (the docs project; read its README first). This file is the rules.
 
 ---
 
@@ -104,7 +104,7 @@ looks missing.
 - Commit messages say *why*, not just what. Match the existing standard:
   `Fix bar chart clipping: add topPadding so count labels on tallest bars aren't cut off`.
 - Never commit secrets. No `shpat_` tokens, no `.env` contents, no passwords.
-- If a change alters how something works, update `../whiskyblender-docs/REFERENCE.md` in the
+- If a change alters how something works, update `~/Documents/Claude projects/whiskyblender/docs/content/REFERENCE.md` in the
   same commit.
 
 ## Before reporting done
