@@ -82,32 +82,6 @@
     }
 }
 
-/* ── Invalid code dialog ── */
-.wb-dialog {
-    border: none;
-    border-radius: 6px;
-    padding: 0;
-    max-width: 420px;
-    width: calc(100% - 40px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
-}
-
-.wb-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.wb-dialog-inner {
-    padding: 32px;
-}
-
-.wb-dialog-inner .wb-small-heading {
-    margin-top: 0;
-}
-
-.wb-dialog-inner p {
-    margin-bottom: 24px;
-}
-
 .wb-noblend-divider {
     display: flex;
     align-items: center;

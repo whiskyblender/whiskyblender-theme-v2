@@ -136,16 +136,26 @@
   </div>
 </div>
 
-<dialog id="wb-invalid-dialog" class="wb-dialog">
-  <div class="wb-dialog-inner">
-    <h3 class="wb-small-heading">That blend code doesn&rsquo;t look right</h3>
-    <p>The link might be incomplete or the code may have changed. You can enter a blend code below, or start fresh.</p>
-    <button class="wb-button wb-primary-button" id="wb-dialog-ok">Got it</button>
-  </div>
-</dialog>
-
 <script>
 (function () {
+  /* Invalid blend code notice, in the site overlay (WBOverlay, assets/wb-overlay.js).
+     This inline script runs while the page is still parsing, before the deferred
+     wb-overlay.js, so wait for DOMContentLoaded when it isn't there yet.
+     `after` runs however the overlay is closed (button, ×, Esc, backdrop). */
+  function showInvalidCode(after) {
+    var go = function () {
+      if (!window.WBOverlay) { if (after) after(); return; }
+      window.WBOverlay.open({
+        title: 'That blend code doesn\u2019t look right',
+        body: 'The link might be incomplete or the code may have changed. You can enter a blend code below, or start fresh.',
+        button: 'Got it',
+        onClose: after
+      });
+    };
+    if (window.WBOverlay || document.readyState !== 'loading') go();
+    else document.addEventListener('DOMContentLoaded', go);
+  }
+
   var PHRASES = [
     "Ya dancer!", "Yaldy!", "Ya wee blender ye!", "Gie's some!",
     "Gawjus!", "Belter!", "Tasty AF!", "Magic!", "Amazin'!",
@@ -276,16 +286,7 @@
 
       /* API is up but blend not found — show the invalid-code dialog */
       if (!blendData && activeOptions !== null) {
-        var dialog = document.getElementById('wb-invalid-dialog');
-        if (dialog && dialog.showModal) {
-          document.getElementById('wb-dialog-ok').addEventListener('click', function () {
-            dialog.close();
-            initNoblend();
-          });
-          dialog.showModal();
-        } else {
-          initNoblend();
-        }
+        showInvalidCode(initNoblend);
         return;
       }
 
@@ -338,11 +339,7 @@
 
   /* ── Invalid code in URL ─────────────────────────────────────── */
   if (blend && !looksValid) {
-    var dialog = document.getElementById('wb-invalid-dialog');
-    if (dialog && dialog.showModal) {
-      document.getElementById('wb-dialog-ok').addEventListener('click', function () { dialog.close(); });
-      dialog.showModal();
-    }
+    showInvalidCode();
     blend = '';
   }
 
