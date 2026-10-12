@@ -19,7 +19,7 @@
 (function () {
   if (window.WBOverlay) return;
 
-  var current = null;
+  var current = null; /* finish() of the overlay that's open, if any */
 
   function el(tag, cls, text) {
     var e = document.createElement(tag);
@@ -30,7 +30,7 @@
 
   function open(opts) {
     opts = opts || {};
-    if (current) current.close();
+    if (current) current();
 
     var dialog = el('dialog', 'wb-overlay');
     var inner = el('div', 'wb-overlay__inner');
@@ -66,22 +66,30 @@
     dialog.appendChild(inner);
     document.body.appendChild(dialog);
 
+    /* Every way of closing runs finish() directly, once. Don't rely on the
+       dialog's 'close' event alone: browsers defer it (e.g. while the tab is
+       hidden), which once left a closed overlay in the page with onClose unrun.
+       The event stays as a fallback for any other way the dialog gets closed. */
     var done = false;
-    dialog.addEventListener('close', function () {
+    function finish() {
       if (done) return;
       done = true;
+      if (dialog.open) dialog.close();
       dialog.remove();
-      if (current === dialog) current = null;
+      if (current === finish) current = null;
       if (typeof opts.onClose === 'function') opts.onClose();
-    });
-    close.addEventListener('click', function () { dialog.close(); });
-    button.addEventListener('click', function () { dialog.close(); });
+    }
+    dialog.addEventListener('close', finish);
+    /* Esc fires 'cancel' first; close it ourselves so finish() runs now */
+    dialog.addEventListener('cancel', function (e) { e.preventDefault(); finish(); });
+    close.addEventListener('click', finish);
+    button.addEventListener('click', finish);
     /* A click on the backdrop lands on the <dialog> itself, outside the card */
     dialog.addEventListener('click', function (e) {
-      if (e.target === dialog) dialog.close();
+      if (e.target === dialog) finish();
     });
 
-    current = dialog;
+    current = finish;
     if (dialog.showModal) {
       dialog.showModal();
     } else {
