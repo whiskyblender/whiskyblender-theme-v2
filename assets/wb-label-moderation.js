@@ -41,7 +41,7 @@
 
   /* Message + a way to appeal, as a clickable email link */
   function setMsg(el, message) {
-    el.textContent = message + ' Think we\'ve got it wrong? ';
+    el.textContent = String(message).replace(/ Think we.*$/, '') + ' Think we\'ve got it wrong? ';
     var a = document.createElement('a');
     a.href = 'mailto:info@whiskyblender.com';
     a.textContent = 'Email us';
