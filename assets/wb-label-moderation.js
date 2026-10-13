@@ -14,6 +14,9 @@
  */
 (function () {
   var API = 'https://lab.whiskyblender.com/api/moderate';
+  /* Monitoring: is the filter costing sales? Logs "shown" and "recovered" to the
+     Lab's ModerationEvent table (scripts/moderation-report.mjs). */
+  var EVENT_API = 'https://lab.whiskyblender.com/api/moderation-event';
   var NAMES = ['Label text', 'Created by', 'Prescribed for', 'To', 'From'];
 
   var inputs = [];
@@ -24,7 +27,28 @@
   });
   if (!inputs.length) return;
 
-  var blocked = null; /* { input, message } while refused, else null */
+  var blocked = null; /* { input, message, reason } while refused, else null */
+  /* Random id for this page load, ties an overlay to a later Add to cart */
+  var pageSession = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+  var refusedReason = null; /* set once the overlay has been shown on this page */
+
+  function logEvent(stage, extra) {
+    try {
+      var body = { stage: stage, pageSession: pageSession, path: location.pathname };
+      for (var k in extra) body[k] = extra[k];
+      fetch(EVENT_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) { /* monitoring must never break the page */ }
+  }
+
+  function fieldName(input) {
+    var m = /properties\[(.+)\]/.exec(input.name || '');
+    return m ? m[1] : input.name;
+  }
   var seq = 0;
   var timer = null;
   var showWhenChecked = false; /* set on blur: show the overlay once the check answers */
@@ -35,6 +59,8 @@
     if (!blocked) return;
     var input = blocked.input;
     var message = String(blocked.message).replace(/ Think we.*$/, '');
+    refusedReason = blocked.reason || 'offensive';
+    logEvent('shown', { reason: blocked.reason, field: fieldName(input), text: input.value });
     var reset = function () {
       input.value = '';
       /* label previews redraw on 'input' */
@@ -72,7 +98,7 @@
              to the field being edited, else the first */
           var target = inputs[data.index] ||
             (inputs.indexOf(document.activeElement) !== -1 ? document.activeElement : inputs[0]);
-          blocked = { input: target, message: data.message };
+          blocked = { input: target, message: data.message, reason: data.reason };
           target.setAttribute('aria-invalid', 'true');
           if (showWhenChecked) showOverlay();
         }
@@ -100,9 +126,24 @@
 
   /* Capture phase on document runs before Dawn's product-form submit handler */
   document.addEventListener('submit', function (e) {
-    if (!blocked) return;
     var form = e.target;
     if (!inputs.some(function (i) { return i.form === form; })) return;
+    if (!blocked) {
+      /* Not blocked now, but refused earlier on this page: they changed the
+         wording and carried on. Log it, and tag the order with a hidden
+         property so orders placed after a refusal can be counted in Shopify. */
+      if (refusedReason) {
+        logEvent('recovered', { reason: refusedReason });
+        if (!form.querySelector('input[name="properties[_moderation_refused]"]')) {
+          var tag = document.createElement('input');
+          tag.type = 'hidden';
+          tag.name = 'properties[_moderation_refused]';
+          tag.value = refusedReason;
+          form.appendChild(tag);
+        }
+      }
+      return;
+    }
     e.preventDefault();
     e.stopImmediatePropagation();
     showOverlay();
