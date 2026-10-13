@@ -12,7 +12,8 @@
         {%- for block in section.blocks -%}
           {%- assign blend_code = block.settings.blend_code | strip -%}
           {%- if blend_code != blank -%}
-            {%- assign href = options_base | append: '?blend=' | append: blend_code -%}
+            {%- comment -%} from=dram tells the bottle picker this is a ready-made dram, not a blend the customer saved {%- endcomment -%}
+            {%- assign href = options_base | append: '?blend=' | append: blend_code | append: '&from=dram' -%}
           {%- else -%}
             {%- assign href = options_base -%}
           {%- endif -%}
