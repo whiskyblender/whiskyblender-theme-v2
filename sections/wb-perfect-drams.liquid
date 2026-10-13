@@ -1,6 +1,7 @@
 {{ 'wb-perfectdrams.css' | asset_url | stylesheet_tag }}
 
-{%- assign options_base = section.settings.custom_options_url | default: '/pages/custom-options' | strip -%}
+{%- comment -%} Dram cards go straight to the 500ml flat bottle with the blend loaded (Andrew, 13 Oct 2026: one step to the cart for gift buyers). The label arrives prefilled with the dram's name. {%- endcomment -%}
+{%- assign options_base = section.settings.custom_options_url | default: '/products/custom-whisky-500ml-flat' | strip -%}
 
 <section class="wb-first-item">
   <div class="wb-container">
@@ -12,8 +13,7 @@
         {%- for block in section.blocks -%}
           {%- assign blend_code = block.settings.blend_code | strip -%}
           {%- if blend_code != blank -%}
-            {%- comment -%} from=dram tells the bottle picker this is a ready-made dram, not a blend the customer saved {%- endcomment -%}
-            {%- assign href = options_base | append: '?blend=' | append: blend_code | append: '&from=dram' -%}
+            {%- assign href = options_base | append: '?blend=' | append: blend_code -%}
           {%- else -%}
             {%- assign href = options_base -%}
           {%- endif -%}
@@ -61,8 +61,8 @@
     {
       "type": "url",
       "id": "custom_options_url",
-      "label": "Bottle options page URL",
-      "info": "The page where customers choose their bottle format. Each dram card links here with the blend code appended."
+      "label": "Dram card destination",
+      "info": "Where each dram card links, with ?blend=<code> appended. Leave blank for the 500ml flat bottle. Use /pages/custom-options to let customers choose a bottle instead."
     }
   ],
   "blocks": [
