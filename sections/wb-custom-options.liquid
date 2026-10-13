@@ -244,6 +244,14 @@
     if (grid) grid.style.visibility = '';
     bottom.style.display = 'block';
     document.getElementById('wb-blend-panel').style.display = 'block';
+    /* Ready-made Perfect Dram (wb-perfect-drams.liquid adds from=dram): the
+       customer didn't save anything, so "Your whisky is saved" would read oddly */
+    if (new URLSearchParams(window.location.search).get('from') === 'dram') {
+      var panelHeading = document.querySelector('#wb-blend-panel .wb-small-heading');
+      var panelText    = document.querySelector('#wb-blend-panel p');
+      if (panelHeading) panelHeading.textContent = 'Good choice';
+      if (panelText) panelText.textContent = 'Pick a bottle above and we\u2019ll fill it with this blend. Want to come back to it later? Keep the blend code below.';
+    }
     buildBlendCodeUi();
   }
 
