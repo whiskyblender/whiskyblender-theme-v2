@@ -150,7 +150,7 @@
           "type": "step",
           "settings": {
             "step_number": "3",
-            "heading": "Personalise your label",
+            "heading": "Fill out your label",
             "body": "<p>Watch it update as you type. Then we blend and bottle it by hand.</p>",
             "image": "shopify://shop_images/hiw_three.gif",
             "background": "blue"
