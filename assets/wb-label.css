@@ -240,8 +240,8 @@ body {
   pointer-events: none;
 }
 .wb-stock:empty { display: none; }
-.size20 .wb-stock { left: 46px; top: 198px; font-size: 7px; }  /* crops 73–323 */
-.size50 .wb-stock { left: 100px; top: 279px; font-size: 8px; } /* crops 128–430 */
+.size20 .wb-stock { left: 32px; top: 198px; font-size: 7px; }  /* crops 73–323; ~31px clear of the crop line (Andrew, 14 Oct) */
+.size50 .wb-stock { left: 82px; top: 279px; font-size: 8px; }  /* crops 128–430; ~34px clear of the crop line */
 body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89–430 */
 
 /* ── Finished-label view (screen only) ─────────────────────────────────────────
