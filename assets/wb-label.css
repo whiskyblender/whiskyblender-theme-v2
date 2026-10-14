@@ -257,6 +257,11 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
     background-repeat: no-repeat !important;
   }
   body.wb-finished #label { mix-blend-mode: multiply; }
+  /* Trim to the crop lines (measured from the crop images): bleed hidden, edges
+     match the stock. Insets: top right bottom left. Toggle on only. */
+  body.wb-finished #page.size50 { clip-path: inset(128px 123px 130px 121px); }  /* x 121–671, y 128–430 */
+  body.wb-finished.wb-tpl-new #page.size50 { clip-path: inset(89px 122px 130px 121px); } /* taller: y 89–430 */
+  body.wb-finished #page.size20 { clip-path: inset(73px 70px 75px 68px); }     /* x 68–492, y 73–323 */
   body.wb-finished .crops,
   body.wb-finished #wb-stock,
   body.wb-finished #wb-summary,
