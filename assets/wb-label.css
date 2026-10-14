@@ -222,6 +222,28 @@ body {
 .size50 .crops { width: 794px; height: 560px; background: url(crops50.png) center center no-repeat; }
 .size20 .crops { width: 562px; height: 398px; background: url(crops20.png) center center no-repeat; }
 
+/* ── Stock tag: which pre-printed label to load (staff only) ───────────────────
+   Sideways, reading bottom to top like the reference, but OUTSIDE the left crop
+   line so it's trimmed off and never reaches the bottle. Centred on the label's
+   height. Positions measured from the crop images (13 Oct 2026): left crop line
+   x=68 (200ml) / x=121 (500ml); corner ticks only at the label's top and bottom
+   rows, so the middle of the strip is clear. */
+.wb-stock {
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  white-space: nowrap;
+  font-family: 'Roboto Mono', monospace;
+  color: #000;
+  opacity: 0.6;
+  text-shadow: 1px 1px 0 #fff;
+  pointer-events: none;
+}
+.wb-stock:empty { display: none; }
+.size20 .wb-stock { left: 46px; top: 198px; font-size: 7px; }  /* crops 73–323 */
+.size50 .wb-stock { left: 100px; top: 279px; font-size: 8px; } /* crops 128–430 */
+body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89–430 */
+
 /* ── Label area ────────────────────────────────────────────────────────────── */
 
 #label {
@@ -545,7 +567,8 @@ body.wb-preview-mode {
 body.wb-preview-mode #wb-toolbar,
 body.wb-preview-mode #wb-form-panel,
 body.wb-preview-mode #wb-summary,
-body.wb-preview-mode #wb-recipe-panel { display: none !important; }
+body.wb-preview-mode #wb-recipe-panel,
+body.wb-preview-mode #wb-stock { display: none !important; }
 
 body.wb-preview-mode #wb-page-wrapper {
   background: transparent;
