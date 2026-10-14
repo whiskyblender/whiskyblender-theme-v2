@@ -743,10 +743,29 @@
 
   /* ── Full render ───────────────────────────────────────────────────────────── */
 
+  /* ── Stock tag: which pre-printed label each product is overprinted on ─────
+     Printed outside the left crop line so the lab loads the right stock
+     (Andrew, 13 Oct 2026). Miniatures print on contact sheets: no tag. */
+  var STOCK = {
+    customblend:        'Custom Blended Malt Scotch Whisky (roundel)',
+    singlemalt:         'Single Malt Scotch Whisky (roundel)',
+    singlecask:         'Single Malt Scotch Whisky (roundel)',
+    doctorsspecial:     'Blended Malt Scotch Whisky (blank)',
+    nipbeforechristmas: 'Blended Malt Scotch Whisky (blank)'
+  };
+
+  function renderStock() {
+    var el = document.getElementById('wb-stock');
+    if (!el) return;
+    var stock = STOCK[state.product];
+    el.textContent = stock ? 'Stock: ' + stock : '';
+  }
+
   function render() {
     renderSummary();
     renderLabel();
     renderRecipePanel();
+    renderStock();
   }
 
   /* ── Form ──────────────────────────────────────────────────────────────────── */
@@ -1022,7 +1041,9 @@
 
     if (!isPreview) {
       initForm();
-      if ((state.product === 'customblend' || state.product === 'nipbeforechristmas') && state.blend) {
+      /* miniatures too: its contact sheet shows the recipe along the bottom (it was
+         only ever fetched via product=customblend&size=50ml, so ?product=miniatures had none) */
+      if ((state.product === 'customblend' || state.product === 'nipbeforechristmas' || state.product === 'miniatures') && state.blend) {
         loadBlend(state.blend);
       }
     }
