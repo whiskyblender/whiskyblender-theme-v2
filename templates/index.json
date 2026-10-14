@@ -94,55 +94,6 @@
       "name": "Reviews",
       "settings": {}
     },
-    "wb_how_it_works_home": {
-      "type": "wb-how-it-works-home",
-      "blocks": {
-        "step_1": {
-          "type": "step",
-          "settings": {
-            "step_number": "1",
-            "heading": "Select your whiskies",
-            "body": "<p>Mix your favourites from five hand-picked single malts until you hit 100%.</p>",
-            "image": "shopify://shop_images/hiw_one.gif",
-            "background": "green"
-          }
-        },
-        "step_2": {
-          "type": "step",
-          "settings": {
-            "step_number": "2",
-            "heading": "Name and bottle it",
-            "body": "<p>Name it, sign it as the creator, and pick your bottle.</p>",
-            "image": "shopify://shop_images/hiw_two.gif",
-            "background": "brown"
-          }
-        },
-        "step_3": {
-          "type": "step",
-          "settings": {
-            "step_number": "3",
-            "heading": "Design your label",
-            "body": "<p>Watch it update as you type. Then we blend and bottle it by hand.</p>",
-            "image": "shopify://shop_images/hiw_three.gif",
-            "background": "blue"
-          }
-        }
-      },
-      "block_order": [
-        "step_1",
-        "step_2",
-        "step_3"
-      ],
-      "settings": {
-        "heading": "How it works",
-        "description": "Three steps to a Scotch that exists nowhere else.",
-        "cta_heading": "Ready to create your whisky?",
-        "cta_body": "No expertise needed. Trust your instincts.",
-        "cta_background": "yellow",
-        "button_label": "Enter the lab",
-        "button_url": "shopify://pages/the-lab"
-      }
-    },
     "featured_collection_93jqNG": {
       "type": "featured-collection",
       "name": "t:sections.featured-collection.presets.name",
@@ -172,6 +123,55 @@
         "padding_bottom": 0
       }
     },
+    "wb_how_it_works_home": {
+      "type": "wb-how-it-works-home",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "step_number": "1",
+            "heading": "Select your whiskies",
+            "body": "<p>Mix your favourites from five hand-picked single malts until you hit 100%.</p>",
+            "image": "shopify://shop_images/hiw_one.gif",
+            "background": "green"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "step_number": "2",
+            "heading": "Name and bottle it",
+            "body": "<p>Name it, sign it as the creator, and pick your bottle.</p>",
+            "image": "shopify://shop_images/hiw_two.gif",
+            "background": "brown"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "step_number": "3",
+            "heading": "Fill out your label",
+            "body": "<p>Watch it update as you type. Then we blend and bottle it by hand.</p>",
+            "image": "shopify://shop_images/hiw_three.gif",
+            "background": "blue"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "heading": "How it works",
+        "description": "Three steps to a Scotch that exists nowhere else.",
+        "cta_heading": "Ready to create your whisky?",
+        "cta_body": "No expertise needed. Trust your instincts.",
+        "cta_background": "yellow",
+        "button_label": "Enter the lab",
+        "button_url": "shopify://pages/the-lab"
+      }
+    },
     "wb_cta_something_unique": {
       "type": "wb-cta",
       "name": "CTA - Something unique",
@@ -184,21 +184,6 @@
         "primary_button_url": "shopify://pages/perfect-drams",
         "secondary_button_text": "",
         "secondary_button_url": "shopify://pages/perfect-drams",
-        "background": "auto"
-      }
-    },
-    "wb_cta_letscollab": {
-      "type": "wb-cta",
-      "name": "CTA - Let's collaborate",
-      "settings": {
-        "heading": "Let's collaborate",
-        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
-        "image": "shopify://shop_images/wb-yerownbrand.png",
-        "image_class": "wb-yourownbrand",
-        "primary_button_text": "Get in touch",
-        "primary_button_url": "shopify://pages/contact",
-        "secondary_button_text": "See collaborations",
-        "secondary_button_url": "shopify://collections/collaborations",
         "background": "auto"
       }
     },
@@ -251,6 +236,21 @@
       "settings": {
         "heading": "For special occasions",
         "description": "A bottle of Scotch that's genuinely theirs — for the moments worth marking."
+      }
+    },
+    "wb_cta_letscollab": {
+      "type": "wb-cta",
+      "name": "CTA - Let's collaborate",
+      "settings": {
+        "heading": "Let's collaborate",
+        "description": "Got a brand or an event and fancy your own bottle of whisky? We'd love to work with you.",
+        "image": "shopify://shop_images/wb-yerownbrand.png",
+        "image_class": "wb-yourownbrand",
+        "primary_button_text": "Get in touch",
+        "primary_button_url": "shopify://pages/contact",
+        "secondary_button_text": "See collaborations",
+        "secondary_button_url": "shopify://collections/collaborations",
+        "background": "auto"
       }
     },
     "wb_cta_foryersel": {
