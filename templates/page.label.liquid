@@ -20,6 +20,7 @@
 <body>
 <div id="wb-label-root"
   data-api-base="https://lab.whiskyblender.com"
+  data-asset-base="{{ 'singlemaltlabelmock.webp' | asset_url | split: 'singlemaltlabelmock.webp' | first }}"
   data-cdn="{{ 'wb-label.css' | asset_url | split: 'wb-label.css' | first }}"
   data-av="11"
   data-doctors-art="{{ 'wb-doctorsspecial-print.jpg' | asset_url }}"
@@ -34,6 +35,7 @@
     <button class="wb-btn wb-btn--back" onclick="history.back()">← Back</button>
     <button class="wb-btn wb-btn--edit" id="wb-btn-edit">Edit</button>
     <button class="wb-btn wb-btn--copy" id="wb-btn-copy">Copy URL</button>
+    <button class="wb-btn wb-btn--finished" id="wb-btn-finished" type="button" aria-pressed="false" hidden>Show finished label</button>
     <button class="wb-btn wb-btn--print" onclick="window.print()">Print</button>
   </div>
 

@@ -761,11 +761,50 @@
     el.textContent = stock ? 'Stock: ' + stock : '';
   }
 
+  /* ── Finished-label view: overprint on a photo of its blank stock ───────────
+     The same stock photos as the product-page previews (wb-single-malt.js).
+     Only stocks we have a photo for; others hide the toggle. (Andrew, 14 Oct 2026.
+     Missing: single malt blank, 200ml single malt, and single malt on the taller
+     New template.) */
+  var showFinished = false;
+
+  function mockFor() {
+    var p = state.product;
+    if (p === 'customblend') {
+      if (state.size === '200ml') return 'customblendlabelmock200.webp';
+      if (state.size === '500ml') return state.template === 'new' ? 'customblendlabelmock500.webp' : 'customblendlabelmock.webp';
+      return null;
+    }
+    if ((p === 'singlemalt' || p === 'singlecask') && state.size === '500ml' && state.template !== 'new') return 'singlemaltlabelmock.webp';
+    if (p === 'doctorsspecial') return 'blendlabelmock.webp';
+    if (p === 'nipbeforechristmas') return 'blendlabelmock200.webp';
+    return null;
+  }
+
+  function renderFinished() {
+    var btn  = document.getElementById('wb-btn-finished');
+    var page = document.getElementById('page');
+    var root = document.getElementById('wb-label-root');
+    var mock = mockFor();
+    if (!mock) showFinished = false;
+    if (btn) {
+      btn.hidden = !mock;
+      btn.setAttribute('aria-pressed', showFinished ? 'true' : 'false');
+      btn.textContent = showFinished ? 'Show overprint only' : 'Show finished label';
+    }
+    document.body.classList.toggle('wb-finished', showFinished);
+    if (page) {
+      var base = (root && root.getAttribute('data-asset-base')) || '';
+      page.style.setProperty('--wb-mock', mock ? 'url("' + base + mock + '")' : 'none');
+    }
+  }
+
   function render() {
     renderSummary();
     renderLabel();
     renderRecipePanel();
     renderStock();
+    renderFinished();
   }
 
   /* ── Form ──────────────────────────────────────────────────────────────────── */
@@ -951,6 +990,15 @@
         if (state.blend) {
           loadBlend(state.blend);
         }
+      });
+    }
+
+    /* Finished-label toggle (screen only; Print still outputs the overprint) */
+    var finishedBtn = document.getElementById('wb-btn-finished');
+    if (finishedBtn) {
+      finishedBtn.addEventListener('click', function () {
+        showFinished = !showFinished;
+        renderFinished();
       });
     }
 

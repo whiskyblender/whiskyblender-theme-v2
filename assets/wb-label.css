@@ -244,6 +244,26 @@ body {
 .size50 .wb-stock { left: 100px; top: 279px; font-size: 8px; } /* crops 128–430 */
 body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89–430 */
 
+/* ── Finished-label view (screen only) ─────────────────────────────────────────
+   Toolbar toggle: shows the overprint on a photo of its blank stock, like the
+   product-page previews. The stock photos are drawn on the same canvas as the
+   crops (794×560 / 562×398), so they simply fill #page. Print is unaffected:
+   these rules are screen-only, so Print still outputs the overprint alone. */
+@media screen {
+  body.wb-finished #page {
+    background-image: var(--wb-mock) !important;
+    background-size: 100% 100% !important;
+    background-position: 0 0 !important;
+    background-repeat: no-repeat !important;
+  }
+  body.wb-finished #label { mix-blend-mode: multiply; }
+  body.wb-finished .crops,
+  body.wb-finished #wb-stock,
+  body.wb-finished #wb-summary,
+  body.wb-finished #wb-recipe-panel { visibility: hidden; }
+  .wb-btn--finished[aria-pressed="true"] { background: #fff; color: #111; }
+}
+
 /* ── Label area ────────────────────────────────────────────────────────────── */
 
 #label {
