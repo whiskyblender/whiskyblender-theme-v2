@@ -606,6 +606,7 @@
 
     renderMiniPageSummary(page);
     renderMiniPageRecipe(page);
+    if (typeof fitToScreen === 'function') fitToScreen();
 
     document.fonts.ready.then(function () {
       requestAnimationFrame(function () {
@@ -799,12 +800,32 @@
     }
   }
 
+  /* ── Phones: scale the print page to fit the screen (screen-only CSS zoom) ──
+     The page keeps its real pixel size, so Print is unaffected. */
+  function fitToScreen() {
+    if (document.body.classList.contains('wb-preview-mode')) return;
+    var wrap = document.getElementById('wb-page-wrapper');
+    if (!wrap) return;
+    var sheet = document.getElementById('wb-contact-sheet');
+    var useSheet = sheet && getComputedStyle(sheet).display !== 'none';
+    var el = useSheet ? document.getElementById('wb-contact-page') : document.getElementById('page');
+    if (!el) return;
+    var cs = getComputedStyle(el);
+    var w = parseFloat(cs.width) + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight)
+      + Math.min(0, parseFloat(cs.marginLeft)) + Math.min(0, parseFloat(cs.marginRight));
+    var avail = wrap.clientWidth - (useSheet ? 16 : 0);
+    var fit = w > 0 ? Math.min(1, avail / w) : 1;
+    document.documentElement.style.setProperty('--wb-fit', fit.toFixed(4));
+  }
+  window.addEventListener('resize', fitToScreen);
+
   function render() {
     renderSummary();
     renderLabel();
     renderRecipePanel();
     renderStock();
     renderFinished();
+    fitToScreen();
   }
 
   /* ── Form ──────────────────────────────────────────────────────────────────── */
@@ -999,6 +1020,7 @@
       finishedBtn.addEventListener('click', function () {
         showFinished = !showFinished;
         renderFinished();
+        fitToScreen();
       });
     }
 

@@ -673,6 +673,29 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
 
 /* ── Print ─────────────────────────────────────────────────────────────────── */
 
+/* ── Phones: fit the print page to the screen (screen only) ───────────────────
+   The page keeps its real pixel size (the printer setup); CSS zoom just scales it
+   on screen. fitToScreen() in wb-label.js sets --wb-fit. flex-shrink: 0 stops the
+   flex wrapper squashing the page (the old cropped-on-mobile look). Not in the
+   product-page preview, which sizes itself. */
+@media screen {
+  body:not(.wb-preview-mode) #page { flex-shrink: 0; zoom: var(--wb-fit, 1); }
+  /* The page always fits now; the finished view's trimmed margins mustn't cause a sideways scroll */
+  body:not(.wb-preview-mode) #wb-page-wrapper { overflow-x: hidden; }
+  body:not(.wb-preview-mode) .wb-contact-page { zoom: var(--wb-fit, 1); }
+  /* Finished view: drop the side margins from the layout so the trimmed label fills the width */
+  body.wb-finished #page.size50 { margin-left: -121px; margin-right: -123px; }
+  body.wb-finished #page.size20 { margin-left: -68px; margin-right: -70px; }
+}
+@media screen and (max-width: 600px) {
+  body:not(.wb-preview-mode) #wb-toolbar { flex-wrap: wrap; gap: 6px; padding: 8px 10px; }
+  body:not(.wb-preview-mode) .wb-btn { padding: 6px 10px; font-size: 11px; }
+  body:not(.wb-preview-mode) #wb-page-wrapper { padding-top: 104px; }
+  body:not(.wb-preview-mode) #page.size50,
+  body:not(.wb-preview-mode) #page.size20 { margin-top: 0; }
+  body:not(.wb-preview-mode) #wb-contact-sheet { padding: 8px; }
+}
+
 @media print {
   @page { margin: 0; }
 
