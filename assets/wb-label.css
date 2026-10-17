@@ -720,6 +720,10 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
    Position, box, vertical centring and resize are the same as every other style.
    Mirrored in wb-preview.css — keep the two in lockstep.
    !important beats the inline colour/shadow the script sets. */
+/* Name box 100px wide (others 92px) — Halloween only (Andrew, 17 Oct). The box
+   scales 2.2x from its centre, so +8px width would also push its left edge 4.8px
+   left ((2.2 - 1) x 8 / 2); left 195 -> 199.8 keeps it in line with "Created by". */
+body.wb-tpl-new #page.size50.wb-halloween #outer { width: 100px; left: 199.8px; }
 #page.wb-halloween #blendName {
   font-family: 'Creepster', 'trimPosterCompressed', sans-serif;
   /* 0.80, the same as resizeText: just clears Creepster's drips (0.72 ran them
