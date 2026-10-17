@@ -363,17 +363,13 @@
    Position, box, vertical centring and resize are the same as every other style.
    Mirrored in wb-label.css — keep the two in lockstep.
    !important beats the inline colour/shadow the script sets. */
-/* Name box 100px wide (others 92px) — Halloween only (Andrew, 17 Oct). The box
-   scales 2.2x from its centre, so +8px width would also push its left edge 4.8px
-   left ((2.2 - 1) x 8 / 2); left 195 -> 199.8 keeps it in line with "Created by". */
-.wbp-page.size50.wbp-tpl-new.wb-halloween .wbp-outer { width: 100px; left: 199.8px; }
 .wbp-page.wb-halloween .wbp-blend-name {
   font-family: 'Creepster', 'trimPosterCompressed', sans-serif;
   /* 0.80, the same as resizeText: just clears Creepster's drips (0.72 ran them
      into the next line). Kept as an explicit !important so a font change here
      only needs this value re-tuned. resizeText measures with it, so names fit. */
   line-height: 0.80 !important;
-  letter-spacing: -0.02em;   /* a touch tighter (Andrew, 17 Oct); -0.03em made the white edges touch */
+  letter-spacing: -0.04em;   /* tighter (Andrew, 17 Oct): names grow a little; -0.06em made the drips and edges touch */
   color: #2a0c01 !important;
   text-shadow: none !important;
   filter: url(#wb-carve);
