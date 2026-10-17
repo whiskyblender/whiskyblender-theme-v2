@@ -712,3 +712,25 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
 
   #wb-contact-sheet { padding: 0; }
 }
+
+/* ── "Pumpkin" label style (custom blend, New 500ml) ───────────────────────────
+   Background wb-pumpkin-light.jpg (Andrew's halftone pumpkin, with the roundel
+   and patch left white). The name is carved in by an SVG filter,
+   snippets/wb-pumpkin-carve.liquid (#wb-carve) — see there for the layers.
+   Position, box, vertical centring and resize are the same as every other style.
+   Mirrored in wb-preview.css — keep the two in lockstep.
+   !important beats the inline colour/shadow the script sets. */
+#page.wb-pumpkin #blendName {
+  font-family: 'Jolly Lodger', 'trimPosterCompressed', sans-serif;
+  /* A touch more than resizeText's 0.80 so the lines' edges don't touch.
+     Beats the inline value; resizeText measures with it, so the name still fits. */
+  line-height: 0.88 !important;
+  color: #2a0c01 !important;
+  text-shadow: none !important;
+  filter: url(#wb-carve);
+}
+#page.wb-pumpkin #sideName {
+  text-transform: uppercase;
+  color: #160500 !important;
+  text-shadow: 0.5px 0.5px 0 rgba(255, 214, 120, 0.8) !important;
+}

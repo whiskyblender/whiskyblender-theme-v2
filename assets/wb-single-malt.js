@@ -377,6 +377,8 @@
       var blendNameEl = previewContainer.querySelector('.wbp-blend-name');
       if (blendNameEl) {
         blendNameEl.innerHTML = prevEsc(prevWordWrap(text));
+        /* "Pumpkin" label style: carved lettering, as the generator (wb-preview.css .wb-pumpkin) */
+        if (pageEl) pageEl.classList.toggle('wb-pumpkin', isBlend && isNew500 && prevSlugify(getCurrentVariantTitle()) === 'pumpkin');
         blendNameEl.style.color      = isBlend ? '#111111' : '#ffffff';
         blendNameEl.style.textShadow = isBlend ? '1px 1px #ffffff' : '1px 1px #000000';
         document.fonts.ready.then(function () { prevResizeText(blendNameEl); });
