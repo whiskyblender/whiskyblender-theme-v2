@@ -369,7 +369,7 @@
      into the next line). Kept as an explicit !important so a font change here
      only needs this value re-tuned. resizeText measures with it, so names fit. */
   line-height: 0.80 !important;
-  letter-spacing: -0.02em;   /* a touch tighter (Andrew, 17 Oct); -0.03em made the white edges touch */
+  letter-spacing: -0.04em;   /* tighter (Andrew, 17 Oct): names grow a little; -0.06em made the drips and edges touch */
   color: #2a0c01 !important;
   text-shadow: none !important;
   filter: url(#wb-carve);
