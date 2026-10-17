@@ -465,6 +465,8 @@
     var sizeClass = state.size === '500ml' ? 'size50' : 'size20';
     var productClass = (state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial' || state.product === 'nipbeforechristmas') ? state.product : '';
     page.className = (sizeClass + ' ' + productClass).trim();
+    /* "Pumpkin" label style: carved lettering (wb-label.css .wb-pumpkin + snippets/wb-pumpkin-carve) */
+    if (state.product === 'customblend' && slugify(state.variant) === 'pumpkin') page.classList.add('wb-pumpkin');
 
     /* Artwork — singlecask shares singlemalt image files */
     var artworkEl = document.getElementById('artwork');

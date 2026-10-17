@@ -22,6 +22,14 @@
 ></div>
 
 {{ 'wb-preview.css' | asset_url | stylesheet_tag }}
+{%- comment -%} "Pumpkin" label style: font + carve filter, only where a Pumpkin variant exists {%- endcomment -%}
+{%- for v in product.variants -%}
+  {%- if v.title contains 'Pumpkin' -%}
+    <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet">
+    {% render 'wb-pumpkin-carve' %}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor %}
 <script src="{{ 'wb-single-malt.js' | asset_url }}" defer></script>
 
 {% schema %}
