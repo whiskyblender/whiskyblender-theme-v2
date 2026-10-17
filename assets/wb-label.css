@@ -731,8 +731,3 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
   text-shadow: none !important;
   filter: url(#wb-carve);
 }
-#page.wb-halloween #sideName {
-  text-transform: uppercase;
-  color: #160500 !important;
-  text-shadow: 1px 1px #ffffff !important;   /* the same white shadow as every other style */
-}
