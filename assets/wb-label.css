@@ -713,25 +713,25 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
   #wb-contact-sheet { padding: 0; }
 }
 
-/* ── "Pumpkin" label style (custom blend, New 500ml) ───────────────────────────
-   Background wb-pumpkin-light.jpg (Andrew's halftone pumpkin; the roundel is
-   left white with a splattered edge, and — on purpose — no "Create your own" patch). The name is carved in by an SVG filter,
-   snippets/wb-pumpkin-carve.liquid (#wb-carve) — see there for the layers.
+/* ── "Halloween" label style (custom blend, New 500ml) ─────────────────────────
+   Background wb-halloween-light.jpg (Andrew's moonlit hills; the moon sits behind
+   the roundel; no "Create your own" patch, on purpose). Launched 17 Oct as "Pumpkin". The name is carved in by an SVG filter,
+   snippets/wb-halloween-carve.liquid (#wb-carve) — see there for the layers.
    Position, box, vertical centring and resize are the same as every other style.
    Mirrored in wb-preview.css — keep the two in lockstep.
    !important beats the inline colour/shadow the script sets. */
-#page.wb-pumpkin #blendName {
-  font-family: 'Road Rage', 'trimPosterCompressed', sans-serif;
-  /* Road Rage's caps are short for its em, so tighter than resizeText's 0.80
-     (Andrew, 17 Oct); 0.66 made the white edges touch. Beats the inline value;
-     resizeText measures with it, so the name still fits. */
-  line-height: 0.72 !important;
+#page.wb-halloween #blendName {
+  font-family: 'Creepster', 'trimPosterCompressed', sans-serif;
+  /* 0.80, the same as resizeText: just clears Creepster's drips (0.72 ran them
+     into the next line). Kept as an explicit !important so a font change here
+     only needs this value re-tuned. resizeText measures with it, so names fit. */
+  line-height: 0.80 !important;
   letter-spacing: -0.02em;   /* a touch tighter (Andrew, 17 Oct); -0.03em made the white edges touch */
   color: #2a0c01 !important;
   text-shadow: none !important;
   filter: url(#wb-carve);
 }
-#page.wb-pumpkin #sideName {
+#page.wb-halloween #sideName {
   text-transform: uppercase;
   color: #160500 !important;
   text-shadow: 1px 1px #ffffff !important;   /* the same white shadow as every other style */

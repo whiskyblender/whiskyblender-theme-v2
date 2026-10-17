@@ -1,0 +1,25 @@
+{%- comment -%}
+  "Halloween" label style (custom blend, New 500ml): the SVG filter that makes the
+  blend name look carved in. Used by #page.wb-halloween #blendName
+  (wb-label.css) and .wbp-page.wb-halloween .wbp-blend-name (wb-preview.css).
+  Rendered on the label generator (templates/page.label.liquid) and on product
+  pages with a Halloween (or launch-name "Pumpkin") variant (sections/wb-single-malt.liquid). Layers:
+    hollow = dark fill; shade = soft shadow on the top-left inner wall;
+    wall   = warm lit far wall, bottom-right inside the letter;
+    glint  = thin sharp white line on that wall; lip = crisp white skin edge outside.
+  Offsets are in the text's own px (before the box's scale).
+{%- endcomment -%}
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><filter id="wb-carve" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+  <feFlood flood-color="#2a0c01" result="c"/><feComposite in="c" in2="SourceAlpha" operator="in" result="hollow"/>
+  <feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="b"/>
+  <feOffset in="b" dx="1.1" dy="1.1" result="bd"/><feComposite in="SourceAlpha" in2="bd" operator="out" result="tl"/>
+  <feFlood flood-color="#000" flood-opacity="0.9"/><feComposite in2="tl" operator="in" result="shade"/>
+  <feOffset in="b" dx="-1.1" dy="-1.1" result="bu"/><feComposite in="SourceAlpha" in2="bu" operator="out" result="br"/>
+  <feFlood flood-color="#e8782a"/><feComposite in2="br" operator="in" result="wall"/>
+  <feOffset in="SourceAlpha" dx="0.6" dy="0.6" result="so"/><feComposite in="so" in2="SourceAlpha" operator="out" result="lipA"/>
+  <feComponentTransfer in="lipA" result="lipB"><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer>
+  <feFlood flood-color="#ffffff" flood-opacity="1"/><feComposite in2="lipB" operator="in" result="lip"/>
+  <feOffset in="SourceAlpha" dx="-0.45" dy="-0.45" result="gi"/><feComposite in="SourceAlpha" in2="gi" operator="out" result="gA"/>
+  <feFlood flood-color="#ffffff" flood-opacity="0.9"/><feComposite in2="gA" operator="in" result="glint"/>
+  <feMerge><feMergeNode in="lip"/><feMergeNode in="hollow"/><feMergeNode in="shade"/><feMergeNode in="wall"/><feMergeNode in="glint"/></feMerge>
+</filter></svg>

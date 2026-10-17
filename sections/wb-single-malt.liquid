@@ -22,11 +22,11 @@
 ></div>
 
 {{ 'wb-preview.css' | asset_url | stylesheet_tag }}
-{%- comment -%} "Pumpkin" label style: font + carve filter, only where a Pumpkin variant exists {%- endcomment -%}
+{%- comment -%} "Halloween" label style: font + carve filter, only where a Halloween variant exists ("Pumpkin" was its launch name) {%- endcomment -%}
 {%- for v in product.variants -%}
-  {%- if v.title contains 'Pumpkin' -%}
-    <link href="https://fonts.googleapis.com/css2?family=Road+Rage&display=swap" rel="stylesheet">
-    {% render 'wb-pumpkin-carve' %}
+  {%- if v.title contains 'Halloween' or v.title contains 'Pumpkin' -%}
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+    {% render 'wb-halloween-carve' %}
     {%- break -%}
   {%- endif -%}
 {%- endfor %}

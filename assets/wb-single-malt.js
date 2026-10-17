@@ -320,6 +320,7 @@
       var artworkEl = previewContainer.querySelector('.wbp-image');
       if (artworkEl) {
         var variantSlug = prevSlugify(getCurrentVariantTitle());
+        if (variantSlug === 'pumpkin') variantSlug = 'halloween';   // launched as "Pumpkin" (17 Oct 2026)
         var artworkUrl, artTop, artLeft, artW, artH;
         if (isDoctors) {
           /* Doctors' Special: one artwork for every variant, in the blended-malt
@@ -377,8 +378,10 @@
       var blendNameEl = previewContainer.querySelector('.wbp-blend-name');
       if (blendNameEl) {
         blendNameEl.innerHTML = prevEsc(prevWordWrap(text));
-        /* "Pumpkin" label style: carved lettering, as the generator (wb-preview.css .wb-pumpkin) */
-        if (pageEl) pageEl.classList.toggle('wb-pumpkin', isBlend && isNew500 && prevSlugify(getCurrentVariantTitle()) === 'pumpkin');
+        /* "Halloween" label style: carved lettering, as the generator (wb-preview.css .wb-halloween).
+           "pumpkin" too: the variant launched under that name (17 Oct 2026). */
+        var styleSlug = prevSlugify(getCurrentVariantTitle());
+        if (pageEl) pageEl.classList.toggle('wb-halloween', isBlend && isNew500 && (styleSlug === 'halloween' || styleSlug === 'pumpkin'));
         blendNameEl.style.color      = isBlend ? '#111111' : '#ffffff';
         blendNameEl.style.textShadow = isBlend ? '1px 1px #ffffff' : '1px 1px #000000';
         document.fonts.ready.then(function () { prevResizeText(blendNameEl); });
