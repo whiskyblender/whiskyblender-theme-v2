@@ -721,10 +721,12 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
    Mirrored in wb-preview.css — keep the two in lockstep.
    !important beats the inline colour/shadow the script sets. */
 #page.wb-pumpkin #blendName {
-  font-family: 'Jolly Lodger', 'trimPosterCompressed', sans-serif;
-  /* A touch more than resizeText's 0.80 so the lines' edges don't touch.
-     Beats the inline value; resizeText measures with it, so the name still fits. */
-  line-height: 0.88 !important;
+  font-family: 'Road Rage', 'trimPosterCompressed', sans-serif;
+  /* Road Rage's caps are short for its em, so tighter than resizeText's 0.80
+     (Andrew, 17 Oct); 0.66 made the white edges touch. Beats the inline value;
+     resizeText measures with it, so the name still fits. */
+  line-height: 0.72 !important;
+  letter-spacing: -0.02em;   /* a touch tighter (Andrew, 17 Oct); -0.03em made the white edges touch */
   color: #2a0c01 !important;
   text-shadow: none !important;
   filter: url(#wb-carve);
