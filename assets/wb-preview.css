@@ -356,14 +356,14 @@
   top: 194px;
 }
 
-/* ── "Pumpkin" label style (custom blend, New 500ml) ───────────────────────────
-   Background wb-pumpkin-light.jpg (Andrew's halftone pumpkin; the roundel is
-   left white with a splattered edge, and — on purpose — no "Create your own" patch). The name is carved in by an SVG filter,
-   snippets/wb-pumpkin-carve.liquid (#wb-carve) — see there for the layers.
+/* ── "Halloween" label style (custom blend, New 500ml) ─────────────────────────
+   Background wb-halloween-light.jpg (Andrew's moonlit hills; the moon sits behind
+   the roundel; no "Create your own" patch, on purpose). Launched 17 Oct as "Pumpkin". The name is carved in by an SVG filter,
+   snippets/wb-halloween-carve.liquid (#wb-carve) — see there for the layers.
    Position, box, vertical centring and resize are the same as every other style.
    Mirrored in wb-label.css — keep the two in lockstep.
    !important beats the inline colour/shadow the script sets. */
-.wbp-page.wb-pumpkin .wbp-blend-name {
+.wbp-page.wb-halloween .wbp-blend-name {
   font-family: 'Creepster', 'trimPosterCompressed', sans-serif;
   /* 0.80, the same as resizeText: just clears Creepster's drips (0.72 ran them
      into the next line). Kept as an explicit !important so a font change here
@@ -374,7 +374,7 @@
   text-shadow: none !important;
   filter: url(#wb-carve);
 }
-.wbp-page.wb-pumpkin .wbp-side-name {
+.wbp-page.wb-halloween .wbp-side-name {
   text-transform: uppercase;
   color: #160500 !important;
   text-shadow: 1px 1px #ffffff !important;   /* the same white shadow as every other style */

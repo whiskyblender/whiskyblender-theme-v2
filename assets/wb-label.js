@@ -248,6 +248,9 @@
     if (p.get('distillery')) state.distillery = p.get('distillery');
     if (p.get('strength'))   state.strength   = p.get('strength');
     if (p.get('variant'))    state.variant    = p.get('variant');
+    /* The Halloween style launched as "Pumpkin" (17 Oct 2026): orders from then carry
+       variant=pumpkin, so read it as halloween and they still print correctly. */
+    if (slugify(state.variant) === 'pumpkin') state.variant = 'halloween';
     if (p.get('product'))    state.product    = p.get('product');
     /* Legacy: size=miniature used to drive the contact sheet — now a product slug */
     if (!p.get('product') && p.get('size') === 'miniature') state.product = 'miniatures';
@@ -465,8 +468,8 @@
     var sizeClass = state.size === '500ml' ? 'size50' : 'size20';
     var productClass = (state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial' || state.product === 'nipbeforechristmas') ? state.product : '';
     page.className = (sizeClass + ' ' + productClass).trim();
-    /* "Pumpkin" label style: carved lettering (wb-label.css .wb-pumpkin + snippets/wb-pumpkin-carve) */
-    if (state.product === 'customblend' && slugify(state.variant) === 'pumpkin') page.classList.add('wb-pumpkin');
+    /* "Halloween" label style: carved lettering (wb-label.css .wb-halloween + snippets/wb-halloween-carve) */
+    if (state.product === 'customblend' && slugify(state.variant) === 'halloween') page.classList.add('wb-halloween');
 
     /* Artwork — singlecask shares singlemalt image files */
     var artworkEl = document.getElementById('artwork');
