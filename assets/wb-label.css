@@ -726,6 +726,7 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
      (Andrew, 17 Oct); 0.66 made the white edges touch. Beats the inline value;
      resizeText measures with it, so the name still fits. */
   line-height: 0.72 !important;
+  letter-spacing: -0.02em;   /* a touch tighter (Andrew, 17 Oct); -0.03em made the white edges touch */
   color: #2a0c01 !important;
   text-shadow: none !important;
   filter: url(#wb-carve);
