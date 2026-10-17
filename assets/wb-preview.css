@@ -374,8 +374,3 @@
   text-shadow: none !important;
   filter: url(#wb-carve);
 }
-.wbp-page.wb-halloween .wbp-side-name {
-  text-transform: uppercase;
-  color: #160500 !important;
-  text-shadow: 1px 1px #ffffff !important;   /* the same white shadow as every other style */
-}
