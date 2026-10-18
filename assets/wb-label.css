@@ -403,7 +403,7 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
 #page.size50.doctorsspecial .reference {
   right: auto;
   left: 17px;
-  top: 175px;
+  top: 173px;   /* 175 until 18 Oct: up 2px so it ends level with "BOTTLED IN" / "SCOTLAND" */
   transform: rotate(90deg);
   justify-content: right;
   text-align: right;
