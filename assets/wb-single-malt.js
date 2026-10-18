@@ -10,7 +10,7 @@
 
   var wbFontLink = document.createElement('link');
   wbFontLink.rel = 'stylesheet';
-  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Homemade+Apple&family=Covered+By+Your+Grace&display=swap';
+  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Playwrite+AU+NSW&family=Covered+By+Your+Grace&display=swap';
   document.head.appendChild(wbFontLink);
 
 
@@ -66,7 +66,7 @@
        product=doctorsspecial, via _label_url); DS_* below mirror wb-label.css
        (#page.doctorsspecial .wb-ds-box / .wb-ds-name). */
     var isDoctors    = productSlug === 'doctorsspecial';
-    var DS_FONT      = '"Homemade Apple", cursive';
+    var DS_FONT      = '"Playwrite AU NSW", cursive';   /* was Homemade Apple (Andrew, 18 Oct) */
     var DS_INK       = '#231f20';
     var DS_NAME_BOX  = { top: 183, left: 140, width: 280, height: 40 };
     var DS_FONT_SIZE = 18;   /* fixed — no fit; length capped instead */

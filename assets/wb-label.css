@@ -378,7 +378,7 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
   z-index: 2;
 }
 #page.doctorsspecial .wb-ds-name {
-  font-family: "Homemade Apple", cursive;
+  font-family: "Playwrite AU NSW", cursive;   /* was Homemade Apple (Andrew, 18 Oct) */
   font-size: 18px;
   color: #231f20;
   text-shadow: none;
