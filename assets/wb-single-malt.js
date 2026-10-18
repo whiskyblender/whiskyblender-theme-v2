@@ -10,7 +10,7 @@
 
   var wbFontLink = document.createElement('link');
   wbFontLink.rel = 'stylesheet';
-  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Homemade+Apple&family=Covered+By+Your+Grace&display=swap';
+  wbFontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&family=Playwrite+AU+NSW&family=Covered+By+Your+Grace&display=swap';
   document.head.appendChild(wbFontLink);
 
 
@@ -66,10 +66,11 @@
        product=doctorsspecial, via _label_url); DS_* below mirror wb-label.css
        (#page.doctorsspecial .wb-ds-box / .wb-ds-name). */
     var isDoctors    = productSlug === 'doctorsspecial';
-    var DS_FONT      = '"Homemade Apple", cursive';
+    var DS_FONT      = '"Playwrite AU NSW", cursive';   /* was Homemade Apple (Andrew, 18 Oct) */
     var DS_INK       = '#231f20';
-    var DS_NAME_BOX  = { top: 183, left: 140, width: 280, height: 40 };
+    var DS_NAME_BOX  = { top: 179, left: 142, width: 280, height: 40 };
     var DS_FONT_SIZE = 18;   /* fixed — no fit; length capped instead */
+    var DS_FONT_EXTRA = 'font-feature-settings:&quot;calt&quot; 0;letter-spacing:-0.075em';   /* unjoined letters, as wb-label.css */
     var DS_MAX_CHARS = 24;
 
     /* The Nip Before Christmas (10 Oct 2026): fixed 200ml artwork in the 200ml
@@ -552,7 +553,7 @@
               '<div class="wbp-image"></div>' +
               (isDoctors
                 ? '<div class="wbp-ds-box" style="position:absolute;top:' + DS_NAME_BOX.top + 'px;left:' + DS_NAME_BOX.left + 'px;width:' + DS_NAME_BOX.width + 'px;height:' + DS_NAME_BOX.height + 'px;display:flex;align-items:center;justify-content:flex-start;white-space:nowrap;z-index:2">' +
-                    '<span class="wbp-ds-name" style="font-family:' + DS_FONT.replace(/"/g, '&quot;') + ';font-size:' + DS_FONT_SIZE + 'px;line-height:1;color:' + DS_INK + ';text-shadow:none;white-space:nowrap"></span>' +
+                    '<span class="wbp-ds-name" style="font-family:' + DS_FONT.replace(/"/g, '&quot;') + ';' + DS_FONT_EXTRA + ';font-size:' + DS_FONT_SIZE + 'px;line-height:1;color:' + DS_INK + ';text-shadow:none;white-space:nowrap"></span>' +
                   '</div>'
                 : '') +
               (isNip ? nipLine('wbp-nip-to', NIP_TO) + nipLine('wbp-nip-from', NIP_FROM) : '') +
