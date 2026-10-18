@@ -731,3 +731,24 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
   text-shadow: none !important;
   filter: url(#wb-carve);
 }
+
+/* ── "Christmas" label style (custom blend, New 500ml) ─────────────────────────
+   Background wb-christmas-light.jpg (Andrew's snowy hills and snowman; glowing moon
+   behind the roundel, "Create your own" patch white). Name in Chicle, #63004f with
+   the usual 1px white shadow, no carve; "Created by" the same colour (Andrew,
+   18 Oct). Position, box, vertical centring and resize as every other style.
+   Mirrored in wb-preview.css — keep the two in lockstep.
+   !important beats the inline colour/shadow the script sets. */
+#page.wb-christmas #blendName {
+  /* Chicle is wide: at the usual 18px floor "Extraordinarily Festive Whiskies"
+     (32 characters, the Lab's max) clipped. Read by resizeText / prevResizeText. */
+  --wb-name-min: 14;
+  font-family: 'Chicle', 'trimPosterCompressed', sans-serif;
+  /* 0.88: at resizeText's 0.80 Chicle's lines touch. resizeText measures with it. */
+  line-height: 0.88 !important;
+  color: #63004f !important;
+  text-shadow: 1px 1px #ffffff !important;
+}
+#page.wb-christmas #sideName {
+  color: #63004f !important;
+}

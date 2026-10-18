@@ -249,7 +249,9 @@
        overflow test reads the PARENT (#outer / .wbp-outer) — not the child — just
        like the generator. Keep these two functions in lockstep. */
     function prevResizeText(el) {
-      var min = 18, max = 52, step = 0.5;
+      var max = 52, step = 0.5;
+      /* Minimum 18 unless the style sets --wb-name-min — as the generator */
+      var min = parseFloat(getComputedStyle(el).getPropertyValue('--wb-name-min')) || 18;
       function isOverflown(node) {
         return node.scrollWidth > node.clientWidth || node.scrollHeight > node.clientHeight;
       }
@@ -382,6 +384,8 @@
            "pumpkin" too: the variant launched under that name (17 Oct 2026). */
         var styleSlug = prevSlugify(getCurrentVariantTitle());
         if (pageEl) pageEl.classList.toggle('wb-halloween', isBlend && isNew500 && (styleSlug === 'halloween' || styleSlug === 'pumpkin'));
+        /* "Christmas" label style: Chicle name, as the generator (wb-preview.css .wb-christmas) */
+        if (pageEl) pageEl.classList.toggle('wb-christmas', isBlend && isNew500 && styleSlug === 'christmas');
         blendNameEl.style.color      = isBlend ? '#111111' : '#ffffff';
         blendNameEl.style.textShadow = isBlend ? '1px 1px #ffffff' : '1px 1px #000000';
         document.fonts.ready.then(function () { prevResizeText(blendNameEl); });
