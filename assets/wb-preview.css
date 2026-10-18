@@ -119,7 +119,6 @@
   display: grid;
   justify-content: start;
   z-index: 4;
-  overflow: hidden;
 }
 
 .wbp-page.size50 .wbp-outer {
