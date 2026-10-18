@@ -371,8 +371,8 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
 #page.doctorsspecial .wb-ds-box {
   display: flex;
   position: absolute;
-  top: 179px; left: 142px; width: 280px; height: 40px;   /* 183/140 until 18 Oct: matched to Andrew's mock-up, then -2/-1 when the
-                                                           18 Oct artwork moved its "Prescribed for" box up 1.7px */
+  top: 181px; left: 142px; width: 280px; height: 40px;   /* 183/140 until 18 Oct; matched to Andrew's mock-up and to the
+                                                           "Prescribed for" box in the current art (measure if the art changes) */
   align-items: center;
   justify-content: flex-start;
   white-space: nowrap;
