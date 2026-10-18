@@ -532,8 +532,8 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
   display: flex; align-items: center; justify-content: center;
 }
 
-.wb-mini-strip--left  { padding-left: 8px; }
-.wb-mini-strip--right { flex-direction: column; justify-content: center; gap: 42px; padding-right: 8px; }
+.wb-mini-strip--left  { padding-left: 14px; }
+.wb-mini-strip--right { flex-direction: column; justify-content: center; gap: 42px; padding-right: 14px; }
 
 .wb-mini-strip span { writing-mode: sideways-lr; font-size: 10px; font-weight: 600; letter-spacing: normal; white-space: nowrap; color: #666; }
 .wb-mini-strip--left span { transform: rotate(180deg); }
@@ -556,7 +556,7 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
 .wb-mini-by    { font-size: 10px; font-weight: 600; letter-spacing: normal; color: #555; }
 .wb-mini-author { font-size: 14px; font-weight: 600; color: #111; line-height: 1.2; padding: 0 12px; }
 
-.wb-mini-bar   { height: 34px; flex-shrink: 0; background: #111; color: #c8a050; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-align: center; padding-bottom: 4px; }
+.wb-mini-bar   { height: 44px; flex-shrink: 0; background: #111; color: #ffc550; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-align: center; padding-bottom: 4px; }
 
 /* ── Miniature contact sheet page-level strips ──────────────────────────────── */
 
