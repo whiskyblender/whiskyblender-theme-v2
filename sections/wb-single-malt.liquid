@@ -30,6 +30,13 @@
     {%- break -%}
   {%- endif -%}
 {%- endfor %}
+{%- comment -%} "Christmas" label style: its font, only where a Christmas variant exists {%- endcomment -%}
+{%- for v in product.variants -%}
+  {%- if v.title contains 'Christmas' -%}
+    <link href="https://fonts.googleapis.com/css2?family=Chicle&display=swap" rel="stylesheet">
+    {%- break -%}
+  {%- endif -%}
+{%- endfor %}
 <script src="{{ 'wb-single-malt.js' | asset_url }}" defer></script>
 
 {% schema %}

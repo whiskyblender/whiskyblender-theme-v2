@@ -112,11 +112,14 @@
   }
 
   function resizeText(elements) {
-    var min = 18, max = 52, step = 0.5;
+    var max = 52, step = 0.5;
     function isOverflown(el) {
       return el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight;
     }
     elements.forEach(function (el) {
+      /* Minimum 18, unless the label style sets --wb-name-min in CSS (a wide font
+         needs a lower floor so a 32-character name fits — e.g. .wb-christmas). */
+      var min = parseFloat(getComputedStyle(el).getPropertyValue('--wb-name-min')) || 18;
       var parent = el.parentNode;
       var i = min, overflow = false;
       while (!overflow && i < max) {
@@ -470,6 +473,8 @@
     page.className = (sizeClass + ' ' + productClass).trim();
     /* "Halloween" label style: carved lettering (wb-label.css .wb-halloween + snippets/wb-halloween-carve) */
     if (state.product === 'customblend' && slugify(state.variant) === 'halloween') page.classList.add('wb-halloween');
+    /* "Christmas" label style: Chicle name (wb-label.css .wb-christmas) */
+    if (state.product === 'customblend' && slugify(state.variant) === 'christmas') page.classList.add('wb-christmas');
 
     /* Artwork — singlecask shares singlemalt image files */
     var artworkEl = document.getElementById('artwork');
