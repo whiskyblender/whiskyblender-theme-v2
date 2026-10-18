@@ -68,7 +68,7 @@
     var isDoctors    = productSlug === 'doctorsspecial';
     var DS_FONT      = '"Playwrite AU NSW", cursive';   /* was Homemade Apple (Andrew, 18 Oct) */
     var DS_INK       = '#231f20';
-    var DS_NAME_BOX  = { top: 181, left: 143, width: 280, height: 40 };
+    var DS_NAME_BOX  = { top: 179, left: 142, width: 280, height: 40 };
     var DS_FONT_SIZE = 18;   /* fixed — no fit; length capped instead */
     var DS_FONT_EXTRA = 'font-feature-settings:&quot;calt&quot; 0;letter-spacing:-0.075em';   /* unjoined letters, as wb-label.css */
     var DS_MAX_CHARS = 24;
