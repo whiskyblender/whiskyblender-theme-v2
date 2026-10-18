@@ -291,7 +291,6 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
   display: grid;
   justify-content: start;
   z-index: 4;
-  overflow: hidden;
 }
 
 .size50 #outer { top: 56px; left: 195px; scale: 2.2; }
