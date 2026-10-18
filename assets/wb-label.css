@@ -371,7 +371,7 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
 #page.doctorsspecial .wb-ds-box {
   display: flex;
   position: absolute;
-  top: 183px; left: 140px; width: 280px; height: 40px;
+  top: 181px; left: 143px; width: 280px; height: 40px;   /* 183/140 until 18 Oct: matched to Andrew's mock-up */
   align-items: center;
   justify-content: flex-start;
   white-space: nowrap;
@@ -379,6 +379,11 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
 }
 #page.doctorsspecial .wb-ds-name {
   font-family: "Playwrite AU NSW", cursive;   /* was Homemade Apple (Andrew, 18 Oct) */
+  /* Unjoined letters as in Andrew's mock-up: browsers apply the font's contextual
+     alternates ("calt"), which give looped, joined cursive. Spacing matched to the
+     mock-up's width. Mirrored in wb-single-malt.js (DS_*) and the labels app. */
+  font-feature-settings: "calt" 0;
+  letter-spacing: -0.075em;
   font-size: 18px;
   color: #231f20;
   text-shadow: none;
