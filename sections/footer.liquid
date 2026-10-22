@@ -1,5 +1,15 @@
+{% comment %}
+  Phones get the 800px copy of wb-texture.webp, wider screens the full texture. Same rule as
+  header.liquid: keep the two in step, or a phone downloads the texture twice.
+{% endcomment %}
+<style>
+  #wb-footer .wb-container { background-image: url({{ 'wb-texture.webp' | asset_url }}&width=800); }
+  @media screen and (min-width: 768px) {
+    #wb-footer .wb-container { background-image: url({{ 'wb-texture.webp' | asset_url }}); }
+  }
+</style>
 <footer id="wb-footer">
-  <div class="wb-container" style="background-image: url({{"wb-texture.webp" | asset_url }})">
+  <div class="wb-container">
     <div class="wb-footercolumn">
       <p class="wb-tiny-heading">Quick links</p>
       <ul>

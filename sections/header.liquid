@@ -1,5 +1,16 @@
+{% comment %}
+  wb-texture.webp is 1600px and 142 KB. Phones get an 800px copy from Shopify's CDN (45 KB),
+  which looks the same at phone size; wider screens keep the full texture. footer.liquid has
+  the same rule: keep the two in step, or a phone downloads the texture twice.
+{% endcomment %}
+<style>
+  #wb-header .wb-container { background-image: url({{ 'wb-texture.webp' | asset_url }}&width=800); }
+  @media screen and (min-width: 768px) {
+    #wb-header .wb-container { background-image: url({{ 'wb-texture.webp' | asset_url }}); }
+  }
+</style>
 <header id="wb-header">
-  <div class="wb-container" style="background-image: url({{"wb-texture.webp" | asset_url }})">
+  <div class="wb-container">
     <a href="{{ routes.root_url }}" id="wb-logo" style="background-image: url({{"wb-logo-white.svg" | asset_url }})"
       >Whisky Blender</a
     >

@@ -1,6 +1,49 @@
 {{ 'glide.core.css' | asset_url | stylesheet_tag }}
 {{ 'glide.custom.css' | asset_url | stylesheet_tag }}
 
+{%- capture wb_star_svg -%}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><linearGradient id="g" x1=".35" x2=".65" y2="1"><stop offset=".1" stop-color="#dab324"/><stop offset=".5" stop-color="#c6961a"/><stop offset=".9" stop-color="#b98915"/></linearGradient><g stroke-linejoin="round"><path d="M50 6L62.5 36.5L94 39.6L70.2 61.6L77.2 94L50 77L22.8 94L29.8 61.6L6 39.6L37.5 36.5Z" fill="#9f7f31" stroke="#9f7f31" stroke-width="11"/><path d="M50 6L62.5 36.5L94 39.6L70.2 61.6L77.2 94L50 77L22.8 94L29.8 61.6L6 39.6L37.5 36.5Z" fill="url(#g)" stroke="url(#g)" stroke-width="8"/></g></svg>
+{%- endcapture -%}
+<style>
+  /* Five gold SVG stars above each review. They replace wb-stars.gif (82 KB) with the same
+     size, spacing and wave as the GIF: still for 2.14s, then each star swells to 1.52x and
+     back, 70ms after the one before. The strip sits where the GIF background did: top
+     centre, 40% of the slide wide. */
+  .wb-review-stars {
+    position: absolute;
+    top: 0;
+    left: 30%;
+    width: 40%;
+    aspect-ratio: 600 / 111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8.2%;
+  }
+
+  .wb-review-stars span {
+    flex: none;
+    width: 12.2%;
+    aspect-ratio: 1;
+    background: url("data:image/svg+xml;base64,{{ wb_star_svg | base64_encode }}") center / contain no-repeat;
+    animation: wb-star-wave 2.98s linear infinite;
+  }
+
+  .wb-review-stars span:nth-child(2) { animation-delay: 0.07s; }
+  .wb-review-stars span:nth-child(3) { animation-delay: 0.14s; }
+  .wb-review-stars span:nth-child(4) { animation-delay: 0.21s; }
+  .wb-review-stars span:nth-child(5) { animation-delay: 0.28s; }
+
+  @keyframes wb-star-wave {
+    0%, 70.6%, 91.8%, 100% { transform: scale(1); }
+    80%, 82.4% { transform: scale(1.52); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wb-review-stars span { animation: none; }
+  }
+</style>
+
 <section class="wb-banded wb-overflow-hidden-x">
   <div class="wb-container">
     <div class="wb-padding">
@@ -8,11 +51,21 @@
         <div class="glide__track" data-glide-el="track">
           <ul class="glide__slides wb-reviews">
             {%- for block in section.blocks -%}
+              {%- liquid
+                assign stars_file = block.settings.stars_image | strip
+                assign svg_stars = false
+                if stars_file == blank or stars_file == 'wb-stars.gif'
+                  assign svg_stars = true
+                endif
+              -%}
               <li
                 class="glide__slide wb-review"
-                style="background-image: url({{ block.settings.stars_image | asset_url }})"
+                {%- unless svg_stars %} style="background-image: url({{ stars_file | asset_url }})"{% endunless %}
                 {{ block.shopify_attributes }}
               >
+                {%- if svg_stars -%}
+                  <span class="wb-review-stars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+                {%- endif -%}
                 {{ block.settings.review_text }}
               </li>
             {%- endfor -%}
@@ -43,6 +96,17 @@
         },
       },
     }).mount();
+
+    /* The carousel copies slides after the originals have started animating, which would
+       put the copies' waves out of step. Run every star off the same clock, as the GIF did. */
+    var list = document.querySelector('.wb-reviews');
+    function syncStars() {
+      list.querySelectorAll('.wb-review-stars span').forEach(function (star) {
+        if (star.getAnimations) star.getAnimations().forEach(function (a) { a.startTime = 0; });
+      });
+    }
+    syncStars();
+    if (window.MutationObserver) new MutationObserver(syncStars).observe(list, { childList: true });
   });
 </script>
 <script src="{{ 'glide.js' | asset_url }}" defer></script>
@@ -67,7 +131,7 @@
           "id": "stars_image",
           "label": "Stars image filename",
           "default": "wb-stars.gif",
-          "info": "Upload image to assets folder and enter filename here"
+          "info": "Leave as wb-stars.gif for the built-in animated stars. Any other filename (uploaded to the assets folder) is shown as an image instead."
         }
       ]
     }

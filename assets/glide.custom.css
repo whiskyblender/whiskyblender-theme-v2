@@ -13,7 +13,7 @@
     font-weight: 600;
     font-style: italic;
     color: #666666;
-    background-image: url(../wb-stars.gif);
+    position: relative;
     background-repeat: no-repeat;
     background-position: top center;
     background-size: 40%;

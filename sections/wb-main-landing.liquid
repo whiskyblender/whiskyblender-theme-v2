@@ -120,7 +120,7 @@
     {%- else -%}
       <div class="wb-videobg">
         <div class="wb-videograin"></div>
-        <video muted loop playsinline fetchpriority="high" id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %} data-video-src="{{ video_src }}">
+        <video muted loop playsinline fetchpriority="high" id="wb-video" aria-hidden="true"{% if video_poster %} poster="{{ video_poster }}"{% endif %} data-video-src="{{ video_src }}"{% if section.settings.video_url_phone != blank %} data-video-src-phone="{{ section.settings.video_url_phone }}"{% endif %}>
         </video>
         <button id="wb-video-toggle" aria-label="Pause video" type="button"></button>
         {%- if section.settings.badge_show and section.settings.badge_url != blank -%}
@@ -153,7 +153,9 @@
 
           function startVideo() {
             if (vid.src) return;
-            vid.src = vid.dataset.videoSrc;
+            /* Phones get the smaller copy when one is set (about 1 MB instead of 5 MB) */
+            var phone = vid.dataset.videoSrcPhone && window.matchMedia('(max-width: 767px)').matches;
+            vid.src = phone ? vid.dataset.videoSrcPhone : vid.dataset.videoSrc;
             vid.play().catch(function () {});
           }
 
@@ -209,6 +211,12 @@
       "id": "video_url",
       "label": "Video URL",
       "info": "Paste the full URL from Shopify Files (Content → Files). Takes priority over the filename field below."
+    },
+    {
+      "type": "text",
+      "id": "video_url_phone",
+      "label": "Phone video URL (optional)",
+      "info": "A smaller copy of the same video for screens under 768px wide. Leave blank to use the main video everywhere."
     },
     {
       "type": "text",
