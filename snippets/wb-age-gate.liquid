@@ -47,6 +47,14 @@
   pointer-events: none;
 }
 
+/* Hold the header/footer texture while the gate covers the page: nobody can see it, and it
+   competed with the first load (45 KB on a phone). "Aye" removes wb-age-gate-open and the
+   texture loads then; the header and footer are black underneath, so the swap barely shows. */
+html.wb-age-gate-open #wb-header .wb-container,
+html.wb-age-gate-open #wb-footer .wb-container {
+  background-image: none;
+}
+
 /* ── Header overlay ────────────────────────────────────────────── */
 
 /* matches #wb-header: position:relative makes it the containing block for .wb-age-gate__byline-row */
