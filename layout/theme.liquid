@@ -541,8 +541,12 @@
       {% comment %}theme-check-enable AssetPreload{% endcomment %}
     {%- endunless -%}
     {% comment %}theme-check-disable AssetPreload{% endcomment %}
+    {% comment %}
+      No ?v= on this URL: wb-fonts.css is plain CSS, so its relative url() requests the font
+      without one. The two URLs must match exactly or the font downloads twice.
+    {% endcomment %}
     <link rel="preload" as="font" type="font/woff2"
-          href="{{ 'TrimPosterWeb-Compressed.woff2' | asset_url }}"
+          href="{{ 'TrimPosterWeb-Compressed.woff2' | asset_url | split: '?' | first }}"
           crossorigin>
     {% comment %}theme-check-enable AssetPreload{% endcomment %}
 
