@@ -532,7 +532,14 @@
       {% comment %}theme-check-disable AssetPreload{% endcomment %}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
       <link rel="preload" as="font" href="{{ body_font_bold | font_url }}" type="font/woff2" crossorigin>
-      <link rel="preload" as="font" href="{{ body_font_bold_italic | font_url }}" type="font/woff2" crossorigin>
+      {% comment %}
+        Bold italic is preloaded on the Lab only, where the loader text (#wb-loader) uses it on
+        the first screen. Elsewhere it only appears further down the page (review quotes), and
+        preloading it took bandwidth from the hero image.
+      {% endcomment %}
+      {%- if request.page_type == 'page' and page.handle == 'the-lab' -%}
+        <link rel="preload" as="font" href="{{ body_font_bold_italic | font_url }}" type="font/woff2" crossorigin>
+      {%- endif -%}
       {% comment %}theme-check-enable AssetPreload{% endcomment %}
     {%- endunless -%}
     {%- unless settings.type_header_font.system? -%}
