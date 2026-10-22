@@ -157,7 +157,12 @@
             vid.play().catch(function () {});
           }
 
-          if (document.readyState === 'loading') {
+          /* While the age gate covers the page, nobody can see the video, so don't spend
+             4 MB of a first visit downloading it. Start when "Aye" is clicked instead.
+             The class is set by the inline script in snippets/wb-age-gate.liquid. */
+          if (document.documentElement.classList.contains('wb-age-gate-open')) {
+            document.addEventListener('wb:age-verified', startVideo, { once: true });
+          } else if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', startVideo);
           } else {
             startVideo();
