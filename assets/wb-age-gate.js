@@ -1,16 +1,13 @@
 (function () {
   var gate = document.getElementById('wb-age-gate');
 
-  /* Gate is display:none by default; only show it for unverified users */
+  /* The inline script in snippets/wb-age-gate.liquid has already shown the gate and
+     locked scroll for unverified users; this file is deferred and only wires it up. */
   if (document.cookie.indexOf('wb_age_verified=1') !== -1) {
     return;
   }
 
-  gate.classList.add('wb-age-gate--visible');
-  document.documentElement.classList.add('wb-age-gate-open');
-
-  /* Lock scroll while gate is visible */
-  document.body.style.overflow = 'hidden';
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function applyBannerOffset() {
     requestAnimationFrame(function () {
@@ -47,6 +44,8 @@
     if (stopRain) stopRain();
     if (parallaxRaf) cancelAnimationFrame(parallaxRaf);
     setTimeout(function () { gate.classList.remove('wb-age-gate--visible'); }, 420);
+    /* The homepage hero video waits for this before it starts downloading */
+    document.dispatchEvent(new CustomEvent('wb:age-verified'));
   }
 
   function decline() {
@@ -64,6 +63,7 @@
   var canvas = document.getElementById('wb-age-gate-rain');
   var ctx = canvas.getContext('2d');
   var drops = [];
+  /* 280 drops on a full desktop window, scaled down by screen area (about 70 on a phone) */
   var DROP_COUNT = 280;
   var raf;
   var windX = 0;
@@ -79,7 +79,7 @@
   var parallaxTarget = 0;
   var parallaxRaf;
 
-  if (isHoverDevice && bgEl) {
+  if (isHoverDevice && bgEl && !reduceMotion) {
     gate.addEventListener('mousemove', function (e) {
       parallaxTarget = (e.clientX / window.innerWidth - 0.5) * -18;
     });
@@ -108,7 +108,8 @@
 
   function initDrops() {
     drops = [];
-    for (var i = 0; i < DROP_COUNT; i++) {
+    var count = Math.round(DROP_COUNT * Math.min(1, (canvas.width * canvas.height) / (1440 * 900)));
+    for (var i = 0; i < count; i++) {
       drops.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -142,12 +143,16 @@
 
   stopRain = function () { cancelAnimationFrame(raf); };
 
-  resize();
-  initDrops();
-  draw();
-
-  window.addEventListener('resize', function () {
+  /* No rain at all for visitors who have asked for reduced motion. Start it straight
+     away otherwise: deferring it to window load made Lighthouse's Speed Index worse,
+     because the rain appearing late counts as the page still changing. */
+  if (!reduceMotion) {
     resize();
     initDrops();
-  });
+    draw();
+    window.addEventListener('resize', function () {
+      resize();
+      initDrops();
+    });
+  }
 })();

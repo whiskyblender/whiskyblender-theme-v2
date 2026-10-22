@@ -288,4 +288,15 @@ html.wb-age-gate-open iframe[src*="chat."] {
   </div>
 </div>
 
-<script src="{{ 'wb-age-gate.js' | asset_url }}"></script>
+<script>
+  /* Show the gate inline, before the rest of the page parses, so there's no flash of the
+     site underneath. Everything else (buttons, rain) is in wb-age-gate.js, deferred so it
+     doesn't block the page. sections/wb-main-landing.liquid reads wb-age-gate-open to hold
+     the hero video until the gate is dismissed. */
+  if (document.cookie.indexOf('wb_age_verified=1') === -1) {
+    document.getElementById('wb-age-gate').classList.add('wb-age-gate--visible');
+    document.documentElement.classList.add('wb-age-gate-open');
+    document.body.style.overflow = 'hidden';
+  }
+</script>
+<script src="{{ 'wb-age-gate.js' | asset_url }}" defer></script>
