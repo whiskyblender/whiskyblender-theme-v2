@@ -119,7 +119,17 @@
           {% assign skip_card_product_styles = false %}
 
           {%- if section.settings.collection.products.size > 0 -%}
-            {% assign lazy_load = false %}
+            {%- comment -%}
+              Dawn eager-loads the first row in case this section is first on the page. Here it
+              never is (it follows a landing hero, search results or page content), so every card
+              is lazy unless the section really is first: on the homepage the eager first row was
+              ~36 KB downloading during first load, 1,100px below the fold on a phone.
+            {%- endcomment -%}
+            {% if section.index == 1 %}
+              {% assign lazy_load = false %}
+            {% else %}
+              {% assign lazy_load = true %}
+            {% endif %}
             {% paginate section.settings.collection.products by section.settings.products_to_show %}
               {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
                 {% if lazy_load == false and forloop.index > max_columns_to_show %}
