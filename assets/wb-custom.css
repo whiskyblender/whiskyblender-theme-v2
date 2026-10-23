@@ -190,3 +190,8 @@
     box-sizing: border-box;
     margin-bottom: 12px;
 }
+
+/* Whisky chooser (wb-blend-product.js buildWhiskyChooser): recipe bars and the
+   Lab link sit under the preset pills */
+.wb-whisky-choice .wb-recipe { margin-top: 1.2rem; }
+.wb-whisky-choice .wb-blend-ref { margin-top: 0.8rem; }
