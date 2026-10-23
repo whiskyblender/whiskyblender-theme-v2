@@ -16,6 +16,13 @@
           "type": "title",
           "settings": {}
         },
+        "promise_line": {
+          "type": "text",
+          "settings": {
+            "text": "A bottle of Scotch that really says something.",
+            "text_style": "body"
+          }
+        },
         "product_tagline_W3AUrB": {
           "type": "product_tagline",
           "settings": {}
@@ -115,6 +122,7 @@
       },
       "block_order": [
         "title",
+        "promise_line",
         "product_tagline_W3AUrB",
         "price",
         "blend_loader",
