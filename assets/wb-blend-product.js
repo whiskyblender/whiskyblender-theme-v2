@@ -17,6 +17,18 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
      would be wrong). If it can't load, the page falls back to the old panel. */
   var DEFAULT_BLEND = 'WB01767';
 
+  /* House presets offered as a "Whisky" choice when a custom bottle opens without
+     ?blend= (Andrew, 22 Oct 2026). Same codes as the Lab's house presets
+     (sections/wb-lab.liquid preset_1..4); the All rounder is DEFAULT_BLEND and
+     starts selected. Order = roughly how well they sell. */
+  var HOUSE_PRESETS = [
+    { slug: 'WB01767', name: 'All rounder' },
+    { slug: 'WB00836', name: 'Smoke on the Water' },
+    { slug: 'WB00820', name: 'Soft & fruity' },
+    { slug: 'WB00821', name: 'Sweet tooth' }
+  ];
+  var chooserActive = false;   /* set by buildWhiskyChooser */
+
   /* ── Sold out (11 Oct 2026) ───────────────────────────────────────────
      Dawn renders the add button disabled with "Sold out" when the selected
      variant can't be bought, and re-renders that on every variant change. The
@@ -163,6 +175,16 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         ' <a href="' + esc(changeHref) + '">(Change)</a>'
       : 'Blend code: ' + esc(blend.slug) +
         ' <a href="' + esc(changeHref) + '">(Change)</a>';
+
+    /* With the Whisky chooser the bars sit under the preset pills, and the way out
+       is "create your own" rather than "(Change)" */
+    if (chooserActive) {
+      recipeEl.innerHTML =
+        '<ul class="wb-recipe">' + rows + '</ul>' +
+        '<p class="wb-blend-ref"><a href="' + esc(changeHref) + '">Or create your own in the Lab \u2192</a></p>';
+      show(recipeEl);
+      return;
+    }
 
     recipeEl.innerHTML =
       '<p class="wb-blend-ref">' + refHtml + '</p>' +
@@ -394,6 +416,73 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     });
   }
 
+  /* "Whisky" choice on the default path: the house presets as pills above Label
+     style, reusing the variant pill markup (the newlines between the pairs are
+     what space the pills). The radios belong to no form. A choice reaches the
+     order only by switching the one blend object that injectCartProperties reads
+     at submit, so _blend_slug is always the recipe on screen; presets record like
+     the default (the label is what the customer typed). A preset holding a
+     retired whisky is disabled and the selection stays put. */
+  function buildWhiskyChooser(blend, labUrl, apiBase, activeOptions) {
+    /* Above Label style; minis have no Label style yet (one variant, so Dawn
+       renders no variant-selects), so there it sits above the label text */
+    var labelText = document.getElementById('label-text');
+    var anchor   = document.querySelector('variant-selects') ||
+                   (labelText && labelText.closest('.wb-bottle-form'));
+    var recipeEl = document.getElementById('wb-blend-recipe');
+    if (!anchor || !anchor.parentNode || !recipeEl) return false;
+
+    var activeIds = activeOptions ? activeOptions.map(function (o) { return o.identifier; }) : null;
+    var cache = {};
+    cache[blend.slug] = { slug: blend.slug, title: blend.title, author: blend.author, recipe: blend.recipe };
+    var pending = 0;
+
+    var fs = document.createElement('fieldset');
+    fs.className = 'wb-bottle-form js product-form__input product-form__input--pill wb-whisky-choice';
+    fs.innerHTML =
+      '<legend class="form__label">Whisky</legend>' +
+      '<span class="wb-radio">' +
+      HOUSE_PRESETS.map(function (p, i) {
+        return '\n<input type="radio" id="wb-whisky-' + i + '" name="wb-whisky" value="' + esc(p.slug) + '"' +
+          (p.slug === blend.slug ? ' checked' : '') + '>' +
+          '\n    <label for="wb-whisky-' + i + '" data-wb-track="whisky_choice">\n      ' + esc(p.name) + '</label>';
+      }).join('\n') +
+      '\n</span>';
+    anchor.parentNode.insertBefore(fs, anchor);
+    fs.appendChild(recipeEl);
+
+    function keepCurrent() {
+      var current = fs.querySelector('input[value="' + blend.slug + '"]');
+      if (current) current.checked = true;
+    }
+
+    fs.addEventListener('change', function (e) {
+      var input = e.target;
+      if (!input || input.name !== 'wb-whisky') return;
+      var slug   = input.value;
+      var ticket = ++pending;
+      var got = cache[slug]
+        ? Promise.resolve(cache[slug])
+        : fetchWithTimeout(apiBase + '/api/blend?slug=' + encodeURIComponent(slug), 10000)
+            .then(function (res) { if (!res.ok) throw new Error('blend ' + res.status); return res.json(); });
+      got.then(function (data) {
+        if (ticket !== pending) return;   /* a later tap won */
+        var recipe  = Array.isArray(data.recipe) ? data.recipe : [];
+        var retired = activeIds && recipe.some(function (item) {
+          return item.amount > 0 && activeIds.indexOf(item.identifier) === -1;
+        });
+        if (retired || !recipe.length) { input.disabled = true; keepCurrent(); return; }
+        cache[slug]  = data;
+        blend.slug   = data.slug || slug;
+        blend.title  = data.title;
+        blend.author = data.author;
+        blend.recipe = recipe;
+        renderRecipe(blend, labUrl, [], true);
+      }).catch(function () { if (ticket === pending) keepCurrent(); });
+    });
+    return true;
+  }
+
   function init() {
     var container = document.getElementById('wb-blend-product-loader');
     if (!container) return;
@@ -466,6 +555,11 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
           if (externalLabel) { useDefaultUnseen(container, variantsJson, labelPage, bottleSize, productTitle); return; }
           showNoBlendState();
           return;
+        }
+
+        /* Default path: offer the house presets as a "Whisky" choice */
+        if (isDefault && !externalLabel) {
+          chooserActive = buildWhiskyChooser(blend, labUrl, apiBase, activeOptions);
         }
 
         renderRecipe(blend, labUrl, inactiveIds, isDefault);
