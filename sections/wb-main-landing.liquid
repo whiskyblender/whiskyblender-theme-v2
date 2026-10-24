@@ -32,6 +32,20 @@
     assign hero_description = page.content
     assign hero_description_rte = true
   endif
+
+  comment
+    When the title rotates (title_variants), the big phrase is decoration, not the
+    page's heading: Google renders the JS, so it would index "Liquid gold" or
+    "Sláinte!" as the H1. With description_as_heading ticked, the description line
+    becomes the H1 instead (styled to look exactly like the paragraph it replaces)
+    and the rotating phrase drops to a <p> with the same class, which renders
+    identically. Nothing visible changes. Without variants the section behaves as
+    before, so the collection/page heroes sharing it keep their title as the H1.
+  endcomment
+  assign split_heading = false
+  if section.settings.title_variants contains ',' and section.settings.description_as_heading and hero_description_rte == false and hero_description != blank
+    assign split_heading = true
+  endif
 -%}
 {%- if video_poster or hero_image -%}
 <style>
@@ -49,6 +63,18 @@
     margin: 0 0 12px;
   }
   .wb-hero-rte > p:last-child { margin-bottom: 0; }
+
+  /* Description as the H1 (see description_as_heading): undo the heading styles so
+     it renders exactly like the <p> it replaces */
+  .wb-hero-desc {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    text-transform: none;
+    word-break: normal;
+    hyphens: manual;
+    margin: 1em 0;
+  }
 
   #wb-video-toggle {
     position: absolute;
@@ -133,11 +159,16 @@
       </div>
       <div class="wb-overvideo">
         <div class="wb-padding">
-          <h1 class="wb-large-heading" id="wb-landing-heading">{{ hero_title }}</h1>
-          {%- if hero_description_rte -%}
-            <div class="wb-hero-rte">{{ hero_description }}</div>
+          {%- if split_heading -%}
+            <p class="wb-large-heading" id="wb-landing-heading">{{ hero_title }}</p>
+            <h1 class="wb-hero-desc">{{ hero_description }}</h1>
           {%- else -%}
-            <p>{{ hero_description }}</p>
+            <h1 class="wb-large-heading" id="wb-landing-heading">{{ hero_title }}</h1>
+            {%- if hero_description_rte -%}
+              <div class="wb-hero-rte">{{ hero_description }}</div>
+            {%- else -%}
+              <p>{{ hero_description }}</p>
+            {%- endif -%}
           {%- endif -%}
           <div class="wb-buttons">
             <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">{{ section.settings.primary_button_text }}</a>
@@ -242,6 +273,13 @@
       "id": "title_variants",
       "label": "Title variants (comma-separated)",
       "info": "Enter multiple phrases separated by commas — a random one will be shown on each page load. Leave blank to always show the title above."
+    },
+    {
+      "type": "checkbox",
+      "id": "description_as_heading",
+      "label": "Use the description as the page heading (H1)",
+      "default": false,
+      "info": "Only applies with title variants. Google reads the rotating title as the page's main heading, so with this on the description below is the heading instead. Looks the same either way."
     },
     {
       "type": "inline_richtext",
