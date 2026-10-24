@@ -604,32 +604,33 @@ span.wb-radio input {
 span.wb-radio {
   display: inline-block;
   margin-bottom: 8px;
-  margin-right: 8px;
+  margin-right: 5px;
 }
 
+/* Same look as the product page variant pills (Dawn's
+   .product-form__input--pill in component-product-variant-picker.css, which
+   wins on product pages anyway), built from the same theme-setting variables
+   so the Shop filter and the blog chips (wb-blog.css) follow any change to
+   Theme settings > Variant pills. Line-height 1 + 10px/20px padding = 36px tall. */
 span.wb-radio label {
-  border: solid 1px #000000;
+  border: var(--variant-pills-border-width) solid rgba(var(--color-foreground), var(--variant-pills-border-opacity));
   cursor: pointer;
   display: inline-block;
-  padding: 4px 12px;
+  padding: 10px 20px;
   font-weight: 600;
-  border-radius: 6px;
+  border-radius: var(--variant-pills-radius);
   margin: 0;
   text-transform: none;
   font-size: 14px;
   letter-spacing: normal;
-  /* Stated explicitly only because `.wb-bottle-form legend, label` now sets
-     line-height: normal for the micro-labels above form fields. These filter
-     chips are a different component that happens to sit inside a
-     .wb-bottle-form, and they had always inherited the body's 160% (32px).
-     Without this they collapse from 74px tall to 43px. */
-  line-height: inherit;
-  background-color: #eeeeee;
-  transition: background 0.3s;
+  line-height: 1;
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  transition: border 0.1s ease;
 }
 
 span.wb-radio label:hover {
-  background-color: #ffffff;
+  border-color: rgb(var(--color-foreground));
 }
 
 span.wb-radio input:checked + label {

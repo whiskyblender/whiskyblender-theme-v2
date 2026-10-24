@@ -355,9 +355,10 @@ footer .wb-tiny-heading {
     display: none;
 }
 
+/* 5px apart, like the product page variant pills (inline whitespace there) */
 span.wb-radio {
     margin-bottom: 0px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .wb-container.template-search--empty {

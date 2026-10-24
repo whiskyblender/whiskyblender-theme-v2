@@ -212,40 +212,41 @@
 }
 
 /* Tags */
-/* Same look as the Shop page's filter pills (span.wb-radio label in
-   wb-products.css): black outline, 6px corners, grey fill, white on hover,
-   black when current. Restated here rather than reusing those classes
-   because these are links, not radio labels, and wb-products.css loads async. */
+/* Same look as the product page variant pills and the Shop filter
+   (span.wb-radio label in wb-products.css), from the same theme-setting
+   variables: outlined, fully rounded, darker outline on hover, filled when
+   current. Restated here because these are links, not radio labels, and
+   wb-products.css loads async. */
 .wb-tag-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 10px;
+  gap: 8px 5px;
 }
 
 .wb-tag-chip {
   display: inline-block;
-  padding: 4px 12px;
-  border: solid 1px #000000;
-  border-radius: 6px;
-  background-color: #eeeeee;
+  padding: 10px 20px;
+  border: var(--variant-pills-border-width) solid rgba(var(--color-foreground), var(--variant-pills-border-opacity));
+  border-radius: var(--variant-pills-radius);
+  background-color: rgb(var(--color-background));
   font-size: 14px;
   font-weight: 600;
-  line-height: 160%;
-  color: #000000;
+  line-height: 1;
+  color: rgb(var(--color-foreground));
   text-decoration: none;
-  transition: background 0.3s;
+  transition: border 0.1s ease;
 }
 
 .wb-tag-chip:hover {
-  background-color: #ffffff;
-  color: #000000;
+  border-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-foreground));
   text-decoration: none;
 }
 
 .wb-tag-chip.is-active,
 .wb-tag-chip.is-active:hover {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
 }
 
 /* Blog index topic filter: between intro and cards */
