@@ -63,8 +63,17 @@
   .wb-create-options.wb-create-grid .wb-option-heading {
     font-size: 19px;
     line-height: 1.25;
-    font-weight: 600 !important;
+    font-weight: 400 !important;
     color: #333333 !important;
+  }
+  /* The linked phrase is picked out in bold, not the site's wavy underline (which
+     felt busy inside a card). The heading is regular weight so the bold reads.
+     nowrap keeps phrases like "the lab" from splitting across lines. */
+  .wb-create-options.wb-create-grid li a {
+    text-decoration: none !important;
+    font-weight: 700 !important;
+    color: #222222 !important;
+    white-space: nowrap;
   }
   .wb-create-desc {
     margin: 4px 0 0;
