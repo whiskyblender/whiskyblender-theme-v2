@@ -964,26 +964,30 @@
 .wb-preset-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px 5px;
 }
 
+/* Same look as every other pill on the site (product page variant pills,
+   Shop filter, blog chips), from the same Variant pills theme-setting
+   variables so they all change together. No selected state: a preset is a
+   one-off "load this recipe" action, not a choice that stays picked. */
 .wb-preset-btn {
   font: inherit;
-  padding: 10px 14px;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  border-radius: 6px;
-  background: #efefef;
-  color: inherit;
+  padding: 10px 20px;
+  border: var(--variant-pills-border-width) solid rgba(var(--color-foreground), var(--variant-pills-border-opacity));
+  border-radius: var(--variant-pills-radius);
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
   cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-  font-weight: 700;
-  font-size: 16px;
+  transition: border 0.1s ease;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
 }
 
 .wb-preset-btn:hover,
 .wb-preset-btn:focus-visible {
-  border-color: rgba(0, 0, 0, 0.45);
-  background: #ffffff;
+  border-color: rgb(var(--color-foreground));
 }
 
 @media screen and (min-width: 600px) {
@@ -1002,10 +1006,6 @@
     margin-bottom: 28px;
     padding: 20px 30px;
     margin-top: -80px;
-  }
-
-  .wb-preset-btn {
-    font-size: 16px;
   }
 
 }
