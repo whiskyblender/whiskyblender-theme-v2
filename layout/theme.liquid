@@ -206,11 +206,30 @@
     /* Intercepts window.ShopifyForms (set by the Forms app-block) to:
        1. Hold the popup back until the age gate is confirmed for unverified visitors.
        2. Suppress it entirely on /pages/the-lab so it doesn't interrupt blending.
-       Verified visitors on non-lab pages: zero overhead (early return). */
+       3. Suppress it for the whole visit when the visit began on a collaboration
+          product: the popup's code (WEEDRAM10) doesn't apply to those, and we
+          pay the partner a cut. Collaboration = any vendor other than ours
+          (Whisky Blender, Printful) — the same rule as the discount's
+          eligible-products collection, so the two can't drift apart.
+       Verified visitors on other pages: almost zero overhead (early return). */
     (function () {
-      var onLabPage = window.location.pathname === '/pages/the-lab';
+      var noPopup = window.location.pathname === '/pages/the-lab';
+      {%- liquid
+        assign wb_collab_landing = false
+        if request.page_type == 'product' and product.vendor != 'Whisky Blender' and product.vendor != 'Printful'
+          assign wb_collab_landing = true
+        endif
+      -%}
+      var collabPage = {{ wb_collab_landing }};
+      try {
+        if (sessionStorage.getItem('wb_landed') === null) {
+          sessionStorage.setItem('wb_landed', '1');
+          if (collabPage) sessionStorage.setItem('wb_no_popup', '1');
+        }
+        if (sessionStorage.getItem('wb_no_popup')) noPopup = true;
+      } catch (e) { if (collabPage) noPopup = true; }
       var ageVerified = document.cookie.indexOf('wb_age_verified=1') !== -1;
-      if (ageVerified && !onLabPage) return;
+      if (ageVerified && !noPopup) return;
       var _stored = undefined;
       var _released = false;
       function release() {
@@ -225,7 +244,7 @@
         set: function (v) { _stored = v; },
         configurable: true, enumerable: true
       });
-      if (onLabPage) return; /* never release on the lab page */
+      if (noPopup) return; /* never release: the Lab, or a visit that began on a collaboration */
       document.addEventListener('DOMContentLoaded', function () {
         var btn = document.getElementById('wb-age-yes');
         if (btn) btn.addEventListener('click', release, { once: true });
