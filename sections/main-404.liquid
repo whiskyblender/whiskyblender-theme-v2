@@ -20,24 +20,21 @@
 
   /* ── Product 404 → show "Aw done!" page ─────────────────────────────────── */
   } else if (p.indexOf('/products/') === 0) {
-    document.documentElement.classList.add('wb-404-product');
-    if (!navigator.webdriver && typeof gtag === 'function') {
-      gtag('event', 'error_404', { variant: 'product', requested_path: raw });
-    }
+    wire('product');
 
   /* ── No redirect: render the generic 404 ────────────────────────────────── */
   } else {
-    var variant = 'generic';
+    wire('generic');
+  }
 
-    /* Show the right section (CSS hides both by default) */
-    document.documentElement.classList.add('wb-404-generic');
-
-    /* Fire page-load event — skip headless crawlers */
+  /* Show the variant's section (CSS hides both by default), fire the page-load
+     event and count CTA clicks, skipping headless crawlers. The cards are whole-card
+     links, so a click anywhere on a card bubbles to its <li>. */
+  function wire(variant) {
+    document.documentElement.classList.add('wb-404-' + variant);
     if (!navigator.webdriver && typeof gtag === 'function') {
       gtag('event', 'error_404', { variant: variant, requested_path: raw });
     }
-
-    /* Wire CTA click events once the section markup is in the DOM */
     document.addEventListener('DOMContentLoaded', function () {
       var section = document.querySelector('.wb-404-' + variant + '-section');
       if (!section) return;
@@ -69,14 +66,56 @@
     margin-top: 16px;
   }
 
-  .wb-404-ctas {
-    margin-top: 28px;
-  }
-
   .wb-404-product-section p {
     max-width: 520px;
   }
+
+  .wb-404-footnote { margin: 24px 0 0; font-size: 15px; line-height: 1.5; color: #555555; }
 </style>
+{% render 'wb-create-card-styles' %}
+
+{%- comment -%}
+  The same five cards on both variants: the create page's design (snippets/wb-create-card),
+  trimmed to the quickest routes for someone who's landed on a dead link. Prices are
+  live from the products via wb-money.
+{%- endcomment -%}
+{%- capture wb_404_cards -%}
+  <ul class="wb-create-options wb-cards wb-create-grid">
+    {%- render 'wb-create-card',
+      icon: '💡',
+      heading: 'Create a new whisky in <a href="/pages/the-lab">the lab</a>',
+      description: 'Mix your own from five hand-picked single malts, then name it and sign it.',
+      price_product: all_products['custom-whisky-200ml-flat'],
+      price_prefix: 'From'
+    -%}
+    {%- render 'wb-create-card',
+      icon: '🏷️',
+      heading: 'Gift a <a href="/collections/personalised-whisky">personalised whisky</a>',
+      description: 'One of our house blends, with a label you write yourself.',
+      price_product: all_products['custom-whisky-200ml-flat'],
+      price_prefix: 'From'
+    -%}
+    {%- render 'wb-create-card',
+      icon: '⭐',
+      heading: 'Personalise our <a href="/pages/perfect-drams">perfect drams</a>',
+      description: "Not sure what they'd like? Pick the whisky that's most like them, then label it up.",
+      price_product: all_products['custom-whisky-200ml-flat'],
+      price_prefix: 'From'
+    -%}
+    {%- render 'wb-create-card',
+      icon: '💌',
+      heading: 'Give someone a <a href="/products/gift-voucher">gift voucher</a>',
+      description: 'Let them blend their own.',
+      price_product: all_products['gift-voucher'],
+      price_prefix: 'From'
+    -%}
+    {%- render 'wb-create-card',
+      icon: '🛍️',
+      heading: 'Browse the whole <a href="/pages/shop">shop</a>',
+      description: 'Our own blends, single malts, gifts and merch, ready to go.'
+    -%}
+  </ul>
+{%- endcapture -%}
 
 <section class="wb-first-item wb-404-product-section">
   <div class="wb-container">
@@ -84,10 +123,8 @@
       <h1 class="wb-medium-heading">Aw done!</h1>
       <p class="wb-404-lede wb-collection-copy">Every whisky cask is one of a kind. Once it's been drained, it's gone — there's no going back for more of the same.</p>
       <p class="wb-collection-copy">Whatever blend used to live at this address was made with whisky that's no longer available. That's just the nature of Scotch. But you can make something just as special — something that's entirely yours.</p>
-      <div class="wb-buttons wb-404-ctas">
-        <a href="/pages/the-lab" class="wb-button wb-primary-button">Create a new whisky</a>
-        <a href="/pages/contact" class="wb-button">Get in touch</a>
-      </div>
+      {{ wb_404_cards }}
+      <p class="wb-404-footnote">Questions about an old blend? <a href="/pages/contact">Get in touch</a>.</p>
     </div>
   </div>
 </section>
@@ -97,20 +134,7 @@
     <div class="wb-padding">
       <h1 class="wb-medium-heading">Sorry, boss!</h1>
       <p class="wb-404-lede wb-collection-copy">The page you're looking for doesn't exist at this address — it may have moved, or it was never here in the first place.</p>
-      <ul class="wb-create-options wb-cards">
-        <li onclick="location.href='/pages/the-lab';">
-          <span class="wb-create-icon">💡</span>
-          <h2 class="wb-option-heading">Create a new whisky in <a href="/pages/the-lab">the lab</a></h2>
-        </li>
-        <li onclick="location.href='{{ routes.collections_url }}/single-malts';">
-          <span class="wb-create-icon">🥃</span>
-          <h2 class="wb-option-heading">Name your own <a href="{{ routes.collections_url }}/single-malts">single malt</a></h2>
-        </li>
-        <li onclick="location.href='/products/gift-voucher';">
-          <span class="wb-create-icon">💌</span>
-          <h2 class="wb-option-heading">Give someone a <a href="/products/gift-voucher">whisky voucher</a></h2>
-        </li>
-      </ul>
+      {{ wb_404_cards }}
     </div>
   </div>
 </section>
