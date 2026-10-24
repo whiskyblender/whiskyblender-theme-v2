@@ -88,18 +88,30 @@
             "icon": "⭐",
             "heading": "Personalise our <a href=\"/pages/perfect-drams\">perfect drams</a>",
             "url": "shopify://pages/perfect-drams",
-            "description": "Not sure what they'd like? Pick the whisky that's most like them, then label it up."
+            "description": "Not sure what they'd like? Pick the whisky that's most like them, then label it up.",
+            "price_product": "custom-whisky-200ml-flat",
+            "price_prefix": "From"
+          }
+        },
+        "option_wbShop": {
+          "type": "option",
+          "settings": {
+            "icon": "🛍️",
+            "heading": "Browse the whole <a href=\"/pages/shop\">shop</a>",
+            "url": "shopify://pages/shop",
+            "description": "Our own blends, single malts, gifts and merch, ready to go."
           }
         }
       },
       "block_order": [
         "option_nWPDyX",
-        "option_pWhisk",
         "option_zKrc9g",
         "option_bkNwYD",
         "option_BziJVq",
         "option_jjccJk",
-        "option_V8wMq3"
+        "option_V8wMq3",
+        "option_pWhisk",
+        "option_wbShop"
       ],
       "name": "WB - Create Options",
       "settings": {
