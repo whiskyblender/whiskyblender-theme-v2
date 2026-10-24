@@ -524,6 +524,18 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
   font-family: 'Raleway', sans-serif;
 }
 
+/* A slot outside the label range: blank on paper, a numbered outline on screen */
+.wb-mini-empty {
+  background: transparent;
+  outline: 1px dashed #c8c8c8;
+  outline-offset: -1px;
+  align-items: center;
+  justify-content: center;
+  color: #bbb;
+  font-size: 32px;
+  font-weight: 600;
+}
+
 .wb-mini-row { display: flex; flex: 1; overflow: hidden; }
 
 .wb-mini-strip {
@@ -716,6 +728,9 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
   #wb-recipe-panel { display: flex; }
 
   #wb-contact-sheet { padding: 0; }
+
+  .wb-mini-empty { outline: none; }
+  .wb-mini-empty span { display: none; }
 }
 
 /* ── "Halloween" label style (custom blend, New 500ml) ─────────────────────────

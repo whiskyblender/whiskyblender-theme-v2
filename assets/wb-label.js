@@ -69,6 +69,28 @@
 
   var CONTACT = { cols: 3, rows: 4, w: 250, h: 250, gap: 4, pageW: 794, pageH: 1123 };
 
+  /* Label range (Andrew, 24 Oct 2026): print only slots slotFrom–slotTo so a
+     part-used sheet can be finished off (11–12 = the last two). Slots count left
+     to right, top to bottom. Skipped slots stay in the grid as blank cells so the
+     printed labels keep their place on the sheet. */
+  var SLOT_COUNT = CONTACT.cols * CONTACT.rows;
+
+  /* Clamp to 1–SLOT_COUNT and keep from ≤ to. `changed` is the field just edited:
+     the other one moves to meet it. */
+  function normaliseSlots(changed) {
+    function clamp(v, dflt) {
+      v = parseInt(v, 10);
+      if (isNaN(v)) return dflt;
+      return Math.min(SLOT_COUNT, Math.max(1, v));
+    }
+    state.slotFrom = clamp(state.slotFrom, 1);
+    state.slotTo   = clamp(state.slotTo, SLOT_COUNT);
+    if (state.slotFrom > state.slotTo) {
+      if (changed === 'to') state.slotFrom = state.slotTo;
+      else state.slotTo = state.slotFrom;
+    }
+  }
+
   /* ── State ─────────────────────────────────────────────────────────────────── */
 
   var state = {
@@ -89,6 +111,8 @@
     fg:         '#111111',
     bg:         '#ffffff',
     reference:  '',
+    slotFrom:   1,              /* contact-sheet label range — see normaliseSlots */
+    slotTo:     12,
     recipe:     null,
   };
 
@@ -265,6 +289,9 @@
     if (p.get('bg') && hexRe.test(p.get('bg'))) state.bg = p.get('bg');
     if (p.get('reference'))  state.reference  = p.get('reference');
     if (p.get('productname')) state.productname = p.get('productname');
+    /* slots=11-12 → label range on the miniature contact sheet */
+    var slots = /^(\d+)-(\d+)$/.exec(p.get('slots') || '');
+    if (slots) { state.slotFrom = slots[1]; state.slotTo = slots[2]; normaliseSlots(); }
 
     /* Legacy: map old type= and singlecask= params to product slug */
     if (!p.get('product')) {
@@ -312,6 +339,7 @@
     if (state.bg && state.bg !== '#ffffff') p.set('bg', state.bg);
     if (state.reference)  p.set('reference',  state.reference);
     if (state.productname) p.set('productname', state.productname);
+    if (state.slotFrom !== 1 || state.slotTo !== SLOT_COUNT) p.set('slots', state.slotFrom + '-' + state.slotTo);
     return window.location.pathname + '?' + p.toString();
   }
 
@@ -611,7 +639,11 @@
     grid.style.gap = CONTACT.gap + 'px';
 
     var html = '';
-    for (var i = 0; i < CONTACT.cols * CONTACT.rows; i++) html += buildMiniLabel();
+    for (var i = 1; i <= SLOT_COUNT; i++) {
+      html += (i >= state.slotFrom && i <= state.slotTo)
+        ? buildMiniLabel()
+        : '<div class="wb-mini-label wb-mini-empty"><span>' + i + '</span></div>';
+    }
     grid.innerHTML = html;
 
     renderMiniPageSummary(page);
@@ -867,6 +899,10 @@
     if (bg)       bg.value       = state.bg;
     if (ref)      ref.value      = state.reference;
     if (pname)    pname.value    = state.productname;
+    var slotFrom = document.getElementById('wb-f-slotfrom');
+    var slotTo   = document.getElementById('wb-f-slotto');
+    if (slotFrom) slotFrom.value = state.slotFrom;
+    if (slotTo)   slotTo.value   = state.slotTo;
 
     var legacy = document.getElementById('wb-f-legacy');
     if (legacy) legacy.checked = (state.template === 'classic');
@@ -915,6 +951,11 @@
        The Nip Before Christmas (200ml only) */
     document.querySelectorAll('.wb-nonmini-only').forEach(function (el) {
       el.style.display = (isMini || isDoctors || isNip) ? 'none' : '';
+    });
+    /* Label range: the miniature contact sheet only (miniatures, or custom blend at 50ml) */
+    var isSheet = isMini || (isBlend && state.size === '50ml');
+    document.querySelectorAll('.wb-sheet-only').forEach(function (el) {
+      el.style.display = isSheet ? '' : 'none';
     });
     /* Label template toggle: 500ml only (only 500ml has a New template) */
     document.querySelectorAll('.wb-500-only').forEach(function (el) {
@@ -968,6 +1009,27 @@
     onChange('strength',   document.getElementById('wb-f-strength'),    null);
     onChange('reference',  document.getElementById('wb-f-reference'),   null);
     onChange('productname', document.getElementById('wb-f-productname'), null);
+
+    /* Label range: typing applies straight away without rewriting the field being
+       typed in; on change (blur, Enter, spinner) both fields show the clamped values. */
+    [['slotFrom', 'wb-f-slotfrom', 'from'], ['slotTo', 'wb-f-slotto', 'to']].forEach(function (f) {
+      var el = document.getElementById(f[1]);
+      if (!el) return;
+      el.addEventListener('input', function () {
+        if (isNaN(parseInt(el.value, 10))) return;
+        state[f[0]] = el.value;
+        normaliseSlots(f[2]);
+        var other = document.getElementById(f[2] === 'from' ? 'wb-f-slotto' : 'wb-f-slotfrom');
+        if (other) other.value = f[2] === 'from' ? state.slotTo : state.slotFrom;
+        render();
+      });
+      el.addEventListener('change', function () {
+        state[f[0]] = el.value;
+        normaliseSlots(f[2]);
+        syncFormToState();
+        render();
+      });
+    });
 
     var size = document.getElementById('wb-f-size');
     if (size) {
