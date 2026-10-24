@@ -79,9 +79,23 @@
           </div>
           {%- endif -%}
 
+          {%- if has_tags -%}
+          <div class="wb-aside-block">
+            <div class="wb-aside-title">Tags</div>
+            <div class="wb-tag-chips">
+              {%- for tag in article.tags -%}
+              <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="wb-tag-chip">{{ tag }}</a>
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- endif -%}
+
+          </div>
+
+          {%- comment -%} Latest sits last, below the spotlight, so it shares that column (side by side on tablets). {%- endcomment -%}
+          {%- assign shown = 0 -%}
           {%- if section.settings.show_related -%}
           {%- assign rc = section.settings.related_count | default: 3 -%}
-          {%- assign shown = 0 -%}
           {%- assign related_markup = '' -%}
           {%- capture related_markup -%}
             {%- for a in blog.articles -%}
@@ -96,31 +110,12 @@
               {%- endif -%}
             {%- endfor -%}
           {%- endcapture -%}
-          {%- if shown > 0 -%}
-          <div class="wb-aside-block">
-            <div class="wb-aside-title">Latest</div>
-            <ul class="wb-related-list">{{ related_markup }}</ul>
-            <a href="{{ blog.url }}" class="wb-related-all">See all articles &#8594;</a>
-          </div>
-          {%- endif -%}
           {%- endif -%}
 
-          {%- if has_tags -%}
-          <div class="wb-aside-block">
-            <div class="wb-aside-title">Tags</div>
-            <div class="wb-tag-chips">
-              {%- for tag in article.tags -%}
-              <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="wb-tag-chip">{{ tag }}</a>
-              {%- endfor -%}
-            </div>
-          </div>
-          {%- endif -%}
-
-          </div>
-
-          {%- if has_spotlight -%}
-          {%- assign sp = article.metafields.custom.spotlight_product.value -%}
+          {%- if has_spotlight or shown > 0 -%}
           <div class="wb-aside-col wb-aside-col--product">
+            {%- if has_spotlight -%}
+            {%- assign sp = article.metafields.custom.spotlight_product.value -%}
             <div class="wb-aside-block">
               <div class="wb-aside-title">Spotlight</div>
               <a href="{{ sp.url }}" class="wb-spotlight">
@@ -132,6 +127,15 @@
                 <span class="wb-spotlight-cta">View bottle &#8594;</span>
               </a>
             </div>
+            {%- endif -%}
+
+            {%- if shown > 0 -%}
+            <div class="wb-aside-block">
+              <div class="wb-aside-title">Latest</div>
+              <ul class="wb-related-list">{{ related_markup }}</ul>
+              <a href="{{ blog.url }}" class="wb-related-all">See all articles &#8594;</a>
+            </div>
+            {%- endif -%}
           </div>
           {%- endif -%}
 
