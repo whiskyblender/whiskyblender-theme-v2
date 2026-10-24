@@ -10,7 +10,8 @@
   /* Scoped to .wb-create-grid: the global .wb-create-options/.wb-cards rules (some
      !important, plus a site-wide ul max-width of 768px) were built for bare one-line
      cards. Selectors here are one class stronger so they win without new globals. */
-  .wb-create-intro { max-width: 40em; margin: 0 0 8px; }
+  /* Intro is a short lead line at body size (20px); the body's 160% read too airy */
+  .wb-create-intro { max-width: 40em; margin: 0 0 8px; line-height: 1.4; }
 
   .wb-create-options.wb-create-grid {
     display: grid;
