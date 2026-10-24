@@ -27,7 +27,7 @@
     gap: 12px;
     max-width: none !important;
     margin: 0;
-    padding: 16px 40px 16px 16px;
+    padding: 16px;
     border-radius: 12px;
     background-color: #f2f2f2;
     color: #555555 !important;
@@ -84,17 +84,6 @@
     line-height: 1.6;
     white-space: nowrap;
   }
-  .wb-create-arrow {
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    margin-top: -12px;
-    line-height: 24px;
-    color: #999999;
-    font-size: 18px;
-    transition: transform 0.2s, color 0.2s;
-  }
-  .wb-create-grid li:hover .wb-create-arrow { color: #333333; transform: translateX(3px); }
   .wb-create-text { min-width: 0; }
 
   /* Whole card clickable: the heading link stretched over the card */
@@ -109,12 +98,11 @@
     .wb-create-options.wb-create-grid li {
       grid-template-columns: 64px 1fr;
       gap: 18px;
-      padding: 22px 52px 22px 22px;
+      padding: 22px;
     }
     .wb-create-options.wb-create-grid .wb-create-icon { width: 64px; height: 64px; font-size: 34px; }
     .wb-create-options.wb-create-grid .wb-option-heading { font-size: 22px; }
     .wb-create-desc { font-size: 16px; }
-    .wb-create-arrow { right: 22px; }
   }
   /* Two columns only from 1024px: at tablet width they squeeze the text to ~180px */
   @media screen and (min-width: 1024px) {
@@ -156,9 +144,7 @@
                   {%- render 'wb-money', amount: price_product.price_min, code: false -%}
                 </span>
               {%- endif -%}
-            </div>
-            <span class="wb-create-arrow" aria-hidden="true">&rarr;</span>
-          </li>
+            </div>          </li>
         {%- endfor -%}
       </ul>
       {%- if section.settings.footnote != blank -%}
