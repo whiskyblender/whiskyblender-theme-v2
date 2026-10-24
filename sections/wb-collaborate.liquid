@@ -54,10 +54,11 @@
 
     // The browser jumps to a #hash before Glide collapses the carousel, so it
     // overshoots (e.g. /pages/collaborate#wbContactForm landed at the footer).
-    // Re-scroll once the carousel has its real height.
+    // Re-scroll once the carousel has its real height. 'instant' because the
+    // global scroll-behavior: smooth gets cancelled mid-load and stays at the top.
     var target = location.hash && document.getElementById(location.hash.slice(1));
     if (target) {
-      requestAnimationFrame(function () { target.scrollIntoView({ block: 'start' }); });
+      requestAnimationFrame(function () { target.scrollIntoView({ block: 'start', behavior: 'instant' }); });
     }
   });
 </script>
