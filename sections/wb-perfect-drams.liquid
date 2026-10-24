@@ -84,7 +84,7 @@
       object-position: 30% 50%;
     }
     /* No emoji on phones (Andrew, 24 Oct), so the text gets the full width */
-    #wb-perfect-drams-cards .wb-card-details { position: static; padding: 14px 14px 14px 0; }
+    #wb-perfect-drams-cards .wb-card-details { position: static; min-width: 0; padding: 14px 14px 14px 0; }
     #wb-perfect-drams-cards .wb-card-details .wb-emoji { display: none; }
     #wb-perfect-drams-cards .wb-small-heading { margin: 0; font-size: 26px; line-height: 24px; }
     #wb-perfect-drams-cards .wb-dram-desc {
@@ -95,7 +95,8 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .wb-dram-price { background-color: #ffffff; }
+    /* May wrap on narrow phones rather than push the text column wider than the card */
+    .wb-dram-price { background-color: #ffffff; white-space: normal; }
   }
 </style>
 
