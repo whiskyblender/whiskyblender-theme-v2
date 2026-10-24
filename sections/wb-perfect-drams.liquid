@@ -22,17 +22,39 @@
     color: #107a5f;
   }
   #wb-perfect-drams-cards .wb-dram-desc { margin: 0; }
-  /* A cue only: the whole card is the link (overlay + heading link). Prices sit
-     once in the Lab-style strip at the top, as every dram costs the same. */
-  .wb-dram-choose {
-    display: inline-block;
-    margin: 12px 0 0;
+  /* Size links. The card's overlay link (z-index 2) goes to the 500ml; these sit above
+     it (see the stacking note above). Each link is padded out to a 44px-tall tap area, with a 12px gap
+     between them, so a tap meant for the 200ml can't land on the 500ml or the card.
+     The negative margin keeps the first link's text lined up with the card text. */
+  /* The card text sits in its own stacking layer (.wb-card-details has z-index 1), which
+     kept any link inside it under the overlay whatever its own z-index. Lift the text
+     above the overlay but let taps on plain text fall through to the card; only the
+     links inside take taps. */
+  #wb-perfect-drams-cards .wb-card-details { z-index: 3; pointer-events: none; }
+  #wb-perfect-drams-cards .wb-card-details a { pointer-events: auto; }
+  .wb-dram-sizes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 12px;
+    margin: 6px 0 -10px -12px;
+  }
+  #wb-perfect-drams-cards .wb-dram-size {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 12px;
     font-size: 15px;
     font-weight: 700;
-    color: #107a5f;
+    text-decoration: none;
   }
-  .wb-dram-choose span { display: inline-block; transition: transform 0.2s; }
-  #wb-perfect-drams-cards li:hover .wb-dram-choose span { transform: translateX(3px); }
+  #wb-perfect-drams-cards .wb-dram-size--main { color: #107a5f; }
+  #wb-perfect-drams-cards .wb-dram-size--small { color: #555555; font-weight: 600; }
+  .wb-dram-size span { display: inline-block; margin-left: 4px; transition: transform 0.2s; }
+  .wb-dram-size:hover span, .wb-dram-size:focus-visible span { transform: translateX(3px); }
+  .wb-dram-size:focus-visible { outline: 2px solid #107a5f; outline-offset: -4px; border-radius: 6px; }
   .wb-dram-phone-line { display: none; }
 
   /* Phones: compact cards. The image runs the full height of the card down its left
@@ -78,7 +100,7 @@
        instead of the full description cut off at two lines. No line, no text. */
     #wb-perfect-drams-cards .wb-dram-desc { display: none; }
     #wb-perfect-drams-cards .wb-dram-phone-line { display: block; margin: 0; font-size: 15px; line-height: 1.45; }
-    .wb-dram-choose { margin-top: 8px; }
+    .wb-dram-sizes { margin-top: 2px; margin-bottom: -12px; }
   }
 </style>
 
@@ -102,6 +124,7 @@
             assign label_text = block.settings.label | default: block.settings.name | strip
             assign label_param = label_text | url_encode
             assign href = main_product.url | append: '?preset=' | append: block.settings.preset | append: '&label=' | append: label_param
+            assign small_href = small_product.url | append: '?preset=' | append: block.settings.preset | append: '&label=' | append: label_param
           -%}
           <li {{ block.shopify_attributes }}>
             <a href="{{ href }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
@@ -124,7 +147,10 @@
               {%- if block.settings.phone_line != blank -%}
                 <p class="wb-dram-phone-line">{{ block.settings.phone_line }}</p>
               {%- endif -%}
-              <p class="wb-dram-choose">Choose <span aria-hidden="true">&rarr;</span></p>
+              <p class="wb-dram-sizes">
+                <a class="wb-dram-size wb-dram-size--main" href="{{ href }}">500ml<span aria-hidden="true">&rarr;</span></a>
+                <a class="wb-dram-size wb-dram-size--small" href="{{ small_href }}">200ml<span aria-hidden="true">&rarr;</span></a>
+              </p>
             </div>
           </li>
         {%- endfor -%}
@@ -158,8 +184,8 @@
     {
       "type": "product",
       "id": "small_product",
-      "label": "Smaller bottle (price only)",
-      "info": "Its price shows as the 200ml in the sizes box at the top. Leave blank for the 200ml flat."
+      "label": "Smaller bottle (200ml)",
+      "info": "Each card's 200ml link, and the 200ml price in the sizes box at the top. Leave blank for the 200ml flat."
     }
   ],
   "blocks": [
