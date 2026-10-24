@@ -1,7 +1,8 @@
 {{ 'wb-blog.css' | asset_url | stylesheet_tag }}
 
 <style>
-  .wb-faq { list-style: none; padding: 0; }
+  /* max-width 100%: full content width, like the other FAQs (the site-wide ul rule caps lists at 768px) */
+  .wb-faq { list-style: none; padding: 0; max-width: 100%; }
   .wb-faq li { padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
   .wb-faq li:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
   .wb-collapsible {
