@@ -49,7 +49,7 @@
   }
 
   /* Phones: compact cards. The image runs the full height of the card down its left
-     edge (touching top, left and bottom), the emoji sits in the top-right corner.
+     edge (touching top, left and bottom); no emoji on phones.
      Six full-width image cards ran ~2,600px; this is roughly half. Desktop keeps the
      existing image-top grid with the emoji over the image's bottom-right corner. */
   @media screen and (max-width: 767px) {
@@ -83,16 +83,9 @@
       object-fit: cover;
       object-position: 30% 50%;
     }
-    #wb-perfect-drams-cards .wb-card-details { position: static; padding: 14px 44px 14px 0; }
-    #wb-perfect-drams-cards .wb-card-details .wb-emoji {
-      top: 10px;
-      right: 12px;
-      left: auto;
-      font-size: 28px;
-      line-height: 1;
-      transform: rotate(12deg);
-      z-index: 1;
-    }
+    /* No emoji on phones (Andrew, 24 Oct), so the text gets the full width */
+    #wb-perfect-drams-cards .wb-card-details { position: static; padding: 14px 14px 14px 0; }
+    #wb-perfect-drams-cards .wb-card-details .wb-emoji { display: none; }
     #wb-perfect-drams-cards .wb-small-heading { margin: 0; font-size: 26px; line-height: 24px; }
     #wb-perfect-drams-cards .wb-dram-desc {
       font-size: 15px;
