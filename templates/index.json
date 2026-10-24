@@ -276,7 +276,7 @@
       "name": "Blog strip",
       "settings": {
         "heading": "On the Scotch",
-        "description": "Stories, gift ideas and the odd strong opinion, from our blog.",
+        "description": "Our humble blog.",
         "blog": "on-the-scotch",
         "count": 4,
         "button_label": "View all"
