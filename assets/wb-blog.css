@@ -8,15 +8,11 @@
 
 /* ── Article page ────────────────────────────────────────────────────────── */
 
-/* Intro paragraph under the article H1 (from the article's Excerpt). Same values as
-   .wb-collection-sub, repeated here because wb-products.css loads async and the
-   hero box would jump when it arrived. */
-#wb-article .wb-article-intro {
-  font-weight: 600;
-  font-size: 140%;
-  line-height: 120%;
-  margin: 0;
-  padding: 18px 0 2px 0;
+/* Intro paragraph at the top of the body (from the article's Excerpt). Size and
+   line-height come from .wb-collection-copy in wb-global.css, the homepage intro
+   scale; this only adds the gap before the body copy. */
+#wb-article .wb-article-body .wb-article-intro {
+  margin: 0 0 24px;
 }
 
 .wb-article-body {
