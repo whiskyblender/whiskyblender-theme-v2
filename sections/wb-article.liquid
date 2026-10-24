@@ -83,18 +83,47 @@
           {%- assign shown = 0 -%}
           {%- if section.settings.show_related -%}
           {%- assign rc = section.settings.related_count | default: 3 -%}
+          {%- comment -%}
+            Newest articles sharing a tag with this one first, then topped up with the
+            newest of the rest, so the list is always full. picked_ids holds the ids
+            already listed (comma-wrapped, so 12 can't match inside 112).
+          {%- endcomment -%}
+          {%- assign picked_ids = ',' | append: article.id | append: ',' -%}
+          {%- assign related_count = 0 -%}
           {%- assign related_markup = '' -%}
           {%- capture related_markup -%}
             {%- for a in blog.articles -%}
-              {%- if a.id != article.id and shown < rc -%}
+              {%- if shown >= rc -%}{%- break -%}{%- endif -%}
+              {%- assign a_key = ',' | append: a.id | append: ',' -%}
+              {%- if picked_ids contains a_key -%}{%- continue -%}{%- endif -%}
+              {%- assign shares_tag = false -%}
+              {%- for t in a.tags -%}
+                {%- if article.tags contains t -%}{%- assign shares_tag = true -%}{%- break -%}{%- endif -%}
+              {%- endfor -%}
+              {%- if shares_tag -%}
                 <li>
                   <a href="{{ a.url }}">
                     <span class="wb-related-title">{{ a.title | escape }}</span>
                     <span class="wb-related-date">{{ a.published_at | date: "%-d %b %Y" }}</span>
                   </a>
                 </li>
+                {%- assign picked_ids = picked_ids | append: a.id | append: ',' -%}
                 {%- assign shown = shown | plus: 1 -%}
+                {%- assign related_count = related_count | plus: 1 -%}
               {%- endif -%}
+            {%- endfor -%}
+            {%- for a in blog.articles -%}
+              {%- if shown >= rc -%}{%- break -%}{%- endif -%}
+              {%- assign a_key = ',' | append: a.id | append: ',' -%}
+              {%- if picked_ids contains a_key -%}{%- continue -%}{%- endif -%}
+              <li>
+                <a href="{{ a.url }}">
+                  <span class="wb-related-title">{{ a.title | escape }}</span>
+                  <span class="wb-related-date">{{ a.published_at | date: "%-d %b %Y" }}</span>
+                </a>
+              </li>
+              {%- assign picked_ids = picked_ids | append: a.id | append: ',' -%}
+              {%- assign shown = shown | plus: 1 -%}
             {%- endfor -%}
           {%- endcapture -%}
           {%- endif -%}
@@ -129,7 +158,7 @@
 
             {%- if shown > 0 -%}
             <div class="wb-aside-block">
-              <div class="wb-aside-title">Latest</div>
+              <div class="wb-aside-title">{% if related_count > 0 %}Related{% else %}Latest{% endif %}</div>
               <ul class="wb-related-list">{{ related_markup }}</ul>
               <a href="{{ blog.url }}" class="wb-related-all">See all articles &#8594;</a>
             </div>
