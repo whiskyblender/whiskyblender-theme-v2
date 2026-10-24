@@ -86,10 +86,6 @@
   margin: 8px 0 0;
 }
 
-.wb-article-cards-more {
-  margin-top: 28px;
-}
-
 @media screen and (min-width: 768px) {
   .wb-article-cards {
     grid-template-columns: repeat(var(--wb-article-cols, 4), minmax(0, 1fr));

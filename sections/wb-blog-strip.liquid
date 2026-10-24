@@ -16,9 +16,15 @@
 <section class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
-      {%- if section.settings.heading != blank -%}
-        <h2 class="wb-medium-heading wb-blog-strip-heading">{{ section.settings.heading | escape }}</h2>
-      {%- endif -%}
+      {%- comment -%} Heading left, link right, as in the featured-collection header ("With their name on it" on Gifts). {%- endcomment -%}
+      <div class="wb-blog-strip-head">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="wb-medium-heading wb-blog-strip-heading">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ strip_blog.url }}" class="link underlined-link wb-blog-strip-all" aria-label="{{ section.settings.button_label | escape }}: {{ strip_blog.title | escape }} blog">{{ section.settings.button_label | escape }}</a>
+        {%- endif -%}
+      </div>
       {%- if section.settings.description != blank -%}
         <p class="wb-blog-strip-intro">{{ section.settings.description }}</p>
       {%- endif -%}
@@ -28,19 +34,21 @@
           {%- render 'wb-article-card', article: article -%}
         {%- endfor -%}
       </ul>
-
-      {%- if section.settings.button_label != blank -%}
-        <div class="wb-article-cards-more">
-          <a href="{{ strip_blog.url }}" class="wb-button">{{ section.settings.button_label | escape }}</a>
-        </div>
-      {%- endif -%}
     </div>
   </div>
 </section>
 {%- endif -%}
 
 <style>
-  .wb-blog-strip-heading { margin-bottom: 8px; }
+  .wb-blog-strip-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+  .wb-blog-strip-heading { margin: 0; }
+  .wb-blog-strip-all { flex-shrink: 0; white-space: nowrap; }
   .wb-blog-strip-intro { margin-top: 0; max-width: 620px; }
 </style>
 
@@ -82,9 +90,9 @@
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button label",
-      "info": "Links to the blog. Leave blank to hide the button.",
-      "default": "See all articles"
+      "label": "Link label",
+      "info": "Shown on the right of the heading; links to the blog. Leave blank to hide it.",
+      "default": "View all"
     }
   ],
   "presets": [
