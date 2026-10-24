@@ -1,0 +1,96 @@
+{%- comment -%}
+  WB Blog strip — the latest blog articles as cards, for the bottom of the
+  homepage. Cards come from snippets/wb-article-card.liquid (shared with the
+  help page) and look like the homepage collection cards.
+
+  The section is a section.wb-banded like its neighbours, so it takes its
+  grey/white band from the global banding rules in wb-base.css.
+{%- endcomment -%}
+
+{{ 'wb-article-cards.css' | asset_url | stylesheet_tag }}
+
+{%- assign strip_blog = blogs[section.settings.blog] | default: blogs['on-the-scotch'] -%}
+{%- assign strip_count = section.settings.count -%}
+
+{%- if strip_blog and strip_blog.articles_count > 0 -%}
+<section class="wb-banded">
+  <div class="wb-container">
+    <div class="wb-padding">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="wb-medium-heading wb-blog-strip-heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="wb-blog-strip-intro">{{ section.settings.description }}</p>
+      {%- endif -%}
+
+      <ul class="wb-article-cards" role="list" style="--wb-article-cols: {{ strip_count }};">
+        {%- for article in strip_blog.articles limit: strip_count -%}
+          {%- render 'wb-article-card', article: article -%}
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="wb-article-cards-more">
+          <a href="{{ strip_blog.url }}" class="wb-button">{{ section.settings.button_label | escape }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+<style>
+  .wb-blog-strip-heading { margin-bottom: 8px; }
+  .wb-blog-strip-intro { margin-top: 0; max-width: 620px; }
+</style>
+
+{% schema %}
+{
+  "name": "WB Blog strip",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "The latest blog articles as cards, matching the homepage collection cards. Two per row on phones (titles only), all in one row from tablet up."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "On the Scotch"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Intro",
+      "default": "Stories, gift ideas and the odd strong opinion, from our blog."
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog",
+      "info": "Leave blank for On the Scotch."
+    },
+    {
+      "type": "range",
+      "id": "count",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Number of articles",
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "info": "Links to the blog. Leave blank to hide the button.",
+      "default": "See all articles"
+    }
+  ],
+  "presets": [
+    {
+      "name": "WB Blog strip"
+    }
+  ]
+}
+{% endschema %}
