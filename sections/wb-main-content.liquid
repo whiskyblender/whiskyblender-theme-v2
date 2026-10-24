@@ -83,114 +83,15 @@
             (that block deliberately leaves its wrappers open — wb_grid closes them).
             .wb-padding is already position:relative, so the strip anchors to it.
           {%- endcomment -%}
-          {% style %}
-            .wb-info-strip {
-              margin: 0 0 20px 0;
-              border-radius: 8px;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            }
-            .wb-info-strip__heading {
-              font-size: 16px;
-              font-weight: 700;
-              line-height: 1.3;
-              margin: 0;
-            }
-            .wb-info-strip__body {
-              font-size: 14px;
-              line-height: 1.5;
-              margin: 6px 0 0;
-              color: #5a5045;
-            }
-            .wb-info-strip__prices {
-              display: flex;
-              gap: 28px;
-              margin: 10px 0;
-            }
-            .wb-info-strip__price {
-              display: flex;
-              flex-direction: row-reverse;
-              gap: 10px;
-              margin: 0;
-            }
-            .wb-info-strip__price dt {
-              font-size: 11px;
-              letter-spacing: 0.1em;
-              text-transform: uppercase;
-              color: #6d6154;
-            }
-            .wb-info-strip__price dd {
-              margin: 2px 0 0;
-              font-size: 24px;
-              font-weight: 700;
-              line-height: 1;
-            }
-
-            @media screen and (min-width: 600px) {
-
-              .wb-info-strip {
-                margin: 0;
-              }
-
-              .wb-info-strip__prices {
-                margin: 2px 10px 0 0;
-              }
-
-              .wb-info-strip__heading {
-                margin-left: 10px;
-              }
-            }
-
-            @media screen and (min-width: 1024px) {
-              .wb-info-strip {
-                position: absolute;
-                top: 60px;
-                right: 40px;
-                width: 200px;
-                margin-top: 0;
-                padding: 40px;
-                align-items: flex-start;
-                flex-direction: column;
-                background-color: #fafafa;
-              }
-
-              .wb-info-strip__heading {
-                font-size: 22px;
-                line-height: 1.3;
-                margin: 0 0 10px 0;
-              }
-
-              .wb-info-strip__price {
-                gap: 0;
-                flex-direction: column;
-              }
-            }
-          {% endstyle %}
-          <div class="wb-info-strip" {{ block.shopify_attributes }}>
-            {%- if block.settings.heading != blank -%}
-              <p class="wb-info-strip__heading">{{ block.settings.heading | escape }}</p>
-            {%- endif -%}
-            {%- if block.settings.body != blank -%}
-              <p class="wb-info-strip__body">{{ block.settings.body | escape }}</p>
-            {%- endif -%}
-            {%- if block.settings.size_1_price != blank or block.settings.size_2_price != blank -%}
-              <dl class="wb-info-strip__prices">
-                {%- if block.settings.size_1_price != blank -%}
-                  <div class="wb-info-strip__price">
-                    <dt>{{ block.settings.size_1_label | escape }}</dt>
-                    <dd>{{ block.settings.size_1_price | escape }}</dd>
-                  </div>
-                {%- endif -%}
-                {%- if block.settings.size_2_price != blank -%}
-                  <div class="wb-info-strip__price">
-                    <dt>{{ block.settings.size_2_label | escape }}</dt>
-                    <dd>{{ block.settings.size_2_price | escape }}</dd>
-                  </div>
-                {%- endif -%}
-              </dl>
-            {%- endif -%}
-          </div>
+          {% render 'wb-info-strip',
+            heading: block.settings.heading,
+            body: block.settings.body,
+            size_1_label: block.settings.size_1_label,
+            size_1_price: block.settings.size_1_price,
+            size_2_label: block.settings.size_2_label,
+            size_2_price: block.settings.size_2_price,
+            attrs: block.shopify_attributes
+          %}
 
         {%- when 'contact_form' -%}
           {% render 'wb-contact-form-markup', heading: block.settings.heading, heading_size: 'h1' %}

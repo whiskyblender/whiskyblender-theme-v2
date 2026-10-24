@@ -29,7 +29,8 @@
             "emoji": "👑",
             "description": "A whisky with presence. Deep flavours, often full of oak, spice, or smoke, it makes a statement from the first sip. Confident and uncompromising, this is the dram that likes to take center stage.",
             "preset": "WB00836",
-            "flavours": "Oak · spice · smoke"
+            "flavours": "Oak · spice · smoke",
+            "phone_line": "Confident and uncompromising, for the one who likes to take centre stage."
           }
         },
         "dram_littlesweetie": {
@@ -41,7 +42,8 @@
             "emoji": "🍯",
             "description": "Soft, gentle, and welcoming. Think honeyed notes, vanilla, or ripe fruits. This whisky is a hug in a glass, perfect for someone who brings sweetness wherever they go.",
             "preset": "WB00821",
-            "flavours": "Honey · vanilla · ripe fruit"
+            "flavours": "Honey · vanilla · ripe fruit",
+            "phone_line": "A hug in a glass, for someone who brings sweetness wherever they go."
           }
         },
         "dram_wellbalanced": {
@@ -53,7 +55,8 @@
             "emoji": "⚖️",
             "description": "Harmony in liquid form. Smooth layers of fruit, malt, and spice come together in a whisky that feels effortless. Reliable and composed, it never tries too hard, but always delivers.",
             "preset": "WB01767",
-            "flavours": "Fruit · malt · spice"
+            "flavours": "Fruit · malt · spice",
+            "phone_line": "Reliable and composed: it never tries too hard, but always delivers."
           }
         },
         "dram_wildatheart": {
@@ -65,7 +68,8 @@
             "emoji": "🐺",
             "description": "Fiery and untamed. Whether it's a burst of smoke, a punch of spice, or a high-strength kick, this whisky has an adventurous edge that refuses to be tamed.",
             "preset": "WB00836",
-            "flavours": "Smoke · spice · a kick"
+            "flavours": "Smoke · spice · a kick",
+            "phone_line": "Fiery and untamed, for the adventurous one who refuses to be tamed."
           }
         },
         "dram_quietlypowerful": {
@@ -77,7 +81,8 @@
             "emoji": "💪",
             "description": "Understated at first, but with a depth that reveals itself slowly. A whisky with quiet confidence: refined, layered, and lasting long after the glass is empty.",
             "preset": "WB01767",
-            "flavours": "Refined · layered · long"
+            "flavours": "Refined · layered · long",
+            "phone_line": "Understated at first, with a quiet confidence that reveals itself slowly."
           }
         },
         "dram_lovelybutweird": {
@@ -89,7 +94,8 @@
             "emoji": "🌀",
             "description": "Unexpected and quirky. Flavours you might not see coming — floral, herbal, or a little eccentric — make this whisky as surprising as it is endearing. For those who delight in the unusual.",
             "preset": "WB00820",
-            "flavours": "Floral · herbal · a bit odd"
+            "flavours": "Floral · herbal · a bit odd",
+            "phone_line": "Unexpected and quirky, for those who delight in the unusual."
           }
         }
       },
@@ -233,11 +239,41 @@
       "settings": {
         "heading": "Gift questions"
       }
+    },
+    "pd_personalised": {
+      "type": "featured-collection",
+      "name": "Exclusive bottles",
+      "settings": {
+        "collection": "personalised-whisky",
+        "products_to_show": 4,
+        "title": "With their name on it",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "color_scheme": "",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "main",
     "perfect_drams_section",
+    "pd_personalised",
     "pd_how_it_works",
     "pd_gift_faq",
     "wb_cta_letscollab",

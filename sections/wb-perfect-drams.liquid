@@ -22,34 +22,21 @@
     color: #107a5f;
   }
   #wb-perfect-drams-cards .wb-dram-desc { margin: 0; }
-  .wb-dram-buy {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px 12px;
-    margin: 10px 0 0;
-    font-size: 14px;
-    line-height: 1.4;
-  }
-  .wb-dram-price {
-    padding: 2px 10px;
-    border-radius: 999px;
-    background-color: #f2f2f2;
-    color: #107a5f;
-    font-size: 13px;
+  /* A cue only: the whole card is the link (overlay + heading link). Prices sit
+     once in the Lab-style strip at the top, as every dram costs the same. */
+  .wb-dram-choose {
+    display: inline-block;
+    margin: 12px 0 0;
+    font-size: 15px;
     font-weight: 700;
-    white-space: nowrap;
+    color: #107a5f;
   }
-  /* Sits above the card's full-card overlay link */
-  .wb-dram-small {
-    position: relative;
-    z-index: 3;
-    color: #555555;
-    white-space: nowrap;
-  }
+  .wb-dram-choose span { display: inline-block; transition: transform 0.2s; }
+  #wb-perfect-drams-cards li:hover .wb-dram-choose span { transform: translateX(3px); }
+  .wb-dram-phone-line { display: none; }
 
   /* Phones: compact cards. The image runs the full height of the card down its left
-     edge (touching top, left and bottom), the emoji sits in the top-right corner.
+     edge (touching top, left and bottom); no emoji on phones.
      Six full-width image cards ran ~2,600px; this is roughly half. Desktop keeps the
      existing image-top grid with the emoji over the image's bottom-right corner. */
   @media screen and (max-width: 767px) {
@@ -73,36 +60,25 @@
       border-radius: 0;
     }
     /* Pinned to the box so it fills the card's full height, whatever the text. The
-       photos are wide banners with the glass ~35% from the left in all six, so the
-       narrow crop centres there rather than at 50%. */
+       photos are wide banners with the glass ~35% from the left in all six; the
+       narrow crop sits at 30% (Andrew's call) rather than 50%. */
     #wb-perfect-drams-cards .wb-card-image img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100% !important;
       object-fit: cover;
-      object-position: 35% 50%;
+      object-position: 30% 50%;
     }
-    #wb-perfect-drams-cards .wb-card-details { position: static; padding: 14px 44px 14px 0; }
-    #wb-perfect-drams-cards .wb-card-details .wb-emoji {
-      top: 10px;
-      right: 12px;
-      left: auto;
-      font-size: 28px;
-      line-height: 1;
-      transform: rotate(12deg);
-      z-index: 1;
-    }
+    /* No emoji on phones (Andrew, 24 Oct), so the text gets the full width */
+    #wb-perfect-drams-cards .wb-card-details { position: static; min-width: 0; padding: 14px 14px 14px 0; }
+    #wb-perfect-drams-cards .wb-card-details .wb-emoji { display: none; }
     #wb-perfect-drams-cards .wb-small-heading { margin: 0; font-size: 26px; line-height: 24px; }
-    #wb-perfect-drams-cards .wb-dram-desc {
-      font-size: 15px;
-      line-height: 1.45;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .wb-dram-price { background-color: #ffffff; }
+    /* Phones show one whole sentence (the card's "phone line": who the dram suits)
+       instead of the full description cut off at two lines. No line, no text. */
+    #wb-perfect-drams-cards .wb-dram-desc { display: none; }
+    #wb-perfect-drams-cards .wb-dram-phone-line { display: block; margin: 0; font-size: 15px; line-height: 1.45; }
+    .wb-dram-choose { margin-top: 8px; }
   }
 </style>
 
@@ -111,6 +87,14 @@
     <div class="wb-padding wb-collection-copy">
       <h1 class="wb-large-heading">{{ section.settings.heading | default: 'Perfect drams' }}</h1>
       <p>{{ section.settings.intro }}</p>
+      {%- capture small_price -%}{% render 'wb-money', amount: small_product.price_min, code: false %}{%- endcapture -%}
+      {%- capture main_price -%}{% render 'wb-money', amount: main_product.price_min, code: false %}{%- endcapture -%}
+      {% render 'wb-info-strip',
+        size_1_label: '200ml',
+        size_1_price: small_price,
+        size_2_label: '500ml',
+        size_2_price: main_price
+      %}
 
       <ul class="wb-cards wb-main-cards" id="wb-perfect-drams-cards">
         {%- for block in section.blocks -%}
@@ -118,7 +102,6 @@
             assign label_text = block.settings.label | default: block.settings.name | strip
             assign label_param = label_text | url_encode
             assign href = main_product.url | append: '?preset=' | append: block.settings.preset | append: '&label=' | append: label_param
-            assign small_href = small_product.url | append: '?preset=' | append: block.settings.preset | append: '&label=' | append: label_param
           -%}
           <li {{ block.shopify_attributes }}>
             <a href="{{ href }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
@@ -138,10 +121,10 @@
                 <p class="wb-dram-flavours">{{ block.settings.flavours }}</p>
               {%- endif -%}
               <p class="wb-dram-desc">{{ block.settings.description }}</p>
-              <p class="wb-dram-buy">
-                <span class="wb-dram-price">500ml with their label · {% render 'wb-money', amount: main_product.price_min, code: false %}</span>
-                <a class="wb-dram-small" href="{{ small_href }}">or 200ml, {% render 'wb-money', amount: small_product.price_min, code: false %}</a>
-              </p>
+              {%- if block.settings.phone_line != blank -%}
+                <p class="wb-dram-phone-line">{{ block.settings.phone_line }}</p>
+              {%- endif -%}
+              <p class="wb-dram-choose">Choose <span aria-hidden="true">&rarr;</span></p>
             </div>
           </li>
         {%- endfor -%}
@@ -175,8 +158,8 @@
     {
       "type": "product",
       "id": "small_product",
-      "label": "Smaller bottle link",
-      "info": "The small \"or 200ml\" link on each card. Leave blank for the 200ml flat."
+      "label": "Smaller bottle (price only)",
+      "info": "Its price shows as the 200ml in the sizes box at the top. Leave blank for the 200ml flat."
     }
   ],
   "blocks": [
@@ -216,6 +199,12 @@
           "type": "textarea",
           "id": "description",
           "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "phone_line",
+          "label": "Phone line",
+          "info": "One whole sentence shown on phones instead of the description, e.g. who the dram suits. Leave blank to show no text on phones."
         },
         {
           "type": "select",
