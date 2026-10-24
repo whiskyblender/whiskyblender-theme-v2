@@ -36,7 +36,7 @@
             "bullet_2": "Full design service, start to finish",
             "bullet_3": "Minimum order quantities may apply",
             "button_label": "Discuss a bespoke label",
-            "button_url": "#get-in-touch",
+            "button_url": "/pages/collaborate#wbContactForm",
             "button_style": "primary"
           }
         },
@@ -71,7 +71,7 @@
             "format": "AI",
             "title": "500ml label template",
             "note": "Editable vector, layered",
-            "url": "wb-label-template-500ml.ai"
+            "url": "https://cdn.shopify.com/s/files/1/0846/1136/7177/files/wb-label-template-500ml.ai?v=1792853151"
           }
         },
         "dl_200_pdf": {
@@ -89,7 +89,7 @@
             "format": "AI",
             "title": "200ml label template",
             "note": "Editable vector, layered",
-            "url": "wb-label-template-200ml.ai"
+            "url": "https://cdn.shopify.com/s/files/1/0846/1136/7177/files/wb-label-template-200ml.ai?v=1792853151"
           }
         },
         "faq_jpeg": {
@@ -137,7 +137,8 @@
       ],
       "settings": {
         "fee_product": "artwork-origination-fee",
-        "fee_fallback": "£25"
+        "fee_fallback": "£25",
+        "cta_primary_url": "/pages/collaborate#wbContactForm"
       }
     }
   },

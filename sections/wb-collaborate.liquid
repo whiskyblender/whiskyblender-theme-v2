@@ -51,6 +51,14 @@
         768: { perView: 3, animationDuration: 4000, gap: 30 }
       }
     }).mount();
+
+    // The browser jumps to a #hash before Glide collapses the carousel, so it
+    // overshoots (e.g. /pages/collaborate#wbContactForm landed at the footer).
+    // Re-scroll once the carousel has its real height.
+    var target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target) {
+      requestAnimationFrame(function () { target.scrollIntoView({ block: 'start' }); });
+    }
   });
 </script>
 
