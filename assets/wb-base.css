@@ -234,7 +234,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
 
 @media screen and (min-width: 768px) {
   body {
-    font-size: 20px;
+    font-size: 18px;
   }
   .wb-hide-ondesktop {
     display: none;

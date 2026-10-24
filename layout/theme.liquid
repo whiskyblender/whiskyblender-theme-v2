@@ -552,7 +552,17 @@
         grid-template-columns: 100%;
         min-height: 100%;
         margin: 0;
-        font-size: 20px;
+        /* Body text 18px (was 20px until 24 Oct 2026), so intro copy
+           (.wb-overvideo / .wb-collection-copy, 22px → 24px) always reads larger.
+           Exception: the About page (page.about template) keeps 20px from 750px up,
+           by choice; on phones it's 18px like everywhere else. */
+        {%- liquid
+          assign wb_body_size_desktop = '18px'
+          if template.name == 'page' and template.suffix == 'about'
+            assign wb_body_size_desktop = '20px'
+          endif
+        -%}
+        font-size: 18px;
         letter-spacing: 0.06rem;
         line-height: calc(1 + 0.8 / var(--font-body-scale));
         font-family: var(--font-body-family);
@@ -562,7 +572,7 @@
 
       @media screen and (min-width: 750px) {
         body {
-          font-size: 20px;
+          font-size: {{ wb_body_size_desktop }};
         }
       }
     {% endstyle %}

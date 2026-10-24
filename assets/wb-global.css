@@ -257,12 +257,14 @@ input.wb-primary-button:hover,
   position: absolute;
   z-index: 3;
   background: #ffffff;
-  font-size: 18px;
+  /* Intro copy starts at 22px so it's never smaller than the 20px body text on
+     phones (it was 18px). Steps up to 24px at 768px. Same for .wb-collection-copy. */
+  font-size: 22px;
   line-height: 150%;
 }
 
 .wb-collection-copy {
-  font-size: 18px;
+  font-size: 22px;
   line-height: 150%;
 }
 
@@ -866,7 +868,7 @@ html body .shopify-policy__title h1 {
 
 html body .shopify-policy__body .rte {
   font-family: 'Raleway', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 160%;
   color: #000000;
