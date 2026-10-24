@@ -1,0 +1,119 @@
+{%- comment -%}
+  Styles for the option cards (wb-create-card), shared by /pages/create
+  (sections/create-section.liquid) and the 404 page (sections/main-404.liquid).
+  Render once per page, before the cards.
+{%- endcomment -%}
+<style>
+  /* Scoped to .wb-create-grid: the global .wb-create-options/.wb-cards rules (some
+     !important, plus a site-wide ul max-width of 768px) were built for bare one-line
+     cards. Selectors here are one class stronger so they win without new globals. */
+
+  .wb-create-options.wb-create-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 24px 0 0;
+    max-width: none;
+  }
+  .wb-create-options.wb-create-grid li {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: start;
+    gap: 12px;
+    max-width: none !important;
+    margin: 0;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #f2f2f2;
+    color: #555555 !important;
+    transition: background-color 0.3s, transform 0.15s;
+  }
+  .wb-create-options.wb-create-grid li:hover { border-color: transparent; }
+  .wb-create-options.wb-create-grid li:active { transform: scale(0.99); }
+
+  /* Each card keeps its existing hover colour, now as the icon's circle too */
+  .wb-create-grid li { --wb-tint: 244, 228, 149; }
+  .wb-create-grid li:nth-of-type(6n+2) { --wb-tint: 155, 213, 197; }
+  .wb-create-grid li:nth-of-type(6n+3) { --wb-tint: 243, 211, 211; }
+  .wb-create-grid li:nth-of-type(6n+4) { --wb-tint: 201, 225, 240; }
+  .wb-create-grid li:nth-of-type(6n+5) { --wb-tint: 220, 208, 188; }
+  .wb-create-grid li:nth-of-type(6n+6) { --wb-tint: 223, 203, 227; }
+  .wb-create-options.wb-create-grid li:hover { background-color: rgba(var(--wb-tint), 0.45); }
+
+  .wb-create-options.wb-create-grid .wb-create-icon {
+    float: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    border-radius: 50%;
+    background-color: rgb(var(--wb-tint));
+    font-size: 24px;
+    line-height: 1;
+    transform: rotate(-12deg);
+  }
+  .wb-create-options.wb-create-grid li:hover .wb-create-icon { transform: rotate(0deg) scale(1.06); }
+
+  .wb-create-options.wb-create-grid .wb-option-heading {
+    font-size: 19px;
+    line-height: 1.25;
+    font-weight: 600 !important;
+    color: #333333 !important;
+  }
+  /* The linked phrase is picked out by weight, not the site's wavy underline (which
+     felt busy inside a card): heading 600, phrase 800 (Raleway is a variable font,
+     100-900). nowrap keeps phrases like "the lab" from splitting across lines. */
+  .wb-create-options.wb-create-grid li a {
+    text-decoration: none !important;
+    font-weight: 800 !important;
+    color: #222222 !important;
+    white-space: nowrap;
+  }
+  .wb-create-desc {
+    margin: 4px 0 0;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #555555;
+  }
+  .wb-create-price {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background-color: #ffffff;
+    color: #107a5f;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+  .wb-create-text { min-width: 0; }
+
+  /* Whole card clickable: the heading link stretched over the card */
+  .wb-create-grid li a::after { content: ''; position: absolute; inset: 0; border-radius: 12px; }
+  .wb-create-grid li:focus-within { outline: 2px solid #107a5f; outline-offset: 2px; }
+  .wb-create-grid li a:focus { outline: none; }
+
+
+  @media screen and (min-width: 768px) {
+    .wb-create-options.wb-create-grid { gap: 16px; margin-top: 32px; }
+    .wb-create-options.wb-create-grid li {
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      padding: 22px;
+    }
+    .wb-create-options.wb-create-grid .wb-create-icon { width: 64px; height: 64px; font-size: 34px; }
+    .wb-create-options.wb-create-grid .wb-option-heading { font-size: 22px; }
+    .wb-create-desc { font-size: 16px; }
+  }
+  /* Two columns only from 1024px: at tablet width they squeeze the text to ~180px */
+  @media screen and (min-width: 1024px) {
+    .wb-create-options.wb-create-grid { grid-template-columns: 1fr 1fr; }
+    /* An odd last card runs the full width rather than leaving a gap */
+    .wb-create-grid li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
+  @media screen and (min-width: 1200px) {
+    .wb-create-options.wb-create-grid .wb-option-heading { font-size: 24px; }
+  }
+</style>
