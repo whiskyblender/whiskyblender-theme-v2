@@ -27,10 +27,10 @@
         "title": "Whisky gifts",
         "title_variants": "",
         "description": "That's certainly the kind of gifts that we like to get from people. From rare single malts to expertly blended expressions, celebrate the whisky lover in your life.",
-        "primary_button_text": "Create a whisky",
-        "primary_button_url": "shopify://pages/the-lab",
-        "secondary_button_text": "Gift voucher",
-        "secondary_button_url": "shopify://products/gift-voucher",
+        "primary_button_text": "Personalised whisky",
+        "primary_button_url": "shopify://collections/personalised-whisky",
+        "secondary_button_text": "Blend your own",
+        "secondary_button_url": "shopify://pages/the-lab",
         "badge_show": false,
         "badge_url": "",
         "badge_aria_label": "Read our birthday blog post"
@@ -185,7 +185,8 @@
         "secondary_button_text": "",
         "secondary_button_url": "",
         "background": "auto"
-      }
+      },
+      "disabled": true
     },
     "exclusive_bottles": {
       "type": "featured-collection",
@@ -230,15 +231,96 @@
         "secondary_button_url": "shopify://pages/perfect-drams",
         "background": "auto"
       }
+    },
+    "personalised_gifts": {
+      "type": "featured-collection",
+      "name": "Exclusive bottles",
+      "settings": {
+        "collection": "personalised-whisky",
+        "products_to_show": 4,
+        "title": "With their name on it",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "link",
+        "color_scheme": "",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "gift_faq": {
+      "type": "wb-faq",
+      "blocks": {
+        "faq_item_gift1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I send it straight to them?",
+            "answer": "<p>Yes. Put their address at checkout and it goes straight to them. Every personalised bottle arrives gift-ready in a jute bag, with a card showing the exact recipe, and there’s no receipt or price in the parcel.</p>"
+          }
+        },
+        "faq_item_gift2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How quickly will it arrive?",
+            "answer": "<p>We aim to blend and bottle within three working days. UK standard tracked delivery then takes 3–5 days (free), or 1–2 days by express for £5. If it’s urgent, let us know and we’ll do our best.</p>"
+          }
+        },
+        "faq_item_gift3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How much does it cost?",
+            "answer": "<p>Our 500ml personalised bottles are £60. The 200ml bottle is £30, and the set of twelve miniatures is £115. UK delivery is free, with no minimum spend.</p>"
+          }
+        },
+        "faq_item_gift4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What if I don’t know what they like?",
+            "answer": "<p>Pick the whisky that’s most like them with <a href=\"/pages/perfect-drams\">Perfect Drams</a>, or send a <a href=\"/products/gift-voucher\">gift voucher</a> (from £30) and let them blend their own.</p>"
+          }
+        },
+        "faq_item_gift5": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I choose the date on the label?",
+            "answer": "<p>We label truthfully, so the bottling date is the day we bottle it. If you need a particular date, email us after ordering and we’ll hold your order and bottle it on the day.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_gift1",
+        "faq_item_gift2",
+        "faq_item_gift3",
+        "faq_item_gift4",
+        "faq_item_gift5"
+      ],
+      "settings": {
+        "heading": "Gift questions"
+      }
     }
   },
   "order": [
     "main",
     "main_landing",
     "image_reel",
+    "personalised_gifts",
     "occasions",
-    "wb_cta",
+    "wb_cta_something_unique",
     "exclusive_bottles",
-    "wb_cta_something_unique"
+    "gift_faq",
+    "wb_cta"
   ]
 }
