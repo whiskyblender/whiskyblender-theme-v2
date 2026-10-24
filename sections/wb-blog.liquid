@@ -16,6 +16,23 @@
         <div class="wb-blog-intro">{{ section.settings.intro_text }}</div>
       {%- endif -%}
 
+      {%- comment -%}
+        Tag filter: plain links to Shopify's own /tagged/ pages, so on a tag page
+        blog.articles below is already filtered and no JS is needed. Tags are the
+        topic words set on each article (Gifts, Guides, Scotland, ...); every tag on
+        any article becomes a chip, so keep the set small.
+      {%- endcomment -%}
+      {%- if blog.all_tags.size > 1 -%}
+        <nav class="wb-tag-chips wb-blog-filter" aria-label="Filter articles by topic">
+          <a href="{{ blog.url }}" class="wb-tag-chip{% if current_tags == blank %} is-active{% endif %}"{% if current_tags == blank %} aria-current="page"{% endif %}>All</a>
+          {%- for tag in blog.all_tags -%}
+            {%- assign is_current = false -%}
+            {%- if current_tags contains tag -%}{%- assign is_current = true -%}{%- endif -%}
+            <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="wb-tag-chip{% if is_current %} is-active{% endif %}"{% if is_current %} aria-current="page"{% endif %}>{{ tag }}</a>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+
       {%- if blog.articles_count > 0 -%}
         <ul class="wb-cards wb-main-cards wb-blog-cards">
           {%- for article in blog.articles -%}
