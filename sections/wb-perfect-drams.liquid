@@ -1,7 +1,110 @@
 {{ 'wb-perfectdrams.css' | asset_url | stylesheet_tag }}
 
-{%- comment -%} Dram cards go straight to the 500ml flat bottle with the blend loaded (Andrew, 13 Oct 2026: one step to the cart for gift buyers). The label arrives prefilled with the dram's name. {%- endcomment -%}
-{%- assign options_base = section.settings.custom_options_url | default: '/products/custom-whisky-500ml-flat' | strip -%}
+{%- comment -%}
+  Perfect Drams (reworked 24 Oct 2026). Each card goes to the default custom bottle
+  with one of the four house presets picked and the dram's name in the label:
+  ?preset=<slug>&label=<text>, read by assets/wb-blend-product.js. Two drams can share
+  a preset; the label is the difference. The 500ml flat is the main link (Andrew,
+  13 Oct: one step to the cart for gift buyers); a small "or 200ml" link sits beside it.
+  Prices are live from the products via wb-money.
+{%- endcomment -%}
+{%- liquid
+  assign main_product  = section.settings.main_product  | default: all_products['custom-whisky-500ml-flat']
+  assign small_product = section.settings.small_product | default: all_products['custom-whisky-200ml-flat']
+-%}
+
+<style>
+  .wb-dram-flavours {
+    margin: 2px 0 6px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #107a5f;
+  }
+  #wb-perfect-drams-cards .wb-dram-desc { margin: 0; }
+  .wb-dram-buy {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  .wb-dram-price {
+    padding: 2px 10px;
+    border-radius: 999px;
+    background-color: #f2f2f2;
+    color: #107a5f;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  /* Sits above the card's full-card overlay link */
+  .wb-dram-small {
+    position: relative;
+    z-index: 3;
+    color: #555555;
+    white-space: nowrap;
+  }
+
+  /* Phones: compact cards. The image runs the full height of the card down its left
+     edge (touching top, left and bottom), the emoji sits in the top-right corner.
+     Six full-width image cards ran ~2,600px; this is roughly half. Desktop keeps the
+     existing image-top grid with the emoji over the image's bottom-right corner. */
+  @media screen and (max-width: 767px) {
+    #wb-perfect-drams-cards { gap: 12px; }
+    #wb-perfect-drams-cards li {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0 14px;
+      align-items: stretch;
+      padding: 0;
+      border: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: #f2f2f2;
+    }
+    #wb-perfect-drams-cards .wb-card-image {
+      position: relative;
+      width: 120px;
+      height: auto;
+      min-height: 150px;
+      border-radius: 0;
+    }
+    /* Pinned to the box so it fills the card's full height, whatever the text. The
+       photos are wide banners with the glass ~35% from the left in all six, so the
+       narrow crop centres there rather than at 50%. */
+    #wb-perfect-drams-cards .wb-card-image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100% !important;
+      object-fit: cover;
+      object-position: 35% 50%;
+    }
+    #wb-perfect-drams-cards .wb-card-details { position: static; padding: 14px 44px 14px 0; }
+    #wb-perfect-drams-cards .wb-card-details .wb-emoji {
+      top: 10px;
+      right: 12px;
+      left: auto;
+      font-size: 28px;
+      line-height: 1;
+      transform: rotate(12deg);
+      z-index: 1;
+    }
+    #wb-perfect-drams-cards .wb-small-heading { margin: 0; font-size: 26px; line-height: 24px; }
+    #wb-perfect-drams-cards .wb-dram-desc {
+      font-size: 15px;
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .wb-dram-price { background-color: #ffffff; }
+  }
+</style>
 
 <section class="wb-first-item">
   <div class="wb-container">
@@ -11,19 +114,17 @@
 
       <ul class="wb-cards wb-main-cards" id="wb-perfect-drams-cards">
         {%- for block in section.blocks -%}
-          {%- assign blend_code = block.settings.blend_code | strip -%}
-          {%- if blend_code != blank -%}
-            {%- assign href = options_base | append: '?blend=' | append: blend_code -%}
-          {%- else -%}
-            {%- assign href = options_base -%}
-          {%- endif -%}
-          <li
-            {{ block.shopify_attributes }}
-          >
+          {%- liquid
+            assign label_text = block.settings.label | default: block.settings.name | strip
+            assign label_param = label_text | url_encode
+            assign href = main_product.url | append: '?preset=' | append: block.settings.preset | append: '&label=' | append: label_param
+            assign small_href = small_product.url | append: '?preset=' | append: block.settings.preset | append: '&label=' | append: label_param
+          -%}
+          <li {{ block.shopify_attributes }}>
             <a href="{{ href }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
             <div class="wb-card-image">
               {%- if block.settings.image -%}
-                {{ block.settings.image | image_url: width: 800 | image_tag: alt: block.settings.name, loading: 'lazy' }}
+                {{ block.settings.image | image_url: width: 1024 | image_tag: alt: block.settings.name, loading: 'lazy', widths: '400, 800, 1024', sizes: '(max-width: 767px) 560px, 33vw' }}
               {%- elsif block.settings.image_asset != blank -%}
                 <img src="{{ block.settings.image_asset | asset_url }}" alt="{{ block.settings.name }}" loading="lazy" />
               {%- endif -%}
@@ -33,7 +134,14 @@
                 <a href="{{ href }}">{{ block.settings.name }}</a>
               </h3>
               <span class="wb-emoji" aria-hidden="true">{{ block.settings.emoji }}</span>
-              <p>{{ block.settings.description }} &#8594;</p>
+              {%- if block.settings.flavours != blank -%}
+                <p class="wb-dram-flavours">{{ block.settings.flavours }}</p>
+              {%- endif -%}
+              <p class="wb-dram-desc">{{ block.settings.description }}</p>
+              <p class="wb-dram-buy">
+                <span class="wb-dram-price">500ml with their label · {% render 'wb-money', amount: main_product.price_min, code: false %}</span>
+                <a class="wb-dram-small" href="{{ small_href }}">or 200ml, {% render 'wb-money', amount: small_product.price_min, code: false %}</a>
+              </p>
             </div>
           </li>
         {%- endfor -%}
@@ -56,13 +164,19 @@
       "type": "textarea",
       "id": "intro",
       "label": "Intro text",
-      "default": "Forget about what they like, and think about what THEY'RE like. Different whiskies have different characteristics, just like people. Find one that sounds perfect for the person you're buying for and label it up for them."
+      "default": "Forget what they like. Think about what they're like. Pick the whisky that matches them, and we'll put their name on it."
     },
     {
-      "type": "url",
-      "id": "custom_options_url",
-      "label": "Dram card destination",
-      "info": "Where each dram card links, with ?blend=<code> appended. Leave blank for the 500ml flat bottle. Use /pages/custom-options to let customers choose a bottle instead."
+      "type": "product",
+      "id": "main_product",
+      "label": "Main bottle (500ml)",
+      "info": "Cards link here with the dram's preset and label. Leave blank for the 500ml flat."
+    },
+    {
+      "type": "product",
+      "id": "small_product",
+      "label": "Smaller bottle link",
+      "info": "The small \"or 200ml\" link on each card. Leave blank for the 200ml flat."
     }
   ],
   "blocks": [
@@ -93,15 +207,46 @@
           "label": "Emoji"
         },
         {
+          "type": "text",
+          "id": "flavours",
+          "label": "Flavour words",
+          "info": "Short, e.g. Oak · spice · smoke"
+        },
+        {
           "type": "textarea",
           "id": "description",
           "label": "Description"
         },
         {
+          "type": "select",
+          "id": "preset",
+          "label": "Whisky (house preset)",
+          "options": [
+            {
+              "value": "WB01767",
+              "label": "All rounder"
+            },
+            {
+              "value": "WB00836",
+              "label": "Smoke on the Water"
+            },
+            {
+              "value": "WB00820",
+              "label": "Soft & fruity"
+            },
+            {
+              "value": "WB00821",
+              "label": "Sweet tooth"
+            }
+          ],
+          "default": "WB01767",
+          "info": "Must be one of the house presets on the custom bottle pages (assets/wb-blend-product.js)."
+        },
+        {
           "type": "text",
-          "id": "blend_code",
-          "label": "Blend code",
-          "info": "The premade blend's slug from the app — e.g. WB000042. Create premade blends in the Shopify app admin."
+          "id": "label",
+          "label": "Label text",
+          "info": "Prefilled on the bottle page; the customer can change it. Leave blank to use the name. Max 32 characters."
         }
       ]
     }

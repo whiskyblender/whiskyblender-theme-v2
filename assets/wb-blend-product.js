@@ -216,6 +216,21 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     showBuyForm(DEFAULT_BLEND, true);
   }
 
+  function houseSlug(value) {
+    if (!value) return null;
+    var match = HOUSE_PRESETS.filter(function (p) { return p.slug === value; })[0];
+    return match ? match.slug : null;
+  }
+
+  /* ?label= from a Perfect Drams card: a starting point the customer can edit.
+     Only fills an empty field, capped at 32 characters like the order property. */
+  function prefillLabel(text) {
+    var labelInput = document.getElementById('label-text');
+    if (!labelInput || labelInput.value) return;
+    labelInput.value = [...text].slice(0, 32).join('').trim();
+    labelInput.dispatchEvent(new Event('input'));
+  }
+
   function populateInputs(blend) {
     var labelInput  = document.getElementById('label-text');
     var authorInput = document.getElementById('created-by');
@@ -494,10 +509,25 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     var productTitle  = container.getAttribute('data-product-title') || '';
     var variantsEl   = document.getElementById('wb-variants-data');
     var variantsJson = variantsEl ? variantsEl.textContent : '[]';
-    var slug         = new URLSearchParams(window.location.search).get('blend');
+    var params       = new URLSearchParams(window.location.search);
+    var slug         = params.get('blend');
     var isDefault    = !slug;
-    if (isDefault) slug = DEFAULT_BLEND;
+    /* Perfect Drams links (24 Oct 2026): ?preset=<house preset> starts the default
+       path on that preset instead of the All rounder, and ?label= prefills the label.
+       Only the HOUSE_PRESETS slugs count; anything else is ignored. */
+    var presetSlug   = isDefault ? houseSlug(params.get('preset')) : null;
+    var labelParam   = isDefault ? (params.get('label') || '').trim() : '';
+    if (isDefault) slug = presetSlug || DEFAULT_BLEND;
     var externalLabel = container.getAttribute('data-label-mode') === 'external';
+
+    /* A preset that won't load (or holds a retired whisky) falls back to the plain
+       default path: drop ?preset= and start again, keeping ?label=. */
+    function dropPreset() {
+      params.delete('preset');
+      var qs = params.toString();
+      history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+      init();
+    }
 
     /* Remember the add button's own wording before anything changes it (see initInputGuard) */
     var mainForm = document.querySelector('form[action="/cart/add"]:not([id*="installment"])');
@@ -529,6 +559,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         var activeOptions = results[1];
 
         if (!blendResult.ok) {
+          if (presetSlug) { dropPreset(); return; }
           if (isDefault && externalLabel) { useDefaultUnseen(container, variantsJson, labelPage, bottleSize, productTitle); return; }
           if (isDefault) { showNoBlendState(); return; }   /* default missing: old panel */
           showNoBlendState(slug);
@@ -552,6 +583,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
 
         /* Default uses a retired whisky: don't show it — fall back to the old panel */
         if (isDefault && inactiveIds.length > 0) {
+          if (presetSlug) { dropPreset(); return; }
           if (externalLabel) { useDefaultUnseen(container, variantsJson, labelPage, bottleSize, productTitle); return; }
           showNoBlendState();
           return;
@@ -576,9 +608,11 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         if (externalLabel) container.setAttribute('data-blend-slug', blend.slug);
         showBuyForm(slug, isDefault);
         if (!externalLabel) initInputGuard();
+        if (isDefault && !externalLabel && labelParam) prefillLabel(labelParam);
       })
       .catch(function (err) {
         hide(loadingEl);
+        if (presetSlug) { dropPreset(); return; }
         if (isDefault && externalLabel) { useDefaultUnseen(container, variantsJson, labelPage, bottleSize, productTitle); return; }
         if (isDefault) { showNoBlendState(); return; }
         showNoBlendState(slug);
