@@ -1,15 +1,168 @@
+{%- comment -%}
+  /pages/create: the "every way to make a bottle yours" hub.
+  Each card can carry a one-line description and a live price (from a picked product,
+  rendered through wb-money so it never goes stale). The whole card is clickable via
+  the heading's own link stretched over the card (a::after), so it works with a
+  keyboard and a screen reader, not just a mouse. A heading without a link gets
+  wrapped in one pointing at the card's URL.
+{%- endcomment -%}
+<style>
+  /* Scoped to .wb-create-grid: the global .wb-create-options/.wb-cards rules (some
+     !important, plus a site-wide ul max-width of 768px) were built for bare one-line
+     cards. Selectors here are one class stronger so they win without new globals. */
+  .wb-create-intro { max-width: 40em; margin: 0 0 8px; }
+
+  .wb-create-options.wb-create-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 24px 0 0;
+    max-width: none;
+  }
+  .wb-create-options.wb-create-grid li {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: start;
+    gap: 12px;
+    max-width: none !important;
+    margin: 0;
+    padding: 16px 40px 16px 16px;
+    border-radius: 12px;
+    background-color: #f2f2f2;
+    color: #555555 !important;
+    transition: background-color 0.3s, transform 0.15s;
+  }
+  .wb-create-options.wb-create-grid li:hover { border-color: transparent; }
+  .wb-create-options.wb-create-grid li:active { transform: scale(0.99); }
+
+  /* Each card keeps its existing hover colour, now as the icon's circle too */
+  .wb-create-grid li { --wb-tint: 244, 228, 149; }
+  .wb-create-grid li:nth-of-type(6n+2) { --wb-tint: 155, 213, 197; }
+  .wb-create-grid li:nth-of-type(6n+3) { --wb-tint: 243, 211, 211; }
+  .wb-create-grid li:nth-of-type(6n+4) { --wb-tint: 201, 225, 240; }
+  .wb-create-grid li:nth-of-type(6n+5) { --wb-tint: 220, 208, 188; }
+  .wb-create-grid li:nth-of-type(6n+6) { --wb-tint: 223, 203, 227; }
+  .wb-create-options.wb-create-grid li:hover { background-color: rgba(var(--wb-tint), 0.45); }
+
+  .wb-create-options.wb-create-grid .wb-create-icon {
+    float: none;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    border-radius: 50%;
+    background-color: rgb(var(--wb-tint));
+    font-size: 24px;
+    line-height: 1;
+    transform: rotate(-12deg);
+  }
+  .wb-create-options.wb-create-grid li:hover .wb-create-icon { transform: rotate(0deg) scale(1.06); }
+
+  .wb-create-options.wb-create-grid .wb-option-heading {
+    font-size: 19px;
+    line-height: 1.25;
+    font-weight: 600 !important;
+    color: #333333 !important;
+  }
+  .wb-create-desc {
+    margin: 4px 0 0;
+    font-size: 15px;
+    line-height: 1.45;
+    color: #555555;
+  }
+  .wb-create-price {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background-color: #ffffff;
+    color: #107a5f;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+  .wb-create-arrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    margin-top: -12px;
+    line-height: 24px;
+    color: #999999;
+    font-size: 18px;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .wb-create-grid li:hover .wb-create-arrow { color: #333333; transform: translateX(3px); }
+  .wb-create-text { min-width: 0; }
+
+  /* Whole card clickable: the heading link stretched over the card */
+  .wb-create-grid li a::after { content: ''; position: absolute; inset: 0; border-radius: 12px; }
+  .wb-create-grid li:focus-within { outline: 2px solid #107a5f; outline-offset: 2px; }
+  .wb-create-grid li a:focus { outline: none; }
+
+  .wb-create-footnote { margin: 24px 0 0; font-size: 15px; line-height: 1.5; color: #555555; }
+
+  @media screen and (min-width: 768px) {
+    .wb-create-options.wb-create-grid { gap: 16px; margin-top: 32px; }
+    .wb-create-options.wb-create-grid li {
+      grid-template-columns: 64px 1fr;
+      gap: 18px;
+      padding: 22px 52px 22px 22px;
+    }
+    .wb-create-options.wb-create-grid .wb-create-icon { width: 64px; height: 64px; font-size: 34px; }
+    .wb-create-options.wb-create-grid .wb-option-heading { font-size: 22px; }
+    .wb-create-desc { font-size: 16px; }
+    .wb-create-arrow { right: 22px; }
+  }
+  /* Two columns only from 1024px: at tablet width they squeeze the text to ~180px */
+  @media screen and (min-width: 1024px) {
+    .wb-create-options.wb-create-grid { grid-template-columns: 1fr 1fr; }
+    /* An odd last card (corporate) runs the full width rather than leaving a gap */
+    .wb-create-grid li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
+  @media screen and (min-width: 1200px) {
+    .wb-create-options.wb-create-grid .wb-option-heading { font-size: 24px; }
+  }
+</style>
+
 <section class="wb-first-item">
   <div class="wb-container">
     <div class="wb-padding">
       <h1 class="wb-medium-heading">{{ section.settings.heading | default: "Let's get started!" }}</h1>
-      <ul class="wb-create-options wb-cards">
+      {%- if section.settings.intro != blank -%}
+        <p class="wb-create-intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
+      <ul class="wb-create-options wb-cards wb-create-grid">
         {%- for block in section.blocks -%}
-          <li onclick="location.href='{{ block.settings.url }}';" {{ block.shopify_attributes }}>
-            <span class="wb-create-icon">{{ block.settings.icon }}</span>
-            <h2 class="wb-option-heading">{{ block.settings.heading }}</h2>
+          {%- assign price_product = block.settings.price_product -%}
+          <li {{ block.shopify_attributes }}>
+            <span class="wb-create-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            <div class="wb-create-text">
+              <h2 class="wb-option-heading">
+                {%- if block.settings.heading contains '<a' -%}
+                  {{ block.settings.heading }}
+                {%- else -%}
+                  <a href="{{ block.settings.url }}">{{ block.settings.heading }}</a>
+                {%- endif -%}
+              </h2>
+              {%- if block.settings.description != blank -%}
+                <p class="wb-create-desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+              {%- if price_product != blank -%}
+                <span class="wb-create-price">
+                  {%- if block.settings.price_prefix != blank %}{{ block.settings.price_prefix }} {% endif -%}
+                  {%- render 'wb-money', amount: price_product.price_min, code: false -%}
+                </span>
+              {%- endif -%}
+            </div>
+            <span class="wb-create-arrow" aria-hidden="true">&rarr;</span>
           </li>
         {%- endfor -%}
       </ul>
+      {%- if section.settings.footnote != blank -%}
+        <p class="wb-create-footnote">{{ section.settings.footnote }}</p>
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -23,6 +176,16 @@
       "id": "heading",
       "label": "Heading",
       "default": "Let's get started!"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "intro",
+      "label": "Intro (under the heading)"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "footnote",
+      "label": "Footnote (under the cards)"
     }
   ],
   "blocks": [
@@ -40,12 +203,30 @@
           "type": "html",
           "id": "heading",
           "label": "Heading (HTML allowed)",
-          "default": "Create a new whisky in <a href=\"/pages/thelab\">the lab</a>"
+          "default": "Create a new whisky in <a href=\"/pages/thelab\">the lab</a>",
+          "info": "The link in the heading makes the whole card clickable. With no link, the Click URL below is used."
         },
         {
           "type": "url",
           "id": "url",
           "label": "Click URL"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "One-line description"
+        },
+        {
+          "type": "product",
+          "id": "price_product",
+          "label": "Show the price of",
+          "info": "Optional. Shows this product's lowest price after the description, always current."
+        },
+        {
+          "type": "text",
+          "id": "price_prefix",
+          "label": "Price prefix",
+          "info": "e.g. From. Leave blank to show just the price."
         }
       ]
     }
