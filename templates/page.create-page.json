@@ -25,7 +25,10 @@
           "settings": {
             "icon": "💡",
             "heading": "Create a new whisky in <a href=\"/pages/the-lab\">the lab</a>",
-            "url": "shopify://pages/the-lab"
+            "url": "shopify://pages/the-lab",
+            "description": "Mix your own from five hand-picked single malts, then name it and sign it.",
+            "price_product": "custom-whisky-200ml-flat",
+            "price_prefix": "From"
           }
         },
         "option_pWhisk": {
@@ -33,7 +36,10 @@
           "settings": {
             "icon": "🏷️",
             "heading": "Gift a <a href=\"/collections/personalised-whisky\">personalised whisky</a>",
-            "url": "shopify://collections/personalised-whisky"
+            "url": "shopify://collections/personalised-whisky",
+            "description": "One of our house blends, with a label you write yourself.",
+            "price_product": "custom-whisky-200ml-flat",
+            "price_prefix": "From"
           }
         },
         "option_bkNwYD": {
@@ -41,7 +47,9 @@
           "settings": {
             "icon": "🥃",
             "heading": "Name your own <a href=\"/collections/single-malts\">single malt</a>",
-            "url": "shopify://collections/single-malts"
+            "url": "shopify://collections/single-malts",
+            "description": "Rare single cask bottlings, with your name on the label.",
+            "price_product": "aultmore-2011"
           }
         },
         "option_V8wMq3": {
@@ -49,7 +57,8 @@
           "settings": {
             "icon": "🤝",
             "heading": "Collaborate on some <a href=\"/pages/collaborate\">corporate gifts</a>",
-            "url": "/pages/collaborate"
+            "url": "/pages/collaborate",
+            "description": "Your brand, your event or your limited release. Tell us the plan."
           }
         },
         "option_jjccJk": {
@@ -57,7 +66,10 @@
           "settings": {
             "icon": "💌",
             "heading": "Give someone a <a href=\"/products/gift-voucher\">gift voucher</a>",
-            "url": "shopify://products/gift-voucher"
+            "url": "shopify://products/gift-voucher",
+            "description": "Let them blend their own.",
+            "price_product": "gift-voucher",
+            "price_prefix": "From"
           }
         },
         "option_BziJVq": {
@@ -65,7 +77,9 @@
           "settings": {
             "icon": "🤏",
             "heading": "Label up wee <a href=\"/products/custom-miniatures\">whisky miniatures</a>",
-            "url": "shopify://products/custom-miniatures"
+            "url": "shopify://products/custom-miniatures",
+            "description": "Twelve 5cl bottles of your own blend, each with your label. Wedding favours folk actually keep.",
+            "price_product": "custom-miniatures"
           }
         },
         "option_zKrc9g": {
@@ -73,22 +87,25 @@
           "settings": {
             "icon": "⭐",
             "heading": "Personalise our <a href=\"/pages/perfect-drams\">perfect drams</a>",
-            "url": "shopify://pages/perfect-drams"
+            "url": "shopify://pages/perfect-drams",
+            "description": "Not sure what they'd like? Pick the whisky that's most like them, then label it up."
           }
         }
       },
       "block_order": [
         "option_nWPDyX",
         "option_pWhisk",
+        "option_zKrc9g",
         "option_bkNwYD",
-        "option_V8wMq3",
-        "option_jjccJk",
         "option_BziJVq",
-        "option_zKrc9g"
+        "option_jjccJk",
+        "option_V8wMq3"
       ],
       "name": "WB - Create Options",
       "settings": {
-        "heading": "Let's get started!"
+        "heading": "Let's get started!",
+        "intro": "Blend one from scratch, put your name on one of ours, or let them choose.",
+        "footnote": "Free UK delivery, no minimum spend. Already made a blend? Pick up where you left off in <a href=\"/pages/the-lab\">the lab</a>."
       }
     }
   },

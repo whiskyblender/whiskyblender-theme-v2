@@ -1,15 +1,73 @@
+{%- comment -%}
+  /pages/create: the "every way to make a bottle yours" hub.
+  Each card can carry a one-line description and a live price (from a picked product,
+  rendered through wb-money so it never goes stale). The whole card is clickable via
+  the heading's own link stretched over the card (a::after), so it works with a
+  keyboard and a screen reader, not just a mouse. A heading without a link gets
+  wrapped in one pointing at the card's URL.
+{%- endcomment -%}
+<style>
+  .wb-create-intro { max-width: 40em; margin: 0 0 28px; }
+  .wb-create-text { display: block; }
+  .wb-create-options li a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .wb-create-options li:focus-within { outline: 2px solid #107a5f; outline-offset: 2px; }
+  .wb-create-options li a:focus { outline: none; }
+  .wb-create-desc {
+    margin: 6px 0 0;
+    font-size: 16px;
+    line-height: 150%;
+    color: #555555;
+  }
+  .wb-create-price { font-weight: 700; color: #333333; white-space: nowrap; }
+  .wb-create-options li:nth-of-type(7):hover { background-color: rgba(244, 228, 149, 0.8); }
+  .wb-create-footnote { margin: 8px 0 0; font-size: 16px; color: #555555; }
+  @media screen and (min-width: 768px) {
+    .wb-create-desc { font-size: 18px; }
+  }
+</style>
+
 <section class="wb-first-item">
   <div class="wb-container">
     <div class="wb-padding">
       <h1 class="wb-medium-heading">{{ section.settings.heading | default: "Let's get started!" }}</h1>
+      {%- if section.settings.intro != blank -%}
+        <p class="wb-create-intro">{{ section.settings.intro }}</p>
+      {%- endif -%}
       <ul class="wb-create-options wb-cards">
         {%- for block in section.blocks -%}
-          <li onclick="location.href='{{ block.settings.url }}';" {{ block.shopify_attributes }}>
-            <span class="wb-create-icon">{{ block.settings.icon }}</span>
-            <h2 class="wb-option-heading">{{ block.settings.heading }}</h2>
+          {%- assign price_product = block.settings.price_product -%}
+          <li {{ block.shopify_attributes }}>
+            <span class="wb-create-icon" aria-hidden="true">{{ block.settings.icon }}</span>
+            <div class="wb-create-text">
+              <h2 class="wb-option-heading">
+                {%- if block.settings.heading contains '<a' -%}
+                  {{ block.settings.heading }}
+                {%- else -%}
+                  <a href="{{ block.settings.url }}">{{ block.settings.heading }}</a>
+                {%- endif -%}
+              </h2>
+              {%- if block.settings.description != blank or price_product != blank -%}
+                <p class="wb-create-desc">
+                  {{- block.settings.description -}}
+                  {%- if price_product != blank %}
+                    <span class="wb-create-price">
+                      {%- if block.settings.price_prefix != blank %}{{ block.settings.price_prefix }} {% endif -%}
+                      {%- render 'wb-money', amount: price_product.price_min, code: false -%}
+                    </span>
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+            </div>
           </li>
         {%- endfor -%}
       </ul>
+      {%- if section.settings.footnote != blank -%}
+        <p class="wb-create-footnote">{{ section.settings.footnote }}</p>
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -23,6 +81,16 @@
       "id": "heading",
       "label": "Heading",
       "default": "Let's get started!"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "intro",
+      "label": "Intro (under the heading)"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "footnote",
+      "label": "Footnote (under the cards)"
     }
   ],
   "blocks": [
@@ -40,12 +108,30 @@
           "type": "html",
           "id": "heading",
           "label": "Heading (HTML allowed)",
-          "default": "Create a new whisky in <a href=\"/pages/thelab\">the lab</a>"
+          "default": "Create a new whisky in <a href=\"/pages/thelab\">the lab</a>",
+          "info": "The link in the heading makes the whole card clickable. With no link, the Click URL below is used."
         },
         {
           "type": "url",
           "id": "url",
           "label": "Click URL"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "One-line description"
+        },
+        {
+          "type": "product",
+          "id": "price_product",
+          "label": "Show the price of",
+          "info": "Optional. Shows this product's lowest price after the description, always current."
+        },
+        {
+          "type": "text",
+          "id": "price_prefix",
+          "label": "Price prefix",
+          "info": "e.g. From. Leave blank to show just the price."
         }
       ]
     }
