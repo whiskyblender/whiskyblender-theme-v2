@@ -36,7 +36,7 @@
             "bullet_2": "Full design service, start to finish",
             "bullet_3": "Minimum order quantities may apply",
             "button_label": "Discuss a bespoke label",
-            "button_url": "/pages/collaborate#wbContactForm",
+            "button_url": "/pages/collaborate#wb-getintouch",
             "button_style": "primary"
           }
         },
@@ -138,7 +138,7 @@
       "settings": {
         "fee_product": "artwork-origination-fee",
         "fee_fallback": "£25",
-        "cta_primary_url": "/pages/collaborate#wbContactForm"
+        "cta_primary_url": "/pages/collaborate#wb-getintouch"
       }
     }
   },
