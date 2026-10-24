@@ -29,7 +29,6 @@
             "emoji": "👑",
             "description": "A whisky with presence. Deep flavours, often full of oak, spice, or smoke, it makes a statement from the first sip. Confident and uncompromising, this is the dram that likes to take center stage.",
             "preset": "WB00836",
-            "flavours": "Oak · spice · smoke",
             "phone_line": "Confident and uncompromising, for the one who likes to take centre stage."
           }
         },
@@ -42,7 +41,6 @@
             "emoji": "🍯",
             "description": "Soft, gentle, and welcoming. Think honeyed notes, vanilla, or ripe fruits. This whisky is a hug in a glass, perfect for someone who brings sweetness wherever they go.",
             "preset": "WB00821",
-            "flavours": "Honey · vanilla · ripe fruit",
             "phone_line": "A hug in a glass, for someone who brings sweetness wherever they go."
           }
         },
@@ -55,7 +53,6 @@
             "emoji": "⚖️",
             "description": "Harmony in liquid form. Smooth layers of fruit, malt, and spice come together in a whisky that feels effortless. Reliable and composed, it never tries too hard, but always delivers.",
             "preset": "WB01767",
-            "flavours": "Fruit · malt · spice",
             "phone_line": "Reliable and composed: it never tries too hard, but always delivers."
           }
         },
@@ -68,7 +65,6 @@
             "emoji": "🐺",
             "description": "Fiery and untamed. Whether it's a burst of smoke, a punch of spice, or a high-strength kick, this whisky has an adventurous edge that refuses to be tamed.",
             "preset": "WB00836",
-            "flavours": "Smoke · spice · a kick",
             "phone_line": "Fiery and untamed, for the adventurous one who refuses to be tamed."
           }
         },
@@ -81,7 +77,6 @@
             "emoji": "💪",
             "description": "Understated at first, but with a depth that reveals itself slowly. A whisky with quiet confidence: refined, layered, and lasting long after the glass is empty.",
             "preset": "WB01767",
-            "flavours": "Refined · layered · long",
             "phone_line": "Understated at first, with a quiet confidence that reveals itself slowly."
           }
         },
@@ -94,7 +89,6 @@
             "emoji": "🌀",
             "description": "Unexpected and quirky. Flavours you might not see coming — floral, herbal, or a little eccentric — make this whisky as surprising as it is endearing. For those who delight in the unusual.",
             "preset": "WB00820",
-            "flavours": "Floral · herbal · a bit odd",
             "phone_line": "Unexpected and quirky, for those who delight in the unusual."
           }
         }
@@ -109,7 +103,11 @@
       ],
       "settings": {
         "heading": "Perfect drams",
-        "intro": "Forget what they like. Think about what they're like. Pick the whisky that matches them, and we'll put their name on it."
+        "intro": "Forget what they like. Think about what they're like. Pick the whisky that matches them, and we'll put their name on it.",
+        "flavours_smoke_on_the_water": "Smoke · caramel · sea salt",
+        "flavours_all_rounder": "Sea salt · oak · malt",
+        "flavours_sweet_tooth": "Vanilla · sea salt · smoke",
+        "flavours_soft_and_fruity": "Banana · vanilla · spice"
       }
     },
     "wb_cta_letscollab": {

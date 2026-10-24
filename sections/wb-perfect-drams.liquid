@@ -140,8 +140,15 @@
                 <a href="{{ href }}">{{ block.settings.name }}</a>
               </h3>
               <span class="wb-emoji" aria-hidden="true">{{ block.settings.emoji }}</span>
-              {%- if block.settings.flavours != blank -%}
-                <p class="wb-dram-flavours">{{ block.settings.flavours }}</p>
+              {%- comment -%} Flavour words belong to the recipe, so cards sharing a preset match {%- endcomment -%}
+              {%- case block.settings.preset -%}
+                {%- when 'WB00836' -%}{%- assign flavours = section.settings.flavours_smoke_on_the_water -%}
+                {%- when 'WB00821' -%}{%- assign flavours = section.settings.flavours_sweet_tooth -%}
+                {%- when 'WB00820' -%}{%- assign flavours = section.settings.flavours_soft_and_fruity -%}
+                {%- else -%}{%- assign flavours = section.settings.flavours_all_rounder -%}
+              {%- endcase -%}
+              {%- if flavours != blank -%}
+                <p class="wb-dram-flavours">{{ flavours }}</p>
               {%- endif -%}
               <p class="wb-dram-desc">{{ block.settings.description }}</p>
               {%- if block.settings.phone_line != blank -%}
@@ -186,6 +193,38 @@
       "id": "small_product",
       "label": "Smaller bottle (200ml)",
       "info": "Each card's 200ml link, and the 200ml price in the sizes box at the top. Leave blank for the 200ml flat."
+    },
+    {
+      "type": "header",
+      "content": "Flavour words (per whisky)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Shown under each dram's name. They describe the recipe, so every card using the same house preset shows the same words."
+    },
+    {
+      "type": "text",
+      "id": "flavours_all_rounder",
+      "label": "All rounder",
+      "default": "Sea salt · oak · malt"
+    },
+    {
+      "type": "text",
+      "id": "flavours_smoke_on_the_water",
+      "label": "Smoke on the Water",
+      "default": "Smoke · caramel · sea salt"
+    },
+    {
+      "type": "text",
+      "id": "flavours_soft_and_fruity",
+      "label": "Soft & fruity",
+      "default": "Banana · vanilla · spice"
+    },
+    {
+      "type": "text",
+      "id": "flavours_sweet_tooth",
+      "label": "Sweet tooth",
+      "default": "Vanilla · sea salt · smoke"
     }
   ],
   "blocks": [
@@ -214,12 +253,6 @@
           "type": "text",
           "id": "emoji",
           "label": "Emoji"
-        },
-        {
-          "type": "text",
-          "id": "flavours",
-          "label": "Flavour words",
-          "info": "Short, e.g. Oak · spice · smoke"
         },
         {
           "type": "textarea",
