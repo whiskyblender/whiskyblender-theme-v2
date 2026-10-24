@@ -50,6 +50,18 @@
     font-size: clamp(20px, 2.6vw, 30px);
     line-height: 1.2;
   }
+
+  /* Phones: two-up, sized like the homepage's compact occasions strip
+     (wb-occasions-compact). One-up, six cards ran ~1,640px of scrolling. */
+  @media screen and (max-width: 767px) {
+    .wb-cards.wb-occasions-cards { gap: 12px; }
+    .wb-cards.wb-occasions-cards li { flex: 0 0 calc(50% - 6px); max-width: calc(50% - 6px); }
+    .wb-occasions-cards .wb-card-image { height: 34vw; }
+    .wb-occasions-cards .wb-card-details { padding: 14px; }
+    .wb-occasions-cards .wb-small-heading,
+    .wb-occasions-cards .wb-small-heading a { font-size: clamp(16px, 5.1vw, 24px); margin: 0; }
+    .wb-occasions-cards .wb-card-details .wb-emoji { top: -46px; right: 12px; font-size: 78px; }
+  }
 </style>
 
 {% schema %}
