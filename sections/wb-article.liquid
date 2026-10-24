@@ -54,9 +54,8 @@
         {%- if show_aside -%}
         <aside class="wb-article-aside">
 
-          <div class="wb-aside-col wb-aside-col--main">
-
           {%- if section.settings.show_share -%}
+          <div class="wb-aside-col wb-aside-col--main">
           <div class="wb-aside-block">
             <div class="wb-aside-title">Share</div>
             <div class="wb-share-row">
@@ -77,22 +76,10 @@
               </button>
             </div>
           </div>
-          {%- endif -%}
-
-          {%- if has_tags -%}
-          <div class="wb-aside-block">
-            <div class="wb-aside-title">Tags</div>
-            <div class="wb-tag-chips">
-              {%- for tag in article.tags -%}
-              <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="wb-tag-chip">{{ tag }}</a>
-              {%- endfor -%}
-            </div>
           </div>
           {%- endif -%}
 
-          </div>
-
-          {%- comment -%} Latest sits last, below the spotlight, so it shares that column (side by side on tablets). {%- endcomment -%}
+          {%- comment -%} Spotlight, then Tags, then Latest share the second column (side by side with Share on tablets). {%- endcomment -%}
           {%- assign shown = 0 -%}
           {%- if section.settings.show_related -%}
           {%- assign rc = section.settings.related_count | default: 3 -%}
@@ -112,7 +99,7 @@
           {%- endcapture -%}
           {%- endif -%}
 
-          {%- if has_spotlight or shown > 0 -%}
+          {%- if has_spotlight or has_tags or shown > 0 -%}
           <div class="wb-aside-col wb-aside-col--product">
             {%- if has_spotlight -%}
             {%- assign sp = article.metafields.custom.spotlight_product.value -%}
@@ -126,6 +113,17 @@
                 {%- if sp.price > 0 -%}<span class="wb-spotlight-price">{{ sp.price | money }}</span>{%- endif -%}
                 <span class="wb-spotlight-cta">View bottle &#8594;</span>
               </a>
+            </div>
+            {%- endif -%}
+
+            {%- if has_tags -%}
+            <div class="wb-aside-block">
+              <div class="wb-aside-title">Tags</div>
+              <div class="wb-tag-chips">
+                {%- for tag in article.tags -%}
+                <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="wb-tag-chip">{{ tag }}</a>
+                {%- endfor -%}
+              </div>
             </div>
             {%- endif -%}
 
