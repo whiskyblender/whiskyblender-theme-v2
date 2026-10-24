@@ -23,7 +23,7 @@
         "video_file": "",
         "title": "{{ collection.title }}",
         "title_variants": "",
-        "description": "Give the gift of whisky",
+        "description": "Give the gift of <a href=\"/collections/personalised-whisky\">personalised whisky</a>",
         "primary_button_text": "",
         "primary_button_url": "",
         "secondary_button_text": "",
