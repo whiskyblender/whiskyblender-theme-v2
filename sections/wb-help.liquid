@@ -51,7 +51,7 @@
       {%- if help_blog -%}
         {%- capture help_articles_html -%}
           {%- for article in help_blog.articles -%}
-            {%- if article.tags contains 'help' -%}
+            {%- if article.tags contains 'Guides' -%}
               {%- render 'wb-article-card', article: article -%}
             {%- endif -%}
           {%- endfor -%}

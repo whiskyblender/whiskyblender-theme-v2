@@ -234,6 +234,23 @@
   text-decoration: none;
 }
 
+/* Blog index topic filter: the same chips, a size up, between intro and cards */
+.wb-blog-filter {
+  margin: 24px 0 8px;
+}
+
+.wb-blog-filter .wb-tag-chip {
+  padding: 6px 16px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.wb-tag-chip.is-active,
+.wb-tag-chip.is-active:hover {
+  background-color: #107a5f;
+  color: #ffffff;
+}
+
 /* Product spotlight */
 .wb-spotlight {
   display: block;
