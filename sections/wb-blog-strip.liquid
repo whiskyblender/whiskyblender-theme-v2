@@ -16,18 +16,18 @@
 <section class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
-      {%- comment -%} Heading left, link right, as in the featured-collection header ("With their name on it" on Gifts). {%- endcomment -%}
-      <div class="wb-blog-strip-head">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="wb-medium-heading wb-blog-strip-heading">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.heading != blank -%}
+        <h2 class="wb-medium-heading wb-blog-strip-heading">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- comment -%} Intro left, link right on the same line (link styled like the featured-collection "View all"). {%- endcomment -%}
+      <div class="wb-blog-strip-sub">
+        {%- if section.settings.description != blank -%}
+          <p class="wb-blog-strip-intro">{{ section.settings.description }}</p>
         {%- endif -%}
         {%- if section.settings.button_label != blank -%}
           <a href="{{ strip_blog.url }}" class="link underlined-link wb-blog-strip-all" aria-label="{{ section.settings.button_label | escape }}: {{ strip_blog.title | escape }} blog">{{ section.settings.button_label | escape }}</a>
         {%- endif -%}
       </div>
-      {%- if section.settings.description != blank -%}
-        <p class="wb-blog-strip-intro">{{ section.settings.description }}</p>
-      {%- endif -%}
 
       <ul class="wb-article-cards" role="list" style="--wb-article-cols: {{ strip_count }};">
         {%- for article in strip_blog.articles limit: strip_count -%}
@@ -40,16 +40,15 @@
 {%- endif -%}
 
 <style>
-  .wb-blog-strip-head {
+  .wb-blog-strip-heading { margin-bottom: 8px; }
+  .wb-blog-strip-sub {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
     gap: 16px;
-    margin-bottom: 8px;
   }
-  .wb-blog-strip-heading { margin: 0; }
-  .wb-blog-strip-all { flex-shrink: 0; white-space: nowrap; }
-  .wb-blog-strip-intro { margin-top: 0; max-width: 620px; }
+  .wb-blog-strip-intro { margin: 0; max-width: 620px; }
+  /* margin-left: auto keeps the link on the right even when the intro is blank. */
+  .wb-blog-strip-all { margin-left: auto; flex-shrink: 0; white-space: nowrap; }
 </style>
 
 {% schema %}
@@ -70,7 +69,7 @@
       "type": "text",
       "id": "description",
       "label": "Intro",
-      "default": "Stories, gift ideas and the odd strong opinion, from our blog."
+      "default": "Our humble blog."
     },
     {
       "type": "blog",
