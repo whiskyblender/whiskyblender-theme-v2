@@ -212,43 +212,45 @@
 }
 
 /* Tags */
+/* Same look as the Shop page's filter pills (span.wb-radio label in
+   wb-products.css): black outline, 6px corners, grey fill, white on hover,
+   black when current. Restated here rather than reusing those classes
+   because these are links, not radio labels, and wb-products.css loads async. */
 .wb-tag-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 8px 10px;
 }
 
 .wb-tag-chip {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 999px;
+  border: solid 1px #000000;
+  border-radius: 6px;
   background-color: #eeeeee;
-  font-size: 13px;
-  color: #555555;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 160%;
+  color: #000000;
   text-decoration: none;
+  transition: background 0.3s;
 }
 
 .wb-tag-chip:hover {
-  background-color: #e0e0e0;
-  color: #333333;
+  background-color: #ffffff;
+  color: #000000;
   text-decoration: none;
-}
-
-/* Blog index topic filter: the same chips, a size up, between intro and cards */
-.wb-blog-filter {
-  margin: 24px 0 8px;
-}
-
-.wb-blog-filter .wb-tag-chip {
-  padding: 6px 16px;
-  font-size: 15px;
-  font-weight: 600;
 }
 
 .wb-tag-chip.is-active,
 .wb-tag-chip.is-active:hover {
-  background-color: #107a5f;
+  background-color: #000000;
   color: #ffffff;
+}
+
+/* Blog index topic filter: between intro and cards */
+.wb-blog-filter {
+  margin: 24px 0 8px;
 }
 
 /* Product spotlight */
