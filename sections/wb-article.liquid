@@ -25,6 +25,15 @@
       <div class="wb-imagebg"{% if article.image %} style="background-image: url({{ article.image | image_url: width: 1920 }})"{% endif %}>
         <div class="wb-padding">
           <h1 class="wb-medium-heading">{{ article.title | escape }}</h1>
+          {%- comment -%}
+            Intro paragraph, the same one-or-two-line standfirst the homepage and
+            landing pages put under the H1. Sourced from the article's Excerpt field
+            (the same text the blog index cards show), so a new post gets an intro by
+            filling in its Excerpt. Keep it to one or two sentences.
+          {%- endcomment -%}
+          {%- if article.excerpt != blank -%}
+            <p class="wb-collection-sub wb-article-intro">{{ article.excerpt | strip_html | strip }}</p>
+          {%- endif -%}
         </div>
       </div>
     </div>

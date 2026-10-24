@@ -8,6 +8,17 @@
 
 /* ── Article page ────────────────────────────────────────────────────────── */
 
+/* Intro paragraph under the article H1 (from the article's Excerpt). Same values as
+   .wb-collection-sub, repeated here because wb-products.css loads async and the
+   hero box would jump when it arrived. */
+#wb-article .wb-article-intro {
+  font-weight: 600;
+  font-size: 140%;
+  line-height: 120%;
+  margin: 0;
+  padding: 18px 0 2px 0;
+}
+
 .wb-article-body {
   max-width: 700px;
 }
