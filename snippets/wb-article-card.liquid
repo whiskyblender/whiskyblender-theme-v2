@@ -1,0 +1,34 @@
+{%- comment -%}
+  One blog article as a card, styled to match the homepage collection cards
+  (wb-occasions-compact): white card, image on top, bold Raleway title.
+  Styles live in assets/wb-article-cards.css — each section that renders this
+  snippet loads that stylesheet.
+
+  The image is decorative (alt=""), because the title inside the same link
+  already names the article; repeating it would make screen readers say it twice.
+
+  Usage: {% render 'wb-article-card', article: article %}
+{%- endcomment -%}
+<li class="wb-article-card">
+  <a href="{{ article.url }}">
+    <div class="wb-article-card__image">
+      {%- if article.image -%}
+        {{
+          article.image
+          | image_url: width: 800
+          | image_tag:
+            loading: 'lazy',
+            widths: '300, 400, 600, 800',
+            sizes: '(max-width: 767px) 45vw, 25vw',
+            alt: ''
+        }}
+      {%- endif -%}
+    </div>
+    <div class="wb-article-card__body">
+      <h3 class="wb-article-card__title">{{ article.title | escape }}</h3>
+      {%- if article.excerpt != blank -%}
+        <p class="wb-article-card__excerpt">{{ article.excerpt | strip_html | truncate: 110 }}</p>
+      {%- endif -%}
+    </div>
+  </a>
+</li>

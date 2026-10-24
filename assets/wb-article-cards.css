@@ -1,0 +1,121 @@
+/* Blog article cards (snippets/wb-article-card.liquid), used on the help page
+   and the homepage "On the Scotch" strip. Card chrome matches the homepage
+   collection cards (.wb-occ-compact in wb-occasions-compact.liquid): white
+   card, transparent border that turns grey on hover, Raleway 700 title.
+
+   Hover never underlines anything. The global a:hover wavy underline would
+   otherwise run under the title and every line of the excerpt. */
+
+/* max-width: none undoes the site-wide ul { max-width: 768px }. */
+.wb-article-cards {
+  list-style: none;
+  max-width: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.wb-article-card {
+  background-color: #ffffff;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: border-color 0.4s;
+}
+
+/* On a white band the card needs an edge of its own, or it disappears. */
+.wb-article-cards--outlined .wb-article-card {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.wb-article-card:hover,
+.wb-article-card:focus-within {
+  border-color: #999999;
+}
+
+/* Links are bold and wavy-underlined site-wide (wb-base.css); the card resets
+   both so only the title is bold. */
+.wb-article-card a,
+.wb-article-card a:hover {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.wb-article-card__image {
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+.wb-article-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.wb-article-card:hover .wb-article-card__image img {
+  transform: scale(1.04);
+}
+
+.wb-article-card__body {
+  padding: 14px 14px 16px;
+}
+
+.wb-article-card__title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Hidden on phones: at two cards per row there's room for the title only. */
+.wb-article-card__excerpt {
+  display: none;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #555555;
+  margin: 8px 0 0;
+}
+
+.wb-article-cards-more {
+  margin-top: 28px;
+}
+
+@media screen and (min-width: 768px) {
+  .wb-article-cards {
+    grid-template-columns: repeat(var(--wb-article-cols, 4), minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 28px;
+  }
+
+  .wb-article-card__body {
+    padding: 16px 18px 20px;
+  }
+
+  .wb-article-card__title {
+    font-size: clamp(17px, 1.6vw, 20px);
+  }
+
+  .wb-article-card__excerpt {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-article-card__image img {
+    transition: none;
+  }
+
+  .wb-article-card:hover .wb-article-card__image img {
+    transform: none;
+  }
+}

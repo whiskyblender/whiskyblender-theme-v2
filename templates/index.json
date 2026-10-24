@@ -271,6 +271,17 @@
         "background": "auto"
       }
     },
+    "wb_blog_strip_home": {
+      "type": "wb-blog-strip",
+      "name": "Blog strip",
+      "settings": {
+        "heading": "On the Scotch",
+        "description": "Stories, gift ideas and the odd strong opinion, from our blog.",
+        "blog": "on-the-scotch",
+        "count": 4,
+        "button_label": "See all articles"
+      }
+    },
     "178129257397a9c961": {
       "type": "apps",
       "settings": {
@@ -287,6 +298,7 @@
     "wb_occasions_compact",
     "wb_cta_something_unique",
     "wb_cta_foryersel",
+    "wb_blog_strip_home",
     "178129257397a9c961"
   ]
 }
