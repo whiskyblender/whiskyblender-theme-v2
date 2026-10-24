@@ -41,6 +41,7 @@
     white-space: nowrap;
   }
   /* Sits above the card's full-card overlay link */
+  .wb-dram-phone-line { display: none; }
   .wb-dram-small {
     position: relative;
     z-index: 3;
@@ -87,14 +88,10 @@
     #wb-perfect-drams-cards .wb-card-details { position: static; min-width: 0; padding: 14px 14px 14px 0; }
     #wb-perfect-drams-cards .wb-card-details .wb-emoji { display: none; }
     #wb-perfect-drams-cards .wb-small-heading { margin: 0; font-size: 26px; line-height: 24px; }
-    #wb-perfect-drams-cards .wb-dram-desc {
-      font-size: 15px;
-      line-height: 1.45;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+    /* Phones show one whole sentence (the card's "phone line": who the dram suits)
+       instead of the full description cut off at two lines. No line, no text. */
+    #wb-perfect-drams-cards .wb-dram-desc { display: none; }
+    #wb-perfect-drams-cards .wb-dram-phone-line { display: block; margin: 0; font-size: 15px; line-height: 1.45; }
     /* May wrap on narrow phones rather than push the text column wider than the card */
     .wb-dram-price { background-color: #ffffff; white-space: normal; }
   }
@@ -132,6 +129,9 @@
                 <p class="wb-dram-flavours">{{ block.settings.flavours }}</p>
               {%- endif -%}
               <p class="wb-dram-desc">{{ block.settings.description }}</p>
+              {%- if block.settings.phone_line != blank -%}
+                <p class="wb-dram-phone-line">{{ block.settings.phone_line }}</p>
+              {%- endif -%}
               <p class="wb-dram-buy">
                 <span class="wb-dram-price">500ml with their label · {% render 'wb-money', amount: main_product.price_min, code: false %}</span>
                 <a class="wb-dram-small" href="{{ small_href }}">or 200ml, {% render 'wb-money', amount: small_product.price_min, code: false %}</a>
@@ -210,6 +210,12 @@
           "type": "textarea",
           "id": "description",
           "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "phone_line",
+          "label": "Phone line",
+          "info": "One whole sentence shown on phones instead of the description, e.g. who the dram suits. Leave blank to show no text on phones."
         },
         {
           "type": "select",
