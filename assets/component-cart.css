@@ -15,6 +15,17 @@ cart-items.is-empty .title-wrapper-with-link,
   display: block;
 }
 
+/* Promoted products (templates/cart.json "cart-promoted") only fill an empty cart;
+   cart.js toggles .is-empty live, so this also covers removing the last item. */
+body:has(cart-items:not(.is-empty)) [id$="__cart-promoted"] {
+  display: none;
+}
+
+/* The footer's .wb-banded wrapper otherwise leaves an empty grey strip on an empty cart. */
+body:has(cart-items.is-empty) [id$="__cart-footer"] {
+  display: none;
+}
+
 .cart__warnings {
   display: none;
   text-align: center;

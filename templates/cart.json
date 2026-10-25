@@ -13,8 +13,8 @@
       "type": "main-cart-items",
       "settings": {
         "color_scheme": "",
-        "padding_top": 48,
-        "padding_bottom": 100
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "cart-footer": {
@@ -37,25 +37,43 @@
       ],
       "settings": {
         "color_scheme": "",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
-    "rich_text_YFCNPz": {
-      "type": "rich-text",
+    "cart-promoted": {
+      "type": "featured-collection",
+      "name": "Promoted (empty cart only)",
       "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
+        "collection": "promoted",
+        "products_to_show": 4,
+        "title": "Need some inspiration?",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
         "color_scheme": "",
-        "full_width": true,
-        "padding_top": 100,
-        "padding_bottom": 100
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
   "order": [
     "cart-items",
     "cart-footer",
-    "rich_text_YFCNPz"
+    "cart-promoted"
   ]
 }
