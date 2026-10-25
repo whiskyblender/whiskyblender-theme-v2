@@ -8,6 +8,8 @@
   already names the article; repeating it would make screen readers say it twice.
 
   Usage: {% render 'wb-article-card', article: article %}
+  Pass hide_excerpt: true for a title-only card (the compact cards after the
+  first 12 on the blog page).
 {%- endcomment -%}
 <li class="wb-article-card">
   <a href="{{ article.url }}">
@@ -26,7 +28,7 @@
     </div>
     <div class="wb-article-card__body">
       <h3 class="wb-article-card__title">{{ article.title | escape }}</h3>
-      {%- if article.excerpt != blank -%}
+      {%- if article.excerpt != blank and hide_excerpt != true -%}
         <p class="wb-article-card__excerpt">{{ article.excerpt | strip_html | truncate: 110 }}</p>
       {%- endif -%}
     </div>
