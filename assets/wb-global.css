@@ -71,14 +71,22 @@ p {
   white-space: nowrap;
 }
 
-/* Title links lose the underline — except the homepage hero intro, an <h1> for
-   SEO that reads as body copy (wb-main-landing.liquid). :where() keeps the
-   specificity of plain "h1 a". */
-h1:where(:not(.wb-hero-desc)) a,
+h1 a,
 h2 a,
 h3 a {
   text-decoration: none;
   color: #000000;
+}
+
+/* Intro text under a page title — landing heroes (wb-main-landing: homepage line,
+   occasion subheading, About/Gifts intros) and the Help/blog intro — keeps links
+   bold with no underline, hover included. Body-copy links elsewhere keep the
+   dotted/wavy underline from wb-base.css. */
+.wb-imagebg .wb-padding a:not(.wb-button),
+.wb-overvideo .wb-padding a:not(.wb-button),
+.wb-blog-intro a,
+.wb-blog-intro a:hover {
+  text-decoration: none;
 }
 
 .wb-buttons {
