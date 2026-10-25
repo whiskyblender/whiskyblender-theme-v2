@@ -1,5 +1,6 @@
 {{ 'wb-blog.css' | asset_url | stylesheet_tag }}
 {{ 'wb-perfectdrams.css' | asset_url | stylesheet_tag }}
+{{ 'wb-article-cards.css' | asset_url | stylesheet_tag }}
 
 {%- comment -%}
   50 is Shopify's maximum for `paginate`. With 12 articles this puts the whole blog
@@ -35,7 +36,7 @@
 
       {%- if blog.articles_count > 0 -%}
         <ul class="wb-cards wb-main-cards wb-blog-cards">
-          {%- for article in blog.articles -%}
+          {%- for article in blog.articles limit: 12 -%}
             <li>
               <a href="{{ article.url }}" class="wb-card-link-overlay" aria-hidden="true" tabindex="-1"></a>
               <div class="wb-card-image">
@@ -54,6 +55,20 @@
             </li>
           {%- endfor -%}
         </ul>
+
+        {%- comment -%}
+          Everything after the first 12 drops to the smaller homepage-strip card
+          (snippets/wb-article-card.liquid), title only: 2 per row on phones,
+          3 on tablet, 4 on desktop. Keeps the older posts linked without the
+          page turning into a very long scroll of big cards.
+        {%- endcomment -%}
+        {%- if blog.articles.size > 12 -%}
+          <ul class="wb-article-cards wb-blog-more" role="list">
+            {%- for article in blog.articles offset: 12 -%}
+              {%- render 'wb-article-card', article: article, hide_excerpt: true -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
 
         {%- if paginate.pages > 1 -%}
           {%- render 'pagination', paginate: paginate -%}
@@ -81,6 +96,19 @@
     font-weight: 700;
     font-size: clamp(20px, 2.6vw, 30px);
     line-height: 1.2;
+  }
+
+  /* Compact cards after the first 12. The gap above matches the gap between
+     the big cards so the two grids read as one list. The strip's default is
+     4 columns from 768px; tablet gets 3 here. */
+  .wb-blog-more {
+    margin-top: 20px;
+  }
+  @media screen and (min-width: 768px) {
+    .wb-blog-more { --wb-article-cols: 3; margin-top: 20px; }
+  }
+  @media screen and (min-width: 1024px) {
+    .wb-blog-more { --wb-article-cols: 4; }
   }
 </style>
 
