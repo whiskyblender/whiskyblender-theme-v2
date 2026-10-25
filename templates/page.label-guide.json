@@ -56,6 +56,14 @@
             "file_formats": "PDF, AI, EPS, high-res PNG"
           }
         },
+        "spec_50": {
+          "type": "spec_row",
+          "settings": {
+            "bottle_size": "50ml miniature",
+            "printable_area": "66mm × 66mm",
+            "file_formats": "PDF, AI, EPS, high-res PNG"
+          }
+        },
         "dl_500_pdf": {
           "type": "download_item",
           "settings": {
@@ -113,6 +121,13 @@
             "answer": "<p>Always. We’ll send you a visual to approve before anything goes to print — nothing gets bottled without your OK.</p>"
           }
         },
+        "faq_minis": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is there a template for miniatures?",
+            "answer": "<p>You don’t need one. Send us your artwork for a single label and we’ll repeat it across all twelve bottles, so every miniature in the set matches.</p>"
+          }
+        },
         "faq_fit": {
           "type": "faq_item",
           "settings": {
@@ -126,6 +141,7 @@
         "path_custom",
         "spec_500",
         "spec_200",
+        "spec_50",
         "dl_500_pdf",
         "dl_500_ai",
         "dl_200_pdf",
@@ -133,11 +149,13 @@
         "faq_jpeg",
         "faq_cost",
         "faq_proof",
+        "faq_minis",
         "faq_fit"
       ],
       "settings": {
         "fee_product": "artwork-origination-fee",
         "fee_fallback": "£25",
+        "downloads_intro": "Blank, print-ready outlines for 500ml and 200ml bottles — drop your artwork straight in. Miniatures don’t need one: send a single label and we’ll repeat it across all twelve.",
         "cta_primary_url": "/pages/collaborate#wb-getintouch"
       }
     }
