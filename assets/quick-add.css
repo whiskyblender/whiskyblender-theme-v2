@@ -386,3 +386,84 @@ quick-add-bulk .quantity__input {
 .quantity__input-disabled {
   pointer-events: none;
 }
+
+/* Whisky Blender: card quick-add buttons use the site's outline button
+   (.wb-button in wb-global.css) instead of Dawn's white .button--secondary pill.
+   Outline, not solid, so they don't compete with a solid green Check out. */
+.quick-add__submit.button {
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  border: 2px solid #107a5f;
+  border-radius: 6px;
+  background: transparent;
+  color: #107a5f;
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 160%;
+  padding: 10px 12px;
+  white-space: nowrap;
+  box-shadow: none;
+  transition: all 0.3s;
+}
+
+.quick-add__submit.button::before,
+.quick-add__submit.button::after {
+  display: none;
+}
+
+.quick-add__submit.button:not([disabled]):hover {
+  border-color: #333333;
+  color: #333333;
+}
+
+.quick-add__submit.button[disabled] {
+  border-color: #999999;
+  color: #999999;
+  opacity: 1;
+}
+
+.quick-add__submit.button.loading {
+  color: transparent;
+}
+
+@media screen and (max-width: 749px) {
+  .quick-add__submit.button {
+    font-size: 15px;
+    padding: 8px 6px;
+  }
+}
+
+/* Space between the price and the button (Dawn sets none, so they touched). */
+.card .quick-add {
+  margin-top: 1.6rem;
+}
+
+/* Line the buttons up along the bottom of each row when a title wraps. */
+.product-grid:has(.quick-add) .card-wrapper,
+.product-grid:has(.quick-add) .card-wrapper > .card {
+  height: 100%;
+}
+
+.product-grid:has(.quick-add) .card > .card__content {
+  flex-grow: 1;
+  grid-template-rows: auto 1fr auto auto;
+}
+
+/* Options modal: its info column is narrower than a product page's, so "Add to
+   cart" wrapped beside the stepper. Slim stepper (as on narrow phones) + no wrap. */
+.quick-add-modal .wb-buy-row .quantity__button {
+  width: 36px;
+}
+
+.quick-add-modal .wb-buy-row .quantity__input {
+  width: 40px;
+}
+
+.quick-add-modal .wb-buy-row .product-form__submit {
+  white-space: nowrap;
+  padding-left: 16px;
+  padding-right: 16px;
+}
