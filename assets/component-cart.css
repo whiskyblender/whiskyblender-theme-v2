@@ -21,6 +21,11 @@ body:has(cart-items:not(.is-empty)) [id$="__cart-promoted"] {
   display: none;
 }
 
+/* Wee bits add-ons ("cart-wee-bits") only show once something is in the cart. */
+body:has(cart-items.is-empty) [id$="__cart-wee-bits"] {
+  display: none;
+}
+
 /* The totals footer has nothing to show on an empty cart but its padding. */
 body:has(cart-items.is-empty) [id$="__cart-footer"] {
   display: none;

@@ -651,7 +651,12 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {%- if settings.cart_type == 'drawer' -%}
+    {%- comment -%}
+      Not on the cart page: there the page itself is the cart. Without a drawer,
+      product-form.js reloads /cart after an add (Wee bits quick add), so the
+      items and totals refresh together instead of a drawer opening over them.
+    {%- endcomment -%}
+    {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
       {%- render 'cart-drawer' -%}
     {%- endif -%}
 
