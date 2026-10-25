@@ -78,6 +78,17 @@ h3 a {
   color: #000000;
 }
 
+/* Intro text under a page title — landing heroes (wb-main-landing: homepage line,
+   occasion subheading, About/Gifts intros) and the Help/blog intro — keeps links
+   bold with no underline, hover included. Body-copy links elsewhere keep the
+   dotted/wavy underline from wb-base.css. */
+.wb-imagebg .wb-padding a:not(.wb-button),
+.wb-overvideo .wb-padding a:not(.wb-button),
+.wb-blog-intro a,
+.wb-blog-intro a:hover {
+  text-decoration: none;
+}
+
 .wb-buttons {
   display: block;
   margin-top: 10px;
