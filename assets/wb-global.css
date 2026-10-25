@@ -71,10 +71,7 @@ p {
   white-space: nowrap;
 }
 
-/* Title links lose the underline — except the homepage hero intro, an <h1> for
-   SEO that reads as body copy (wb-main-landing.liquid). :where() keeps the
-   specificity of plain "h1 a". */
-h1:where(:not(.wb-hero-desc)) a,
+h1 a,
 h2 a,
 h3 a {
   text-decoration: none;
