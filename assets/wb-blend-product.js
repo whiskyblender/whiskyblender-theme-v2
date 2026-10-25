@@ -25,7 +25,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     { slug: 'WB01767', name: 'All rounder' },
     { slug: 'WB00836', name: 'Smoke on the Water' },
     { slug: 'WB00820', name: 'Soft & fruity' },
-    { slug: 'WB00821', name: 'Sweet tooth' }
+    { slug: 'WB02492', name: 'Sweet tooth' }
   ];
   var chooserActive = false;   /* set by buildWhiskyChooser */
 
