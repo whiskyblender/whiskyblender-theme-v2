@@ -254,7 +254,7 @@ section.wb-banded:nth-of-type(even), div.wb-banded:nth-of-type(odd), .shopify-se
     text-decoration: underline;
     text-decoration-style: wavy;
   }
-  h1 a:hover,
+  h1:where(:not(.wb-hero-desc)) a:hover,
   h2 a:hover,
   h3 a:hover,
   .wb-button:hover,
