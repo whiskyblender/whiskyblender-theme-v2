@@ -21,9 +21,20 @@ body:has(cart-items:not(.is-empty)) [id$="__cart-promoted"] {
   display: none;
 }
 
-/* The footer's .wb-banded wrapper otherwise leaves an empty grey strip on an empty cart. */
+/* The totals footer has nothing to show on an empty cart but its padding. */
 body:has(cart-items.is-empty) [id$="__cart-footer"] {
   display: none;
+}
+
+/* Totals sit in the white area straight under the items, split off by a rule
+   like the cart drawer's footer (counter-dawn.css removes .cart__items' own border). */
+cart-items:not(.is-empty) > .wb-padding {
+  padding-bottom: 0;
+}
+
+#main-cart-footer .cart__footer {
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  padding-top: 3rem;
 }
 
 .cart__warnings {
