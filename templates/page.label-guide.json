@@ -60,7 +60,7 @@
           "type": "spec_row",
           "settings": {
             "bottle_size": "50ml miniature",
-            "printable_area": "66mm × 66mm",
+            "printable_area": "48mm × 52.5mm",
             "file_formats": "PDF, AI, EPS, high-res PNG"
           }
         },
@@ -100,6 +100,24 @@
             "url": "https://cdn.shopify.com/s/files/1/0846/1136/7177/files/wb-label-template-200ml.ai?v=1792853151"
           }
         },
+        "dl_50_pdf": {
+          "type": "download_item",
+          "settings": {
+            "format": "PDF",
+            "title": "Miniature label template",
+            "note": "One 66mm label, safe area marked — we repeat it on all twelve",
+            "url": "wb-label-template-50ml.pdf"
+          }
+        },
+        "dl_50_svg": {
+          "type": "download_item",
+          "settings": {
+            "format": "SVG",
+            "title": "Miniature label template",
+            "note": "Editable vector, layered — opens in Illustrator",
+            "url": "wb-label-template-50ml.svg"
+          }
+        },
         "faq_jpeg": {
           "type": "faq_item",
           "settings": {
@@ -124,8 +142,8 @@
         "faq_minis": {
           "type": "faq_item",
           "settings": {
-            "question": "Is there a template for miniatures?",
-            "answer": "<p>You don’t need one. Send us your artwork for a single label and we’ll repeat it across all twelve bottles, so every miniature in the set matches.</p>"
+            "question": "Do I need twelve labels for miniatures?",
+            "answer": "<p>No, just one. Use the miniature template above for a single label and we’ll repeat it across all twelve bottles, so every miniature in the set matches.</p>"
           }
         },
         "faq_fit": {
@@ -146,6 +164,8 @@
         "dl_500_ai",
         "dl_200_pdf",
         "dl_200_ai",
+        "dl_50_pdf",
+        "dl_50_svg",
         "faq_jpeg",
         "faq_cost",
         "faq_proof",
@@ -155,7 +175,6 @@
       "settings": {
         "fee_product": "artwork-origination-fee",
         "fee_fallback": "£25",
-        "downloads_intro": "Blank, print-ready outlines for 500ml and 200ml bottles — drop your artwork straight in. Miniatures don’t need one: send a single label and we’ll repeat it across all twelve.",
         "cta_primary_url": "/pages/collaborate#wb-getintouch"
       }
     }
