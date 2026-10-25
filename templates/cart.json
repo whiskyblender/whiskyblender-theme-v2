@@ -73,7 +73,7 @@
   },
   "order": [
     "cart-items",
-    "cart-footer",
-    "cart-promoted"
+    "cart-promoted",
+    "cart-footer"
   ]
 }
