@@ -14,13 +14,6 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_bCgzT7": {
-          "type": "announcement",
-          "settings": {
-            "text": "🎃 Halloween labels now available",
-            "link": "https://whiskyblender.com/products/custom-whisky-500ml-round-black?blend=WB02241&variant=57455500427529"
-          }
-        },
         "announcement_KpKexp": {
           "type": "announcement",
           "disabled": true,
@@ -66,7 +59,6 @@
         }
       },
       "block_order": [
-        "announcement_bCgzT7",
         "announcement_KpKexp",
         "announcement_QWA6C9",
         "announcement-bar-0",
