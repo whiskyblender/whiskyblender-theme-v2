@@ -364,6 +364,30 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
 .size20.singlemalt .image,
 .size20.singlecask .image { top: 4px; left: -9px; width: 445px; height: 193px; }
 
+/* Plain-front stock (PLAN-LABELS-UNIFIED.md, 27 Oct 2026): one artwork area per
+   size for every product. 500ml is already the New 570x269 (body.wb-tpl-new rule
+   below); 200ml takes the single malt full-width area. #page.wb-plain is set by
+   wb-label.js only for products on that layout (not Doctors' / the Nip yet).
+   Artwork made for the old inset area is scaled to cover until new files exist. */
+#page.wb-plain.size20 .image { top: 4px; left: -9px; width: 445px; height: 193px; }
+
+/* What the old stock carried, printed by us (positions set by wb-label.js PLAIN) */
+.wb-plain-roundel {
+  position: absolute;
+  z-index: 2;
+  transform: rotate(-45deg);
+}
+.wb-plain-roundel svg { display: block; width: 100%; height: 100%; }
+.wb-plain-roundel svg path { fill: currentColor; }
+.wb-plain-cyo {
+  position: absolute;
+  z-index: 2;
+  font-family: Raleway, sans-serif;
+  line-height: 1;
+  color: #111111;
+  white-space: nowrap;
+}
+
 /* Doctors' Special (2026-10-10): fixed artwork printed on the BLENDED malt stock
    (no bars), filling the blended-malt print area -10/-9, 570x246 (same 2.32:1 as
    the artwork). #page in the selector so it beats body.wb-tpl-new .size50 .image.
