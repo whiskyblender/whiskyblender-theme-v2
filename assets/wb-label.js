@@ -118,6 +118,8 @@
   var state = {
     product:    'customblend',  /* customblend | singlemalt | singlecask */
     plain:      PLAIN_STOCK_DEFAULT,   /* plain-front stock: one layout per size (see PLAIN) */
+    clan:       '',             /* clan handle (wb-tartan.js): tartan artwork, custom blend
+                                   on the plain stock only. '' = no clan (every link today) */
     template:   'new',          /* new | classic — 500ml label template version.
                                    Per-product DEFAULT is set in readParams (2026-09-07):
                                    custom blend → 'new', single malt/cask → 'classic'
@@ -241,6 +243,43 @@
     return state.size === '500ml' || state.size === '200ml';
   }
 
+  /* ── Clan labels (PLAN-CLAN-BOTTLES.md) ──────────────────────────────────────
+     &clan=<handle>: the artwork is the clan's tartan, drawn from its thread count
+     by wb-tartan.js, and the text, roundel and "Create your own" take one tone
+     picked from the tartan behind the name (white unless it's mostly light).
+     Custom blend on the plain stock only. Without &clan= nothing here runs. */
+  var CLAN_REPEAT = 0.42 * 570;   /* one full sett repeat, label px (same physical scale at both sizes) */
+  var CLAN_RES = 4;               /* canvas px per label px — print resolution */
+  var clanArt = {};
+
+  function clanFor() {
+    return (state.clan && window.WBTartan) ? window.WBTartan.find(state.clan) : null;
+  }
+  function clanActive() {
+    return (state.product === 'customblend' && onPlainLayout()) ? clanFor() : null;
+  }
+
+  /* Draws the tartan into the artwork area (cached per clan and size) and returns
+     the tone for the name box: 'white' or 'black' */
+  function paintClan(artworkEl, clan) {
+    var cs = getComputedStyle(artworkEl);
+    var w = parseFloat(cs.width), h = parseFloat(cs.height);
+    var key = clan.handle + '|' + w + 'x' + h;
+    if (!clanArt[key]) {
+      var c = document.createElement('canvas');
+      c.width = Math.round(w * CLAN_RES); c.height = Math.round(h * CLAN_RES);
+      window.WBTartan.draw(c, clan, CLAN_REPEAT * CLAN_RES);
+      clanArt[key] = { canvas: c, url: c.toDataURL('image/png') };
+    }
+    var art = clanArt[key];
+    artworkEl.style.backgroundImage = 'url(' + art.url + ')';
+    var outer = document.getElementById('outer');
+    var ar = artworkEl.getBoundingClientRect(), or = outer && outer.getBoundingClientRect();
+    if (!or || !ar.width) return 'white';
+    var k = art.canvas.width / ar.width;
+    return window.WBTartan.tone(art.canvas, (or.left - ar.left) * k, (or.top - ar.top) * k, or.width * k, or.height * k).text;
+  }
+
   /* Per-product label template default: custom blend New; single malt / cask
      Classic on today's stock (not taller), New on the plain stock; Doctors' and
      the Nip always Classic. Staff can still override with the Legacy box. */
@@ -334,6 +373,11 @@
     /* stock=plain / stock=current overrides PLAIN_STOCK_DEFAULT for this print */
     if (p.get('stock') === 'plain') state.plain = true;
     if (p.get('stock') === 'current') state.plain = false;
+    /* clan=<handle>: clan labels exist only on the plain stock, so a clan turns it on */
+    if (p.get('clan')) {
+      state.clan = p.get('clan');
+      state.plain = true;
+    }
     /* slots=11-12 → label range on the miniature contact sheet */
     var slots = /^(\d+)-(\d+)$/.exec(p.get('slots') || '');
     if (slots) { state.slotFrom = slots[1]; state.slotTo = slots[2]; normaliseSlots(); }
@@ -385,6 +429,7 @@
     if (state.reference)  p.set('reference',  state.reference);
     if (state.productname) p.set('productname', state.productname);
     if (state.plain !== PLAIN_STOCK_DEFAULT) p.set('stock', state.plain ? 'plain' : 'current');
+    if (state.clan) p.set('clan', state.clan);
     if (state.slotFrom !== 1 || state.slotTo !== SLOT_COUNT) p.set('slots', state.slotFrom + '-' + state.slotTo);
     return window.location.pathname + '?' + p.toString();
   }
@@ -405,6 +450,11 @@
     } else if (state.product === 'customblend') {
       if (state.blend) items.push({ label: 'Blend', value: state.blend });
       if (state.author) items.push({ label: 'Created by', value: state.author });
+      /* Clan: flag a handle we don't know, so staff don't print a plain label by mistake */
+      if (state.clan) {
+        var clanDef = clanFor();
+        items.push({ label: 'Clan', value: clanDef ? clanDef.name : state.clan + ' (not found)' });
+      }
     } else {
       if (state.distillery) items.push({ label: 'Product', value: state.distillery });
     }
@@ -530,13 +580,18 @@
     return roundelSvg;
   }
 
-  function renderPlainPrint() {
+  /* tone: a clan label's 'white' / 'black' — the roundel and "Create your own" sit
+     on tartan, not in the artwork's white circle and pill, so they take the
+     label's tone and shadow instead of copper / dark ink */
+  function renderPlainPrint(tone) {
     var label = document.getElementById('label');
     if (!label) return;
     var old = label.querySelectorAll('.wb-plain-print');
     old.forEach(function (el) { el.parentNode.removeChild(el); });
     if (!onPlainLayout()) return;
 
+    var ink = tone ? (tone === 'white' ? '#ffffff' : '#111111') : '';
+    var shade = tone ? (tone === 'white' ? '#000000' : '#ffffff') : '';
     var g = PLAIN[state.size];
     /* The roundel is inlined SVG coloured by fill: a CSS mask doesn't survive
        printing (it printed as a solid square). Fetched once, then cached. */
@@ -547,8 +602,8 @@
       'top:' + (r[1] - r[2] / 2) + 'px',
       'width:' + r[2] + 'px',
       'height:' + r[2] + 'px',
-      'color:' + ROUNDEL_INK
-    ].join(';');
+      'color:' + (ink || ROUNDEL_INK)
+    ].concat(tone ? ['filter:drop-shadow(1px 1px 0 ' + shade + ')'] : []).join(';');
     label.appendChild(ro);
     loadRoundel().then(function (svg) { if (svg && ro.parentNode) ro.innerHTML = svg; });
 
@@ -562,7 +617,7 @@
         'top:' + (line[2] - c[3] * 0.92) + 'px',
         'font-size:' + c[3] + 'px',
         'font-weight:' + line[1]
-      ].join(';');
+      ].concat(tone ? ['color:' + ink, 'text-shadow:1px 1px 0 ' + shade] : []).join(';');
       label.appendChild(el);
     });
   }
@@ -610,11 +665,20 @@
     var artworkUrl = getArtworkUrl(artworkProduct, state.variant, state.size);
     if (artworkEl) artworkEl.style.backgroundImage = artworkUrl ? 'url(' + artworkUrl + ')' : 'none';
 
+    /* Clan: the tartan replaces the style artwork, and sets the text tone */
+    var clan = clanActive();
+    var clanTone = (clan && artworkEl) ? paintClan(artworkEl, clan) : null;
+
     /* Label text colour — fixed by product type, independent of fg/bg picker.
-       customblend: black; singlemalt/singlecask: white (text sits on dark artwork) */
+       customblend: black; singlemalt/singlecask: white (text sits on dark artwork);
+       clan: from the tartan */
     var isBlend = state.product === 'customblend';
     var labelColor  = isBlend ? '#111111' : '#ffffff';
     var labelShadow = isBlend ? '#ffffff' : '#000000';
+    if (clanTone) {
+      labelColor  = clanTone === 'white' ? '#ffffff' : '#111111';
+      labelShadow = clanTone === 'white' ? '#000000' : '#ffffff';
+    }
 
     /* Blend name */
     var blendNameEl = document.getElementById('blendName');
@@ -653,9 +717,12 @@
     if (refEl) {
       var refParts = [state.blend, state.reference].filter(Boolean);
       refEl.textContent = refParts.join(' · ');
+      /* on tartan the reference takes the label's tone; otherwise the CSS colour */
+      refEl.style.color = clanTone ? labelColor : '';
+      refEl.style.textShadow = clanTone ? '1px 1px 0 ' + labelShadow : '';
     }
 
-    renderPlainPrint();
+    renderPlainPrint(clanTone);
 
     /* Doctors' Special: name in the "Prescribed for" box; no blend name, side
        name, "Distilled at" (hidden by CSS) or side strips. */
@@ -1060,6 +1127,14 @@
     if (legacy) legacy.checked = (state.template === 'classic');
     var plain = document.getElementById('wb-f-plain');
     if (plain) plain.checked = state.plain;
+    var clanSel = document.getElementById('wb-f-clan');
+    if (clanSel) {
+      /* options come from wb-tartan.js, so the clan list lives in one place */
+      if (clanSel.options.length === 1 && window.WBTartan) {
+        window.WBTartan.CLANS.forEach(function (c) { clanSel.add(new Option(c.name, c.handle)); });
+      }
+      clanSel.value = clanFor() ? state.clan : '';
+    }
 
     updateTypeVisibility();
   }
@@ -1119,6 +1194,10 @@
     /* Plain-stock box: everything but the miniature contact sheet */
     document.querySelectorAll('.wb-plain-toggle').forEach(function (el) {
       el.style.display = isSheet ? 'none' : '';
+    });
+    /* Clan: custom blend at 500ml / 200ml */
+    document.querySelectorAll('.wb-clan-only').forEach(function (el) {
+      el.style.display = (isBlend && !isSheet) ? '' : 'none';
     });
   }
 
@@ -1211,9 +1290,27 @@
     if (plainToggle) {
       plainToggle.addEventListener('change', function () {
         state.plain = plainToggle.checked;
+        /* clan labels only exist on the plain stock */
+        if (!state.plain) state.clan = '';
+        var clanSelect = document.getElementById('wb-f-clan');
+        if (clanSelect) clanSelect.value = state.clan;
         state.template = defaultTemplate();
         var legacyCb = document.getElementById('wb-f-legacy');
         if (legacyCb) legacyCb.checked = (state.template === 'classic');
+        updateTypeVisibility();
+        render();
+      });
+    }
+
+    var clanToggle = document.getElementById('wb-f-clan');
+    if (clanToggle) {
+      clanToggle.addEventListener('change', function () {
+        state.clan = clanToggle.value;
+        /* choosing a clan turns on the plain stock (clan labels only exist there) */
+        if (state.clan) state.plain = true;
+        var plainCb = document.getElementById('wb-f-plain');
+        if (plainCb) plainCb.checked = state.plain;
+        state.template = defaultTemplate();
         updateTypeVisibility();
         render();
       });
