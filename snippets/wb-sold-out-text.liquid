@@ -11,7 +11,7 @@
   wording in locales (products.product.wb_ship_*).
 
   Accepts:
-  - format: 'button' (default) → "Can't ship to Italy"
+  - format: 'button' (default) → "Can't ship to Italy" ("your country" past 17 characters)
             'badge'  → "UK & US only" (cards, price badge)
             'flag'   → outputs "no-ship" when we can't ship here, nothing otherwise
 
@@ -45,6 +45,11 @@
     assign wb_country_name = localization.country.name
     if wb_country == 'NL'
       assign wb_country_name = 'the ' | append: wb_country_name
+    endif
+    # Full-width button on a 375px phone holds one line up to ~17 characters of name
+    # ("North Macedonia" fits, "Bosnia & Herzegovina" wraps), so longer names go generic.
+    if wb_country_name.size > 17
+      assign wb_country_name = 'products.product.wb_ship_your_country' | t
     endif
     echo 'products.product.wb_ship_cant' | t: country: wb_country_name
   endif

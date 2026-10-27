@@ -72,8 +72,15 @@
   {%- unless is_voucher -%}
     <li class="wb-trust-strip__item">
       <span class="wb-trust-strip__icon" aria-hidden="true">🚚</span>
+      {%- comment -%}
+        Can't ship here (27 Oct 2026): "Shipping calculated at checkout" contradicted the
+        "Can't ship to Italy" button. Guarded on product so the Lab (no product) is unaffected.
+      {%- endcomment -%}
+      {%- capture wb_no_ship -%}{%- render 'wb-sold-out-text', format: 'flag' -%}{%- endcapture -%}
       <span>
-        {%- if localization.country.iso_code == 'GB' -%}
+        {%- if wb_no_ship == 'no-ship' and product != blank and product.available == false -%}
+          <strong>UK &amp; US delivery only</strong> — we can’t post this to {{ localization.country.name }}
+        {%- elsif localization.country.iso_code == 'GB' -%}
           <strong>Free UK delivery</strong> — no minimum spend
         {%- elsif cart.duties_included -%}
           <strong>Duties &amp; taxes included</strong> — no surprises at the door

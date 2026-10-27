@@ -140,8 +140,20 @@
               assign quantity_rule_soldout = true
             endif
           -%}
+          {%- comment -%}
+            Can't ship here (27 Oct 2026): the whole product is unavailable in a country we
+            don't ship whisky to (see wb-sold-out-text). Not tied to the selected variant,
+            so it stays right after a variant change. Hides the quantity stepper so the
+            "Can't ship to …" button gets the full row.
+          {%- endcomment -%}
+          {%- capture wb_no_ship -%}{%- render 'wb-sold-out-text', format: 'flag' -%}{%- endcapture -%}
+          {%- if wb_no_ship == 'no-ship' and product.available == false -%}
+            {%- assign wb_no_ship = true -%}
+          {%- else -%}
+            {%- assign wb_no_ship = false -%}
+          {%- endif -%}
           {%- comment -%} Quantity (captured in main-product.liquid) + Add to cart, side by side. Styles: .wb-buy-row in wb-products.css {%- endcomment -%}
-          <div class="wb-buy-row">
+          <div class="wb-buy-row{% if wb_no_ship %} wb-buy-row--no-ship{% endif %}">
           {{- quantity_html -}}
           <button
             id="ProductSubmitButton-{{ section_id }}"
@@ -181,20 +193,20 @@
       {%- endform -%}
 
       {%- comment -%}
-        Can't ship here (27 Oct 2026): say why, and let someone buying for a UK
-        address switch market. Shown only when the whole product is unavailable in
-        a country we don't ship whisky to (see wb-sold-out-text), so it doesn't
-        depend on the selected variant. Outside the product form: forms can't nest.
-        Styles: .wb-no-ship in wb-products.css
+        Can't ship here: one panel offering UK delivery to someone buying for a UK
+        address (wb_no_ship is set above the buy row). Why we can't ship is said by the
+        button, the price badge and the trust strip's delivery line, not repeated here.
+        Outside the product form: forms can't nest. Styles: .wb-no-ship in wb-products.css
       {%- endcomment -%}
-      {%- capture wb_no_ship -%}{%- render 'wb-sold-out-text', format: 'flag' -%}{%- endcapture -%}
-      {%- if wb_no_ship == 'no-ship' and product.available == false -%}
+      {%- if wb_no_ship -%}
         <div class="wb-no-ship">
-          <p class="wb-no-ship__note">{{ 'products.product.wb_ship_note' | t }}</p>
           {%- form 'localization', class: 'wb-no-ship__form' -%}
             <input type="hidden" name="country_code" value="GB">
-            <p class="wb-no-ship__gift">{{ 'products.product.wb_ship_gift' | t }}</p>
-            <button type="submit" class="wb-button">
+            <p class="wb-no-ship__text">
+              <strong>{{ 'products.product.wb_ship_gift' | t }}</strong>
+              {{ 'products.product.wb_ship_note' | t }}
+            </p>
+            <button type="submit" class="wb-no-ship__button">
               {{- 'products.product.wb_ship_switch' | t -}}
             </button>
           {%- endform -%}
