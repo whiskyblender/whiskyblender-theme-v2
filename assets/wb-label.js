@@ -720,6 +720,22 @@
 
     /* The Nip Before Christmas carries a recipe too (11 Oct 2026): the All rounder
        by default, or the customer's own blend from the Lab. */
+    /* Doctors' Special: a fixed recipe — the two casks it is made from (Andrew,
+       27 Oct 2026). Staff only, below the crops like a custom blend's. */
+    if (state.product === 'doctorsspecial') {
+      panel.style.display = '';
+      if (loading) loading.style.display = 'none';
+      if (error) error.style.display = 'none';
+      list.innerHTML = DS_CASKS.map(function (c) {
+        return '<li>' +
+          '<span class="wb-recipe-ml">' + esc(String(c.ml)) + 'ml</span>' +
+          '<span class="wb-recipe-name">' + esc(c.name) + '</span>' +
+          '</li>';
+      }).join('');
+      list.style.display = 'flex';
+      return;
+    }
+
     if (state.product !== 'customblend' && state.product !== 'nipbeforechristmas') {
       panel.style.display = 'none';
       return;
@@ -804,6 +820,25 @@
     el.textContent = stock ? 'Stock: ' + stock : '';
   }
 
+  /* ── Bottle tag: which bottle to fill, outside the RIGHT crop line, opposite
+     the stock tag (Andrew, 27 Oct 2026). Only products with one fixed bottle. */
+  var BOTTLE = {
+    doctorsspecial: '500ml round (black)'
+  };
+
+  function renderBottle() {
+    var el = document.getElementById('wb-bottle');
+    if (!el) return;
+    var bottle = BOTTLE[state.product];
+    el.textContent = bottle ? 'Bottle: ' + bottle : '';
+  }
+
+  /* Doctors' Special is two casks, in ml of the 500ml bottle */
+  var DS_CASKS = [
+    { ml: 400, name: 'Glasgow' },
+    { ml: 100, name: 'Craigellachie' }
+  ];
+
   /* ── Finished-label view: overprint on a photo of its blank stock ───────────
      The same stock photos as the product-page previews (wb-single-malt.js).
      Only stocks we have a photo for; others hide the toggle. (Andrew, 14 Oct 2026.
@@ -866,6 +901,7 @@
     renderLabel();
     renderRecipePanel();
     renderStock();
+    renderBottle();
     renderFinished();
     fitToScreen();
   }

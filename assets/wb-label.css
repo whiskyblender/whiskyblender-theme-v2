@@ -243,6 +243,10 @@ body {
 .size20 .wb-stock { left: 32px; top: 198px; font-size: 7px; }  /* crops 73–323; ~31px clear of the crop line (Andrew, 14 Oct) */
 .size50 .wb-stock { left: 82px; top: 279px; font-size: 8px; }  /* crops 128–430; ~34px clear of the crop line */
 body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89–430 */
+/* Bottle tag: same style, mirrored outside the RIGHT crop line (x=492 / x=671),
+   the same distance clear as the stock tag (Andrew, 27 Oct 2026) */
+.size20 .wb-bottle { left: 528px; }
+.size50 .wb-bottle { left: 710px; }
 
 /* ── Finished-label view (screen only) ─────────────────────────────────────────
    Toolbar toggle: shows the overprint on a photo of its blank stock, like the
@@ -264,6 +268,7 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
   body.wb-finished #page.size20 { clip-path: inset(73px 70px 75px 68px); }     /* x 68–492, y 73–323 */
   body.wb-finished .crops,
   body.wb-finished #wb-stock,
+  body.wb-finished #wb-bottle,
   body.wb-finished #wb-summary,
   body.wb-finished #wb-recipe-panel { visibility: hidden; }
   .wb-btn--finished[aria-pressed="true"] { background: #fff; color: #111; }
@@ -610,7 +615,8 @@ body.wb-preview-mode #wb-toolbar,
 body.wb-preview-mode #wb-form-panel,
 body.wb-preview-mode #wb-summary,
 body.wb-preview-mode #wb-recipe-panel,
-body.wb-preview-mode #wb-stock { display: none !important; }
+body.wb-preview-mode #wb-stock,
+body.wb-preview-mode #wb-bottle { display: none !important; }
 
 body.wb-preview-mode #wb-page-wrapper {
   background: transparent;
