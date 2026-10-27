@@ -223,6 +223,8 @@
                                 {%- endfor -%}
                               {%- endif -%}
 
+                              {%- render 'wb-cart-whisky', item: item -%}
+
                               {%- for property in item.properties -%}
                                 {%- assign property_first_char = property.first | slice: 0 -%}
                                 {%- if property.last != blank and property_first_char != '_' -%}
@@ -550,7 +552,10 @@
           </div>
 
           <small class="tax-note caption-large rte">
-            {%- if cart.duties_included and cart.taxes_included -%}
+            {%- comment -%} Matches the product page's "Free UK delivery" line (wb-trust-strip). {%- endcomment -%}
+            {%- if localization.country.iso_code == 'GB' -%}
+              Free UK delivery. Taxes included. Discounts applied at checkout.
+            {%- elsif cart.duties_included and cart.taxes_included -%}
               {%- if shop.shipping_policy.body == blank -%}
                 {{ 'sections.cart.duties_and_taxes_included_shipping_at_checkout_without_policy' | t }}
               {%- else -%}

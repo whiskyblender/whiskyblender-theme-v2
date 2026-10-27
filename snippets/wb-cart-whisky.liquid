@@ -1,0 +1,27 @@
+{%- comment -%}
+  wb-cart-whisky.liquid — "Whisky: All rounder" line in the basket (drawer + cart page).
+
+  Display only: reads the blend's name from its wb_blend metaobject (the /pages/blends/
+  page) using the _blend_slug cart property. Nothing is added to the cart, so the
+  properties that reach the order are unchanged. If the metaobject can't be found
+  (e.g. a brand-new blend not yet synced), the line is simply left out.
+
+  Skipped when the blend name is the same as the label text (a Lab blend named
+  after its label), so the basket doesn't say the same thing twice.
+
+  Usage: {% render 'wb-cart-whisky', item: item %} inside the item's <dl>.
+{%- endcomment -%}
+{%- liquid
+  assign wb_slug = item.properties._blend_slug | downcase
+  if wb_slug != blank
+    assign wb_blend = metaobjects.wb_blend[wb_slug]
+    assign wb_name = wb_blend.blend_title.value | strip
+    assign wb_label = item.properties['Label text'] | strip
+  endif
+-%}
+{%- if wb_name != blank and wb_name != wb_label -%}
+  <div class="product-option">
+    <dt>Whisky:</dt>
+    <dd>{{ wb_name | escape }}</dd>
+  </div>
+{%- endif -%}

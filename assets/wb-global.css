@@ -1170,3 +1170,11 @@ shopify-forms-embed {
     margin-left: 0;
   }
 }
+
+/* Hide the Shopify Inbox chat bubble while the basket drawer (or any Dawn modal:
+   search, product zoom, pickup info) is open. On phones the bubble sat on top of the
+   drawer's "Check out" button and the shipping link. Dawn adds body.overflow-hidden
+   when one of these opens and removes it on close, so the bubble comes back by itself. */
+body.overflow-hidden shopify-chat {
+  display: none !important;
+}
