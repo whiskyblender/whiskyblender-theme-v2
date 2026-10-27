@@ -159,7 +159,7 @@
               {%- if product.selected_or_first_available_variant == null -%}
                 {{ 'products.product.unavailable' | t }}
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                {{ 'products.product.sold_out' | t }}
+                {%- render 'wb-sold-out-text' -%}
               {%- else -%}
                 {{ 'products.product.add_to_cart' | t }}
               {%- endif -%}
@@ -179,6 +179,45 @@
           {%- endif -%}
         </div>
       {%- endform -%}
+
+      {%- comment -%}
+        Can't ship here (27 Oct 2026): say why, and let someone buying for a UK
+        address switch market. Shown only when the whole product is unavailable in
+        a country we don't ship whisky to (see wb-sold-out-text), so it doesn't
+        depend on the selected variant. Outside the product form: forms can't nest.
+        Styles: .wb-no-ship in wb-products.css
+      {%- endcomment -%}
+      {%- capture wb_no_ship -%}{%- render 'wb-sold-out-text', format: 'flag' -%}{%- endcapture -%}
+      {%- if wb_no_ship == 'no-ship' and product.available == false -%}
+        <div class="wb-no-ship">
+          <p class="wb-no-ship__note">{{ 'products.product.wb_ship_note' | t }}</p>
+          {%- form 'localization', class: 'wb-no-ship__form' -%}
+            <input type="hidden" name="country_code" value="GB">
+            <p class="wb-no-ship__gift">{{ 'products.product.wb_ship_gift' | t }}</p>
+            <button type="submit" class="wb-button">
+              {{- 'products.product.wb_ship_switch' | t -}}
+            </button>
+          {%- endform -%}
+          <script>
+            /* Come back to this exact URL, ?blend= included. The form tag writes its
+               own return_to without the query string; add one if it ever stops. */
+            (function () {
+              var f = document.currentScript.previousElementSibling;
+              if (!f) return;
+              f.addEventListener('submit', function () {
+                var r = f.querySelector('input[name="return_to"]');
+                if (!r) {
+                  r = document.createElement('input');
+                  r.type = 'hidden';
+                  r.name = 'return_to';
+                  f.appendChild(r);
+                }
+                r.value = location.pathname + location.search;
+              });
+            })();
+          </script>
+        </div>
+      {%- endif -%}
     </product-form>
   {%- else -%}
     <div class="product-form">
@@ -189,7 +228,7 @@
           class="product-form__submit button button--full-width button--primary"
           disabled
         >
-          {{ 'products.product.sold_out' | t }}
+          {%- render 'wb-sold-out-text' -%}
         </button>
       </div>
     </div>

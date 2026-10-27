@@ -1017,3 +1017,23 @@ ul.wb-product-drawers li {
   box-shadow: inset 0 0 0 2px #333333 !important;
   text-decoration: none;
 }
+
+/* Can't ship here (snippets/buy-buttons.liquid .wb-no-ship, 27 Oct 2026).
+   Under the disabled "Can't ship to Italy" button: why, then a switch to UK
+   delivery for people buying for a UK address. */
+.wb-no-ship {
+  margin-top: 16px;
+}
+
+.wb-no-ship__note,
+.wb-no-ship__gift {
+  margin: 0;
+}
+
+.wb-no-ship__form {
+  margin-top: 16px;
+}
+
+.wb-no-ship__form .wb-button {
+  margin: 8px 0 0;
+}
