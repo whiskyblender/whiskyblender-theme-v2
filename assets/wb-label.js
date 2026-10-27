@@ -118,8 +118,10 @@
   var state = {
     product:    'customblend',  /* customblend | singlemalt | singlecask */
     plain:      PLAIN_STOCK_DEFAULT,   /* plain-front stock: one layout per size (see PLAIN) */
-    clan:       '',             /* clan handle (wb-tartan.js): tartan artwork, custom blend
-                                   on the plain stock only. '' = no clan (every link today) */
+    clanProduct: false,         /* product=clan: a custom blend with a clan tartan label. Kept
+                                   as product 'customblend' inside, so the blend, recipe and
+                                   order fields work as they do for custom blend */
+    clan:       '',             /* clan handle (wb-tartan.js), product=clan only */
     template:   'new',          /* new | classic — 500ml label template version.
                                    Per-product DEFAULT is set in readParams (2026-09-07):
                                    custom blend → 'new', single malt/cask → 'classic'
@@ -244,10 +246,11 @@
   }
 
   /* ── Clan labels (PLAN-CLAN-BOTTLES.md) ──────────────────────────────────────
-     &clan=<handle>: the artwork is the clan's tartan, drawn from its thread count
-     by wb-tartan.js, and the text, roundel and "Create your own" take one tone
-     picked from the tartan behind the name (white unless it's mostly light).
-     Custom blend on the plain stock only. Without &clan= nothing here runs. */
+     product=clan&clan=<handle> (or Product: Clan in the Edit panel): the artwork
+     is the clan's tartan, drawn from its thread count by wb-tartan.js, and the
+     text, roundel and "Create your own" take one tone picked from the tartan
+     behind the name (white unless it's mostly light). Always on the plain stock.
+     No other product reads &clan=, so nothing here runs for them. */
   var CLAN_REPEAT = 0.42 * 570;   /* one full sett repeat, label px (same physical scale at both sizes) */
   var CLAN_RES = 4;               /* canvas px per label px — print resolution */
   var clanArt = {};
@@ -256,7 +259,7 @@
     return (state.clan && window.WBTartan) ? window.WBTartan.find(state.clan) : null;
   }
   function clanActive() {
-    return (state.product === 'customblend' && onPlainLayout()) ? clanFor() : null;
+    return (state.clanProduct && state.product === 'customblend' && onPlainLayout()) ? clanFor() : null;
   }
 
   /* Draws the tartan into the artwork area (cached per clan and size) and returns
@@ -373,9 +376,12 @@
     /* stock=plain / stock=current overrides PLAIN_STOCK_DEFAULT for this print */
     if (p.get('stock') === 'plain') state.plain = true;
     if (p.get('stock') === 'current') state.plain = false;
-    /* clan=<handle>: clan labels exist only on the plain stock, so a clan turns it on */
-    if (p.get('clan')) {
-      state.clan = p.get('clan');
+    /* product=clan&clan=<handle>: a custom blend on a clan tartan label. Clan labels
+       exist only on the plain stock. &clan= on any other product is ignored. */
+    if (state.product === 'clan') {
+      state.product = 'customblend';
+      state.clanProduct = true;
+      state.clan = p.get('clan') || '';
       state.plain = true;
     }
     /* slots=11-12 → label range on the miniature contact sheet */
@@ -416,7 +422,7 @@
 
   function buildUrl() {
     var p = new URLSearchParams();
-    p.set('product', state.product);
+    p.set('product', state.clanProduct ? 'clan' : state.product);
     if (state.blend)      p.set('blend',      state.blend);
     if (state.text)       p.set('text',       state.text);
     if (state.author)     p.set('author',     state.author);
@@ -428,8 +434,9 @@
     if (state.bg && state.bg !== '#ffffff') p.set('bg', state.bg);
     if (state.reference)  p.set('reference',  state.reference);
     if (state.productname) p.set('productname', state.productname);
-    if (state.plain !== PLAIN_STOCK_DEFAULT) p.set('stock', state.plain ? 'plain' : 'current');
-    if (state.clan) p.set('clan', state.clan);
+    /* (a clan label is always on the plain stock, so it needs no stock=) */
+    if (!state.clanProduct && state.plain !== PLAIN_STOCK_DEFAULT) p.set('stock', state.plain ? 'plain' : 'current');
+    if (state.clanProduct && state.clan) p.set('clan', state.clan);
     if (state.slotFrom !== 1 || state.slotTo !== SLOT_COUNT) p.set('slots', state.slotFrom + '-' + state.slotTo);
     return window.location.pathname + '?' + p.toString();
   }
@@ -450,17 +457,18 @@
     } else if (state.product === 'customblend') {
       if (state.blend) items.push({ label: 'Blend', value: state.blend });
       if (state.author) items.push({ label: 'Created by', value: state.author });
-      /* Clan: flag a handle we don't know, so staff don't print a plain label by mistake */
-      if (state.clan) {
+      /* Clan: flag a missing or unknown handle, so staff don't print a plain label by mistake */
+      if (state.clanProduct) {
         var clanDef = clanFor();
-        items.push({ label: 'Clan', value: clanDef ? clanDef.name : state.clan + ' (not found)' });
+        items.push({ label: 'Clan', value: clanDef ? clanDef.name : state.clan ? state.clan + ' (not found)' : '(none chosen)' });
       }
     } else {
       if (state.distillery) items.push({ label: 'Product', value: state.distillery });
     }
     if (state.product !== 'nipbeforechristmas') {
       if (state.text) items.push({ label: state.product === 'doctorsspecial' ? 'Prescribed for' : 'Label text', value: state.text });
-      if (state.variant && state.product !== 'doctorsspecial') items.push({ label: 'Style', value: state.variant });
+      /* (a clan label has no style: the tartan is the artwork) */
+      if (state.variant && state.product !== 'doctorsspecial' && !state.clanProduct) items.push({ label: 'Style', value: state.variant });
       if (state.size) items.push({ label: 'Size', value: state.size });
     }
 
@@ -655,9 +663,9 @@
     /* Plain stock: one artwork area per size for every product (wb-label.css #page.wb-plain) */
     if (onPlainLayout()) page.classList.add('wb-plain');
     /* "Halloween" label style: carved lettering (wb-label.css .wb-halloween + snippets/wb-halloween-carve) */
-    if (state.product === 'customblend' && slugify(state.variant) === 'halloween') page.classList.add('wb-halloween');
+    if (state.product === 'customblend' && !state.clanProduct && slugify(state.variant) === 'halloween') page.classList.add('wb-halloween');
     /* "Christmas" label style: Chicle name (wb-label.css .wb-christmas) */
-    if (state.product === 'customblend' && slugify(state.variant) === 'christmas') page.classList.add('wb-christmas');
+    if (state.product === 'customblend' && !state.clanProduct && slugify(state.variant) === 'christmas') page.classList.add('wb-christmas');
 
     /* Artwork — singlecask shares singlemalt image files */
     var artworkEl = document.getElementById('artwork');
@@ -1106,7 +1114,7 @@
     var ref      = document.getElementById('wb-f-reference');
     var pname    = document.getElementById('wb-f-productname');
 
-    if (t)        t.value        = state.product;
+    if (t)        t.value        = state.clanProduct ? 'clan' : state.product;
     if (blend)    blend.value    = state.blend;
     if (text)     text.value     = state.text;
     if (author)   author.value   = state.author;
@@ -1156,8 +1164,9 @@
     if (authorLabel) authorLabel.textContent = isNip ? 'From' : 'Created by';
     var authorInput = document.getElementById('wb-f-author');
     if (authorInput) authorInput.maxLength = isNip ? NIP_MAX_CHARS : 32;
+    /* (Clan: no style either — the tartan is the artwork) */
     document.querySelectorAll('.wb-has-style').forEach(function (el) {
-      el.style.display = (isDoctors || isNip) ? 'none' : '';
+      el.style.display = (isDoctors || isNip || state.clanProduct) ? 'none' : '';
     });
 
     /* Blend code: customblend + The Nip Before Christmas */
@@ -1191,13 +1200,14 @@
     document.querySelectorAll('.wb-500-only').forEach(function (el) {
       el.style.display = (state.size === '500ml' && !isMini && !isDoctors && !isNip && !state.plain) ? '' : 'none';
     });
-    /* Plain-stock box: everything but the miniature contact sheet */
+    /* Plain-stock box: everything but the miniature contact sheet, and not Clan
+       (always plain) */
     document.querySelectorAll('.wb-plain-toggle').forEach(function (el) {
-      el.style.display = isSheet ? 'none' : '';
+      el.style.display = (isSheet || state.clanProduct) ? 'none' : '';
     });
-    /* Clan: custom blend at 500ml / 200ml */
+    /* Clan list: the Clan product only */
     document.querySelectorAll('.wb-clan-only').forEach(function (el) {
-      el.style.display = (isBlend && !isSheet) ? '' : 'none';
+      el.style.display = state.clanProduct ? '' : 'none';
     });
   }
 
@@ -1214,8 +1224,31 @@
     var t = document.getElementById('wb-f-type');
     if (t) {
       t.addEventListener('change', function () {
-        state.product = t.value;
-        state.recipe = null;
+        /* Clan = custom blend on a clan tartan, always on the plain stock; starts on
+           the default tartan (Dramlover), changed with the Clan list. Leaving Clan
+           puts the stock back to the default. */
+        var wasClan = state.clanProduct;
+        var prevProduct = state.product;
+        state.clanProduct = (t.value === 'clan');
+        state.product = state.clanProduct ? 'customblend' : t.value;
+        if (state.clanProduct) {
+          state.plain = true;
+          if (!state.clan) state.clan = 'dramlover';
+          if (state.size !== '500ml' && state.size !== '200ml') {
+            state.size = '500ml';
+            var clanSizeSel = document.getElementById('wb-f-size');
+            if (clanSizeSel) clanSizeSel.value = '500ml';
+          }
+        } else if (wasClan) {
+          state.clan = '';
+          state.plain = PLAIN_STOCK_DEFAULT;
+        }
+        var plainCbx = document.getElementById('wb-f-plain');
+        if (plainCbx) plainCbx.checked = state.plain;
+        var clanSelx = document.getElementById('wb-f-clan');
+        if (clanSelx) clanSelx.value = state.clan;
+        /* Clan <-> Custom Blend is the same blend, so keep its recipe */
+        if (state.product !== prevProduct) state.recipe = null;
         if (state.product === 'customblend') state.fg = '#111111';
         /* Re-apply the per-product template default (defaultTemplate) and sync the
            Legacy checkbox, matching readParams. Keeps the in-form product switcher
@@ -1290,10 +1323,6 @@
     if (plainToggle) {
       plainToggle.addEventListener('change', function () {
         state.plain = plainToggle.checked;
-        /* clan labels only exist on the plain stock */
-        if (!state.plain) state.clan = '';
-        var clanSelect = document.getElementById('wb-f-clan');
-        if (clanSelect) clanSelect.value = state.clan;
         state.template = defaultTemplate();
         var legacyCb = document.getElementById('wb-f-legacy');
         if (legacyCb) legacyCb.checked = (state.template === 'classic');
@@ -1306,12 +1335,6 @@
     if (clanToggle) {
       clanToggle.addEventListener('change', function () {
         state.clan = clanToggle.value;
-        /* choosing a clan turns on the plain stock (clan labels only exist there) */
-        if (state.clan) state.plain = true;
-        var plainCb = document.getElementById('wb-f-plain');
-        if (plainCb) plainCb.checked = state.plain;
-        state.template = defaultTemplate();
-        updateTypeVisibility();
         render();
       });
     }
