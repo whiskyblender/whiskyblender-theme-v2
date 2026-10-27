@@ -171,9 +171,54 @@
             {%- endif -%}
           {%- endif -%}
           <div class="wb-buttons">
-            <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button">{{ section.settings.primary_button_text }}</a>
+            {%- comment -%}
+              Hero button A/B test (homepage only, switch in the theme editor under "Hero button test").
+              A = the normal primary button (the Lab); B = the test text/link (a custom bottle).
+              The visitor's version is kept as the cart attribute `hero_test`, which travels onto
+              the order, so orders can be compared per version. Liquid renders a visitor's saved
+              version server-side (no flicker on return visits); a new visitor is assigned by the
+              inline script just below, before the button paints. Headless browsers
+              (navigator.webdriver) are never assigned and always see A.
+            {%- endcomment -%}
+            {%- liquid
+              assign wb_hero_test = false
+              if template.name == 'index' and section.settings.hero_test_on and section.settings.hero_test_url != blank and section.settings.hero_test_text != blank
+                assign wb_hero_test = true
+                assign wb_hero_arm = cart.attributes.hero_test
+              endif
+            -%}
+            {%- if wb_hero_test and wb_hero_arm == 'B' -%}
+              <a href="{{ section.settings.hero_test_url }}" class="wb-button wb-primary-button" id="wb-hero-primary" data-hero-arm="B">{{ section.settings.hero_test_text }}</a>
+            {%- else -%}
+              <a href="{{ section.settings.primary_button_url }}" class="wb-button wb-primary-button"{% if wb_hero_test %} id="wb-hero-primary" data-hero-arm="{{ wb_hero_arm }}"{% endif %}>{{ section.settings.primary_button_text }}</a>
+            {%- endif -%}
             <a href="{{ section.settings.secondary_button_url }}" class="wb-button">{{ section.settings.secondary_button_text }}</a>
           </div>
+          {%- if wb_hero_test -%}
+            <script>
+              (function () {
+                var a = document.getElementById('wb-hero-primary');
+                if (!a || navigator.webdriver) return;
+                var arm = a.getAttribute('data-hero-arm');
+                if (arm === 'A' || arm === 'B') return;
+                arm = Math.random() < 0.5 ? 'A' : 'B';
+                if (arm === 'B') {
+                  a.href = {{ section.settings.hero_test_url | json }};
+                  a.textContent = {{ section.settings.hero_test_text | json }};
+                }
+                a.setAttribute('data-hero-arm', arm);
+                /* keepalive so the attribute still saves if the button is tapped straight away */
+                try {
+                  fetch('/cart/update.js', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ attributes: { hero_test: arm } }),
+                    keepalive: true
+                  }).catch(function () {});
+                } catch (e) {}
+              })();
+            </script>
+          {%- endif -%}
         </div>
       </div>
       <script>
@@ -309,6 +354,28 @@
       "type": "url",
       "id": "secondary_button_url",
       "label": "Secondary button URL"
+    },
+    {
+      "type": "header",
+      "content": "Hero button test"
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_test_on",
+      "label": "Run the hero button test",
+      "info": "Homepage only. Half of new visitors see the test button instead of the primary button. Untick to end the test: everyone then sees the primary button.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "hero_test_text",
+      "label": "Test button text",
+      "default": "Create a label"
+    },
+    {
+      "type": "url",
+      "id": "hero_test_url",
+      "label": "Test button URL"
     },
     {
       "type": "header",
