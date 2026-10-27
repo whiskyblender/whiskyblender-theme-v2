@@ -216,6 +216,41 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     showBuyForm(DEFAULT_BLEND, true);
   }
 
+  /* Carry-over between custom bottles (27 Oct 2026). On the default path the
+     Whisky choice and the label text are kept for this tab, so the next custom
+     bottle opened (a product link, the custom options grid, the menu) or a refresh
+     starts on the same preset and label. Session storage, not the URL: the label is
+     often someone's name, and it shouldn't end up in page URLs, GA4 or SiteEvent
+     rows. ?preset= / ?label= (Perfect Drams cards) win over what's stored. Not used
+     with ?blend= (patchProductLinks stamps the code instead) or on external-label
+     products (the Nip's label field is the recipient). */
+  var CARRY_KEY = 'wb_custom_choice';
+  function readCarry() {
+    try {
+      var data = JSON.parse(sessionStorage.getItem(CARRY_KEY));
+      return (data && typeof data === 'object') ? data : {};
+    } catch (e) { return {}; }
+  }
+  function writeCarry(field, value) {
+    try {
+      var data = readCarry();
+      if (value) data[field] = value; else delete data[field];
+      sessionStorage.setItem(CARRY_KEY, JSON.stringify(data));
+    } catch (e) {}
+  }
+  /* The All rounder is the default, so it's stored as "no preset" */
+  function carryPreset(slug) {
+    writeCarry('preset', slug === DEFAULT_BLEND ? '' : slug);
+  }
+  /* Records what's in the field now (a ?label= prefill included), then every edit */
+  function carryLabel() {
+    var labelInput = document.getElementById('label-text');
+    if (!labelInput) return;
+    function save() { writeCarry('label', labelInput.value.trim()); }
+    save();
+    labelInput.addEventListener('input', save);
+  }
+
   function houseSlug(value) {
     if (!value) return null;
     var match = HOUSE_PRESETS.filter(function (p) { return p.slug === value; })[0];
@@ -493,6 +528,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         blend.author = data.author;
         blend.recipe = recipe;
         renderRecipe(blend, labUrl, [], true);
+        carryPreset(blend.slug);
       }).catch(function () { if (ticket === pending) keepCurrent(); });
     });
     return true;
@@ -514,15 +550,19 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     var isDefault    = !slug;
     /* Perfect Drams links (24 Oct 2026): ?preset=<house preset> starts the default
        path on that preset instead of the All rounder, and ?label= prefills the label.
-       Only the HOUSE_PRESETS slugs count; anything else is ignored. */
-    var presetSlug   = isDefault ? houseSlug(params.get('preset')) : null;
-    var labelParam   = isDefault ? (params.get('label') || '').trim() : '';
-    if (isDefault) slug = presetSlug || DEFAULT_BLEND;
+       Only the HOUSE_PRESETS slugs count; anything else is ignored. Without them,
+       the choice carried from the last custom bottle in this tab (readCarry). */
     var externalLabel = container.getAttribute('data-label-mode') === 'external';
+    var carried      = (isDefault && !externalLabel) ? readCarry() : {};
+    var presetSlug   = isDefault ? houseSlug(params.get('preset') || carried.preset) : null;
+    var labelParam   = isDefault ? (params.get('label') || carried.label || '').trim() : '';
+    if (isDefault) slug = presetSlug || DEFAULT_BLEND;
 
     /* A preset that won't load (or holds a retired whisky) falls back to the plain
-       default path: drop ?preset= and start again, keeping ?label=. */
+       default path: drop ?preset= (and the carried preset) and start again, keeping
+       the label. */
     function dropPreset() {
+      writeCarry('preset', '');
       params.delete('preset');
       var qs = params.toString();
       history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
@@ -609,6 +649,10 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
         showBuyForm(slug, isDefault);
         if (!externalLabel) initInputGuard();
         if (isDefault && !externalLabel && labelParam) prefillLabel(labelParam);
+        if (isDefault && !externalLabel) {
+          carryPreset(blend.slug);
+          carryLabel();
+        }
       })
       .catch(function (err) {
         hide(loadingEl);
