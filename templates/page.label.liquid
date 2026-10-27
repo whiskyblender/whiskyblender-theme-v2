@@ -119,6 +119,14 @@
         <input type="checkbox" id="wb-f-plain">
       </div>
 
+      <!-- Clan tartan (PLAN-CLAN-BOTTLES.md): options filled from wb-tartan.js; choosing one turns on the plain stock -->
+      <div class="wb-field wb-clan-only">
+        <label for="wb-f-clan">Clan</label>
+        <select id="wb-f-clan">
+          <option value="">None</option>
+        </select>
+      </div>
+
       <div class="wb-field wb-has-style">
         <label for="wb-f-variant">Label style</label>
         <select id="wb-f-variant">
@@ -239,6 +247,7 @@
   </svg>
 
 </div>
+<script src="{{ 'wb-tartan.js' | asset_url }}" defer></script>
 <script src="{{ 'wb-label.js' | asset_url }}" defer></script>
 </body>
 </html>
