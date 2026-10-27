@@ -59,6 +59,28 @@
     '500ml': Object.assign({}, DIMS['500ml'], { roundelTop: -33, panelLength: 269, svgW: 232, svgH: 52, sideLabelTop: 170 }),
   };
 
+  /* ── Plain-front stock (PLAN-LABELS-UNIFIED.md, 27 Oct 2026) ──────────────────
+     New Single Malt / Blended Malt stocks: only the copper rule and the black band
+     are pre-printed. With state.plain, every 500ml label prints on the New 570x269
+     layout and every 200ml label on the full-width 445x193 single malt layout, all
+     with the single malt side strip, and we print what the old stock carried: the
+     roundel, "Created by" and "Create your own at whiskyblender.com". OFF until the
+     stock arrives: flip PLAIN_STOCK_DEFAULT then. Per print: the Edit panel's
+     "Plain stock" box, or &stock=plain / &stock=current in the URL.
+     Doctors' Special and the Nip keep their artwork placement until their new
+     artwork exists (their printed text is positioned on it). */
+  var PLAIN_STOCK_DEFAULT = false;
+  /* Positions in label px. Roundel: centre x, centre y, width (turned 45deg
+     anticlockwise, as on the stock); 500ml centre = the white circle in the
+     single malt artwork. "Create your own": left, line 1 baseline, line 2
+     baseline, font size (500ml sits in the artwork's white pill). Measured from
+     the stock photos and wb-standard-dark.jpg. */
+  var PLAIN = {
+    '500ml': { roundel: [446.9, 87.1, 159.2], cyo: [455.8, 206.9, 218.8, 8.3] },
+    '200ml': { roundel: [344.1, 78.4, 117.7], cyo: [346.7, 155.8, 164.8, 6.8] }
+  };
+  var ROUNDEL_INK = '#bd7849';   /* copper, sampled from the foil on today's stock */
+
   /* Doctors' Special name limit — matches the product page input (maxlength 24) */
   var DS_MAX_CHARS = 24;
 
@@ -95,6 +117,7 @@
 
   var state = {
     product:    'customblend',  /* customblend | singlemalt | singlecask */
+    plain:      PLAIN_STOCK_DEFAULT,   /* plain-front stock: one layout per size (see PLAIN) */
     template:   'new',          /* new | classic — 500ml label template version.
                                    Per-product DEFAULT is set in readParams (2026-09-07):
                                    custom blend → 'new', single malt/cask → 'classic'
@@ -209,6 +232,25 @@
      New (default) → DIMS_NEW when it has an entry (500ml only); Classic → the
      frozen DIMS entry. Phase 2: DIMS_NEW['500ml'] clones DIMS['500ml'], so both
      paths are identical until Phase 3 diverges New. */
+  /* Products that print on the one-layout-per-size plain stock (not Doctors' /
+     the Nip yet, not the miniature contact sheet) */
+  function onPlainLayout() {
+    if (!state.plain) return false;
+    var p = state.product;
+    if (p !== 'customblend' && p !== 'singlemalt' && p !== 'singlecask') return false;
+    return state.size === '500ml' || state.size === '200ml';
+  }
+
+  /* Per-product label template default: custom blend New; single malt / cask
+     Classic on today's stock (not taller), New on the plain stock; Doctors' and
+     the Nip always Classic. Staff can still override with the Legacy box. */
+  function defaultTemplate() {
+    var p = state.product;
+    if (p === 'doctorsspecial' || p === 'nipbeforechristmas') return 'classic';
+    if (p === 'singlemalt' || p === 'singlecask') return state.plain ? 'new' : 'classic';
+    return 'new';
+  }
+
   function getDims() {
     if (state.template === 'new' && DIMS_NEW[state.size]) return DIMS_NEW[state.size];
     return DIMS[state.size] || DIMS['200ml'];
@@ -289,6 +331,9 @@
     if (p.get('bg') && hexRe.test(p.get('bg'))) state.bg = p.get('bg');
     if (p.get('reference'))  state.reference  = p.get('reference');
     if (p.get('productname')) state.productname = p.get('productname');
+    /* stock=plain / stock=current overrides PLAIN_STOCK_DEFAULT for this print */
+    if (p.get('stock') === 'plain') state.plain = true;
+    if (p.get('stock') === 'current') state.plain = false;
     /* slots=11-12 → label range on the miniature contact sheet */
     var slots = /^(\d+)-(\d+)$/.exec(p.get('slots') || '');
     if (slots) { state.slotFrom = slots[1]; state.slotTo = slots[2]; normaliseSlots(); }
@@ -313,8 +358,8 @@
        label; single malt / cask are NOT on taller stock yet, so default them to
        Classic to avoid misregistering New onto old stock. Staff can still override
        per print with the Legacy checkbox. template isn't a URL param, so this is the
-       effective default. Add malt/cask to the New side when they move to taller stock. */
-    state.template = (state.product === 'singlemalt' || state.product === 'singlecask') ? 'classic' : 'new';
+       effective default. Malt/cask move to New on the plain stock (defaultTemplate). */
+    state.template = defaultTemplate();
 
     /* Doctors' Special: one fixed 500ml artwork on the blended-malt stock. Never the
        New taller template (that's custom blend's frame and side strips). */
@@ -339,6 +384,7 @@
     if (state.bg && state.bg !== '#ffffff') p.set('bg', state.bg);
     if (state.reference)  p.set('reference',  state.reference);
     if (state.productname) p.set('productname', state.productname);
+    if (state.plain !== PLAIN_STOCK_DEFAULT) p.set('stock', state.plain ? 'plain' : 'current');
     if (state.slotFrom !== 1 || state.slotTo !== SLOT_COUNT) p.set('slots', state.slotFrom + '-' + state.slotTo);
     return window.location.pathname + '?' + p.toString();
   }
@@ -469,6 +515,58 @@
     }
   }
 
+  /* Plain stock: print what the old stock carried — the roundel (copper, turned
+     45deg anticlockwise) and "Create your own at whiskyblender.com". Removed when
+     not on the plain layout. */
+  var roundelSvg = null;
+  function loadRoundel() {
+    if (!roundelSvg) {
+      var root = document.getElementById('wb-label-root');
+      var src = root && root.getAttribute('data-roundel');
+      roundelSvg = src
+        ? fetch(src).then(function (res) { return res.ok ? res.text() : ''; }).catch(function () { return ''; })
+        : Promise.resolve('');
+    }
+    return roundelSvg;
+  }
+
+  function renderPlainPrint() {
+    var label = document.getElementById('label');
+    if (!label) return;
+    var old = label.querySelectorAll('.wb-plain-print');
+    old.forEach(function (el) { el.parentNode.removeChild(el); });
+    if (!onPlainLayout()) return;
+
+    var g = PLAIN[state.size];
+    /* The roundel is inlined SVG coloured by fill: a CSS mask doesn't survive
+       printing (it printed as a solid square). Fetched once, then cached. */
+    var r = g.roundel, ro = document.createElement('div');
+    ro.className = 'wb-plain-print wb-plain-roundel';
+    ro.style.cssText = [
+      'left:' + (r[0] - r[2] / 2) + 'px',
+      'top:' + (r[1] - r[2] / 2) + 'px',
+      'width:' + r[2] + 'px',
+      'height:' + r[2] + 'px',
+      'color:' + ROUNDEL_INK
+    ].join(';');
+    label.appendChild(ro);
+    loadRoundel().then(function (svg) { if (svg && ro.parentNode) ro.innerHTML = svg; });
+
+    var c = g.cyo;
+    [['Create your own at', 500, c[1]], ['whiskyblender.com', 700, c[2]]].forEach(function (line) {
+      var el = document.createElement('div');
+      el.className = 'wb-plain-print wb-plain-cyo';
+      el.textContent = line[0];
+      el.style.cssText = [
+        'left:' + c[0] + 'px',
+        'top:' + (line[2] - c[3] * 0.92) + 'px',
+        'font-size:' + c[3] + 'px',
+        'font-weight:' + line[1]
+      ].join(';');
+      label.appendChild(el);
+    });
+  }
+
   function renderLabel() {
     /* Template version → body class. New overrides key off wb-tpl-new, Classic off
        wb-tpl-classic; the two are mutually exclusive so their CSS never competes. */
@@ -499,6 +597,8 @@
     var sizeClass = state.size === '500ml' ? 'size50' : 'size20';
     var productClass = (state.product === 'singlemalt' || state.product === 'singlecask' || state.product === 'doctorsspecial' || state.product === 'nipbeforechristmas') ? state.product : '';
     page.className = (sizeClass + ' ' + productClass).trim();
+    /* Plain stock: one artwork area per size for every product (wb-label.css #page.wb-plain) */
+    if (onPlainLayout()) page.classList.add('wb-plain');
     /* "Halloween" label style: carved lettering (wb-label.css .wb-halloween + snippets/wb-halloween-carve) */
     if (state.product === 'customblend' && slugify(state.variant) === 'halloween') page.classList.add('wb-halloween');
     /* "Christmas" label style: Chicle name (wb-label.css .wb-christmas) */
@@ -532,14 +632,15 @@
       sideNameEl.style.textShadow = '1px 1px ' + labelShadow;
     }
 
-    /* Side label ("Distilled at" — single malt/cask only) */
+    /* Side label ("Distilled at" — single malt/cask; "Created by" — custom blend on
+       the plain stock, where it's no longer pre-printed) */
     var sideLabelEl = document.getElementById('sideLabel');
     if (sideLabelEl) {
-      if (isBlend) {
+      if (isBlend && !onPlainLayout()) {
         sideLabelEl.style.display = 'none';
       } else {
         sideLabelEl.style.display = '';
-        sideLabelEl.textContent = 'Distilled at';
+        sideLabelEl.textContent = isBlend ? 'Created by' : 'Distilled at';
         sideLabelEl.style.color = labelColor;
         sideLabelEl.style.textShadow = '1px 1px ' + labelShadow;
         sideLabelEl.style.top  = d.sideLabelTop + 'px';
@@ -553,6 +654,8 @@
       var refParts = [state.blend, state.reference].filter(Boolean);
       refEl.textContent = refParts.join(' · ');
     }
+
+    renderPlainPrint();
 
     /* Doctors' Special: name in the "Prescribed for" box; no blend name, side
        name, "Distilled at" (hidden by CSS) or side strips. */
@@ -576,8 +679,9 @@
       return;
     }
 
-    /* Side panel — single malt / single cask only (ABV / domain / ml strip) */
-    if (state.product !== 'customblend') {
+    /* Side panel — single malt / single cask (ABV / domain / ml strip); on the
+       plain stock every product gets that strip */
+    if (state.product !== 'customblend' || onPlainLayout()) {
       /* panelTop shifts to roundelTop (4) so strip sits alongside the artwork */
       renderSidePanel(Object.assign({}, d, { panelTop: d.roundelTop }));
     } else if (state.template === 'new' && state.size === '500ml') {
@@ -813,10 +917,19 @@
     nipbeforechristmas: 'Blended Malt Scotch Whisky (blank)'
   };
 
+  /* The new plain-front stocks (PLAN-LABELS-UNIFIED.md): one per malt type */
+  var STOCK_PLAIN = {
+    customblend:        'Blended Malt Scotch Whisky (plain)',
+    singlemalt:         'Single Malt Scotch Whisky (plain)',
+    singlecask:         'Single Malt Scotch Whisky (plain)',
+    doctorsspecial:     'Blended Malt Scotch Whisky (plain)',
+    nipbeforechristmas: 'Blended Malt Scotch Whisky (plain)'
+  };
+
   function renderStock() {
     var el = document.getElementById('wb-stock');
     if (!el) return;
-    var stock = STOCK[state.product];
+    var stock = (state.plain ? STOCK_PLAIN : STOCK)[state.product];
     el.textContent = stock ? 'Stock: ' + stock : '';
   }
 
@@ -848,6 +961,9 @@
 
   function mockFor() {
     var p = state.product;
+    /* Plain stock: the single malt blank photo is the plain front with the taller
+       bars (500ml). No 200ml photo yet; Doctors' / the Nip have no plain photo. */
+    if (state.plain) return onPlainLayout() && state.size === '500ml' ? 'singlemaltlabelmockblank.webp' : null;
     if (p === 'customblend') {
       if (state.size === '200ml') return 'customblendlabelmock200.webp';
       if (state.size === '500ml') return state.template === 'new' ? 'customblendlabelmock500.webp' : 'customblendlabelmock.webp';
@@ -942,6 +1058,8 @@
 
     var legacy = document.getElementById('wb-f-legacy');
     if (legacy) legacy.checked = (state.template === 'classic');
+    var plain = document.getElementById('wb-f-plain');
+    if (plain) plain.checked = state.plain;
 
     updateTypeVisibility();
   }
@@ -993,9 +1111,14 @@
     document.querySelectorAll('.wb-sheet-only').forEach(function (el) {
       el.style.display = isSheet ? '' : 'none';
     });
-    /* Label template toggle: 500ml only (only 500ml has a New template) */
+    /* Label template toggle: 500ml only (only 500ml has a New template); not on the
+       plain stock, which has one layout */
     document.querySelectorAll('.wb-500-only').forEach(function (el) {
-      el.style.display = (state.size === '500ml' && !isMini && !isDoctors && !isNip) ? '' : 'none';
+      el.style.display = (state.size === '500ml' && !isMini && !isDoctors && !isNip && !state.plain) ? '' : 'none';
+    });
+    /* Plain-stock box: everything but the miniature contact sheet */
+    document.querySelectorAll('.wb-plain-toggle').forEach(function (el) {
+      el.style.display = isSheet ? 'none' : '';
     });
   }
 
@@ -1015,10 +1138,10 @@
         state.product = t.value;
         state.recipe = null;
         if (state.product === 'customblend') state.fg = '#111111';
-        /* Re-apply the per-product template default (malt/cask → classic, blend →
-           new) and sync the Legacy checkbox, matching readParams. Keeps the in-form
-           product switcher from leaving a malt/cask on New. */
-        state.template = (state.product === 'singlemalt' || state.product === 'singlecask') ? 'classic' : 'new';
+        /* Re-apply the per-product template default (defaultTemplate) and sync the
+           Legacy checkbox, matching readParams. Keeps the in-form product switcher
+           from leaving a malt/cask on New on today's stock. */
+        state.template = defaultTemplate();
         if (state.product === 'doctorsspecial') {
           state.size = '500ml';
           state.template = 'classic';
@@ -1080,6 +1203,18 @@
     if (legacyToggle) {
       legacyToggle.addEventListener('change', function () {
         state.template = legacyToggle.checked ? 'classic' : 'new';
+        render();
+      });
+    }
+
+    var plainToggle = document.getElementById('wb-f-plain');
+    if (plainToggle) {
+      plainToggle.addEventListener('change', function () {
+        state.plain = plainToggle.checked;
+        state.template = defaultTemplate();
+        var legacyCb = document.getElementById('wb-f-legacy');
+        if (legacyCb) legacyCb.checked = (state.template === 'classic');
+        updateTypeVisibility();
         render();
       });
     }

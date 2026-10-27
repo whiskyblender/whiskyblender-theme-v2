@@ -25,6 +25,7 @@
   data-av="11"
   data-doctors-art="{{ 'wb-doctorsspecial-print.jpg' | asset_url }}"
   data-nip-art="{{ 'wb-nipbeforechristmas-200ml.webp' | asset_url }}"
+  data-roundel="{{ 'wb-roundel.svg' | asset_url }}"
   data-artwork-map='{"customblend-standard-200ml":"{{ 'wb-customblend-standard-200ml.jpg' | asset_url }}","customblend-standard-500ml":"{{ 'wb-customblend-standard-500ml_tall.jpg' | asset_url }}","customblend-birthday-200ml":"{{ 'wb-customblend-birthday-200ml.jpg' | asset_url }}","customblend-birthday-500ml":"{{ 'wb-customblend-birthday-500ml_tall.jpg' | asset_url }}","customblend-dad-200ml":"{{ 'wb-customblend-dad-200ml.webp' | asset_url }}","customblend-dad-500ml":"{{ 'wb-customblend-dad-500ml_tall.jpg' | asset_url }}","customblend-wedding-200ml":"{{ 'wb-customblend-wedding-200ml.webp' | asset_url }}","customblend-wedding-500ml":"{{ 'wb-customblend-wedding-500ml_tall.jpg' | asset_url }}"}'
   data-artwork-map-classic='{"customblend-standard-200ml":"{{ 'wb-customblend-standard-200ml.jpg' | asset_url }}","customblend-standard-500ml":"{{ 'wb-customblend-standard-500ml.jpg' | asset_url }}","customblend-birthday-200ml":"{{ 'wb-customblend-birthday-200ml.jpg' | asset_url }}","customblend-birthday-500ml":"{{ 'wb-customblend-birthday-500ml.webp' | asset_url }}","customblend-dad-200ml":"{{ 'wb-customblend-dad-200ml.webp' | asset_url }}","customblend-dad-500ml":"{{ 'wb-customblend-dad-500ml.jpg' | asset_url }}","customblend-wedding-200ml":"{{ 'wb-customblend-wedding-200ml.webp' | asset_url }}","customblend-wedding-500ml":"{{ 'wb-customblend-wedding-500ml.webp' | asset_url }}"}'
   data-tone-map='{"standard-light":"{{ 'wb-standard-light.jpg' | asset_url }}","standard-dark":"{{ 'wb-standard-dark.jpg' | asset_url }}","birthday-light":"{{ 'wb-birthday-light.jpg' | asset_url }}","birthday-dark":"{{ 'wb-birthday-dark.jpg' | asset_url }}","dad-light":"{{ 'wb-dad-light.jpg' | asset_url }}","dad-dark":"{{ 'wb-dad-dark.jpg' | asset_url }}","wedding-light":"{{ 'wb-wedding-light.jpg' | asset_url }}","wedding-dark":"{{ 'wb-wedding-dark.jpg' | asset_url }}","halloween-light":"{{ 'wb-halloween-light.jpg' | asset_url }}","christmas-light":"{{ 'wb-christmas-light.jpg' | asset_url }}"}'
@@ -110,6 +111,12 @@
       <div class="wb-field wb-field--toggle wb-500-only">
         <label for="wb-f-legacy">Legacy template</label>
         <input type="checkbox" id="wb-f-legacy">
+      </div>
+
+      <!-- New plain-front stock: one layout per size (PLAN-LABELS-UNIFIED.md) -->
+      <div class="wb-field wb-field--toggle wb-plain-toggle">
+        <label for="wb-f-plain">Plain stock (new)</label>
+        <input type="checkbox" id="wb-f-plain">
       </div>
 
       <div class="wb-field wb-has-style">
