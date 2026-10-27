@@ -688,9 +688,15 @@
         quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
       };
 
+      {%- comment -%}
+        soldOut comes from wb-sold-out-text ("Can’t ship to Italy" outside the UK/US).
+        It must equal the button's textContent: the product scripts compare the two.
+        Translations arrive HTML-escaped, and JS sets textContent, so decode &amp;.
+      {%- endcomment -%}
+      {%- capture wb_sold_out_js -%}{%- render 'wb-sold-out-text' -%}{%- endcapture -%}
       window.variantStrings = {
         addToCart: `{{ 'products.product.add_to_cart' | t }}`,
-        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        soldOut: `{{ wb_sold_out_js | replace: '&amp;', '&' | replace: '&#39;', "'" }}`,
         unavailable: `{{ 'products.product.unavailable' | t }}`,
         unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
       };

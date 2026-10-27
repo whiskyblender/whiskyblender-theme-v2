@@ -1,0 +1,51 @@
+{%- comment -%}
+  The words shown where Dawn says "Sold out" (27 Oct 2026).
+
+  Whisky only ships to the UK and US, but the Europe market stays active because
+  Printful merch ships there. Shopify marks whisky unavailable for a European
+  visitor, and Dawn called that "Sold out", which reads as "out of stock". For a
+  visitor whose country we don't ship whisky to, say so instead.
+
+  Countries outside every market are served the UK market, so they never reach
+  this branch. If the shipping zones change, update wb_ship_countries here AND the
+  wording in locales (products.product.wb_ship_*).
+
+  Accepts:
+  - format: 'button' (default) → "Can't ship to Italy"
+            'badge'  → "UK & US only" (cards, price badge)
+            'flag'   → outputs "no-ship" when we can't ship here, nothing otherwise
+
+  Usage:
+  {% render 'wb-sold-out-text' %}
+  {% render 'wb-sold-out-text', format: 'badge' %}
+
+  window.variantStrings.soldOut (theme.liquid) renders the button text from here too.
+  wb-blend-product.js / wb-single-malt.js compare the button's text with it to tell
+  a sold-out button from one their label guards disabled, so the two must match.
+{%- endcomment -%}
+{%- liquid
+  assign wb_ship_countries = 'GB,US' | split: ','
+  assign wb_country = localization.country.iso_code
+  assign wb_ships_here = true
+  if wb_country != blank
+    unless wb_ship_countries contains wb_country
+      assign wb_ships_here = false
+    endunless
+  endif
+
+  if format == 'flag'
+    unless wb_ships_here
+      echo 'no-ship'
+    endunless
+  elsif wb_ships_here
+    echo 'products.product.sold_out' | t
+  elsif format == 'badge'
+    echo 'products.product.wb_ship_badge' | t
+  else
+    assign wb_country_name = localization.country.name
+    if wb_country == 'NL'
+      assign wb_country_name = 'the ' | append: wb_country_name
+    endif
+    echo 'products.product.wb_ship_cant' | t: country: wb_country_name
+  endif
+-%}
