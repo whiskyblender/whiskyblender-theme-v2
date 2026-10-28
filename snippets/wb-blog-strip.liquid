@@ -1,0 +1,51 @@
+{%- comment -%}
+  The blog strip: heading, intro on the left, "View all" on the right, then
+  the latest articles as one row of cards. Used by the homepage strip
+  (sections/wb-blog-strip.liquid) and the help page (sections/wb-help.liquid),
+  so the two look the same. The caller loads assets/wb-article-cards.css and
+  supplies the wrapping section/container.
+
+  Usage:
+    {% render 'wb-blog-strip', blog: blog, count: 4, tag: 'Guides',
+       heading: 'Guides', description: '', button_label: 'View all',
+       outlined: true %}
+
+  tag (optional): only articles with this tag, and "View all" goes to the
+    blog's tagged page instead of the whole blog.
+  outlined: give the cards an edge, for use on a white band.
+{%- endcomment -%}
+
+{%- assign strip_url = blog.url -%}
+{%- if tag != blank -%}
+  {%- assign strip_handle = tag | handleize -%}
+  {%- assign strip_url = blog.url | append: '/tagged/' | append: strip_handle -%}
+{%- endif -%}
+
+{%- capture strip_cards -%}
+  {%- assign strip_shown = 0 -%}
+  {%- for article in blog.articles -%}
+    {%- if strip_shown >= count -%}{%- break -%}{%- endif -%}
+    {%- if tag == blank or article.tags contains tag -%}
+      {%- render 'wb-article-card', article: article -%}
+      {%- assign strip_shown = strip_shown | plus: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if strip_cards != blank -%}
+  {%- if heading != blank -%}
+    <h2 class="wb-medium-heading wb-blog-strip-heading">{{ heading | escape }}</h2>
+  {%- endif -%}
+  <div class="wb-blog-strip-sub">
+    {%- if description != blank -%}
+      <p class="wb-blog-strip-intro">{{ description }}</p>
+    {%- endif -%}
+    {%- if button_label != blank -%}
+      <a href="{{ strip_url }}" class="link underlined-link wb-blog-strip-all" aria-label="{{ button_label | escape }}: {{ heading | default: blog.title | escape }}">{{ button_label | escape }}</a>
+    {%- endif -%}
+  </div>
+
+  <ul class="wb-article-cards{% if outlined %} wb-article-cards--outlined{% endif %}" role="list" style="--wb-article-cols: {{ count }};">
+    {{ strip_cards }}
+  </ul>
+{%- endif -%}

@@ -1,7 +1,7 @@
 {%- comment -%}
   WB Blog strip — the latest blog articles as cards, for the bottom of the
-  homepage. Cards come from snippets/wb-article-card.liquid (shared with the
-  help page) and look like the homepage collection cards.
+  homepage. The markup is snippets/wb-blog-strip.liquid (shared with the help
+  page); cards look like the homepage collection cards.
 
   The section is a section.wb-banded like its neighbours, so it takes its
   grey/white band from the global banding rules in wb-base.css.
@@ -16,40 +16,17 @@
 <section class="wb-banded">
   <div class="wb-container">
     <div class="wb-padding">
-      {%- if section.settings.heading != blank -%}
-        <h2 class="wb-medium-heading wb-blog-strip-heading">{{ section.settings.heading | escape }}</h2>
-      {%- endif -%}
-      {%- comment -%} Intro left, link right on the same line (link styled like the featured-collection "View all"). {%- endcomment -%}
-      <div class="wb-blog-strip-sub">
-        {%- if section.settings.description != blank -%}
-          <p class="wb-blog-strip-intro">{{ section.settings.description }}</p>
-        {%- endif -%}
-        {%- if section.settings.button_label != blank -%}
-          <a href="{{ strip_blog.url }}" class="link underlined-link wb-blog-strip-all" aria-label="{{ section.settings.button_label | escape }}: {{ strip_blog.title | escape }} blog">{{ section.settings.button_label | escape }}</a>
-        {%- endif -%}
-      </div>
-
-      <ul class="wb-article-cards" role="list" style="--wb-article-cols: {{ strip_count }};">
-        {%- for article in strip_blog.articles limit: strip_count -%}
-          {%- render 'wb-article-card', article: article -%}
-        {%- endfor -%}
-      </ul>
+      {%- render 'wb-blog-strip',
+        blog: strip_blog,
+        count: strip_count,
+        heading: section.settings.heading,
+        description: section.settings.description,
+        button_label: section.settings.button_label
+      -%}
     </div>
   </div>
 </section>
 {%- endif -%}
-
-<style>
-  .wb-blog-strip-heading { margin-bottom: 8px; }
-  .wb-blog-strip-sub {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-  }
-  .wb-blog-strip-intro { margin: 0; max-width: 620px; }
-  /* margin-left: auto keeps the link on the right even when the intro is blank. */
-  .wb-blog-strip-all { margin-left: auto; flex-shrink: 0; white-space: nowrap; }
-</style>
 
 {% schema %}
 {
