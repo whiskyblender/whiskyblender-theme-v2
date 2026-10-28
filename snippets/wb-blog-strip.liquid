@@ -36,6 +36,7 @@
   {%- if heading != blank -%}
     <h2 class="wb-medium-heading wb-blog-strip-heading">{{ heading | escape }}</h2>
   {%- endif -%}
+  {%- if description != blank or button_label != blank -%}
   <div class="wb-blog-strip-sub">
     {%- if description != blank -%}
       <p class="wb-blog-strip-intro">{{ description }}</p>
@@ -44,6 +45,7 @@
       <a href="{{ strip_url }}" class="link underlined-link wb-blog-strip-all" aria-label="{{ button_label | escape }}: {{ heading | default: tag | default: blog.title | escape }}">{{ button_label | escape }}</a>
     {%- endif -%}
   </div>
+  {%- endif -%}
 
   <ul class="wb-article-cards{% if outlined %} wb-article-cards--outlined{% endif %}" role="list" style="--wb-article-cols: {{ count }};">
     {{ strip_cards }}
