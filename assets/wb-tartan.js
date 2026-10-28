@@ -1,7 +1,8 @@
 /* Clan tartans (PLAN-CLAN-BOTTLES.md, 27 Oct 2026). A tartan is drawn from its
    thread count — no artwork files — so the same code serves the label page's
    print and, later, the product-page preview. window.WBTartan:
-     CLANS        the clan list (handle → name, label text, sett, colours, source)
+     CLANS        the clan list (handle → name, label text, aliases the clan picker
+                  also matches, sett, colours, source)
      find(handle) a clan by handle, or null
      draw(canvas, clan, repeatPx)  2/2 twill filling the canvas; repeatPx = one
                                    full sett repeat in canvas px
@@ -14,23 +15,23 @@
   /* Thread counts: "R/36 G6 ..." with "/" marking a pivot (symmetric sett,
      mirrored about the pivots); no "/" = the full repeat. */
   var CLANS = [
-    { handle: 'dramlover', name: 'Dramlover', label: 'Clan Dramlover',
+    { handle: 'dramlover', name: 'Dramlover', label: 'Clan Dramlover', aliases: [],
       sett: 'D/4 A36 W2 A6 G24 D3 G24 A6 Y/2',
       colours: { A: '#b8741a', D: '#3a2416', G: '#107a5f', W: '#efe3c2', Y: '#d9a536' },
       source: 'Original Whisky Blender design (draft colours)' },
-    { handle: 'nicolson', name: 'Nicolson', label: 'Clan Nicolson',
+    { handle: 'nicolson', name: 'Nicolson', label: 'Clan Nicolson', aliases: ['MacNicol', 'Nicholson', 'Nicol'],
       sett: 'R/36 G6 R36 K24 R6 T6 R6 G48 R36 K6 R36 G/6',
       colours: { R: '#c80000', G: '#006818', K: '#101010', T: '#8b5e34' },
       source: 'PROVISIONAL: McIan/Logan 1845, as listed by tartandictionary.org' },
-    { handle: 'davidson', name: 'Davidson', label: 'Clan Davidson',
+    { handle: 'davidson', name: 'Davidson', label: 'Clan Davidson', aliases: ['Davison'],
       sett: 'R/4 B24 G4 B4 G32 K4 G32 K4 G4 K24 R/4',
       colours: { R: '#c80000', B: '#2c2c80', G: '#006818', K: '#101010' },
       source: 'PROVISIONAL: Stewart 1893; sources disagree on G32 vs G24' },
-    { handle: 'bruce', name: 'Bruce', label: 'Clan Bruce',
+    { handle: 'bruce', name: 'Bruce', label: 'Clan Bruce', aliases: [],
       sett: 'R32 G8 R8 G24 R4 G24 R8 G8 R32 Y4 R32 G8 R8 G24 R4 G24 R8 G8 R32 W4',
       colours: { R: '#c80000', G: '#006818', Y: '#e8c000', W: '#e0e0e0' },
       source: 'PROVISIONAL: Vestiarium Scoticum 1842, reconstruction (chart lost)' },
-    { handle: 'macleod-of-lewis', name: 'MacLeod of Lewis', label: 'Clan MacLeod',
+    { handle: 'macleod-of-lewis', name: 'MacLeod of Lewis', label: 'Clan MacLeod', aliases: ['MacLeod', 'McLeod', 'Macleod'],
       sett: 'K/32 Y4 K32 Y48 R/4',
       colours: { K: '#101010', Y: '#d8b000', R: '#c80000' },
       source: 'PROVISIONAL: Vestiarium Scoticum 1842, as listed by tartandictionary.org' }
