@@ -1,0 +1,60 @@
+/* Clan bottles (PLAN-CLAN-BOTTLES.md): the clan picker and the clan label
+   preview. Loaded only by product.custom-clan-500 / -200. Everything for the
+   preview is scoped to html.wb-clan, set by wb-clan-product.js, and overrides
+   the custom-blend preview (wb-single-malt.js / wb-preview.css) to show the
+   label on the new plain stock with the clan's tartan. */
+
+/* ── Picker ── */
+.wb-clan-picker { display: grid; gap: 6px; }
+.wb-clan-combo { position: relative; }
+.wb-clan-combo ul {
+  position: absolute; z-index: 5; left: 0; right: 0; top: calc(100% + 4px);
+  margin: 0; padding: 4px; list-style: none; max-height: 280px; overflow: auto;
+  background: #fff; border: 1px solid rgba(var(--color-foreground), .2); border-radius: 4px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+}
+.wb-clan-combo li { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 3px; cursor: pointer; font-size: 16px; line-height: 1.3; }
+.wb-clan-combo li[aria-selected="true"], .wb-clan-combo li:hover { background: #e3f0ec; }
+.wb-clan-combo li small { margin-left: auto; font-size: 13px; opacity: .7; text-align: right; }
+.wb-clan-combo li.wb-clan-empty { cursor: default; }
+.wb-clan-swatch { flex: none; width: 28px; height: 18px; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .15); }
+.wb-clan-note { margin: 0; font-size: 14px; line-height: 1.4; opacity: .75; }
+
+/* ── Preview: plain stock, tartan artwork, one text tone ── */
+html.wb-clan .wbp-scale-wrap { background-image: var(--wb-clan-stock) !important; }
+html.wb-clan .wbp-image { background-image: var(--wb-clan-art) !important; }
+/* 200ml: the full-width plain-stock artwork area (500ml is already 570x269) */
+html.wb-clan .wbp-page.size20 .wbp-image {
+  top: 4px !important; left: -9px !important; width: 445px !important; height: 193px !important;
+}
+/* the custom-blend blank strips give way to the plain stock's side strip below */
+html.wb-clan .wbp-side-panel { display: none !important; }
+html.wb-clan .wbp-blend-name,
+html.wb-clan .wbp-side-name {
+  color: var(--wb-clan-ink) !important;
+  text-shadow: 1px 1px var(--wb-clan-shade) !important;
+}
+
+/* What the label page prints on the plain stock (positions set by wb-clan-product.js) */
+.wbp-clan-print { position: absolute; z-index: 2; }
+.wbp-clan-strip {
+  box-sizing: border-box; left: 47px; height: 56px;
+  transform: rotate(90deg); transform-origin: left top;
+  background: #ffffff; color: #111111;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center;
+  /* zigzag clip-path set by wb-clan-product.js, as the label page's strip */
+}
+.wbp-clan-tall { font-family: Antonio, sans-serif; font-weight: 300; text-transform: uppercase; letter-spacing: -0.5px; }
+.wbp-clan-domain { font-family: Raleway, sans-serif; font-weight: 700; text-align: center; letter-spacing: 0.4px; }
+.wbp-clan-by {
+  text-transform: uppercase; letter-spacing: 8px; font-size: 8px; font-weight: 700; line-height: normal;
+  font-family: Raleway, sans-serif;
+  color: var(--wb-clan-ink); text-shadow: 1px 1px var(--wb-clan-shade);
+}
+.wbp-clan-roundel { transform: rotate(-45deg); color: var(--wb-clan-ink); filter: drop-shadow(1px 1px 0 var(--wb-clan-shade)); }
+.wbp-clan-roundel svg { display: block; width: 100%; height: 100%; }
+.wbp-clan-roundel svg path { fill: currentColor; }
+.wbp-clan-cyo {
+  font-family: Raleway, sans-serif; line-height: 1; white-space: nowrap;
+  color: var(--wb-clan-ink); text-shadow: 1px 1px 0 var(--wb-clan-shade);
+}
