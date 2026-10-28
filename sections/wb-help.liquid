@@ -37,6 +37,7 @@
   }
   .wb-faq-content p { margin: 0 0 12px; }
   .wb-faq-content p:last-child { margin-bottom: 0; }
+  .wb-help-guides { margin-top: 40px; }
 
 </style>
 
@@ -49,19 +50,21 @@
       {%- endif -%}
       {%- assign help_blog = blogs[section.settings.help_blog] -%}
       {%- if help_blog -%}
-        {%- capture help_articles_html -%}
-          {%- for article in help_blog.articles -%}
-            {%- if article.tags contains 'Guides' -%}
-              {%- render 'wb-article-card', article: article -%}
-            {%- endif -%}
-          {%- endfor -%}
-        {%- endcapture -%}
-        {%- if help_articles_html != blank -%}
-        {%- comment -%} Outlined: this band is white, so the cards need an edge. {%- endcomment -%}
-        <ul class="wb-article-cards wb-article-cards--outlined" role="list" style="--wb-article-cols: 3;">
-          {{ help_articles_html }}
-        </ul>
-        {%- endif -%}
+        {%- comment -%}
+          Same strip as the homepage blog cards, limited to Guides-tagged
+          articles. Outlined: this band is white, so the cards need an edge.
+        {%- endcomment -%}
+        <div class="wb-help-guides">
+          {%- render 'wb-blog-strip',
+            blog: help_blog,
+            count: 4,
+            tag: 'Guides',
+            heading: section.settings.guides_heading,
+            description: section.settings.guides_intro,
+            button_label: section.settings.guides_button_label,
+            outlined: true
+          -%}
+        </div>
       {%- endif -%}
     </div>
   </div>
@@ -126,6 +129,24 @@
       "type": "blog",
       "id": "help_blog",
       "label": "Help articles blog"
+    },
+    {
+      "type": "text",
+      "id": "guides_heading",
+      "label": "Guides heading",
+      "default": "Guides"
+    },
+    {
+      "type": "text",
+      "id": "guides_intro",
+      "label": "Guides intro"
+    },
+    {
+      "type": "text",
+      "id": "guides_button_label",
+      "label": "Guides link label",
+      "info": "Links to all Guides-tagged articles. Leave blank to hide it.",
+      "default": "View all"
     }
   ],
   "blocks": [

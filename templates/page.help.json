@@ -168,7 +168,9 @@
         "faq_data"
       ],
       "settings": {
-        "help_blog": "on-the-scotch"
+        "help_blog": "on-the-scotch",
+        "guides_heading": "Guides",
+        "guides_button_label": "View all"
       }
     }
   },

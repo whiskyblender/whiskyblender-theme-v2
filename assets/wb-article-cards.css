@@ -6,6 +6,19 @@
    Hover never underlines anything. The global a:hover wavy underline would
    otherwise run under the title and every line of the excerpt. */
 
+/* Strip header (snippets/wb-blog-strip.liquid): heading, then the intro on the
+   left and "View all" on the right of one line, styled like the
+   featured-collection "View all". */
+.wb-blog-strip-heading { margin-bottom: 8px; }
+.wb-blog-strip-sub {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.wb-blog-strip-intro { margin: 0; max-width: 620px; }
+/* margin-left: auto keeps the link on the right even when the intro is blank. */
+.wb-blog-strip-all { margin-left: auto; flex-shrink: 0; white-space: nowrap; }
+
 /* max-width: none undoes the site-wide ul { max-width: 768px }. */
 .wb-article-cards {
   list-style: none;
