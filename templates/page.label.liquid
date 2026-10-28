@@ -16,6 +16,28 @@
     }
   </style>
   {{ 'wb-label.css' | asset_url | stylesheet_tag }}
+  {%- comment -%}
+    Hide the chat bubble. Shopify injects app embeds (Shopify Inbox's
+    <shopify-chat>) even into this layout-none page, and the bubble prints
+    onto the label sheet. Kept here rather than in wb-label.css because that
+    file is also loaded on product pages, where the chat should stay. Selector
+    list mirrors the Lab rule in layout/theme.liquid.
+  {%- endcomment -%}
+  <style>
+    shopify-chat,
+    #tidio-chat,
+    [id^="tidio-chat"],
+    #gorgias-chat-container,
+    #gorgias-chat-messenger,
+    .intercom-lightweight-app,
+    #intercom-container,
+    #crisp-chatbox,
+    iframe[src*="tidio"],
+    iframe[src*="gorgias"],
+    iframe[src*="intercom"] {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
 <div id="wb-label-root"
