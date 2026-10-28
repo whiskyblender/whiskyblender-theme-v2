@@ -41,7 +41,7 @@
       <p class="wb-blog-strip-intro">{{ description }}</p>
     {%- endif -%}
     {%- if button_label != blank -%}
-      <a href="{{ strip_url }}" class="link underlined-link wb-blog-strip-all" aria-label="{{ button_label | escape }}: {{ heading | default: blog.title | escape }}">{{ button_label | escape }}</a>
+      <a href="{{ strip_url }}" class="link underlined-link wb-blog-strip-all" aria-label="{{ button_label | escape }}: {{ heading | default: tag | default: blog.title | escape }}">{{ button_label | escape }}</a>
     {%- endif -%}
   </div>
 
