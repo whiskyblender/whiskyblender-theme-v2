@@ -225,13 +225,19 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
      with ?blend= (patchProductLinks stamps the code instead) or on external-label
      products (the Nip's label field is the recipient). */
   var CARRY_KEY = 'wb_custom_choice';
+  /* data-carry="off" on the loader (the clan bottles, 28 Oct 2026): neither read
+     nor write, so "Clan Nicolson" doesn't follow the customer to other bottles
+     and their other bottles' text doesn't land on a clan label. Set by init. */
+  var carryOff = false;
   function readCarry() {
+    if (carryOff) return {};
     try {
       var data = JSON.parse(sessionStorage.getItem(CARRY_KEY));
       return (data && typeof data === 'object') ? data : {};
     } catch (e) { return {}; }
   }
   function writeCarry(field, value) {
+    if (carryOff) return;
     try {
       var data = readCarry();
       if (value) data[field] = value; else delete data[field];
@@ -553,6 +559,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
        Only the HOUSE_PRESETS slugs count; anything else is ignored. Without them,
        the choice carried from the last custom bottle in this tab (readCarry). */
     var externalLabel = container.getAttribute('data-label-mode') === 'external';
+    carryOff         = container.getAttribute('data-carry') === 'off';
     var carried      = (isDefault && !externalLabel) ? readCarry() : {};
     var presetSlug   = isDefault ? houseSlug(params.get('preset') || carried.preset) : null;
     var labelParam   = isDefault ? (params.get('label') || carried.label || '').trim() : '';
