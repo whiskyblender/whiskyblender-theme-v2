@@ -51,9 +51,6 @@ html.wb-clan .wbp-side-name {
   font-family: Raleway, sans-serif;
   color: var(--wb-clan-ink); text-shadow: 1px 1px var(--wb-clan-shade);
 }
-.wbp-clan-roundel { transform: rotate(-45deg); color: var(--wb-clan-ink); filter: drop-shadow(1px 1px 0 var(--wb-clan-shade)); }
-.wbp-clan-roundel svg { display: block; width: 100%; height: 100%; }
-.wbp-clan-roundel svg path { fill: currentColor; }
 .wbp-clan-cyo {
   font-family: Raleway, sans-serif; line-height: 1; white-space: nowrap;
   color: var(--wb-clan-ink); text-shadow: 1px 1px 0 var(--wb-clan-shade);

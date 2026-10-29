@@ -63,23 +63,21 @@
      New Single Malt / Blended Malt stocks: only the copper rule and the black band
      are pre-printed. With state.plain, every 500ml label prints on the New 570x269
      layout and every 200ml label on the full-width 445x193 single malt layout, all
-     with the single malt side strip, and we print what the old stock carried: the
-     roundel, "Created by" and "Create your own at whiskyblender.com". OFF until the
+     with the single malt side strip, and we print "Created by" and "Create your
+     own at whiskyblender.com", which the old stock carried. No roundel (Andrew,
+     29 Oct 2026: removed from the new-stock and clan labels). OFF until the
      stock arrives: flip PLAIN_STOCK_DEFAULT then. Per print: the Edit panel's
      "Plain stock" box, or &stock=plain / &stock=current in the URL.
      Doctors' Special and the Nip keep their artwork placement until their new
      artwork exists (their printed text is positioned on it). */
   var PLAIN_STOCK_DEFAULT = false;
-  /* Positions in label px. Roundel: centre x, centre y, width (turned 45deg
-     anticlockwise, as on the stock); 500ml centre = the white circle in the
-     single malt artwork. "Create your own": left, line 1 baseline, line 2
+  /* Positions in label px. "Create your own": left, line 1 baseline, line 2
      baseline, font size (500ml sits in the artwork's white pill). Measured from
      the stock photos and wb-standard-dark.jpg. */
   var PLAIN = {
-    '500ml': { roundel: [446.9, 87.1, 159.2], cyo: [455.8, 206.9, 218.8, 8.3] },
-    '200ml': { roundel: [344.1, 78.4, 117.7], cyo: [346.7, 155.8, 164.8, 6.8] }
+    '500ml': { cyo: [455.8, 206.9, 218.8, 8.3] },
+    '200ml': { cyo: [346.7, 155.8, 164.8, 6.8] }
   };
-  var ROUNDEL_INK = '#bd7849';   /* copper, sampled from the foil on today's stock */
 
   /* Doctors' Special name limit — matches the product page input (maxlength 24) */
   var DS_MAX_CHARS = 24;
@@ -248,7 +246,7 @@
   /* ── Clan labels (PLAN-CLAN-BOTTLES.md) ──────────────────────────────────────
      product=clan&clan=<handle> (or Product: Clan in the Edit panel): the artwork
      is the clan's tartan, drawn from its thread count by wb-tartan.js, and the
-     text, roundel and "Create your own" take one tone picked from the tartan
+     text and "Create your own" take one tone picked from the tartan
      behind the name (white unless it's mostly light). Always on the plain stock.
      No other product reads &clan=, so nothing here runs for them. */
   var CLAN_REPEAT = 0.42 * 570;   /* one full sett repeat, label px (same physical scale at both sizes) */
@@ -573,24 +571,10 @@
     }
   }
 
-  /* Plain stock: print what the old stock carried — the roundel (copper, turned
-     45deg anticlockwise) and "Create your own at whiskyblender.com". Removed when
-     not on the plain layout. */
-  var roundelSvg = null;
-  function loadRoundel() {
-    if (!roundelSvg) {
-      var root = document.getElementById('wb-label-root');
-      var src = root && root.getAttribute('data-roundel');
-      roundelSvg = src
-        ? fetch(src).then(function (res) { return res.ok ? res.text() : ''; }).catch(function () { return ''; })
-        : Promise.resolve('');
-    }
-    return roundelSvg;
-  }
-
-  /* tone: a clan label's 'white' / 'black' — the roundel and "Create your own" sit
-     on tartan, not in the artwork's white circle and pill, so they take the
-     label's tone and shadow instead of copper / dark ink */
+  /* Plain stock: print "Create your own at whiskyblender.com", which the old
+     stock carried. Removed when not on the plain layout. tone: a clan label's
+     'white' / 'black' — on tartan, not in the artwork's white pill, so it takes
+     the label's tone and shadow instead of dark ink */
   function renderPlainPrint(tone) {
     var label = document.getElementById('label');
     if (!label) return;
@@ -601,20 +585,6 @@
     var ink = tone ? (tone === 'white' ? '#ffffff' : '#111111') : '';
     var shade = tone ? (tone === 'white' ? '#000000' : '#ffffff') : '';
     var g = PLAIN[state.size];
-    /* The roundel is inlined SVG coloured by fill: a CSS mask doesn't survive
-       printing (it printed as a solid square). Fetched once, then cached. */
-    var r = g.roundel, ro = document.createElement('div');
-    ro.className = 'wb-plain-print wb-plain-roundel';
-    ro.style.cssText = [
-      'left:' + (r[0] - r[2] / 2) + 'px',
-      'top:' + (r[1] - r[2] / 2) + 'px',
-      'width:' + r[2] + 'px',
-      'height:' + r[2] + 'px',
-      'color:' + (ink || ROUNDEL_INK)
-    ].concat(tone ? ['filter:drop-shadow(1px 1px 0 ' + shade + ')'] : []).join(';');
-    label.appendChild(ro);
-    loadRoundel().then(function (svg) { if (svg && ro.parentNode) ro.innerHTML = svg; });
-
     var c = g.cyo;
     [['Create your own at', 500, c[1]], ['whiskyblender.com', 700, c[2]]].forEach(function (line) {
       var el = document.createElement('div');
@@ -1121,11 +1091,12 @@
     if (dist)     dist.value     = state.distillery;
     if (strength) strength.value = state.strength;
     if (size)     size.value     = state.size;
-    if (variant)  variant.value  = state.variant;
+    /* order links say variant=Birthday; the options are slugs (the artwork lookup slugifies too) */
+    if (variant)  variant.value  = slugify(state.variant);
     if (fg)       fg.value       = state.fg;
     if (bg)       bg.value       = state.bg;
     if (ref)      ref.value      = state.reference;
-    if (pname)    pname.value    = state.productname;
+    if (pname)    pname.value    = state.productname || '';   /* not "undefined" when the link has none */
     var slotFrom = document.getElementById('wb-f-slotfrom');
     var slotTo   = document.getElementById('wb-f-slotto');
     if (slotFrom) slotFrom.value = state.slotFrom;

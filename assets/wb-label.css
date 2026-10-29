@@ -371,14 +371,7 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
    Artwork made for the old inset area is scaled to cover until new files exist. */
 #page.wb-plain.size20 .image { top: 4px; left: -9px; width: 445px; height: 193px; }
 
-/* What the old stock carried, printed by us (positions set by wb-label.js PLAIN) */
-.wb-plain-roundel {
-  position: absolute;
-  z-index: 2;
-  transform: rotate(-45deg);
-}
-.wb-plain-roundel svg { display: block; width: 100%; height: 100%; }
-.wb-plain-roundel svg path { fill: currentColor; }
+/* What the old stock carried, printed by us (position set by wb-label.js PLAIN) */
 .wb-plain-cyo {
   position: absolute;
   z-index: 2;
@@ -734,6 +727,30 @@ body.wb-tpl-new .size50 #wb-summary { padding: 6% 18% 0; }
   body.wb-finished #page.size50 { margin-left: -121px; margin-right: -123px; }
   body.wb-finished #page.size20 { margin-left: -68px; margin-right: -70px; }
 }
+/* ── Desktop: the options as a side strip, always open (29 Oct 2026) ──────────
+   Andrew: Edit → change → Edit to hide was tedious. From 1280px wide the Edit
+   panel is a fixed strip down the left and the Edit button goes; the label is
+   centred in the rest. A left MARGIN (not padding) on the page wrapper, so
+   fitToScreen()'s clientWidth measures only the space beside the strip and the
+   label isn't zoomed down. Screen only: print hides the panel as before. Below
+   1280px the Edit button and drop-down panel work as they always have. */
+@media screen and (min-width: 1280px) {
+  body:not(.wb-preview-mode) #wb-form-panel {
+    display: block;
+    position: fixed;
+    top: 0; bottom: 0; left: 0; right: auto;
+    width: 300px;
+    box-sizing: border-box;
+    padding: 70px 20px 28px;
+    overflow-y: auto;
+    border-bottom: 0;
+    border-right: 1px solid #2a2a2a;
+  }
+  body:not(.wb-preview-mode) #wb-form-inner { max-width: none; grid-template-columns: 1fr; }
+  body:not(.wb-preview-mode) #wb-btn-edit { display: none; }
+  body:not(.wb-preview-mode) #wb-page-wrapper { margin-left: 300px; }
+}
+
 @media screen and (max-width: 600px) {
   body:not(.wb-preview-mode) #wb-toolbar { flex-wrap: wrap; gap: 6px; padding: 8px 10px; }
   body:not(.wb-preview-mode) .wb-btn { padding: 6px 10px; font-size: 11px; }
