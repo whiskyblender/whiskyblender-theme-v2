@@ -195,6 +195,10 @@
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
     {%- comment -%} First-party page-view + link-click log (our lab app, no cookie) and a GA4 wb_link_click event. Not in the theme editor, so editing doesn't count as traffic. See assets/wb-track.js {%- endcomment -%}
     {%- unless request.design_mode -%}
+      {%- comment -%} Homepage hero button A/B test: a visitor who already has a version (the cart attribute hero_test) has it tagged on every SiteEvent row, on every page. New visitors are tagged by the hero's own script. See sections/wb-main-landing.liquid {%- endcomment -%}
+      {%- if cart.attributes.hero_test == 'A' or cart.attributes.hero_test == 'B' -%}
+        <script>window.wbHeroArm = {{ cart.attributes.hero_test | json }};</script>
+      {%- endif -%}
       <script src="{{ 'wb-track.js' | asset_url }}" defer="defer"></script>
     {%- endunless -%}
 
