@@ -1121,11 +1121,12 @@
     if (dist)     dist.value     = state.distillery;
     if (strength) strength.value = state.strength;
     if (size)     size.value     = state.size;
-    if (variant)  variant.value  = state.variant;
+    /* order links say variant=Birthday; the options are slugs (the artwork lookup slugifies too) */
+    if (variant)  variant.value  = slugify(state.variant);
     if (fg)       fg.value       = state.fg;
     if (bg)       bg.value       = state.bg;
     if (ref)      ref.value      = state.reference;
-    if (pname)    pname.value    = state.productname;
+    if (pname)    pname.value    = state.productname || '';   /* not "undefined" when the link has none */
     var slotFrom = document.getElementById('wb-f-slotfrom');
     var slotTo   = document.getElementById('wb-f-slotto');
     if (slotFrom) slotFrom.value = state.slotFrom;
