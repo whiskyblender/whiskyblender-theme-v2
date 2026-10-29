@@ -159,6 +159,7 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
+            data-wb-track="add_to_cart"
             class="product-form__submit button wb-button button--full-width wb-primary-button button--primary"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout

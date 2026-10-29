@@ -207,6 +207,8 @@
                   a.textContent = {{ section.settings.hero_test_text | json }};
                 }
                 a.setAttribute('data-hero-arm', arm);
+                /* wb-track.js tags this visit's SiteEvent rows with the version */
+                window.wbHeroArm = arm;
                 /* keepalive so the attribute still saves if the button is tapped straight away */
                 try {
                   fetch('/cart/update.js', {

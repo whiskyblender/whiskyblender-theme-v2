@@ -17,6 +17,10 @@
  *
  * Naming a link: add data-wb-track="name" to the link or any ancestor. Untagged
  * links fall back to their Shopify section's name (header, announcement-bar, ...).
+ *
+ * A/B tests: while the homepage hero button test runs, every event carries the
+ * visitor's version as `variant` ("hero_test:A" / "hero_test:B"), set in
+ * window.wbHeroArm by theme.liquid (a saved version) or the hero's script (a new one).
  */
 (function () {
   'use strict';
@@ -42,6 +46,9 @@
     if (sent >= MAX_EVENTS) return;
     sent++;
     data.path = path;
+    /* Read at send time: the hero assigns a new visitor's version during page parse. */
+    var arm = window.wbHeroArm;
+    if (arm === 'A' || arm === 'B') data.variant = 'hero_test:' + arm;
     try {
       var body = JSON.stringify(data);
       /* text/plain is a CORS-safe type: no preflight, and sendBeacon survives the
