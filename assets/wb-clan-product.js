@@ -6,7 +6,7 @@
      spellings. Choosing a clan puts "Clan {Name}" in the label text, unless the
      customer has typed their own text;
    - the preview on the new plain stock: the tartan as the artwork, one text
-     tone picked from the tartan behind the name, and the roundel, side strip,
+     tone picked from the tartan behind the name, and the side strip,
      "Created by" and "Create your own" the label page prints there. Done with
      classes and CSS variables on <html> (wb-clan.css) plus a few elements added
      to .wbp-label, so wb-single-malt.js needs no changes;
@@ -26,15 +26,15 @@
   /* Label px, the same frame as the label page (wb-label.js) and the preview.
      art: the plain-stock artwork area; name: the name box relative to the
      artwork (for the text tone); panel: side strip top + length; sideLabel:
-     "Created by" top + left; roundel: centre x, centre y, width; cyo: "Create
+     "Created by" top + left; cyo: "Create
      your own" left, line 1 + 2 baselines, font size. */
   var GEO = {
     '500ml': { art: [-9, -33, 570, 269], name: [148.8, 9.8, 202.4, 180.4], panel: [-33, 269],
                tallFont: 14, domainFont: 9, volume: 500, sideLabel: [170, 142],
-               roundel: [446.9, 87.1, 159.2], cyo: [455.8, 206.9, 218.8, 8.3] },
+               cyo: [455.8, 206.9, 218.8, 8.3] },
     '200ml': { art: [-9, 4, 445, 193], name: [127, 8, 144, 128], panel: [4, 193],
                tallFont: 12, domainFont: 7, volume: 200, sideLabel: [140, 108],
-               roundel: [344.1, 78.4, 117.7], cyo: [346.7, 155.8, 164.8, 6.8] }
+               cyo: [346.7, 155.8, 164.8, 6.8] }
   };
   var g = GEO[size];
   var REPEAT = 0.42 * 570;   /* one sett repeat in label px, as the label page */
@@ -83,7 +83,6 @@
     pts.push(w + 'px ' + h + 'px', '0px ' + h + 'px');
     return 'polygon(' + pts.join(', ') + ')';
   }
-  var roundelSvg = null;
   function decorate() {
     var label = document.querySelector('.wbp-label');
     if (!label || label.querySelector('.wbp-clan-print')) return;
@@ -105,17 +104,6 @@
     by.textContent = 'Created by';
     by.style.cssText = 'top:' + g.sideLabel[0] + 'px;left:' + g.sideLabel[1] + 'px';
     label.appendChild(by);
-
-    var r = g.roundel, ro = document.createElement('div');
-    ro.className = 'wbp-clan-print wbp-clan-roundel';
-    ro.style.cssText = 'left:' + (r[0] - r[2] / 2) + 'px;top:' + (r[1] - r[2] / 2) + 'px;width:' + r[2] + 'px;height:' + r[2] + 'px';
-    label.appendChild(ro);
-    if (!roundelSvg) {
-      roundelSvg = fetch(root.getAttribute('data-roundel'))
-        .then(function (res) { return res.ok ? res.text() : ''; })
-        .catch(function () { return ''; });
-    }
-    roundelSvg.then(function (svg) { if (svg) ro.innerHTML = svg; });
 
     var c = g.cyo;
     [['Create your own at', 500, c[1]], ['whiskyblender.com', 700, c[2]]].forEach(function (line) {

@@ -371,14 +371,7 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
    Artwork made for the old inset area is scaled to cover until new files exist. */
 #page.wb-plain.size20 .image { top: 4px; left: -9px; width: 445px; height: 193px; }
 
-/* What the old stock carried, printed by us (positions set by wb-label.js PLAIN) */
-.wb-plain-roundel {
-  position: absolute;
-  z-index: 2;
-  transform: rotate(-45deg);
-}
-.wb-plain-roundel svg { display: block; width: 100%; height: 100%; }
-.wb-plain-roundel svg path { fill: currentColor; }
+/* What the old stock carried, printed by us (position set by wb-label.js PLAIN) */
 .wb-plain-cyo {
   position: absolute;
   z-index: 2;
