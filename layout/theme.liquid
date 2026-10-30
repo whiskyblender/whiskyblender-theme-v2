@@ -199,6 +199,21 @@
       {%- if cart.attributes.hero_test == 'A' or cart.attributes.hero_test == 'B' -%}
         <script>window.wbHeroArm = {{ cart.attributes.hero_test | json }};</script>
       {%- endif -%}
+      {%- comment -%} Lab visit marker: opening the Lab (any page on the lab-page template) saves the cart attribute lab_visit, which reaches the order, so custom-bottle orders can be split into "visited the Lab" vs "never opened it". Saved once per cart; headless browsers skipped {%- endcomment -%}
+      {%- if template.suffix == 'lab-page' and cart.attributes.lab_visit == blank -%}
+        <script>
+          if (!navigator.webdriver) {
+            try {
+              fetch('/cart/update.js', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ attributes: { lab_visit: 'yes' } }),
+                keepalive: true
+              }).catch(function () {});
+            } catch (e) {}
+          }
+        </script>
+      {%- endif -%}
       <script src="{{ 'wb-track.js' | asset_url }}" defer="defer"></script>
     {%- endunless -%}
 
