@@ -62,6 +62,13 @@
             "text": "🎄 We close for Christmas 20 December (order before then)",
             "link": ""
           }
+        },
+        "announcement_QztrHT": {
+          "type": "announcement",
+          "settings": {
+            "text": "❄️ Orders placed after December 20 will be sent out in 2027",
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -71,7 +78,8 @@
         "announcement_HtPheX",
         "announcement_UJ4bzH",
         "announcement_7K49tr",
-        "announcement_KpKexp"
+        "announcement_KpKexp",
+        "announcement_QztrHT"
       ],
       "settings": {
         "auto_rotate": true,
