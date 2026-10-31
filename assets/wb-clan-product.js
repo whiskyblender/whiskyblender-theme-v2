@@ -25,15 +25,16 @@
 
   /* Label px, the same frame as the label page (wb-label.js) and the preview.
      art: the plain-stock artwork area; name: the name box relative to the
-     artwork (for the text tone); panel: side strip top + length; sideLabel:
+     artwork (for the text tone; centred clan layout, 31 Oct 2026, as wb-label.css
+     #page.wb-clan-label); panel: side strip top + length; sideLabel:
      "Created by" top + left; cyo: "Create
      your own" left, line 1 + 2 baselines, font size. */
   var GEO = {
-    '500ml': { art: [-9, -33, 570, 269], name: [148.8, 9.8, 202.4, 180.4], panel: [-33, 269],
-               tallFont: 14, domainFont: 9, volume: 500, sideLabel: [170, 142],
+    '500ml': { art: [-9, -33, 570, 269], name: [142, 9.8, 286, 180.4], panel: [-33, 269],
+               tallFont: 14, domainFont: 9, volume: 500, sideLabel: [170, 126],
                cyo: [455.8, 206.9, 218.8, 8.3] },
-    '200ml': { art: [-9, 4, 445, 193], name: [127, 8, 144, 128], panel: [4, 193],
-               tallFont: 12, domainFont: 7, volume: 200, sideLabel: [140, 108],
+    '200ml': { art: [-9, 4, 445, 193], name: [118.5, 8, 208, 128], panel: [4, 193],
+               tallFont: 12, domainFont: 7, volume: 200, sideLabel: [140, 63.5],
                cyo: [346.7, 155.8, 164.8, 6.8] }
   };
   var g = GEO[size];

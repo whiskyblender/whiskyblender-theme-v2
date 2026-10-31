@@ -35,6 +35,17 @@ html.wb-clan .wbp-side-name {
   text-shadow: 1px 1px var(--wb-clan-shade) !important;
 }
 
+/* Centred text, as the label page's #page.wb-clan-label (wb-label.css, 31 Oct 2026):
+   name box widened to 130 and centred on the whole label, x 276 (500ml) / 213.5 (200ml), the
+   customer's name centred beneath; "Created by" is centred by wb-clan-product.js */
+html.wb-clan .wbp-outer { width: 130px !important; justify-content: center !important; text-align: center; }
+html.wb-clan .wbp-blend-name { text-align: center; }
+html.wb-clan .wbp-page.size50 .wbp-outer { left: 211px !important; }
+html.wb-clan .wbp-page.size20 .wbp-outer { left: 148.5px !important; }
+html.wb-clan .wbp-side { text-align: center; }
+html.wb-clan .wbp-page.size50 .wbp-side { left: 218px !important; }
+html.wb-clan .wbp-page.size20 .wbp-side { left: 155.5px !important; }
+
 /* What the label page prints on the plain stock (positions set by wb-clan-product.js) */
 .wbp-clan-print { position: absolute; z-index: 2; }
 .wbp-clan-strip {
@@ -47,6 +58,7 @@ html.wb-clan .wbp-side-name {
 .wbp-clan-tall { font-family: Antonio, sans-serif; font-weight: 300; text-transform: uppercase; letter-spacing: -0.5px; }
 .wbp-clan-domain { font-family: Raleway, sans-serif; font-weight: 700; text-align: center; letter-spacing: 0.4px; }
 .wbp-clan-by {
+  width: 300px; box-sizing: border-box; padding-left: 8px; text-align: center;
   text-transform: uppercase; letter-spacing: 8px; font-size: 8px; font-weight: 700; line-height: normal;
   font-family: Raleway, sans-serif;
   color: var(--wb-clan-ink); text-shadow: 1px 1px var(--wb-clan-shade);

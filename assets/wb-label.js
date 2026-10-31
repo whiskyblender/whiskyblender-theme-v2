@@ -632,6 +632,8 @@
     page.className = (sizeClass + ' ' + productClass).trim();
     /* Plain stock: one artwork area per size for every product (wb-label.css #page.wb-plain) */
     if (onPlainLayout()) page.classList.add('wb-plain');
+    /* Clan labels: centred text (wb-label.css #page.wb-clan-label) */
+    if (clanActive()) page.classList.add('wb-clan-label');
     /* "Halloween" label style: carved lettering (wb-label.css .wb-halloween + snippets/wb-halloween-carve) */
     if (state.product === 'customblend' && !state.clanProduct && slugify(state.variant) === 'halloween') page.classList.add('wb-halloween');
     /* "Christmas" label style: Chicle name (wb-label.css .wb-christmas) */
