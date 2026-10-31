@@ -61,7 +61,7 @@
       var n = g.name;
       art[c.handle] = {
         url: cv.toDataURL('image/png'),
-        tone: T.tone(cv, n[0] * RES, n[1] * RES, n[2] * RES, n[3] * RES).text
+        tone: c.tone || T.tone(cv, n[0] * RES, n[1] * RES, n[2] * RES, n[3] * RES).text   /* fixed per clan, or automatic */
       };
     }
     return art[c.handle];

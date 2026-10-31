@@ -276,6 +276,7 @@
     artworkEl.style.backgroundImage = 'url(' + art.url + ')';
     var outer = document.getElementById('outer');
     var ar = artworkEl.getBoundingClientRect(), or = outer && outer.getBoundingClientRect();
+    if (clan.tone) return clan.tone;   /* a fixed colour for this clan (wb-tartan.js) */
     if (!or || !ar.width) return 'white';
     var k = art.canvas.width / ar.width;
     return window.WBTartan.tone(art.canvas, (or.left - ar.left) * k, (or.top - ar.top) * k, or.width * k, or.height * k).text;

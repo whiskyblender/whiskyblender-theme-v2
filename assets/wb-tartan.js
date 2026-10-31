@@ -2,7 +2,8 @@
    thread count — no artwork files — so the same code serves the label page's
    print and, later, the product-page preview. window.WBTartan:
      CLANS        the clan list (handle → name, label text, aliases the clan picker
-                  also matches, sett, colours, source)
+                  also matches, sett, colours, source; optional tone: 'white' or
+                  'black' to fix the text colour instead of the automatic rule)
      find(handle) a clan by handle, or null
      draw(canvas, clan, repeatPx)  2/2 twill filling the canvas; repeatPx = one
                                    full sett repeat in canvas px
@@ -32,6 +33,7 @@
       colours: { R: '#c80000', G: '#006818', Y: '#e8c000', W: '#e0e0e0' },
       source: 'PROVISIONAL: Vestiarium Scoticum 1842, reconstruction (chart lost)' },
     { handle: 'macleod-of-lewis', name: 'MacLeod of Lewis', label: 'Clan MacLeod', aliases: ['MacLeod', 'McLeod', 'Macleod'],
+      tone: 'white',   /* Andrew, 31 Oct 2026: reads better white; the centred name sits on mostly yellow */
       sett: 'K/32 Y4 K32 Y48 R/4',
       colours: { K: '#101010', Y: '#d8b000', R: '#c80000' },
       source: 'PROVISIONAL: Vestiarium Scoticum 1842, as listed by tartandictionary.org' }
