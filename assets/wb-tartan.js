@@ -5,8 +5,9 @@
                   also matches, sett, colours, source; optional tone: 'white' or
                   'black' to fix the text colour instead of the automatic rule)
      find(handle) a clan by handle, or null
-     draw(canvas, clan, repeatPx)  2/2 twill filling the canvas; repeatPx = one
-                                   full sett repeat in canvas px
+     draw(canvas, clan, repeatPx)  2/2 twill filling the canvas, the sett's
+                                   mirror axis on the canvas centre; repeatPx =
+                                   one full sett repeat in canvas px
      tone(canvas, x, y, w, h)      text tone for that area of the canvas
    Historic thread counts are PROVISIONAL until checked against the original
    books; Dramlover is our own design. Not on sale yet. */
@@ -61,18 +62,34 @@
     return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
   }
 
+  /* The sett's first mirror axis, in threads from the start of the repeat: the
+     first pivot for a "/" sett, found by search for a full repeat (Bruce); 0 if
+     the sett has none. Thread i mirrors thread c - 1 - i about axis c / 2. */
+  function axis(threads) {
+    var n = threads.length;
+    for (var c = 0; c < 2 * n; c++) {
+      var ok = true;
+      for (var i = 0; i < n && ok; i++) ok = threads[i] === threads[(((c - 1 - i) % n) + n) % n];
+      if (ok) return c / 2;
+    }
+    return 0;
+  }
+
   /* 2/2 twill: each cell shows the warp (vertical) or weft (horizontal) thread;
-     the weft is shaded slightly for a woven look */
+     the weft is shaded slightly for a woven look. The sett's mirror axis sits on
+     the canvas centre both ways (Andrew, 31 Oct 2026: tartan centred on the label,
+     as the text is; the artwork area is centred on the label horizontally). */
   function draw(canvas, clan, repeatPx) {
     var threads = parse(clan.sett), n = threads.length, px = repeatPx / n;
     var ctx = canvas.getContext('2d'), w = canvas.width, h = canvas.height;
     var img = ctx.createImageData(w, h), d = img.data, rgb = {};
+    var a = axis(threads), ox = w / 2 / px - a, oy = h / 2 / px - a;
     Object.keys(clan.colours).forEach(function (k) { rgb[k] = hex(clan.colours[k]); });
     for (var y = 0; y < h; y++) {
-      var ty = Math.floor(y / px), weft = rgb[threads[ty % n]];
+      var ty = Math.floor(y / px - oy), weft = rgb[threads[((ty % n) + n) % n]];
       for (var x = 0; x < w; x++) {
-        var tx = Math.floor(x / px), warp = ((tx + ty) & 3) < 2;
-        var c = warp ? rgb[threads[tx % n]] : weft, s = warp ? 1 : 0.94, i = (y * w + x) * 4;
+        var tx = Math.floor(x / px - ox), warp = ((tx + ty) & 3) < 2;
+        var c = warp ? rgb[threads[((tx % n) + n) % n]] : weft, s = warp ? 1 : 0.94, i = (y * w + x) * 4;
         d[i] = c[0] * s; d[i + 1] = c[1] * s; d[i + 2] = c[2] * s; d[i + 3] = 255;
       }
     }
