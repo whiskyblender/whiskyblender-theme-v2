@@ -16,7 +16,6 @@
       "blocks": {
         "announcement_KpKexp": {
           "type": "announcement",
-          "disabled": true,
           "settings": {
             "text": "We close for Christmas 20 December ❄️ Place orders before then or they'll be sent out in the New Year 🎁",
             "link": ""
