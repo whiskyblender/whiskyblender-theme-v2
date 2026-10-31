@@ -59,7 +59,7 @@
         "announcement_KpKexp": {
           "type": "announcement",
           "settings": {
-            "text": "🎄 We close for Christmas 20 December ❄️ Place orders before then or they'll be sent out in the New Year 🎁",
+            "text": "🎄 We close for Christmas 20 December (order before then)",
             "link": ""
           }
         }
