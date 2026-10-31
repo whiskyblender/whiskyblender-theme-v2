@@ -371,6 +371,26 @@ body.wb-tpl-new .size50 .wb-stock { top: 260px; }              /* taller die: 89
    Artwork made for the old inset area is scaled to cover until new files exist. */
 #page.wb-plain.size20 .image { top: 4px; left: -9px; width: 445px; height: 193px; }
 
+/* Clan labels: centred text (Andrew, 31 Oct 2026 — the new stock moves towards
+   centred text, starting with clan). The name, "Created by" and the customer's
+   name are centred on the whole label width (Andrew: not offset by the side
+   strip): label px x 276 on 500ml (552 wide), 213.5 on 200ml (427). The name box is wider than the standard 92/90 now there's no
+   roundel. "Create your own" stays bottom right. Mirrored for the product
+   preview in wb-clan.css / wb-clan-product.js — keep them in step. */
+#page.wb-clan-label #outer { width: 130px; justify-content: center; text-align: center; }
+#page.wb-clan-label #blendName { text-align: center; }
+#page.size50.wb-clan-label #outer { left: 211px; }
+#page.size20.wb-clan-label #outer { left: 148.5px; }
+#page.wb-clan-label .side { text-align: center; }
+#page.size50.wb-clan-label .side { left: 218px; }
+#page.size20.wb-clan-label .side { left: 155.5px; }
+/* "Created by": a 300px box centred on the same line; the 8px left padding
+   balances the letter-spacing after the last letter. !important beats the
+   left the script sets inline. */
+#page.wb-clan-label #sideLabel { width: 300px; box-sizing: border-box; padding-left: 8px; text-align: center; }
+#page.size50.wb-clan-label #sideLabel { left: 126px !important; }
+#page.size20.wb-clan-label #sideLabel { left: 63.5px !important; }
+
 /* What the old stock carried, printed by us (position set by wb-label.js PLAIN) */
 .wb-plain-cyo {
   position: absolute;
