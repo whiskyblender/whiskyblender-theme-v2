@@ -14,14 +14,6 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_KpKexp": {
-          "type": "announcement",
-          "disabled": true,
-          "settings": {
-            "text": "We close for Christmas 20 December ❄️ Place orders before then or they'll be sent out in the New Year 🎁",
-            "link": ""
-          }
-        },
         "announcement_QWA6C9": {
           "type": "announcement",
           "settings": {
@@ -56,15 +48,38 @@
             "text": "🤝 Are you a business? Let's collaborate",
             "link": "https://andrewsofbothwell.com"
           }
+        },
+        "announcement_7K49tr": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
+        "announcement_KpKexp": {
+          "type": "announcement",
+          "settings": {
+            "text": "🎄 Order by 20 December for Christmas",
+            "link": ""
+          }
+        },
+        "announcement_QztrHT": {
+          "type": "announcement",
+          "settings": {
+            "text": "❄️ Orders after Dec 20 will be sent out in 2027",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement_KpKexp",
         "announcement_QWA6C9",
         "announcement-bar-0",
         "announcement_KXyi8M",
         "announcement_HtPheX",
-        "announcement_UJ4bzH"
+        "announcement_UJ4bzH",
+        "announcement_7K49tr",
+        "announcement_KpKexp",
+        "announcement_QztrHT"
       ],
       "settings": {
         "auto_rotate": true,
