@@ -57,6 +57,28 @@
   if is_voucher or product.vendor == 'Printful'
     assign finish = ''
   endif
+
+  # ── Custom blend timing (Nov 2026 mobile review) ──
+  # "Dispatched within 48 hours" was only inside the closed Delivery accordion and
+  # the Christmas cut-off only one of several rotating announcements. Both now sit
+  # under the Add button on the personalised-blend product pages.
+  # `product != blank` keeps the Lab (wb-lab-outro, slug_override) unchanged — it
+  # already has its own "Dispatched in ~48 hours" step.
+  assign is_blend_product = false
+  if slug == 'customblend' and product != blank
+    assign is_blend_product = true
+  endif
+
+  # Christmas line: shown from XMAS_FROM to XMAS_CUTOFF inclusive (MMDD, shop time),
+  # UK visitors only (the 20 Dec cut-off is a UK delivery promise). Keep the date in
+  # step with the "Order by 20 December" announcement in sections/header-group.json.
+  assign XMAS_FROM = 1101
+  assign XMAS_CUTOFF = 1220
+  assign today_mmdd = 'now' | date: '%m%d' | plus: 0
+  assign show_xmas = false
+  if is_blend_product and localization.country.iso_code == 'GB' and today_mmdd >= XMAS_FROM and today_mmdd <= XMAS_CUTOFF
+    assign show_xmas = true
+  endif
 -%}
 
 {%- comment -%} Each line bolds the claim (before the em dash) and leaves the qualifier plain. {%- endcomment -%}
@@ -80,6 +102,8 @@
       <span>
         {%- if wb_no_ship == 'no-ship' and product != blank and product.available == false -%}
           <strong>UK &amp; US delivery only</strong> — we can’t post this to {{ localization.country.name }}
+        {%- elsif localization.country.iso_code == 'GB' and is_blend_product -%}
+          <strong>Free UK delivery</strong> — dispatched within 48 hours
         {%- elsif localization.country.iso_code == 'GB' -%}
           <strong>Free UK delivery</strong> — no minimum spend
         {%- elsif cart.duties_included -%}
@@ -92,6 +116,13 @@
       </span>
     </li>
   {%- endunless -%}
+
+  {%- if show_xmas -%}
+    <li class="wb-trust-strip__item">
+      <span class="wb-trust-strip__icon" aria-hidden="true">🎄</span>
+      <span><strong>Order by 20 December</strong> — in time for Christmas</span>
+    </li>
+  {%- endif -%}
 
   {%- if finish != blank -%}
     <li class="wb-trust-strip__item">

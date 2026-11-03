@@ -131,6 +131,42 @@
       </style>
     {%- endif -%}
 
+    {%- comment -%}
+      Chat bubble on phones (Nov 2026 mobile review). At 390px the 61px launcher
+      sat on top of: the cookie banner's Accept button, the £/litre price and the
+      label fields' character counters on the custom bottles, and the basket total.
+      So on phones (≤749px, the theme's phone breakpoint) it is hidden:
+        • on the personalised custom bottles (template suffix contains "custom")
+          and the basket page — the two places a visitor is mid-purchase;
+        • anywhere while the cookie banner is up (consent comes first, and the
+          launcher was covering Accept).
+      (While the cart drawer is open it is already hidden on every screen size by the
+      `body.overflow-hidden shopify-chat` rule at the end of wb-global.css.)
+      Desktop and every other phone page keep the bubble. Same selector as the
+      Lab rule above: shopify-chat is Shopify Inbox, the one installed.
+      The banner check is "present and not display:none" — Shopify sets an inline
+      display on #shopify-pc__banner; if it ever removes the element instead, the
+      rule simply stops matching and the bubble comes back.
+    {%- endcomment -%}
+    {%- liquid
+      assign wb_hide_chat_page = false
+      if request.page_type == 'cart'
+        assign wb_hide_chat_page = true
+      elsif request.page_type == 'product' and template.suffix contains 'custom'
+        assign wb_hide_chat_page = true
+      endif
+    -%}
+    <style>
+      @media screen and (max-width: 749px) {
+        {%- if wb_hide_chat_page %}
+        shopify-chat { display: none !important; }
+        {%- endif %}
+        html:has(#shopify-pc__banner:not([style*="none"])) shopify-chat {
+          display: none !important;
+        }
+      }
+    </style>
+
     <script>
       /* Self-hosted client-error capture. A JS exception in a customer's browser
          leaves no trace in the server logs, so a silent failure of the blend

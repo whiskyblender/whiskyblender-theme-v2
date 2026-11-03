@@ -118,7 +118,10 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     }
     update();
     input.addEventListener('input', update);
-    input.parentNode.appendChild(counter);
+    /* A field with a helper line (e.g. "Created by" → "sign it like a card") gets
+       the counter on that line, right-aligned, the same as the Lab. */
+    var hint = input.parentNode.querySelector('.wb-field-hint');
+    (hint || input.parentNode).appendChild(counter);
   }
 
   /* When a blend IS present, the recipe reads better below the buy button (just

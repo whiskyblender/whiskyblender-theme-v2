@@ -32,7 +32,8 @@
           "type": "announcement",
           "settings": {
             "text": "🇺🇸 US duties & taxes calculated at checkout.",
-            "link": ""
+            "link": "",
+            "countries": "US"
           }
         },
         "announcement_HtPheX": {
