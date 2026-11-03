@@ -320,7 +320,23 @@
 .wb-bottle-form input:not(.quantity__input):not([type="radio"]):not([type="checkbox"])::placeholder,
 .wb-bottle-form textarea::placeholder {
   color: rgba(0,0,0,0.35);
-  font-weight: 700;
+  /* Regular, not bold (Nov 2026 mobile review): in the same bold as typed text the
+     example ("e.g. Yer da sells Avon…") read as if the field was already filled in. */
+  font-weight: 400;
+}
+
+/* Helper line under a custom-bottle field — same look as the Lab's .wb-field-hint
+   (wb-thelab.css, not loaded on product pages). The character counter moves onto
+   this line (wb-blend-product.js addCounter) and sits on the right. */
+.wb-bottle-form .wb-field-hint {
+  font-size: 13px;
+  color: #767676;
+  margin: 5px 0 0;
+  line-height: 1.4;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
 }
 
 /* Gift-voucher recipient fields (Shopify native recipient form, gift-card products
