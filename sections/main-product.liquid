@@ -1114,11 +1114,56 @@
           return true;
         }
 
+        /* Guide mode (Nov 2026). On the personalised bottles the real button starts
+           disabled — "Fill in label", then "Add your name" — and sits about two phone
+           screens below the top of the page, under the label fields. realButtonUsable()
+           is false in that state, so the bar never appeared on exactly the pages that
+           needed it most. In guide mode the bar shows the real button's own wording and
+           a tap takes the visitor to the next empty label field instead of submitting.
+
+           Recognised narrowly: the button is laid out (not hidden by the blend guard),
+           disabled, carries `wb-button-disabled` — which only the label input guards in
+           wb-single-malt.js / wb-blend-product.js set — and is not sold out. Sold out
+           removes that class (wbShowSoldOut), so a sold-out or "Can't ship" button can
+           never put the bar into guide mode. */
+        var GUIDE_FIELD_IDS = ['label-text', 'created-by'];
+
+        function firstEmptyField() {
+          for (var i = 0; i < GUIDE_FIELD_IDS.length; i++) {
+            var el = document.getElementById(GUIDE_FIELD_IDS[i]);
+            if (el && el.getClientRects().length > 0 && !el.value.trim()) return el;
+          }
+          return null;
+        }
+
+        function labelIncomplete() {
+          if (realButton.getClientRects().length === 0) return false;
+          if (!realButton.hasAttribute('disabled')) return false;
+          if (!realButton.classList.contains('wb-button-disabled')) return false;
+          if (realButton.getAttribute('data-wb-sold-out') === '1') return false;
+          return !!firstEmptyField();
+        }
+
+        function fieldInView(el) {
+          var rect = el.getBoundingClientRect();
+          return rect.top >= 0 && rect.bottom <= window.innerHeight - 80;
+        }
+
+        /* A fixed bottom bar while the keyboard is up either hides behind it (iOS) or
+           rides up on top of it and covers the field being typed in (Android). */
+        function typingInField() {
+          var a = document.activeElement;
+          if (!a) return false;
+          if (a.tagName === 'TEXTAREA' || a.isContentEditable) return true;
+          return a.tagName === 'INPUT' && !/^(checkbox|radio|button|submit|reset|hidden)$/i.test(a.type);
+        }
+
         function syncButtonState() {
           /* product-form.js sets aria-disabled (not disabled) for the duration of the
              add-to-cart request. Mirroring it stops a second tap queueing a second add. */
           var busy = realButton.getAttribute('aria-disabled') === 'true';
           stickyButton.disabled = busy;
+          bar.classList.toggle('wb-sticky-atc--guide', !realButtonUsable() && labelIncomplete());
 
           var realLabel = realButton.querySelector('span');
           if (realLabel && realLabel.textContent.trim()) {
@@ -1224,9 +1269,15 @@
 
         function update() {
           if (!ready) return;
+          var canAct = realButtonUsable();
+          if (!canAct && labelIncomplete()) {
+            /* No point pointing at a field the visitor can already see. */
+            canAct = !fieldInView(firstEmptyField());
+          }
           var show =
             buyBoxOffScreen() &&
-            realButtonUsable() &&
+            canAct &&
+            !typingInField() &&
             !footerInView() &&
             !cookieBannerShowing() &&
             !consentPending();
@@ -1235,7 +1286,16 @@
         }
 
         stickyButton.addEventListener('click', function () {
-          if (!realButtonUsable()) return;
+          if (!realButtonUsable()) {
+            var field = labelIncomplete() && firstEmptyField();
+            if (!field) return;
+            /* Focus inside the tap so the phone keyboard opens; preventScroll so the
+               smooth scroll below decides where the field lands (centre, clear of the
+               header), not the browser's own jump. */
+            field.focus({ preventScroll: true });
+            field.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
           /* Click the real submit button so the browser submits the real form. That
              fires the same submit event product-form.js already intercepts, and the
              formdata listeners on that form still run. */
@@ -1286,6 +1346,21 @@
              while this inline script is parsed. */
           new MutationObserver(syncPrice).observe(priceSource, { childList: true, subtree: true });
         }
+
+        /* Keyboard up/down (typingInField) and label fields filling or emptying
+           (labelIncomplete / fieldInView) — the button's own attribute changes are
+           already covered by the observer above. */
+        document.addEventListener('focusin', update);
+        document.addEventListener('focusout', function () {
+          /* activeElement is still the old field during focusout. */
+          setTimeout(update, 0);
+        });
+        document.addEventListener('input', function (e) {
+          if (e.target && GUIDE_FIELD_IDS.indexOf(e.target.id) !== -1) {
+            syncButtonState();
+            update();
+          }
+        });
 
         /* The consent banner is injected asynchronously, after this script runs. */
         new MutationObserver(update).observe(document.body, { childList: true });
