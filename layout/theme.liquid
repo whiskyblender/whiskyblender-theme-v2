@@ -139,8 +139,9 @@
         • on the personalised custom bottles (template suffix contains "custom")
           and the basket page — the two places a visitor is mid-purchase;
         • anywhere while the cookie banner is up (consent comes first, and the
-          launcher was covering Accept);
-        • anywhere while the cart drawer is open (it covered the drawer's total).
+          launcher was covering Accept).
+      (While the cart drawer is open it is already hidden on every screen size by the
+      `body.overflow-hidden shopify-chat` rule at the end of wb-global.css.)
       Desktop and every other phone page keep the bubble. Same selector as the
       Lab rule above: shopify-chat is Shopify Inbox, the one installed.
       The banner check is "present and not display:none" — Shopify sets an inline
@@ -160,8 +161,7 @@
         {%- if wb_hide_chat_page %}
         shopify-chat { display: none !important; }
         {%- endif %}
-        html:has(#shopify-pc__banner:not([style*="none"])) shopify-chat,
-        html:has(cart-drawer.active) shopify-chat {
+        html:has(#shopify-pc__banner:not([style*="none"])) shopify-chat {
           display: none !important;
         }
       }
