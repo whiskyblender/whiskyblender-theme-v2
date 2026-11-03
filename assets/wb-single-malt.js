@@ -645,6 +645,79 @@
       renderPreviewLabel();
       scalePreview();
       window.addEventListener('resize', scalePreview);
+      initPeek();
+    }
+
+    /* ── Label peek (phones, custom blend) ─────────────────────────────────
+       Nov 2026 mobile review: on a phone the live preview sits in the gallery,
+       ~1,000px above the label fields, so with the keyboard up the visitor
+       types their label blind. The peek is a small live copy of the preview
+       placed directly above the "Label text" field, in normal flow (no fixed
+       positioning to fight the iOS keyboard), so it stays on screen while they
+       type. Tapping it scrolls up to the full-size preview.
+
+       It is a CLONE of .wbp-preview-crop, refreshed whenever the real preview
+       changes (MutationObserver), so it can never drift from what the full
+       preview shows — no second renderer. Scoped to the custom blend bottles;
+       the gift/malt templates keep their current behaviour. */
+    var peekEl = null, peekInner = null, peekQueued = false;
+    var PEEK_SCALE = 0.5;
+
+    function refreshPeek() {
+      peekQueued = false;
+      if (!peekEl || !previewCrop) return;
+      var gallery = document.querySelector('media-gallery');
+      var w = (gallery && gallery.getBoundingClientRect().width) || previewCrop.offsetWidth;
+      if (!w) return;
+      var clone = previewCrop.cloneNode(true);
+      clone.style.width = w + 'px';
+      clone.style.boxShadow = 'none';
+      peekInner.innerHTML = '';
+      peekInner.appendChild(clone);
+      peekInner.style.width = w + 'px';
+      peekInner.style.transform = 'scale(' + PEEK_SCALE + ')';
+      /* aspect-ratio is inline on the crop, so its height is known once laid out */
+      var h = clone.getBoundingClientRect().height / PEEK_SCALE || w * 548 / 794;
+      peekEl.querySelector('.wbp-peek__frame').style.height = Math.round(h * PEEK_SCALE) + 'px';
+      peekEl.querySelector('.wbp-peek__frame').style.width = Math.round(w * PEEK_SCALE) + 'px';
+    }
+
+    function queuePeek() {
+      if (peekQueued) return;
+      peekQueued = true;
+      requestAnimationFrame(refreshPeek);
+    }
+
+    function initPeek() {
+      if (peekEl || productSlug !== 'customblend' || !labelInput || !previewContainer) return;
+      var field = labelInput.closest('.wb-bottle-form');
+      if (!field) return;
+
+      peekEl = document.createElement('button');
+      peekEl.type = 'button';
+      peekEl.className = 'wbp-peek';
+      peekEl.setAttribute('aria-label', 'Your label so far — tap to see it full size');
+      if (previewWrap.classList.contains('wbp-customblend')) peekEl.classList.add('wbp-customblend');
+      if (previewWrap.getAttribute('data-wbp-tpl')) peekEl.setAttribute('data-wbp-tpl', previewWrap.getAttribute('data-wbp-tpl'));
+      peekEl.innerHTML =
+        '<span class="wbp-peek__frame"><span class="wbp-peek__inner"></span></span>' +
+        '<span class="wbp-peek__caption" aria-hidden="true"><strong>Your label</strong><br>Tap to see it bigger</span>';
+      peekInner = peekEl.querySelector('.wbp-peek__inner');
+      field.insertAdjacentElement('beforebegin', peekEl);
+
+      peekEl.addEventListener('click', function () {
+        if (previewDismissed && openBtn) openBtn.click();
+        var gallery = document.querySelector('media-gallery') || previewWrap;
+        gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      new MutationObserver(queuePeek).observe(previewContainer, {
+        childList: true, subtree: true, characterData: true, attributes: true,
+      });
+      window.addEventListener('resize', queuePeek);
+      /* prevResizeText runs after fonts load and shrinks the name — catch that too */
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(queuePeek);
+      refreshPeek();
     }
 
     /* ── Input + variant listeners ──────────────────────────────────────── */

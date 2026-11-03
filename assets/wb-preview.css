@@ -394,3 +394,54 @@
 .wbp-page.wb-christmas .wbp-side-name {
   color: #63004f !important;
 }
+
+/* ── Label peek (phones) ───────────────────────────────────────────────────
+   Small live copy of the preview placed above the "Label text" field so the
+   label stays visible while typing with the keyboard up. Built in
+   wb-single-malt.js (initPeek) as a clone of .wbp-preview-crop; size set
+   inline from the gallery width × 0.5. Phones only — on desktop the gallery
+   preview sits beside the fields already. */
+.wbp-peek {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .wbp-peek {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    margin: 0 0 18px;
+    padding: 0;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+  }
+
+  .wbp-peek__frame {
+    flex: 0 0 auto;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #ccd3db;
+  }
+
+  .wbp-peek__inner {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+
+  .wbp-peek__caption {
+    font-size: 13px;
+    line-height: 1.4;
+    color: #767676;
+  }
+}
