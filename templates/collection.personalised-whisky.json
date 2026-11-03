@@ -275,6 +275,13 @@
             "question": "Can I choose the date on the label?",
             "answer": "<p>We label truthfully, so the bottling date is the day we bottle it. If you need a particular date, email us after ordering and we’ll hold your order and bottle it on the day.</p>"
           }
+        },
+        "faq_7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it whisky or whiskey?",
+            "answer": "<p>Same drink, different spelling. Scotch is always whisky, no e, so that’s what goes on our labels. Ireland and the US mostly write whiskey. So if you were looking for a personalised whiskey, you’re in the right place.</p>"
+          }
         }
       },
       "block_order": [
@@ -283,7 +290,8 @@
         "faq_3",
         "faq_4",
         "faq_5",
-        "faq_6"
+        "faq_6",
+        "faq_7"
       ],
       "settings": {
         "heading": "Questions"

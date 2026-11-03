@@ -72,7 +72,7 @@
       "name": "CTA - Your own brand",
       "settings": {
         "heading": "Your own brand",
-        "description": "We've worked with bars, writers, charities and other businesses to create limited bottlings both brand new and complimenting existing brands.",
+        "description": "We've worked with bars, writers, charities and other businesses to create <a href=\"/pages/collaborate\">own label whisky</a>: limited bottlings both brand new and complementing existing brands.",
         "image": "shopify://shop_images/wb-yerownbrand.png",
         "image_class": "wb-yourownbrand",
         "primary_button_text": "Get in touch",
