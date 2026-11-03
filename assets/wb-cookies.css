@@ -131,12 +131,23 @@
         min-width: 100vw !important;
     }
 
+    /* Tighter than desktop (Nov 2026 mobile review): the banner measured 265px of an
+       844px phone screen — a third of the first view on every first visit. */
     .shopify-pc__banner__wrapper {
         flex-wrap: wrap !important;
-        padding: 20px !important;
+        gap: 12px !important;
+        padding: 14px 16px calc(14px + env(safe-area-inset-bottom)) !important;
     }
 
-    .shopify-pc__banner__btns {
+    /* Shopify now adds .shopify-pc__banner__btns-granular to this row, and its own
+       stylesheet stacks the buttons in a column. Nothing here set flex-direction, so
+       the one-row layout below never applied: three full-width buttons stacked
+       (~130px of the banner). Forcing the row puts Accept, Decline and Manage side by
+       side at equal size — Decline stays exactly as prominent as Accept, which UK
+       consent guidance expects. */
+    .shopify-pc__banner__btns,
+    .shopify-pc__banner__btns.shopify-pc__banner__btns-granular {
+        flex-direction: row !important;
         flex-wrap: nowrap !important;
         width: 100% !important;
     }
