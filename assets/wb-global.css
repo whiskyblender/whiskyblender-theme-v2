@@ -1178,3 +1178,20 @@ shopify-forms-embed {
 body.overflow-hidden shopify-chat {
   display: none !important;
 }
+
+/* Basket: the customer's label words as the headline of a personalised line
+   (snippets/wb-cart-label.liquid, drawer + cart page). Nov 2026 mobile review. */
+.wb-cart-label {
+  margin: 8px 0 4px;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #111111;
+}
+
+.wb-cart-label__text {
+  font-weight: 700;
+}
+
+.wb-cart-label__author {
+  color: #555555;
+}

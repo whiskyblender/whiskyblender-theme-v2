@@ -1,0 +1,33 @@
+{%- comment -%}
+  wb-cart-label.liquid — the customer's label words as the headline of a basket line
+  (drawer + cart page), Nov 2026 mobile review.
+
+  The basket photo is the product's stock "YOUR TEXT HERE" mock, and the words the
+  customer typed were two small grey "Label text:" / "Created by:" rows among the
+  options — so the basket never said back the one thing they had personalised. This
+  prints them first, larger:   "Happy 50th Dad" — Love from Jo
+
+  Display only: nothing is added to the cart, and the properties that reach the order
+  are unchanged. The caller skips the "Label text" and "Created by" rows in its
+  property loop when this renders (see `wb_label_shown` below), so the words aren't
+  shown twice.
+
+  Usage, inside the item details, before the <dl>:
+    {%- render 'wb-cart-label', item: item -%}
+  and in the property loop:
+    if property.first == 'Label text' or property.first == 'Created by' → skip
+    when item.properties['Label text'] is not blank.
+{%- endcomment -%}
+{%- liquid
+  assign wb_cl_text = item.properties['Label text'] | strip
+  assign wb_cl_author = item.properties['Created by'] | strip
+-%}
+{%- if wb_cl_text != blank -%}
+  <p class="wb-cart-label">
+    <span class="visually-hidden">Label text: </span>
+    <span class="wb-cart-label__text">&ldquo;{{ wb_cl_text | escape }}&rdquo;</span>
+    {%- if wb_cl_author != blank -%}
+      <span class="wb-cart-label__author"> &mdash; <span class="visually-hidden">created by </span>{{ wb_cl_author | escape }}</span>
+    {%- endif -%}
+  </p>
+{%- endif -%}
