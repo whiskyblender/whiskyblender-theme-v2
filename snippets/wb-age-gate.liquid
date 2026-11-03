@@ -277,7 +277,14 @@ html.wb-age-gate-open iframe[src*="chat."] {
   <div class="wb-age-gate__inner">
     <div class="wb-age-gate__content" id="wb-age-gate-content">
       <p class="wb-age-gate__question" id="wb-age-gate-heading">Are you of legal drinking age in your country?</p>
-      <div class="wb-age-gate__buttons">
+      {%- comment -%}
+        data-wb-track (Nov 2026): wb-track.js logs a click with area "age_gate" and label
+        "Aye (yes)" / "Naw (no)", so the site event log shows how many first-time visitors
+        get past the gate and how many say no. Visitors who leave without tapping either
+        are not recorded here (the event log has no "gate shown" event) — compare
+        age_gate taps with first-page views (entry) for a rough drop-off.
+      {%- endcomment -%}
+      <div class="wb-age-gate__buttons" data-wb-track="age_gate">
         <button class="wb-age-gate__btn wb-age-gate__btn--yes" id="wb-age-yes" type="button">
           <span class="wb-age-gate__btn-main">Aye</span>
           <span class="wb-age-gate__btn-sub">(yes)</span>
