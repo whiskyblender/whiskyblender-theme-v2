@@ -49,13 +49,6 @@
             "link": "https://andrewsofbothwell.com"
           }
         },
-        "announcement_7K49tr": {
-          "type": "announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": ""
-          }
-        },
         "announcement_KpKexp": {
           "type": "announcement",
           "settings": {
@@ -77,7 +70,6 @@
         "announcement_KXyi8M",
         "announcement_HtPheX",
         "announcement_UJ4bzH",
-        "announcement_7K49tr",
         "announcement_KpKexp",
         "announcement_QztrHT"
       ],
