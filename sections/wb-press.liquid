@@ -171,6 +171,29 @@
     font-size: 14px;
     opacity: 0.75;
   }
+  /* Image assets: thumbnail grid (2 across on phones, 4 on desktop). */
+  #wb-press ul.wb-press-assets:has(.wb-press-asset--image) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 16px;
+    max-width: 100%;
+  }
+  @media screen and (min-width: 750px) {
+    #wb-press ul.wb-press-assets:has(.wb-press-asset--image) { grid-template-columns: repeat(4, 1fr); }
+  }
+  #wb-press ul.wb-press-assets li.wb-press-asset--image {
+    padding: 0;
+    border-bottom: 0;
+  }
+  #wb-press .wb-press-asset--image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    margin-bottom: 8px;
+  }
   #wb-press ul.wb-press-coverage {
     display: flex;
     flex-wrap: wrap;
@@ -367,6 +390,29 @@
           </p>
           <ul class="wb-press-assets">
             {%- for block in asset_blocks -%}
+              {%- if block.settings.image != blank -%}
+                {%- comment -%}
+                  Image assets render as a thumbnail grid. The link goes to the original upload
+                  (image_url with no size), so editors get the full-resolution file.
+                {%- endcomment -%}
+                <li class="wb-press-asset--image" {{ block.shopify_attributes }}>
+                  <a href="{{ block.settings.image | image_url }}" target="_blank" rel="noopener">
+                    <img
+                      src="{{ block.settings.image | image_url: width: 600 }}"
+                      alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                      width="600"
+                      height="{{ 600 | divided_by: block.settings.image.aspect_ratio | round }}"
+                      loading="lazy"
+                    >
+                    {{ block.settings.title }}
+                  </a>
+                  <span>
+                    {%- if block.settings.note != blank -%}{{ block.settings.note }} · {% endif -%}
+                    {{- block.settings.image.width }} × {{ block.settings.image.height }}px
+                  </span>
+                </li>
+                {%- continue -%}
+              {%- endif -%}
               <li {{ block.shopify_attributes }}>
                 {%- if block.settings.url != blank -%}
                   <a href="{{ block.settings.url }}" target="_blank" rel="noopener">{{ block.settings.title }}</a>
@@ -544,8 +590,9 @@
       "type": "asset",
       "name": "Image / asset link",
       "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Shows a thumbnail that links to the full-size original. Leave empty to show a plain text link instead." },
         { "type": "text", "id": "title", "label": "Title" },
-        { "type": "url", "id": "url", "label": "Download link" },
+        { "type": "url", "id": "url", "label": "Download link", "info": "Used only when no image is set." },
         { "type": "text", "id": "note", "label": "Note" }
       ]
     },
