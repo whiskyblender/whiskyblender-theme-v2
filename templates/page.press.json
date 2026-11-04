@@ -194,6 +194,114 @@
             "value": "Andrews of Bothwell Ltd, company no. SC407498. Trade and collaborations: andrewsofbothwell.com"
           }
         },
+        "asset_shelf": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-personalised-500ml-proud-of-my-shelf.jpg",
+            "title": "A personalised 500ml",
+            "url": "",
+            "note": "Label reads \"Proud of my shelf\""
+          }
+        },
+        "asset_shutup": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-personalised-500ml-thisll-shut-ye-up.jpg",
+            "title": "A personalised 500ml",
+            "url": "",
+            "note": "Label reads \"This'll shut ye up!\""
+          }
+        },
+        "asset_jingle": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-personalised-500ml-christmas.jpg",
+            "title": "Christmas: a 500ml in the tree",
+            "url": "",
+            "note": "Label reads \"Jingle Baws\""
+          }
+        },
+        "asset_walkies": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-personalised-200ml-better-than-walkies.jpg",
+            "title": "A personalised 200ml, with the dog",
+            "url": "",
+            "note": "Label reads \"Better than walkies\""
+          }
+        },
+        "asset_sound": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-personalised-200ml-thomas.jpg",
+            "title": "Thomas, with his personalised 200ml",
+            "url": "",
+            "note": "Label reads \"Sound as F*ck!\""
+          }
+        },
+        "asset_doctors": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-doctors-special.png",
+            "title": "Doctors' Special",
+            "url": "",
+            "note": "500ml with a \"Prescribed for\" label"
+          }
+        },
+        "asset_minis": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-personalised-miniatures.jpg",
+            "title": "Personalised miniatures",
+            "url": "",
+            "note": "Twelve 50ml bottles, used as wedding favours"
+          }
+        },
+        "asset_mini_hand": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-personalised-miniature.jpg",
+            "title": "A personalised miniature",
+            "url": "",
+            "note": "50ml"
+          }
+        },
+        "asset_tasting": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-drew-at-a-tasting.jpg",
+            "title": "Drew, at a tasting",
+            "url": "",
+            "note": ""
+          }
+        },
+        "asset_founders_jump": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-andy-and-drew-founders-jumping.jpg",
+            "title": "Andy and Drew, the founders",
+            "url": "",
+            "note": ""
+          }
+        },
+        "asset_founders_pub": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-andy-and-drew-founders-pub.jpg",
+            "title": "Andy and Drew, the founders",
+            "url": "",
+            "note": ""
+          }
+        },
+        "asset_founders_shutter": {
+          "type": "asset",
+          "settings": {
+            "image": "shopify://shop_images/whisky-blender-andy-and-drew-founders.jpg",
+            "title": "Andy and Drew, the founders",
+            "url": "",
+            "note": ""
+          }
+        },
         "coverage_wired": {
           "type": "coverage",
           "settings": {
@@ -326,6 +434,18 @@
         "fact_bottled",
         "fact_shipping",
         "fact_company",
+        "asset_shelf",
+        "asset_shutup",
+        "asset_jingle",
+        "asset_walkies",
+        "asset_sound",
+        "asset_doctors",
+        "asset_minis",
+        "asset_mini_hand",
+        "asset_tasting",
+        "asset_founders_jump",
+        "asset_founders_pub",
+        "asset_founders_shutter",
         "coverage_wired",
         "coverage_uncrate",
         "coverage_martha",
