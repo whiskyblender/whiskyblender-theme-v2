@@ -194,6 +194,7 @@
     display: block;
     margin-bottom: 8px;
   }
+  #wb-press .wb-press-asset-caption { margin: 0; }
   #wb-press ul.wb-press-coverage {
     display: flex;
     flex-wrap: wrap;
@@ -382,12 +383,9 @@
       <div class="wb-container">
         <div class="wb-padding">
           <h2 class="wb-small-heading">{{ section.settings.assets_heading | default: 'Images' }}</h2>
-          <p>
-            {{
-              section.settings.assets_note
-              | default: 'Hi-res, unwatermarked, and free to use editorially with a credit to Whisky Blender.'
-            }}
-          </p>
+          {%- if section.settings.assets_note != blank -%}
+            <p>{{ section.settings.assets_note }}</p>
+          {%- endif -%}
           <ul class="wb-press-assets">
             {%- for block in asset_blocks -%}
               {%- if block.settings.image != blank -%}
@@ -404,8 +402,10 @@
                       height="{{ 600 | divided_by: block.settings.image.aspect_ratio | round }}"
                       loading="lazy"
                     >
-                    {{ block.settings.title }}
                   </a>
+                  {%- if block.settings.title != blank -%}
+                    <p class="wb-press-asset-caption">{{ block.settings.title }}</p>
+                  {%- endif -%}
                   <span>
                     {%- if block.settings.note != blank -%}{{ block.settings.note }} · {% endif -%}
                     {{- block.settings.image.width }} × {{ block.settings.image.height }}px
