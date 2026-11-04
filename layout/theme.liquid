@@ -795,9 +795,22 @@
             "@type": "Organization",
             "name": {{ shop.name | json }},
             "url": {{ request.origin | json }}
+            {%- comment -%}
+              Logo for Google's brand panel. The header logo is a CSS background SVG, so
+              settings.logo is blank; fall back to the square crest used as the favicon
+              (600x600 PNG, which suits Google's square logo slot better than the wordmark).
+              sameAs mirrors the social links in sections/footer.liquid; keep them in step.
+            {%- endcomment -%}
             {%- if settings.logo != blank -%}
             ,"logo": {{ settings.logo | image_url: width: 500 | prepend: 'https:' | json }}
+            {%- elsif settings.favicon != blank -%}
+            ,"logo": {{ settings.favicon | image_url: width: 600 | prepend: 'https:' | json }}
             {%- endif -%}
+            ,"sameAs": [
+              "https://www.instagram.com/whiskyblender",
+              "https://www.facebook.com/whiskyblender",
+              "https://twitter.com/whisky_blender"
+            ]
           },
           {
             "@type": "WebSite",
