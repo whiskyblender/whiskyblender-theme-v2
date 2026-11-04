@@ -30,7 +30,7 @@
           "type": "faq_item",
           "settings": {
             "question": "Can I create a brand for my business?",
-            "answer": "<p>Yes! Contact Andy directly via email andy@whiskyblender.com if you are interested in creating a whisky (or rum) brand for resale or gifting.</p><p>We can offer a fully bespoke service including spirit sourcing, label design, packaging, and bottling. Without minimum orders.</p>"
+            "answer": "<p>Yes! Take a look at <a href=\"/pages/collaborate\">own label whisky</a>, or contact Andy directly via email andy@whiskyblender.com if you are interested in creating a whisky (or rum) brand for resale or gifting.</p><p>We can offer a fully bespoke service including spirit sourcing, label design, packaging, and bottling. Without minimum orders.</p>"
           }
         },
         "faq_shipping": {
@@ -58,7 +58,7 @@
           "type": "faq_item",
           "settings": {
             "question": "What if I don't like my whisky?",
-            "answer": "<p>Oh no! We're really sorry if you decide you don't like your whisky but if you send us an email with your tasting note as well as your bottle number and an example of a mainstream whisky you like, we can try and guide you towards something more palatable next time!</p>"
+            "answer": "<p>Give it a week or two first: freshly blended whisky often goes through <a href=\"/blogs/on-the-scotch/bottle-shock\">bottle shock</a> and settles down with time.</p><p>Oh no! We're really sorry if you decide you don't like your whisky but if you send us an email with your tasting note as well as your bottle number and an example of a mainstream whisky you like, we can try and guide you towards something more palatable next time!</p>"
           }
         },
         "faq_date": {
