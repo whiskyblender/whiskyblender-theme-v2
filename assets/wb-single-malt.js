@@ -627,6 +627,9 @@
       if (isMini) {
         previewWrap.classList.add('wbp-mini');
         previewCrop.style.aspectRatio = '';
+        /* Inline, so the phone peek's clone carries it too: nothing may sit
+           behind the label's rounded corners */
+        previewContainer.style.background = 'none';
         previewContainer.innerHTML = prevMiniLabelHtml();
       } else {
       previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + '?v=' + av + ')';
@@ -786,6 +789,10 @@
       peekEl.className = 'wbp-peek';
       peekEl.setAttribute('aria-label', 'Your label so far — tap to see it full size');
       if (previewWrap.classList.contains('wbp-customblend')) peekEl.classList.add('wbp-customblend');
+      /* Miniature: without wbp-mini the clone's .wbp-scale-wrap kept the default
+         bottle-mock background, which showed as white square corners behind
+         the rounded label */
+      if (previewWrap.classList.contains('wbp-mini')) peekEl.classList.add('wbp-mini');
       if (previewWrap.getAttribute('data-wbp-tpl')) peekEl.setAttribute('data-wbp-tpl', previewWrap.getAttribute('data-wbp-tpl'));
       peekEl.innerHTML =
         '<span class="wbp-peek__frame"><span class="wbp-peek__inner"></span></span>' +

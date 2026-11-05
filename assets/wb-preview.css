@@ -460,7 +460,8 @@
    printed square on all four sides, with slightly rounded corners. The cut
    frame shows the printed label minus --wbp-mini-trim per side (~1mm on the
    66mm label; unmeasured — keep in step with MINI_TRIM in wb-single-malt.js),
-   with ~3mm corners (250 / 66 * 3 ≈ 11px; unmeasured). Preview only — the
+   with ~2mm corners (250 / 66 * 2 ≈ 8px; unmeasured). The radius sits inside
+   the scaled .wbp-scale-wrap, so it scales with the preview. Preview only — the
    generator prints the full square and the die does the rest. */
 .wbp-mini-cut {
   --wbp-mini-trim: 4px;
@@ -468,7 +469,7 @@
   width: calc(250px - 2 * var(--wbp-mini-trim));
   height: calc(250px - 2 * var(--wbp-mini-trim));
   overflow: hidden;
-  border-radius: 11px;
+  border-radius: 8px;
 }
 .wbp-mini-cut > .wbp-mini-label {
   position: absolute;
