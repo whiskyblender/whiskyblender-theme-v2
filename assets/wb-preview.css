@@ -445,3 +445,57 @@
     color: #767676;
   }
 }
+
+/* ── Miniature (50ml custom blend) ─────────────────────────────────────────
+   Not an overprint: the generator prints the whole label on blank stock, so
+   the preview is that one label, flat, on the pane's grey (#ccd3db on the
+   wrap), scaled by JS to 80% of the pane height. These rules mirror the
+   .wb-mini-* rules in wb-label.css (the generator) — change both together.
+   line-height/letter-spacing are reset because the generator page has no
+   Dawn body styles. */
+#wb-label-preview-wrap.wbp-mini .wbp-preview-crop { box-shadow: none; }
+.wbp-mini .wbp-scale-wrap { margin-right: 0; background: none; }
+
+.wbp-mini-label {
+  width: 250px; height: 250px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  background: #fafafa;
+  font-family: 'Raleway', sans-serif;
+  line-height: normal;
+  letter-spacing: normal;
+  text-shadow: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wbp-mini-row { display: flex; flex: 1; overflow: hidden; }
+
+.wbp-mini-strip {
+  width: 20px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.wbp-mini-strip--left  { padding-left: 14px; }
+.wbp-mini-strip--right { flex-direction: column; justify-content: center; gap: 42px; padding-right: 14px; }
+
+.wbp-mini-strip span { writing-mode: sideways-lr; font-size: 10px; font-weight: 600; letter-spacing: normal; white-space: nowrap; color: #666; }
+.wbp-mini-strip--left span { transform: rotate(180deg); }
+
+.wbp-mini-centre { flex: 1; display: flex; align-items: center; justify-content: center; padding: 8px 6px 0 6px; }
+
+.wbp-mini-frame {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; gap: 3px;
+  position: relative;
+  overflow: hidden;
+  background: url('miniature-border.svg') top center / cover no-repeat;
+}
+
+.wbp-mini-name-outer { width: 160px; height: 120px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.wbp-mini-name   { font-family: 'trimPosterCompressed', 'Roboto Condensed', sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; color: #111; padding: 12px; }
+.wbp-mini-by     { font-size: 10px; font-weight: 600; letter-spacing: normal; color: #555; }
+.wbp-mini-author { font-size: 14px; font-weight: 600; color: #111; line-height: 1.2; padding: 0 12px; }
+
+.wbp-mini-bar { height: 44px; flex-shrink: 0; background: #111; color: #ffc550; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-align: center; padding-bottom: 4px; }
