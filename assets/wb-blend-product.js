@@ -184,7 +184,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     if (chooserActive) {
       recipeEl.innerHTML =
         '<ul class="wb-recipe">' + rows + '</ul>' +
-        '<p class="wb-blend-ref"><a href="' + esc(changeHref) + '">Or blend your own in the Lab, then come straight back here to order \u2192</a></p>';
+        '<p class="wb-blend-ref wb-own-note">Or <a href="' + esc(changeHref) + '">blend your own in the Lab</a>. We\u2019ll bring you back here to order.</p>';
       show(recipeEl);
       return;
     }

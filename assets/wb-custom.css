@@ -212,3 +212,22 @@
   transition: border 0.1s ease;
 }
 .wb-whisky-choice a.wb-whisky-own:hover { border-color: rgb(var(--color-foreground)); }
+/* The note under the recipe bars: a quiet caption, only the Lab words linked,
+   plain thin underline (not the site's bold wavy link style) */
+.wb-whisky-choice .wb-own-note {
+  margin: 1rem 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(var(--color-foreground), 0.7);
+}
+.wb-whisky-choice .wb-own-note a {
+  color: rgb(var(--color-foreground));
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  background: none;
+  border: 0;
+}
+.wb-whisky-choice .wb-own-note a:hover { text-decoration-thickness: 2px; }
