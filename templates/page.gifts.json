@@ -160,10 +160,10 @@
         }
       },
       "block_order": [
+        "occasion_christmas",
         "occasion_weddings",
         "occasion_birthdays",
         "occasion_anniversaries",
-        "occasion_christmas",
         "occasion_thankyous",
         "occasion_celebrations"
       ],
