@@ -184,7 +184,7 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
     if (chooserActive) {
       recipeEl.innerHTML =
         '<ul class="wb-recipe">' + rows + '</ul>' +
-        '<p class="wb-blend-ref"><a href="' + esc(changeHref) + '">Or create your own in the Lab \u2192</a></p>';
+        '<p class="wb-blend-ref"><a href="' + esc(changeHref) + '">Or blend your own in the Lab, then come straight back here to order \u2192</a></p>';
       show(recipeEl);
       return;
     }
@@ -506,6 +506,11 @@ var confetti={maxCount:150,speed:2,frameInterval:15,alpha:1,gradient:!1,start:nu
           (p.slug === blend.slug ? ' checked' : '') + '>' +
           '\n    <label for="wb-whisky-' + i + '" data-wb-track="whisky_choice">\n      ' + esc(p.name) + '</label>';
       }).join('\n') +
+      /* "Your own" (5 Nov 2026): the Lab as a fifth choice, level with the
+         presets, for visitors who already know what they want. A link, not a
+         radio: it leaves for a fresh Lab and ?return= brings the saved blend
+         back here. Hero A/B: B's product-page-to-Lab visitors convert best. */
+      (labUrl ? '\n    <a class="wb-whisky-own" href="' + esc(labUrl + '?' + returnParam()) + '">Your own \u2192</a>' : '') +
       '\n</span>';
     anchor.parentNode.insertBefore(fs, anchor);
     fs.appendChild(recipeEl);

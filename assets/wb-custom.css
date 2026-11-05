@@ -195,3 +195,20 @@
    Lab link sit under the preset pills */
 .wb-whisky-choice .wb-recipe { margin-top: 1.2rem; }
 .wb-whisky-choice .wb-blend-ref { margin-top: 0.8rem; }
+/* "Your own" pill: same size as the preset pills (span.wb-radio label in
+   wb-products.css), dashed because it leaves for the Lab rather than choosing */
+.wb-whisky-choice a.wb-whisky-own {
+  display: inline-block;
+  margin: 4px 0;
+  padding: 10px 20px;
+  border: var(--variant-pills-border-width) dashed rgba(var(--color-foreground), var(--variant-pills-border-opacity));
+  border-radius: var(--variant-pills-radius);
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: border 0.1s ease;
+}
+.wb-whisky-choice a.wb-whisky-own:hover { border-color: rgb(var(--color-foreground)); }
