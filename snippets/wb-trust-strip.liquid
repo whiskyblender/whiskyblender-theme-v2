@@ -99,6 +99,8 @@
         "Can't ship to Italy" button. Guarded on product so the Lab (no product) is unaffected.
       {%- endcomment -%}
       {%- capture wb_no_ship -%}{%- render 'wb-sold-out-text', format: 'flag' -%}{%- endcapture -%}
+      {%- comment -%} US visitors: free-delivery nudge (wb-us-delivery). Blank elsewhere. {%- endcomment -%}
+      {%- capture wb_us_line -%}{%- render 'wb-us-delivery', context: 'product', product: product -%}{%- endcapture -%}
       <span>
         {%- if wb_no_ship == 'no-ship' and product != blank and product.available == false -%}
           <strong>UK &amp; US delivery only</strong> — we can’t post this to {{ localization.country.name }}
@@ -106,6 +108,8 @@
           <strong>Free UK delivery</strong> — dispatched within 48 hours
         {%- elsif localization.country.iso_code == 'GB' -%}
           <strong>Free UK delivery</strong> — no minimum spend
+        {%- elsif wb_us_line != blank -%}
+          {{ wb_us_line }}
         {%- elsif cart.duties_included -%}
           <strong>Duties &amp; taxes included</strong> — no surprises at the door
         {%- elsif shop.shipping_policy.body != blank -%}

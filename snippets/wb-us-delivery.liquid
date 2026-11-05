@@ -1,0 +1,74 @@
+{%- comment -%}
+  US delivery nudge (5 Nov 2026) — nudges US visitors towards free delivery.
+
+  How US delivery is charged (General profile, US zone, set in Shopify admin):
+    • £25 flat per order (US customers see $35), however many bottles
+    • free when the whisky in the order reaches £150
+  Shopify sets that threshold in pounds, so the dollar line moves with the exchange
+  rate: about $202 at 1.35 (Nov 2026). WB_FREE_CENTS below is rounded UP to $210 so
+  everything we say stays true up to a rate of 1.40. If the £150 threshold changes
+  in admin, change WB_FREE_CENTS here (threshold × today's rate, rounded up with
+  ~4% headroom).
+
+  Only Printful merch is exempt (its own profile ships free everywhere), so it's
+  left out of the cart sum. The gift voucher needs no shipping.
+
+  Only prints for a US visitor buying in USD — the $ figure is hard-coded. Outputs
+  nothing otherwise, so callers keep their existing wording.
+
+  Accepts:
+    context — 'product' (wb-trust-strip delivery line; needs `product`)
+              'cart'    (cart drawer + cart page tax note)
+
+  Not verified: whether a discount code entered at checkout can take an order back
+  under £150. The cart copy only ever reflects the cart total.
+{%- endcomment -%}
+{%- liquid
+  assign WB_FREE_CENTS = 21000
+  assign WB_FREE_TEXT = '$210'
+
+  assign wb_us = false
+  if localization.country.iso_code == 'US' and cart.currency.iso_code == 'USD'
+    assign wb_us = true
+  endif
+
+  if wb_us and context == 'product' and product != blank and product.vendor != 'Printful'
+    # price_min, not the selected variant: the line is server-rendered and doesn't
+    # update on variant change, so it must be true for every variant.
+    assign wb_two = product.price_min | times: 2
+    if product.price_min >= WB_FREE_CENTS
+      echo '<strong>Free US delivery</strong> — duties &amp; taxes included'
+    elsif wb_two >= WB_FREE_CENTS
+      echo '<strong>Order two and delivery’s free</strong> — one for them, one for you'
+    else
+      echo '<strong>Free US delivery over ' | append: WB_FREE_TEXT | append: '</strong> — duties &amp; taxes included'
+    endif
+  endif
+
+  if wb_us and context == 'cart'
+    assign wb_sub = 0
+    assign wb_qty = 0
+    for item in cart.items
+      if item.requires_shipping and item.vendor != 'Printful'
+        assign wb_sub = wb_sub | plus: item.final_line_price
+        assign wb_qty = wb_qty | plus: item.quantity
+      endif
+    endfor
+
+    if wb_qty > 0
+      assign wb_two = wb_sub | times: 2
+      if wb_sub >= WB_FREE_CENTS
+        echo '<strong>Your order ships free to the US.</strong> Duties &amp; taxes included.'
+      elsif wb_qty == 1 and wb_two >= WB_FREE_CENTS
+        echo '<strong>Add a second bottle and US delivery is free.</strong> Duties &amp; taxes included.'
+      else
+        # Round the gap UP to whole dollars, so "$38 away" is never a cent short.
+        assign wb_gap = WB_FREE_CENTS | minus: wb_sub | divided_by: 100.0 | ceil | times: 100
+        capture wb_gap_text
+          render 'wb-money', amount: wb_gap, code: false
+        endcapture
+        echo '<strong>You’re ' | append: wb_gap_text | append: ' away from free US delivery.</strong> Duties &amp; taxes included.'
+      endif
+    endif
+  endif
+-%}
