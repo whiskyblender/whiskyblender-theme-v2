@@ -456,6 +456,27 @@
 #wb-label-preview-wrap.wbp-mini .wbp-preview-crop { box-shadow: none; }
 .wbp-mini .wbp-scale-wrap { margin-right: 0; background: none; }
 
+/* The die cut (Andrew, 5 Nov 2026): the stickers are cut a sliver inside the
+   printed square on all four sides, with slightly rounded corners. The cut
+   frame shows the printed label minus --wbp-mini-trim per side (~1mm on the
+   66mm label; unmeasured — keep in step with MINI_TRIM in wb-single-malt.js),
+   with ~2mm corners (250 / 66 * 2 ≈ 8px; unmeasured). The radius sits inside
+   the scaled .wbp-scale-wrap, so it scales with the preview. Preview only — the
+   generator prints the full square and the die does the rest. */
+.wbp-mini-cut {
+  --wbp-mini-trim: 4px;
+  position: relative;
+  width: calc(250px - 2 * var(--wbp-mini-trim));
+  height: calc(250px - 2 * var(--wbp-mini-trim));
+  overflow: hidden;
+  border-radius: 8px;
+}
+.wbp-mini-cut > .wbp-mini-label {
+  position: absolute;
+  top: calc(-1 * var(--wbp-mini-trim));
+  left: calc(-1 * var(--wbp-mini-trim));
+}
+
 .wbp-mini-label {
   width: 250px; height: 250px;
   display: flex; flex-direction: column;

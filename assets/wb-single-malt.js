@@ -165,7 +165,13 @@
        them in lockstep. One label, never the 12-up sheet. */
     var isMini = productSlug === 'customblend' && bottleSize === '50ml';
     var MINI_SIZE = 250;          /* the generator's contact-sheet cell, px */
-    var MINI_HEIGHT_SHARE = 0.8;  /* label height ÷ preview pane height */
+    /* The die cut sits a sliver inside the printed square on every side
+       (Andrew, 5 Nov 2026), so the preview hides MINI_TRIM px per side via the
+       .wbp-mini-cut frame. ~1mm on the 66mm label; unmeasured. Keep in step
+       with --wbp-mini-trim in wb-preview.css. */
+    var MINI_TRIM = 4;
+    var MINI_CUT = MINI_SIZE - 2 * MINI_TRIM;   /* what the customer sees */
+    var MINI_HEIGHT_SHARE = 0.8;  /* cut label height ÷ preview pane height */
 
     var PREVIEW_PAGE_W  = 794;
     var PREVIEW_PAGE_H  = is200ml ? 325  : 432;
@@ -302,7 +308,7 @@
     /* Mirror of buildMiniLabel (wb-label.js). No order reference: there isn't
        one until the order is placed. Strength is the generator's default. */
     function prevMiniLabelHtml() {
-      return '<div class="wbp-mini-label">' +
+      return '<div class="wbp-mini-cut"><div class="wbp-mini-label">' +
         '<div class="wbp-mini-row">' +
           '<div class="wbp-mini-strip wbp-mini-strip--left"><span>Bottled by whiskyblender.com</span></div>' +
           '<div class="wbp-mini-centre">' +
@@ -315,7 +321,7 @@
           '<div class="wbp-mini-strip wbp-mini-strip--right"><span>46% abv. &middot; 50ml</span></div>' +
         '</div>' +
         '<div class="wbp-mini-bar">Blended Malt<br>Scotch Whisky</div>' +
-      '</div>';
+      '</div></div>';
     }
 
     function renderMiniPreview() {
@@ -568,14 +574,14 @@
          whole square label is scaled to 80% of the pane height. */
       if (isMini) {
         previewCrop.style.height = h + 'px';
-        var miniScale = (h * MINI_HEIGHT_SHARE) / MINI_SIZE;
+        var miniScale = (h * MINI_HEIGHT_SHARE) / MINI_CUT;
         previewContainer.style.transform       = 'scale(' + miniScale + ')';
         previewContainer.style.transformOrigin = 'center center';
         /* The other previews' drop shadow (wb-preview.css .wbp-preview-crop:
            0 8px 24px rgba(0,0,0,.3)) sits on the crop; here the crop is the
            whole pane, so it goes on the label — divided by the scale so it
            comes out the same size on screen. */
-        var miniLabel = previewContainer.querySelector('.wbp-mini-label');
+        var miniLabel = previewContainer.querySelector('.wbp-mini-cut');
         if (miniLabel) miniLabel.style.boxShadow = '0 ' + (8 / miniScale).toFixed(2) + 'px ' + (24 / miniScale).toFixed(2) + 'px rgba(0, 0, 0, 0.3)';
         return;
       }
@@ -621,6 +627,9 @@
       if (isMini) {
         previewWrap.classList.add('wbp-mini');
         previewCrop.style.aspectRatio = '';
+        /* Inline, so the phone peek's clone carries it too: nothing may sit
+           behind the label's rounded corners */
+        previewContainer.style.background = 'none';
         previewContainer.innerHTML = prevMiniLabelHtml();
       } else {
       previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + '?v=' + av + ')';
@@ -780,6 +789,10 @@
       peekEl.className = 'wbp-peek';
       peekEl.setAttribute('aria-label', 'Your label so far — tap to see it full size');
       if (previewWrap.classList.contains('wbp-customblend')) peekEl.classList.add('wbp-customblend');
+      /* Miniature: without wbp-mini the clone's .wbp-scale-wrap kept the default
+         bottle-mock background, which showed as white square corners behind
+         the rounded label */
+      if (previewWrap.classList.contains('wbp-mini')) peekEl.classList.add('wbp-mini');
       if (previewWrap.getAttribute('data-wbp-tpl')) peekEl.setAttribute('data-wbp-tpl', previewWrap.getAttribute('data-wbp-tpl'));
       peekEl.innerHTML =
         '<span class="wbp-peek__frame"><span class="wbp-peek__inner"></span></span>' +
