@@ -157,6 +157,16 @@
 
     var is200ml = (productSlug === 'customblend' && bottleSize === '200ml') || isNip;
 
+    /* Miniatures (50ml custom blend, Nov 2026). Not an overprint: the generator
+       prints the WHOLE label (frame, name, strips, black bar) on blank stock, so
+       the preview is that one label drawn flat on the grey preview background,
+       whole, at 80% of the pane height — no bottle mock, no multiply. Markup and
+       name sizing mirror buildMiniLabel / resizeMiniName in wb-label.js; keep
+       them in lockstep. One label, never the 12-up sheet. */
+    var isMini = productSlug === 'customblend' && bottleSize === '50ml';
+    var MINI_SIZE = 250;          /* the generator's contact-sheet cell, px */
+    var MINI_HEIGHT_SHARE = 0.8;  /* label height ÷ preview pane height */
+
     var PREVIEW_PAGE_W  = 794;
     var PREVIEW_PAGE_H  = is200ml ? 325  : 432;
     var PREVIEW_LABEL_W = is200ml ? 427  : 552;
@@ -206,7 +216,7 @@
        intact (dark tone artwork, "Distilled at", cask svg); to switch malt/cask
        on later, just add 'singlemalt' / 'singlecask' here. 500ml only. */
     var NEW_TPL_PRODUCTS = ['customblend'];
-    var newTplEligible = !is200ml && NEW_TPL_PRODUCTS.indexOf(productSlug) !== -1;
+    var newTplEligible = !is200ml && !isMini && NEW_TPL_PRODUCTS.indexOf(productSlug) !== -1;
     /* Effective New state for THIS product: the persisted toggle AND eligibility.
        On an ineligible product a stale localStorage 'new' is inert. */
     function newActive() { return isNewTpl && newTplEligible; }
@@ -269,6 +279,55 @@
       el.style.lineHeight = (final * 0.80) + 'px';
     }
 
+    /* Mirror of the generator's resizeMiniName (wb-label.js): min 8 / max 80 /
+       step 0.5, lineHeight = size * 0.8, overflow read on the parent box. */
+    function prevResizeMiniName(el) {
+      var min = 8, max = 80, step = 0.5;
+      var outer = el.parentNode;
+      function isOverflown() {
+        return outer.scrollWidth > outer.clientWidth || outer.scrollHeight > outer.clientHeight;
+      }
+      var i = min, overflow = false;
+      while (!overflow && i < max) {
+        el.style.fontSize   = i + 'px';
+        el.style.lineHeight = (i * 0.8) + 'px';
+        overflow = isOverflown();
+        if (!overflow) i += step;
+      }
+      var final = Math.max(min, i - step - 1);
+      el.style.fontSize   = final + 'px';
+      el.style.lineHeight = (final * 0.8) + 'px';
+    }
+
+    /* Mirror of buildMiniLabel (wb-label.js). No order reference: there isn't
+       one until the order is placed. Strength is the generator's default. */
+    function prevMiniLabelHtml() {
+      return '<div class="wbp-mini-label">' +
+        '<div class="wbp-mini-row">' +
+          '<div class="wbp-mini-strip wbp-mini-strip--left"><span>Bottled by whiskyblender.com</span></div>' +
+          '<div class="wbp-mini-centre">' +
+            '<div class="wbp-mini-frame">' +
+              '<div class="wbp-mini-name-outer"><div class="wbp-mini-name"></div></div>' +
+              '<div class="wbp-mini-by">By</div>' +
+              '<div class="wbp-mini-author"></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="wbp-mini-strip wbp-mini-strip--right"><span>46% abv. &middot; 50ml</span></div>' +
+        '</div>' +
+        '<div class="wbp-mini-bar">Blended Malt<br>Scotch Whisky</div>' +
+      '</div>';
+    }
+
+    function renderMiniPreview() {
+      var nameEl   = previewContainer.querySelector('.wbp-mini-name');
+      var authorEl = previewContainer.querySelector('.wbp-mini-author');
+      var name   = labelInput ? labelInput.value : '';
+      var author = createdByInput ? createdByInput.value : '';
+      if (nameEl) nameEl.textContent = name || 'Whisky Name';
+      if (authorEl) authorEl.textContent = author || '—';
+      if (nameEl) document.fonts.ready.then(function () { prevResizeMiniName(nameEl); });
+    }
+
     function getCurrentVariantTitle() {
       try {
         var variants = JSON.parse(variantsJson || '[]');
@@ -292,6 +351,7 @@
 
     function renderPreviewLabel() {
       if (!previewContainer) return;
+      if (isMini) { renderMiniPreview(); return; }
       var d = prevDims();
       var isBlend = productSlug === 'customblend';
 
@@ -504,6 +564,22 @@
       previewWrap.style.top    = (mediaRect.top - galleryRect.top) + 'px';
       previewWrap.style.height = h + 'px';
 
+      /* Miniature: the crop fills the pane (grey shows round the label) and the
+         whole square label is scaled to 80% of the pane height. */
+      if (isMini) {
+        previewCrop.style.height = h + 'px';
+        var miniScale = (h * MINI_HEIGHT_SHARE) / MINI_SIZE;
+        previewContainer.style.transform       = 'scale(' + miniScale + ')';
+        previewContainer.style.transformOrigin = 'center center';
+        /* The other previews' drop shadow (wb-preview.css .wbp-preview-crop:
+           0 8px 24px rgba(0,0,0,.3)) sits on the crop; here the crop is the
+           whole pane, so it goes on the label — divided by the scale so it
+           comes out the same size on screen. */
+        var miniLabel = previewContainer.querySelector('.wbp-mini-label');
+        if (miniLabel) miniLabel.style.boxShadow = '0 ' + (8 / miniScale).toFixed(2) + 'px ' + (24 / miniScale).toFixed(2) + 'px rgba(0, 0, 0, 0.3)';
+        return;
+      }
+
       // Scale based on crop width — fills the crop exactly at every viewport size.
       // Flex centering on .wbp-preview-crop keeps the mock centred; transform-origin
       // matches so the label stays centred after scaling.
@@ -542,6 +618,11 @@
         : isDoctors ? 'blendlabelmock.webp'   /* blended-malt stock: no top bar, BLENDED MALT band */
         : isNip ? 'blendlabelmock200.webp'    /* 200ml blended-malt stock */
         : 'singlemaltlabelmock.webp';
+      if (isMini) {
+        previewWrap.classList.add('wbp-mini');
+        previewCrop.style.aspectRatio = '';
+        previewContainer.innerHTML = prevMiniLabelHtml();
+      } else {
       previewContainer.style.backgroundImage = 'url(' + cdn + mockImg + '?v=' + av + ')';
       previewContainer.innerHTML =
         '<div class="wbp-page ' + (is200ml ? 'size20' : 'size50') + ' ' + productSlug + (newActive() ? ' wbp-tpl-new' : '') + '">' +
@@ -560,6 +641,7 @@
             '</div>' +
           '</div>' +
         '</div>';
+      }
       previewCrop.appendChild(previewContainer);
       previewWrap.appendChild(previewCrop);
 

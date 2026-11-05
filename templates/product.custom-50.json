@@ -194,6 +194,12 @@
         "padding_bottom": 0
       }
     },
+    "wb_single_malt_loader": {
+      "type": "wb-single-malt",
+      "settings": {
+        "product_slug": "customblend"
+      }
+    },
     "wb_faq_schema": {
       "type": "wb-faq-schema",
       "blocks": {
@@ -239,6 +245,7 @@
     "main",
     "1784747760704f5276",
     "related-products",
+    "wb_single_malt_loader",
     "wb_faq_schema"
   ]
 }
