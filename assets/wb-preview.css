@@ -461,6 +461,10 @@
   display: flex; flex-direction: column;
   overflow: hidden;
   background: #fafafa;
+  /* The cut miniature labels have slightly rounded corners (Andrew, 5 Nov
+     2026). Preview only — the generator prints square and the die cuts the
+     corners. ~3mm on the 66mm label = 250 / 66 * 3 ≈ 11px; radius unmeasured. */
+  border-radius: 11px;
   font-family: 'Raleway', sans-serif;
   line-height: normal;
   letter-spacing: normal;
