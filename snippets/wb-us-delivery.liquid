@@ -35,11 +35,11 @@
   if wb_us and context == 'product' and product != blank and product.vendor != 'Printful'
     # price_min, not the selected variant: the line is server-rendered and doesn't
     # update on variant change, so it must be true for every variant.
-    assign wb_two = product.price_min | times: 2
+    # No "order two" line: Scottish licensing bars quantity-based alcohol deals
+    # (Licensing (Scotland) Act 2005 sch 3 para 8(2)(b)), so copy states the
+    # threshold and never tells anyone to buy more bottles.
     if product.price_min >= WB_FREE_CENTS
       echo '<strong>Free US delivery</strong> — duties &amp; taxes included'
-    elsif wb_two >= WB_FREE_CENTS
-      echo '<strong>Order two and delivery’s free</strong> — one for them, one for you'
     else
       echo '<strong>Free US delivery over ' | append: WB_FREE_TEXT | append: '</strong> — duties &amp; taxes included'
     endif
@@ -60,14 +60,10 @@
       if wb_sub >= WB_FREE_CENTS
         echo '<strong>Your order ships free to the US.</strong> Duties &amp; taxes included.'
       elsif wb_qty == 1 and wb_two >= WB_FREE_CENTS
-        echo '<strong>Add a second bottle and US delivery is free.</strong> Duties &amp; taxes included.'
+        # Make more of the shipping, not "buy more whisky" (see note above).
+        echo '<strong>One delivery charge per order, however many gifts.</strong> Sending more than one? Order together and it’s free over ' | append: WB_FREE_TEXT | append: '.'
       else
-        # Round the gap UP to whole dollars, so "$38 away" is never a cent short.
-        assign wb_gap = WB_FREE_CENTS | minus: wb_sub | divided_by: 100.0 | ceil | times: 100
-        capture wb_gap_text
-          render 'wb-money', amount: wb_gap, code: false
-        endcapture
-        echo '<strong>You’re ' | append: wb_gap_text | append: ' away from free US delivery.</strong> Duties &amp; taxes included.'
+        echo '<strong>Free US delivery on orders over ' | append: WB_FREE_TEXT | append: '.</strong> Duties &amp; taxes included.'
       endif
     endif
   endif
