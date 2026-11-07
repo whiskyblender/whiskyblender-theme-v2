@@ -351,6 +351,13 @@
             "url": ""
           }
         },
+        "coverage_glasgowtimes": {
+          "type": "coverage",
+          "settings": {
+            "title": "Glasgow Times",
+            "url": ""
+          }
+        },
         "coverage_classicboat": {
           "type": "coverage",
           "settings": {
@@ -453,6 +460,7 @@
         "coverage_brides",
         "coverage_record",
         "coverage_scotsman",
+        "coverage_glasgowtimes",
         "coverage_classicboat",
         "coverage_urbandaddy",
         "coverage_springwise",
