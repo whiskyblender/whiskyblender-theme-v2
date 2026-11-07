@@ -22,15 +22,20 @@
       "name": "Landing Hero",
       "settings": {
         "video_url": "https://cdn.shopify.com/videos/c/o/v/ac19151de1b340ac8ecf9896c14af3f8.mp4",
+        "video_url_phone": "",
         "video_file": "wb-cask-heids",
         "background_image": "shopify://shop_images/wb-cask-heids.jpg",
         "title": "Twa Andras",
         "title_variants": "",
+        "description_as_heading": false,
         "description": "Or \"2 Andrews\". Or \"Andy & Drew\". Or even \"fanny-baws an' heid-tha-baw\". Just like our <a href=\"/collections/personalised-whisky\" title=\"Personalised whisky\">personalised whisky bottles</a>, you can call us whatever you want. We love whisky!",
         "primary_button_text": "",
         "primary_button_url": "",
         "secondary_button_text": "",
         "secondary_button_url": "",
+        "hero_test_on": false,
+        "hero_test_text": "Create a label",
+        "hero_test_url": "",
         "badge_show": false,
         "badge_url": "",
         "badge_aria_label": "Read our birthday blog post"
@@ -39,6 +44,14 @@
     "about_content_WNcjFw": {
       "type": "about-content",
       "blocks": {
+        "featured_logo_jCBzDb": {
+          "type": "featured_logo",
+          "settings": {
+            "logo": "shopify://shop_images/glasgow-times.png",
+            "text": "Glasgow Times",
+            "url": "https://www.glasgowtimes.co.uk/news/26699854.glasgow-pals-celebrate-15-years-unique-whisky-business/"
+          }
+        },
         "featured_logo_f3m9QT": {
           "type": "featured_logo",
           "settings": {
@@ -209,6 +222,7 @@
         }
       },
       "block_order": [
+        "featured_logo_jCBzDb",
         "featured_logo_f3m9QT",
         "featured_logo_gAGXnU",
         "featured_logo_8pLMGe",
